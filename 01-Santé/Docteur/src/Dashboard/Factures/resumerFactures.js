@@ -3,9 +3,9 @@ import React, { useState } from 'react';
 import { toast } from 'react-toastify';
 import { Button, Icon, Input, Loader } from 'semantic-ui-react';
 import GConf from '../../AssetsM/generalConf';
-import BreadCrumb from '../Assets/breadCrumb';
-import FrameForPrint from '../Assets/frameForPrint';
-import usePrintFunction from '../Assets/Hooks/printFunction';
+import BreadCrumb from '../../AssetsM/Cards/breadCrumb';
+import FrameForPrint from '../../AssetsM/Cards/frameForPrint';
+import usePrintFunction from '../../AssetsM/Hooks/printFunction';
 
 const InputDatCard = ({targetDate, setTargetDate, FetchTargetFactures,PrintFunction, loaderState}) => {
     return(<>

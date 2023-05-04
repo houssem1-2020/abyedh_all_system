@@ -68,7 +68,7 @@ function NavBar(props) {
                             //centered={false}
                             size='small'
                             dimmer='blurring'
-                            trigger={<Button className=" rounded-circle bg-system-btn" size='tiny' icon> <Icon name='expand arrows alternate' /></Button>}
+                            trigger={<Button className="d-lg-none rounded-circle bg-system-btn" size='tiny' icon> <Icon name='expand arrows alternate' /></Button>}
                             >
                             <Modal.Content className='d-block'>
                                 <div className='row'>
@@ -92,10 +92,10 @@ function NavBar(props) {
                                         <NavLink to='up' exact="true" className={({ isActive }) => isActive ? "ps-1 pe-1 abyedh-list-a-s" : "ps-1 pe-1 abyedh-list"}><i className="bi bi-arrow-repeat bi-md"></i></NavLink>
                                         <h6>Synchroniser</h6>
                                     </div>
-                                    {/* <div className='col-4 col-lg align-self-center text-center border-end '>
+                                    <div className='col-4 col-lg align-self-center text-center border-end '>
                                         <NavLink to='up' exact="true" className={({ isActive }) => isActive ? "ps-1 pe-1 abyedh-list-a-s" : "ps-1 pe-1 abyedh-list"}><i className="bi bi-cloud-arrow-down bi-md "></i></NavLink>
                                         <h6>Mise à Jour</h6>
-                                    </div>  */}
+                                    </div> 
                                     <div className='col-4 col-lg align-self-center text-center'>
                                         <NavLink onClick={LogOut} to='#' exact="true" className='ps-1 pe-1'><span className="bi bi-box-arrow-left bi-md"></span></NavLink>
                                         <h6>Déconnextion</h6>

@@ -3,11 +3,11 @@ import GConf from '../../AssetsM/generalConf';
 import { _ } from "gridjs-react";
 import axios from 'axios';
 import { Fade } from 'react-reveal';
-import SKLT from '../../AssetsM/usedSlk';
-import TableGrid from '../Assets/tableGrid';
-import SubNav from '../Assets/subNav';
-import GoBtn from '../Assets/goBtn';
-import TableImage from '../Assets/tableImg';
+import SKLT from '../../AssetsM/Cards/usedSlk';
+import TableGrid from '../../AssetsM/Cards/tableGrid';
+import SubNav from '../../AssetsM/Cards/subNav';
+import GoBtn from '../../AssetsM/Cards/goBtn';
+import TableImage from '../../AssetsM/Cards/tableImg';
 import { toast } from 'react-toastify';
 import { Button , Icon, Modal, Tab} from 'semantic-ui-react';
 import { useNavigate} from 'react-router-dom';
@@ -68,7 +68,8 @@ function RequestPage() {
           let found = found1.concat(found2);
           let commandeContainer = []
               found.map( (commandeDate) => commandeContainer.push([          
-                _(<TableImage image='commande.jpg' />),
+                // _(<TableImage image='commande.jpg' />),
+                _(<img src={`https://cdn.abyedh.tn/images/p_pic/${commandeDate.PictureId}.gif`} className='img-responsive' width='40px' height='40px'  />),
                 commandeDate.R_ID,
                 commandeDate.Name,
                 new Date(commandeDate.Passed_Day).toLocaleDateString('fr-FR').split( '/' ).reverse( ).join( '-' ),
@@ -84,7 +85,8 @@ function RequestPage() {
           let found = commandeList.filter(element => element.State === genre)
           let commandeContainer = []
               found.map( (commandeDate) => commandeContainer.push([          
-                _(<TableImage image='commande.jpg' />),
+                // _(<TableImage image='commande.jpg' />),
+                _(<img src={`https://cdn.abyedh.tn/images/p_pic/${commandeDate.PictureId}.gif`} className='img-responsive' width='40px' height='40px'  />),
                 commandeDate.R_ID,
                 commandeDate.Name,
                 new Date(commandeDate.Passed_Day).toLocaleDateString('fr-FR').split( '/' ).reverse( ).join( '-' ),

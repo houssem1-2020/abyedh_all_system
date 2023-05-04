@@ -18,6 +18,9 @@ import Inscription from './Components/inscriptionPage';
 import MainPage from './Components/mainPage';
 import LandingPage from './Components/landingPage';
 
+//Google analytics 
+import ReactGA from 'react-ga';
+ReactGA.initialize('UA-201064601-1');
 
 function App() {
   //const and variables 

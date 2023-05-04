@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import GConf from '../../AssetsM/generalConf';
 import TunMap from '../../AssetsM/tunMap';
-import BreadCrumb from '../Assets/breadCrumb'
+import BreadCrumb from '../../AssetsM/Cards/breadCrumb'
 import { Button, Divider, Icon, Input, Statistic, Form, Loader, Select, TextArea } from 'semantic-ui-react';
 import { MapContainer, TileLayer, Marker, Popup } from 'react-leaflet';
 import { Tab } from 'semantic-ui-react';
@@ -10,10 +10,10 @@ import axios from 'axios';
 import 'leaflet/dist/leaflet.css';
 import L from 'leaflet';
 import { _ } from "gridjs-react";
-import SKLT from '../../AssetsM/usedSlk';
-import TableGrid from '../Assets/tableGrid';
+import SKLT from '../../AssetsM/Cards/usedSlk';
+import TableGrid from '../../AssetsM/Cards/tableGrid';
 import { toast } from 'react-toastify';
-import useSaveNotification from '../Assets/Hooks/saveNotifFunction';
+import useSaveNotification from '../../AssetsM/Hooks/saveNotifFunction';
 
 const EditTeamCard = ({teamData, setTeamData, EditTeam,delegList,GetDelegList,loaderState}) =>{
     return(<>

@@ -4,7 +4,7 @@ import 'leaflet/dist/leaflet.css';
 import L from 'leaflet';
 import GConf from '../../AssetsM/generalConf';
 import axios from 'axios';
-import BreadCrumb from '../Assets/breadCrumb';
+import BreadCrumb from '../../AssetsM/Cards/breadCrumb';
 import { Select, Tab } from 'semantic-ui-react';
 import { toast } from 'react-toastify';
 import TunisiaMapSVG from './tunMapSvg2';

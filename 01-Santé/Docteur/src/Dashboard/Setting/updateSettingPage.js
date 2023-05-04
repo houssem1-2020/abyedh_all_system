@@ -5,7 +5,7 @@ import { useState } from 'react';
 import { toast } from 'react-toastify';
 import { Button, Icon, Input, Loader } from 'semantic-ui-react';
 import GConf from '../../AssetsM/generalConf';
-import SKLT from '../../AssetsM/usedSlk';
+import SKLT from '../../AssetsM/Cards/usedSlk';
 import Ripples from 'react-ripples'
 import { Link, useParams } from 'react-router-dom';
 

@@ -2,12 +2,12 @@ import React, { useState } from 'react';
 import { Bounce } from 'react-reveal';
 import { Button, Form, Icon, Input, Loader, Select, TextArea } from 'semantic-ui-react';
 import GConf from '../../AssetsM/generalConf';
-import BreadCrumb from '../Assets/breadCrumb'
-import  useGetFamilleArticle from '../Assets/Hooks/fetchArticlesFamille'
+import BreadCrumb from '../../AssetsM/Cards/breadCrumb'
+import  useGetFamilleArticle from '../../AssetsM/Hooks/fetchArticlesFamille'
 import { toast } from 'react-toastify';
-import useGetArticles from '../Assets/Hooks/fetchArticles';
+import useGetArticles from '../../AssetsM/Hooks/fetchArticles';
 import axios from 'axios';
-import useSaveNotification from '../Assets/Hooks/saveNotifFunction';
+import useSaveNotification from '../../AssetsM/Hooks/saveNotifFunction';
 
 const FindInDirectory = ({inDirArticle, setInDirA,FindInDirectoryFunc, loaderState, OnKeyPressFunc}) =>{
     return(<>

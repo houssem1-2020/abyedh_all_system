@@ -6,7 +6,7 @@ import { toast, ToastContainer } from 'react-toastify';
 
 // /*CSS*/
 import 'bootstrap-icons/font/bootstrap-icons.css';
-import './theme.css';
+import './AssetsM/theme.css';
 import "gridjs/dist/theme/mermaid.css";
 import 'react-toastify/dist/ReactToastify.css';
 
@@ -14,9 +14,9 @@ import 'react-toastify/dist/ReactToastify.css';
 import { BrowserRouter as Router,Routes,Route, Outlet} from "react-router-dom";
 import { Navigate } from 'react-router-dom';
 import systemRouter from './AssetsM/Router/systemRouter';
-import caisseRouter from './AssetsM/Router/caisseRouter';
-import commandeRouter from './AssetsM/Router/commandeRouter';
-import PrintingRouter from './AssetsM/Router/printRouter';
+import routerOne from './AssetsM/Router/routerOne';
+import routerTwo from './AssetsM/Router/routerTwo';
+import routerThree from './AssetsM/Router/routerThree';
 
 //Login  & Auth
 import LogIn from './LogIn/logIn';
@@ -26,9 +26,9 @@ import AuthPage from './LogIn/authPage';
 function App() {
   //const and variables 
   const SystemRouter = systemRouter();
-  const CaisseRouter = caisseRouter();
-  const CommandeRouter = commandeRouter()
-  const PrintRouter = PrintingRouter()
+  const CaisseRouter = routerOne();
+  const ReservationRouter = routerTwo()
+  const PrintRouter = routerThree()
   const [progress, setProgress] = useState(2)
 
   //useefeects
@@ -38,17 +38,18 @@ function App() {
 
   //card
   const RedirectingPage = () => {
-      const pidIsSet = localStorage.getItem('PID');
+      const getPID = localStorage.getItem('PID');
       return (<>
           {
-              pidIsSet ? <Navigate to='/S/ma'  /> : <Navigate to='/Login'  />
+              getPID ? <Navigate to='/S/ma'  /> : <Navigate to='/Login'  />
           } 
       </>);
   }
   const NotFound = () =>{
     return (<div className="cpntainer text-danger pt-5 text-center">
-            <h1>Page Introuvable 404 </h1>
+            <br /> <br /> <br /> <br />
             <img src='https://system.anaslouma.tn/Assets/images/404.svg' width='200px' className='img-responsive ' />
+            <h1 style={{color: GConf.themeColor}}>Page Introuvable 404 </h1>
         </div>);
   }
 
@@ -62,7 +63,7 @@ function App() {
           <Route path="Auth" element={<AuthPage />} />
           {SystemRouter}
           {CaisseRouter}
-          {CommandeRouter}
+          {ReservationRouter}
           {PrintRouter}
           <Route path="*" element={<NotFound />} />
         </Routes>   

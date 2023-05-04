@@ -2,12 +2,16 @@ import React, { useEffect, useRef } from 'react';
 import NavBar from './navBar';
 import GConf from '../Assets/generalConf';
 import { NavLink } from 'react-router-dom';
+import ReactGA from 'react-ga';
+
+
 function MainPage() {
     const topRef = useRef(20)
 
     //useEffect
     useEffect(() => {
         topRef.current?.scrollIntoView({ behavior: "smooth" })
+        ReactGA.pageview(window.location.pathname);
     }, [])
 
     const TopCard = () =>{

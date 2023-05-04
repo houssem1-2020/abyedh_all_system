@@ -2,9 +2,9 @@ import axios from 'axios';
 import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import GConf from '../../../AssetsM/generalConf';
-import BreadCrumb from '../../Assets/breadCrumb';
+import BreadCrumb from '../../../AssetsM/Cards/breadCrumb';
 import {  _ } from "gridjs-react";
-import TableGrid from '../../Assets/tableGrid';
+import TableGrid from '../../../AssetsM/Cards/tableGrid';
 
 function CamionArticleInfo() {
     /* ############################### Const ################################*/

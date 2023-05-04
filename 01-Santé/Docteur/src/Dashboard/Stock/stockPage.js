@@ -1,15 +1,16 @@
 import React, {useEffect,useState}  from 'react';
 import GConf from '../../AssetsM/generalConf';
-import SubNav from '../Assets/subNav';
+import SubNav from '../../AssetsM/Cards/subNav';
 import { _ } from "gridjs-react";
 import axios from 'axios';
 import {Fade } from 'react-reveal';
-import SKLT from '../../AssetsM/usedSlk';
-import TableGrid from '../Assets/tableGrid';
-import TableImage from '../Assets/tableImg';
+import SKLT from '../../AssetsM/Cards/usedSlk';
+import TableGrid from '../../AssetsM/Cards/tableGrid';
+import TableImage from '../../AssetsM/Cards/tableImg';
 import { toast } from 'react-toastify';
 import { Button , Icon, Modal, Transition} from 'semantic-ui-react';
 import { useNavigate} from 'react-router-dom';
+import useGetArticles from '../../AssetsM/Hooks/Used/fetchArticles';
 
 function StockPage() {
 
@@ -19,14 +20,13 @@ function StockPage() {
     let Offline = JSON.parse(localStorage.getItem(`${GConf.PID}_Offline`));
     const [modalS, setModalS] = useState(false)
     const [selectedArticle, setSelectedArticle] = useState([])
-
+    let test = useGetArticles()
     /*#########################[UseEffect]##################################*/
     useEffect(() => {
       axios.post(`${GConf.ApiLink}/stock`, {
           PID : GConf.PID,
         })
         .then(function (response) {
-          console.log(response)
           if (!response.data) {
                 toast.error('Probleme de Connextion', GConf.TostSuucessGonf)
           } else {

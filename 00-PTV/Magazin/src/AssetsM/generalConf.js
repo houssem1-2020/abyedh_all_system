@@ -1,3 +1,4 @@
+
 const GetPID = () =>{
     const pidIsSet = localStorage.getItem('PID');
     return pidIsSet
@@ -16,12 +17,17 @@ const GConf = {
     // main variables
     PID: GetPID(),
     ApiLink : 'http://localhost:3010/magazin', //https://api.system.abyedh.tn/apiSystemAbyedh/System 
-    ApiCommandeLink : 'http://localhost:3010/magazin-caisse', //https://api.system.abyedh.tn/apiSystemAbyedh/System 
-    ApiCamionLink : 'http://localhost:3010/magazin-caisse', //https://api.system.abyedh.tn/apiSystemAbyedh/System 
+    ApiRouterOneLink : 'http://localhost:3010/magazin-caisse', //https://api.system.abyedh.tn/apiSystemAbyedh/System 
+    ApiRouterTwoLink : 'http://localhost:3010/magazin-caisse', //https://api.system.abyedh.tn/apiSystemAbyedh/System 
     DefaultTva: 0,
     themeColor : '#5e7968',
     themeColorLigth : '#b8cbd4',
     settingValue : GetSettingValue(),
+    offline_default_table : {commande: [], stock: [], famille: [],   facture: [], camion:[], client:[],   articleToSave:[] , factureToSave:[],  camionToSave:[], fondCamionToSave:[], clientToSave:[]},
+    Offline : JSON.parse(localStorage.getItem("Offline")),
+    systemTag:'ptvente_shop',
+
+    //toast
     TostErrorGonf : {
         position: "bottom-right",
         autoClose: 5000,
@@ -73,6 +79,8 @@ const GConf = {
         progress: undefined,
         theme: "light"
     },
+
+    //leafLeft
     LeafleftIcon : {
         iconUrl: require("leaflet/dist/images/position.gif"),
         iconRetinaUrl: require("leaflet/dist/images/position.gif"),
@@ -95,6 +103,13 @@ const GConf = {
         shadowAnchor: [0,0],
         popupAnchor:  [0,0]
     },
+
+    //Subsystems
+    SubSystemLink : [
+        {id: 1, title:'Reservations', text:'Interface Pour Gerer Les Reservations', icon:'pc-display-horizontal', link:'/R'},
+        {id: 3, title:'Caisse', text:'Interface Pour La Caisse', icon:'pc-display', link:'/C'},
+    ],
+
     //NavBar Items
     NavsData : [
             {id:1, name:"Acceuil", icon:"house", link:"ma"},

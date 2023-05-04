@@ -73,7 +73,8 @@ import FacturerCommande from '../../Dashboard/Requests/facturerCommande';
 import ClientStatistics from '../../Dashboard/Client/clientStatistics';
 import ClientRegions from '../../Dashboard/Client/clientFidelite';
 import UpdateSettingPage from '../../Dashboard/Setting/updateSettingPage';
-
+import { NavLink } from 'react-router-dom';
+import LeftSideCard from '../../Dashboard/leftSide';
 
 
 
@@ -100,9 +101,14 @@ const SystemLanding = () => {
         <br />
         <br />
         <br />
-        <div className="container pt-4">
-            <Outlet />
+         
+        <div className='row pt-4 m-1'>
+                <div className='col-12 col-md-12 col-lg-2'><LeftSideCard /></div>
+                <div className='col-12 col-md-12 col-lg-10'><Outlet /></div>
         </div>
+        {/* <div className="container pt-4">    
+            <Outlet />
+        </div> */}
     </>);
 }
 
@@ -133,6 +139,17 @@ const systemRouter = () => (
                 <Route path="info/:FID" exact element={<FactureInfo />} />
             </Route>
             <Route path="ca" exact element={<Outlet />}>
+                <Route path="" exact element={<ControlPage />} />
+                <Route path="ajouter-c" exact element={<AjouterCamion />} />
+                <Route path="ajouter-f" exact element={<AjouterFond />} />
+                <Route path="modifier-f/:FondID" exact element={<EditFond />} />
+                <Route path="inventaire" exact element={<InventaireCamion />}/>
+                <Route path="info/:CID" exact element={<CamionInfo />} />
+                <Route path="info/stock/:CID/:code" exact element={<CamionArticleInfo />} />
+                <Route path="info/facture/:CID/:FID" exact element={<CamionFactureInfo />} />
+                <Route path="info/fond/:CID/:FondID" exact element={<CamionFondInfo />} />
+            </Route>
+            <Route path="tb" exact element={<Outlet />}>
                 <Route path="" exact element={<ControlPage />} />
                 <Route path="ajouter-c" exact element={<AjouterCamion />} />
                 <Route path="ajouter-f" exact element={<AjouterFond />} />

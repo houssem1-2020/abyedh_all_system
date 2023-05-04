@@ -1,3 +1,4 @@
+
 const GetPID = () =>{
     const pidIsSet = localStorage.getItem('PID');
     return pidIsSet
@@ -15,13 +16,18 @@ const GConf = {
 
     // main variables
     PID: GetPID(),
-    ApiLink : 'http://localhost:3010/magazin', //https://api.system.abyedh.tn/apiSystemAbyedh/System 
-    ApiCommandeLink : 'http://localhost:3010/magazin-caisse', //https://api.system.abyedh.tn/apiSystemAbyedh/System 
-    ApiCamionLink : 'http://localhost:3010/magazin-caisse', //https://api.system.abyedh.tn/apiSystemAbyedh/System 
+    ApiLink : 'https://api.system.abyedh.tn/apiSystemAbyedh/magazin', //https://api.system.abyedh.tn/apiSystemAbyedh/System 
+    ApiRouterOneLink : 'https://api.system.abyedh.tn/apiSystemAbyedh/magazin-caisse', //https://api.system.abyedh.tn/apiSystemAbyedh/System 
+    ApiRouterTwoLink : 'https://api.system.abyedh.tn/apiSystemAbyedh/magazin-caisse', //https://api.system.abyedh.tn/apiSystemAbyedh/System 
     DefaultTva: 0,
-    themeColor : '#5e7968',
+    themeColor : '#085947',
     themeColorLigth : '#b8cbd4',
     settingValue : GetSettingValue(),
+    offline_default_table : {commande: [], stock: [], famille: [],   facture: [], camion:[], client:[],   articleToSave:[] , factureToSave:[],  camionToSave:[], fondCamionToSave:[], clientToSave:[]},
+    Offline : JSON.parse(localStorage.getItem("Offline")),
+    systemTag:'docteur',
+
+    //toast
     TostErrorGonf : {
         position: "bottom-right",
         autoClose: 5000,
@@ -73,6 +79,8 @@ const GConf = {
         progress: undefined,
         theme: "light"
     },
+
+    //leafLeft
     LeafleftIcon : {
         iconUrl: require("leaflet/dist/images/position.gif"),
         iconRetinaUrl: require("leaflet/dist/images/position.gif"),
@@ -95,15 +103,20 @@ const GConf = {
         shadowAnchor: [0,0],
         popupAnchor:  [0,0]
     },
+
+    //Subsystems
+    SubSystemLink : [
+        {id: 1, title:'Rendy-Vous', text:'Interface Pour Gerer Les Rendy-Vous', icon:'pc-display-horizontal', link:'/R'},
+        {id: 3, title:'Calendrier', text:'Interface Pour La Calendrier', icon:'pc-display', link:'/C'},
+    ],
+
     //NavBar Items
     NavsData : [
             {id:1, name:"Acceuil", icon:"house", link:"ma"},
-            {id:2, name:"Commandes", icon:"calendar2-check", link:"rq"},
-            {id:3, name:"Stock", icon:"upc-scan", link:"sk"},
-            {id:4, name:"Factures", icon:"receipt-cutoff", link:"ft"},
-            {id:5, name:"Caisses", icon:"pc-display-horizontal", link:"ca"},
-            {id:6, name:"Clients", icon:"people", link:"cl"},
-            {id:7, name:"Fournisseur", icon:"box-seam", link:"fs"},
+            {id:2, name:"Rendy-Vous", icon:"calendar2-check", link:"rq"},
+            {id:3, name:"Seances", icon:"upc-scan", link:"sk"},
+            {id:4, name:"Patient", icon:"receipt-cutoff", link:"cl"},
+            {id:5, name:"Ordonance", icon:"pc-display-horizontal", link:"ft"},
             {id:8, name:"Equipe", icon:"person-bounding-box", link:"tm"},
             {id:9, name:"Outils", icon:"tools", link:"ot"},
     ],

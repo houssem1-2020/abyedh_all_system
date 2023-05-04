@@ -5,7 +5,7 @@ import GConf from '../../AssetsM/generalConf';
 import CountUp from 'react-countup';
 import { Button, Icon, Input,  Loader } from 'semantic-ui-react';
 import axios from 'axios';
-import SKLT from '../../AssetsM/usedSlk';
+import SKLT from '../../AssetsM/Cards/usedSlk';
 import { toast } from 'react-toastify';
 import Ripples from 'react-ripples'
 

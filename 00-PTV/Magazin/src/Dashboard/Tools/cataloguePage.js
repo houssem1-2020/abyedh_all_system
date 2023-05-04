@@ -5,8 +5,8 @@ import { Button, Dropdown, Icon, Input, Loader, Select, Tab } from 'semantic-ui-
 import GConf from '../../AssetsM/generalConf';
 import AlimDefaultCateg from './alimentaireDefaultCateg'
 import CosmoDefaultCateg from './cosmetiqueDefaultCateg'
-import FrameForPrint from '../Assets/frameForPrint';
-import usePrintFunction from '../Assets/Hooks/printFunction';
+import FrameForPrint from '../../AssetsM/Cards/frameForPrint';
+import usePrintFunction from '../../AssetsM/Hooks/printFunction';
 
 const AjouterPage = ({catalogueToAdd,setCataToAdd,AjouterAuCatalogue, loaderState}) =>{
     return(<>

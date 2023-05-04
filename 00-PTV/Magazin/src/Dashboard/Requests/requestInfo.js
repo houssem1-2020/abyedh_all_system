@@ -4,11 +4,11 @@ import { Bounce } from 'react-reveal';
 import { NavLink, useParams } from 'react-router-dom';
 import { Button, Icon, List } from 'semantic-ui-react';
 import GConf from '../../AssetsM/generalConf';
-import BreadCrumb from '../Assets/breadCrumb'
-import SKLT from '../../AssetsM/usedSlk';
+import BreadCrumb from '../../AssetsM/Cards/breadCrumb'
+import SKLT from '../../AssetsM/Cards/usedSlk';
 import { toast } from 'react-toastify';
-import usePrintFunction from '../Assets/Hooks/printFunction';
-import FrameForPrint from '../Assets/frameForPrint';
+import usePrintFunction from '../../AssetsM/Hooks/printFunction';
+import FrameForPrint from '../../AssetsM/Cards/frameForPrint';
 
 
 function RequestInfo() {

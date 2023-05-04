@@ -1,14 +1,14 @@
 import React, { useEffect, useState } from 'react';
-import BreadCrumb  from '../Assets/breadCrumb';
+import BreadCrumb  from '../../AssetsM/Cards/breadCrumb';
 import GConf from '../../AssetsM/generalConf';
 import { Button, Dropdown, Icon, Input , Loader, Tab} from 'semantic-ui-react';
 import axios from 'axios';
 import { toast } from 'react-toastify';
-import useGetClients from '../Assets/Hooks/fetchClient';
-import useGetArticles from '../Assets/Hooks/fetchArticles';
-import FrameForPrint from '../Assets/frameForPrint';
-import usePrintFunction from '../Assets/Hooks/printFunction';
-import useSaveNotification from '../Assets/Hooks/saveNotifFunction';
+import useGetClients from '../../AssetsM/Hooks/fetchClient';
+import useGetArticles from '../../AssetsM/Hooks/fetchArticles';
+import FrameForPrint from '../../AssetsM/Cards/frameForPrint';
+import usePrintFunction from '../../AssetsM/Hooks/printFunction';
+import useSaveNotification from '../../AssetsM/Hooks/saveNotifFunction';
 import Ripples from 'react-ripples'
 
 const MainDataCard = ({factureD, setFactureD,clientList,allClientList,camionList, OnKeyPressFunc}) =>{

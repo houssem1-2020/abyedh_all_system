@@ -73,7 +73,8 @@ import FacturerCommande from '../../Dashboard/Requests/facturerCommande';
 import ClientStatistics from '../../Dashboard/Client/clientStatistics';
 import ClientRegions from '../../Dashboard/Client/clientFidelite';
 import UpdateSettingPage from '../../Dashboard/Setting/updateSettingPage';
-
+import { NavLink } from 'react-router-dom';
+import LeftSideCard from '../../Dashboard/leftSide';
 
 
 
@@ -100,9 +101,14 @@ const SystemLanding = () => {
         <br />
         <br />
         <br />
-        <div className="container pt-4">
-            <Outlet />
+         
+        <div className='row pt-4 m-1'>
+                <div className='col-12 col-md-12 col-lg-2'><LeftSideCard /></div>
+                <div className='col-12 col-md-12 col-lg-10'><Outlet /></div>
         </div>
+        {/* <div className="container pt-4">    
+            <Outlet />
+        </div> */}
     </>);
 }
 

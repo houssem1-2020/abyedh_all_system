@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import GConf from '../../AssetsM/generalConf';
-import BreadCrumb from '../Assets/breadCrumb'
+import BreadCrumb from '../../AssetsM/Cards/breadCrumb'
 import { Button, Divider, Dropdown, Icon, Input, Loader, Statistic } from 'semantic-ui-react';
 import { MapContainer, TileLayer, Marker, Popup } from 'react-leaflet';
 import 'leaflet/dist/leaflet.css';
@@ -9,12 +9,12 @@ import { Tab } from 'semantic-ui-react';
 import axios from 'axios';
 import { _ } from "gridjs-react";
 import { useParams } from 'react-router-dom';
-import SKLT from '../../AssetsM/usedSlk';
-import TableGrid from '../Assets/tableGrid';
-import FrameForPrint from '../Assets/frameForPrint';
-import usePrintFunction from '../Assets/Hooks/printFunction';
+import SKLT from '../../AssetsM/Cards/usedSlk';
+import TableGrid from '../../AssetsM/Cards/tableGrid';
+import FrameForPrint from '../../AssetsM/Cards/frameForPrint';
+import usePrintFunction from '../../AssetsM/Hooks/printFunction';
 import { toast } from 'react-toastify';
-import useSaveNotification from '../Assets/Hooks/saveNotifFunction';
+import useSaveNotification from '../../AssetsM/Hooks/saveNotifFunction';
 import { useNavigate} from 'react-router-dom';
 
 const EditCamionCard = ({camionD, setCamionD, EditCamion, GenrateKey, loaderState}) =>{

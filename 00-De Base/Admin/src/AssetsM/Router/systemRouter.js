@@ -71,6 +71,7 @@ import TeamInfo from '../../Dashboard/Team/teamInfo';
 import FournisseurInfo from '../../Dashboard/Finnace/fournisseurInfo';
 import SettingPage from '../../Dashboard/Setting/settingPage';
 import ConfrimationPage from '../../Dashboard/Setting/confirmation';
+import ClientRequest from '../../Dashboard/Client/clientRequest';
 
 
 
@@ -138,6 +139,7 @@ const systemRouter = () => (
                 <Route path="info/:CLID" exact element={<ClientInfo />} />
                 <Route path="map" exact element={<ClientMap />} />
                 <Route path="regions" exact element={<ClientRegions />} />
+                <Route path="demande" exact element={<ClientRequest />} />
             </Route>
             <Route path="fi" exact element={<Outlet />} >
                 <Route path="" exact element={<FournisseurPage />} />

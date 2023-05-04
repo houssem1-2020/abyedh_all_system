@@ -9,6 +9,7 @@ import { MapContainer, Marker, Popup, TileLayer } from 'react-leaflet';
 import { toast } from 'react-toastify';
 import axios from 'axios';
 // import LocationPicker from "react-leaflet-location-picker";
+import ReactGA from 'react-ga';
 
 const GeneralUserData = ({userData, setUserData, UDL, GouvChanged}) =>{
     return(<>
@@ -41,7 +42,7 @@ const GeneralUserData = ({userData, setUserData, UDL, GouvChanged}) =>{
 }
 const GeneralProfileData = ({inscData, setInscData, PDL, GouvChanged, targetSystem}) =>{
     return(<>
-        <div className='card card-body shadow-sm border-div mb-3'>
+        {/* <div className='card card-body shadow-sm border-div mb-3'> */}
                 <h5 className='text-end text-secondary ' dir='rtl'> <span className='bi bi-house-heart-fill'></span>  معلومات عامة </h5>
                 <div className='row'>
                     <div className='col-12 col-lg-6 '> 
@@ -68,25 +69,25 @@ const GeneralProfileData = ({inscData, setInscData, PDL, GouvChanged, targetSyst
                     <div className='col-12 col-lg-6 d-none d-lg-flex align-self-center'><img src={`https://assets.abyedh.tn/img/system/ads/${targetSystem.adsImageUrl}`} className='img-responsive ' width='100%' height='200px'/></div>
                 </div>
                 
-        </div>
+        {/* </div> */}
     </>)
 }
 const Horaire = ({alwaysState, setAlwaysState, timming, setPauseDay , SetTimmingData}) =>{
     const ArabificationDate = (dateName) =>{
         switch (dateName) {
-            case 'Lun' : return 'إثنين'
+            case 'Lun' : return 'الإثــنين' 
             break;
-            case 'Mar' : return 'ثلاثاء'
+            case 'Mar' : return 'الثلاثــاء'
             break;
-            case 'Mer' : return 'إربعاء'
+            case 'Mer' : return 'الإربــعاء'
             break;
-            case 'Jeu' : return 'خميس'
+            case 'Jeu' : return 'الخميس'
             break;
-            case 'Vend' : return 'جمعة'
+            case 'Vend' : return 'الجـمعة'
             break;
-            case 'Sam' : return 'سبت'
+            case 'Sam' : return 'الســبت'
             break;
-            case 'Dim' : return 'أحد'
+            case 'Dim' : return 'الأحـــد'
             break;
 
             default:
@@ -95,23 +96,23 @@ const Horaire = ({alwaysState, setAlwaysState, timming, setPauseDay , SetTimming
     }
     const DayHoraire = (props) =>{
         return(<>
-                <div className='row' >
-                    <div  className='col-12 col-lg-1 align-self-center'>
+                <div className='row mb-1' >
+                    <div  className='col-6 col-lg-3 order-1 order-lg-1 align-self-center mb-2'>
                         <b>{ArabificationDate(props.data.day)}</b>
                     </div>
-                    <div  className='col-12 col-lg-5'>
+                    <div  className='col-12 col-lg-4 order-2'>
                         <div className='row'>
-                            <div className='col-6'><Input icon='calendar alternate' type='time' size="mini" iconPosition='left' disabled={props.data.dayOff}  fluid className='mb-1 w-100' defaultValue={props.data.matin.start} onChange={(e) => SetTimmingData(props.data.day,'matin','start',e.target.value)} /></div>
-                            <div className='col-6'><Input icon='calendar alternate' type='time' size="mini" iconPosition='left' disabled={props.data.dayOff}  fluid className='mb-1 w-100' defaultValue={props.data.matin.end} onChange={(e) => SetTimmingData(props.data.day,'matin','end',e.target.value)}/></div>
+                            <div className='col-6'><Input  type='time' size='mini'   disabled={props.data.dayOff}  fluid className='mb-1 w-100' defaultValue={props.data.matin.start} onChange={(e) => SetTimmingData(props.data.day,'matin','start',e.target.value)} /></div>
+                            <div className='col-6'><Input  type='time' size="mini"   disabled={props.data.dayOff}  fluid className='mb-1 w-100' defaultValue={props.data.matin.end} onChange={(e) => SetTimmingData(props.data.day,'matin','end',e.target.value)}/></div>
                         </div>
                     </div>
-                    <div  className='col-12 col-lg-5'>
+                    <div  className='col-12 col-lg-4 order-3'>
                         <div className='row'>
-                            <div className='col-6'><Input icon='calendar alternate' type='time' size="mini" iconPosition='left' disabled={props.data.dayOff}  fluid className='mb-1 w-100' defaultValue={props.data.soir.start} onChange={(e) => SetTimmingData(props.data.day,'soir','start',e.target.value)}/></div>
-                            <div className='col-6'><Input icon='calendar alternate' type='time' size="mini" iconPosition='left' disabled={props.data.dayOff}  fluid className='mb-1 w-100' defaultValue={props.data.soir.end} onChange={(e) => SetTimmingData(props.data.day,'soir','end',e.target.value)} /></div>
+                            <div className='col-6'><Input  type='time' size="mini"   disabled={props.data.dayOff}  fluid className='mb-1 w-100' defaultValue={props.data.soir.start} onChange={(e) => SetTimmingData(props.data.day,'soir','start',e.target.value)}/></div>
+                            <div className='col-6'><Input  type='time' size="mini"   disabled={props.data.dayOff}  fluid className='mb-1 w-100' defaultValue={props.data.soir.end} onChange={(e) => SetTimmingData(props.data.day,'soir','end',e.target.value)} /></div>
                         </div>
                     </div>
-                    <div  className='col-12 col-lg-1 align-self-center'>
+                    <div  className='col-6 col-lg-1 align-self-center order-1 order-lg-4 mb-2'>
                         <div className="form-check form-switch">
                             <input className="form-check-input form-check-input-lg" type="checkbox"  onChange={() => setPauseDay(props.data.day,props.data.dayOff)}   />
                         </div>
@@ -121,7 +122,7 @@ const Horaire = ({alwaysState, setAlwaysState, timming, setPauseDay , SetTimming
     }
 
     return(<>
-        <div className='card card-body shadow-sm mb-3 border-div'>
+        <div className='card-body'>
             <h5 className='text-end text-secondary ' dir='rtl'> <span className='bi bi-calendar-week-fill'></span>   أوقات العمل  </h5>
             <div className='card-body '>
                 <div className='row'>
@@ -137,9 +138,9 @@ const Horaire = ({alwaysState, setAlwaysState, timming, setPauseDay , SetTimming
                 </div>
                 <Divider />
                 <div className='row text-danger mb-2'>
-                    <div  className='col-3 col-lg-1'> <b>اليوم</b> </div>
-                    <div  className='col-3 col-lg-5'> <small>صباح</small> </div>
-                    <div  className='col-3 col-lg-5'> <small>مساء</small> </div>
+                    <div  className='col-3 col-lg-3'> <b>اليوم</b> </div>
+                    <div  className='col-3 col-lg-4'> <small>صباح</small> </div>
+                    <div  className='col-3 col-lg-4'> <small>مساء</small> </div>
                     <div  className='col-3 col-lg-1'> <small>راحة</small> </div>
                 </div>
                 
@@ -175,6 +176,7 @@ function Inscription() {
     /* ############### UseEffect #################*/
     useEffect(() => {
         topRef.current?.scrollIntoView({ behavior: "smooth" })
+        ReactGA.pageview(window.location.pathname);
     }, [])
 
     /* ############### Functions #################*/
@@ -328,22 +330,24 @@ function Inscription() {
         <div className='container font-droid' dir="rtl">
             <div className='row justify-content-center mb-4'>
                 <div className='col-12 col-lg-9'>
-                        <h3 className='text-center text-danger mb-5'> الإشتراك في {targetSystem.systemTitle} </h3>
-                        <h5 className='text-info'>
+                        <h2 className='text-center text-danger mb-5 font-hs-d mt-3'> الإشتراك في {targetSystem.systemTitle} </h2>
+                        <h4 style={{color : targetSystem.colorTheme}}>
                             عملية إمتلاك {targetSystem.systemTitle} تمر بمرحلتين 
-                            <ul>
-                                <li>1- إمتلاك حساب في منصة أبيض </li>
+                            {/* <ul>
+                                <li>1- إمتلاك حساب في منصة أبيض (<a href='https://abyedh.tn/' target='c_blank' >abyedh.tn</a>) </li>
                                 <li>2- إمتلاك حساب في  {targetSystem.systemTitle} </li>
-                            </ul>
-                        </h5>
+                            </ul> */}
+                        </h4>
                         <br />
-                        <h6 className='text-secondary'> 1- إمتلاك حساب في منصة أبيض  </h6> 
+                        <h6 className='text-secondary font-hs-n me-5 mb-3'> 1- إمتلاك حساب في منصة أبيض  (<a href='https://abyedh.tn/' target='c_blank' >abyedh.tn</a>) </h6> 
                         <GeneralUserData userData={userData}  setUserData={setUserData} GouvChanged={GouvChanged} UDL={UDL} />
                         <br />
-                        <h6 className='text-secondary'> 2- إمتلاك حساب في  {targetSystem.systemTitle} </h6> 
-                        <GeneralProfileData inscData={inscData} setInscData={setInscData} PDL={PDL}  targetSystem={targetSystem}  GouvChanged={GouvChanged}   />
-                        {/* <Location /> */}
-                        <Horaire alwaysState={alwaysState} setAlwaysState={setAlwaysState} timming={timming} setPauseDay={setPauseDay} SetTimmingData={SetTimmingData} />
+                        <h6 className='text-secondary font-hs-n me-5 mb-3 '> 2- إمتلاك حساب في  {targetSystem.systemTitle} </h6> 
+                        <div className='card card-body shadow-sm border-div mb-3'>
+                            <GeneralProfileData inscData={inscData} setInscData={setInscData} PDL={PDL}  targetSystem={targetSystem}  GouvChanged={GouvChanged}   />
+                            {/* <Location /> */}
+                            <Horaire alwaysState={alwaysState} setAlwaysState={setAlwaysState} timming={timming} setPauseDay={setPauseDay} SetTimmingData={SetTimmingData} />
+                        </div>
                         <BtnCard /> 
                 </div>
             </div>

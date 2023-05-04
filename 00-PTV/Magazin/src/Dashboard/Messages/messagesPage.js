@@ -5,7 +5,7 @@ import { NavLink } from "react-router-dom";
 import axios from 'axios';
 import GConf from '../../AssetsM/generalConf';
 import { toast } from 'react-toastify';
-import SKLT from '../../AssetsM/usedSlk';
+import SKLT from '../../AssetsM/Cards/usedSlk';
 
 const SendBox = ({SendMessage, setMesgC,msgContent}) =>{
     return(<>

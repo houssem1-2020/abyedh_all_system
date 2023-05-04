@@ -6,13 +6,13 @@ import { Rating } from 'semantic-ui-react'
 import GConf from '../../AssetsM/generalConf';
 import axios from 'axios';
 import { toast } from 'react-toastify';
-import SKLT from '../../AssetsM/usedSlk';
+import SKLT from '../../AssetsM/Cards/usedSlk';
 import L from 'leaflet';
 import 'leaflet/dist/leaflet.css';
 import { MapContainer, Marker, Popup, TileLayer } from 'react-leaflet';
 import AvatarGroup from '@atlaskit/avatar-group';
-import FrameForPrint from '../Assets/frameForPrint';
-import usePrintFunction from '../Assets/Hooks/printFunction';
+import FrameForPrint from '../../AssetsM/Cards/frameForPrint';
+import usePrintFunction from '../../AssetsM/Hooks/printFunction';
 import TunMap from '../../AssetsM/tunMap';
 
 const EditProfile = ({generalData, setGeneralData, UpdateGeneralDataFunc, delegList,GetDelegList,loaderState}) =>{
@@ -331,6 +331,7 @@ function ProfilePage() {
 	            	 <div><small className="text-secondary">Point de Vente En gros ({loading ? profileData.general[0].Genre : SKLT.BarreSkl })</small></div>
 	            	<div><small className="text-secondary"><span className="bi bi-geo-alt"></span> {loading ? <> {profileData.general[0].Adress} , {profileData.general[0].Gouv} </> : SKLT.BarreSkl } </small></div>
 	            	<div><small className="text-secondary"><span className="bi bi-telephone"></span> +216{loading ? profileData.general[0].Phone : SKLT.BarreSkl } </small></div> 
+                    <h5>PID : {localStorage.getItem('PID')} <Button size='mini' icon='copy' className='rounded-circle' onClick={() => navigator.clipboard.writeText(localStorage.getItem('PID'))}></Button> </h5>
 					<Divider /> 
 					<div className='row mt-2'>
 						<div className='col-6'>

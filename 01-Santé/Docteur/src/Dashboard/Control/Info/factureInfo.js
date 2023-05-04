@@ -3,11 +3,11 @@ import React, { useEffect, useState } from 'react';
 import { Bounce } from 'react-reveal';
 import { NavLink, useParams } from 'react-router-dom';
 import { Button, Form, Icon, Input, TextArea } from 'semantic-ui-react';
-import SKLT from '../../../AssetsM/usedSlk';
+import SKLT from '../../../AssetsM/Cards/usedSlk';
 import GConf from '../../../AssetsM/generalConf';
-import BreadCrumb from '../../Assets/breadCrumb'
-import FrameForPrint from '../../Assets/frameForPrint';
-import usePrintFunction from '../../Assets/Hooks/printFunction';
+import BreadCrumb from '../../../AssetsM/Cards/breadCrumb'
+import FrameForPrint from '../../../AssetsM/Cards/frameForPrint';
+import usePrintFunction from '../../../AssetsM/Hooks/printFunction';
 
 function CamionFactureInfo() {
     let {FID} = useParams()

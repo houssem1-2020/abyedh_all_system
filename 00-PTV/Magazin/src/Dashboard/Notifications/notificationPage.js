@@ -3,7 +3,7 @@ import React, { useEffect, useState } from 'react';
 import { Bounce } from 'react-reveal';
 import { Segment , Icon, Input, Button, Loader, Dropdown} from 'semantic-ui-react';
 import GConf from '../../AssetsM/generalConf';
-import SKLT from '../../AssetsM/usedSlk';
+import SKLT from '../../AssetsM/Cards/usedSlk';
 import NG from './notifGenre';
 import { toast } from 'react-toastify';
 

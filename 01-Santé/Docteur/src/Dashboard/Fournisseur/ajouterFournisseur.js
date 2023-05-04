@@ -1,13 +1,13 @@
 import React, { useState } from 'react';
-import BreadCrumb from '../Assets/breadCrumb';
+import BreadCrumb from '../../AssetsM/Cards/breadCrumb';
 import GConf from '../../AssetsM/generalConf';
 import TunMap from '../../AssetsM/tunMap';
 import { Bounce } from 'react-reveal';
 import { Button, Form, Icon, Input, Loader, Select, TextArea } from 'semantic-ui-react';
-import useGetCamion from '../Assets/Hooks/fetchCamion';
+import useGetCamion from '../../AssetsM/Hooks/fetchCamion';
 import { toast } from 'react-toastify';
 import axios from 'axios';
-import useSaveNotification from '../Assets/Hooks/saveNotifFunction';
+import useSaveNotification from '../../AssetsM/Hooks/saveNotifFunction';
 import { useEffect } from 'react';
 
 const FindInDirectory = ({inDirArticle, setInDirA,FindInDirectoryFunc, loaderState, OnKeyPressFunc}) =>{

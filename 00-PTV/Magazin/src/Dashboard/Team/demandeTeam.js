@@ -4,7 +4,7 @@ import { useState } from 'react';
 import { useEffect } from 'react';
 import { toast } from 'react-toastify';
 import GConf from '../../AssetsM/generalConf';
-import BreadCrumb from '../Assets/breadCrumb';
+import BreadCrumb from '../../AssetsM/Cards/breadCrumb';
 
 function TeamDemande() {
     /*#########################[Const]##################################*/

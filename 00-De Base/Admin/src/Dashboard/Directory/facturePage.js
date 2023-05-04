@@ -30,7 +30,7 @@ function FacturePage() {
             console.log(response.data)
             let factureListContainer = []
             response.data.map( (getData) => factureListContainer.push([
-            _(<img src={`https://abyedh.tn/Assets/images/required/no-result.gif`} className='img-responsive' width='40px' height='40px'  />),
+            _(<img src={`https://cdn.abyedh.tn/images/required/no-result.gif`} className='img-responsive' width='40px' height='40px'  />),
             (getData.TABLE_NAME).split( '_' )[0],
             getData.TABLE_NAME,
             new Date(getData.CREATE_TIME).toLocaleDateString('fr-FR').split( '/' ).reverse( ).join( '-' ),

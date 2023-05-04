@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import GConf from '../../AssetsM/generalConf';
-import BreadCrumb from '../Assets/breadCrumb';
+import BreadCrumb from '../../AssetsM/Cards/breadCrumb';
 import FullCalendar from '@fullcalendar/react' // must go before plugins
 import dayGridPlugin from '@fullcalendar/daygrid' // a plugin!
 import axios from 'axios';

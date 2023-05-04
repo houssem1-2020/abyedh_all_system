@@ -1,14 +1,14 @@
 import React, { useEffect, useState } from 'react';
-import BreadCrumb  from '../Assets/breadCrumb';
+import BreadCrumb  from '../../AssetsM/Cards/breadCrumb';
 import GConf from '../../AssetsM/generalConf';
 import { Button, Dropdown, Icon, Input, Loader, Tab } from 'semantic-ui-react';
 import axios from 'axios';
 import { toast } from 'react-toastify';
 import { useParams } from 'react-router-dom';
-import useGetArticles from '../Assets/Hooks/fetchArticles';
-import useGetClients from '../Assets/Hooks/fetchClient';
-import SKLT from '../../AssetsM/usedSlk';
-import useSaveNotification from '../Assets/Hooks/saveNotifFunction';
+import useGetArticles from '../../AssetsM/Hooks/fetchArticles';
+import useGetClients from '../../AssetsM/Hooks/fetchClient';
+import SKLT from '../../AssetsM/Cards/usedSlk';
+import useSaveNotification from '../../AssetsM/Hooks/saveNotifFunction';
 var moment = require('moment'); // require
 
 

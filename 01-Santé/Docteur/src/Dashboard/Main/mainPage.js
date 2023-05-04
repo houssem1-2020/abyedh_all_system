@@ -46,7 +46,7 @@ function MainPage() {
 
             if(new Date(response.data.activationState.ExpiredThe) < new Date()){
                 //LogOut()
-                console.log('Expired ')
+
                 toast.error(<><div className='card-body w-100'>
                             <h3 className='text-danger'>Votre System est Expiré</h3> 
                             vous devez réactiver votre système , Voir <a href='/S/Parametre'> Paramétre </a> pour plus d'info ou bien contactez l'administration ABYEDH
@@ -167,7 +167,7 @@ function MainPage() {
     const BarCht = (props) => {
 
         return (<>
-        <ResponsiveContainer  height={150} >
+        <ResponsiveContainer  height={200} >
             <BarChart
                 layout="vertical"
                 data={dataBar} 
@@ -231,22 +231,24 @@ function MainPage() {
             <LinksCrads /> 
             <div className='row p-0'>
                 <div className='col-12 col-lg-8 mb-4 '> 
-                        <h5 className='mt-3 mb-4'>Evolution de Recette Depo</h5> 
-                        <ChartsContainer chart={<LineChts  data={depoTR}/>} col='7' title='' />
+                        <h5 className='mt-3 mb-4'>Evolution de Recette</h5> 
+                        {/* <ChartsContainer chart={<LineChts  data={depoTR}/>} col='7' title='' /> */}
+                        <ChartsContainer chart={<BarCht />} col='7' title='Recette des Camions' /> 
+
                 </div>
                 <div className='col-12 col-lg-4 mb-4'> <Tab menu={{ secondary: true }} panes={panes} /></div>
-                <div className='col-12 col-lg-6 mb-4'><ChartsContainer chart={<BarCht />} col='5' title='Recette des Commandant' /> </div>
-                <div className='col-12 col-lg-6 mb-4'> <ChartsContainer chart={<BarCht />} col='5' title='Recette des Camions' /></div>
+                {/* <div className='col-12 col-lg-6 mb-4'><ChartsContainer chart={<BarCht />} col='5' title='Recette des Commandant' /> </div> */}
 
             </div>
             <div className="row justify-content-center mb-4 d-none">
                 <ChartsContainer chart={<BarCht />} col='5' title='Recette des Camions' />
-                <ChartsContainer chart={<LineChts  data={depoTR}/>} col='7' title='Evolution de Recette Depo' />
+                {/* <ChartsContainer chart={<LineChts  data={depoTR}/>} col='7' title='Evolution de Recette' /> */}
+                <ChartsContainer chart={<PieChartCard data={commandeD}/>} col='4' title='Evolution de Recette' />
                 <ChartsContainer chart={<PieChartCard data={PieData}/>} col='4' title='Distrubition des client' />
-                <ChartsContainer chart={<PieChartCard data={genreD}/>} col='4' title='Distrubition des articless' />
-                <ChartsContainer chart={<PieChartCard data={commandeD}/>} col='4' title='Distrubition des commandes' />
+                {/* <ChartsContainer chart={<PieChartCard data={genreD}/>} col='4' title='Distrubition des articless' /> */}
             </div>    
-        </Slide >    
+        </Slide > 
+        {/* <Notification />    */}
     </>);
 }
 

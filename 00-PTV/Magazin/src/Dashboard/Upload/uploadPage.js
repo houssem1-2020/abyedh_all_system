@@ -1,14 +1,14 @@
 import React, {useEffect,useState}  from 'react';
 import axios from 'axios';
 import GConf from '../../AssetsM/generalConf';
-import SKLT from '../../AssetsM/usedSlk';
+import SKLT from '../../AssetsM/Cards/usedSlk';
 import { toast } from 'react-toastify';
 import { Segment , Icon, Input, Button, Loader, Dropdown, Dimmer} from 'semantic-ui-react';
 import { CircularProgressbar,  buildStyles } from 'react-circular-progressbar';
 import 'react-circular-progressbar/dist/styles.css';
-import useSaveNotification from '../Assets/Hooks/saveNotifFunction';
-import FrameForPrint from '../Assets/frameForPrint';
-import usePrintFunction from '../Assets/Hooks/printFunction';
+import useSaveNotification from '../../AssetsM/Hooks/saveNotifFunction';
+import FrameForPrint from '../../AssetsM/Cards/frameForPrint';
+import usePrintFunction from '../../AssetsM/Hooks/printFunction';
 
 function UpdatePage() {
     /*#########################[Const]##################################*/
@@ -21,7 +21,7 @@ function UpdatePage() {
     let [clientList, setClients] = useState([]); 
     const [FID, setFID] = useState(0)
     const [loadingPage, setLoadingP] = useState(true)
-    let [Offline, setOffline] = useState(JSON.parse(localStorage.getItem(`${GConf.PID}_Offline`))); 
+    let [Offline, setOffline] = useState(JSON.parse(localStorage.getItem(`${localStorage.getItem('PID')}_${GConf.systemTag}_Offline`))); 
     const [loaderState, setLS] = useState(false)
     const SaveNotification = (genre,tag,table) =>{ useSaveNotification(genre,tag,table)}
     const Genres = [
@@ -60,8 +60,8 @@ function UpdatePage() {
     const PrintFunction = (frameId) =>{ usePrintFunction(frameId)}
     const UpdateItem = (allTable, whTableTag) =>{
             Offline[whTableTag] = allTable
-            localStorage.setItem(`${GConf.PID}_Offline`, JSON.stringify(Offline));
-            setOffline(JSON.parse(localStorage.getItem(`${GConf.PID}_Offline`)))
+            localStorage.setItem(`${localStorage.getItem('PID')}_${GConf.systemTag}_Offline`, JSON.stringify(Offline));
+            setOffline(JSON.parse(localStorage.getItem(`${localStorage.getItem('PID')}_${GConf.systemTag}_Offline`)))
     }
     const UpdateAllItem = () =>{
         for (let index = 0; index < Genres.length; index++) {
@@ -80,7 +80,7 @@ function UpdatePage() {
     const DeleteFromOffline = (targetTable, targetElm) =>{
         console.log(Offline[targetTable][targetElm])
         Offline[targetTable].splice(targetElm,1)
-        localStorage.setItem(`${GConf.PID}_Offline`,  JSON.stringify(Offline));
+        localStorage.setItem(`${localStorage.getItem('PID')}_${GConf.systemTag}_Offline`,  JSON.stringify(Offline));
     }
     const SaveFactureFunc = (targetIndex) => {
         setLS(true)
@@ -96,7 +96,7 @@ function UpdatePage() {
                 setLS(false)
                 SaveNotification('factureAjouter',GConf.PID, factureSelected)
                 Offline.factureToSave.splice(targetIndex,1)
-                localStorage.setItem(`${GConf.PID}_Offline`,  JSON.stringify(Offline));
+                localStorage.setItem(`${localStorage.getItem('PID')}_${GConf.systemTag}_Offline`,  JSON.stringify(Offline));
             }
             else{
                 toast.error('Erreur!  esseyez de nouveaux', GConf.TostSuucessGonf)
@@ -126,7 +126,7 @@ function UpdatePage() {
                 setLS(false)
                 SaveNotification('stockSaveArticle',GConf.PID, ArticleSelected)
                 Offline.articleToSave.splice(targetIndex,1)
-                localStorage.setItem(`${GConf.PID}_Offline`,  JSON.stringify(Offline));
+                localStorage.setItem(`${localStorage.getItem('PID')}_${GConf.systemTag}_Offline`,  JSON.stringify(Offline));
             }
             else{
                 toast.error('Erreur esseyez de nouveaux', GConf.TostSuucessGonf)
@@ -152,7 +152,7 @@ function UpdatePage() {
                 SaveNotification('clientAjouter',GConf.PID, clientSelected)
                 setLS(false)
                 Offline.clientToSave.splice(targetIndex,1)
-                localStorage.setItem(`${GConf.PID}_Offline`,  JSON.stringify(Offline));
+                localStorage.setItem(`${localStorage.getItem('PID')}_${GConf.systemTag}_Offline`,  JSON.stringify(Offline));
             }
             else{
                 toast.error('Erreur esseyez de nouveaux', GConf.TostSuucessGonf)
@@ -179,7 +179,7 @@ function UpdatePage() {
                 setLS(false)
                 SaveNotification('camionAjouter',GConf.PID, CamionSelected)
                 Offline.camionToSave.splice(targetIndex,1)
-                localStorage.setItem(`${GConf.PID}_Offline`,  JSON.stringify(Offline));
+                localStorage.setItem(`${localStorage.getItem('PID')}_${GConf.systemTag}_Offline`,  JSON.stringify(Offline));
             }
             else {
                     toast.error('Erreur esseyez de nouveaux', GConf.TostSuucessGonf)

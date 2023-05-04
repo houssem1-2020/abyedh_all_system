@@ -1,18 +1,18 @@
 import React, { useEffect, useState } from 'react';
 import GConf from '../../AssetsM/generalConf';
-import BreadCrumb from '../Assets/breadCrumb'
+import BreadCrumb from '../../AssetsM/Cards/breadCrumb'
 import { Button, Divider, Form, Icon, Input, Loader, Select, Dropdown, Statistic, Header, TextArea } from 'semantic-ui-react';
 import { Tab } from 'semantic-ui-react';
 import { useParams } from 'react-router-dom';
 import axios from 'axios';
 import FullCalendar from '@fullcalendar/react' // must go before plugins
 import dayGridPlugin from '@fullcalendar/daygrid' // a plugin!
-import useGetFamilleArticle from '../Assets/Hooks/fetchArticlesFamille';
+import useGetFamilleArticle from '../../AssetsM/Hooks/fetchArticlesFamille';
 import { toast } from 'react-toastify';
-import SKLT from '../../AssetsM/usedSlk';
-import usePrintFunction from '../Assets/Hooks/printFunction';
-import FrameForPrint from '../Assets/frameForPrint';
-import useSaveNotification from '../Assets/Hooks/saveNotifFunction';
+import SKLT from '../../AssetsM/Cards/usedSlk';
+import usePrintFunction from '../../AssetsM/Hooks/printFunction';
+import FrameForPrint from '../../AssetsM/Cards/frameForPrint';
+import useSaveNotification from '../../AssetsM/Hooks/saveNotifFunction';
 import ReactImageZoom from 'react-image-zoom';
 
 const EditArticle = ({articleD, setArticleD, checkPrixCompatiblite, familles, EditArticleFunction,loaderState,updateQte}) =>{

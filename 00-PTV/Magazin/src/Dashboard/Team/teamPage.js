@@ -1,13 +1,13 @@
 import React, {useEffect,useState}  from 'react';
 import GConf from '../../AssetsM/generalConf';
-import SubNav from '../Assets/subNav';
+import SubNav from '../../AssetsM/Cards/subNav';
 import { _ } from "gridjs-react";
 import axios from 'axios';
 import {Fade } from 'react-reveal';
-import SKLT from '../../AssetsM/usedSlk'
-import TableGrid from '../Assets/tableGrid';
-import TableImage from '../Assets/tableImg';
-import GoBtn from '../Assets/goBtn';
+import SKLT from '../../AssetsM/Cards/usedSlk'
+import TableGrid from '../../AssetsM/Cards/tableGrid';
+import TableImage from '../../AssetsM/Cards/tableImg';
+import GoBtn from '../../AssetsM/Cards/goBtn';
 import { Button , Icon, Label} from 'semantic-ui-react';
 import { useNavigate} from 'react-router-dom';
 import { toast } from 'react-toastify';

@@ -59,7 +59,7 @@ const GConf = {
             adsUrl:'health.svg',
             genre:'LI',
             Links:[
-                {id:1, tag:'docteur', name:'نظام إدارة العيادات الطبية', link:'', img_url: 'docteur.gif', color:'#085947', col:6, state:''},
+                {id:1, tag:'docteur', name:'نظام إدارة العيادات الطبية', link:'', img_url: 'docteur.gif', color:'#085947', col:6, state:'', ready:true},
                 {id:2, tag:'clinique', name:'نظام إدارة المصحات  ', link:'', img_url: 'clinique.gif', color:'#04c6ce', col:6, state:''},
                 {id:3, tag:'labo', name:'نظام إدارة المخابر ', link:'', img_url: 'labo.gif', color:'#1dd3b0', col:6, state:''},
                 {id:4, tag:'centre', name:'نظام إدارة المراكز الطبية ', link:'', img_url: 'centre.gif', color:'#52a3c9', col:6, state:''},
@@ -71,10 +71,10 @@ const GConf = {
             adsUrl:'education.svg',
             genre:'IL',
             Links:[
-                {id:1, tag:'garderie', name:'نظام إدارة رياض الأطفال ', link:'', img_url: 'garderie.gif', color:'#cf208f', col:6, state:''},
-                {id:2, tag:'autoecole', name:'نظام إدارة مدارس تعليم السياقة   ', link:'', img_url: 'autoecole.gif', color:'#1caaa8', col:6, state:''},
+                {id:1, tag:'garderie', name:'نظام إدارة رياض الأطفال ', link:'', img_url: 'garderie.gif', color:'#cf208f', col:6, state:'', ready:true},
+                {id:2, tag:'autoecole', name:'نظام إدارة مدارس تعليم السياقة   ', link:'', img_url: 'autoecole.gif', color:'#1caaa8', col:6, state:'', ready:true},
                 {id:3, tag:'ecole', name:'نظام إدارة المدارس الخاصة    ', link:'', img_url: 'ecole.gif', color:'#4a9998', col:4, state:''},
-                {id:4, tag:'lycee', name:'نظام إدارة المعاهد الخاصة  ', link:'', img_url: 'lycee.gif', color:'#4a9998', col:4, state:''},
+                {id:4, tag:'lycee', name:'نظام إدارة المعاهد الخاصة  ', link:'', img_url: 'lycee.gif', color:'#4a9998', col:4, state:'',ready:true },
                 {id:5, tag:'universite', name:'نطام إدارة الجامعات الخاصة  ', link:'', img_url: 'universite.gif', color:'#4a9998', col:4, state:''},
             ]
         },
@@ -84,9 +84,9 @@ const GConf = {
             adsUrl:'restaurant.svg',
             genre:'LI',
             Links:[
-                {id:1, tag:'restaurant', name:'نظام إدارة المطاعم ', link:'', img_url: 'restaurant.gif', color:'#35ac67', col:6, state:''},
+                {id:1, tag:'restaurant', name:'نظام إدارة المطاعم ', link:'', img_url: 'restaurant.gif', color:'#35ac67', col:6, state:'', ready:true},
                 {id:2, tag:'cafe', name:'نظام إدارة المقاهي   ', link:'', img_url: 'cafe.gif', color:'#363636', col:6, state:''},
-                {id:3, tag:'hotel', name:'نظام إدارة الفنادق و النزل  ', link:'', img_url: 'hotel.gif', color:'#247cc7', col:12, state:''},
+                {id:3, tag:'hotel', name:'نظام إدارة الفنادق و النزل  ', link:'', img_url: 'hotel.gif', color:'#247cc7', col:12, state:'', ready:true},
             ]
         },
         {
@@ -95,7 +95,7 @@ const GConf = {
             adsUrl:'transport.svg',
             genre:'Il',
             Links:[
-                {id:1, tag:'transporteur', name:' نظام إدارة شركات نقل البضائع  ', link:'', img_url: 'transporteur.gif', color:'#be6e70', col:6, state:''},
+                {id:1, tag:'transporteur', name:' نظام إدارة شركات نقل البضائع  ', link:'', img_url: 'transporteur.gif', color:'#be6e70', col:6, state:'', ready:true},
                 {id:2, tag:'vg_agence', name:' نظام إدارة وكالات الأسفار   ', link:'', img_url: 'vg-agence.gif', color:'#ce8c64', col:6, state:''},
                 // {id:3, tag:'ptvGros', name:'نظام إدارة سيارات التاكسي  ', link:'', img_url: 'taxi.gif', color:'#5e7968', col:6, state:''},
                 // {id:4, tag:'ptvGros', name:' نظام إدارة سيارات الأجرة   ', link:'', img_url: 'louage.gif', color:'#5e7968', col:6, state:''},
@@ -109,7 +109,7 @@ const GConf = {
             Links:[
                 {id:1, tag:'samsar', name:' نظام وسيط عقاري ', link:'', img_url: 'samsar.gif', color:'#455b7a', col:6, state:''},
                 {id:2, tag:'impremerie', name:' نظام إدارة خدمات الطباعة   ', link:'', img_url: 'impremerie.gif', color:'#4c4a48', col:6, state:''},
-                {id:3, tag:'avocat', name:' نظام إدارة مكتب محامي  ', link:'', img_url: 'avocat.gif', color:'#7a8890', col:6, state:''},
+                {id:3, tag:'avocat', name:' نظام إدارة مكتب محامي  ', link:'', img_url: 'avocat.gif', color:'#7a8890', col:6, state:'', ready:true},
                 {id:4, tag:'comptable', name:'نظام إدارة مكتب محاسب   ', link:'', img_url: 'comptable.gif', color:'#a77a51', col:6, state:''},
             ]
         },
@@ -158,7 +158,7 @@ const GConf = {
                 {id:1, tag:'wedding_photographe', name:' نظام إدارة استديو تصوير', link:'', img_url: 'wedding_photographe.gif', color:'#c30052', col:6, state:''},
                 {id:2, tag:'wedding_salon_marriage', name:'نظام إدارة قاعات الافراح   ', link:'', img_url: 'wedding_salon_marriage.gif', color:'#c30052', col:6, state:''},
                 {id:3, tag:'wedding_fourniture_marriage', name:'نظام بيع لوازم الأفراح  ', link:'', img_url: 'wedding_fourniture_marriage.gif', color:'#c30052', col:6, state:''},
-                {id:4, tag:'coiffure', name:'نظام إدارة قاعات الحلاقة  ', link:'', img_url: 'coiffure.gif', color:'#0b97bf', col:6, state:''},
+                {id:4, tag:'coiffure', name:'نظام إدارة قاعات الحلاقة  ', link:'', img_url: 'coiffure.gif', color:'#0b97bf', col:6, state:'', ready:true},
             ]
         },
         {
@@ -167,7 +167,7 @@ const GConf = {
             adsUrl:'sport.svg',
             genre:'IL',
             Links:[
-                {id:1, tag:'gym', name:'نظام إدارة قاعات الرياضة  ', link:'', img_url: 'gym.gif', color:'#7aadab', col:6, state:''},
+                {id:1, tag:'gym', name:'نظام إدارة قاعات الرياضة  ', link:'', img_url: 'gym.gif', color:'#7aadab', col:6, state:'', ready:true},
                 {id:2, tag:'pyscine', name:'نظام إدارة المسابح  ', link:'', img_url: 'pyscine.gif', color:'#009fe3', col:6, state:''},
                 {id:3, tag:'stade', name:'نظام إدارة الملاعب الرياضية ', link:'', img_url: 'stade.gif', color:'#587e6d', col:12, state:''},
                 {id:4, tag:'art_cinema', name:' نظام إدارة قاعة سنما  ', link:'', img_url: 'art_cinema.gif', color:'#2c7177', col:6, state:''},
@@ -893,7 +893,7 @@ const GConf = {
             colorTheme:'#085947',
             adsImageUrl:'docteur.svg',
             systemTitle:' نظام إدارة العيادات الطبية ',
-            systemUrl:'#',
+            systemUrl:'https://docteur.system.abyedh.tn',
             adsText:' نظام إداراة العيادات يقدم لك مجموعة من الأدوات و الحلول الرقمية التي تساعدك علي أداء عملك بالشكل الممتاز , كما أنه يبقيك دائما متصلا مع مرضاك  للإطمئنان علي صحتهم و متابعة تطور حالتهم الصحية , بالإضافة إلي مجموعة من لوحات لاتحكم الموجهة لفريق العمل لتتابع أداء مهامهم بسهولة , فضلا  عن مجموعة متميزة من الأدوات التي تعينك علي تطوير عملك ',
             prosList:[
                 {id:1, title:'متصل', color:'#4287f5', icon:'link-45deg', text:'يبقيك النظام في حالة إتصال دائم مع عملائك من خلال دليل شامل و تفاعلي يخول لهم التواصل معك بطريقة ذكية كما يبقيك متصل بكامل فريق العمل من خلال لوحات تحكم خاصة بهم لمتباعة أعمالهم و مراقبة مهامهم'},
@@ -1109,8 +1109,8 @@ const GConf = {
             colorTheme:'#cf208f',
             adsImageUrl:'garderie.svg',
             systemTitle:'نظام  إدارة رياض الأطفال',
-            systemUrl:'#',
-            adsText:'نظام إداراة نقاط البيع بالجملة يساعدك علي مراقبة و التحكم في مخزون المنتجات (stock) و متابعة فواتيرك و الإتصال بعملاءك و متابعة طلباتهم . كما يقدم لك واجهة رسومية (caisse) لتسجيل المبيعات و طباعة الفواتير. بالإضافة إلي مجموعة من الأدوات الإبداعية (مثل واجهة إستخراج الأسعار) التي تساعدك علي أداء عملك بجودة أفضل',
+            systemUrl:'https://garderie.system.abyedh.tn/',
+            adsText:'نظام إدارة  رياض الأطفال يمكنك من  متابعة مختلف الانشطة اللي تصير داخل المؤسسة متاعك , و بالتالي مزيد من التحكم و الإدارة الذكية لجعل عملية التعلم أكثر جودة و تطور . كما يوفر مجموعة من الأدوات الرقمية اللي تساعدك في تحسين جودة المادة التعليمة مثل البرنامج البيداغوجي و غيرها  ',
             prosList:[
                 {id:1, title:'متصل', color:'#4287f5', icon:'link-45deg', text:'يبقيك النظام في حالة إتصال دائم مع عملائك من خلال دليل شامل و تفاعلي يخول لهم التواصل معك بطريقة ذكية كما يبقيك متصل بكامل فريق العمل من خلال لوحات تحكم خاصة بهم لمتباعة أعمالهم و مراقبة مهامهم'},
                 {id:2, title:'سهل', color:'#5dd492', icon:'emoji-smile', text:'يهدف النظام أن يكون بسيطا ولكن فعال في نفس الوقت و ذلك من خلال تنضيمة و تبويبه بطريقة بسيطة في نسخته الحالية'},
@@ -1163,7 +1163,7 @@ const GConf = {
             colorTheme:'#1caaa8',
             adsImageUrl:'autoecole.svg',
             systemTitle:'نظام مدرسة تعليم سياقة ',
-            systemUrl:'#',
+            systemUrl:'https://autoecole.system.abyedh.tn/',
             adsText:'نظام إداراة نقاط البيع بالجملة يساعدك علي مراقبة و التحكم في مخزون المنتجات (stock) و متابعة فواتيرك و الإتصال بعملاءك و متابعة طلباتهم . كما يقدم لك واجهة رسومية (caisse) لتسجيل المبيعات و طباعة الفواتير. بالإضافة إلي مجموعة من الأدوات الإبداعية (مثل واجهة إستخراج الأسعار) التي تساعدك علي أداء عملك بجودة أفضل',
             prosList:[
                 {id:1, title:'متصل', color:'#4287f5', icon:'link-45deg', text:'يبقيك النظام في حالة إتصال دائم مع عملائك من خلال دليل شامل و تفاعلي يخول لهم التواصل معك بطريقة ذكية كما يبقيك متصل بكامل فريق العمل من خلال لوحات تحكم خاصة بهم لمتباعة أعمالهم و مراقبة مهامهم'},
@@ -1271,7 +1271,7 @@ const GConf = {
             colorTheme:'#4a9998',
             adsImageUrl:'lycee.svg',
             systemTitle:'نظام إدارة المعاهد الخاصة',
-            systemUrl:'#',
+            systemUrl:'https://lycee.system.abyedh.tn/',
             adsText:'نظام إداراة نقاط البيع بالجملة يساعدك علي مراقبة و التحكم في مخزون المنتجات (stock) و متابعة فواتيرك و الإتصال بعملاءك و متابعة طلباتهم . كما يقدم لك واجهة رسومية (caisse) لتسجيل المبيعات و طباعة الفواتير. بالإضافة إلي مجموعة من الأدوات الإبداعية (مثل واجهة إستخراج الأسعار) التي تساعدك علي أداء عملك بجودة أفضل',
             prosList:[
                 {id:1, title:'متصل', color:'#4287f5', icon:'link-45deg', text:'يبقيك النظام في حالة إتصال دائم مع عملائك من خلال دليل شامل و تفاعلي يخول لهم التواصل معك بطريقة ذكية كما يبقيك متصل بكامل فريق العمل من خلال لوحات تحكم خاصة بهم لمتباعة أعمالهم و مراقبة مهامهم'},
@@ -1379,7 +1379,7 @@ const GConf = {
             colorTheme:'#35ac67',
             adsImageUrl:'restaurant.svg',
             systemTitle:'نظام إداراة المطاعم ',
-            systemUrl:'#',
+            systemUrl:'https://restaurant.system.abyedh.tn/',
             adsText:'نظام إداراة نقاط البيع بالجملة يساعدك علي مراقبة و التحكم في مخزون المنتجات (stock) و متابعة فواتيرك و الإتصال بعملاءك و متابعة طلباتهم . كما يقدم لك واجهة رسومية (caisse) لتسجيل المبيعات و طباعة الفواتير. بالإضافة إلي مجموعة من الأدوات الإبداعية (مثل واجهة إستخراج الأسعار) التي تساعدك علي أداء عملك بجودة أفضل',
             prosList:[
                 {id:1, title:'متصل', color:'#4287f5', icon:'link-45deg', text:'يبقيك النظام في حالة إتصال دائم مع عملائك من خلال دليل شامل و تفاعلي يخول لهم التواصل معك بطريقة ذكية كما يبقيك متصل بكامل فريق العمل من خلال لوحات تحكم خاصة بهم لمتباعة أعمالهم و مراقبة مهامهم'},
@@ -1487,7 +1487,7 @@ const GConf = {
             colorTheme:'#247cc7',
             adsImageUrl:'hotel.svg',
             systemTitle:'نظام إداراة الفنادق و النزل',
-            systemUrl:'#',
+            systemUrl:'https://hotel.system.abyedh.tn/',
             adsText:'نظام إداراة نقاط البيع بالجملة يساعدك علي مراقبة و التحكم في مخزون المنتجات (stock) و متابعة فواتيرك و الإتصال بعملاءك و متابعة طلباتهم . كما يقدم لك واجهة رسومية (caisse) لتسجيل المبيعات و طباعة الفواتير. بالإضافة إلي مجموعة من الأدوات الإبداعية (مثل واجهة إستخراج الأسعار) التي تساعدك علي أداء عملك بجودة أفضل',
             prosList:[
                 {id:1, title:'متصل', color:'#4287f5', icon:'link-45deg', text:'يبقيك النظام في حالة إتصال دائم مع عملائك من خلال دليل شامل و تفاعلي يخول لهم التواصل معك بطريقة ذكية كما يبقيك متصل بكامل فريق العمل من خلال لوحات تحكم خاصة بهم لمتباعة أعمالهم و مراقبة مهامهم'},
@@ -1541,7 +1541,7 @@ const GConf = {
             colorTheme:'#be6e70',
             adsImageUrl:'transporteur.svg',
             systemTitle:'نظام إداراة شركات نقل البظائع',
-            systemUrl:'#',
+            systemUrl:'https://transporteur.system.abyedh.tn/',
             adsText:'نظام إداراة نقاط البيع بالجملة يساعدك علي مراقبة و التحكم في مخزون المنتجات (stock) و متابعة فواتيرك و الإتصال بعملاءك و متابعة طلباتهم . كما يقدم لك واجهة رسومية (caisse) لتسجيل المبيعات و طباعة الفواتير. بالإضافة إلي مجموعة من الأدوات الإبداعية (مثل واجهة إستخراج الأسعار) التي تساعدك علي أداء عملك بجودة أفضل',
             prosList:[
                 {id:1, title:'متصل', color:'#4287f5', icon:'link-45deg', text:'يبقيك النظام في حالة إتصال دائم مع عملائك من خلال دليل شامل و تفاعلي يخول لهم التواصل معك بطريقة ذكية كما يبقيك متصل بكامل فريق العمل من خلال لوحات تحكم خاصة بهم لمتباعة أعمالهم و مراقبة مهامهم'},
@@ -1757,7 +1757,7 @@ const GConf = {
             colorTheme:'#7a8890',
             adsImageUrl:'avocat.svg',
             systemTitle:'نظام إداراة مكتب محامي',
-            systemUrl:'#',
+            systemUrl:'https://avocat.system.abyedh.tn/',
             adsText:'نظام إداراة نقاط البيع بالجملة يساعدك علي مراقبة و التحكم في مخزون المنتجات (stock) و متابعة فواتيرك و الإتصال بعملاءك و متابعة طلباتهم . كما يقدم لك واجهة رسومية (caisse) لتسجيل المبيعات و طباعة الفواتير. بالإضافة إلي مجموعة من الأدوات الإبداعية (مثل واجهة إستخراج الأسعار) التي تساعدك علي أداء عملك بجودة أفضل',
             prosList:[
                 {id:1, title:'متصل', color:'#4287f5', icon:'link-45deg', text:'يبقيك النظام في حالة إتصال دائم مع عملائك من خلال دليل شامل و تفاعلي يخول لهم التواصل معك بطريقة ذكية كما يبقيك متصل بكامل فريق العمل من خلال لوحات تحكم خاصة بهم لمتباعة أعمالهم و مراقبة مهامهم'},
@@ -2621,7 +2621,7 @@ const GConf = {
             colorTheme:'#0b97bf',
             adsImageUrl:'coiffure.svg',
             systemTitle:'نظام إداراة قاعات الحلاقة',
-            systemUrl:'#',
+            systemUrl:'https://coiffure.system.abyedh.tn/',
             adsText:'نظام إداراة نقاط البيع بالجملة يساعدك علي مراقبة و التحكم في مخزون المنتجات (stock) و متابعة فواتيرك و الإتصال بعملاءك و متابعة طلباتهم . كما يقدم لك واجهة رسومية (caisse) لتسجيل المبيعات و طباعة الفواتير. بالإضافة إلي مجموعة من الأدوات الإبداعية (مثل واجهة إستخراج الأسعار) التي تساعدك علي أداء عملك بجودة أفضل',
             prosList:[
                 {id:1, title:'متصل', color:'#4287f5', icon:'link-45deg', text:'يبقيك النظام في حالة إتصال دائم مع عملائك من خلال دليل شامل و تفاعلي يخول لهم التواصل معك بطريقة ذكية كما يبقيك متصل بكامل فريق العمل من خلال لوحات تحكم خاصة بهم لمتباعة أعمالهم و مراقبة مهامهم'},
@@ -2675,8 +2675,8 @@ const GConf = {
             colorTheme:'#7aadab',
             adsImageUrl:'gym.svg',
             systemTitle:'نظام إداراة قاعات الرياضة',
-            systemUrl:'#',
-            adsText:'نظام إداراة نقاط البيع بالجملة يساعدك علي مراقبة و التحكم في مخزون المنتجات (stock) و متابعة فواتيرك و الإتصال بعملاءك و متابعة طلباتهم . كما يقدم لك واجهة رسومية (caisse) لتسجيل المبيعات و طباعة الفواتير. بالإضافة إلي مجموعة من الأدوات الإبداعية (مثل واجهة إستخراج الأسعار) التي تساعدك علي أداء عملك بجودة أفضل',
+            systemUrl:'https://gym.system.abyedh.tn/',
+            adsText:'   نظام إدارة  قاعات الرياضة هو نظام إدارة و  محاسبة و تواصل مع مشتركيك و مراقبة أداءهم و تطور نشاطهم الرياضي من خلال خلق فضاء للتفاعل إفتراضيا مع القاعة لتقييم خدماتها ...',
             prosList:[
                 {id:1, title:'متصل', color:'#4287f5', icon:'link-45deg', text:'يبقيك النظام في حالة إتصال دائم مع عملائك من خلال دليل شامل و تفاعلي يخول لهم التواصل معك بطريقة ذكية كما يبقيك متصل بكامل فريق العمل من خلال لوحات تحكم خاصة بهم لمتباعة أعمالهم و مراقبة مهامهم'},
                 {id:2, title:'سهل', color:'#5dd492', icon:'emoji-smile', text:'يهدف النظام أن يكون بسيطا ولكن فعال في نفس الوقت و ذلك من خلال تنضيمة و تبويبه بطريقة بسيطة في نسخته الحالية'},

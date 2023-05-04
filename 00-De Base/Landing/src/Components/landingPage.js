@@ -8,6 +8,7 @@ import "swiper/css";
 import "swiper/css/grid";
 import "swiper/css/pagination";
 import { Button, Icon } from 'semantic-ui-react'
+import ReactGA from 'react-ga';
 
 function LandingPage() {
     const topRef = useRef(20)
@@ -25,29 +26,41 @@ function LandingPage() {
     //useEffect
     useEffect(() => {
         topRef.current?.scrollIntoView({ behavior: "smooth" })
+        ReactGA.pageview(window.location.pathname);
     }, [])
     
+    // function 
+    const  handleClick = (targetSystem) => {
+        ReactGA.event({
+          category: targetSystem,
+          action: 'SystemLink',
+          label: targetSystem
+        });
+      }
+
     //card 
     const TopAdsCard = ()=>{
         return(<>
                 <div className="container" >
-                    <div className='row'>
-                        <div className='col-12 col-lg-8 align-self-center '>
-                        <h2 className="text-secondary text-end animated faster slideInUp">{targetSystem.systemTitle} </h2>
-                            <h6 className="text-secondary text-right mb-5" dir="rtl">
+                    <div className='row mt-5'>
+                        <div className='col-12 col-lg-4 order-1 '>
+                            <img src={`https://cdn.abyedh.tn/images/ads/${targetSystem.adsImageUrl}`} className="img-responsive " width='100%' height='100%' />
+                        </div>
+                        <div className='col-12 col-lg-8 align-self-center order-lg-2 ' dir='rtl'>
+                            <h2 className="text-secondary text-end animated faster slideInUp  display-4 w-lg-75 font-hs-d" >{targetSystem.systemTitle} </h2>
+                            <h5 className="text-secondary text-right mb-5 col-12 col-lg-7 " dir="rtl">
                                 {targetSystem.adsText}
-                            </h6>
+                            </h5>
                             <div className="row" dir="rtl">
-                                <div className="col-6 text-start  align-self-center mr-1 order-2 order-lg-1 mb-4">
+                                <div className="col-lg-3 col-6 text-start  align-self-center mr-1 order-2 order-lg-1 mb-4">
                                     <NavLink to={targetSystem.systemUrl == '#' ? '#' : `/Inscription/${system}`} className="btn btn-md btn-primary rounded-pill  float-right " > <span className="bi bi-at"></span> إشترك الأن <span className="bi bi-arrow-left-short"></span></NavLink>
                                 </div>
-                                <div className="col-6 text-end">
-                                    <a href={targetSystem.systemUrl} className="btn btn-md btn-danger float-right rounded-pill" >  <span className="bi bi-arrow-right-short"></span>  الدخول للنظام  <span className="bi bi-pc-display-horizontal"></span> </a>
+                                <div className="col-lg-3 col-6 text-end">
+                                    <span onClick={() => handleClick(targetSystem.systemTitle)}>
+                                        <a href={targetSystem.systemUrl} target='c_blank' className="btn btn-md btn-danger float-right rounded-pill" >  <span className="bi bi-arrow-right-short"></span>  الدخول للنظام  <span className="bi bi-pc-display-horizontal"></span> </a>
+                                    </span>
                                 </div>
                             </div>
-                        </div>
-                        <div className='col-12 col-lg-4 order-1 order-lg-2'>
-                            <img src={`https://cdn.abyedh.tn/images/ads/${targetSystem.adsImageUrl}`} className="img-responsive mt-5" width='100%' height='100%' />
                         </div>
                     </div>
 
@@ -63,21 +76,21 @@ function LandingPage() {
     const TrySystemCard = ()=>{
         return(<>
         <div className="container" >
-            <div className="text-end text-secondary mb-3 d-lg-none"><h4><b>نسخة مجانية لتجرب النظام</b></h4></div>
+            <div className="text-end text-secondary mb-3 d-lg-none font-hs-n"><h4><b className='font-hs-n '>نسخة مجانية لتجرب النظام</b></h4></div>
             <div className="row">
-                <div className="col-lg-6 col-12 align-self-center">
-                    <img src="https://assets.abyedh.tn/img/system/System/landing-page/blogging.svg" className="img-responsive mb-4" width='80%' height='80%' />
-                </div>
+
                 <div className="col-lg-6 col-12  align-self-center">
-                <div className="text-end text-secondary mb-3 d-none d-lg-block"><h4><b>نسخة مجانية لتجرب النظام</b></h4></div>
-                <h6 className="text-secondary text-end mb-4">
-                    توفر منصة أبيض لجميع أنضمتها نسخ <span className="text-danger">تجريبية إفتراضية</span> لتساعد الراغبين في استخدام النظام 
-                    علي إشكتشاف مختلف جوانبة دون الحاجة للتسجيل 
-                    <br />
-                    هذه النسخة تمكنك من محاكاة فورية للنضام المستهدف لتتيح لك تجربة مستخدم مماثلة للنسخة المدفوعة 
-                    
-                </h6>
-                
+                    <div className="text-end text-secondary mb-3 d-none d-lg-block font-hs-n"><h4><b className='font-hs-n '>نسخة مجانية لتجرب النظام</b></h4></div>
+                    <h5 className="text-secondary text-end mb-4 ">
+                        توفر منصة أبيض لجميع أنضمتها نسخ <span className="text-danger">تجريبية إفتراضية</span> لتساعد الراغبين في استخدام النظام 
+                        علي إشكتشاف مختلف جوانبة دون الحاجة للتسجيل 
+                        <br />
+                        هذه النسخة تمكنك من محاكاة فورية للنضام المستهدف لتتيح لك تجربة مستخدم مماثلة للنسخة المدفوعة 
+                        
+                    </h5>
+                </div>
+                <div className="col-lg-6 col-12 align-self-center text-end">
+                    <img src="https://assets.abyedh.tn/img/system/System/landing-page/blogging.svg" className="img-responsive mb-4" width='80%' height='80%' />
                 </div>
             </div>
         </div>
@@ -91,20 +104,20 @@ function LandingPage() {
                     <div className='row p-0 mb-4' style={{cursor: 'pointer'}}>
                         <div className='col-12 col-lg-6 p-0 order-2 order-lg-1 align-self-center' >
                             <div className="text-end me-4" dir="rtl" style={{color: props.data.color}}>
-                                <h3 className="font-weight-bold">       
-                                    {props.data.title}
+                                <h3 className="font-weight-bold display-5">       
+                                     <i className={`bi bi-${props.data.icon}`}></i> {props.data.title}
                                 </h3>
-                                <h5 className="small">
+                                <h5 className="font-hs-t display-6">
                                     {props.data.text}
                                 </h5>
                             </div> 
                         </div>
-                        <div className='col-12 col-lg-6 p-0 align-self-center text-center order-1 order-lg-2 '>
+                        <div className='col-12 col-lg-6 p-0 align-self-center text-center order-1 order-lg-2 d-none d-lg-block'>
                             {/* <div className="icon-small icon-small-shape text-white rounded-circle shadow m-3" style={{backgroundColor: props.data.color}}>
                                 <i className={`bi bi-${props.data.icon}`}></i>
                             </div> */}
-                            <div>
-                                 <img src={`https://cdn.abyedh.tn/Images/system_landing/boutique${props.index +1 }.png`} className='img-responsive border-div shadow-lg' width='70%' height='200px' />
+                            <div className='mb-3'>
+                                 <img src={`https://cdn.abyedh.tn/Images/system_landing/boutique${props.index +1 }.png`} className='img-responsive border-div shadow' width='70%' height='200px' />
                             </div>
                         </div>
                     </div> 
@@ -112,8 +125,8 @@ function LandingPage() {
         }
         return(<>
                 <div className="container" >
-                    <div className="card p-3 shadow-sm  border border-div 0 ">
-                        <h5 className="text-end text-secondary mb-4 p-3" dir="rtl"><b> يتمتع بعدة مزايا   </b></h5>
+                    <div className="card card-body shadow-sm  border border-div 0 ">
+                        <h5 className="text-end text-secondary mb-4 p-3 font-hs-n" dir="rtl"><b> يتمتع بعدة مزايا   </b></h5>
                         <br />
                         <div  dir="rtl">
                             <Swiper
@@ -135,7 +148,7 @@ function LandingPage() {
         const SpecificCard = (props) =>{
             return(<>
                     <div className={`col-lg-4 mb-2 p-3`}>
-                        <div className="card p-3 pt-5 h-100 shadow rounded text-center">
+                        <div className="card p-3 pt-5 h-100 shadow border-div text-center">
                             <h5 className="card-title text-white"><b><span className="badge bg-success p-2">{props.data.tag}</span></b></h5>
                             <div className="text-blod" dir='rtl'><b style={{color:"#7f23db"}} className='h1'>{props.data.price}</b> د <small className="small text-secondary">/ سنة كاملة</small></div>
                             <div className="p-2 h-100">
@@ -144,7 +157,7 @@ function LandingPage() {
                                 </ul>
                             </div>
                             <div className='mt-2 d-grid gap-2' >
-                                <NavLink exact='true' to={targetSystem.systemUrl == '#' ? '#' : `/Inscription/${system}`} className='d-grid gap-2' >
+                                <NavLink exact='true' to={targetSystem.systemUrl == '#' ? '#' : `/Inscription/${system}`} className='d-grid gap-2' style={{pointerEvents : props.data.ready ? '' : 'none'}} >
                                     <Button animated className='bg-danger font-droid text-white p-3 rounded-pill' disabled={!props.data.ready}>
                                         <Button.Content visible>إشترك الأن</Button.Content>
                                         <Button.Content hidden> <Icon name='arrow right' /> </Button.Content>

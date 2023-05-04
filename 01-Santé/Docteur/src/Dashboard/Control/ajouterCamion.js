@@ -1,12 +1,12 @@
 import React, { useEffect, useState } from 'react';
-import BreadCrumb from '../Assets/breadCrumb';
+import BreadCrumb from '../../AssetsM/Cards/breadCrumb';
 import GConf from '../../AssetsM/generalConf';
 import { Bounce } from 'react-reveal';
 import { Button, Icon, Input, Loader } from 'semantic-ui-react';
-import useGetCamion from '../Assets/Hooks/fetchCamion';
+import useGetCamion from '../../AssetsM/Hooks/fetchCamion';
 import { toast } from 'react-toastify';
 import axios from 'axios';
-import useSaveNotification from '../Assets/Hooks/saveNotifFunction';
+import useSaveNotification from '../../AssetsM/Hooks/saveNotifFunction';
 
 function AjouterCamion() {
     /*#########################[Const]##################################*/

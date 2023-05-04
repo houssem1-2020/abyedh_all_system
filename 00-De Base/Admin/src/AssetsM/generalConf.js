@@ -11,7 +11,7 @@ const GConf = {
     PID: GetPID(),
     ADIL:AbyedhADIL,
     abyedhMap : TunMap,
-    ApiLink : 'http://localhost:3010/admin', //https://api.system.abyedh.tn/apiSystemAbyedh/ 
+    ApiLink : 'https://api.system.abyedh.tn/apiSystemAbyedh/admin', //https://api.system.abyedh.tn/apiSystemAbyedh/ 
     ApiInputLink : 'http://localhost:3010/admindir', //https://api.system.abyedh.tn/apiSystemAbyedh/ 
     ApiCamionLink : 'http://localhost:3010/admin', //https://api.system.abyedh.tn/apiSystemAbyedh/ 
     DefaultTva: 0,
@@ -90,12 +90,15 @@ const GConf = {
 
     //main stat card
     LinkCard: [
-        { id: 1, col: 4 , tag:"System", dataTag:'articlesNum',  icon: 'pc-display', link:'sk/ajouter', smallT: 'System', desc: 'Activeé system' , stat:'22452'},
-        { id: 2, col: 4 , tag:"Recherche", dataTag:'search-heart', icon: 'search-heart', link:'ft/ajouter', smallT: 'Recherche', desc: 'Ajouter Record' , stat:'22452'},
-        { id: 3, col: 4 , tag:"client", dataTag:'clientsNum', icon: 'person-lines-fill', link:'cl/ajouter', smallT: 'Utilisateur', desc: 'Ajouter Utilisateur' , stat:'1235'},
-        { id: 4, col: 4 , tag:"camion", dataTag:'camionsNum', icon: 'people', link:'cm/ajouter-f', smallT: 'Client', desc: 'Ajouter Client' , stat:'22'},
-        { id: 5, col: 4 , tag:"camion", dataTag:'camionsNum', icon: 'person-bounding-box', link:'cm/ajouter-f', smallT: 'Equipe', desc: 'Ajouter Membre' , stat:'22'},
-        { id: 6, col: 4 , tag:"camion", dataTag:'camionsNum', icon: 'calendar2-check', link:'cm/ajouter-f', smallT: 'Communication', desc: 'Aceeptez Communication' , stat:'22'},
+        { id: 1, col: 3 , tag:"System", dataTag:'articlesNum',  icon: 'pc-display', link:'sk/ajouter', smallT: 'System', desc: 'Activeé system' , stat:'22452'},
+        { id: 6, col: 3 , tag:"camion", dataTag:'RequestSystem', icon: 'box-arrow-left', link:'cl/demande', smallT: 'Inscription', desc: ' Ajouter Demande' , stat:'22'},
+        { id: 2, col: 3 , tag:"Recherche", dataTag:'search-heart', icon: 'search-heart', link:'ft/ajouter', smallT: 'Recherche', desc: 'Ajouter Record' , stat:'22452'},
+        { id: 3, col: 3 , tag:"client", dataTag:'clientsNum', icon: 'person-lines-fill', link:'cl/ajouter', smallT: 'Utilisateur', desc: 'Ajouter Utilisateur' , stat:'1235'},
+        { id: 4, col: 3 , tag:"camion", dataTag:'camionsNum', icon: 'people', link:'cm/ajouter-f', smallT: 'Client', desc: 'Ajouter Client' , stat:'22'},
+        { id: 5, col: 3 , tag:"camion", dataTag:'camionsNum', icon: 'person-bounding-box', link:'cm/ajouter-f', smallT: 'Equipe', desc: 'Ajouter Membre' , stat:'22'},
+        { id: 6, col: 3 , tag:"camion", dataTag:'camionsNum', icon: 'calendar2-check', link:'cm/ajouter-f', smallT: 'Communication', desc: 'Aceeptez Communication' , stat:'22'},
+        { id: 6, col: 3 , tag:"camion", dataTag:'camionsNum', icon: 'calendar2-check', link:'cm/ajouter-f', smallT: 'Communication', desc: 'Aceeptez Communication' , stat:'22'},
+        
     ],
 
     //main chart card

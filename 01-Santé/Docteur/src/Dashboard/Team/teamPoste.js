@@ -2,11 +2,11 @@ import React, { useEffect, useState } from 'react';
 import { Bounce } from 'react-reveal';
 import { Button,  Form, Icon, Input, Loader, Modal, Pagination, TextArea } from 'semantic-ui-react';
 import GConf from '../../AssetsM/generalConf';
-import BreadCrumb from '../Assets/breadCrumb'
+import BreadCrumb from '../../AssetsM/Cards/breadCrumb'
 import axios from 'axios';
 import {toast } from 'react-toastify';
-import SKLT from '../../AssetsM/usedSlk';
-import useSaveNotification from '../Assets/Hooks/saveNotifFunction';
+import SKLT from '../../AssetsM/Cards/usedSlk';
+import useSaveNotification from '../../AssetsM/Hooks/saveNotifFunction';
 
 const EditModal = ({setModalS,EditPoste,editPosteD,setEditPosteD,modalS}) =>{
     return(<>

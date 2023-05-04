@@ -3,12 +3,12 @@ import React, { useEffect, useState } from 'react';
 import { Bounce } from 'react-reveal';
 import { NavLink, useParams } from 'react-router-dom';
 import { Button,  Icon, Popup} from 'semantic-ui-react';
-import SKLT from '../../AssetsM/usedSlk';
+import SKLT from '../../AssetsM/Cards/usedSlk';
 import GConf from '../../AssetsM/generalConf';
-import BreadCrumb from '../Assets/breadCrumb'
+import BreadCrumb from '../../AssetsM/Cards/breadCrumb'
 import { toast } from 'react-toastify';
-import FrameForPrint from '../Assets/frameForPrint';
-import usePrintFunction from '../Assets/Hooks/printFunction';
+import FrameForPrint from '../../AssetsM/Cards/frameForPrint';
+import usePrintFunction from '../../AssetsM/Hooks/printFunction';
 
 function FactureInfo() {
     /*#########################[Const]##################################*/

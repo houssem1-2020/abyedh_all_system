@@ -43,14 +43,9 @@ function MainPage() {
             PID : GConf.PID,
           })
           .then(function (response) {
-
-            if(new Date(response.data.activationState.ExpiredThe) > new Date()){
-                //LogOut()
-                console.log('Expired ')
-            }
-
+            
             setStat(response.data)
-
+           
             
             let clientDis = []
             response.data.clientDistro.map((datacld) => clientDis.push({ name: datacld.Gouv, value: datacld.Totale }))
@@ -181,8 +176,8 @@ function MainPage() {
             <div className='card card-body mb-4 rounded-system  main-big-card shaodw-sm'>
                 <div className='row'>
                     <div className='col-8'>
-                        <h1 className='text-white display-1'>{date.format(now, 'dddd')}</h1>
-                        <h1 className='text-white'>{date.format(now, ' DD - MMMM - YYYY')}</h1>
+                        <h1 className='text-white mb-0'>{date.format(now, 'dddd')}</h1>
+                        <h1 className='text-white mt-0'>{date.format(now, ' DD - MMMM - YYYY')}</h1>
                     </div>
                     <div className='col-4 text-end align-self-center'>
                         <h1 style={{color:GConf.themeColor}}>{date.format(now, 'HH:mm')}</h1>
@@ -225,8 +220,8 @@ function MainPage() {
         <Slide  bottom > 
             <LinksCrads /> 
             <div className='row p-0'>
-                <div className='col-12 col-lg-6 mb-4'><ChartsContainer chart={<BarCht />} col='5' title='Distrubition des Commun. J' /> </div>
-                <div className='col-12 col-lg-6 mb-4'> <ChartsContainer chart={<BarCht />} col='5' title='Distrubition des Commun. M' /></div>
+                <div className='col-12 col-lg-6 mb-4 d-none'><ChartsContainer chart={<BarCht />} col='5' title='Distrubition des Commun. J' /> </div>
+                <div className='col-12 col-lg-6 mb-4 d-none'> <ChartsContainer chart={<BarCht />} col='5' title='Distrubition des Commun. M' /></div>
                 <div className='col-12 col-lg-8 mb-4 '> 
                         <h5 className='mt-3 mb-4'>Evolution des Client & Users</h5> 
                         <ChartsContainer chart={<LineChts  data={depoTR}/>} col='7' title='' />
