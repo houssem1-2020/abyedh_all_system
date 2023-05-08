@@ -11,7 +11,7 @@ import { _ } from "gridjs-react";
 import { useParams } from 'react-router-dom';
 import SKLT from '../../AssetsM/Cards/usedSlk';
 import TableGrid from '../../AssetsM/Cards/tableGrid';
-import FrameForPrint from '../../AssetsM/Cards/frameForPrint';
+ 
 import usePrintFunction from '../../AssetsM/Hooks/printFunction';
 import { toast } from 'react-toastify';
 import useSaveNotification from '../../AssetsM/Hooks/saveNotifFunction';
@@ -19,21 +19,14 @@ import { useNavigate} from 'react-router-dom';
 
 const EditCamionCard = ({camionD, setCamionD, EditCamion, GenrateKey, loaderState}) =>{
     return(<>
-            <div className='p-1 mb-2'>
-            <h5 className='mb-1'>Matricule:</h5>
-                 <Input icon='key' disabled iconPosition='left' placeholder='Matricule' className='w-100 border-0 shadow-sm rounded mb-1'  value={camionD.Matricule} onChange={(e) => setCamionD({...camionD, Matricule: e.target.value })}/>
-            </div>
+
             <div className='p-1  mb-2'>
             <h5 className='mb-1'>Nom:</h5>
-                 <Input icon='truck' iconPosition='left' placeholder='Nom' className='w-100 border-0 shadow-sm rounded mb-1' value={camionD.Cam_Name} onChange={(e) => setCamionD({...camionD, Cam_Name: e.target.value })} />
+                 <Input icon='truck' iconPosition='left' placeholder='Nom' className='w-100 border-0 shadow-sm rounded mb-1' value={camionD.CA_Name} onChange={(e) => setCamionD({...camionD, CA_Name: e.target.value })} />
             </div>
             <div className='p-1 mb-2'>
-                <h5 className='mb-1'>Marque:</h5>
-                <Input icon='star' iconPosition='left' placeholder='Marque' className='w-100 border-0 shadow-sm rounded mb-1' value={camionD.Detail} onChange={(e) => setCamionD({...camionD, Detail: e.target.value })} />
-            </div>
-            <div className='p-1 mb-2'>
-                <h5 className='mb-1'> Chauffeur:</h5>
-                <Input icon='user' iconPosition='left' placeholder='Chauffeur' className='w-100 border-0 shadow-sm rounded mb-1' value={camionD.Chauffeur} onChange={(e) => setCamionD({...camionD, Chauffeur: e.target.value })}/>
+                <h5 className='mb-1'> Fond:</h5>
+                <Input icon='user' iconPosition='left' placeholder='Chauffeur' className='w-100 border-0 shadow-sm rounded mb-1' value={camionD.Caisse_Fond} onChange={(e) => setCamionD({...camionD, Caisse_Fond: e.target.value })}/>
             </div>
             <div className='row mb-3'>
                     <div className='col-12 col-lg-6'>
@@ -42,7 +35,7 @@ const EditCamionCard = ({camionD, setCamionD, EditCamion, GenrateKey, loaderStat
                     </div>
                     <div className='col-9 col-lg-5'>
                         <h5 className='mb-1'>Mot De Pass: </h5>
-                        <Input icon='eye' iconPosition='left' placeholder='Nom' className='w-100 border-0 shadow-sm rounded mb-3' value={camionD.Pasword} onChange={(e) => setCamionD({...camionD, Pasword: e.target.value })}/>
+                        <Input icon='eye' iconPosition='left' placeholder='Nom' className='w-100 border-0 shadow-sm rounded mb-3' value={camionD.Password} onChange={(e) => setCamionD({...camionD, Password: e.target.value })}/>
                     </div>
                     <div className='col-3 col-lg-1 align-self-center'>
                         <Button onClick={GenrateKey} className="rounded-pill " icon='random'></Button>
@@ -62,35 +55,23 @@ function CamionInfo() {
     const [position, setPosition] = useState([36.17720,9.12337])
     const [stocktable, setStockTable] = useState([]);
     const [camionData, setCamionD] = useState([]);
-    const [camionFondRecett, setCamionFR] = useState({Fond:'0.000', Recette: '0.000'});
+    const [camionFondRecett, setCamionFR] = useState('0.000');
     const [factureCamion, setFactureCamion] = useState([]); 
     const [fondListCamion, setFonfListCamion] = useState([]); 
-    const [venteDate, setVenteDate] = useState({start:Today, end:Today}); 
+    const [rechercheDay, setRechercheDay] = useState({start:Today, end:Today}); 
     const [loading , setLoading] = useState(false)
     const [loaderState, setLS] = useState(false)
     const panes = [
-        {
-            menuItem: { key: 'control', icon: 'th', content: 'Control' }, 
-            render: () =><><Tab.Pane className='border-div' attached={false}><FastControl /></Tab.Pane><br /></>,
-        },
-        {
-            menuItem: { key: 'stock', icon: 'boxes', content: 'Stock' }, 
-            render: () =><CamionStock />,
-        },
-        {
-            menuItem: { key: 'box', icon: 'trash alternate', content: 'Fond' }, 
-            render: () => <><CamionFonds/><br /></>,
-        },
         {
             menuItem: { key: 'fond', icon: 'file text', content: 'Facture' }, 
             render: () => <><CamionFactures /><br /></>,
         },
         {
-            menuItem: { key: 'comd', icon: 'calendar check', content: 'Commandes' }, 
-            render: () => <><CamionCommandes /><br /></>,
+            menuItem: { key: 'comd', icon: 'calendar check', content: 'Recherche Recette' }, 
+            render: () => <><Tab.Pane className='border-div' attached={false}> <CaisseRecetteRecherche /> </Tab.Pane><br /></>,
         },
         {
-            menuItem: { key: 'edit', icon: 'edit outline', content: 'Modifier' }, 
+            menuItem: { key: 'editClient', icon: 'edit outline', content: 'Modifier' }, 
             render: () => <><Tab.Pane className='border-div' attached={false}><EditCamionCard camionD={camionData}  setCamionD={setCamionD} GenrateKey={GenrateKey} EditCamion={EditCamion} loaderState={loaderState} /></Tab.Pane><br /></>,
         },
         {
@@ -106,43 +87,31 @@ function CamionInfo() {
 
     /* ############################### UseEffect ################################*/
     useEffect(() => {
-        axios.post(`${GConf.ApiLink}/camions/info`, {
+        axios.post(`${GConf.ApiLink}/caisse/info`, {
             PID : GConf.PID,
             camId : CID
         })
         .then(function (response) {
-            console.log(response.data[0])
+             
             if(response.data[0].Data.length === 0) {
                 toast.error('Camion Introuvable !', GConf.TostSuucessGonf)
-                setTimeout(() => {  window.location.href = "/S/cm"; }, 2000)
+                setTimeout(() => {  window.location.href = "/S/ca"; }, 2000)
                 
             } else {
-                setCamionFR({Fond: response.data[0].Fond, Recette : response.data[0].Recette})
-                setCamionD(response.data[0].Data[0])
-                setPosition([response.data[0].Position.lat,response.data[0].Position.lng])
+                console.log(response.data)
                 setLoading(true)
-                let stockTable = []
-                response.data[0].Stock.map( (getData) => stockTable.push([ getData.A_Code, getData.Name, getData.Genre, getData.Qte, getData.Prix_vente,
-                    _(<Button className='rounded-pill bg-system-btn' size='mini' onClick={ (e) => NavigateFunction(`/S/cm/info/stock/${CID}/${getData.A_Code}`)}><Icon  name='angle right' /></Button>)
-                    // _(<h6><a href={`stock/${CID}/${getData.A_Code}`} ><Button className='rounded-pill bg-system-btn' size='mini' onClick={ (e) => NavigateFunction(`/S/ft/info/${getData.F_ID}`)}><Icon  name='angle right' /></Button></a></h6>)
-                ],))
-                setStockTable(stockTable)
-
+                setCamionD(response.data[0].Data)
+                setCamionFR(response.data[0].Recette)
+                
                 let factureTable = []
-                response.data[0].Facture.map( (getData) => factureTable.push([ getData.F_ID, getData.C_Name, new Date(getData.Cre_Date).toLocaleDateString('fr-FR').split( '/' ).reverse( ).join( '-' ), getData.Tota,
-                _(<Button className='rounded-pill bg-system-btn' size='mini' onClick={ (e) => NavigateFunction(`/S/cm/info/facture/${CID}/${getData.F_ID}`)}><Icon  name='angle right' /></Button>)
+                response.data[0].Facture.map( (getData) => factureTable.push([ getData.T_ID, getData.CL_Name,  new Date(getData.T_Date).toLocaleDateString('fr-FR').split( '/' ).reverse( ).join( '-' ), getData.Final_Value,
+                _(<Button className='rounded-pill bg-system-btn' size='mini' onClick={ (e) => NavigateFunction(`/S/ft/info/${getData.T_ID}`)}><Icon  name='angle right' /></Button>)
                 // _(<h6><a href={`facture/${CID}/${getData.F_ID}`} ><Button className='rounded-pill bg-system-btn' size='mini'><Icon  name='angle right' /></Button></a></h6>)
                 ],))
                 setFactureCamion(factureTable)
 
-                let fondListTable = []
-                response.data[0].FondList.map( (getData) => fondListTable.push([ getData.Bon_id,  new Date(getData.Jour).toLocaleDateString('fr-FR').split( '/' ).reverse( ).join( '-' ), getData.Totale,
-                _(<SDCF state={getData.SDF} />), 
-                _(<SDCF state={getData.SCF} />),
-                _(<Button className='rounded-pill bg-system-btn' size='mini' onClick={ (e) => NavigateFunction(`/S/cm/info/fond/${CID}/${getData.Bon_id}`)}><Icon  name='angle right' /></Button>)
-                // _(<h6><a href={`fond/${CID}/${getData.Bon_id}`} ><Button className='rounded-pill bg-system-btn' size='mini'><Icon  name='angle right' /></Button></a></h6>)
-                ],))
-                setFonfListCamion(fondListTable)
+                
+                
             }
 
         }).catch((error) => {
@@ -165,7 +134,7 @@ function CamionInfo() {
     const GenrateKey = () =>{
         let ID = Math.random().toString(36).slice(2, 8);
         let PWD =  Math.floor(Math.random() * 1000000);
-        setCamionD({...camionData, Identifiant: ID , Pasword:PWD})
+        setCamionD({...camionData, Identifiant: ID , Password:PWD})
     }
     const DeleteStockZero = () => {
         axios.post(`${GConf.ApiLink}/camion/info/ztockzero/delete`, {
@@ -187,22 +156,19 @@ function CamionInfo() {
           });
     }
     const EditCamion = () =>{
-        if (!camionData.Matricule) {toast.error("Matricule Invalide !", GConf.TostErrorGonf)}
-        else if (!camionData.Cam_Name) {toast.error("Nom Invalide !", GConf.TostErrorGonf)}
-        else if (!camionData.Detail) {toast.error("Marque Invalide !", GConf.TostErrorGonf)}
-        else if (!camionData.Chauffeur) {toast.error("Chauffeur Invalide !", GConf.TostErrorGonf)}
+        if (!camionData.CA_Name) {toast.error("Matricule Invalide !", GConf.TostErrorGonf)}
+        else if (!camionData.Caisse_Fond) {toast.error("Fond Invalide !", GConf.TostErrorGonf)}
         else if (!camionData.Identifiant) {toast.error("Identifiant Invalide !", GConf.TostErrorGonf)}
-        else if (!camionData.Pasword) {toast.error("Mot De Passe Invalide !", GConf.TostErrorGonf)}
+        else if (!camionData.Password) {toast.error("Mot De Passe Invalide !", GConf.TostErrorGonf)}
         else{
                 setLS(true)
-                axios.post(`${GConf.ApiLink}/camions/modifier`, {
+                axios.post(`${GConf.ApiLink}/caisses/modifier`, {
                     tag : GConf.PID,
-                    camionD : camionData,
+                    caisseD : camionData,
                 }).then(function (response) {
                     if(response.data.affectedRows) {
-                        toast.success("Camion Modifier !", GConf.TostSuucessGonf)
+                        toast.success("Caisse Modifier !", GConf.TostSuucessGonf)
                         setLS(false)
-                        SaveNotification('camionEdit',GConf.PID, camionData)
                     }
                     else {
                             toast.error('Erreur Lors de la modification', GConf.TostSuucessGonf)
@@ -210,14 +176,41 @@ function CamionInfo() {
                         }
                 }).catch((error) => {
                     if(error.request) {
-                      toast.error(<><div><h5>Probleme de Connextion</h5> Impossible de modifier le camion </div></>, GConf.TostInternetGonf)   
+                      toast.error(<><div><h5>Probleme de Connextion</h5>  </div></>, GConf.TostInternetGonf)   
                     }
                   });
                     
             }
     }
     const PrintFunction = (frameId) =>{ usePrintFunction(frameId)}
-    
+    const SearchRecette = () =>{
+        axios.post(`${GConf.ApiLink}/caisse/searchrecette`, {
+            PID : GConf.PID,
+            camId : CID,
+            targetDay : rechercheDay
+        })
+        .then(function (response) {
+             
+            console.log(response.data)                
+            let factureRechTable = []
+            response.data.map( (getData) => factureRechTable.push([ getData.T_ID, getData.CL_Name,  new Date(getData.T_Date).toLocaleDateString('fr-FR').split( '/' ).reverse( ).join( '-' ), getData.Final_Value,
+            _(<Button className='rounded-pill bg-system-btn' size='mini' onClick={ (e) => NavigateFunction(`/S/ft/info/${getData.T_ID}`)}><Icon  name='angle right' /></Button>)
+            ],))
+            setFonfListCamion(factureRechTable)
+
+        }).catch((error) => {
+            if(error.request) {
+              toast.error(<><div><h5>Probleme de Connextion</h5>  </div></>, GConf.TostInternetGonf)   
+            }
+          });
+    }
+    const MakeTotRechette = (targetList) =>{
+        let tot = 0
+        targetList.map((data) => {
+            tot = tot + data[3]
+        })
+        return tot.toFixed(3)
+    }
     /* ############################### Card ################################*/
     const SDCF = (props)=>{
         return(<>
@@ -234,20 +227,20 @@ function CamionInfo() {
                     </div>
                     <div className="img-card-container text-center">
                         <div className="card-container">
-                            <img src="https://system.anaslouma.tn/Assets/images/camion.jpg" className="rounded-circle" width="80" />                    
+                            <img src="https://familia.anaslouma.tn/Assets/images/caisse.png" className="rounded-circle" width="80" />                    
                         </div>
                     </div>
                     <div className="mt-5 text-center">
-                            <h4 className='mt-2'>{loading ? props.dataC.Cam_Name : SKLT.BarreSkl } </h4> 
-                            <h6 className="text-secondary">  {loading ? <><span className="bi bi-truck"></span> { props.dataC.Matricule } </>: SKLT.BarreSkl} </h6>
-                            <h6 className="text-secondary"> {loading ? <><span className="bi bi-person-heart"></span> { props.dataC.Chauffeur } </>: SKLT.BarreSkl } </h6>
+                            <h4 className='mt-2'>{loading ? props.dataC.CA_Name : SKLT.BarreSkl } </h4> 
+                            {/* <h6 className="text-secondary">  {loading ? <><span className="bi bi-truck"></span> { props.dataC.Cam_ID } </>: SKLT.BarreSkl} </h6> */}
+                            <h6 className="text-secondary"> {loading ? <><span className="bi bi-person-heart"></span> { props.dataC.C_ID } </>: SKLT.BarreSkl } </h6>
                             <Divider horizontal className='text-secondary mt-4'>Fond</Divider>
                             <div className='row text-center'>
                                 <div className='col-12'>    
                                     {loading ?  
                                         <Statistic color='red' size='tiny'>
                                             <Statistic.Value>
-                                                {props.camionFondRecett.Fond} 
+                                                {parseFloat(props.dataC.Caisse_Fond).toFixed(3)} 
                                             </Statistic.Value>
                                         </Statistic>
                                     : SKLT.BarreSkl }  
@@ -260,7 +253,7 @@ function CamionInfo() {
                                     {loading ?  
                                         <Statistic color='green' size='tiny'>
                                             <Statistic.Value>
-                                                {props.camionFondRecett.Recette} 
+                                                {camionFondRecett} 
                                             </Statistic.Value>
                                         </Statistic>
                                     : SKLT.BarreSkl }   
@@ -269,7 +262,7 @@ function CamionInfo() {
                         </div>
                     </div>
                 </div>
-                <div className='card card-body shadow-sm  border-div mb-4'>
+                {/* <div className='card card-body shadow-sm  border-div mb-4'>
                         <h5>Location</h5>
                           <MapContainer center={position} zoom={13} scrollWheelZoom={false} className="map-height">
                           <TileLayer
@@ -283,7 +276,7 @@ function CamionInfo() {
                             </Marker>
                         </MapContainer>
                         
-                </div>
+                </div> */}
             </div>
         </>);
     }
@@ -306,35 +299,41 @@ function CamionInfo() {
                 <h5 className='text-danger'>Vente</h5>
                 <div className='mb-2 row'>
                     <div className='col-12 col-lg-7'><b> &#8226; Imprimer Les Article Vendu Le : </b></div>
-                    <div className='col-10 col-lg-4'><Input size='mini' fluid type='date' value={venteDate.start} onChange={(e) => setVenteDate({...venteDate, start: e.target.value , end: e.target.value})}/></div>
+                    <div className='col-10 col-lg-4'><Input size='mini' fluid type='date' value={rechercheDay.start} onChange={(e) => setRechercheDay({...rechercheDay, start: e.target.value , end: e.target.value})}/></div>
                     <div className='col-2 col-lg-1'><Button  className='rounded-circle bg-system-btn' icon onClick={(e) => PrintFunction('ventes')}>  <Icon name='print' /></Button></div>
                 </div>
                 <div className='mb-2 row'>
                     <div className='col-12 col-lg-7'><b>&#8226; Imprimer La Facture Du :</b></div>
-                    <div className='col-10 col-lg-4'><Input size='mini' fluid type='date' value={venteDate.start} onChange={(e) => setVenteDate({...venteDate, start: e.target.value , end: e.target.value})}/></div>
+                    <div className='col-10 col-lg-4'><Input size='mini' fluid type='date' value={rechercheDay.start} onChange={(e) => setRechercheDay({...rechercheDay, start: e.target.value , end: e.target.value})}/></div>
                     <div className='col-2 col-lg-1'><Button  className='rounded-circle btn-imprimer' icon onClick={(e) => PrintFunction('VPDay')}>  <Icon name='print' /></Button></div>
                 </div> 
                 <div className='mb-2 row'>
                     <div className='col-12 col-lg-5 align-self-center'><b>&#8226; Imprimer Les Recette entre :</b></div>
-                    <div className='col-5 col-lg-3'><Input size='mini' fluid  type='date' value={venteDate.start} onChange={(e) => setVenteDate({...venteDate, start: e.target.value })}/></div>
-                    <div className='col-5 col-lg-3'><Input size='mini' fluid  type='date' value={venteDate.end} onChange={(e) => setVenteDate({...venteDate, end: e.target.value })}/></div>
+                    <div className='col-5 col-lg-3'><Input size='mini' fluid  type='date' value={rechercheDay.start} onChange={(e) => setRechercheDay({...rechercheDay, start: e.target.value })}/></div>
+                    <div className='col-5 col-lg-3'><Input size='mini' fluid  type='date' value={rechercheDay.end} onChange={(e) => setRechercheDay({...rechercheDay, end: e.target.value })}/></div>
                     <div className='col-2 col-lg-1'><Button  className='rounded-circle btn-imprimer' icon onClick={(e) => PrintFunction('VEPeriode')}>  <Icon name='print' /></Button></div>
                 </div>
                 <hr />
                 <h5 className='text-danger'>Fond</h5>
                 <div className='mb-2 row'>
                     <div className='col-12 col-lg-5 align-self-center'><b>&#8226; Imprimer Les Fond entre :</b></div>
-                    <div className='col-5 col-lg-3'><Input size='mini' fluid  type='date' value={venteDate.start} onChange={(e) => setVenteDate({...venteDate, start: e.target.value })} /></div>
-                    <div className='col-5 col-lg-3'><Input size='mini' fluid  type='date' value={venteDate.end} onChange={(e) => setVenteDate({...venteDate, end: e.target.value })} /></div>
+                    <div className='col-5 col-lg-3'><Input size='mini' fluid  type='date' value={rechercheDay.start} onChange={(e) => setRechercheDay({...rechercheDay, start: e.target.value })} /></div>
+                    <div className='col-5 col-lg-3'><Input size='mini' fluid  type='date' value={rechercheDay.end} onChange={(e) => setRechercheDay({...rechercheDay, end: e.target.value })} /></div>
                     <div className='col-2 col-lg-1'><Button  className='rounded-circle btn-imprimer' icon onClick={(e) => PrintFunction('Printfonds')}>  <Icon name='print' /></Button></div>
                 </div> 
                 
         </>)
     }
-    const CamionStock = () =>{
+    const CaisseRecetteRecherche = () =>{
         return(<>
-
-                <TableGrid tableData={stocktable} columns={GConf.TableHead.camionStock} />
+                <h5 className='text-danger'>Recherche Recette entre : </h5>
+                <div className='mb-2 row'>
+                    <div className='col-5 col-lg-4'><Input size='mini' fluid  type='date' defaultValue={rechercheDay.start} onChange={(e) => setRechercheDay({...rechercheDay, start: e.target.value })} /></div>
+                    <div className='col-5 col-lg-4'><Input size='mini' fluid  type='date' defaultValue={rechercheDay.end} onChange={(e) => setRechercheDay({...rechercheDay, end: e.target.value })} /></div>
+                    <div className='col-2 col-lg-4'><Button fluid className='btn-imprimer' size='mini' icon onClick={(e) => SearchRecette()}>  <Icon name='print' /></Button></div>
+                </div> 
+                Tottale Vente : {MakeTotRechette(fondListCamion)}
+                <TableGrid tableData={fondListCamion} columns={GConf.TableHead.camionFacture} />
         </>)
     }
     const CamionFonds = () =>{
@@ -350,7 +349,7 @@ function CamionInfo() {
     const CamionCommandes = () =>{
         return(<>
             <div className='mb-2'>
-                <Input size='large' fluid type='date' value={venteDate.start} onChange={(e) => setVenteDate({...venteDate, start: e.target.value , end: e.target.value})}/>
+                <Input size='large' fluid type='date' value={rechercheDay.start} onChange={(e) => setRechercheDay({...rechercheDay, start: e.target.value , end: e.target.value})}/>
             </div>
             <div className='mb-2'>
                <h5>Totale & Resumer</h5> 
@@ -393,17 +392,17 @@ function CamionInfo() {
                      <Tab menu={{ secondary: true, pointing: true ,className: "wrapped"}} panes={panes} />
                 </div>
         </div>
-        <FrameForPrint frameId='PrintStock' src={`/Pr/Camion/info/stock/${CID}`} />
+        {/* <FrameForPrint frameId='PrintStock' src={`/Pr/Camion/info/stock/${CID}`} />
         <FrameForPrint frameId='PrintStockZero' src={`/Pr/Camion/info/stock-z/${CID}`} />
-        <FrameForPrint frameId='ventes' src={`/Pr/Camion/info/vente/articles/${CID}/${venteDate.start}`} />
-        <FrameForPrint frameId='VPDay' src={`/Pr/Camion/info/vente/factures/${CID}/${venteDate.start}`} />
-        <FrameForPrint frameId='VEPeriode' src={`/Pr/Camion/info/vente/recette/${CID}/${venteDate.start}/${venteDate.end}`} />
-        <FrameForPrint frameId='Printfonds' src={`/Pr/Camion/info/fond/${CID}/${venteDate.start}/${venteDate.end}`} />
-        <FrameForPrint frameId='resumerFactures' src={`/Pr/Camion/info/vente/articles/${CID}/${venteDate.start}`} />
-        <FrameForPrint frameId='commandeGroupBL' src={`/Pr/Camion/commandes/BL/${CID}/${venteDate.start}`} />
-        <FrameForPrint frameId='commandeGroupBS' src={`/Pr/Camion/commandes/BS/${CID}/${venteDate.start}`} />
-        <FrameForPrint frameId='commandeGroupF' src={`/Pr/Camion/commandes/Facture/${CID}/${venteDate.start}`} />
-        <FrameForPrint frameId='commandeGroupRes' src={`/Pr/Camion/commandes/Resumer/${CID}/${venteDate.start}`} />
+        <FrameForPrint frameId='ventes' src={`/Pr/Camion/info/vente/articles/${CID}/${rechercheDay.start}`} />
+        <FrameForPrint frameId='VPDay' src={`/Pr/Camion/info/vente/factures/${CID}/${rechercheDay.start}`} />
+        <FrameForPrint frameId='VEPeriode' src={`/Pr/Camion/info/vente/recette/${CID}/${rechercheDay.start}/${rechercheDay.end}`} />
+        <FrameForPrint frameId='Printfonds' src={`/Pr/Camion/info/fond/${CID}/${rechercheDay.start}/${rechercheDay.end}`} />
+        <FrameForPrint frameId='resumerFactures' src={`/Pr/Camion/info/vente/articles/${CID}/${rechercheDay.start}`} />
+        <FrameForPrint frameId='commandeGroupBL' src={`/Pr/Camion/commandes/BL/${CID}/${rechercheDay.start}`} />
+        <FrameForPrint frameId='commandeGroupBS' src={`/Pr/Camion/commandes/BS/${CID}/${rechercheDay.start}`} />
+        <FrameForPrint frameId='commandeGroupF' src={`/Pr/Camion/commandes/Facture/${CID}/${rechercheDay.start}`} />
+        <FrameForPrint frameId='commandeGroupRes' src={`/Pr/Camion/commandes/Resumer/${CID}/${rechercheDay.start}`} /> */}
      </> );
 }
 

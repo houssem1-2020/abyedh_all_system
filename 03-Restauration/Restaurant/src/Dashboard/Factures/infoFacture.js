@@ -9,12 +9,14 @@ import BreadCrumb from '../../AssetsM/Cards/breadCrumb'
 import { toast } from 'react-toastify';
 import FrameForPrint from '../../AssetsM/Cards/frameForPrint';
 import usePrintFunction from '../../AssetsM/Hooks/printFunction';
+import { Input } from 'semantic-ui-react';
 
 function FactureInfo() {
     /*#########################[Const]##################################*/
     const {FID} = useParams()
     const [articleL, setArticleL] = useState([])
     const [factureData, setFactData] = useState([])
+    const [client, setClient] = useState('Passager')
     const [loading , setLoading] = useState(false)
     const [stockState , setStockState] = useState(false)
     const [toUpdatedList, setTUpList] = useState([])
@@ -33,6 +35,7 @@ function FactureInfo() {
                     
                 } else {
                     setArticleL(JSON.parse(response.data[0].Articles))
+                    setClient(response.data[0].CL_Name)
                     let UsedTableNow = []
                     JSON.parse(response.data[0].Articles).map( (article) => {UsedTableNow.push([article.A_Code, article.Qte ])} )
                     setTUpList(UsedTableNow)
@@ -55,14 +58,14 @@ function FactureInfo() {
 
     /*#########################[Function]##################################*/
     const PrintFunction = (frameId) =>{ usePrintFunction(frameId)}
-    const UpdateStock = () =>{
-        axios.post(`${GConf.ApiLink}/stock/bs`, {
+    const RetouAuStock = () =>{
+        axios.post(`${GConf.ApiLink}/stock/be`, {
             PID : GConf.PID,
-            artList: toUpdatedList,
+            artList: articleL,
           })
           .then(function (response) {      
             if(response.data.affectedRows) {
-                axios.post(`${GConf.ApiLink}/facture/us`, { PID : GConf.PID,  fid: FID })
+                // axios.post(`${GConf.ApiLink}/facture/us`, { PID : GConf.PID,  fid: FID })
                 toast.success("Stock Modifier !", GConf.TostSuucessGonf)
                 setStockState(true)
                 setFactData({ ...factureData, SDF: 'true'})
@@ -87,8 +90,9 @@ function FactureInfo() {
         const StateCard = (props) =>{ return <span className={`badge bg-${props.color}`}> {props.text} </span>}
         const statusCard = React.useCallback(() => {
           switch(status) {
-            case 'false': return <StateCard color='danger' text='Stock Non Regleé' />;  
-            case 'true': return <StateCard color='success' text='Stock Regleé' /> ;
+            case 'Payee': return <StateCard color='success' text='Payeé' />;  
+            case 'Credit': return <StateCard color='danger' text='Credit' /> ;
+            case 'Waitting': return <StateCard color='warning' text='En Attend' /> ;
             default:  return <StateCard color='secondary' text='Indefinie' />;    
           }
         }, [status]);
@@ -102,23 +106,15 @@ function FactureInfo() {
     const FactureHeader = () =>{
         return(<>
                 <h2 className='text-center'>Facture Client </h2> 
-                <br />
                 <div className='row'>
                     <div className='col-6'>
-                        <div className='text-danger'><b>STE ANASLOUMA DISTRUBUTION</b></div>
-                        <div className='text-secondary'><b>VILLE: </b> SIDI BOUROUIS</div>
-                        <div className='text-secondary'><b>MATRICULE F : </b> 1670146/D</div>
-                        <div className='text-secondary'><b>TEL : </b> 97913068</div>
-                        <div className='text-secondary'><b>FAX : </b> 78898081</div>
-                    </div>
-                    <div className='col-6'>
+                        <div className='text-secondary'><b>FACTURE ID : </b> {factureData.FACT_ID}</div>
                         <div className='text-secondary'><b>CODE FACTURE : </b> {FID}</div>
-                        <div className='text-secondary'><b>CLIENT: </b> 
+                        <div className='text-secondary'><b>CLIENT: {factureData.CL_Name} </b> 
                         <Popup
                                 content={<>
                                 <div className='row'>
-                                    <div className='col-6'>
-                                        <div className='text-secondary'><b><span className='bi bi-qr-code text-danger'></span> : {factureData.Code_Fiscale}</b></div>   
+                                    <div className='col-6'>   
                                         <div className='text-secondary'><b><span className='bi bi-telephone text-danger'></span> : {factureData.Phone}</b></div>      
                                     </div>
                                     <div className='col-6'>
@@ -135,11 +131,15 @@ function FactureInfo() {
                                 wide='very'
                                 hoverable
                                 key={factureData.Name }
-                                header={<h3><span className='bi bi-person-fill'></span> {factureData.Name} </h3> }
+                                header={<h3><span className='bi bi-person-fill'></span> {factureData.CL_Name} </h3> }
                                 trigger={loading ? <NavLink  exact='true' to={`/S/cl/info/${factureData.CL_ID}`}> {factureData.Name } </NavLink>  : SKLT.BarreSkl }
                             />
                             </div>
-                        <div className='text-secondary'><b>M.F : </b> {factureData.Code_Fiscale}</div>
+                    </div>
+                    <div className='col-6'>
+                        <div className='text-danger'><b>Date : </b> {new Date(factureData.T_Date).toLocaleDateString('fr-FR').split( '/' ).reverse( ).join( '-' )} </div>
+                        <div className='text-secondary'><b>Temps: </b> {factureData.T_Time} </div>
+                        <div className='text-secondary'><b>Caisse: </b> {factureData.CA_Name} </div>
                     </div>
                 </div>
         </>)
@@ -148,10 +148,7 @@ function FactureInfo() {
         return(<>
                 <div className='card card-body shadow-sm mb-2'>
                     <h5>Nette & Totale </h5>
-                    <div>Totale hors tax: {loading ? CalculateTVA(factureData.Tota) : SKLT.BarreSkl }</div>
-                    <div>TVA: {loading ? (factureData.Tota - CalculateTVA(factureData.Tota)).toFixed(3) : SKLT.BarreSkl }</div>
-                    <div>Timbre: 0.600 DT</div>
-                    <div className='text-danger'><b>Net A Payee TTC: {loading ? (parseFloat(factureData.Tota) + 0.600).toFixed(3) : SKLT.BarreSkl } </b></div>
+                    <div className='text-danger'><b>Net A Payee TTC: {loading ? (parseFloat(factureData.Final_Value) + 0.600).toFixed(3) : SKLT.BarreSkl } </b></div>
                 </div>
         </>)
     }
@@ -160,34 +157,20 @@ function FactureInfo() {
                 <div className='card card-body shadow-sm mb-2'>
                     <h5>Controle</h5>
                     <div className='row mb-2'>
-                    <div className='col-6'>
+                    
+                    <div className='col-12'>
                         <Button  className='rounded-pill btn-imprimer'  fluid onClick={(e) => PrintFunction('printFacture')}><Icon name='edit outline' /> Imprimer</Button>
                     </div>
-                    <div className='col-6'>
-                            <Button as='a' href={`/S/ft/modifier/${FID}`} animated disabled={stockState} className='rounded-pill bg-system-btn'  fluid>
-                                <Button.Content visible><Icon name='edit outline' /> Modifier </Button.Content>
-                                <Button.Content hidden>
-                                    <Icon name='arrow right' />
-                                </Button.Content>
-                            </Button>
-                    </div>
                     </div>
                     <div className='row mb-2'>
                         <div className='col-6'>
-                            <Button  className='rounded-pill btn-danger'  fluid><Icon name='edit outline' /> Supprimer</Button>
+                            <Button  className='rounded-pill bg-danger text-white'  fluid><Icon name='edit outline' /> Supprimer</Button>
                         </div>
                         <div className='col-6'>
-                            <Button  className='rounded-pill  btn-regler'  fluid disabled={stockState} onClick={UpdateStock}><Icon name='edit outline' /> R. Stock</Button>
+                            <Button  className='rounded-pill  btn-regler'  fluid disabled={stockState} onClick={RetouAuStock}><Icon name='edit outline' /> R. Stock</Button>
                         </div>
                     </div>
-                    <div className='row mb-2'>
-                        <div className='col-6'>
-                            <Button  className='rounded-pill  btn-imprimer'  fluid onClick={(e) => PrintFunction('printBl')} ><Icon name='edit outline' /> BL</Button>
-                        </div>
-                        <div className='col-6'>
-                            <Button  className='rounded-pill  btn-imprimer'  fluid onClick={(e) => PrintFunction('printBs')}><Icon name='edit outline' /> BS</Button>
-                        </div>
-                    </div>
+
                 </div>
         </>)
     }
@@ -197,7 +180,7 @@ function FactureInfo() {
         <br />
         <div className="row">
             <div className="col-12 col-lg-8">
-                <h2 className='text-end'><StateCard status={factureData.SDF} /></h2>
+                <h2 className='text-end'><StateCard status={factureData.Pay_State} /></h2>
                 <FactureHeader />
                 <br />
                 <br />
@@ -239,15 +222,15 @@ function FactureInfo() {
             <Bounce bottom>
                 <div className="sticky-top" style={{top:'70px'}}>
                     <TotaleCard />
+                    <Input icon='user' size="small" iconPosition='left' placeholder='Client  '  fluid className='mb-1' value={client}  onChange={(e) => setClient(e.target.value)} />
                     <BtnsCard />
                 </div>
             </Bounce>
             </div>
         </div>
-        <FrameForPrint frameId='printFacture' src={`/Pr/facture/info/${FID}`} />
-        <FrameForPrint frameId='printBl' src={`/Pr/facture/bonL/${FID}`} />
-        <FrameForPrint frameId='printBs' src={`/Pr/facture/bonS/${FID}`} />
+        <FrameForPrint frameId='printFacture' src={`/Pr/facture/info/${FID}/${client}`} />
     </> );
 }
+
 
 export default FactureInfo;

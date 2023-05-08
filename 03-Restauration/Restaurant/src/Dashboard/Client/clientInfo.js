@@ -97,18 +97,19 @@ function ClientInfo() {
     const [loaderState, setLS] = useState(false)
     const [delegList ,setDelegList] = useState([]) 
     const panes = [
+        // {
+        //     menuItem: { key: 'suivie', icon: 'map pin', content: 'Position' }, 
+        //     render: () =><><Tab.Pane className='border-div' attached={false} tabular={true}><PositionCard /></Tab.Pane><br /></>,
+        // },
         {
-            menuItem: { key: 'suivie', icon: 'map pin', content: 'Position' }, 
-            render: () =><><Tab.Pane className='border-div' attached={false} tabular={true}><PositionCard /></Tab.Pane><br /></>,
+            menuItem: { key: 'home', icon: 'home', content: 'Factures' }, 
+            render: () => <><TableGrid tableData={factures} columns={GConf.TableHead.clientFacture} /><br /></>,
         },
         {
             menuItem: { key: 'commande', icon: 'calendar alternate', content: 'Commandes' }, 
             render: () =><TableGrid tableData={commande} columns={GConf.TableHead.clientCommande} />,
         },
-        {
-            menuItem: { key: 'home', icon: 'home', content: 'Factures' }, 
-            render: () => <><TableGrid tableData={factures} columns={GConf.TableHead.clientFacture} /><br /></>,
-        },
+        
         // {
         //     menuItem: { key: 'truck', icon: 'truck', content: 'F. Camion' }, 
         //     render: () => <><TableGrid tableData={factureCamion} columns={GConf.TableHead.clientFactureC} /><br /></>,
@@ -118,7 +119,7 @@ function ClientInfo() {
             render: () => <><Tab.Pane className='border-div' attached={false}><EditClientCard clientD={clientD} setClientD={setClientD} EditClient={EditClient} delegList={delegList} GetDelegList={GetDelegList}  loaderState={loaderState}/></Tab.Pane><br /></>,
         },
         {
-            menuItem: { key: 'edit', icon: 'edit', content: 'Verification' }, 
+            menuItem: { key: 'verif', icon: 'edit', content: 'Verification' }, 
             render: () => <><Tab.Pane className='border-div' attached={false}><FindInDirectory inDirArticle={inDirArticle}  setInDirA={setInDirA} FindInDirectoryFunc={FindInDirectoryFunc} loaderState={loaderState} OnKeyPressFunc={OnKeyPressFunc} fromDirectory={fromDirectory}/></Tab.Pane><br /></>,
         },
         {
@@ -142,9 +143,8 @@ function ClientInfo() {
                 
             } else {
                 
-
                 setClientD(response.data[0])
-                setPosition([response.data[0].Lat,response.data[0].Lng])
+                //setPosition([response.data[0].Lat,response.data[0].Lng])
                 setLoading(true)
                 
             }

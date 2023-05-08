@@ -17,13 +17,10 @@ import TunMap from '../../AssetsM/tunMap';
 
 const EditProfile = ({generalData, setGeneralData, UpdateGeneralDataFunc, delegList,GetDelegList,loaderState}) =>{
     const genreOptions = [
-        { key: 1 , value: 'Alimentaire', text: 'Alimentaire' },
-        { key: 2 , value: 'cosmetique', text: 'cosmetique' },
-        { key: 3 , value: 'habillemment', text: 'habillemment' },
-        { key: 4 , value: 'medicamment', text: 'medicamment' },
-        { key: 5 , value: 'educuatif', text: 'educuatif' },
-        { key: 6 , value: 'construction', text: 'construction' },
-        { key: 7 , value: 'Boisson', text: 'Boisson' },
+        { key: 1 , value: '5 ETOILE', text: '5 ETOILE' },
+        { key: 2 , value: 'MLAWOUI', text: 'MLAWOUI' },
+        { key: 3 , value: 'PIZZA', text: 'PIZZA' },
+        { key: 4 , value: 'FAST FOOD', text: 'FAST FOOD' },
         
       ]
     return ( <>
@@ -135,11 +132,12 @@ function ProfilePage() {
             PID: GConf.PID,
         })
         .then(function (response) {
-            setProfileData(response.data)
-            setPasswordData(response.data.password[0])
+            console.log(response.data.general[0])
             setGeneralData(response.data.general[0])
-            setAlwaysState(response.data.horaire[0].ALL_Time)
-            setHoraireData(JSON.parse(response.data.horaire[0].WorkingTime))
+            setProfileData(response.data)
+            setPasswordData(response.data.password[0]) 
+            if (response.data.horaire[0]) { setAlwaysState(response.data.horaire[0].ALL_Time) } else { }
+            if (response.data.horaire[0]) { setHoraireData(JSON.parse(response.data.horaire[0].WorkingTime)) } else { } 
             setLoading(true)
 
         }).catch((error) => {
@@ -325,12 +323,12 @@ function ProfilePage() {
         return(<>
             <div className="card card-body shadow-sm mb-4 sticky-top border-div" style={{top:'70px'}}>
 	            <div className="text-center ">
-	            	<img className="rounded-circle mb-3" src="https://assets.abyedh.tn/img/system/ads/storage.svg" width="90px" height="90px"/>
+	            	<img className="rounded-circle mb-3" src={`https://assets.abyedh.tn/img/system/ads/${GConf.systemTag}.svg`} width="90px" height="90px"/>
 	            
 	            	 <h6>{loading ? profileData.general[0].Name : SKLT.BarreSkl } </h6>
-	            	 <div><small className="text-secondary">Point de Vente En gros ({loading ? profileData.general[0].Genre : SKLT.BarreSkl })</small></div>
+	            	 <div><small className="text-secondary">Restaurant ({loading ? profileData.general[0].Genre : SKLT.BarreSkl })</small></div>
 	            	<div><small className="text-secondary"><span className="bi bi-geo-alt"></span> {loading ? <> {profileData.general[0].Adress} , {profileData.general[0].Gouv} </> : SKLT.BarreSkl } </small></div>
-	            	<div><small className="text-secondary"><span className="bi bi-telephone"></span> +216{loading ? profileData.general[0].Phone : SKLT.BarreSkl } </small></div> 
+	            	<div><small className="text-secondary"><span className="bi bi-telephone"></span> +216 {loading ? profileData.general[0].Phone : SKLT.BarreSkl } </small></div> 
                     <h5>PID : {localStorage.getItem('PID')} <Button size='mini' icon='copy' className='rounded-circle' onClick={() => navigator.clipboard.writeText(localStorage.getItem('PID'))}></Button> </h5>
 					<Divider /> 
 					<div className='row mt-2'>
@@ -369,7 +367,7 @@ function ProfilePage() {
 					<br />
 					<br />
 					<div className='d-grid gap-2'>
-						<a className='btn btn-danger btn btn-lg bnt-block rounded-pill text-white ' target="_blank" href={`https://t.abyedh.tn/S/P/storage/${GConf.PID}`}>
+						<a className='btn btn-danger btn btn-lg bnt-block rounded-pill text-white ' target="_blank" href={`https://abyedh.tn/S/P/${GConf.systemTag}/${GConf.PID}`}>
 							<span className='bi bi-person-circle me-3'></span>    
 							 Profile 
 						</a>
@@ -427,7 +425,7 @@ function ProfilePage() {
                         Lorsque vous cliquer ici la position enregistré sera 'Mon position' 
                         </div>
                         <div className='col-4 text-end'> 
-                                <Button  className='rounded-pill bg-system-btn' disabled={CheckPositions()} size='mini' onClick={ () => UpdatePositionFunc()} ><Icon name='save' /> Modifier Position <Loader inverted active={loaderState}  inline size='tiny' className='ms-2'/></Button>
+                                {/* <Button  className='rounded-pill bg-system-btn' disabled={CheckPositions()} size='mini' onClick={ () => UpdatePositionFunc()} ><Icon name='save' /> Modifier Position <Loader inverted active={loaderState}  inline size='tiny' className='ms-2'/></Button> */}
                         </div>
                     </div>
                     <MapContainer center={[36.071,9.333]} zoom={7} scrollWheelZoom={false} className="map-height">
@@ -435,9 +433,9 @@ function ProfilePage() {
                         attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
                         url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
                         />
-                        <Marker position={[generalData.Lat,generalData.Lng]}>
+                        {/* <Marker position={[generalData.Lat,generalData.Lng]}>
                             <Popup>Position Enregistrée</Popup>
-                        </Marker>
+                        </Marker> */}
                         <Marker position={[myPosition[0],myPosition[1]]}>
                             <Popup>Mon Position</Popup>
                         </Marker>

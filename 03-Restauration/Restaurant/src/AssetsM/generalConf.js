@@ -16,9 +16,9 @@ const GConf = {
 
     // main variables
     PID: GetPID(),
-    ApiLink : 'http://localhost:3010/magazin', //https://api.system.abyedh.tn/apiSystemAbyedh/System 
-    ApiRouterOneLink : 'https://api.system.abyedh.tn/apiSystemAbyedh/magazin-caisse', //https://api.system.abyedh.tn/apiSystemAbyedh/System 
-    ApiRouterTwoLink : 'https://api.system.abyedh.tn/apiSystemAbyedh/magazin-caisse', //https://api.system.abyedh.tn/apiSystemAbyedh/System 
+    ApiLink : 'https://api.system.abyedh.tn/apiSystemAbyedh/restaurant', //https://api.system.abyedh.tn/apiSystemAbyedh/System 
+    ApiRouterOneLink : 'https://api.system.abyedh.tn/apiSystemAbyedh/restaurant-caisse', //https://api.system.abyedh.tn/apiSystemAbyedh/System 
+    ApiRouterTwoLink : 'https://api.system.abyedh.tn/apiSystemAbyedh/restaurant-caisse', //https://api.system.abyedh.tn/apiSystemAbyedh/System 
     DefaultTva: 0,
     themeColor : '#35ac67',
     themeColorLigth : '#b8cbd4',
@@ -115,22 +115,28 @@ const GConf = {
             {id:1, name:"Acceuil", icon:"house", link:"ma"},
             {id:2, name:"Commandes", icon:"calendar2-check", link:"rq"},
             // {id:3, name:"Plates", icon:"people", link:"cl"},
-            {id:4, name:"Menu", icon:"receipt-cutoff", link:"sk"},
+            {id:4, name:"Menu", icon:"receipt-cutoff", link:"mu"},
             {id:5, name:"Caisse", icon:"pc-display-horizontal", link:"ca"},
-            {id:5, name:"Tables ", icon:"pc-display-horizontal", link:"tb"},
+            // {id:5, name:"Tables ", icon:"pc-display-horizontal", link:"tb"},
             {id:6, name:"Factures", icon:"receipt-cutoff", link:"ft"},
             // {id:6, name:"Table", icon:"upc-scan", link:"sk"},
-            // {id:7, name:"Fournisseur", icon:"box-seam", link:"fs"},
+            {id:7, name:"Clients", icon:"person", link:"cl"},
             {id:8, name:"Equipe", icon:"person-bounding-box", link:"tm"},
             {id:9, name:"Outils", icon:"tools", link:"ot"},
     ],
 
     //main stat card
     LinkCard: [
-        { id: 1, col: 3 , tag:"article", dataTag:'articlesNum',  icon: 'upc-scan', link:'sk/ajouter', smallT: 'Article', desc: 'Nouveaux Article' , stat:'22452'},
-        { id: 2, col: 3 , tag:"facture", dataTag:'facturesNum', icon: 'receipt-cutoff', link:'ft/ajouter', smallT: 'Factures', desc: 'Ajouter Facture' , stat:'22452'},
-        { id: 3, col: 3 , tag:"client", dataTag:'clientsNum', icon: 'person', link:'cl/ajouter', smallT: 'Clients', desc: 'Ajouter Clients' , stat:'1235'},
-        { id: 4, col: 3 , tag:"camion", dataTag:'camionsNum', icon: 'pc-display-horizontal', link:'ca/ajouter-f', smallT: 'Camions', desc: 'Ajouter Fond' , stat:'22'},
+        // { id: 1, col: 3 , tag:"article", dataTag:'articlesNum',  icon: 'upc-scan', link:'sk/ajouter', smallT: 'Article', desc: 'Nouveaux Article' , stat:'22452'},
+        // { id: 2, col: 3 , tag:"facture", dataTag:'facturesNum', icon: 'receipt-cutoff', link:'ft/ajouter', smallT: 'Factures', desc: 'Ajouter Facture' , stat:'22452'},
+        // { id: 3, col: 3 , tag:"client", dataTag:'clientsNum', icon: 'person', link:'cl/ajouter', smallT: 'Clients', desc: 'Ajouter Clients' , stat:'1235'},
+        // { id: 4, col: 3 , tag:"camion", dataTag:'camionsNum', icon: 'pc-display-horizontal', link:'ca/ajouter-f', smallT: 'Camions', desc: 'Ajouter Fond' , stat:'22'},
+        { id: 1, col: 2 , tag:"article", dataTag:'articlesNum',  icon: 'upc-scan', link:'mu/ajouter', smallT: 'Plat', desc: 'Nouveaux  ', isFloat : false , stat:'22452'},
+        { id: 2, col: 2 , tag:"facture", dataTag:'facturesNum', icon: 'receipt-cutoff', link:'ft/resumer', smallT: 'Factures', desc: 'Resumer', isFloat : false , stat:'22452'},
+        { id: 3, col: 2 , tag:"client", dataTag:'clientsNum', icon: 'person', link:'cl/ajouter', smallT: 'Clients', desc: 'Ajouter', isFloat : false , stat:'1235'},
+        // { id: 4, col: 2 , tag:"Credit", dataTag:'creditTot', icon: 'credit-card-2-back', link:'cl', smallT: 'Credit', desc: 'Reglemment', isFloat : true , stat:'22'},
+        { id: 4, col: 2 , tag:"caisse", dataTag:'caisseNum', icon: 'pc-display-horizontal', link:'ca', smallT: 'Caisse', desc: 'Inventaire', isFloat : false , stat:'22'},
+        { id: 4, col: 2 , tag:"Equipe", dataTag:'equipeNum', icon: 'microsoft-teams', link:'tm/presence', smallT: 'Equipe', desc: 'Presence', isFloat : false , stat:'22'},
     ],
 
     //main chart card
@@ -141,6 +147,19 @@ const GConf = {
 
     //braedCrumb
     BreadCrumb:{
+        menuAddPlat: [
+            {id:1, name:'Menu', linkable:true, link:"/S/mu"},
+            {id:2, name:'Ajouter Plat', linkable:false}
+        ],
+        menuFamille: [
+            {id:1, name:'Menu', linkable:true, link:"/S/mu"},
+            {id:2, name:'Familles', linkable:false}
+        ],
+        platInfo: [
+            {id:1, name:'Menu', linkable:true, link:"/S/mu"},
+            {id:2, name:'Information', linkable:false}
+        ],
+
         stockAddArticle: [
             {id:1, name:'Stock', linkable:true, link:"/S/sk"},
             {id:2, name:'Ajouter Article', linkable:false}
@@ -149,6 +168,7 @@ const GConf = {
             {id:1, name:'Stock', linkable:true, link:"/S/sk"},
             {id:2, name:'Familles', linkable:false}
         ],
+
         stockBE: [
             {id:1, name:'Stock', linkable:true, link:"/S/sk"},
             {id:2, name:'Bon d\'entre', linkable:false}
@@ -293,12 +313,18 @@ const GConf = {
         ],
         camion: [
             {id:1,  icon: 'plus-circle', text: 'Ajouter Caisse', link: 'ajouter-c', dropD: false},
-            {id:2,  icon: 'ticket-detailed-fill', text: 'Bons', link: 'ajouter-f', dropD: false},
+            // {id:2,  icon: 'ticket-detailed-fill', text: 'Bons', link: 'bons', dropD: false},
             // {id:3,  icon: 'sliders', text: 'Inventaire', link: 'inventaire', dropD: false},
         ],
+        Menu: [
+            {id:1,  icon: 'bookmark-plus', text: 'Nouveaux Plat', link: 'ajouter', dropD: false},
+            {id:2, icon: 'tags', text: 'Famille des Plats', link: 'famille', dropD: false },
+            // {id:3, icon: 'box-arrow-in-up', text: 'Bond entre', link: 'be', dropD: false },
+            // {id:4, icon: 'box-arrow-up', text: 'Bond Sortie', link: 'bs', dropD: false },
+        ],
         Stock: [
-            {id:1,  icon: 'bookmark-plus', text: 'Nouveaux article', link: 'ajouter', dropD: false},
-            {id:2, icon: 'tags', text: 'Famille', link: 'famille', dropD: false },
+            {id:1,  icon: 'bookmark-plus', text: 'Nouveaux Plat', link: 'ajouter', dropD: false},
+            {id:2, icon: 'tags', text: 'Famille des Plats', link: 'famille', dropD: false },
             {id:3, icon: 'box-arrow-in-up', text: 'Bond entre', link: 'be', dropD: false },
             {id:4, icon: 'box-arrow-up', text: 'Bond Sortie', link: 'bs', dropD: false },
         ],
@@ -310,7 +336,7 @@ const GConf = {
             {id:1,  icon: 'person-plus-fill', text: 'Nouveaux Client', link: 'ajouter', dropD: false},
             // {id:2,  icon: 'map-fill', text: 'Régions', link: 'regions', dropD: false},
             {id:2,  icon: 'balloon-heart', text: 'Fidelité', link: 'fidelite', dropD: false},
-            {id:3 ,  icon: 'bar-chart-line-fill', text: 'Statistique', link: 'statistics', dropD: false},
+            // {id:3 ,  icon: 'bar-chart-line-fill', text: 'Statistique', link: 'statistics', dropD: false},
         ],
         Commande: [
             {id:1,  icon: 'person-plus-fill', text: 'Comptes', link: 'comptes', dropD: false},
@@ -323,16 +349,18 @@ const GConf = {
         ],
         Equipe: [
             {id:1,  icon: 'person-plus-fill', text: 'Nouveaux Membre', link: 'ajouter', dropD: false},
-            {id:2,  icon: 'stars', text: 'Postes', link: 'postes', dropD: false},
-            // {id:3,  icon: 'calendar2-week', text: 'Presence', link: 'presence', dropD: false},
+            {id:2,  icon: 'stars', text: 'Poste', link: 'postes', dropD: false},
+            {id:3,  icon: 'cash-stack', text: 'Avance', link: 'avances', dropD: false},
+            {id:4,  icon: 'calendar2-week', text: 'Presence', link: 'presence', dropD: false},
         ],
     },
     
     //TableHead
     TableHead:{
-        facture:['*','ID','Client','Jour','Totale','Stock','X','Voir'],
+        facture:['*','ID','Caisse','Client','Jour','Temps','Totale','Etat','X','Voir'],
         request:['*','ID','Client', 'Passé le','Volu le','Totale','Etat','X','Voir'],
-        stock:['*','Code', 'Nom', 'Genre','Stock','P.achat','P.vente','X','Voir'],
+        menu:['*','Code', 'Nom', 'Genre','Cout','P.vente','X','Voir'],
+        stock:['*','Code', 'Nom', 'Genre','Stock','P.achat', 'X','Voir'],
         camion:['*','Camion','Matricule', 'Chauffeur','Fond','Recette','X','Voir'],
         camionStock:['Code', 'Nom', 'Genre','Stock','Prix','Voir'],
         camionFacture:['ID','Client','Jour','Totale','Voir'],

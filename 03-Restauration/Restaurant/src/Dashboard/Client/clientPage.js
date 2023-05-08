@@ -39,11 +39,12 @@ function ClientPage() {
             PID: GConf.PID
         })
         .then(function (response) {
+            console.log(response.data)
             let testTable = []
             response.data.map( (getData) => testTable.push([
-            _(<AvatarCard lettre={capitalizeFirstLetter(getData.Name)} />),
-            getData.Name,
-            getData.Code_Fiscale,
+            _(<AvatarCard lettre={capitalizeFirstLetter(getData.CL_Name)} />),
+            getData.CL_Name,
+            getData.CIN,
             getData.Phone,
             _(<>{getData.Gouv} , {getData.Deleg} </>),
             getData.Adress,
@@ -55,9 +56,9 @@ function ClientPage() {
               toast.error(<><div><h5>Probleme de Connextion</h5> Chargemment des client sur votre ordinateur  </div></>, GConf.TostInternetGonf)   
               let testTable = []
             Offline.client.map( (getData) => testTable.push([
-            _(<AvatarCard lettre={capitalizeFirstLetter(getData.Name)} />),
-            getData.Name,
-            getData.Code_Fiscale,
+            _(<AvatarCard lettre={capitalizeFirstLetter(getData.CL_Name)} />),
+            getData.CL_Name,
+            getData.CIN,
             getData.Phone,
             _(<>{getData.Gouv} , {getData.Deleg} </>),
             getData.Adress,

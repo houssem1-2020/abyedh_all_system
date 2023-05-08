@@ -12,7 +12,7 @@ import { Button , Divider, Icon, Modal, Statistic} from 'semantic-ui-react';
 import { useNavigate} from 'react-router-dom';
 import { toast } from 'react-toastify';
 
-function ControlPage() {
+function CaissePage() {
   /*#########################[Const]##################################*/
   let [camionList, setCamionList] = useState([ SKLT.TableSlt ]); 
   let [loadingPage, setLoadingP] = useState(false); 
@@ -23,7 +23,7 @@ function ControlPage() {
 
   /*#########################[UseEffect]##################################*/
   useEffect(() => {
-    axios.post(`${GConf.ApiLink}/camions`, {
+    axios.post(`${GConf.ApiLink}/caisses`, {
         PID: GConf.PID,
       })
       .then(function (response) {
@@ -75,12 +75,12 @@ function ControlPage() {
                     <div className="text-center">
                             <div className='row mb-1'>
                                 <div className='col-4 align-self-center text-center'><img src="https://familia.anaslouma.tn/Assets/images/caisse.png" className="rounded-circle" width="50px" /></div>
-                                <div className='col-8 align-self-center text-start'><h4 className='mt-2'><a  className='data-link-modal'  onClick={() => openEditModal(props.data,true)} ><b> {loadingPage ? props.data.Cam_Name : SKLT.BarreSkl } </b></a> </h4> </div>
+                                <div className='col-8 align-self-center text-start'><h4 className='mt-2'><a  className='data-link-modal'  onClick={() => openEditModal(props.data,true)} ><b> {loadingPage ? props.data.CA_Name : SKLT.BarreSkl } </b></a> </h4> </div>
                             </div>
-                            <h6 className="text-secondary">  {loadingPage ? <><span className="bi bi-truck"></span> : { props.data.Matricule } | <span className="bi bi-person"></span> :  { props.data.Chauffeur } </>: SKLT.BarreSkl} </h6>
-                            <h6 className="text-secondary">  {loadingPage ? <><span className="bi bi-box2 "></span> :  {props.data.Fond}  | <span className="bi bi-coin"></span> : {props.data.Recette}  </>: SKLT.BarreSkl} </h6>
+                            {/* <h6 className="text-secondary">  {loadingPage ? <><span className="bi bi-truck"></span> : { props.data.Matricule } | <span className="bi bi-person"></span> :  { props.data.Chauffeur } </>: SKLT.BarreSkl} </h6> */}
+                            <h5 className="text-secondary mt-0 mb-2">  {loadingPage ? <><span className="bi bi-box2 "></span> :  {props.data.Recette}  | <span className="bi bi-coin"></span> : {parseInt(props.data.Caisse_Fond).toFixed(3)}  </>: SKLT.BarreSkl} </h5>
                     </div>
-                    <Button className='rounded-pill bg-system-btn mt-2' size='mini' onClick={ (e) => NavigateFunction(`/S/ca/info/${props.data.Cam_ID}`)}><span className='d-none d-lg-inline'> Info </span><Icon  name='angle right' /></Button>
+                    <Button className='rounded-pill bg-system-btn mt-2' size='mini' onClick={ (e) => NavigateFunction(`/S/ca/info/${props.data.C_ID}`)}><span className='d-none d-lg-inline'> Info </span><Icon  name='angle right' /></Button>
             </div>
           </div>
       </>)
@@ -144,4 +144,4 @@ function ControlPage() {
     </> );
 }
 
-export default ControlPage;
+export default CaissePage;

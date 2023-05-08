@@ -168,3 +168,4 @@ input[type="number"]:focus,
   /* box-shadow: 5px 10px rgb(238, 236, 236); */
 }
 .toast-bg-card{background-color: #ebedeb !important;}
+.tab-right{ justify-content:  flex-end !important }

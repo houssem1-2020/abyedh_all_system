@@ -20,6 +20,17 @@ function RequestPage() {
     const [selectedArticle, setSelectedArticle] = useState([])
 
     const navigate = useNavigate();
+    const Mainpanes = [
+      {
+        menuItem: { key: 'attent',  content: <span className='text-secondary border-secondary'><b><span className='bi bi-calendar2-week'></span> Reservation</b></span>  },
+        render: () => <Tab menu={{ secondary: true }} panes={panes} />,
+      },
+      {
+        menuItem: { key: 'accept',  content: <span className='text-secondary border-secondary'><b><span className='bi bi-cart-dash'></span> Commande</b></span> ,  },
+        render: () => <Tab menu={{ secondary: true }} panes={panes} />,
+      },
+    ]
+
     const panes = [
       {
         menuItem: { key: 'attent',  content: <span className='text-warning'><b><span className='bi bi-hourglass-split'></span> En Attent</b></span> , className:'rounded-pill'},
@@ -126,7 +137,9 @@ function RequestPage() {
         <br /> */}
         <Fade>
           {/* <TableGrid tableData={commandeList} columns={GConf.TableHead.request} /> */}
-          <Tab menu={{ secondary: true }} panes={panes} />
+          {/* <Tab menu={{ secondary: true }} panes={panes} /> */}
+          <Tab  menu={{ secondary: true, className: 'tab-right' }} panes={Mainpanes} />
+          
         </Fade>
         <Modal
               size='small'

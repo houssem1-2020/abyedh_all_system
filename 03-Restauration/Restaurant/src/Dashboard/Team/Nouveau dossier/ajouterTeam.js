@@ -9,7 +9,7 @@ import { toast } from 'react-toastify';
 import axios from 'axios';
 import useSaveNotification from '../../AssetsM/Hooks/saveNotifFunction';
 import { useEffect } from 'react';
-// import useGetPostes from '../Assets/Hooks/fetchPostes';
+import useGetPostes from '../../AssetsM/Hooks/fetchPostes';
 
 const FindInDirectory = ({inDirArticle, setInDirA,FindInDirectoryFunc, loaderState, OnKeyPressFunc}) =>{
     return(<>
@@ -25,7 +25,7 @@ const FindInDirectory = ({inDirArticle, setInDirA,FindInDirectoryFunc, loaderSta
 
 function AjouterTeam() {
     /*#########################[Const]##################################*/
-    //const [Postes] = useGetPostes() 
+    const [Postes] = useGetPostes() 
     const [teamList, setTealList] = useState([]); 
     const [teamD, setTeamD] = useState([])
     const [inDirArticle, setInDirA] = useState();
@@ -33,13 +33,11 @@ function AjouterTeam() {
     const [loaderState, setLS] = useState(false)
     const [delegList ,setDelegList] = useState([]) 
     let Offline = JSON.parse(localStorage.getItem(`${GConf.PID}_Offline`)); 
-    const Postes = [
-      {key:1, value:'Stock', text:'Stock'},
-      {key:2, value:'Caisse', text:'Cassieére'},
-      {key:3, value:'Rayon', text:'Rayon'},
-      {key:4, value:'Contoire', text:'Contoiore'},
-      {key:5, value:'Stage', text:'Stagiére'},
-    ]
+    // const Postes = [
+    //   {key:1, value:'Livreur', text:'Livreur'},
+    //   {key:1, value:'Chauffeur', text:'Chauffeur'},
+    //   {key:1, value:'Commerciale', text:'Commerciale'},
+    // ]
     /*#########################[UseEffect]##################################*/
     useEffect(() => {
       axios.post(`${GConf.ApiLink}/team`,{
@@ -77,8 +75,8 @@ function AjouterTeam() {
         else if (!teamD.Name) {toast.error("Nom Invalide !", GConf.TostErrorGonf)}
         else if (!teamD.Phone) {toast.error("Tel Invalide !", GConf.TostErrorGonf)}
         else if (!teamD.Poste) {toast.error("Poste  Invalide !", GConf.TostErrorGonf)}
-        // else if (!teamD.Gouv) {toast.error("Gouvernorat Invalide !", GConf.TostErrorGonf)}
-        // else if (!teamD.Deleg) {toast.error("Delegation Invalide !", GConf.TostErrorGonf)}
+        else if (!teamD.Gouv) {toast.error("Gouvernorat Invalide !", GConf.TostErrorGonf)}
+        else if (!teamD.Deleg) {toast.error("Delegation Invalide !", GConf.TostErrorGonf)}
         else if (!teamD.Adress) {toast.error("Adresee Invalide !", GConf.TostErrorGonf)}
         else{
             setLS(true)
@@ -160,13 +158,13 @@ function AjouterTeam() {
                         </div>
                         <div className='p-1 mb-2'>
                             <h5 className='mb-1'> Poste:</h5>
-                            <Select placeholder='Choisir Uu Poste' options={Postes}  className='w-100 shadow-sm rounded mb-3' value={teamD.Poste} onChange={(e, data) => setTeamD({...teamD, Poste: data.value })} />  
+                            <Select placeholder='Choisir Une Region' options={Postes}  className='w-100 shadow-sm rounded mb-3' value={teamD.Poste} onChange={(e, data) => setTeamD({...teamD, Poste: data.value })} />  
                         </div>
-                        {/* <div className='p-1 mb-2'>
+                        <div className='p-1 mb-2'>
                             <h5 className='mb-1'>Geolocation</h5>
                             <Select placeholder='Selectionnez Gouvernorat' fluid className='mb-2' options={TunMap.Gouv} value={teamD.gouv} onChange={(e, { value }) => GetDelegList(value)} />
                             <Select placeholder='Selectionnez Delegation ' fluid value={teamD.Deleg} options={delegList} onChange={(e, { value }) => setTeamD({...teamD, Deleg: value })} />
-                        </div> */}
+                        </div>
                         <div className='p-1 mb-2'>
                             <h5 className='mb-1'> Adresse:</h5>
                             <Form>
@@ -177,8 +175,12 @@ function AjouterTeam() {
                             <Button  onClick={SaveTeam} disabled={saveBtnState} className='text-end rounded-pill bg-system-btn ' positive>  <Icon name='save outline' /> Enregistrer <Loader inverted active={loaderState} inline size='tiny' className='ms-2 text-danger'/></Button>
                         </div>
                     </div>
-                    <div className='col-lg-4 d-none d-lg-block  align-self-center'> 
-                        <div className='text-center '>
+                    <div className='col-lg-4 '>
+                        <FindInDirectory inDirArticle={inDirArticle}  setInDirA={setInDirA} FindInDirectoryFunc={FindInDirectoryFunc} loaderState={loaderState} OnKeyPressFunc={OnKeyPressFunc} />
+                        <br />  
+                        <br />  
+                        <br />  
+                        <div className='text-center d-none d-lg-block  align-self-center'>
                                 <img src='https://assets.ansl.tn/Images/usful/client-add.svg' width='80%'  height='200px' /> 
                         </div> 
                     </div>

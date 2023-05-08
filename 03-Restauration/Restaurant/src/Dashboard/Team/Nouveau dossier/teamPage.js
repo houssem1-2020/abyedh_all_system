@@ -46,7 +46,7 @@ function TeamPage() {
         getData.T_Name,
         getData.T_Phone,
         getData.T_CIN,
-        _(<div className ='badge p-1 bg-info'>{moment(getData.Started_At, "YYYYMMDD").fromNow() }</div>),
+        _(<div className ='badge p-1 bg-info'>{moment(getData.Start_at, "YYYYMMDD").fromNow() }</div>),
         getData.Poste,
         _(<Button className='rounded-pill bg-system-btn' size='mini' onClick={ (e) => NavigateFunction(`/S/tm/info/${getData.T_ID}`)}><span className='d-none d-lg-inline'> Info </span><Icon  name='angle right' /></Button>)
         ],))

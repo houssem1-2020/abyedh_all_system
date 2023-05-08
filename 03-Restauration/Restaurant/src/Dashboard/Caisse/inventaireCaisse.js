@@ -6,7 +6,7 @@ import { Fade } from 'react-reveal';
 import axios from 'axios';
 import { toast } from 'react-toastify';
 import usePrintFunction from '../../AssetsM/Hooks/printFunction';
-import FrameForPrint from '../../AssetsM/Cards/frameForPrint';
+// import FrameForPrint from '../../AssetsM/Hooks/frameForPrint';
 import useSaveNotification from '../../AssetsM/Hooks/saveNotifFunction';
 
 const SelectCamion = ({CamionSelected, camionList, camionSelectState, selectedCam}) =>{
@@ -257,7 +257,7 @@ function InventaireCamion() {
                     
                 </div>
             </div>
-            <FrameForPrint frameId='PrintInventaire' src={`/Pr/Camion/Inventaire/${gettedBonID}`} />
+            {/* <FrameForPrint frameId='PrintInventaire' src={`/Pr/Camion/Inventaire/${gettedBonID}`} /> */}
         </> );
     }
 

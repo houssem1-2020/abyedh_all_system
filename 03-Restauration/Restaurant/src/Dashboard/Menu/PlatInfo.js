@@ -7,7 +7,7 @@ import { useParams } from 'react-router-dom';
 import axios from 'axios';
 import FullCalendar from '@fullcalendar/react' // must go before plugins
 import dayGridPlugin from '@fullcalendar/daygrid' // a plugin!
-
+import useGetFamillePlat from '../../AssetsM/Hooks/fetchPlatFamille';
 import { toast } from 'react-toastify';
 import SKLT from '../../AssetsM/Cards/usedSlk';
 import usePrintFunction from '../../AssetsM/Hooks/printFunction';
@@ -18,29 +18,53 @@ import ReactImageZoom from 'react-image-zoom';
 const EditArticle = ({articleD, setArticleD, checkPrixCompatiblite, familles, EditArticleFunction,loaderState,updateQte}) =>{
     return(<>
 
-                <h5 className='mb-1'>Code à barre:</h5>
-                <Input icon='barcode' disabled iconPosition='left' type='number' placeholder='code a barre' className='w-100 border-0 shadow-sm rounded mb-3' defaultValue={articleD.A_Code} onChange={(e) => setArticleD({...articleD, A_Code: e.target.value })} />
-                <h5 className='mb-1 mt-0'>Nom: </h5>
-                <Input icon='star' iconPosition='left' placeholder='Nom' className='w-100 border-0 shadow-sm rounded mb-3' defaultValue={articleD.Name} onChange={(e) => setArticleD({...articleD, Name: e.target.value })}/>
+                
+                <div className='row'>
+                        <div className='col-12 col-lg-12'>
+                            <h5 className='mb-1'>Nom: </h5>
+                            <Input icon='star' iconPosition='left' placeholder='Nom' className='w-100 border-0 shadow-sm rounded mb-3' defaultValue={articleD.Name} onChange={(e) => setArticleD({...articleD, Name: e.target.value })}/>
+                        </div>
+                        
+                </div> 
+                <div className='row'>
+                            <div className='col-12 col-lg-6'>
+                                <h5 className='mb-1'>Code  :</h5>
+                                <Input icon='barcode' disabled iconPosition='left' type='number' placeholder='code  ' className='w-100 border-0 shadow-sm rounded mb-3' defaultValue={articleD.A_Code} onChange={(e) => setArticleD({...articleD, A_Code: e.target.value })} />
+                            </div>
+                            <div className='col-12 col-lg-6'>
+                                <h5 className='mb-1'>Genre: </h5>
+                               <Select placeholder='Selectionez une Categorie' options={familles} className='w-100 shadow-sm rounded mb-3' defaultValue={articleD.Genre} onChange={(e, data) => setArticleD({...articleD, Genre: data.value })} />  
+                            </div>
+                </div>
                 <div className='row'>
                             <div className='col-12 col-lg-4'>
-                                <h5 className='mb-1'>Genre: </h5>
-                                {/* <Select placeholder='Selectionez une Categorie' options={familles} className='w-100 shadow-sm rounded mb-3' defaultValue={articleD.Genre} onChange={(e, data) => setArticleD({...articleD, Genre: data.value })} />   */}
-                                <Input icon='dollar' iconPosition='left'   placeholder='genre' defaultValue={articleD.Genre}   className='w-100 border-0 shadow-sm rounded mb-3' onChange={(e) => setArticleD({...articleD, Genre: e.target.value })}/> </div>
-                            <div className='col-12 col-lg-4'>
-                                <h5 className='mb-1'>Prix Acaht: </h5>
+                                <h5 className='mb-1'>Cout: </h5>
                                 <Input icon='dollar' iconPosition='left' type='number' placeholder='achat' defaultValue={articleD.Prix_achat} onBlur={checkPrixCompatiblite} className='w-100 border-0 shadow-sm rounded mb-3' onChange={(e) => setArticleD({...articleD, Prix_achat: e.target.value })}/> 
                             </div>
                             <div className='col-12 col-lg-4'>
-                                <h5 className='mb-1'>Quantité: </h5>
-                                <Input icon='dropbox' iconPosition='left' type='number' disabled={true} placeholder='quantité' className='w-100 border-0 shadow-sm rounded mb-3' defaultValue={articleD.Quantite} onChange={(e) => setArticleD({...articleD, Quantite: e.target.value })}/> 
+                                <h5 className='mb-1'>Prix Vente: </h5>
+                                <Input icon='dollar' iconPosition='left' type='number' placeholder='vente' defaultValue={articleD.Prix_vente} onBlur={checkPrixCompatiblite} className='w-100 border-0 shadow-sm rounded mb-3' onChange={(e) => setArticleD({...articleD, Prix_vente: e.target.value })}/>
+                            </div>
+                            <div className='col-12 col-lg-4'>
+                                <h5 className='mb-1'>Prix Promo: </h5>
+                                <Input icon='dollar' iconPosition='left' type='number' placeholder='promo' className='w-100 border-0 shadow-sm rounded mb-3' defaultValue={articleD.Prix_gros}  onChange={(e) => setArticleD({...articleD, Prix_gros: e.target.value })}/>
                             </div>
                 </div> 
                 <div className='row'>
-                            <div className='col-12 col-lg-12'>
+                            <div className='col-12 col-lg-6'>
+                                <h5 className='mb-1'>Quantité: </h5>
+                                <Input icon='dropbox' iconPosition='left' type='number' disabled={true} placeholder='quantité' className='w-100 border-0 shadow-sm rounded mb-3' defaultValue={articleD.Quantite} onChange={(e) => setArticleD({...articleD, Quantite: e.target.value })}/> 
+                            </div>
+                            <div className='col-12 col-lg-6'>
                                 <h5 className='mb-1'>Repture du stock: </h5>
                                 <Input icon='angle double down' iconPosition='left' type='number' placeholder='repture' className='w-100 border-0 shadow-sm rounded mb-3' defaultValue={articleD.Repture} onChange={(e) => setArticleD({...articleD, Repture: e.target.value })}/>
                             </div>
+                </div>
+                <div className='row'>
+                    <h5 className='mb-1'>Description</h5>
+                    <Form>
+                        <TextArea  rows="3" defaultValue={articleD.Details} className='w-100 shadow-sm rounded mb-3' onChange={(e) => setArticleD({...articleD, Details: e.target.value })}/>
+                    </Form> 
                 </div>
                 <div className='text-end mb-5'>
                     <Button onClick={EditArticleFunction} className='text-end rounded-pill bg-system-btn' positive>  <Icon name='edit' /> Modifier <Loader inverted active={loaderState} inline size='tiny' className='ms-2 text-danger'/></Button>
@@ -48,11 +72,11 @@ const EditArticle = ({articleD, setArticleD, checkPrixCompatiblite, familles, Ed
     </>)
 }
 
-function ArticleInfo() {
+function PlatInfo() {
     /*#########################[Const]##################################*/
     let Today = new Date().toISOString().split('T')[0]
     let {code} = useParams();
-    const[familles] = []
+    const[familles] = useGetFamillePlat()
     const [loading , setLoading] = useState(false)
     const [articleD, setArticleD] = useState({});
     const [loaderState, setLS] = useState(false)
@@ -74,7 +98,7 @@ function ArticleInfo() {
             render: () =><><Tab.Pane attached={false}><Calendar /></Tab.Pane><br /></>,
         },
         {
-            menuItem: { key: 'resumer', icon: 'file excel', content: 'Resumeé' }, 
+            menuItem: { key: 'resumer', icon: 'tasks', content: 'Ingrédient' }, 
             render: () => <><Tab.Pane attached={false}><ResumerArticle /></Tab.Pane><br /></>,
         },
         {
@@ -87,14 +111,14 @@ function ArticleInfo() {
         },
         {
             menuItem: { key: 'delete', icon: 'trash alternate', content: 'Supprimer' }, 
-            render: () => <><Tab.Pane attached={false}><DeleteArticleCard  /></Tab.Pane><br /></>,
+            render: () => <><Tab.Pane attached={false}><DeletePlatCard  /></Tab.Pane><br /></>,
         },
     ]
 
    /*#########################[UseEffect]##################################*/
     useEffect(() => {
         // console.log(new Date().toISOString().split('T')[0])
-        axios.post(`${GConf.ApiLink}/stock/article`, {
+        axios.post(`${GConf.ApiLink}/menu/plat`, {
             PID: GConf.PID,
             code: code, 
           })
@@ -116,30 +140,30 @@ function ArticleInfo() {
             }
           });
 
-        // //calendar
-        // axios.post(`${GConf.ApiLink}/stock/article/calendar`, {
-        //     PID : GConf.PID,
-        //     code: code, 
-        //   })
-        // .then(function (response) {
+        //calendar
+        axios.post(`${GConf.ApiLink}/menu/plat/calendar`, {
+            PID : GConf.PID,
+            code: code, 
+          })
+        .then(function (response) {
             
-        //     let inFactureList = []
-        //     response.data[0].InFacture.map( (factureList) => inFactureList.push( { title: GetTargetArticleQte(factureList.Articles,'Qte'), date: GenerateDate(factureList.Cre_Date, 1), className:'bg-primary border-0 w-25 text-center' }))
+            let inFactureList = []
+            response.data[0].InFacture.map( (factureList) => inFactureList.push( { title: GetTargetArticleQte(factureList.Articles,'Qte'), date: GenerateDate(factureList.Cre_Date, 1), className:'bg-primary border-0 w-25 text-center' }))
             
-        //     let forCamionList = []
-        //     response.data[0].ForCamion.map( (camionData) => forCamionList.push( { title: GetTargetArticleQte(camionData.Articles,'QteAjoute') , date: GenerateDate(camionData.Jour, 1) , className:'bg-danger border-0 w-25 text-center' }))
+            let forCamionList = []
+            response.data[0].ForCamion.map( (camionData) => forCamionList.push( { title: GetTargetArticleQte(camionData.Articles,'QteAjoute') , date: GenerateDate(camionData.Jour, 1) , className:'bg-danger border-0 w-25 text-center' }))
             
-        //     let fromBonBE = []
-        //     response.data[0].bonE.map( (bonBe) => fromBonBE.push( { title: GetTargetArticleQte(bonBe.Articles,'NewQte'), date:  GenerateDate(bonBe.BE_Date, 1) , className:'bg-success border-0 w-25 text-center'}))
+            let fromBonBE = []
+            response.data[0].bonE.map( (bonBe) => fromBonBE.push( { title: GetTargetArticleQte(bonBe.Articles,'NewQte'), date:  GenerateDate(bonBe.BE_Date, 1) , className:'bg-success border-0 w-25 text-center'}))
             
 
-        //     let fromBonBS = []
-        //     response.data[0].bonS.map( (bonBs) => fromBonBE.push( { title: GetTargetArticleQte(bonBs.Articles,'NewQte'), date: GenerateDate(bonBs.BE_Date, 1), className:'bg-warning border-0 w-25 text-center'}))
+            let fromBonBS = []
+            response.data[0].bonS.map( (bonBs) => fromBonBE.push( { title: GetTargetArticleQte(bonBs.Articles,'NewQte'), date: GenerateDate(bonBs.BE_Date, 1), className:'bg-warning border-0 w-25 text-center'}))
 
-        //     //setArticleEvents(inFactureList.concat(forCamionList,fromBonBE,fromBonBS))
-        //     setArticleEvents(ConcatunateResult(inFactureList).concat(ConcatunateResult(forCamionList),ConcatunateResult(fromBonBE),ConcatunateResult(fromBonBS)))
+            //setArticleEvents(inFactureList.concat(forCamionList,fromBonBE,fromBonBS))
+            setArticleEvents(ConcatunateResult(inFactureList).concat(ConcatunateResult(forCamionList),ConcatunateResult(fromBonBE),ConcatunateResult(fromBonBS)))
                 
-        // })
+        })
 
         // Find Image 
         axios.post(`${GConf.ApiLink}/stock/checkAbyedhDb`, {
@@ -163,7 +187,7 @@ function ArticleInfo() {
     const EditArticleFunction = (event) => {
         //console.log(articleD)
         setLS(true)
-        axios.post(`${GConf.ApiLink}/stock/modifier`, {
+        axios.post(`${GConf.ApiLink}/menu/modifier`, {
             tag :GConf.PID,
             articleND :articleD,
         }).then(function (response) {
@@ -186,7 +210,7 @@ function ArticleInfo() {
     }
     const UpdatePhotoFunction = (pathLink) => {
         setLS(true)
-        axios.post(`${GConf.ApiLink}/stock/modifier/image`, {
+        axios.post(`${GConf.ApiLink}/menu/modifier/image`, {
             PID  :GConf.PID,
             code : code,
             path : pathLink
@@ -209,7 +233,7 @@ function ArticleInfo() {
 
     const DeleteArticle = () =>{
         setLS(true)
-        axios.post(`${GConf.ApiLink}/stock/supprimer`, {
+        axios.post(`${GConf.ApiLink}/menu/supprimer`, {
             tag :GConf.PID,
             code : code ,
             pk: articleD.PK
@@ -294,7 +318,7 @@ function ArticleInfo() {
     }
    
    /*#########################[Card]##################################*/
-    const ArticleCard = (props) =>{
+    const PlatCard = (props) =>{
         const ReptureState = () =>{
             return (
             props.data.Repture >= props.data.Quantite ? <span className='bi bi-exclamation-triangle-fill bi-sm text-danger'></span> : <span className='bi bi-box2-heart-fill bi-sm text-success'></span>
@@ -309,22 +333,35 @@ function ArticleInfo() {
                     </div>
                     <div className="img-card-container text-center">
                         <div className="card-container notification">
-                            <img src={`https://assets.ansl.tn/Images/Articles/${props.data.Photo_Path}`} className="rounded-circle" width="80px" height="80px" />                    
+                            <img src={`https://cdn.abyedh.tn/images/system/Resto/plat.png`} className="rounded-circle" width="80px" height="80px" />                    
                         </div>
                     </div>
                     <div className="mt-5 text-center">
                             <h4 className='mt-2'>{loading ? props.data.Name : SKLT.BarreSkl } </h4> 
                             <h6 className="text-secondary">  {loading ? <><span className="bi bi-bookmark-star-fill"></span> { props.data.Genre } </>: SKLT.BarreSkl} </h6>
-                            <h6 className="text-secondary"> {loading ? <><span className="bi bi-house-heart-fill"></span> { props.data.Socite } </>: SKLT.BarreSkl } </h6>
                             <Divider horizontal className='text-secondary mt-4'>Prix</Divider>
-                                <Statistic color='red' size='tiny' className='mb-0'>
+                            <div className='row text-center'>
+                                <div className='col-6'>
+                                    <Statistic color='red' size='tiny'>
                                     {loading ?  
                                         <Statistic.Value>
                                             {parseFloat(props.data.Prix_achat).toFixed(3)} 
                                         </Statistic.Value>
                                         : SKLT.ProfileSkl }  
-                                        <Statistic.Label>Achat</Statistic.Label>
-                                </Statistic>
+                                        <Statistic.Label>Cout</Statistic.Label>
+                                    </Statistic>
+                                </div>
+                                <div className='col-6'>
+                                    <Statistic color='red' size='tiny'>
+                                        {loading ?  
+                                        <Statistic.Value>
+                                            {parseFloat(props.data.Prix_vente).toFixed(3)} 
+                                        </Statistic.Value>
+                                        : SKLT.ProfileSkl }
+                                        <Statistic.Label>Vente</Statistic.Label>
+                                    </Statistic>
+                                </div>
+                            </div>
                             <Divider horizontal className='text-secondary mt-4'>Quantite</Divider>
                             <div className='row text-center'>
                                 <div className='col-12 mb-3'>
@@ -358,15 +395,15 @@ function ArticleInfo() {
             height='420px'
             navLinks ={true}
         />
-        <div className='row mt-2'>
-        <div className='col'><span className='bi bi-circle-fill text-success '></span> Par Bon entre</div>
+        {/* <div className='row mt-2'>
+            <div className='col'><span className='bi bi-circle-fill text-success '></span> Par Bon entre</div>
             <div className='col'><span className='bi bi-circle-fill text-warning '></span> Par Bon Sortie</div>
             <div className='col'><span className='bi bi-circle-fill text-primary '></span> Dans Factures</div>
             <div className='col'><span className='bi bi-circle-fill text-danger '></span> Vers Camion</div>
-        </div>
+        </div> */}
         </>)
     }
-    const DeleteArticleCard = () =>{
+    const DeletePlatCard = () =>{
         return(<>
             <h3 className="text-secondary">Voulez-Vous Vraimment Supprimer Cett Article ?</h3> 
             <div className='row'>
@@ -467,11 +504,11 @@ function ArticleInfo() {
     }
 
     return ( <> 
-                <BreadCrumb links={GConf.BreadCrumb.stockInfo} />
+                <BreadCrumb links={GConf.BreadCrumb.platInfo} />
                 <br />
                 <div className="row">
                     <div className="col-12 col-lg-4">
-                        <ArticleCard data={articleD}/> 
+                        <PlatCard data={articleD}/> 
                     </div>
                     <div className="col-12 col-lg-8">
                         <Tab menu={{ secondary: true, pointing: true ,className: "wrapped"}} panes={panes} />
@@ -482,4 +519,4 @@ function ArticleInfo() {
      </> );
 }
 
-export default ArticleInfo;
+export default PlatInfo;

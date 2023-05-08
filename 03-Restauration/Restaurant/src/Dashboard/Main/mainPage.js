@@ -24,13 +24,13 @@ function MainPage() {
     date.locale(fr)
     const panes = [
             {
-            menuItem: 'Commandes',
-            render: () => <ChartsContainer chart={<PieChartCard data={commandeD}/>} col='4' title='Distrubition des commandes' />,
+            menuItem: 'Menu',
+            render: () => <ChartsContainer chart={<PieChartCard data={genreD}/>} col='4' title='Distrubition des Plats' />,
             },
             {
-            menuItem: 'Articles',
-            render: () => <ChartsContainer chart={<PieChartCard data={genreD}/>} col='4' title='Distrubition des articless' />,
-            },
+                menuItem: 'Commandes',
+                render: () => <ChartsContainer chart={<PieChartCard data={commandeD}/>} col='4' title='Distrubition des Reervation' />,
+                },
             {
             menuItem: 'Clients',
             render: () => <ChartsContainer chart={<PieChartCard data={PieData}/>} col='4' title='Distrubition des client' />,
@@ -44,9 +44,8 @@ function MainPage() {
           })
           .then(function (response) {
 
-            if(new Date(response.data.activationState.ExpiredThe) < new Date()){
+            if(response.data.activationState  && new Date(response.data.activationState.ExpiredThe) < new Date()){
                 //LogOut()
-
                 toast.error(<><div className='card-body w-100'>
                             <h3 className='text-danger'>Votre System est Expiré</h3> 
                             vous devez réactiver votre système , Voir <a href='/S/Parametre'> Paramétre </a> pour plus d'info ou bien contactez l'administration ABYEDH
@@ -54,6 +53,7 @@ function MainPage() {
                             </>, GConf.TostExpired)
             }
 
+            console.log(response.data)
             setStat(response.data)
 
             
@@ -93,7 +93,7 @@ function MainPage() {
 
         return (<>
                 
-                <div className={`col-12 col-md-${props.data.col} mb-3`}>
+                <div className={`col-12 col-md -${props.data.col} mb-3`}>
                     <div className="card card-body bg-hover-card shadow-sm pb-2 border-div">
                         <NavLink exact="true" to={`../${props.data.link}`}   className="stretched-link" />
                         <div className="row">
@@ -233,7 +233,7 @@ function MainPage() {
                 <div className='col-12 col-lg-8 mb-4 '> 
                         <h5 className='mt-3 mb-4'>Evolution de Recette</h5> 
                         {/* <ChartsContainer chart={<LineChts  data={depoTR}/>} col='7' title='' /> */}
-                        <ChartsContainer chart={<BarCht />} col='7' title='Recette des Camions' /> 
+                        <ChartsContainer chart={<BarCht />} col='7' title='Recette des Caisses' /> 
 
                 </div>
                 <div className='col-12 col-lg-4 mb-4'> <Tab menu={{ secondary: true }} panes={panes} /></div>
@@ -241,7 +241,7 @@ function MainPage() {
 
             </div>
             <div className="row justify-content-center mb-4 d-none">
-                <ChartsContainer chart={<BarCht />} col='5' title='Recette des Camions' />
+                <ChartsContainer chart={<BarCht />} col='5' title='Recette des Caisses' />
                 {/* <ChartsContainer chart={<LineChts  data={depoTR}/>} col='7' title='Evolution de Recette' /> */}
                 <ChartsContainer chart={<PieChartCard data={commandeD}/>} col='4' title='Evolution de Recette' />
                 <ChartsContainer chart={<PieChartCard data={PieData}/>} col='4' title='Distrubition des client' />

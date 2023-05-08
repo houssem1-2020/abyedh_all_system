@@ -66,21 +66,21 @@ function AjouterCamion() {
             <Bounce left>
                 <div className='row'>
                     <div className='col-12 col-lg-8'>
-                         <div className='p-1 mb-2'>
+                         {/* <div className='p-1 mb-2'>
                             <h5 className='mb-1'>Matricule:</h5>
                             <Input icon='key' iconPosition='left' placeholder='Matricule' className='w-100 border-0 shadow-sm rounded mb-1'  onChange={(e) => setCamionD({...camionD, Matricule: e.target.value })}/>
-                         </div>
+                         </div> */}
                          <div className='p-1  mb-2'>
                             <h5 className='mb-1'>Nom:</h5>
-                            <Input icon='truck' iconPosition='left' placeholder='Nom' className='w-100 border-0 shadow-sm rounded mb-1' onChange={(e) => setCamionD({...camionD, Cam_Name: e.target.value })} />
+                            <Input icon='desktop' iconPosition='left' placeholder='Nom' className='w-100 border-0 shadow-sm rounded mb-1' onChange={(e) => setCamionD({...camionD, Cam_Name: e.target.value })} />
                         </div>
-                        <div className='p-1 mb-2'>
+                        {/* <div className='p-1 mb-2'>
                             <h5 className='mb-1'>Marque:</h5>
                             <Input icon='star' iconPosition='left' placeholder='Marque' className='w-100 border-0 shadow-sm rounded mb-1' onChange={(e) => setCamionD({...camionD, Marque: e.target.value })} />
-                        </div>
+                        </div> */}
                         <div className='p-1 mb-2'>
-                            <h5 className='mb-1'> Chauffeur:</h5>
-                            <Input icon='user' iconPosition='left' placeholder='Chauffeur' className='w-100 border-0 shadow-sm rounded mb-1' onChange={(e) => setCamionD({...camionD, Chauffeur: e.target.value })}/>
+                            <h5 className='mb-1'> Fond:</h5>
+                            <Input icon='dollar sign' iconPosition='left' placeholder='Fond' className='w-100 border-0 shadow-sm rounded mb-1' onChange={(e) => setCamionD({...camionD, Chauffeur: e.target.value })}/>
                         </div>
                         <div className='row mb-3'>
                                 <div className='col-12 col-lg-6'>
