@@ -22,6 +22,7 @@ function MenuPage() {
     const [modalS, setModalS] = useState(false)
     const [selectedArticle, setSelectedArticle] = useState([])
     let test = useGetArticles()
+    
     /*#########################[UseEffect]##################################*/
     useEffect(() => {
       axios.post(`${GConf.ApiLink}/menu`, {
@@ -33,14 +34,14 @@ function MenuPage() {
           } else {
               let articleListContainer = []
               response.data.map( (getData) => articleListContainer.push([
-                _(<TableImage image={'plat.png'} forStock onClick={() => openEditModal(getData,true)}/>),
-                getData.A_Code,
+                _(<TableImage image={getData.Photo_Path} forStock onClick={() => openEditModal(getData,true)}/>),
+                getData.P_Code,
                 getData.Name,
                 getData.Genre,
-                getData.Prix_achat.toFixed(3),
+                getData.Cout.toFixed(3),
                 getData.Prix_vente.toFixed(3),
                 _( <a  className='data-link-modal'  onClick={() => openEditModal(getData,true)} ><b> <span className='bi bi-arrows-fullscreen'></span> </b></a>),
-                _(<Button className='rounded-pill bg-system-btn' size='mini' onClick={ (e) => NavigateFunction(`/S/mu/info/${getData.A_Code}`)}><span className='d-none d-lg-inline'> Info </span><Icon  name='angle right' /></Button>),
+                _(<Button className='rounded-pill bg-system-btn' size='mini' onClick={ (e) => NavigateFunction(`/S/mu/info/${getData.P_Code}`)}><span className='d-none d-lg-inline'> Info </span><Icon  name='angle right' /></Button>),
               ],))
               setArticleList(articleListContainer) 
           }
@@ -50,12 +51,12 @@ function MenuPage() {
             let articleListContainer = []
             Offline.stock.map( (getData) => articleListContainer.push([
                 _(<TableImage image={getData.Photo_Path} forStock/>),
-                getData.A_Code,
+                getData.P_Code,
                 _( <a  className='data-link-modal'  onClick={() => openEditModal(getData,true)} ><b> {getData.Name} </b></a>),
                 getData.Genre,
-                getData.Prix_achat.toFixed(3),
+                getData.Cout.toFixed(3),
                 getData.Prix_vente.toFixed(3),
-                _(<Button className='rounded-pill bg-system-btn' size='mini' onClick={ (e) => NavigateFunction(`/S/mu/info/${getData.A_Code}`)}><span className='d-none d-lg-inline'> Info </span><Icon  name='angle right' /></Button>)
+                _(<Button className='rounded-pill bg-system-btn' size='mini' onClick={ (e) => NavigateFunction(`/S/mu/info/${getData.P_Code}`)}><span className='d-none d-lg-inline'> Info </span><Icon  name='angle right' /></Button>)
               ],))
               setArticleList(articleListContainer)
             }
@@ -81,11 +82,13 @@ function MenuPage() {
     return (<>
               <div className='row'>
                   <div className='col-12 col-lg-8'><SubNav dataForNav={GConf.SubNavs.Menu} /></div>
-                  <div className='col-12 col-lg-4 text-end align-self-center'><MainSubNavCard text='Stock' link='sk' icon='box-seam-fill' /> <MainSubNavCard text='Fournisseur' link='fs' icon='truck' /> </div>
+                  <div className='col-12 col-lg-4 text-end align-self-center'>
+                     <MainSubNavCard text='Stock' link='sk' icon='box-seam-fill' /> 
+                     {/* <MainSubNavCard text='Fournisseur' link='fs' icon='truck' />  */}
+                  </div>
               </div>
               
               <br />
-              {/* Lazem tet7at linna beach ma tehlekch el dropdowm menu  */}
               <Fade> 
                 <TableGrid tableData={articleList} columns={GConf.TableHead.menu} />
               </Fade> 
@@ -106,11 +109,11 @@ function MenuPage() {
                                         <tbody>
                                               <tr>
                                                  <td>Code : </td> 
-                                                 <td>{selectedArticle.A_Code}</td> 
+                                                 <td>{selectedArticle.P_Code}</td> 
                                               </tr>
                                               <tr>
                                                  <td>Achat : </td> 
-                                                 <td>{selectedArticle.Prix_achat ? (selectedArticle.Prix_achat).toFixed(3) : ''}</td> 
+                                                 <td>{selectedArticle.Cout ? (selectedArticle.Cout).toFixed(3) : ''}</td> 
                                               </tr>
                                               <tr>
                                                  <td>Vente : </td> 
@@ -143,7 +146,7 @@ function MenuPage() {
                       </Modal.Content>
                       <Modal.Actions>
                                   <Button className='rounded-pill' negative onClick={ () => setModalS(false)}> <span className='bi bi-x' ></span> Fermer</Button>
-                                  <Button className='rounded-pill bg-system-btn'   onClick={ (e) => NavigateFunction(`/S/sk/info/${selectedArticle.A_Code}`)}><span className='d-none d-lg-inline'> Info </span><Icon  name='angle right' /></Button>
+                                  <Button className='rounded-pill bg-system-btn'   onClick={ (e) => NavigateFunction(`/S/sk/info/${selectedArticle.P_Code}`)}><span className='d-none d-lg-inline'> Info </span><Icon  name='angle right' /></Button>
                       </Modal.Actions>
               </Modal>  
               </Transition>

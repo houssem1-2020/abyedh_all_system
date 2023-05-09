@@ -31,23 +31,20 @@ function AddPlatMenu() {
     const [loaderState, setLS] = useState(false)
     const SaveNotification = (genre,tag,table) =>{ useSaveNotification(genre,tag,table)}
     let Offline = JSON.parse(localStorage.getItem(`${GConf.PID}_Offline`));
+
     /*#########################[Functions ]##################################*/
     const SaveArticle = (event) => {
-            if (!articleD.A_Code) {toast.error("Code à barre Invalide !", GConf.TostErrorGonf)}
+            if (!articleD.P_Code) {toast.error("Code à barre Invalide !", GConf.TostErrorGonf)}
             else if (!articleD.Name || articleD.Name == '') {toast.error("Name Invalide !", GConf.TostErrorGonf)}
             else if (!articleD.Genre) {toast.error("Genre Invalide !", GConf.TostErrorGonf)}
-            else if (!articleD.Groupage) {toast.error("Groupage Invalide !", GConf.TostErrorGonf)}
-            else if (!articleD.Socite) {toast.error("Socite Invalide !", GConf.TostErrorGonf)}
-            else if (!articleD.PrixA) {toast.error("Prix Achat Invalide !", GConf.TostErrorGonf)}
-            else if (!articleD.PrixV) {toast.error("Prix Vente Invalide !", GConf.TostErrorGonf)}
-            else if (!articleD.PrixP) {toast.error("Prix Promo Invalide !", GConf.TostErrorGonf)}
-            else if (!articleD.Qte) {toast.error("Quantite Invalide !", GConf.TostErrorGonf)}
+            else if (!articleD.Cout) {toast.error("Prix Achat Invalide !", GConf.TostErrorGonf)}
+            else if (!articleD.Prix_vente) {toast.error("Prix Vente Invalide !", GConf.TostErrorGonf)}
+            else if (!articleD.Prix_promo) {toast.error("Prix Promo Invalide !", GConf.TostErrorGonf)}
             else if (!articleD.Repture) {toast.error("Repture Invalide !", GConf.TostErrorGonf)}
-            else if (!articleD.TVA) {toast.error("TVA Invalide !", GConf.TostErrorGonf)}
-            else if (!articleD.Desc) {toast.error("Description Invalide !", GConf.TostErrorGonf)}
+            else if (!articleD.Description) {toast.error("Description Invalide !", GConf.TostErrorGonf)}
             else{
                 setLS(true)
-                axios.post(`${GConf.ApiLink}/stock/ajouter`, {
+                axios.post(`${GConf.ApiLink}/menu/ajouter`, {
                     PID : GConf.PID,
                     articleD : articleD,
                 }).then(function (response) {
@@ -55,7 +52,7 @@ function AddPlatMenu() {
                         setSaveBtnState('disabled')
                         toast.success("Article Enregistreé !", GConf.TostSuucessGonf)
                         setLS(false)
-                        SaveNotification('stockSaveArticle',GConf.PID, articleD)
+                        //SaveNotification('stockSaveArticle',GConf.PID, articleD)
                     }
                     else{
                         toast.error('Erreur esseyez de nouveaux', GConf.TostSuucessGonf)
@@ -74,18 +71,18 @@ function AddPlatMenu() {
             
     }  
     const checkArticleExistance = () =>{
-        if(articleD.A_Code){
-            if(articles.includes(parseInt(articleD.A_Code))) {
+        if(articleD.P_Code){
+            if(articles.includes(parseInt(articleD.P_Code))) {
                 toast.error("Article Exist Deja", GConf.TostErrorGonf)
-                setArticleD({...articleD, A_Code: '' })
+                setArticleD({...articleD, P_Code: '' })
             } 
         }
     }
     const checkPrixCompatiblite = () =>{
-        if(articleD.PrixA && articleD.PrixV){
-            if(parseFloat(articleD.PrixA) > parseFloat(articleD.PrixV)) {
+        if(articleD.Cout && articleD.Prix_vente){
+            if(parseFloat(articleD.Cout) > parseFloat(articleD.Prix_vente)) {
                 toast.error("Le Prix d'achat > Prix de Vente", GConf.TostErrorGonf)
-                setArticleD({...articleD, PrixV: '', PrixA: '' })
+                setArticleD({...articleD, Prix_vente: '', Cout: '' })
             } 
         }
         
@@ -100,7 +97,7 @@ function AddPlatMenu() {
                 if(response.data.length  != 0) {
                     toast.success("Article Connu !", GConf.TostSuucessGonf)
                     setLS(false)
-                    setArticleD({ ...articleD, A_Code: response.data.A_Code,  Name: response.data.Name, Groupage : response.data.Colis, Socite : response.data.Socite})
+                    setArticleD({ ...articleD, P_Code: response.data.P_Code,  Name: response.data.Name, Groupage : response.data.Colis, Socite : response.data.Socite})
                 }
                 else{
                     toast.error('Pas De Resultat ', GConf.TostSuucessGonf)
@@ -138,7 +135,7 @@ function AddPlatMenu() {
                     <div className='row'>
                                 <div className='col-12 col-lg-6'>
                                     <h5 className='mb-1'>Code  :</h5>
-                                    <Input icon='barcode' iconPosition='left' type='number' placeholder='code  ' className='w-100 border-0 shadow-sm rounded mb-3' onKeyPress={event => OnKeyPressFunc(event)} onBlur={checkArticleExistance} value={articleD.A_Code} onChange={(e) => setArticleD({...articleD, A_Code: e.target.value })} />
+                                    <Input icon='barcode' iconPosition='left' type='number' placeholder='code  ' className='w-100 border-0 shadow-sm rounded mb-3' onKeyPress={event => OnKeyPressFunc(event)} onBlur={checkArticleExistance} value={articleD.P_Code} onChange={(e) => setArticleD({...articleD, P_Code: e.target.value })} />
                                 </div>
                                 <div className='col-12 col-lg-6'>
                                     <h5 className='mb-1'>Genre: </h5>
@@ -146,33 +143,30 @@ function AddPlatMenu() {
                                 </div>
                     </div>
                     <div className='row'>
-                                <div className='col-12 col-lg-4'>
+                                <div className='col-12 col-lg-6'>
                                     <h5 className='mb-1'>Cout: </h5>
-                                    <Input icon='dollar' iconPosition='left' type='number' placeholder='achat' value={articleD.PrixA} onBlur={checkPrixCompatiblite} className='w-100 border-0 shadow-sm rounded mb-3' onChange={(e) => setArticleD({...articleD, PrixA: e.target.value })}/> 
+                                    <Input icon='dollar' iconPosition='left' type='number' placeholder='achat' value={articleD.Cout} onBlur={checkPrixCompatiblite} className='w-100 border-0 shadow-sm rounded mb-3' onChange={(e) => setArticleD({...articleD, Cout: e.target.value })}/> 
                                 </div>
-                                <div className='col-12 col-lg-4'>
+                                <div className='col-12 col-lg-6'>
                                     <h5 className='mb-1'>Prix Vente: </h5>
-                                    <Input icon='dollar' iconPosition='left' type='number' placeholder='vente' value={articleD.PrixV} onBlur={checkPrixCompatiblite} className='w-100 border-0 shadow-sm rounded mb-3' onChange={(e) => setArticleD({...articleD, PrixV: e.target.value })}/>
+                                    <Input icon='dollar' iconPosition='left' type='number' placeholder='vente' value={articleD.Prix_vente} onBlur={checkPrixCompatiblite} className='w-100 border-0 shadow-sm rounded mb-3' onChange={(e) => setArticleD({...articleD, Prix_vente: e.target.value })}/>
                                 </div>
-                                <div className='col-12 col-lg-4'>
-                                    <h5 className='mb-1'>Prix Promo: </h5>
-                                    <Input icon='dollar' iconPosition='left' type='number' placeholder='promo' className='w-100 border-0 shadow-sm rounded mb-3' onChange={(e) => setArticleD({...articleD, PrixP: e.target.value })}/>
-                                </div>
+                                
                     </div> 
                     <div className='row'>
                                 <div className='col-12 col-lg-6'>
-                                    <h5 className='mb-1'>Quantité: </h5>
-                                    <Input icon='dropbox' iconPosition='left' type='number' placeholder='quantité' className='w-100 border-0 shadow-sm rounded mb-3' onChange={(e) => setArticleD({...articleD, Qte: e.target.value })}/> 
+                                    <h5 className='mb-1'>Prix Promo: </h5>
+                                    <Input icon='dollar' iconPosition='left' type='number' placeholder='promo' className='w-100 border-0 shadow-sm rounded mb-3' onChange={(e) => setArticleD({...articleD, Prix_promo: e.target.value })}/>
                                 </div>
                                 <div className='col-12 col-lg-6'>
                                     <h5 className='mb-1'>Repture du stock: </h5>
-                                    <Input icon='angle double down' iconPosition='left' type='number' placeholder='repture' className='w-100 border-0 shadow-sm rounded mb-3' onChange={(e) => setArticleD({...articleD, Repture: e.target.value })}/>
+                                    <Input icon='angle double down' iconPosition='left' type='number' placeholder='Repture' className='w-100 border-0 shadow-sm rounded mb-3' onChange={(e) => setArticleD({...articleD, Repture: e.target.value })}/>
                                 </div>
                     </div>
                     <div className='row'>
                         <h5 className='mb-1'>Description</h5>
                             <Form>
-                                <TextArea  rows="3" placeholder='designer votre article' className='w-100 shadow-sm rounded mb-3' onKeyPress={event => OnKeyPressFunc(event)}  onChange={(e) => setArticleD({...articleD, Desc: e.target.value })}/>
+                                <TextArea  rows="3" placeholder='designer votre article' className='w-100 shadow-sm rounded mb-3' onKeyPress={event => OnKeyPressFunc(event)}  onChange={(e) => setArticleD({...articleD, Description: e.target.value })}/>
                             </Form> 
                         </div>
                         <div className='text-end mb-5'>

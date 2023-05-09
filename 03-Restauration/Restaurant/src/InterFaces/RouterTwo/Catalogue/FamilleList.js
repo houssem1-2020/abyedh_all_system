@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
-import BackCard from '../Assets/backCard';
-import InputLinks from '../Assets/linksData';
+import BackCard from '../Assets/Cards/backCard';
+import GConf from '../Assets/linksData';
 import { Button, Icon } from 'semantic-ui-react';
 import TableGrid from '../../Dashboard/Assets/tableGrid';
 import axios from 'axios';
@@ -58,7 +58,7 @@ function FamilleList() {
   const NavigateFunction = (link) => {  navigate(link) }
 
     return ( <>
-        <BackCard data={InputLinks.backCard.cgList}/>
+        <BackCard data={GConf.backCard.cgList}/>
        
         <br />
         <div className='container-fluid'>

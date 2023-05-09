@@ -23,16 +23,16 @@ function RequestInfo() {
 
     /*#########################[useEffect]##################################*/ 
     useEffect(() => {
-        axios.post(`${GConf.ApiLink}/commande/info`, {
+        axios.post(`${GConf.ApiLink}/reservation/info`, {
             PID : GConf.PID,
             CID: CID
           })
           .then(function (response) {
+                console.log(response.data)
                 if (!response.data[0]) {
                     toast.error('Commande Introuvable !', GConf.TostSuucessGonf)
                     setTimeout(() => {  window.location.href = "/S/rq"; }, 2000)
                 } else {
-                    setArticleL(JSON.parse(response.data[0].C_Articles))
                     setCommandeD(response.data[0])
                     setLoading(true)  
                     setFacturerD({client: response.data[0].Client, de:'Sidi Bourouis', vers: response.data[0].Adress, jour: response.data[0].Date_Volu, totale: response.data[0].Totale , articles:JSON.parse(response.data[0].Articles)})    
@@ -114,7 +114,7 @@ function RequestInfo() {
     const CommentaireCard = () =>{
         return(<>
                 <div className='card card-body shadow-sm mb-2 mt-3 border-div'>
-                <h5>Info Client</h5>
+                    <h5>Info Client</h5>
                     <div className='row mb-2'>
                         <div className='col-12 col-lg-6'> Nom : {loading ? commandeData.Name : ''} </div> 
                         <div className='col-12 col-lg-6'> Phone : {loading ? commandeData.PhoneNum : ''} </div> 
@@ -122,8 +122,8 @@ function RequestInfo() {
                         <div className='col-12 col-lg-6'> Deleg : {loading ? commandeData.BirthDeleg : ''} </div> 
                     </div> 
                     <div className='text-end'>
-                    <Button  className='rounded-pill text-secondary' size='mini'    onClick={(e) => PrintFunction('framed')}><Icon name='edit outline' /> Enregistrer Client </Button>
-                    </div> 
+                    <Button  className='rounded-pill text-secondary' size='mini'    onClick={(e) => PrintFunction('framed')}><Icon name='edit outline' /> Enregistrer Client</Button>
+                    </div>  
                 </div>
         </>)
     }
@@ -155,7 +155,7 @@ function RequestInfo() {
     }
     const CommandeHeader = () =>{
         return(<>
-                <h2 className='text-center mb-4'>Commande </h2> 
+                
                 <br />
                 <div className='row'>
                     <div className='col-6'>
@@ -176,37 +176,22 @@ function RequestInfo() {
         <div className="row">
             <div className="col-12 col-lg-8">
                 <div className='row'>
-                    <div className='col-8'><h2 className='text-center mb-4'>COMMANDE </h2></div>
+                    <div className='col-8'><h2 className='text-center mb-4'>RESERVATION </h2></div>
                     <div className='col-4'><h2 className='text-end'><StateCard status={commandeData.State} /></h2></div>
                 </div>
+                
+                 
                 <br />
                 <br />
                 <div className='card card-body bg-transparent border-div mb-3'>
                     <h5>Info Reservation</h5>
                     <div className='row mb-2'>
-                        <div className='col-12 col-lg-6'> Nom : {loading ? commandeData.Name : ''} </div> 
-                        <div className='col-12 col-lg-6'> Date : {loading ? new Date(commandeData.R_Date).toLocaleDateString('fr-FR').split( '/' ).reverse( ).join( '-' ) : ''} </div> 
-                        <div className='col-12 col-lg-6'> Temps : {loading ? commandeData.R_Time : ''} </div> 
+                        <div className='col-12 col-lg-6'> Nom : {loading ? commandeData.User_Name : ''} </div> 
+                        <div className='col-12 col-lg-6'> Date : {loading ? new Date(commandeData.Wanted_Date).toLocaleDateString('fr-FR').split( '/' ).reverse( ).join( '-' ) : ''} </div> 
+                        <div className='col-12 col-lg-6'> Temps : {loading ? commandeData.Wanted_Time : ''} </div> 
                         <div className='col-12 col-lg-6'> Table : {loading ? commandeData.Table_Num : ''} </div> 
-                        <div className='col-12 col-lg-6'> Order : 
-                                <ul>
-                                        {loading ?  
-                            <>
-                            {articleL.map( (artData) => 
-                                <li key={artData.id}>
-                                    <th scope="row">{artData.Qte}</th> 
-                                    <td> x {artData.Name}</td>
-                                     
-                                </li>
-                            )}
-                            </>
-                            : SKLT.FactureList }
-                                </ul>
-                             </div> 
+                        <div className='col-12 col-lg-6'> Commentaire : {loading ? commandeData.Comment : ''} </div> 
                     </div> 
-                    {/* <div className='text-end'>
-                        <Button  className='rounded-pill text-secondary' size='mini'    onClick={(e) => PrintFunction('framed')}><Icon name='edit outline' />  Facture</Button>
-                    </div> */}
                 </div>
                 <br />
                 <br />

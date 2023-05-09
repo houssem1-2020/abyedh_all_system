@@ -94,19 +94,33 @@ function SettingPage() {
                     <div>{new Date(props.data.LatsActivation).toLocaleDateString()} <i className="bi bi-arrow-left-right"></i> {new Date(props.data.ExpiredThe).toLocaleDateString()}</div>
             </>)
         }
+        const RedirectToActivationCard = () =>{
+            return(<>
+
+                <div className='row mt-5'>
+                    <div className='col-9 align-self-center'> <h5>Activer Votre system ici </h5></div>
+                    <div className='col-3'>
+                        <NavLink exact='true' to='paymment'>
+                            <Button  className='rounded-pill text-dark' size="tiny"    style={{backgroundColor : '#fcba03'}}>  Activer </Button> 
+                        </NavLink>
+                    </div>
+                </div>
+            </>) 
+        }
         return (<>
                 <div className="card card-body shadow-sm mb-3 border-div " style={{backgroundColor:'#dae8f0'}}>
                     <h3 style={{color:GConf.themeColor}}> <span className='bi bi-toggle-on'></span> Activation</h3>
                     
                     <div className="row">
-                        <div className="col-12 col-md-6  border-end">
-                            {/* {activationState.State == 'Activated' ? <Activated data={activationState} /> : <Expired data={activationState} />} */}
-                            {CalculateResteJour(activationState.ExpiredThe) > 0 ? <Activated data={activationState} /> : <Expired data={activationState} />}
-                        </div>
-                        <div className="col-12 col-md-6 align-self-center text-center">
+                        <div className="col-12 col-md-5 align-self-center text-center">
                             <h1 className="pb-0 mb-0 text-danger"> <CountUp end={CalculateResteJour(activationState.ExpiredThe)} duration={2} /> </h1>
                             <small>Jour</small>
                         </div>
+                        <div className="col-12 col-md-7  border-end">
+                            {/* {activationState.State == 'Activated' ? <Activated data={activationState} /> : <Expired data={activationState} />} */}
+                            {CalculateResteJour(activationState.ExpiredThe) > 0 ? <Activated data={activationState} /> : <Expired data={activationState} />}
+                        </div>
+                        {CalculateResteJour(activationState.ExpiredThe) > 0 ? '' :  <RedirectToActivationCard />} 
                     </div>
                 </div>
                 <div className="card card-body shadow-sm mb-3 border-div" style={{backgroundColor:'#e6daf0'}}>

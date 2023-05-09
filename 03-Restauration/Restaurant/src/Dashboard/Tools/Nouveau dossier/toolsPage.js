@@ -16,8 +16,8 @@ import { NavLink } from 'react-router-dom';
 const Notes = ({noteD, setNoteD,noteList, AddNotes, DeleteNotes,NotesEndRef}) => {
     return(<>
     <div className="card card-body shadow-sm mb-4 border-div">
-            <h5 className='mb-1'>Entrer Un article : </h5>
-            <div style={{height:'200px', overflowX:'auto'}} className='m-2 d-none'>
+            <h5 className='mb-1'>Liste des Notes: </h5>
+            <div style={{height:'200px', overflowX:'auto'}} className='m-2'>
                 {
                     noteList.map((note) =>
                         <div className='card border-div mb-2 p-1 m-2' key={note.PK}>
@@ -39,37 +39,22 @@ const Notes = ({noteD, setNoteD,noteList, AddNotes, DeleteNotes,NotesEndRef}) =>
                 <div ref={NotesEndRef} />
             </div>
             
-            {/* <Form>
+            <Form>
                 <TextArea placeholder='Ajouter Notes ici' value={noteD} className="mb-2 rounded" rows='2' onChange={(e) => setNoteD(e.target.value)}/>
-            </Form> */}
-            <Input size='mini' fluid  type='text' className='mb-2'   />
-            <Button  className='rounded-pill bg-system-btn'  fluid onClick={AddNotes}><Icon name='plus' /> Ajouter </Button>
+            </Form>
+            <Button  className='rounded-pill bg-system-btn'  fluid onClick={AddNotes}><Icon name='write' /> Ajouter </Button>
     </div>
     </>)
 }
-const Recette = ({recetteDate, setRecetteDate, PrintFunction, recette, familles, printGenre, setPrintGenre}) => {
+const Recette = ({recetteDate, setRecetteDate, PrintFunction, recette}) => {
     return(<>
             <div className="card card-body shadow-sm mb-4 border-div">
-               {/* <h2 className='text-danger'>Recette: <CountUp end={recette} decimals={3} decimal="," duration={2} /></h2>  */}
+               <h2 className='text-danger'>Recette: <CountUp end={recette} decimals={3} decimal="," duration={2} /></h2> 
                 <div className=''>
-                        <h5 className='mb-1'>Selectionnez un element  </h5>
-                        <Select placeholder='Selectionnez' options={familles} value={printGenre} onChange={ (e, data) => setPrintGenre(data.value)} className='w-100 shadow-sm rounded mb-3'  />
+                        <h5 className='mb-1'>Imprimer La rectte d'un jour </h5>
                         <Input size='mini' fluid  type='date' className='mb-2' defaultValue={recetteDate.start} onChange={(e) => setRecetteDate({...recetteDate, start: e.target.value })} />
                         <Input size='mini' fluid  type='date'  className='mb-2' defaultValue={recetteDate.end} onChange={(e) => setRecetteDate({...recetteDate, end: e.target.value })}/>
                         <Button  className='rounded-pill btn-imprimer' fluid onClick={ (e) => PrintFunction('printrecette')} >  <Icon name='print' /> Imprimer</Button>
-                    
-                </div>
-            </div>
-    </>)
-}
-const BudgetCard = ({recetteDate, setRecetteDate, PrintFunction, recette, familles, printGenre, setPrintGenre, AddNotes}) => {
-    return(<>
-            <div className="card card-body shadow-sm mb-4 border-div">
-                <div className=''>
-                        <h5 className='mb-1'>Ajouter A la Budget</h5>
-                        <Select placeholder='Selectionnez' options={familles} value={printGenre} onChange={ (e, data) => setPrintGenre(data.value)} className='w-100 shadow-sm rounded mb-3'  />
-                        <Input size='mini' fluid  type='text' className='mb-2'   />
-                        <Button  className='rounded-pill bg-system-btn'  fluid onClick={AddNotes}><Icon name='plus' /> Ajouter </Button>
                     
                 </div>
             </div>
@@ -98,12 +83,6 @@ function ToolsPage() {
 
 
     const PrintStockPar = [
-        {key:1 , value: 'zero' , text: 'Zero' },
-        {key:2 , value: 'repture' , text: 'Repture' },
-        {key:3 , value: 'tous' , text: 'Tous' },
-        {key:4 , value: 'negative' , text: 'Negative' },
-    ]
-    const budgetOption = [
         {key:1 , value: 'zero' , text: 'Zero' },
         {key:2 , value: 'repture' , text: 'Repture' },
         {key:3 , value: 'tous' , text: 'Tous' },
@@ -160,13 +139,13 @@ function ToolsPage() {
     }
     const Imprimer = () => {
         return(<>
-            <div className="card card-body shadow-sm mb-4 border-div d-none">
+            <div className="card card-body shadow-sm mb-4 border-div">
                 <h5 className='mb-1'>Liste des prix: </h5>
                 <Select placeholder='Selectionnez' options={familles} value={printGenre} onChange={ (e, data) => setPrintGenre(data.value)} className='w-100 shadow-sm rounded mb-3'  />
                 <Button  className='rounded-pill btn-imprimer'  fluid onClick={ (e) => PrintFunction('printPrix')}><Icon name='print' /> Imprimer </Button>
             </div>
-            <div className="card card-body shadow-sm mb-4 ">
-                <h5 className='mb-1'>Imprimer Code A Barre </h5>
+            <div className="card card-body shadow-sm mb-4 d-none">
+                <h5 className='mb-1'>Imprimer Le Stock: </h5>
                 <Select placeholder='Selectionnez' options={PrintStockPar} value={printGenreCteg} onChange={ (e, data) => setPrintGenreCteg(data.value)} className='w-100 shadow-sm rounded mb-3'  />
                 <Button  className='rounded-pill btn-imprimer'  fluid onClick={ (e) => PrintFunction('printStock')}><Icon name='print' /> Imprimer </Button>
             </div>
@@ -213,73 +192,35 @@ function ToolsPage() {
     return ( <>
         <Fade>
            <div className='row'>
-                <div className='col-12 col-lg-4'>
+                <div className='col-12 col-lg-3'>
                     <div className="mb-4 sticky-top" style={{top:'70px'}}>
-                        <h5>Imprimer </h5>
-                        {/* <Charts /> */}
-                        <Imprimer />
-                        <h5>Resumer Equipe</h5>
-                        <Recette recetteDate={recetteDate} setRecetteDate={setRecetteDate} PrintFunction={PrintFunction} recette={recette} familles={familles} printGenre={printGenre} setPrintGenre={setPrintGenre} />
+                        <h5>Statistiques </h5>
+                        <Charts />
                     </div>
                 </div> 
                 <div className='col-12 col-lg-5'>
                     <div className="mb-4 sticky-top" style={{top:'70px'}}>
-                            <h5>Ticket De Prix</h5>
-                            <Notes NotesEndRef={NotesEndRef} noteD={noteD} setNoteD={setNoteD} noteList={noteList} AddNotes={AddNotes} DeleteNotes={DeleteNotes} />
-                            {/* <Map /> */}
-                            <h5>Revenue depenses</h5>
-                            <BudgetCard recetteDate={recetteDate} setRecetteDate={setRecetteDate} PrintFunction={PrintFunction} recette={recette} familles={budgetOption} printGenre={printGenre} setPrintGenre={setPrintGenre}/>
+                            <h5>Recette</h5>
+                            <Recette recetteDate={recetteDate} setRecetteDate={setRecetteDate} PrintFunction={PrintFunction} recette={recette} />
+                            <h5>Position des camion</h5>
+                            {/* <Notes NotesEndRef={NotesEndRef} noteD={noteD} setNoteD={setNoteD} noteList={noteList} AddNotes={AddNotes} DeleteNotes={DeleteNotes} /> */}
+                            <Map />
                     </div>
 
                 </div> 
-                <div className='col-12 col-lg-3'>
+                <div className='col-12 col-lg-4'>
                     <div className="mb-4 sticky-top" style={{top:'70px'}}>
-                            <h5> Liens </h5>
-                            <div className='card shadow-sm p-2 mb-4 text-center border-div  '>
-                                <NavLink exact='true' to='tickets'>
-                                    <div className='row'>
-                                        <div className='col-4 align-self-center'><img src='https://assets.ansl.tn/Images/usful/prix.svg' width='80%'  height='40px' /> </div>
-                                        <div className='col-8 align-self-center text-start'><h4> TICKET DE PRIX </h4></div>
-                                    </div>
-                                    
-                                </NavLink>
-                            </div>
-                            <div className='card shadow-sm p-2 mb-4 text-center border-div  '>
-                                <NavLink exact='true' to='bugdet'>
-                                    <div className='row'>
-                                        <div className='col-4 align-self-center'><img src='https://assets.ansl.tn/Images/usful/finance.svg' width='80%'  height='40px' /> </div>
-                                        <div className='col-8 align-self-center text-start'><h4> BUDGET TOTALE </h4></div>
-                                    </div>
-                                    
-                                </NavLink>
-                            </div>
-                            <div className='card shadow-sm p-2 mb-4 text-center border-div  '>
-                                <NavLink exact='true' to='dates'>
-                                    <div className='row'>
-                                        <div className='col-4 align-self-center'><img src='https://assets.ansl.tn/Images/usful/date_proche.svg' width='80%'  height='40px' /> </div>
-                                        <div className='col-8 align-self-center text-start'><h4> DATE PROCHE </h4></div>
-                                    </div>
-                                    
-                                </NavLink>
-                            </div>
-                            <div className='card shadow-sm p-2 mb-4 text-center border-div  '>
-                                <NavLink exact='true' to='rapport'>
+                            <h5> Imprimer </h5>
+                            <div className='card shadow-sm p-2 mb-4 text-center border-div d-none'>
+                                <NavLink exact='true' to='cg'>
                                     <div className='row'>
                                         <div className='col-4 align-self-center'><img src='https://assets.ansl.tn/Images/usful/catalogue.svg' width='80%'  height='40px' /> </div>
-                                        <div className='col-8 align-self-center text-start'><h4> RAPPORT </h4></div>
+                                        <div className='col-8 align-self-center'><h2> CATALOGUE</h2></div>
                                     </div>
                                     
                                 </NavLink>
                             </div> 
-                            {/* <div className='card shadow-sm p-2 mb-4 text-center border-div  '>
-                                <NavLink exact='true' to='dbbu'>
-                                    <div className='row'>
-                                        <div className='col-4 align-self-center'><img src='https://assets.ansl.tn/Images/usful/backup.svg' width='80%'  height='40px' /> </div>
-                                        <div className='col-8 align-self-center text-start'><h4> SAUVEGARDER </h4></div>
-                                    </div>
-                                    
-                                </NavLink>
-                            </div>  */}
+                            <Imprimer />
 
                     </div>
                 </div> 

@@ -163,7 +163,7 @@ function CamionInfo() {
         else{
                 setLS(true)
                 axios.post(`${GConf.ApiLink}/caisses/modifier`, {
-                    tag : GConf.PID,
+                    PID : GConf.PID,
                     caisseD : camionData,
                 }).then(function (response) {
                     if(response.data.affectedRows) {

@@ -63,8 +63,6 @@ function FacturePage() {
     }, [])
     
     
-    
-
     /*#########################[Function]##################################*/
     const NavigateFunction = (link) => {  navigate(link) }
     const openEditModal = (event,selected) =>{

@@ -4,8 +4,8 @@ import { useParams } from 'react-router-dom';
 import { Divider, Statistic } from 'semantic-ui-react';
 import GConf from '../../AssetsM/generalConf';
 import SKLT from '../../AssetsM/Cards/usedSlk';
-import BackCard from '../Assets/backCard';
-import InputLinks from '../Assets/linksData';
+import BackCard from '../Assets/Cards/backCard';
+import GConf from '../Assets/linksData';
 
 function ArticleInfo() {
     let {AID} = useParams()
@@ -76,7 +76,7 @@ function ArticleInfo() {
     }
 
     return ( <>
-        <BackCard data={InputLinks.backCard.cgInfo}/>
+        <BackCard data={GConf.backCard.cgInfo}/>
         <br />
          <div className='container-fluid'>
             <ImgCard Photo={articleD.Photo_Path} />

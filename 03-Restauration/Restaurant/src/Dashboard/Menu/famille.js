@@ -104,7 +104,7 @@ function FamillesPlats() {
         else if (!familleD.Description) {toast.error("Description est Invamlide !", GConf.TostErrorGonf)}
         else{
             setLS(true)
-            axios.post(`${GConf.ApiLink}/stock/familles/ajouter`, {
+            axios.post(`${GConf.ApiLink}/menu/familles/ajouter`, {
                 PID : GConf.PID,
                 familleD : familleD,
             }).then(function (response) {
@@ -115,7 +115,7 @@ function FamillesPlats() {
                     setFamilleD([])
                     setLS(false)
                     setUpdateFT(Math.random() * 10)
-                    SaveNotification('stockSaveFamille',GConf.PID, familleD)
+                    //SaveNotification('stockSaveFamille',GConf.PID, familleD)
                 }
                 else{
                     toast.error('Erreur esseyez de nouveaux', GConf.TostSuucessGonf)
@@ -131,7 +131,7 @@ function FamillesPlats() {
     }
     const EditFamille = () => {
         setLS(true)
-        axios.post(`${GConf.ApiLink}/stock/familles/modifier`, {
+        axios.post(`${GConf.ApiLink}/menu/familles/modifier`, {
             PID : GConf.PID,
             familleD : editfamilleD,
         }).then(function (response) {
@@ -178,7 +178,15 @@ function FamillesPlats() {
         let end = 5*  activePage
         setDisplayFamille(familleList.slice(start, end));
     }
-
+    const GetPageNumber = (Liste) =>{
+        if (Liste % 5 == 0) {
+            return(Liste/5)
+            
+        } else {
+            return(Math.floor(Liste/5)+1)
+            
+        }
+    }
 
    /*#########################[Card]##################################*/
     const FamilleCard = (props) =>{
@@ -212,7 +220,8 @@ function FamillesPlats() {
             <div className="row">
                 <div className="col-12 col-lg-8">
                     <div className='mb-3 text-end'>
-                        <Pagination  onPageChange={handlePaginationChange} defaultActivePage={1} firstItem={null} lastItem={null} totalPages={Math.floor((familleList.length / 5))+1} />
+                        {/* totalPages={Math.floor((familleList.length / 5))+1} */}
+                        <Pagination  onPageChange={handlePaginationChange} defaultActivePage={1} firstItem={null} lastItem={null} totalPages={GetPageNumber(familleList.length)} />
                     </div>
                     {loading ?  
                     <>

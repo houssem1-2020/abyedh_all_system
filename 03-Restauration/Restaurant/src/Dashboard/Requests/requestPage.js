@@ -16,6 +16,7 @@ import { useNavigate} from 'react-router-dom';
 function RequestPage() {
     /*#########################[Const]##################################*/
     let [commandeList, setCommandeList] = useState([SKLT.TableSlt]); 
+    let [reservationList, setReservationList] = useState([SKLT.TableSlt]); 
     const [modalS, setModalS] = useState(false)
     const [selectedArticle, setSelectedArticle] = useState([])
 
@@ -23,7 +24,7 @@ function RequestPage() {
     const Mainpanes = [
       {
         menuItem: { key: 'attent',  content: <span className='text-secondary border-secondary'><b><span className='bi bi-calendar2-week'></span> Reservation</b></span>  },
-        render: () => <Tab menu={{ secondary: true }} panes={panes} />,
+        render: () => <Tab menu={{ secondary: true }} panes={panesRes} />,
       },
       {
         menuItem: { key: 'accept',  content: <span className='text-secondary border-secondary'><b><span className='bi bi-cart-dash'></span> Commande</b></span> ,  },
@@ -36,10 +37,6 @@ function RequestPage() {
         menuItem: { key: 'attent',  content: <span className='text-warning'><b><span className='bi bi-hourglass-split'></span> En Attent</b></span> , className:'rounded-pill'},
         render: () => <TableGrid tableData={FetchByGenre('W')} columns={GConf.TableHead.request} />,
       },
-      // {
-      //   menuItem: { key: 'vu',  content: <span className='text-info'><b><span className='bi bi-eye-fill'></span> Vu </b></span> , className:'rounded-pill' },
-      //   render: () => <TableGrid tableData={FetchByGenre('S')} columns={GConf.TableHead.request} />,
-      // },
       {
         menuItem: { key: 'accept',  content: <span className='text-success'><b><span className='bi bi-check-square-fill'></span> Accepteé</b></span> , className:'rounded-pill' },
         render: () => <TableGrid tableData={FetchByGenre('A')} columns={GConf.TableHead.request} />,
@@ -49,29 +46,47 @@ function RequestPage() {
         render: () => <TableGrid tableData={FetchByGenre('R')} columns={GConf.TableHead.request} />,
       },
     ]
+    const panesRes = [
+      {
+        menuItem: { key: 'attent',  content: <span className='text-warning'><b><span className='bi bi-hourglass-split'></span> En Attent</b></span> , className:'rounded-pill'},
+        render: () => <TableGrid tableData={FetchByGenreReserv('W')} columns={GConf.TableHead.reservation} />,
+      },
+      {
+        menuItem: { key: 'accept',  content: <span className='text-success'><b><span className='bi bi-check-square-fill'></span> Accepteé</b></span> , className:'rounded-pill' },
+        render: () => <TableGrid tableData={FetchByGenreReserv('A')} columns={GConf.TableHead.reservation} />,
+      },
+      {
+        menuItem: { key: 'refuse',  content: <span className='text-danger'><b><span className='bi bi-x-square-fill'></span> Refuseé</b></span>, className:'rounded-pill' },
+        render: () => <TableGrid tableData={FetchByGenreReserv('R')} columns={GConf.TableHead.reservation} />,
+      },
+    ]
 
    /*#########################[UseEfeect]##################################*/
     useEffect(() => {
-        axios.post(`${GConf.ApiLink}/commande`, {
+        axios.post(`${GConf.ApiLink}/request`, {
            PID : GConf.PID,
         })
         .then(function (response) {
           if (!response.data) {
                 toast.error('Probleme de Connextion', GConf.TostSuucessGonf)
           } else {
-            setCommandeList(response.data)
+            console.log(response.data)
+            setCommandeList(response.data.Commandes)
+            setReservationList(response.data.Reservation)
             
           }
         }).catch((error) => {
           if(error.request) {
             toast.error(<><div><h5>Probleme de Connextion</h5> Impossible de Charger La Liste de  Commandes  </div></>, GConf.TostInternetGonf)   
             setCommandeList([])
+            setReservationList([])
           }
         });
     }, [])
     
    /*#########################[Function]##################################*/
     const NavigateFunction = (link) => {  navigate(link) }
+
     const FetchByGenre = (genre) =>{  
         if (genre == 'W') {
           let found1 = commandeList.filter(element => element.State === 'W')
@@ -79,15 +94,14 @@ function RequestPage() {
           let found = found1.concat(found2);
           let commandeContainer = []
               found.map( (commandeDate) => commandeContainer.push([          
-                _(<TableImage image='commande.jpg' />),
+                _(<TableImage forStock image='order.png' />),
                 commandeDate.R_ID,
                 commandeDate.Name,
-                new Date(commandeDate.Passed_Day).toLocaleDateString('fr-FR').split( '/' ).reverse( ).join( '-' ),
-                new Date(commandeDate.Wanted_Day).toLocaleDateString('fr-FR').split( '/' ).reverse( ).join( '-' ),
-                // commandeDate.Totale,
+                new Date(commandeDate.R_Date).toLocaleDateString('fr-FR').split( '/' ).reverse( ).join( '-' ),
+                commandeDate.Table_Num,
                 _(<StateCard status={commandeDate.State} />),
                 _( <a  className='data-link-modal'  onClick={() => openEditModal(commandeDate,true)} ><b> <span className='bi bi-arrows-fullscreen'></span> </b></a>),
-                _(<Button className='rounded-pill bg-system-btn' size='mini' onClick={ (e) => NavigateFunction(`/S/rq/info/${commandeDate.R_ID}`)}><span className='d-none d-lg-inline'> Info </span><Icon  name='angle right' /></Button>)
+                _(<Button className='rounded-pill bg-system-btn' size='mini' onClick={ (e) => NavigateFunction(`/S/rq/cm/info/${commandeDate.R_ID}`)}><span className='d-none d-lg-inline'> Info </span><Icon  name='angle right' /></Button>)
             ],))
         return(commandeContainer)
 
@@ -95,23 +109,58 @@ function RequestPage() {
           let found = commandeList.filter(element => element.State === genre)
           let commandeContainer = []
               found.map( (commandeDate) => commandeContainer.push([          
-                _(<TableImage image='commande.jpg' />),
+                _(<TableImage forStock image='order.png' />),
                 commandeDate.R_ID,
                 commandeDate.Name,
-                new Date(commandeDate.Passed_Day).toLocaleDateString('fr-FR').split( '/' ).reverse( ).join( '-' ),
-                new Date(commandeDate.Wanted_Day).toLocaleDateString('fr-FR').split( '/' ).reverse( ).join( '-' ),
-                // commandeDate.Totale,
+                new Date(commandeDate.R_Date).toLocaleDateString('fr-FR').split( '/' ).reverse( ).join( '-' ),
+                commandeDate.Table_Num,
                 _(<StateCard status={commandeDate.State} />),
                 _( <a  className='data-link-modal'  onClick={() => openEditModal(commandeDate,true)} ><b> <span className='bi bi-arrows-fullscreen'></span> </b></a>),
-                _(<Button className='rounded-pill bg-system-btn' size='mini' onClick={ (e) => NavigateFunction(`/S/rq/info/${commandeDate.R_ID}`)}><span className='d-none d-lg-inline'> Info </span><Icon  name='angle right' /></Button>)
+                _(<Button className='rounded-pill bg-system-btn' size='mini' onClick={ (e) => NavigateFunction(`/S/rq/cm/info/${commandeDate.R_ID}`)}><span className='d-none d-lg-inline'> Info </span><Icon  name='angle right' /></Button>)
             ],))
         return(commandeContainer)
         }
     }
+    const FetchByGenreReserv = (genre) =>{  
+      if (genre == 'W') {
+        let found1 = reservationList.filter(element => element.State === 'W')
+        let found2 = reservationList.filter(element => element.State === 'S')
+        let found = found1.concat(found2);
+        let commandeContainer = []
+            found.map( (commandeDate) => commandeContainer.push([          
+              _(<TableImage forStock image='reserver.png' />),
+              commandeDate.R_ID,
+              commandeDate.Name,
+              new Date(commandeDate.R_Date).toLocaleDateString('fr-FR').split( '/' ).reverse( ).join( '-' ),
+              new Date(commandeDate.Wanted_Date).toLocaleDateString('fr-FR').split( '/' ).reverse( ).join( '-' ),
+              _(<StateCard status={commandeDate.State} />),
+              _( <a  className='data-link-modal'  onClick={() => openEditModal(commandeDate,true)} ><b> <span className='bi bi-arrows-fullscreen'></span> </b></a>),
+              _(<Button className='rounded-pill bg-system-btn' size='mini' onClick={ (e) => NavigateFunction(`/S/rq/rs/info/${commandeDate.R_ID}`)}><span className='d-none d-lg-inline'> Info </span><Icon  name='angle right' /></Button>)
+          ],))
+      return(commandeContainer)
+
+      } else {
+        let found = reservationList.filter(element => element.State === genre)
+        let commandeContainer = []
+            found.map( (commandeDate) => commandeContainer.push([          
+              _(<TableImage forStock image='reserver.png' />),
+              commandeDate.R_ID,
+              commandeDate.Name,
+              new Date(commandeDate.Passed_Day).toLocaleDateString('fr-FR').split( '/' ).reverse( ).join( '-' ),
+              new Date(commandeDate.Wanted_Day).toLocaleDateString('fr-FR').split( '/' ).reverse( ).join( '-' ),
+              // commandeDate.Totale,
+              _(<StateCard status={commandeDate.State} />),
+              _( <a  className='data-link-modal'  onClick={() => openEditModal(commandeDate,true)} ><b> <span className='bi bi-arrows-fullscreen'></span> </b></a>),
+              _(<Button className='rounded-pill bg-system-btn' size='mini' onClick={ (e) => NavigateFunction(`/S/rq/rs/info/${commandeDate.R_ID}`)}><span className='d-none d-lg-inline'> Info </span><Icon  name='angle right' /></Button>)
+          ],))
+      return(commandeContainer)
+      }
+  }
     const openEditModal = (event,selected) =>{
         setSelectedArticle(event)
         setModalS(true)
     }
+
     /*#########################[Card]##################################*/
     const StateCard = ({ status }) => {
         const StateCard = (props) =>{ return <span className={`badge bg-${props.color}`}> {props.text} </span>}
@@ -133,13 +182,8 @@ function RequestPage() {
     };
   
     return (<>
-        {/* <SubNav dataForNav={GConf.SubNavs.Commande} />
-        <br /> */}
         <Fade>
-          {/* <TableGrid tableData={commandeList} columns={GConf.TableHead.request} /> */}
-          {/* <Tab menu={{ secondary: true }} panes={panes} /> */}
           <Tab  menu={{ secondary: true, className: 'tab-right' }} panes={Mainpanes} />
-          
         </Fade>
         <Modal
               size='small'

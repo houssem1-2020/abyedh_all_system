@@ -71,12 +71,15 @@ const GConf = {
     },
     TostExpired : {
         position: "top-right",
-        autoClose: 15000,
+        //autoClose: 15000,
+        autoClose: false,
         hideProgressBar: true,
         closeOnClick: true,
+        closeButton: false,
         pauseOnHover: true,
         draggable: true,
         progress: undefined,
+        onClick : () => window.location.href = "/S/Parametre/paymment",
         theme: "light"
     },
 
@@ -358,7 +361,8 @@ const GConf = {
     //TableHead
     TableHead:{
         facture:['*','ID','Caisse','Client','Jour','Temps','Totale','Etat','X','Voir'],
-        request:['*','ID','Client', 'Passé le','Volu le','Totale','Etat','X','Voir'],
+        request:['*','ID','Client', 'Date','Table','Etat','X','Voir'],
+        reservation:['*','ID','Client', 'Passé le','Volu le','Etat','X','Voir'],
         menu:['*','Code', 'Nom', 'Genre','Cout','P.vente','X','Voir'],
         stock:['*','Code', 'Nom', 'Genre','Stock','P.achat', 'X','Voir'],
         camion:['*','Camion','Matricule', 'Chauffeur','Fond','Recette','X','Voir'],

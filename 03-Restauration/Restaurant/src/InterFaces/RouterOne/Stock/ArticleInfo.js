@@ -1,12 +1,12 @@
 import React, { useEffect, useState } from 'react';
-import InputLinks from '../Assets/linksData'
-import BackCard from '../Assets/backCard'
-import GConf from '../../AssetsM/generalConf';
-import TableGrid from '../../Dashboard/Assets/tableGrid';
+import OneGConf from '../Assets/OneGConf'
+import BackCard from '../Assets/Cards/backCard'
+import GConf from '../../../AssetsM/generalConf';
+import TableGrid from '../../../AssetsM/Cards/tableGrid';
 import { _ } from "gridjs-react";
 import axios from 'axios';
 import { toast } from 'react-toastify';
-import SKLT from '../../AssetsM/Cards/usedSlk';
+import SKLT from '../../../AssetsM/Cards/usedSlk';
 import { useParams } from 'react-router-dom';
 
 function ArticleInfo() {
@@ -23,7 +23,7 @@ function ArticleInfo() {
 
     /*#########################[UseEffect]##################################*/
     useEffect(() => {
-        axios.post(`${GConf.ApiCamionLink}/sk/suivie`, {
+        axios.post(`${GConf.ApiRouterOneLink}/sk/suivie`, {
             forPID : camData.PID,
             article: code,
             camId :camId
@@ -115,7 +115,7 @@ function ArticleInfo() {
         </>)
     }
       return ( <>
-        <BackCard data={InputLinks.backCard.skInfo}/>
+        <BackCard data={OneGConf.backCard.skInfo}/>
         <br />
         <div className='container-fluid'>
             <LastnventaireCard Invdata={lastInventaire} Artdata={articleD} />

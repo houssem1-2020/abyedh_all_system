@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
-import InputLinks from '../Assets/linksData'
-import BackCard from '../Assets/backCard'
+import GConf from '../Assets/linksData'
+import BackCard from '../Assets/Cards/backCard'
 import { Fade } from 'react-reveal';
 import { Button,  Dropdown, Icon, Input, Label, Loader, Tab } from 'semantic-ui-react';
 import useGetArticles from '../../Dashboard/Assets/Hooks/fetchArticles';
@@ -269,7 +269,7 @@ function CommandeEdit() {
     }
 
     return ( <>
-        <BackCard data={InputLinks.backCard.mcInfo}/>
+        <BackCard data={GConf.backCard.mcInfo}/>
         <br />
         <div className='container'>
             <Tab menu={{  pointing: true  }} panes={panes} />

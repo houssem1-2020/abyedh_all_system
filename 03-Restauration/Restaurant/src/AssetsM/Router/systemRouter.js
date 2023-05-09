@@ -10,7 +10,8 @@ import MainPage from '../../Dashboard/Main/mainPage';
 
 //Commandes
 import RequestPage from '../../Dashboard/Requests/requestPage';
-import RequestInfo from "../../Dashboard/Requests/requestInfo";
+import RequestCommandeInfo from "../../Dashboard/Requests/requestInfo";
+import RequestReservationInfo from "../../Dashboard/Requests/reservationInfo";
 import ComptesCommandes from '../../Dashboard/Requests/comptes';
 import CalendarCommandes from '../../Dashboard/Requests/calendar';
 
@@ -24,11 +25,7 @@ import FamillesPlats from "../../Dashboard/Menu/famille";
 
 //Stock
 import StockPage from '../../Dashboard/Stock/stockPage';
-import AddArticleStock from '../../Dashboard/Stock/addArticle';
 import ArticleInfo from "../../Dashboard/Stock/articleInfo";
-import Familles from "../../Dashboard/Stock/famille";
-import BonSortie from '../../Dashboard/Stock/bonSortie';
-import BonsEntre from '../../Dashboard/Stock/bonEntre';
 
 //Facture
 import FacturePage from "../../Dashboard/Factures/facturePage";
@@ -40,19 +37,11 @@ import ResumerFactures from '../../Dashboard/Factures/resumerFactures';
 //Camion 
 import CaissePage from '../../Dashboard/Caisse/caissePage'
 import AjouterCamion from "../../Dashboard/Caisse/ajouterCaisse";
-import AjouterFond from "../../Dashboard/Caisse/caisseBons";
 import CamionInfo from '../../Dashboard/Caisse/caisseInfo'
-import CamionArticleInfo from "../../Dashboard/Caisse/Info/articleInfo";
-import CamionFactureInfo from "../../Dashboard/Caisse/Info/factureInfo";
-import CamionFondInfo from "../../Dashboard/Caisse/Info/fondInfo";
-import InventaireCamion from '../../Dashboard/Caisse/inventaireCaisse';
-import EditFond from '../../Dashboard/Caisse/editFonds';
 import CaisseBons from '../../Dashboard/Caisse/caisseBons';
 
 //Table 
 import TabblePage from '../../Dashboard/Table/tablePage'
-import AjouterTable from "../../Dashboard/Table/ajouterTable";
-import TableInfo from '../../Dashboard/Table/tableInfo'
 
 //Client
 import ClientPage from '../../Dashboard/Client/clientPage';
@@ -91,7 +80,11 @@ import { NavLink } from 'react-router-dom';
 import LeftSideCard from '../../Dashboard/leftSide';
 import TeamAvance from '../../Dashboard/Team/teamAvance';
 import DataBaseBU from '../../Dashboard/Tools/dateBaseBU';
-
+import TicketDePrixPage from '../../Dashboard/Tools/ticketPage';
+import BugdetPage from '../../Dashboard/Tools/budgetCard';
+import DateProchPage from '../../Dashboard/Tools/dateProche';
+import RapportPage from '../../Dashboard/Tools/rapportPage';
+import PaymmentPage from '../../Dashboard/Setting/paymment';
 
 const SystemLanding = () => {
     useEffect(() => {
@@ -136,22 +129,17 @@ const systemRouter = () => (
                 <Route path="comptes" exact element={<ComptesCommandes />} />
                 <Route path="facturer/:CID" exact element={<FacturerCommande />} />
                 <Route path="calendrier" exact element={<CalendarCommandes />} />
-                <Route path="info/:CID" exact element={<RequestInfo />} />
+                <Route path="cm/info/:CID" exact element={<RequestCommandeInfo />} />
+                <Route path="rs/info/:CID" exact element={<RequestReservationInfo />} />
             </Route>
             <Route path="mu" exact element={<Outlet />}>
                 <Route path="" exact element={<MenuPage />} />
                 <Route path="ajouter" exact element={<AddPlatMenu />} />
-                <Route path="bs" exact element={< BonSortie />} />
-                <Route path="be" exact element={<BonsEntre />} />
                 <Route path="famille" exact element={<FamillesPlats />} />
                 <Route path="info/:code" exact element={<PlatInfo />} />
             </Route>
             <Route path="sk" exact element={<Outlet />}>
                 <Route path="" exact element={<StockPage />} />
-                <Route path="ajouter" exact element={<AddArticleStock />} />
-                <Route path="bs" exact element={< BonSortie />} />
-                <Route path="be" exact element={<BonsEntre />} />
-                <Route path="famille" exact element={<Familles />} />
                 <Route path="info/:code" exact element={<ArticleInfo />} />
             </Route>
             <Route path="ft" exact element={<Outlet />}>
@@ -165,17 +153,10 @@ const systemRouter = () => (
                 <Route path="" exact element={<CaissePage />} />
                 <Route path="ajouter-c" exact element={<AjouterCamion />} />
                 <Route path="bons" exact element={<CaisseBons />} />
-                <Route path="modifier-f/:FondID" exact element={<EditFond />} />
-                {/* <Route path="inventaire" exact element={<InventaireCamion />}/> */}
                 <Route path="info/:CID" exact element={<CamionInfo />} />
-                <Route path="info/stock/:CID/:code" exact element={<CamionArticleInfo />} />
-                <Route path="info/facture/:CID/:FID" exact element={<CamionFactureInfo />} />
-                <Route path="info/fond/:CID/:FondID" exact element={<CamionFondInfo />} />
             </Route>
             <Route path="tb" exact element={<Outlet />}>
                 <Route path="" exact element={<TabblePage />} />
-                <Route path="ajouter-t" exact element={<AjouterTable />} />
-                <Route path="info/:CID" exact element={<TableInfo />} />
             </Route>
             <Route path="cl" exact element={<Outlet />} >
                 <Route path="" exact element={<ClientPage />} />
@@ -199,8 +180,19 @@ const systemRouter = () => (
                 <Route path="avances" exact element={<TeamAvance />} />
                 <Route path="presence" exact element={<TeamDemande />} />
             </Route>
+            <Route path="ot" exact element={<Outlet />} >
+                <Route path="" exact element={<ToolsPage />} />
+                <Route path="cg" exact element={<CataloguePage />} />
+                <Route path="dbbu" exact element={<DataBaseBU />} />
+                <Route path="tickets" exact element={<TicketDePrixPage />} />
+                <Route path="bugdet" exact element={<BugdetPage />} />
+                <Route path="dates" exact element={<DateProchPage />} />
+                <Route path="rapport" exact element={<RapportPage />} />
+            </Route>
+
             <Route path="Profile" exact element={<ProfilePage />} />
             <Route path="Parametre" exact element={<SettingPage />} />
+            <Route path="Parametre/paymment" exact element={<PaymmentPage />} />
             <Route path="Parametre/confirmation" exact element={<ConfrimationPage />} />
             <Route path="Parametre/p/:genre" exact element={<UpdateSettingPage />} />
             <Route path="ot" exact element={<ToolsPage />} />

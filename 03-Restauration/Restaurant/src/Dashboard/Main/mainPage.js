@@ -48,7 +48,8 @@ function MainPage() {
                 //LogOut()
                 toast.error(<><div className='card-body w-100'>
                             <h3 className='text-danger'>Votre System est Expiré</h3> 
-                            vous devez réactiver votre système , Voir <a href='/S/Parametre'> Paramétre </a> pour plus d'info ou bien contactez l'administration ABYEDH
+                                vous devez réactiver votre système , Voir <a href='/S/Parametre/paymment'> Paimment </a> pour plus d'info 
+                                {/* ou bien contactez l'administration ABYEDH */}
                             </div>
                             </>, GConf.TostExpired)
             }

@@ -1,20 +1,22 @@
 import React from 'react';
-import LinkCard from '../Assets/linksCard'
-import InputLinks from '../Assets/linksData'
-import BackCard from '../Assets/backCard'
+import OneGConf from '../Assets/OneGConf'
+import BackCard from '../Assets/Cards/backCard'
+import LinkCard from '../Assets/Cards/linksCard';
 
 function Stock() {
     return ( <>
-        <BackCard data={InputLinks.backCard.sk}/>
+    <div className={`${OneGConf.themeMode == 'dark' ? 'bg-dark-theme-2' : '' }`} style={{height: '100vh'}}>
+        <BackCard data={OneGConf.backCard.sk}/>
         <br />
         <br />
         <br />
         <br />
         <div className='container'>
             <div className='row'>
-                {InputLinks.stock.map( (links) => <div  key={links.id}  className='col-12 col-md-6 mb-3'><LinkCard data={links} /></div>)}
+                {OneGConf.stock.map( (links) => <div  key={links.id}  className='col-12 col-md-6 mb-3'><LinkCard data={links} /></div>)}
             </div>
         </div>
+    </div>
         </> );
 }
 

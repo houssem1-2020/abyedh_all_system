@@ -4,19 +4,19 @@ import { Bounce } from 'react-reveal';
 import {  useParams } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import { Button, Icon } from 'semantic-ui-react';
-import GConf from '../../AssetsM/generalConf';
-import SKLT from '../../AssetsM/Cards/usedSlk';
-import FrameForPrint from '../../Dashboard/Assets/frameForPrint';
-import usePrintFunction from '../../Dashboard/Assets/Hooks/printFunction';
-import BackCard from '../Assets/backCard';
-import InputLinks from '../Assets/linksData';
+import GConf from '../../../AssetsM/generalConf';
+import SKLT from '../../../AssetsM/Cards/usedSlk';
+import FrameForPrint from '../../../AssetsM/Cards/frameForPrint';
+import usePrintFunction from '../../../AssetsM/Hooks/printFunction';
+import BackCard from '../Assets/Cards/backCard';
+import OneGConf from '../Assets/OneGConf';
 
 
 function FactureInfo() {
     /*#########################[Const]##################################*/
     const {FID} = useParams()
-    let camData = JSON.parse(localStorage.getItem(`Camion_LocalD`));
-    const Cam_ID = camData.Cam_ID;
+    let caisseData = JSON.parse(localStorage.getItem(`Magazin_Caisse_LocalD`));
+    const CaisseID = caisseData.C_ID; 
     let [articleL, setArticleL] = useState([])
     let [factureData, setFactData] = useState([])
     let [editState, setEditState] = useState(true)
@@ -27,10 +27,10 @@ function FactureInfo() {
     
     /*#########################[UseEffect]##################################*/
     useEffect(() => {
-        axios.post(`${GConf.ApiCamionLink}/mf/select`, {
-            forPID : camData.PID,
+        axios.post(`${GConf.ApiRouterOneLink}/rt/factures/select`, {
+            forPID : caisseData.PID,
             fid: FID,
-            camId: Cam_ID
+            caisseId: CaisseID
           })
           .then(function (response) {
                 if(!response.data[0]) {
@@ -66,32 +66,52 @@ function FactureInfo() {
     }
 
     /*#########################[Card]##################################*/
+    const StateCard = ({ status }) => {
+        const StateCard = (props) =>{ return <span className={`badge bg-${props.color}`}> {props.text} </span>}
+        const statusCard = React.useCallback(() => {
+          switch(status) {
+            case 'Payee': return <StateCard color='success' text='Payeé' />;  
+            case 'Credit': return <StateCard color='danger' text='Credit' /> ;
+            case 'Waitting': return <StateCard color='warning' text='En Attend' /> ;
+            default:  return <StateCard color='secondary' text='Indefinie' />;    
+          }
+        }, [status]);
+      
+        return (
+          <span>
+            {statusCard()}
+          </span>
+        );
+    }
+    
     const TotaleCard = () =>{
         return(<>
-                <div className='card card-body shadow-sm mb-2'>
+                <div className={`card card-body shadow-sm mb-2 ${OneGConf.themeMode == 'dark' ? 'bg-dark-theme-4 text-white' : '' }`}>
                     <h5>Nette & Totale </h5>
-                    <div>Totale hors tax: {loading ? CalculateTVA(factureData.Tota) : SKLT.BarreSkl }</div>
-                    <div>TVA: {loading ? (factureData.Tota - CalculateTVA(factureData.Tota)).toFixed(3) : SKLT.BarreSkl }</div>
-                    <div>Timbre: 0.600 DT</div>
-                    <div className='text-danger'><b>Net A Payee TTC: {loading ? (parseFloat(factureData.Tota) + 0.600).toFixed(3) : SKLT.BarreSkl } </b></div>
+                    <div>Nette A Payer : {loading ? factureData.Final_Value.toFixed(3) : SKLT.BarreSkl }</div>
+                    <div>Etat de la Facture : {loading ? <StateCard status={factureData.Pay_State} /> : SKLT.BarreSkl }</div>
+                    <div>Mode De Paymment : {loading ? factureData.Paye_Bons == '' ? 'Espéce' : 'Par Bons' : SKLT.BarreSkl }</div>
                 </div>
         </>)
     }
     const BtnsCard = () =>{
         return(<>
-                <div className='card card-body shadow-sm mb-2'>
+                <div className={`card card-body shadow-sm mb-2 ${OneGConf.themeMode == 'dark' ? 'bg-dark-theme-4 text-white' : '' }`}>
                     <h5>Controle</h5>
                     <div className='row mb-2'>
                     <div className='col-12 mb-2'>
-                        <Button  className='rounded-pill btn-imprimer'  fluid onClick={(e) => PrintFunction('printFacture')}><Icon name='edit outline' /> Imprimer</Button>
-                    </div>
-                    <div className='col-12'>
                             <Button as='a' href={`/I/L/mf/modifier/${FID}`} animated disabled={editState} className='rounded-pill bg-system-btn'  fluid>
                                 <Button.Content visible><Icon name='edit outline' /> Modifier </Button.Content>
                                 <Button.Content hidden>
                                     <Icon name='arrow right' />
                                 </Button.Content>
                             </Button>
+                    </div>
+                    <div className='col-12 mb-2'>
+                        <Button  className='rounded-pill bg-danger text-white'  fluid onClick={(e) => PrintFunction('printFacture')}><Icon name='trash' /> Demande d'annulation </Button>
+                    </div>
+                    <div className='col-12 mb-2'>
+                        <Button  className='rounded-pill btn-imprimer'  fluid onClick={(e) => PrintFunction('printFacture')}><Icon name='print' /> Imprimer</Button>
                     </div>
                     </div>
                 </div>
@@ -100,71 +120,78 @@ function FactureInfo() {
     const FactureHeader = () =>{
         return(<>
                 <h2 className='text-center'>Facture Client </h2> 
-                <br />
                 <div className='row'>
                     <div className='col-6'>
-                        <div className='text-danger'><b>STE ANASLOUMA DISTRUBUTION</b></div>
-                        <div className='text-secondary'><b>VILLE: </b> SIDI BOUROUIS</div>
-                        <div className='text-secondary'><b>MATRICULE F : </b> 1670146/D</div>
-                        <div className='text-secondary'><b>TEL : </b> 97913068</div>
-                        <div className='text-secondary'><b>FAX : </b> 78898081</div>
+                        <div className='text-secondary'><b>FACTURE ID : </b> {factureData.T_ID}</div>
+                        <div className='text-secondary'><b>CODE FACTURE : </b> {FID}</div>
+                        <div className='text-secondary'><b>CLIENT: {factureData.CL_Name} </b> 
+                        {/* {loading ? <NavLink  exact='true' to={`/S/cl/info/${factureData.CL_ID}`}> {factureData.Name } </NavLink>  : SKLT.BarreSkl } */}
+                            </div>
                     </div>
                     <div className='col-6'>
-                        <div className='text-secondary'><b>CODE FACTURE : </b> {FID}</div>
-                        <div className='text-secondary'><b>CLIENT: </b> {loading ? factureData.C_Name  : SKLT.BarreSkl }</div>
-                        <div className='text-secondary'><b>M.F : </b> {factureData.Code_Fiscale}</div>
+                        <div className='text-danger'><b>Date : </b> {new Date(factureData.T_Date).toLocaleDateString('fr-FR').split( '/' ).reverse( ).join( '-' )} </div>
+                        <div className='text-secondary'><b>Temps: </b> {factureData.T_Time} </div>
+                        <div className='text-secondary'><b>Caisse: </b> {factureData.CA_Name} </div>
                     </div>
                 </div>
         </>)
     }
 
     return ( <>
-        <BackCard data={InputLinks.backCard.mfInfo}/>
+    <div className={`${OneGConf.themeMode == 'dark' ? 'bg-dark-theme-2 text-white' : '' }`} style={{height: '100vh', overflow: 'scroll'}}>
+        <BackCard data={OneGConf.backCard.mfInfo}/>
         <br />
         <br />
-        <div className='container-fluid'>
-            <FactureHeader />
-            <br />
-            <br />
-            <div className="table-responsive">
-                <table className="table">
-                    <thead>
-                        <tr>
-                        <th scope="col">No</th>
-                        <th scope="col">Designiation</th>
-                        <th scope="col">Qté</th>
-                        <th scope="col">Prix</th>
-                        <th scope="col">P. Net</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {loading ?  
-                        <>
-                        {articleL.map( (artData, index) => 
-                            <tr key={index}>
-                                <th scope="row">{index + 1 }</th>
-                                <td>{artData.Name}</td>
-                                <td>{artData.Qte}</td>
-                                <td>{parseFloat(artData.Prix).toFixed(3)}</td>
-                                <td>{artData.PU}</td>
-                            </tr>
-                        )}
-                        </>
-                        : SKLT.FactureList }
-                        
-                    </tbody>
-                </table>
-            </div>
-            <br />
-            <br />
-            <Bounce bottom>
-                    <div className="sticky-top" style={{top:'70px'}}>
-                        <TotaleCard />
-                        <BtnsCard />
+        <div className='container'>
+            <div className='row'>
+                <div className='col-12 col-lg-7'>
+                    <FactureHeader />
+                    <br />
+                    <br />
+                    <div className="table-responsive">
+                        <table   className={`table ${OneGConf.themeMode == 'dark' ? 'bg-dark-theme-2 text-white' : '' }`}>
+                            <thead>
+                                <tr>
+                                <th scope="col">No</th>
+                                <th scope="col">Designiation</th>
+                                <th scope="col">Qté</th>
+                                <th scope="col">Prix</th>
+                                <th scope="col">P. Net</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {loading ?  
+                                <>
+                                {articleL.map( (artData, index) => 
+                                    <tr key={index}>
+                                        <th scope="row">{index + 1 }</th>
+                                        <td>{artData.Name}</td>
+                                        <td>{artData.Qte}</td>
+                                        <td>{parseFloat(artData.Prix).toFixed(3)}</td>
+                                        <td>{artData.PU}</td>
+                                    </tr>
+                                )}
+                                </>
+                                : SKLT.FactureList }
+                                
+                            </tbody>
+                        </table>
                     </div>
-            </Bounce>
+                    <br />
+                    <br />
+                </div>
+                <div className='col-12 col-lg-5'>
+                    <Bounce bottom>
+                            <div className="sticky-top" style={{top:'70px'}}>
+                                <TotaleCard />
+                                <BtnsCard />
+                            </div>
+                    </Bounce>
+                </div>
+            </div>
         </div>
-        <FrameForPrint frameId='printFacture' src={`/Pr/CamSys/facture/${FID}`} />
+    </div>
+        <FrameForPrint frameId='printFacture' src={`/Pr/caisse/facture/${FID}`} />
     </> );
 }
 

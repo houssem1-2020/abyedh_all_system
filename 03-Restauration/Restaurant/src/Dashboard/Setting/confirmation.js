@@ -3,6 +3,7 @@ import StepWizard from "react-step-wizard";
 import {Button, Icon} from 'semantic-ui-react';
 import { NavLink } from 'react-router-dom';
 import { Bounce } from 'react-reveal';
+import { Link } from 'react-router-dom';
 function ConfrimationPage() {
     const Percentage = (props) =>{
         return(<>
@@ -67,7 +68,7 @@ function ConfrimationPage() {
     <Bounce right>
         <div className="row justify-content-center">
             <div className="col-12 col-lg-9">
-                <h4 className='mb-0'> <NavLink exact='true' to='/S/Parametre'> <span className='bi bi-arrow-left-circle-fill '></span></NavLink>  <b> Confirmer </b> </h4>
+                <Link exaxt='true' to='/S/Parametre'><Button className='rounded-circle' icon='arrow left' /></Link>
                 <br />
                 <br />
                 <StepWizard isHashEnabled>

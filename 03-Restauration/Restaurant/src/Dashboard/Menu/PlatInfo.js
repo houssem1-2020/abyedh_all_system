@@ -15,10 +15,9 @@ import FrameForPrint from '../../AssetsM/Cards/frameForPrint';
 import useSaveNotification from '../../AssetsM/Hooks/saveNotifFunction';
 import ReactImageZoom from 'react-image-zoom';
 
-const EditArticle = ({articleD, setArticleD, checkPrixCompatiblite, familles, EditArticleFunction,loaderState,updateQte}) =>{
+const EditArticle = ({articleD, setArticleD, checkPrixCompatiblite, familles, EditPlatFunction,loaderState,updateQte}) =>{
     return(<>
 
-                
                 <div className='row'>
                         <div className='col-12 col-lg-12'>
                             <h5 className='mb-1'>Nom: </h5>
@@ -29,7 +28,7 @@ const EditArticle = ({articleD, setArticleD, checkPrixCompatiblite, familles, Ed
                 <div className='row'>
                             <div className='col-12 col-lg-6'>
                                 <h5 className='mb-1'>Code  :</h5>
-                                <Input icon='barcode' disabled iconPosition='left' type='number' placeholder='code  ' className='w-100 border-0 shadow-sm rounded mb-3' defaultValue={articleD.A_Code} onChange={(e) => setArticleD({...articleD, A_Code: e.target.value })} />
+                                <Input icon='barcode' disabled iconPosition='left' type='number' placeholder='code  ' className='w-100 border-0 shadow-sm rounded mb-3' defaultValue={articleD.P_Code} onChange={(e) => setArticleD({...articleD, P_Code: e.target.value })} />
                             </div>
                             <div className='col-12 col-lg-6'>
                                 <h5 className='mb-1'>Genre: </h5>
@@ -37,23 +36,20 @@ const EditArticle = ({articleD, setArticleD, checkPrixCompatiblite, familles, Ed
                             </div>
                 </div>
                 <div className='row'>
-                            <div className='col-12 col-lg-4'>
+                            <div className='col-12 col-lg-6'>
                                 <h5 className='mb-1'>Cout: </h5>
-                                <Input icon='dollar' iconPosition='left' type='number' placeholder='achat' defaultValue={articleD.Prix_achat} onBlur={checkPrixCompatiblite} className='w-100 border-0 shadow-sm rounded mb-3' onChange={(e) => setArticleD({...articleD, Prix_achat: e.target.value })}/> 
+                                <Input icon='dollar' iconPosition='left' type='number' placeholder='achat' defaultValue={articleD.Cout} onBlur={checkPrixCompatiblite} className='w-100 border-0 shadow-sm rounded mb-3' onChange={(e) => setArticleD({...articleD, Cout: e.target.value })}/> 
                             </div>
-                            <div className='col-12 col-lg-4'>
+                            <div className='col-12 col-lg-6'>
                                 <h5 className='mb-1'>Prix Vente: </h5>
                                 <Input icon='dollar' iconPosition='left' type='number' placeholder='vente' defaultValue={articleD.Prix_vente} onBlur={checkPrixCompatiblite} className='w-100 border-0 shadow-sm rounded mb-3' onChange={(e) => setArticleD({...articleD, Prix_vente: e.target.value })}/>
                             </div>
-                            <div className='col-12 col-lg-4'>
-                                <h5 className='mb-1'>Prix Promo: </h5>
-                                <Input icon='dollar' iconPosition='left' type='number' placeholder='promo' className='w-100 border-0 shadow-sm rounded mb-3' defaultValue={articleD.Prix_gros}  onChange={(e) => setArticleD({...articleD, Prix_gros: e.target.value })}/>
-                            </div>
+
                 </div> 
                 <div className='row'>
                             <div className='col-12 col-lg-6'>
-                                <h5 className='mb-1'>Quantité: </h5>
-                                <Input icon='dropbox' iconPosition='left' type='number' disabled={true} placeholder='quantité' className='w-100 border-0 shadow-sm rounded mb-3' defaultValue={articleD.Quantite} onChange={(e) => setArticleD({...articleD, Quantite: e.target.value })}/> 
+                                <h5 className='mb-1'>Prix Promo: </h5>
+                                <Input icon='dollar' iconPosition='left' type='number' placeholder='promo' className='w-100 border-0 shadow-sm rounded mb-3' defaultValue={articleD.Prix_promo}  onChange={(e) => setArticleD({...articleD, Prix_promo: e.target.value })}/>
                             </div>
                             <div className='col-12 col-lg-6'>
                                 <h5 className='mb-1'>Repture du stock: </h5>
@@ -63,11 +59,11 @@ const EditArticle = ({articleD, setArticleD, checkPrixCompatiblite, familles, Ed
                 <div className='row'>
                     <h5 className='mb-1'>Description</h5>
                     <Form>
-                        <TextArea  rows="3" defaultValue={articleD.Details} className='w-100 shadow-sm rounded mb-3' onChange={(e) => setArticleD({...articleD, Details: e.target.value })}/>
+                        <TextArea  rows="3" defaultValue={articleD.Description} className='w-100 shadow-sm rounded mb-3' onChange={(e) => setArticleD({...articleD, Description: e.target.value })}/>
                     </Form> 
                 </div>
                 <div className='text-end mb-5'>
-                    <Button onClick={EditArticleFunction} className='text-end rounded-pill bg-system-btn' positive>  <Icon name='edit' /> Modifier <Loader inverted active={loaderState} inline size='tiny' className='ms-2 text-danger'/></Button>
+                    <Button onClick={EditPlatFunction} className='text-end rounded-pill bg-system-btn' positive>  <Icon name='edit' /> Modifier <Loader inverted active={loaderState} inline size='tiny' className='ms-2 text-danger'/></Button>
                 </div>
     </>)
 }
@@ -85,12 +81,19 @@ function PlatInfo() {
     const [resDay , setResDay] = useState({start:Today, end:Today})
     const [articleEvents , setArticleEvents] = useState([])
     const SaveNotification = (genre,tag,table) =>{ useSaveNotification(genre,tag,table)}
-    const props = {width: 400, height: 250, zoomWidth: 500, img: articleD ? articleD.Photo_Path : 'default_img.jpg'};
+    const props = {width: 400, height: 250, zoomWidth: 500, img: articleD ? articleD.Photo_Path : 'plat.png'};
 
     const [uploadImageName, setUploadImageName] = useState('')
     const [uploadImage, setUploadImages] = useState()
     const [displayedImage, setDisplayedImage] = useState()
 
+    const options = [
+        { key: '1', value: 'plat_pizza.png', text: 'PIZZA', image: { src: 'https://cdn.abyedh.tn/images/system/Resto/plat_pizza.png', avatar: true } },
+        { key: '2', value: 'plat_mlaoui.png', text: 'MLAOUI', image: { src: 'https://cdn.abyedh.tn/images/system/Resto/plat_mlaoui.png', avatar: true } },
+        { key: '3', value: 'plat_sandwich.png', text: 'SANDWICH', image: { src: 'https://cdn.abyedh.tn/images/system/Resto/plat_sandwich.png', avatar: true } },
+        { key: '', value: 'plat_chappati.png', text: 'CHAPPATI', image: { src: 'https://cdn.abyedh.tn/images/system/Resto/plat_chappati.png', avatar: true } },
+        { key: '', value: 'plat_boisson.png', text: 'BOISSON', image: { src: 'https://cdn.abyedh.tn/images/system/Resto/plat_boisson.png', avatar: true } },
+      ]
 
     const panes = [
         {
@@ -99,11 +102,11 @@ function PlatInfo() {
         },
         {
             menuItem: { key: 'resumer', icon: 'tasks', content: 'Ingrédient' }, 
-            render: () => <><Tab.Pane attached={false}><ResumerArticle /></Tab.Pane><br /></>,
+            render: () => <><Tab.Pane attached={false}><IngredientCard /></Tab.Pane><br /></>,
         },
         {
             menuItem: { key: 'edit', icon: 'edit outline', content: 'Modifier' }, 
-            render: () => <><Tab.Pane attached={false}><EditArticle articleD={articleD}  setArticleD={setArticleD} checkPrixCompatiblite={checkPrixCompatiblite} familles={familles} EditArticleFunction={EditArticleFunction} loaderState={loaderState} updateQte={updateQte} /></Tab.Pane><br /></>,
+            render: () => <><Tab.Pane attached={false}><EditArticle articleD={articleD}  setArticleD={setArticleD} checkPrixCompatiblite={checkPrixCompatiblite} familles={familles} EditPlatFunction={EditPlatFunction} loaderState={loaderState} updateQte={updateQte} /></Tab.Pane><br /></>,
         },
         {
             menuItem: { key: 'image', icon: 'image', content: 'Image' }, 
@@ -123,12 +126,16 @@ function PlatInfo() {
             code: code, 
           })
           .then(function (response) {
-            if(!response.data[0]) {
+            if(!response.data.Data) {
                 toast.error('Article Introuvable !', GConf.TostSuucessGonf)
-                setTimeout(() => {  window.location.href = "/S/sk"; }, 2000)
-                
+                setTimeout(() => {  window.location.href = "/S/mu"; }, 2000)
+
             } else {
-                setArticleD(response.data[0])
+                
+                setArticleD(response.data.Data)
+                let inFactureList = []
+                response.data.InFacture.map( (factureList) => inFactureList.push( { title: GetTargetArticleQte(factureList.Articles,'Qte'), date: GenerateDate(factureList.Cre_Date, 1), className:'bg-primary border-0 w-25 text-center' }))
+                setArticleEvents(inFactureList)
                 setLoading(true)
             }
                 
@@ -140,62 +147,21 @@ function PlatInfo() {
             }
           });
 
-        //calendar
-        axios.post(`${GConf.ApiLink}/menu/plat/calendar`, {
-            PID : GConf.PID,
-            code: code, 
-          })
-        .then(function (response) {
-            
-            let inFactureList = []
-            response.data[0].InFacture.map( (factureList) => inFactureList.push( { title: GetTargetArticleQte(factureList.Articles,'Qte'), date: GenerateDate(factureList.Cre_Date, 1), className:'bg-primary border-0 w-25 text-center' }))
-            
-            let forCamionList = []
-            response.data[0].ForCamion.map( (camionData) => forCamionList.push( { title: GetTargetArticleQte(camionData.Articles,'QteAjoute') , date: GenerateDate(camionData.Jour, 1) , className:'bg-danger border-0 w-25 text-center' }))
-            
-            let fromBonBE = []
-            response.data[0].bonE.map( (bonBe) => fromBonBE.push( { title: GetTargetArticleQte(bonBe.Articles,'NewQte'), date:  GenerateDate(bonBe.BE_Date, 1) , className:'bg-success border-0 w-25 text-center'}))
-            
-
-            let fromBonBS = []
-            response.data[0].bonS.map( (bonBs) => fromBonBE.push( { title: GetTargetArticleQte(bonBs.Articles,'NewQte'), date: GenerateDate(bonBs.BE_Date, 1), className:'bg-warning border-0 w-25 text-center'}))
-
-            //setArticleEvents(inFactureList.concat(forCamionList,fromBonBE,fromBonBS))
-            setArticleEvents(ConcatunateResult(inFactureList).concat(ConcatunateResult(forCamionList),ConcatunateResult(fromBonBE),ConcatunateResult(fromBonBS)))
-                
-        })
-
-        // Find Image 
-        axios.post(`${GConf.ApiLink}/stock/checkAbyedhDb`, {
-            Code :code,
-          })
-          .then(function (response) {
-            if(response.data.length != 0 ){setPhotoExist(response.data)}
-          })
-
-        //check Permission
-        // axios.post(`${GConf.ApiLink}/Permission`, {
-        //     PID : GConf.PID,
-        //   })
-        //   .then(function (response) {
-        //     if(response.data[0].Edit_Stock === 'true'){setUpdateQte(false)}
-        //   })
     }, [])
 
 
     /*#########################[Function]##################################*/
-    const EditArticleFunction = (event) => {
-        //console.log(articleD)
+    const EditPlatFunction = (event) => {
         setLS(true)
         axios.post(`${GConf.ApiLink}/menu/modifier`, {
-            tag :GConf.PID,
+            PID :GConf.PID,
             articleND :articleD,
         }).then(function (response) {
-            //console.log(response.data)
+            console.log(response.data)
             if(response.data.affectedRows) {
-                toast.success("Article Modifier !", GConf.TostSuucessGonf)
+                toast.success("Plat Modifier !", GConf.TostSuucessGonf)
                 setLS(false)
-                SaveNotification('stockEditArticle',GConf.PID, articleD)
+                //SaveNotification('stockEditArticle',GConf.PID, articleD)
             }
             else{
                 toast.error('Erreur esseyez de nouveaux', GConf.TostSuucessGonf)
@@ -203,7 +169,7 @@ function PlatInfo() {
             }
         }).catch((error) => {
             if(error.request) {
-              toast.error(<><div><h5>Probleme de Connextion</h5> Impossible de modifier l'article  </div></>, GConf.TostInternetGonf)   
+              toast.error(<><div><h5>Probleme de Connextion</h5> Impossible de modifier le Plat  </div></>, GConf.TostInternetGonf)   
               setLS(false)
             }
           });
@@ -213,7 +179,7 @@ function PlatInfo() {
         axios.post(`${GConf.ApiLink}/menu/modifier/image`, {
             PID  :GConf.PID,
             code : code,
-            path : pathLink
+            path : articleD.Photo_Path
         }).then(function (response) {
             if(response.data.affectedRows) {
                 toast.success("Image Modifier !", GConf.TostSuucessGonf)
@@ -264,7 +230,7 @@ function PlatInfo() {
     const PrintFunction = (frameId) =>{ usePrintFunction(frameId) }
     const GetTargetArticleQte = (value,column) =>{
         const JsValue = JSON.parse(value)
-        const searchObject= JsValue.find((article) => article.A_Code == code);
+        const searchObject= JsValue.find((article) => article.P_Code == code);
         return parseInt(searchObject[column]);
     }
     const GenerateDate = function(str, days) {
@@ -333,7 +299,7 @@ function PlatInfo() {
                     </div>
                     <div className="img-card-container text-center">
                         <div className="card-container notification">
-                            <img src={`https://cdn.abyedh.tn/images/system/Resto/plat.png`} className="rounded-circle" width="80px" height="80px" />                    
+                            <img src={`https://cdn.abyedh.tn/images/system/Resto/${articleD.Photo_Path}`} className="rounded-circle bg-white" width="80px" height="80px" />                    
                         </div>
                     </div>
                     <div className="mt-5 text-center">
@@ -345,7 +311,7 @@ function PlatInfo() {
                                     <Statistic color='red' size='tiny'>
                                     {loading ?  
                                         <Statistic.Value>
-                                            {parseFloat(props.data.Prix_achat).toFixed(3)} 
+                                            {parseFloat(props.data.Cout).toFixed(3)} 
                                         </Statistic.Value>
                                         : SKLT.ProfileSkl }  
                                         <Statistic.Label>Cout</Statistic.Label>
@@ -368,7 +334,7 @@ function PlatInfo() {
                                     <Statistic color='green' size='tiny'>
                                         {loading ?  
                                         <Statistic.Value>
-                                            {props.data.Quantite} 
+                                            {props.data.Repture} 
                                         </Statistic.Value>
                                         : SKLT.ProfileSkl }  
                                     </Statistic>
@@ -426,19 +392,15 @@ function PlatInfo() {
             </div>
         </>)
     }
-    const ResumerArticle = () =>{
+    const IngredientCard = () =>{
         return(<>
-                <h5>Reumer entre deux periodes</h5>
-                <div className='mb-2 row'>
-                    <div className='col-6 mb-3'><Input size='small' fluid  type='date'  value={resDay.start}  onChange={(e) => setResDay({...resDay, start: e.target.value })}/></div>
-                    <div className='col-6 mb-3'><Input size='small' fluid  type='date'  value={resDay.end} onChange={(e) => setResDay({...resDay, end: e.target.value })}/></div>
-                    <div className='col-6 self-align-center mb-2'>
-                        <h5>Imprimer Resumer </h5>
-                        <Button size='small' className='rounded-pill btn-imprimer' fluid onClick={(e) => PrintFunction('printResumer')} icon >  <Icon name='print' /> Imprimer Resumer </Button>
+                <h5>Entrez les ingredient de ce plat </h5>
+                <div className='row mb-2 '>
+                    <div className='col-6 '>
+                        Input
                     </div>
-                    <div className='col-6 self-align-center mb-2'>
-                        <h5>Suivie Vente </h5>
-                        <Button size='small' className='rounded-pill bg-system-btn' fluid onClick={(e) => PrintFunction('printVente')} icon >  <Icon name='print' /> Suivie Vente </Button>
+                    <div className='col-6 '>
+                        Liste
                     </div>
                 </div> 
         </>)
@@ -473,7 +435,7 @@ function PlatInfo() {
                     <div className='row'>
                         <div className='col-12 col-lg-4'>
                                 <div className='card card-body  text-center p-4 border-3 img-container'>
-                                    <img src={`https://assets.ansl.tn/Images/Articles/${props.link}`} width='100%' height='200px'  /> 
+                                    <img src={`https://cdn.abyedh.tn/images/system/Resto/${articleD.Photo_Path}`} width='100%' height='200px'  /> 
                                 </div> 
                         </div>
                         <div className='col-12 col-lg-8'>
@@ -490,14 +452,22 @@ function PlatInfo() {
             return(<>
             <div className="card-body text-center">
                     <h5>Image existe déja</h5> 
-                    {/* <img src={`https://assets.ansl.tn/Images/Articles/${articleD ? articleD.Photo_Path : 'default_img.jpg'}`} className="rounded-circle" width="300px" />                     */}
-                    <ReactImageZoom width={300} height={400}  zoomPosition='original'  img={`https://assets.ansl.tn/Images/Articles/${articleD ? articleD.Photo_Path : 'default_img.jpg'}`} />
+                    {/* <img src={`https://assets.ansl.tn/Images/Articles/${articleD ? articleD.Photo_Path : 'plat.png'}`} className="rounded-circle" width="300px" />                     */}
+                    <ReactImageZoom width={300} height={400}  zoomPosition='original'  img={`https://assets.ansl.tn/Images/Articles/${articleD ? articleD.Photo_Path : 'plat.png'}`} />
             </div>
             </>)
         }
         return(<>
-        <div className='p-2 mb-2'>   
-            {articleD.Photo_Path == 'default_img.jpg' ? <UpdateImage /> : <ImageExist />  } 
+        <div className='row p-2 mb-2'>   
+             <div className='col-8'>
+                <Select options={options} fluid placeholder='Choisir Une Image ' onChange={(e, data) => setArticleD({...articleD, Photo_Path: data.value })}  />
+             </div>
+             <div className='col-4'> 
+                    <div className='card card-body  text-center p-4 mb-2 border-3 img-container'>
+                        <img src={`https://cdn.abyedh.tn/images/system/Resto/${articleD.Photo_Path}`} width='100%' height='150px'  /> 
+                    </div>
+                    <Button fluid className='rounded-pill' onClick={(e) => UpdatePhotoFunction(props.link)} >Modifier </Button> 
+             </div>
         </div>
        
         </>)

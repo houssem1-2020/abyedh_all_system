@@ -22,10 +22,10 @@ const EditArticle = ({articleD, setArticleD, checkPrixCompatiblite, familles, Ed
                 <Input icon='barcode' disabled iconPosition='left' type='number' placeholder='code a barre' className='w-100 border-0 shadow-sm rounded mb-3' defaultValue={articleD.A_Code} onChange={(e) => setArticleD({...articleD, A_Code: e.target.value })} />
                 <h5 className='mb-1 mt-0'>Nom: </h5>
                 <Input icon='star' iconPosition='left' placeholder='Nom' className='w-100 border-0 shadow-sm rounded mb-3' defaultValue={articleD.Name} onChange={(e) => setArticleD({...articleD, Name: e.target.value })}/>
+                
                 <div className='row'>
                             <div className='col-12 col-lg-4'>
                                 <h5 className='mb-1'>Genre: </h5>
-                                {/* <Select placeholder='Selectionez une Categorie' options={familles} className='w-100 shadow-sm rounded mb-3' defaultValue={articleD.Genre} onChange={(e, data) => setArticleD({...articleD, Genre: data.value })} />   */}
                                 <Input icon='dollar' iconPosition='left'   placeholder='genre' defaultValue={articleD.Genre}   className='w-100 border-0 shadow-sm rounded mb-3' onChange={(e) => setArticleD({...articleD, Genre: e.target.value })}/> </div>
                             <div className='col-12 col-lg-4'>
                                 <h5 className='mb-1'>Prix Acaht: </h5>
@@ -70,12 +70,12 @@ function ArticleInfo() {
 
     const panes = [
         {
-            menuItem: { key: 'suivie', icon: 'calendar alternate', content: 'Suivie' }, 
-            render: () =><><Tab.Pane attached={false}><Calendar /></Tab.Pane><br /></>,
+            menuItem: { key: 'resumer', icon: 'file excel', content: 'Resumeé' }, 
+            render: () => <><Tab.Pane attached={false}><StockESCard /></Tab.Pane><br /></>,
         },
         {
-            menuItem: { key: 'resumer', icon: 'file excel', content: 'Resumeé' }, 
-            render: () => <><Tab.Pane attached={false}><ResumerArticle /></Tab.Pane><br /></>,
+            menuItem: { key: 'suivie', icon: 'calendar alternate', content: 'Suivie' }, 
+            render: () =><><Tab.Pane attached={false}><SuivieInPlatCard /></Tab.Pane><br /></>,
         },
         {
             menuItem: { key: 'edit', icon: 'edit outline', content: 'Modifier' }, 
@@ -93,7 +93,6 @@ function ArticleInfo() {
 
    /*#########################[UseEffect]##################################*/
     useEffect(() => {
-        // console.log(new Date().toISOString().split('T')[0])
         axios.post(`${GConf.ApiLink}/stock/article`, {
             PID: GConf.PID,
             code: code, 
@@ -161,13 +160,11 @@ function ArticleInfo() {
 
     /*#########################[Function]##################################*/
     const EditArticleFunction = (event) => {
-        //console.log(articleD)
         setLS(true)
         axios.post(`${GConf.ApiLink}/stock/modifier`, {
-            tag :GConf.PID,
+            PID :GConf.PID,
             articleND :articleD,
         }).then(function (response) {
-            //console.log(response.data)
             if(response.data.affectedRows) {
                 toast.success("Article Modifier !", GConf.TostSuucessGonf)
                 setLS(false)
@@ -348,22 +345,9 @@ function ArticleInfo() {
             </div>
         </>);
     }
-    const Calendar = () =>{
+    const SuivieInPlatCard = () =>{
         return(<>
-        <FullCalendar 
-            plugins={[ dayGridPlugin ]}
-            initialView="dayGridMonth"
-            locale='fr' 
-            events={articleEvents}
-            height='420px'
-            navLinks ={true}
-        />
-        <div className='row mt-2'>
-        <div className='col'><span className='bi bi-circle-fill text-success '></span> Par Bon entre</div>
-            <div className='col'><span className='bi bi-circle-fill text-warning '></span> Par Bon Sortie</div>
-            <div className='col'><span className='bi bi-circle-fill text-primary '></span> Dans Factures</div>
-            <div className='col'><span className='bi bi-circle-fill text-danger '></span> Vers Camion</div>
-        </div>
+                Listes des PLat Qui contient cette article 
         </>)
     }
     const DeleteArticleCard = () =>{
@@ -389,19 +373,14 @@ function ArticleInfo() {
             </div>
         </>)
     }
-    const ResumerArticle = () =>{
+    const StockESCard = () =>{
         return(<>
-                <h5>Reumer entre deux periodes</h5>
+                <h5>Bon Entre / Sortie </h5>
                 <div className='mb-2 row'>
-                    <div className='col-6 mb-3'><Input size='small' fluid  type='date'  value={resDay.start}  onChange={(e) => setResDay({...resDay, start: e.target.value })}/></div>
-                    <div className='col-6 mb-3'><Input size='small' fluid  type='date'  value={resDay.end} onChange={(e) => setResDay({...resDay, end: e.target.value })}/></div>
+                    <div className='col-6 mb-3'><Input size='small' fluid    value={resDay.start}  onChange={(e) => setResDay({...resDay, start: e.target.value })}/></div>
+                    
                     <div className='col-6 self-align-center mb-2'>
-                        <h5>Imprimer Resumer </h5>
-                        <Button size='small' className='rounded-pill btn-imprimer' fluid onClick={(e) => PrintFunction('printResumer')} icon >  <Icon name='print' /> Imprimer Resumer </Button>
-                    </div>
-                    <div className='col-6 self-align-center mb-2'>
-                        <h5>Suivie Vente </h5>
-                        <Button size='small' className='rounded-pill bg-system-btn' fluid onClick={(e) => PrintFunction('printVente')} icon >  <Icon name='print' /> Suivie Vente </Button>
+                        <Button size='small' className='rounded-pill btn-imprimer' fluid onClick={(e) => PrintFunction('printResumer')} icon >  <Icon name='print' /> Enregistrer </Button>
                     </div>
                 </div> 
         </>)

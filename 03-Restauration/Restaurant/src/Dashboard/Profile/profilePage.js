@@ -79,7 +79,7 @@ const EditPassword = ({passwordData, setPasswordData, UpdatePasswordFunc,loaderS
 function ProfilePage() {
     /*###############################[Const]################################# */
     const [profileData, setProfileData] = useState([])
-    const [generalData, setGeneralData] = useState({Name:'',Phone:'', Adress:'',Genre:''})
+    const [generalData, setGeneralData] = useState({Name:'',Phone:'', Adress:'',Genre:'', Lat: '0.0', Lng:'0.2'})
     const [passwordData, setPasswordData] = useState({Identification:'',PasswordSalt:''})
     const [horaireData, setHoraireData] = useState([])
     const [uploadImageName, setUploadImageName] = useState('')
@@ -132,7 +132,7 @@ function ProfilePage() {
             PID: GConf.PID,
         })
         .then(function (response) {
-            console.log(response.data.general[0])
+            console.log(response.data)
             setGeneralData(response.data.general[0])
             setProfileData(response.data)
             setPasswordData(response.data.password[0]) 
@@ -155,8 +155,13 @@ function ProfilePage() {
         table.map( data => {
             tot = tot + data.Rating
         })
-
-        return parseFloat(tot / table.length).toFixed(1)
+        if (tot == 0) {
+            return tot
+        } else {
+            return parseFloat(tot / table.length).toFixed(1)
+        }
+        
+        //
     }
     const CalculateLikes = (table) =>{
         const WantedValue =  table.length ;
@@ -245,8 +250,8 @@ function ProfilePage() {
         );
     }
     const CheckPositions = () =>{
-        let LAT = myPosition[0] === JSON.parse(generalData.Lat)
-        let LNG = myPosition[1] === JSON.parse(generalData.Lng)
+        let LAT = myPosition[0] === parseFloat(generalData.Lat)
+        let LNG = myPosition[1] === parseFloat(generalData.Lng)
         return (LAT && LNG)
     }
 
@@ -396,7 +401,7 @@ function ProfilePage() {
                     Imprimez ce lien qui peut être accroché à la porte de votre magasin afin que vos clients puissent vous joindre facilement, et il peut également être partagé directement sur les réseaux sociaux
                     <div className='mt-2'>
                         <Button size='mini' positive onClick={(e) => PrintFunction('printPID')}> <Icon name='print'  />Imprimer</Button>
-                        <Button size='mini' primary target="_blank" href={`https://www.facebook.com/sharer/sharer.php?u=https://t.abyedh.tn/S/P/storage/${GConf.PID}`} >  <Icon name='facebook f' /> Partager </Button>
+                        <Button size='mini' primary target="_blank" href={`https://www.facebook.com/sharer/sharer.php?u=https://abyedh.tn/S/P/${GConf.systemTag}/${GConf.PID}`} >  <Icon name='facebook f' /> Partager </Button>
                     </div>
                 </div>
             </div>
@@ -425,7 +430,7 @@ function ProfilePage() {
                         Lorsque vous cliquer ici la position enregistré sera 'Mon position' 
                         </div>
                         <div className='col-4 text-end'> 
-                                {/* <Button  className='rounded-pill bg-system-btn' disabled={CheckPositions()} size='mini' onClick={ () => UpdatePositionFunc()} ><Icon name='save' /> Modifier Position <Loader inverted active={loaderState}  inline size='tiny' className='ms-2'/></Button> */}
+                                <Button  className='rounded-pill bg-system-btn' disabled={CheckPositions()} size='mini' onClick={ () => UpdatePositionFunc()} ><Icon name='save' /> Modifier Position <Loader inverted active={loaderState}  inline size='tiny' className='ms-2'/></Button>
                         </div>
                     </div>
                     <MapContainer center={[36.071,9.333]} zoom={7} scrollWheelZoom={false} className="map-height">
@@ -433,9 +438,9 @@ function ProfilePage() {
                         attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
                         url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
                         />
-                        {/* <Marker position={[generalData.Lat,generalData.Lng]}>
+                        <Marker position={[generalData.Lat,generalData.Lng]}>
                             <Popup>Position Enregistrée</Popup>
-                        </Marker> */}
+                        </Marker>
                         <Marker position={[myPosition[0],myPosition[1]]}>
                             <Popup>Mon Position</Popup>
                         </Marker>

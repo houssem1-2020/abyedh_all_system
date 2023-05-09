@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
-import BackCard from '../Assets/backCard';
-import InputLinks from '../Assets/linksData';
+import BackCard from '../Assets/Cards/backCard';
+import GConf from '../Assets/linksData';
 import TableGrid from '../../Dashboard/Assets/tableGrid';
 import { _ } from "gridjs-react";
 import GConf from '../../AssetsM/generalConf';
@@ -89,7 +89,7 @@ function CommandePage() {
 
 
     return ( <>
-        <BackCard data={InputLinks.backCard.mc}/>
+        <BackCard data={GConf.backCard.mc}/>
         <br />
         <div className='container-fluid'>
             <TableGrid tableData={tableData} columns={GConf.TableHead.request} />

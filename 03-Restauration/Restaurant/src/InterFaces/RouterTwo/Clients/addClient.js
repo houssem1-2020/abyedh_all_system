@@ -9,8 +9,8 @@ import axios from 'axios';
 import useGetClientMap from '../../Dashboard/Assets/Hooks/fetchClientMap';
 import useSaveNotification from '../../Dashboard/Assets/Hooks/saveNotifFunction';
 import { useEffect } from 'react';
-import BackCard from '../Assets/backCard';
-import InputLinks from '../Assets/linksData';
+import BackCard from '../Assets/Cards/backCard';
+import GConf from '../Assets/linksData';
 
 function AddClient() {
     /*################[Variable]###############*/
@@ -93,7 +93,7 @@ function AddClient() {
 
 
     return ( <>
-            <BackCard data={InputLinks.backCard.clAdd} />
+            <BackCard data={GConf.backCard.clAdd} />
             <br />
             <div className='container mb-4'>
             <div className='row'>

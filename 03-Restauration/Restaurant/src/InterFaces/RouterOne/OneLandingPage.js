@@ -10,8 +10,8 @@ import OneGConf from './Assets/OneGConf'
 
 function InputLandingPage() {
     /*#########################[Const]###########################*/
-    let camData = OneGConf.forPID;
-    const camId = OneGConf.forPID.Cam_ID;
+    let CaisseData = OneGConf.forPID;
+    const CaisseId = OneGConf.forPID.Cam_ID;
 
     /*#########################[UseEffect]###########################*/
     useEffect(() => {
@@ -54,7 +54,7 @@ function InputLandingPage() {
         return(<>
             <div className='card p-3 fixed-top border-0 shadow-sm rounded-0'>
                 <div className='row'>
-                    <div className='col-8 align-self-center'><h2> <span className="badge bg-info"> <span className='bi bi-truck '></span>  {OneGConf.forPID.Cam_Name} </span></h2></div>
+                    <div className='col-8 align-self-center'><h2> <span className="badge bg-info"> <span className='bi bi-pc-display-horizontal '></span>  {OneGConf.forPID.CA_Name} </span></h2></div>
                     {/* <div className='col-1 align-self-center' >
                         <NavLink to='up' exact="true" className={({ isActive }) => isActive ? "ps-1 pe-1 abyedh-list-a-s" : "ps-1 pe-1 abyedh-list"}><i className="bi bi-cloud-arrow-down fa-lg "></i></NavLink>
                     </div> */}

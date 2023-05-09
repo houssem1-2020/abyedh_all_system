@@ -6,6 +6,10 @@ import GConf from '../../AssetsM/generalConf';
 import BreadCrumb from '../../AssetsM/Cards/breadCrumb';
 import FrameForPrint from '../../AssetsM/Cards/frameForPrint';
 import usePrintFunction from '../../AssetsM/Hooks/printFunction';
+import TableGrid from '../../AssetsM/Cards/tableGrid';
+import { _ } from 'gridjs-react';
+import { useNavigate} from 'react-router-dom';
+import TableImage from '../../AssetsM/Cards/tableImg';
 
 const InputDatCard = ({targetDate, setTargetDate, FetchTargetFactures,PrintFunction, loaderState}) => {
     return(<>
@@ -27,10 +31,12 @@ const InputDatCard = ({targetDate, setTargetDate, FetchTargetFactures,PrintFunct
 
 function ResumerFactures() {
     /*#########################[Const]##################################*/
+    const navigate = useNavigate();
     const Today = new Date()
     const [factureList, setFactureList] = useState([])
     const [targetDate, setTargetDate] = useState({start: Today.toISOString().split('T')[0], end: Today.toISOString().split('T')[0]})
     const [loaderState, setLS] = useState(false)
+    const [modalS, setModalS] = useState(false)
 
     /*#########################[Function ]##################################*/
     const FetchTargetFactures = () =>{
@@ -40,7 +46,19 @@ function ResumerFactures() {
             targetDate: targetDate,
         })
         .then(function (response) {
-             setFactureList(response.data)
+            let factureListContainer = []
+            response.data.map( (getData) => factureListContainer.push([
+            getData.T_ID,
+            getData.CA_Name,
+            getData.CL_Name,
+            new Date(getData.T_Date).toLocaleDateString('fr-FR').split( '/' ).reverse( ).join( '-' ),
+            getData.T_Time,
+            getData.Final_Value,
+            _(<StateCard status={getData.Pay_State} />),
+            _(<Button className='rounded-pill bg-system-btn' size='mini' onClick={ (e) => NavigateFunction(`/S/ft/info/${getData.T_ID}`)}><span className='d-none d-lg-inline'> </span><Icon  name='angle right' /></Button>)
+            ],))
+            setFactureList(factureListContainer)
+
              setLS(false)
         }).catch((error) => {
             if(error.request) {
@@ -55,23 +73,26 @@ function ResumerFactures() {
         return (parseFloat(value) * facteur_p).toFixed(3) 
     }
     const PrintFunction = (frameId) =>{ usePrintFunction(frameId) }
-    
+     const NavigateFunction = (link) => {  navigate(link) }
+
     /*#########################[Card]##################################*/
-    const FactureListCard = (props) =>{
-        return(<>
-                <div className='card shadow-sm p-2 mb-1 rounded-pill ps-4'>
-                    <div className='row'>
-                        <div className='col-1 align-self-center'>{props.dataF.PK}</div>
-                        <div className='col-4 text-start align-self-center'> {props.dataF.Name }</div>
-                        {/* <div className='col-2 align-self-center'>{props.dataF.F_ID}</div> */}
-                        <div className='col align-self-center'>{new Date(props.dataF.Cre_Date).toLocaleDateString('fr-FR').split( '/' ).reverse( ).join( '-' )}</div>
-                        <div className='col align-self-center'>{CalculateTVA(props.dataF.Tota)}</div>
-                        <div className='col align-self-center'>{(props.dataF.Tota - CalculateTVA(props.dataF.Tota)).toFixed(3)}</div>
-                        <div className='col align-self-center'>{props.dataF.Tota}</div>
-                    </div>
-                </div>
-        </>)
-    }
+    const StateCard = ({ status }) => {
+        const StateCard = (props) =>{ return <span className={`badge bg-${props.color}`}> {props.text} </span>}
+        const statusCard = React.useCallback(() => {
+          switch(status) {
+            case 'Payee': return <StateCard color='success' text='Payeé' />;  
+            case 'Credit': return <StateCard color='danger' text='Credit' /> ;
+            case 'Waitting': return <StateCard color='warning' text='En Attend' /> ;
+            default:  return <StateCard color='secondary' text='Indefinie' />;    
+          }
+        }, [status]);
+      
+        return (
+          <div className="container">
+            {statusCard()}
+          </div>
+        );
+    };
 
     return ( <>
         <BreadCrumb links={GConf.BreadCrumb.factureResumer} />
@@ -83,10 +104,7 @@ function ResumerFactures() {
                 </div>
             </div>
             <div className='col-12 col-lg-8'>
-                <h5>Listes des Factures</h5>    
-                    {factureList.map( (val) => <FactureListCard key={val.F_ID} dataF={val}/>)}
-                <br />
-                    
+                <TableGrid tableData={factureList} columns={['ID','Caisse','Client','Jour','Temps','Totale','Etat', 'Voir']} />                        
             </div>
         </div>
         <FrameForPrint frameId='printResumer' src={`/Pr/Facture/resumer/${targetDate.start}/${targetDate.end}`} />

@@ -10,7 +10,7 @@ import useSaveNotification from '../../AssetsM/Hooks/saveNotifFunction';
 
 function AjouterCamion() {
     /*#########################[Const]##################################*/
-    const [camionD, setCamionD] = useState([])
+    const [caisseD, setCaisseD] = useState([])
     const [saveBtnState, setSaveBtnState] = useState('')
     const [loaderState, setLS] = useState(false)
     const SaveNotification = (genre,tag,table) =>{ useSaveNotification(genre,tag,table)}
@@ -18,24 +18,22 @@ function AjouterCamion() {
 
     /*#########################[Function]##################################*/
     const SaveCamion = () => {
-        if (!camionD.Matricule) {toast.error("Matricule Invalide !", GConf.TostErrorGonf)}
-        else if (!camionD.Cam_Name) {toast.error("Nom Invalide !", GConf.TostErrorGonf)}
-        else if (!camionD.Marque) {toast.error("Marque Invalide !", GConf.TostErrorGonf)}
-        else if (!camionD.Chauffeur) {toast.error("Chauffeur Invalide !", GConf.TostErrorGonf)}
-        else if (!camionD.Identifiant) {toast.error("Identifiant Invalide !", GConf.TostErrorGonf)}
-        else if (!camionD.Password) {toast.error("Mot De Passe Invalide !", GConf.TostErrorGonf)}
+        if (!caisseD.CA_Name) {toast.error("Nom Invalide !", GConf.TostErrorGonf)}
+        else if (!caisseD.Caisse_Fond) {toast.error("Marque Invalide !", GConf.TostErrorGonf)}
+        else if (!caisseD.Identifiant) {toast.error("Identifiant Invalide !", GConf.TostErrorGonf)}
+        else if (!caisseD.Password) {toast.error("Mot De Passe Invalide !", GConf.TostErrorGonf)}
         else{
                 setLS(true)
-                axios.post(`${GConf.ApiLink}/camions/ajouter`, {
+                axios.post(`${GConf.ApiLink}/caisses/ajouter`, {
                     PID : GConf.PID,
-                    camionD : camionD,
+                    caisseD : caisseD,
                 }).then(function (response) {
                     console.log(response.data)
                     if(response.data.affectedRows) {
                         setSaveBtnState('disabled')
                         toast.success("Camion Ajouteé !", GConf.TostSuucessGonf)
                         setLS(false)
-                        SaveNotification('camionAjouter',GConf.PID, camionD)
+                        //SaveNotification('camionAjouter',GConf.PID, caisseD)
                     }
                     else {
                             toast.error('Erreur esseyez de nouveaux', GConf.TostSuucessGonf)
@@ -44,7 +42,7 @@ function AjouterCamion() {
                 }).catch((error) => {
                     if(error.request) {
                       toast.error(<><div><h5>Probleme de Connextion</h5> Le Camion sera enregistrer sur votre ordinateur   </div></>, GConf.TostInternetGonf)   
-                      Offline.camionToSave.push(camionD)
+                      Offline.camionToSave.push(caisseD)
                       localStorage.setItem(`${GConf.PID}_Offline`,  JSON.stringify(Offline));
                       setLS(false)
 
@@ -56,7 +54,7 @@ function AjouterCamion() {
     const GenrateKey = () =>{
         let ID = Math.random().toString(36).slice(2, 8);
         let PWD =  Math.floor(Math.random() * 1000000);
-        setCamionD({...camionD, Identifiant: ID , Password:PWD})
+        setCaisseD({...caisseD, Identifiant: ID , Password:PWD})
     }
 
 
@@ -66,30 +64,22 @@ function AjouterCamion() {
             <Bounce left>
                 <div className='row'>
                     <div className='col-12 col-lg-8'>
-                         {/* <div className='p-1 mb-2'>
-                            <h5 className='mb-1'>Matricule:</h5>
-                            <Input icon='key' iconPosition='left' placeholder='Matricule' className='w-100 border-0 shadow-sm rounded mb-1'  onChange={(e) => setCamionD({...camionD, Matricule: e.target.value })}/>
-                         </div> */}
                          <div className='p-1  mb-2'>
                             <h5 className='mb-1'>Nom:</h5>
-                            <Input icon='desktop' iconPosition='left' placeholder='Nom' className='w-100 border-0 shadow-sm rounded mb-1' onChange={(e) => setCamionD({...camionD, Cam_Name: e.target.value })} />
+                            <Input icon='desktop' iconPosition='left' placeholder='Nom' className='w-100 border-0 shadow-sm rounded mb-1' onChange={(e) => setCaisseD({...caisseD, CA_Name: e.target.value })} />
                         </div>
-                        {/* <div className='p-1 mb-2'>
-                            <h5 className='mb-1'>Marque:</h5>
-                            <Input icon='star' iconPosition='left' placeholder='Marque' className='w-100 border-0 shadow-sm rounded mb-1' onChange={(e) => setCamionD({...camionD, Marque: e.target.value })} />
-                        </div> */}
                         <div className='p-1 mb-2'>
                             <h5 className='mb-1'> Fond:</h5>
-                            <Input icon='dollar sign' iconPosition='left' placeholder='Fond' className='w-100 border-0 shadow-sm rounded mb-1' onChange={(e) => setCamionD({...camionD, Chauffeur: e.target.value })}/>
+                            <Input icon='dollar sign' iconPosition='left' placeholder='Fond' className='w-100 border-0 shadow-sm rounded mb-1' onChange={(e) => setCaisseD({...caisseD, Caisse_Fond: e.target.value })}/>
                         </div>
                         <div className='row mb-3'>
                                 <div className='col-12 col-lg-6'>
                                     <h5 className='mb-1'>Identifiant:</h5>
-                                    <Input icon='linkify' iconPosition='left' placeholder='identifiant'  className='w-100 border-0 shadow-sm rounded mb-3' value={camionD.Identifiant} onChange={(e) => setCamionD({...camionD, Identifiant: e.target.value })} />
+                                    <Input icon='linkify' iconPosition='left' placeholder='identifiant'  className='w-100 border-0 shadow-sm rounded mb-3' value={caisseD.Identifiant} onChange={(e) => setCaisseD({...caisseD, Identifiant: e.target.value })} />
                                 </div>
                                 <div className='col-9 col-lg-5'>
                                     <h5 className='mb-1'>Mot De Pass: </h5>
-                                    <Input icon='eye' iconPosition='left' placeholder='Nom' className='w-100 border-0 shadow-sm rounded mb-3' value={camionD.Password} onChange={(e) => setCamionD({...camionD, Password: e.target.value })}/>
+                                    <Input icon='eye' iconPosition='left' placeholder='Nom' className='w-100 border-0 shadow-sm rounded mb-3' value={caisseD.Password} onChange={(e) => setCaisseD({...caisseD, Password: e.target.value })}/>
                                 </div>
                                 <div className='col-3 col-lg-1 align-self-center'>
                                    <Button onClick={GenrateKey} className="rounded-pill " icon='random'></Button>

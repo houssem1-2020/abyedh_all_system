@@ -3,7 +3,7 @@ import { Bounce } from 'react-reveal';
 import { Button, Statistic } from 'semantic-ui-react';
 import GConf from '../../AssetsM/generalConf';
 import LinkCard from './Assets/Cards/linksCard'
-import InputLinks from './Assets/TwoGConf'
+//import GConf from './Assets/TwoGConf'
 import CountUp from 'react-countup';
 import axios from 'axios';
 import { NavLink } from 'react-router-dom';
@@ -93,25 +93,25 @@ function InputLandingPage() {
                 
                 <h3>Commandes</h3> 
                 <div className='row'>
-                    <div className='col-6 mb-3'> <LinkCard data={InputLinks.main[0]} /> </div>
-                    <div className='col-6 mb-3'> <LinkCard data={InputLinks.main[1]} /> </div>
+                    <div className='col-6 mb-3'> <LinkCard data={GConf.main[0]} /> </div>
+                    <div className='col-6 mb-3'> <LinkCard data={GConf.main[1]} /> </div>
                 </div> 
                 <h3>Stock</h3>
                 <div className='row'>
-                    <div className='col-6 mb-3'> <LinkCard data={InputLinks.main[2]} /> </div>
-                    <div className='col-6 mb-3'> <LinkCard data={InputLinks.main[3]} /> </div>
+                    <div className='col-6 mb-3'> <LinkCard data={GConf.main[2]} /> </div>
+                    <div className='col-6 mb-3'> <LinkCard data={GConf.main[3]} /> </div>
                 </div> 
                 <h3>Clients</h3>
                 <div className='row'>
-                    <div className='col-6 mb-3'> <LinkCard data={InputLinks.main[4]} /> </div>
-                    <div className='col-6 mb-3'> <LinkCard data={InputLinks.main[5]} /> </div>
-                    <div className='col-6 mb-3'> <LinkCard data={InputLinks.main[6]} /> </div>
-                    <div className='col-6 mb-3'> <LinkCard data={InputLinks.main[7]} /> </div>
+                    <div className='col-6 mb-3'> <LinkCard data={GConf.main[4]} /> </div>
+                    <div className='col-6 mb-3'> <LinkCard data={GConf.main[5]} /> </div>
+                    <div className='col-6 mb-3'> <LinkCard data={GConf.main[6]} /> </div>
+                    <div className='col-6 mb-3'> <LinkCard data={GConf.main[7]} /> </div>
                 </div>
                 <h3>Recette</h3>
                 <div className='row'>
-                    <div className='col-6 mb-3'> <LinkCard data={InputLinks.main[8]} /> </div>
-                    <div className='col-6 mb-3'> <LinkCard data={InputLinks.main[9]} /> </div>
+                    <div className='col-6 mb-3'> <LinkCard data={GConf.main[8]} /> </div>
+                    <div className='col-6 mb-3'> <LinkCard data={GConf.main[9]} /> </div>
                 </div>
                    
             </div>                   

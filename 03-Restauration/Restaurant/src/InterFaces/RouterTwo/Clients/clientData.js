@@ -1,6 +1,6 @@
 import React from 'react';
-import InputLinks from '../Assets/linksData'
-import BackCard from '../Assets/backCard'
+import GConf from '../Assets/linksData'
+import BackCard from '../Assets/Cards/backCard'
 import { useParams } from 'react-router-dom';
 import SKLT from '../../AssetsM/Cards/usedSlk';
 import { Button, Divider, Icon, Loader, Statistic, Tab } from 'semantic-ui-react';
@@ -182,7 +182,7 @@ function ClientData() {
     }
 
     return ( <>
-            <BackCard data={InputLinks.backCard.cl} />
+            <BackCard data={GConf.backCard.cl} />
             <br />
             <div className='container'>
                 <Tab menu={{secondary: true ,className: "wrapped"}} panes={panes} />

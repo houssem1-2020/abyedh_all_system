@@ -1,7 +1,7 @@
 import React, {useEffect,useState}  from 'react';
 import TableGrid from '../../Dashboard/Assets/tableGrid';
-import BackCard from '../Assets/backCard';
-import InputLinks from '../Assets/linksData';
+import BackCard from '../Assets/Cards/backCard';
+import GConf from '../Assets/linksData';
 import GConf from '../../AssetsM/generalConf';
 import { _ } from "gridjs-react";
 import axios from 'axios';
@@ -16,7 +16,7 @@ function ClientList() {
     /*################[UseEffect]###############*/
     useEffect(() => {
         axios.post(`${GConf.ApiLink}/client`,{
-            PID: InputLinks.forPID.PID,
+            PID: GConf.forPID.PID,
         })
         .then(function (response) {
             let testTable = []
@@ -33,7 +33,7 @@ function ClientList() {
         })
     }, [])
     return ( <>
-        <BackCard data={InputLinks.backCard.clList}/>
+        <BackCard data={GConf.backCard.clList}/>
         <br />
         <div className='container'>
              <TableGrid tableData={clientList} columns={['*','Client','Mat.','Adresse','Voir']} />

@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { MapContainer, Marker, TileLayer } from 'react-leaflet';
-import BackCard from '../Assets/backCard';
-import InputLinks from '../Assets/linksData';
+import BackCard from '../Assets/Cards/backCard';
+import GConf from '../Assets/linksData';
 import 'leaflet/dist/leaflet.css';
 import L from 'leaflet';
 import GConf from '../../AssetsM/generalConf';
@@ -48,7 +48,7 @@ function ClientMap() {
     }
 
     return ( <>
-        <BackCard data={InputLinks.backCard.clMap}/>
+        <BackCard data={GConf.backCard.clMap}/>
         <br />
         <div className='container'>
                 <div className='col-12 '>
