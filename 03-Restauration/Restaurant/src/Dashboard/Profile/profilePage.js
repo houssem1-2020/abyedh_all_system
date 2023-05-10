@@ -81,16 +81,27 @@ function ProfilePage() {
     const [profileData, setProfileData] = useState([])
     const [generalData, setGeneralData] = useState({Name:'',Phone:'', Adress:'',Genre:'', Lat: '0.0', Lng:'0.2'})
     const [passwordData, setPasswordData] = useState({Identification:'',PasswordSalt:''})
+    
+    /*Horiare */
     const [horaireData, setHoraireData] = useState([])
+    const [alwaysState , setAlwaysState] = useState(false)
+    const [delegList ,setDelegList] = useState([])
+
+    /*Images */
+    const [imagesListe, setImagesListe] = useState([])
     const [uploadImageName, setUploadImageName] = useState('')
     const [uploadImage, setUploadImages] = useState()
+    const [formaDataArr, setFormDataArr] = useState()
     const [displayedImage, setDisplayedImage] = useState()
-    const [alwaysState , setAlwaysState] = useState(false)
+    const [todisplayedImage, setToDisplayedImage] = useState([])
+    
+    /*Position */
+    const [myPosition, setMyPosition] = useState([36.17720,9.12337])
+
+    /* Others */
     const [loading , setLoading] = useState(false)
     const [saveBtnState, setSaveBtnState] = useState(false)
     const [loaderState, setLS] = useState(false)
-    const [myPosition, setMyPosition] = useState([36.17720,9.12337])
-    const [delegList ,setDelegList] = useState([])
 
     L.Icon.Default.mergeOptions(GConf.LeafleftIcon );
     const panes = [
@@ -127,6 +138,7 @@ function ProfilePage() {
 
     /*###############################[UseEffect]################################# */
     useEffect(() => {
+        
         GetPositionNow();
         axios.post(`${GConf.ApiLink}/profile`, {
             PID: GConf.PID,
@@ -136,6 +148,7 @@ function ProfilePage() {
             setGeneralData(response.data.general[0])
             setProfileData(response.data)
             setPasswordData(response.data.password[0]) 
+            setImagesListe(response.data.images)
             if (response.data.horaire[0]) { setAlwaysState(response.data.horaire[0].ALL_Time) } else { }
             if (response.data.horaire[0]) { setHoraireData(JSON.parse(response.data.horaire[0].WorkingTime)) } else { } 
             setLoading(true)
@@ -150,6 +163,62 @@ function ProfilePage() {
     }, [])
 
     /*###############################[Function]################################# */
+    const PrintFunction = (frameId) =>{usePrintFunction(frameId)}
+    
+    /*Genrale */
+    const GetDelegList = (value) =>{
+        setGeneralData({...generalData, Gouv: value })
+        const found = TunMap.Deleg.filter(element => element.tag === value)
+        setDelegList(found)
+    }
+    const UpdateGeneralDataFunc = () =>{
+        if (!generalData.Matricule_F) {toast.error("Matricule est Invalide !", GConf.TostErrorGonf)}
+        else if (!generalData.Name ) {toast.error("Nom de la ste est  Invalide !", GConf.TostErrorGonf)}
+        else if (!generalData.Gouv ) {toast.error("Gouv est  Invalide !", GConf.TostErrorGonf)}
+        else if (!generalData.Deleg ) {toast.error("Delegation est  Invalide !", GConf.TostErrorGonf)}
+        else if (!generalData.Phone ) {toast.error("Phone est  Invalide !", GConf.TostErrorGonf)}
+        else if (!generalData.Adress ) {toast.error("Adress est  Invalide !", GConf.TostErrorGonf)}
+        else if (!generalData.Genre ) {toast.error("Genre est  Invalide !", GConf.TostErrorGonf)}
+        else{
+            setLS(true)
+            axios.post(`${GConf.ApiLink}/profile/update/general`, {
+                PID : GConf.PID,
+                profileDataSent : generalData,
+            }).then(function (response) {
+                console.log(response.data)
+                if(response.data.affectedRows) {
+                    toast.success("Profile Modifieé !", GConf.TostSuucessGonf)
+                    setLS(false)
+                }
+                else{
+                    toast.error('Erreur esseyez de nouveaux', GConf.TostSuucessGonf)
+                    setLS(false)
+                }
+            })                
+        }
+    }
+    const UpdatePasswordFunc = () =>{
+        if (!passwordData.Identification) {toast.error("Identifiant est Invalide !", GConf.TostErrorGonf)}
+        else if (!passwordData.PasswordSalt ) {toast.error("Mot de passe est  Invalide !", GConf.TostErrorGonf)}
+        else{
+            setLS(true)
+            axios.post(`${GConf.ApiLink}/profile/update/password`, {
+                PID : GConf.PID,
+                passwordDataSent : passwordData,
+            }).then(function (response) {
+                if(response.data.affectedRows) {
+                    toast.success("Mot de Passe Modifieé !", GConf.TostSuucessGonf)
+                    setLS(false)
+                }
+                else{
+                    toast.error('Erreur esseyez de nouveaux', GConf.TostSuucessGonf)
+                    setLS(false)
+                }
+            })                
+        }
+    }
+
+    /* Rating */
     const CalculateRating = (table) =>{
         let tot = 0;
         table.map( data => {
@@ -174,6 +243,14 @@ function ProfilePage() {
 
         return(parseInt((filteredArray.length / table.length) * 100 ) )
     }
+    const ReturnAvatarGroupList = (list) =>{
+        let FinalList = []
+
+        list.map( (data,index) => FinalList.push({ key: index, name: data.Name , src: `https://cdn.abyedh.tn/images/p_pic/${data.PictureId}.gif`},))
+        return FinalList
+    }
+
+    /*Images */
     const UploadImageFunc = (e) => {
         setDisplayedImage(URL.createObjectURL(e.target.files[0]))
         setUploadImages(e.target.files[0])
@@ -198,7 +275,27 @@ function ProfilePage() {
             });  
         } 
     }
-
+    const handleFileSelect = (event)  =>{
+        const files = event.target.files;
+        const formData = new FormData();
+        for (let i = 0; i < files.length; i++) {
+            const filename = `restaurant_${GConf.PID}_${i}-`;
+            formData.append('Images', files[i], filename);
+        }
+        formData.append("PID", GConf.PID);
+        //setDisplayedImage(URL.createObjectURL(event.target.files[0]))
+        const uploadedImages = Array.from(event.target.files);
+        setToDisplayedImage(uploadedImages);
+        //files.map(() => console.log(files.length))
+        
+        setFormDataArr(formData);
+        //UpdateImageFuncMultiple(formData);
+    }
+    const UpdateImageFuncMultiple = (formData) =>{
+        axios.post(`${GConf.ApiLink}/profile/images/ajouter`, formData)
+        .then(response => console.log(`Done ` + response.data))
+        .catch(error => console.log(error));
+    }
     // const UpdateImageFunc = () =>{
     //     if (!uploadImage) { } 
     //     else if (!uploadImageName) { }
@@ -222,18 +319,24 @@ function ProfilePage() {
     //     setDisplayedImage(URL.createObjectURL(e.target.files[0]))
     //     setUploadImages(e.target.files[0])
     // }
-    const PrintFunction = (frameId) =>{usePrintFunction(frameId)}
-    const ReturnAvatarGroupList = (list) =>{
-        let FinalList = []
-
-        list.map( (data,index) => FinalList.push({ key: index, name: data.Name , src: `https://cdn.abyedh.tn/images/p_pic/${data.PictureId}.gif`},))
-        return FinalList
+    const RemoveImageFunc = (imgName) => {
+        console.log(imgName.slice(0, -4))
+        axios.post(`${GConf.ApiLink}/profile/images/deletefile`, {
+            fileName : imgName,
+        }).then(function (response) {
+            console.log(response.data)
+            if(response.data.affectedRows) {
+                toast.success("Image Supprimeé !", GConf.TostSuucessGonf)
+                setLS(false)
+            }
+            else{
+                toast.error('Erreur esseyez de nouveaux', GConf.TostSuucessGonf)
+                setLS(false)
+            }
+        })
     }
-    const GetDelegList = (value) =>{
-        setGeneralData({...generalData, Gouv: value })
-        const found = TunMap.Deleg.filter(element => element.tag === value)
-        setDelegList(found)
-    }
+    
+    /*Position */
     const GetPositionNow = () =>{
         //get position 
         navigator.geolocation.getCurrentPosition(
@@ -253,54 +356,6 @@ function ProfilePage() {
         let LAT = myPosition[0] === parseFloat(generalData.Lat)
         let LNG = myPosition[1] === parseFloat(generalData.Lng)
         return (LAT && LNG)
-    }
-
-    /* Save */
-    const UpdateGeneralDataFunc = () =>{
-            if (!generalData.Matricule_F) {toast.error("Matricule est Invalide !", GConf.TostErrorGonf)}
-            else if (!generalData.Name ) {toast.error("Nom de la ste est  Invalide !", GConf.TostErrorGonf)}
-            else if (!generalData.Gouv ) {toast.error("Gouv est  Invalide !", GConf.TostErrorGonf)}
-            else if (!generalData.Deleg ) {toast.error("Delegation est  Invalide !", GConf.TostErrorGonf)}
-            else if (!generalData.Phone ) {toast.error("Phone est  Invalide !", GConf.TostErrorGonf)}
-            else if (!generalData.Adress ) {toast.error("Adress est  Invalide !", GConf.TostErrorGonf)}
-            else if (!generalData.Genre ) {toast.error("Genre est  Invalide !", GConf.TostErrorGonf)}
-            else{
-                setLS(true)
-                axios.post(`${GConf.ApiLink}/profile/update/general`, {
-                    PID : GConf.PID,
-                    profileDataSent : generalData,
-                }).then(function (response) {
-                    console.log(response.data)
-                    if(response.data.affectedRows) {
-                        toast.success("Profile Modifieé !", GConf.TostSuucessGonf)
-                        setLS(false)
-                    }
-                    else{
-                        toast.error('Erreur esseyez de nouveaux', GConf.TostSuucessGonf)
-                        setLS(false)
-                    }
-                })                
-            }
-    }
-    const UpdatePasswordFunc = () =>{
-        if (!passwordData.Identification) {toast.error("Identifiant est Invalide !", GConf.TostErrorGonf)}
-        else if (!passwordData.PasswordSalt ) {toast.error("Mot de passe est  Invalide !", GConf.TostErrorGonf)}
-        else{
-            setLS(true)
-            axios.post(`${GConf.ApiLink}/profile/update/password`, {
-                PID : GConf.PID,
-                passwordDataSent : passwordData,
-            }).then(function (response) {
-                if(response.data.affectedRows) {
-                    toast.success("Mot de Passe Modifieé !", GConf.TostSuucessGonf)
-                    setLS(false)
-                }
-                else{
-                    toast.error('Erreur esseyez de nouveaux', GConf.TostSuucessGonf)
-                    setLS(false)
-                }
-            })                
-        }
     }
     const UpdatePositionFunc = () =>{
         if (!passwordData.Identification) {toast.error("Identifiant est Invalide !", GConf.TostErrorGonf)}
@@ -322,6 +377,13 @@ function ProfilePage() {
             })                
         }
     }
+
+
+    /*Horiare */
+
+
+
+
 
     /*###############################[Card]################################# */
     const ProfileCard = () =>{
@@ -481,8 +543,8 @@ function ProfilePage() {
                 {/* <form encType="multipart/form-data"> */}
                     <div className='row'>
                         <div className='col-1 align-self-center text-end'>
-                            <label onChange={UploadImageFunc} htmlFor="formId" className='text-info ' role="button">
-                               <Input type='file' hidden name="imagez" id="formId"  />
+                            <label onChange={UploadImageFunc} htmlFor="formId"  className='text-info ' role="button">
+                                <Input type='file' hidden name="imagez" id="formId"   />
                                 <span className='bi bi-cloud-upload-fill bi-md'></span>
                             </label>
                         </div>
@@ -525,64 +587,55 @@ function ProfilePage() {
             return(<>
                 <div className='card p-2 shadow-sm mb-2 border-div'>
                     <div className='row'>
-                        <div className='col-2 align-self-center text-center'>
-                                <label onChange={UploadImageFunc} htmlFor="formId" className='text-info' role="button">
-                                    <Input type='file' hidden name="imagez" id="formId"  />
+                        <div className='col-6 align-self-center text-center'>
+                                <label onChange={handleFileSelect} htmlFor="formId"   className='text-info' role="button">
+                                    <Input type='file' hidden name="Images" id="formId" multiple />
                                     <span className='bi bi-cloud-upload-fill bi-md'> </span> 
                                 </label>
                                 
                         </div>
-                        <div className='col-10'>
-                            <div className=' text-center p-4  '>
-                                {displayedImage ? <img src={displayedImage} width='300px' height='160px'  /> : 'PaS d\'image'}
-                            </div>
+                        <div className='col-6'>
+                            <Button   className='rounded-pill bg-system-btn' size='tiny' onClick={() => UpdateImageFuncMultiple(formaDataArr)} ><Icon name='save' /> Enregistreé <Loader inverted active={loaderState} inline size='tiny' className='ms-2 text-danger'/></Button>
                         </div>
                         
                     </div>
                 </div>
             </>)
         }
-        return(<>
-                <UploadImageCard title='Image de Profile' tag='profile' /> 
-                <br />
-                <div className='row'>
-                        <div className='col-6'>
-                            <div className='card p-2 mb-2 border-div'>
-                                <h6>En tant que Image de profile</h6>
-                                <Button disabled={!saveBtnState} className='rounded-pill bg-system-btn' size='tiny' onClick={() => UpdateImageFunc('Profile')} ><Icon name='save' /> Enregistreé <Loader inverted active={loaderState} inline size='tiny' className='ms-2 text-danger'/></Button>
-                            </div>
-                        </div>
-                        <div className='col-6'>
-                            <div className='card p-2 mb-2 border-div'>
-                                <h6>En tant que Image 1</h6>
-                                <Button disabled={!saveBtnState} className='rounded-pill bg-system-btn' size='tiny' onClick={() => UpdateImageFunc('Image1')} ><Icon name='save' /> Enregistreé <Loader inverted active={loaderState} inline size='tiny' className='ms-2 text-danger'/></Button>
-                            </div>
-                        </div>
-                        <div className='col-6'>
-                            <div className='card p-2 mb-2 border-div'>
-                                <h6>En tant que Image 2</h6>
-                                <Button disabled={!saveBtnState} className='rounded-pill bg-system-btn' size='tiny' onClick={() => UpdateImageFunc('Image2')} ><Icon name='save' /> Enregistreé <Loader inverted active={loaderState} inline size='tiny' className='ms-2 text-danger'/></Button>
-                            </div>
-                        </div>
-                        <div className='col-6'>
-                            <div className='card p-2 mb-2 border-div'>
-                                <h6>En tant que Image 3</h6>
-                                <Button disabled={!saveBtnState} className='rounded-pill bg-system-btn' size='tiny' onClick={() => UpdateImageFunc('Image3')} ><Icon name='save' /> Enregistreé <Loader inverted active={loaderState} inline size='tiny' className='ms-2 text-danger'/></Button>
-                            </div>
-                        </div>
-                        <div className='col-6'>
-                            <div className='card p-2 mb-2 border-div'>
-                                <h6>En tant que Image 4</h6>
-                                <Button disabled={!saveBtnState} className='rounded-pill bg-system-btn' size='tiny' onClick={() => UpdateImageFunc('Image4')} ><Icon name='save' /> Enregistreé <Loader inverted active={loaderState} inline size='tiny' className='ms-2 text-danger'/></Button>
-                            </div>
-                        </div>
-                        <div className='col-6'>
-                            <div className='card p-2 mb-2 border-div'>
-                                <h6>En tant que Image 4</h6>
-                                <Button disabled={!saveBtnState} className='rounded-pill bg-system-btn' size='tiny' onClick={() => UpdateImageFunc('Image5')} ><Icon name='save' /> Enregistreé <Loader inverted active={loaderState} inline size='tiny' className='ms-2 text-danger'/></Button>
-                            </div>
-                        </div>     
+        const DisplayImageCard = (props) => {
+            return(<>
+                <div className='card card-body shadow-m mb-2 border-div'>
+                    <div className='row'>
+                       <div className='col-4'><img src={`https://cdn.abyedh.tn/images/Directory/${props.imageLink}`} className='border border-2 rounded shadow-sm' width='200px' height='90px'  /></div> 
+                       <div className='col-4'></div> 
+                       <div className='col-4'><Button onClick={() => RemoveImageFunc(props.imageLink)}>Delete Btn</Button></div> 
+                    </div>
                 </div>
+            </>)
+        }
+        return(<>
+            {imagesListe.length == 0 ?
+                <>
+                    <UploadImageCard title='Image de Profile' tag='profile' /> 
+                    <br />
+                    <div className='row'>
+                            {todisplayedImage.length != '0' ? 
+                            <>
+                                {todisplayedImage.map((data,index) => 
+                                        <div className='col-4 mb-3' key={index}>
+                                            <img src={URL.createObjectURL(todisplayedImage[index])} className='border border-2 rounded shadow-sm' width='200px' height='90px'  />
+                                        </div>
+                                )}
+                            </>   
+                            : 'PaS d\'image'}
+                    </div>
+                </>
+                :
+                <>
+                    {imagesListe.map((data,index) => <DisplayImageCard key={index} imageLink={data.ImageLink} />)}
+                </>  
+            }
+                
         </>)
     }
     const RatingProfile = () =>{

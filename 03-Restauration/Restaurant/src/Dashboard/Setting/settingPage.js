@@ -125,7 +125,7 @@ function SettingPage() {
                 </div>
                 <div className="card card-body shadow-sm mb-3 border-div" style={{backgroundColor:'#e6daf0'}}>
                     <h3 style={{color:GConf.themeColor}}><span className='bi bi-check-circle-fill'></span> Confirmation</h3>
-                    {confirmed.Activated == 'YES' ? <ConirmedCard /> : <NonConirmedCard />}
+                    {confirmed.Activated == 'true' ? <ConirmedCard /> : <NonConirmedCard />}
                 </div>  
         </>);
     }

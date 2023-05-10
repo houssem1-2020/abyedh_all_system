@@ -2,7 +2,7 @@ import axios from 'axios';
 import React from 'react';
 import { useEffect } from 'react';
 import { toast } from 'react-toastify';
-import { Button } from 'semantic-ui-react';
+import { Button, Checkbox } from 'semantic-ui-react';
 import GConf from '../../AssetsM/generalConf';
 import { useNavigate} from 'react-router-dom';
 import { useState } from 'react';
@@ -12,6 +12,7 @@ function DataBaseBU() {
     /* ############################### UseEffect ################################*/
     const navigate = useNavigate();
     let [fileSize , setFileSize] = useState(0)
+
     let [stockLink , setStockLink] = useState('')
     let [stockLinkBtn , setStockLinkBtn] = useState(true)
 
@@ -27,10 +28,21 @@ function DataBaseBU() {
     let [stockCamionLink , setStockCamionLink] = useState('')
     let [stockCamionLinkBtn , setStockCamionLinkBtn] = useState(true)
 
+    let exportedTable = [
+        { name: '05_restaurant_caisses', where: `PID = ${GConf.PID}`, toExport : true },
+        { name: '05_restaurant_factures', where: `PID = ${GConf.PID}`, toExport : true },
+        { name: '05_restaurant_menu', where: `PID = ${GConf.PID}`, toExport : true},
+        { name: '05_restaurant_menu_genre', where: `PID = ${GConf.PID}`, toExport : true},
+        { name: '05_restaurant_clients', where: `PID = ${GConf.PID}`, toExport : true},
+        { name: '05_restaurant_setting', where: `PID = ${GConf.PID}`, toExport : true},
+        { name: '05_restaurant_tables', where: `PID = ${GConf.PID}`, toExport : true},
+        { name: '05_restaurant_team', where: `PID = ${GConf.PID}`, toExport : true},
+    ]
+
     /* ############################### UseEffect ################################*/
     useEffect(() => {
         axios.post(`${GConf.ApiLink}/tools/export/calcsize`, {
-            tag: GConf.SystemTag,
+            PID: GConf.PID,
         })
         .then(function (response) {
             setFileSize(response.data.totSize)
@@ -39,16 +51,19 @@ function DataBaseBU() {
 
     /* ############################### Function ################################*/
     const NavigateFunction = (link) => {  navigate(link) }
+    const UpdateTableStet = (tableSelected,state) =>{
+        exportedTable.find(table => table.name === tableSelected).toExport = state;
+        console.log(exportedTable)
+    }
     const ExportFlies = (table,file) => {
-        console.log(table)
-        console.log(file)
         axios.post(`${GConf.ApiLink}/tools/export/done`, {
-            tag: GConf.SystemTag,
-            tableName: table,
-            fileName: file,
-            conditionState: 'Caisse_ID = 1111111111',
+            PID: GConf.PID,
+            fileName: `restaurant_${GConf.PID}`,
+            exportedTable : exportedTable.filter(table => table.toExport)
+            //exportedTable : exportedTable
         })
         .then(function (response) {
+
             switch (file) {
                 case 'Stock':
                     setStockLink(response.data.file)
@@ -92,9 +107,17 @@ function DataBaseBU() {
     const StockCard = () =>{
         return(<>
             <div className='card card-body shadow-sm mb-4 border-div'>
-               <h5>Sauvegarder le Stock </h5> 
-               <p>
-               </p> 
+               <h5>Sauvegarder Vos Donneé Sur Votre Ordonateur  </h5> 
+               
+               <Checkbox className='mb-2' label='Sauvgarder le menu' defaultChecked  onChange={(event, data) =>  UpdateTableStet('05_restaurant_menu',data.checked)}/>
+               <Checkbox className='mb-2' label='Sauvgarder les genres menu' defaultChecked  onChange={(event, data) =>  UpdateTableStet('05_restaurant_menu_genre',data.checked)}/>
+               <Checkbox className='mb-2' label='Sauvgarder les factures ' defaultChecked onChange={(event, data) =>  UpdateTableStet('05_restaurant_factures',data.checked)} />
+               <Checkbox className='mb-2' label='Sauvgarder les caisses ' defaultChecked onChange={(event, data) =>  UpdateTableStet('05_restaurant_caisses',data.checked)} />
+               <Checkbox className='mb-2' label='Sauvgarder les clients ' defaultChecked onChange={(event, data) =>  UpdateTableStet('05_restaurant_clients',data.checked)} />
+               <Checkbox className='mb-2' label='Sauvgarder l"equipe ' defaultChecked onChange={(event, data) =>  UpdateTableStet('05_restaurant_team',data.checked)} />
+               <Checkbox className='mb-2' label='Sauvgarder les Tables ' defaultChecked onChange={(event, data) =>  UpdateTableStet('05_restaurant_tables',data.checked)} />
+               <Checkbox className='mb-2' label='Sauvgarder les Paramétres ' defaultChecked onChange={(event, data) =>  UpdateTableStet('05_restaurant_setting',data.checked)} />
+               
                <div className='text-end'>
                     <Button className='bg-info rounded-pill' onClick={() => ExportFlies( `${GConf.SystemTag}_article`,'Stock') }> <span className='bi bi-folder-symlink-fill'></span> Export</Button>
                     
@@ -189,14 +212,20 @@ function DataBaseBU() {
         <br />
         <br />
         <div className='container'>
-            <ClearDirectoryCard />
+            
             <br />
             <div className='row'>
-                    <div className='col-12'><StockCard /></div>
-                    <div className='col-6'><CommandeCard /></div>
+                    <div className='col-8'>
+                        <StockCard />
+                        <ClearDirectoryCard /> 
+                    </div>
+                    <div className='col-4 align-self-center d-none d-md-block'>
+                            <img src='https://cdn.abyedh.tn/images/system/server_back_up.png' width='80%' />
+                    </div>
+                    {/* <div className='col-6'><CommandeCard /></div>
                     <div className='col-6'><FacturesCard /></div>
                     <div className='col-6'><ClientCard /></div>
-                    <div className='col-6'><CamionStockCard /></div>
+                    <div className='col-6'><CamionStockCard /></div> */}
             </div>
         </div>  
     </> );
