@@ -181,8 +181,8 @@ function ClientRegions() {
                                     <h2 className='m-2 ms-3 me-3 system-color'>{props.rang+1}</h2>
                                 </div>
                                 <div className="flex-grow-1 ms-2">
-                                    <h6 className='mb-1'>{props.data.Name}</h6>
-                                    <small> {props.data.C_Name}  </small>
+                                    <h6 className='mb-1'>{props.data.CL_Name}</h6>
+                                    <small> {props.data.CL_ID}  </small>
                                 </div>
                             </div>
                         </div>

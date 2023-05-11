@@ -9,6 +9,7 @@ import { Select, Tab } from 'semantic-ui-react';
 import { toast } from 'react-toastify';
 import TunisiaMapSVG from './tunMapSvg2';
 import TunMObject from './tunisMapObject'
+
 function ClientStatistics() {
      /* ############################### Const ################################*/
     const [centerPosition, setCenterPosition] = useState([36.17720,9.12337])

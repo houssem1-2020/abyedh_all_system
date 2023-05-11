@@ -39,7 +39,6 @@ function ClientPage() {
             PID: GConf.PID
         })
         .then(function (response) {
-            console.log(response.data)
             let testTable = []
             response.data.map( (getData) => testTable.push([
             _(<AvatarCard lettre={capitalizeFirstLetter(getData.CL_Name)} />),

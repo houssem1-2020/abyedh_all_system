@@ -61,20 +61,19 @@ function AjouterClient() {
         setDelegList(found)
     }
     const checkClientExistance = () =>{
-        if(clientD.Code_Fiscale){
-            const foundClient = clientList.find(element => element.Code_Fiscale === clientD.Code_Fiscale)
+        if(clientD.CIN){
+            const foundClient = clientList.find(element => element.CIN === clientD.CIN)
             if (foundClient) {
                 toast.error("Client Exist Deja", GConf.TostErrorGonf)
-                setClientD({...clientD, Code_Fiscale: '' })
+                setClientD({...clientD, CIN: '' })
             }
             
         }
     }
     const SaveClient = (event) => {
-        if (!clientD.Code_Fiscale) {toast.error("Matricule Invalide !", GConf.TostErrorGonf)}
+        if (!clientD.CIN) {toast.error("Matricule Invalide !", GConf.TostErrorGonf)}
         else if (!clientD.Name) {toast.error("Nom Invalide !", GConf.TostErrorGonf)}
         else if (!clientD.Phone) {toast.error("Phone Invalide !", GConf.TostErrorGonf)}
-        else if (!clientD.Social_Name) {toast.error("Nom Sociale  Invalide !", GConf.TostErrorGonf)}
         else if (!clientD.Gouv) {toast.error("Gouvernorat Invalide !", GConf.TostErrorGonf)}
         else if (!clientD.Deleg) {toast.error("Delegation Invalide !", GConf.TostErrorGonf)}
         else if (!clientD.Adress) {toast.error("Adresee Invalide !", GConf.TostErrorGonf)}
@@ -147,8 +146,8 @@ function AjouterClient() {
                 <div className='row'>
                     <div className='col-12 col-lg-8'>
                          <div className='p-1 mb-2'>
-                            <h5 className='mb-1'>Matricule Fiscale:</h5>
-                            <Input icon='key' iconPosition='left' onKeyPress={event => OnKeyPressFunc(event)} placeholder='Matricule Fiscale' className='w-100 border-0 shadow-sm rounded mb-1' value={clientD.Code_Fiscale} onBlur={checkClientExistance}   onChange={(e) => setClientD({...clientD, Code_Fiscale: e.target.value })}/>
+                            <h5 className='mb-1'>CIN:</h5>
+                            <Input icon='key' iconPosition='left' onKeyPress={event => OnKeyPressFunc(event)} placeholder='CIN' className='w-100 border-0 shadow-sm rounded mb-1' value={clientD.CIN} onBlur={checkClientExistance}   onChange={(e) => setClientD({...clientD, CIN: e.target.value })}/>
                          </div>
                          <div className='p-1  mb-2'>
                             <h5 className='mb-1'>Nom Et Prenon :</h5>
@@ -158,10 +157,10 @@ function AjouterClient() {
                             <h5 className='mb-1'>Telephone :</h5>
                             <Input icon='phone' iconPosition='left' onKeyPress={event => OnKeyPressFunc(event)} placeholder='Telephone ' className='w-100 border-0 shadow-sm rounded mb-1' value={clientD.Phone} onChange={(e) => setClientD({...clientD, Phone: e.target.value })} />
                         </div>
-                        <div className='p-1 mb-2'>
+                        {/* <div className='p-1 mb-2'>
                             <h5 className='mb-1'> Nom Sociale:</h5>
                             <Input icon='home' iconPosition='left' onKeyPress={event => OnKeyPressFunc(event)} placeholder='Nom Sociale' className='w-100 border-0 shadow-sm rounded mb-1' value={clientD.Social_Name} onChange={(e) => setClientD({...clientD, Social_Name: e.target.value })}/>
-                        </div>
+                        </div> */}
                         <div className='p-1 mb-2'>
                             <h5 className='mb-1'>Geolocation</h5>
                             <Select placeholder='Selectionnez Gouvernorat' fluid className='mb-2' options={TunMap.Gouv} value={clientD.gouv} onChange={(e, { value }) => GetDelegList(value)} />

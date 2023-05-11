@@ -14,36 +14,28 @@ import SKLT from '../../AssetsM/Cards/usedSlk';
 import TableGrid from '../../AssetsM/Cards/tableGrid';
 import { toast } from 'react-toastify';
 import useSaveNotification from '../../AssetsM/Hooks/saveNotifFunction';
+import { useNavigate} from 'react-router-dom';
 
 const EditClientCard = ({clientD, setClientD, EditClient,delegList,GetDelegList,loaderState}) =>{
     return(<>
             <div className='p-1'>
                         <div className='p-1 mb-2'>
-                            <h5 className='mb-1'>Matricule Fiscale:</h5>
-                            <Input icon='key' iconPosition='left' placeholder='Matricule Fiscale' className='w-100 border-0 shadow-sm rounded mb-1' disabled={true} value={clientD.Code_Fiscale}  onChange={(e) => setClientD({...clientD, Code_Fiscale: e.target.value })}/>
+                            <h5 className='mb-1'>CIN:</h5>
+                            <Input icon='key' iconPosition='left' placeholder='Matricule Fiscale' className='w-100 border-0 shadow-sm rounded mb-1'  value={clientD.CIN}  onChange={(e) => setClientD({...clientD, CIN: e.target.value })}/>
                         </div>
                         <div className='p-1  mb-2'>
                             <h5 className='mb-1'>Nom Et Prenon :</h5>
-                            <Input icon='user' iconPosition='left' placeholder='Nom Et Prenon ' className='w-100 border-0 shadow-sm rounded mb-1' value={clientD.Name} onChange={(e) => setClientD({...clientD, Name: e.target.value })} />
+                            <Input icon='user' iconPosition='left' placeholder='Nom Et Prenon ' className='w-100 border-0 shadow-sm rounded mb-1' value={clientD.CL_Name} onChange={(e) => setClientD({...clientD, CL_Name: e.target.value })} />
                         </div>
                         <div className='p-1 mb-2'>
                             <h5 className='mb-1'>Telephone :</h5>
                             <Input icon='phone' iconPosition='left' placeholder='Telephone ' className='w-100 border-0 shadow-sm rounded mb-1' value={clientD.Phone} onChange={(e) => setClientD({...clientD, Phone: e.target.value })} />
                         </div>
                         <div className='p-1 mb-2'>
-                            <h5 className='mb-1'> Nom Sociale:</h5>
-                            <Input icon='home' iconPosition='left' placeholder='Nom Sociale' className='w-100 border-0 shadow-sm rounded mb-1' value={clientD.Social_Name}  onChange={(e) => setClientD({...clientD, Social_Name: e.target.value })}/>
-                        </div>
-                        <div className='p-1 mb-2'>
-                            <h5 className='mb-1'>Geolocation</h5>
+                            <h5 className='mb-1'>Geolocation : { clientD.Gouv } , ({ clientD.Deleg }) </h5>
                             <Select placeholder='Selectionnez Gouvernorat' fluid className='mb-2' options={TunMap.Gouv} value={clientD.Gouv} onChange={(e, { value }) => GetDelegList(value)} />
                             <Select placeholder='Selectionnez Delegation ' fluid value={clientD.Deleg} options={delegList} onChange={(e, { value }) => setClientD({...clientD, Deleg: value })} />
                         </div>
-                        {/* <div className='p-1 mb-2'>
-                            <h5 className='mb-1'> Map:</h5>
-                            <Select placeholder='Choisir Une Region' options={clientMap}  className='w-100 shadow-sm rounded mb-3' value={clientD.Gouv} onChange={(e, data) => setClientD({...clientD, Gouv: data.value })} />  
-                           
-                        </div> */}
                         <div className='p-1 mb-2'>
                             <h5 className='mb-1'> Adresse:</h5>
                             <Form>
@@ -56,30 +48,45 @@ const EditClientCard = ({clientD, setClientD, EditClient,delegList,GetDelegList,
                     </div>
     </>)
 }
-const FindInDirectory = ({inDirArticle, setInDirA,FindInDirectoryFunc, loaderState, OnKeyPressFunc,fromDirectory}) =>{
-    
+const FindInDirectory = ({inAbyedhSearch,saveBtnRUIState,clientD, setInAbyedhSearchUID,FindInDirectoryFunc, loaderState, OnKeyPressFunc,dataInAbyedh, RelateToUID}) =>{
+
     return(<>
-        <div className='row'>
-            <div className='col-6'>
-                <div className='card card-body border'>
-                    <h5>Recherche Dans La Base Abyedh </h5>
-                    <Input className='mb-4' placeholder='UID' onKeyPress={event => OnKeyPressFunc(event)} value={inDirArticle} onChange={(e) => setInDirA(e.target.value)} />
-                    <div className='text-end'>
-                        <Button  className='bg-system-btn rounded-pill' fluid onClick={() => FindInDirectoryFunc()}>   <Icon name='search' /> Recherche <Loader inverted active={loaderState} inline size='tiny' className='ms-2'/></Button>
-                    </div>
-                </div>  
+        {clientD.Releted_UID ? 
+            <div className='row card-body'>
+                <div className='col-9'>
+                        <h5 className="text-danger text-left"><b>Ce Client est Verifier  : </b></h5>
+                        <h1 className='display-4'>{clientD.Releted_UID }</h1> 
+                </div>
+                <div className='col-lg-3 d-none d-lg-block align-self-center'>
+                    <div className='text-center'>
+                            <img src='https://assets.ansl.tn/Images/usful/clientVerifier.svg' width='100%'  height='100px' /> 
+                    </div> 
+                </div>
             </div>
-            <div className='col-6'>
-                <h5 className='text-secondary mt-1 mb-0'>Nom: {fromDirectory.Name}</h5>
-                <h5 className='text-secondary mt-1 mb-0'>Phone: {fromDirectory.Name}</h5>
-                <h5 className='text-secondary mt-1 mb-0'>Gouv: {fromDirectory.Name}</h5>
-                <h5 className='text-secondary mt-1 mb-0'>Deleg: {fromDirectory.Name}</h5>
-                <h5 className='text-secondary mt-1 mb-0'>Adresse: {fromDirectory.Name}</h5>
+            :
+            <div className='row'>
+                <div className='col-6'>
+                    <div className='card card-body border'>
+                        <h5>Recherche Dans La Base Abyedh </h5>
+                        <Input className='mb-4' placeholder='UID' onKeyPress={event => OnKeyPressFunc(event)} value={inAbyedhSearch} onChange={(e) => setInAbyedhSearchUID(e.target.value)} />
+                        <div className='text-end'>
+                            <Button disabled={clientD.Releted_UID}  className='bg-system-btn rounded-pill' fluid onClick={() => FindInDirectoryFunc()}>   <Icon name='search' /> Recherche <Loader inverted active={loaderState} inline size='tiny' className='ms-2'/></Button>
+                        </div>
+                    </div>  
+                </div>
+                <div className='col-6'>
+                    <h5 className='text-secondary mt-1 mb-0'>Nom: {dataInAbyedh.Name}</h5>
+                    <h5 className='text-secondary mt-1 mb-0'>Phone: {dataInAbyedh.PhoneNum}</h5>
+                    <h5 className='text-secondary mt-1 mb-0'>Gouv: {dataInAbyedh.BirthGouv}</h5>
+                    <h5 className='text-secondary mt-1 mb-0'>Deleg: {dataInAbyedh.BirthDeleg}</h5>
+                    <h5 className='text-secondary mt-1 mb-0'> Photo: {dataInAbyedh.Name}</h5>
+                </div>
+                <div className='col-12 text-end'>
+                    <Button disabled={saveBtnRUIState} className='bg-success text-white rounded-pill' onClick={() => RelateToUID()}>   <Icon name='check' /> Verifieé <Loader inverted active={loaderState} inline size='tiny' className='ms-2'/></Button>
+                </div>
             </div>
-            <div className='col-12 text-end'>
-                <Button  className='bg-success text-white rounded-pill' onClick={() => FindInDirectoryFunc()}>   <Icon name='check' /> Verifieé <Loader inverted active={loaderState} inline size='tiny' className='ms-2'/></Button>
-            </div>
-        </div>
+        }
+
     </>)
 }
 
@@ -88,39 +95,41 @@ function ClientInfo() {
     const {CLID} = useParams()
     const [clientD, setClientD] = useState([])
     const [position, setPosition] = useState([36.17720,9.12337])
+    
+    const [reservationListe, setReservation] = useState([])
     const [commande, setCommande] = useState([])
     const [factures, setFactures] = useState([])
-    const [factureCamion, setFactureCamion] = useState([])
-    const [inDirArticle, setInDirA] = useState();
-    const [fromDirectory, setFromDir] = useState([]);
+
+    const [inAbyedhSearch, setInAbyedhSearchUID] = useState();
+    const [dataInAbyedh, setDataInAbyedh] = useState([]);
+    const [saveBtnRUIState, setSaveBtnRUIState] = useState(true);
+
     const [loading , setLoading] = useState(false)
     const [loaderState, setLS] = useState(false)
     const [delegList ,setDelegList] = useState([]) 
+
+    const navigate = useNavigate();
+
     const panes = [
-        // {
-        //     menuItem: { key: 'suivie', icon: 'map pin', content: 'Position' }, 
-        //     render: () =><><Tab.Pane className='border-div' attached={false} tabular={true}><PositionCard /></Tab.Pane><br /></>,
-        // },
         {
             menuItem: { key: 'home', icon: 'home', content: 'Factures' }, 
-            render: () => <><TableGrid tableData={factures} columns={GConf.TableHead.clientFacture} /><br /></>,
+            render: () => <><TableGrid tableData={factures} columns={['ID','Client','Jour','Temps','Totale','Voir']} /><br /></>,
         },
         {
             menuItem: { key: 'commande', icon: 'calendar alternate', content: 'Commandes' }, 
             render: () =><TableGrid tableData={commande} columns={GConf.TableHead.clientCommande} />,
         },
-        
-        // {
-        //     menuItem: { key: 'truck', icon: 'truck', content: 'F. Camion' }, 
-        //     render: () => <><TableGrid tableData={factureCamion} columns={GConf.TableHead.clientFactureC} /><br /></>,
-        // },
+        {
+            menuItem: { key: 'Reservation', icon: 'calendar alternate', content: 'Reservation' }, 
+            render: () =><TableGrid tableData={reservationListe} columns={['ID','Client','Jour','Temps','Totale','Voir']} />,
+        },
         {
             menuItem: { key: 'edit', icon: 'edit', content: 'Modifier' }, 
             render: () => <><Tab.Pane className='border-div' attached={false}><EditClientCard clientD={clientD} setClientD={setClientD} EditClient={EditClient} delegList={delegList} GetDelegList={GetDelegList}  loaderState={loaderState}/></Tab.Pane><br /></>,
         },
         {
             menuItem: { key: 'verif', icon: 'edit', content: 'Verification' }, 
-            render: () => <><Tab.Pane className='border-div' attached={false}><FindInDirectory inDirArticle={inDirArticle}  setInDirA={setInDirA} FindInDirectoryFunc={FindInDirectoryFunc} loaderState={loaderState} OnKeyPressFunc={OnKeyPressFunc} fromDirectory={fromDirectory}/></Tab.Pane><br /></>,
+            render: () => <><Tab.Pane className='border-div' attached={false}><FindInDirectory clientD={clientD} RelateToUID={RelateToUID} saveBtnRUIState={saveBtnRUIState} inAbyedhSearch={inAbyedhSearch}  setInAbyedhSearchUID={setInAbyedhSearchUID} FindInDirectoryFunc={FindInDirectoryFunc} loaderState={loaderState} OnKeyPressFunc={OnKeyPressFunc} dataInAbyedh={dataInAbyedh}/></Tab.Pane><br /></>,
         },
         {
             menuItem: { key: 'delete', icon: 'trash alternate', content: 'Supprimer' }, 
@@ -137,14 +146,47 @@ function ClientInfo() {
             PID : GConf.PID,
             clientId : CLID
         }).then(function (response) {
-            if(!response.data[0].PK) {
+            if(!response.data.Data.PK) {
                 toast.error('Client Introuvable !', GConf.TostSuucessGonf)
                 setTimeout(() => {  window.location.href = "/S/cl"; }, 2000)
                 
             } else {
+                console.log(response.data)
+                setClientD(response.data.Data)
                 
-                setClientD(response.data[0])
-                //setPosition([response.data[0].Lat,response.data[0].Lng])
+                let factureTable = []
+                response.data.Facture.map( (getData, index) => factureTable.push([ 
+                getData.T_ID,
+                getData.CA_Name,
+                new Date(getData.T_Date).toLocaleDateString('fr-FR').split( '/' ).reverse( ).join( '-' ),
+                getData.T_Time,
+                getData.Final_Value,
+                _(<Button className='rounded-pill bg-system-btn' size='mini' onClick={ (e) => NavigateFunction(`/S/ft/info/${getData.T_ID}`)}><span className='d-none d-lg-inline'> Info </span><Icon  name='angle right' /></Button>)
+                ],))
+                setFactures(factureTable)
+
+                let commandeTable = []
+                response.data.Commandes.map( (getData, index) => commandeTable.push([ 
+                    getData.R_ID,
+                    response.data.Data.CL_Name,
+                    new Date(getData.R_Date).toLocaleDateString('fr-FR').split( '/' ).reverse( ).join( '-' ),
+                    getData.Table_Num,
+                    _(<StateCard status={getData.State} />),
+                    _(<Button className='rounded-pill bg-system-btn' size='mini' onClick={ (e) => NavigateFunction(`/S/rq/cm/info/${getData.R_ID}`)}><span className='d-none d-lg-inline'> Info </span><Icon  name='angle right' /></Button>)
+                ],))
+                setCommande(commandeTable)
+
+                let reservationTable = []
+                response.data.Reservation.map( (getData, index) => reservationTable.push([ 
+                    getData.R_ID,
+                    response.data.Data.CL_Name,
+                    new Date(getData.R_Date).toLocaleDateString('fr-FR').split( '/' ).reverse( ).join( '-' ),
+                    getData.Table_Num,
+                    _(<StateCard status={getData.State} />),
+                    _(<Button className='rounded-pill bg-system-btn' size='mini' onClick={ (e) => NavigateFunction(`/S/rq/cm/info/${getData.R_ID}`)}><span className='d-none d-lg-inline'> Info </span><Icon  name='angle right' /></Button>)
+                ],))
+                setReservation(reservationTable)
+
                 setLoading(true)
                 
             }
@@ -162,16 +204,17 @@ function ClientInfo() {
 
 
      /* ############################### Functions ################################*/
+    const NavigateFunction = (link) => {  navigate(link) }
+
     const GetDelegList = (value) =>{
         setClientD({...clientD, Gouv: value })
         const found = TunMap.Deleg.filter(element => element.tag === value)
         setDelegList(found)
     }
     const EditClient = () =>{
-        if (!clientD.Code_Fiscale) {toast.error("Matricule Invalide !", GConf.TostErrorGonf)}
-        else if (!clientD.Name) {toast.error("Nom Invalide !", GConf.TostErrorGonf)}
+        if (!clientD.CIN) {toast.error("Matricule Invalide !", GConf.TostErrorGonf)}
+        else if (!clientD.CL_Name) {toast.error("Nom Invalide !", GConf.TostErrorGonf)}
         else if (!clientD.Phone) {toast.error("Phone Invalide !", GConf.TostErrorGonf)}
-        else if (!clientD.Social_Name) {toast.error("Nom Sociale  Invalide !", GConf.TostErrorGonf)}
         else if (!clientD.Gouv) {toast.error("Gouvernorat Invalide !", GConf.TostErrorGonf)}
         else if (!clientD.Adress) {toast.error("Adresee Invalide !", GConf.TostErrorGonf)}
         else{
@@ -182,7 +225,7 @@ function ClientInfo() {
             }).then(function (response) {
                 if(response.data.affectedRows) {
                     toast.success("Client Modifier !", GConf.TostSuucessGonf)
-                    SaveNotification('clientEdit',GConf.PID, clientD)
+                    //SaveNotification('clientEdit',GConf.PID, clientD)
                     setLS(false)
                 }
                 else{
@@ -221,16 +264,46 @@ function ClientInfo() {
                 });
     }
     const FindInDirectoryFunc = () =>{
-        if (!inDirArticle) {toast.error("Entrer Un Code A Barre  !", GConf.TostErrorGonf)}
+        if (!inAbyedhSearch) {toast.error("Entrer Un Code A Barre  !", GConf.TostErrorGonf)}
         else{
             setLS(true)
             axios.post(`${GConf.ApiLink}/client/checkAbyedhDb`, {
-                UID : inDirArticle,
+                UID : inAbyedhSearch,
             }).then(function (response) {
                 if(response.data.length  != 0) {
                     toast.success("Client Existe !", GConf.TostSuucessGonf)
                     setLS(false)
-                    setClientD({ ...clientD, Releted_PID: response.data.UID, Gouv: response.data.BirthGouv,   Name: response.data.Name, Phone : response.data.PhoneNum, Adress : response.data.BirthDeleg})
+                    setSaveBtnRUIState(false)
+                    setDataInAbyedh(response.data)
+                    
+                }
+                else{
+                    toast.error('Pas De Clients ', GConf.TostSuucessGonf)
+                    setLS(false)
+                }
+            }).catch((error) => {
+                if(error.request) {
+                  toast.error(<><div><h5>Probleme de Connextion</h5> </div></>, GConf.TostInternetGonf)   
+                  setLS(false)
+                }
+              });
+            
+        }
+    }
+    const RelateToUID = () =>{
+        if (!inAbyedhSearch) {toast.error("Entrer Un Code A Barre  !", GConf.TostErrorGonf)}
+        else{
+            setLS(true)
+            axios.post(`${GConf.ApiLink}/client/verification`, {
+                PID : GConf.PID,
+                UID : inAbyedhSearch,
+                CL_ID : CLID,
+            }).then(function (response) {
+                if(response.data.affectedRows) {
+                    toast.success("Client Verifieé !", GConf.TostSuucessGonf)
+                    setLS(false)
+                    setSaveBtnRUIState(true)
+                    setClientD({ ...clientD, Releted_UID: inAbyedhSearch})
                 }
                 else{
                     toast.error('Pas De Clients ', GConf.TostSuucessGonf)
@@ -265,16 +338,16 @@ function ClientInfo() {
                         </div>
                     </div>
                     <div className="mt-5 text-center">
-                            <h4 className='mt-2'>{loading ? clientD.Name : SKLT.BarreSkl } </h4> 
+                            <h4 className='mt-2'>{loading ? clientD.CL_Name : SKLT.BarreSkl } </h4> 
                             <h6 className="text-secondary">  {loading ? <><span className="bi bi-geo-alt-fill"></span> { clientD.Adress } </>: SKLT.BarreSkl} </h6>
-                            <h6 className="text-secondary"> {loading ? <><span className="bi bi-geo-fill"></span> { clientD.Gouv } </>: SKLT.BarreSkl } </h6>
-                            <Divider horizontal className='text-secondary mt-4'>Matricule.F</Divider>
+                            <h6 className="text-secondary"> {loading ? <><span className="bi bi-geo-fill"></span> { clientD.Gouv } , ({ clientD.Deleg })</>: SKLT.BarreSkl } </h6>
+                            <Divider horizontal className='text-secondary mt-4'>Verification</Divider>
                             <div className='row text-center'>
                                 <div className='col-12'>    
                                     {loading ?  
                                         <Statistic color='red' size='tiny'>
                                             <Statistic.Value>
-                                                {clientD.Code_Fiscale} 
+                                                {clientD.Releted_UID ? clientD.Releted_UID : 'Non Verifieé'} 
                                             </Statistic.Value>
                                         </Statistic>
                                     : SKLT.BarreSkl }  
@@ -338,7 +411,25 @@ function ClientInfo() {
             <button type="submit" name="add" className="btn btn-danger rounded-pill"  onClick={DeleteClientFunc}><span className="bi bi-check"></span> Oui, Supprimer <Loader inverted active={loaderState} inline size='tiny' className='ms-2 text-danger'/> </button>
         </div></>)
     }
-
+    const StateCard = ({ status }) => {
+        const StateCard = (props) =>{ return <span className={`badge bg-${props.color}`}> {props.text} </span>}
+        const statusCard = React.useCallback(() => {
+          switch(status) {
+            case 'W': return <StateCard color='warning' text='En Attent' />;  
+            case 'S': return <StateCard color='info' text='Vu' />;  
+            case 'A': return <StateCard color='success' text='Acepteé' /> ;
+            case 'R': return <StateCard color='danger' text='Refuseé' />;
+            default:  return <StateCard color='secondary' text='Indefinie' />;    
+          }
+        }, [status]);
+      
+        return (
+          <div className="container">
+            {statusCard()}
+          </div>
+        );
+    };
+    
     return ( <> 
          <BreadCrumb links={GConf.BreadCrumb.ClientInfo} />
          <br />

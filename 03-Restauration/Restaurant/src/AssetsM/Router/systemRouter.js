@@ -47,7 +47,7 @@ import TabblePage from '../../Dashboard/Table/tablePage'
 import ClientPage from '../../Dashboard/Client/clientPage';
 import AjouterClient from "../../Dashboard/Client/ajouterClient";
 import ClientInfo from '../../Dashboard/Client/clientInfo'
-
+import ClientRegions from '../../Dashboard/Client/clientFidelite';
 
 //Outils
 import ToolsPage from '../../Dashboard/Tools/toolsPage';
@@ -73,8 +73,8 @@ import FournisseurInfo from '../../Dashboard/Fournisseur/fournisseurInfo';
 import SettingPage from '../../Dashboard/Setting/settingPage';
 import ConfrimationPage from '../../Dashboard/Setting/confirmation';
 import FacturerCommande from '../../Dashboard/Requests/facturerCommande';
-import ClientStatistics from '../../Dashboard/Client/clientStatistics';
-import ClientRegions from '../../Dashboard/Client/clientFidelite';
+
+
 import UpdateSettingPage from '../../Dashboard/Setting/updateSettingPage';
 import { NavLink } from 'react-router-dom';
 import LeftSideCard from '../../Dashboard/leftSide';
@@ -162,7 +162,6 @@ const systemRouter = () => (
                 <Route path="" exact element={<ClientPage />} />
                 <Route path="ajouter" exact element={<AjouterClient />} />
                 <Route path="info/:CLID" exact element={<ClientInfo />} />
-                <Route path="statistics" exact element={<ClientStatistics />} />
                 <Route path="fidelite" exact element={<ClientRegions />} />
             </Route>
             <Route path="fs" exact element={<Outlet />} >

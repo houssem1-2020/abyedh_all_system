@@ -16,9 +16,9 @@ const GConf = {
 
     // main variables
     PID: GetPID(),
-    ApiLink : 'https://api.system.abyedh.tn/apiSystemAbyedh/restaurant', //https://api.system.abyedh.tn/apiSystemAbyedh/System 
-    ApiRouterOneLink : 'https://api.system.abyedh.tn/apiSystemAbyedh/restaurant-caisse', //https://api.system.abyedh.tn/apiSystemAbyedh/System 
-    ApiRouterTwoLink : 'https://api.system.abyedh.tn/apiSystemAbyedh/restaurant-caisse', //https://api.system.abyedh.tn/apiSystemAbyedh/System 
+    ApiLink : 'http://localhost:3010/restaurant', //https://api.system.abyedh.tn/apiSystemAbyedh/System 
+    ApiRouterOneLink : 'http://localhost:3010/restaurant-caisse', //https://api.system.abyedh.tn/apiSystemAbyedh/System 
+    ApiRouterTwoLink : 'http://localhost:3010/restaurant-caisse', //https://api.system.abyedh.tn/apiSystemAbyedh/System 
     DefaultTva: 0,
     themeColor : '#35ac67',
     themeColorLigth : '#b8cbd4',
