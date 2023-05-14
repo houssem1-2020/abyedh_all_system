@@ -85,6 +85,7 @@ import BugdetPage from '../../Dashboard/Tools/budgetCard';
 import DateProchPage from '../../Dashboard/Tools/dateProche';
 import RapportPage from '../../Dashboard/Tools/rapportPage';
 import PaymmentPage from '../../Dashboard/Setting/paymment';
+import DocumentationPage from '../../Dashboard/Documentation/documentationPage';
 
 const SystemLanding = () => {
     useEffect(() => {
@@ -198,6 +199,7 @@ const systemRouter = () => (
             <Route path="ot/cg" exact element={<CataloguePage />} />
             <Route path="ot/dbbu" exact element={<DataBaseBU />} />
             <Route path="nt" exact element={<NotificationPage />} />
+            <Route path="doc" exact element={<DocumentationPage />} />
             <Route path="msg" exact element={<MessagesPages />} />
             <Route path="up" exact element={<UpdatePage />} />
         </Route>

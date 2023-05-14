@@ -16,6 +16,7 @@ import { NavLink } from 'react-router-dom';
 const Notes = ({noteD, setNoteD,noteList, AddNotes, DeleteNotes,NotesEndRef}) => {
     return(<>
     <div className="card card-body shadow-sm mb-4 border-div">
+            <h5>Ticket De Prix</h5>
             <h5 className='mb-1'>Entrer Un article : </h5>
             <div style={{height:'200px', overflowX:'auto'}} className='m-2 d-none'>
                 {
@@ -49,7 +50,9 @@ const Notes = ({noteD, setNoteD,noteList, AddNotes, DeleteNotes,NotesEndRef}) =>
 }
 const Recette = ({recetteDate, setRecetteDate, PrintFunction, recette, familles, printGenre, setPrintGenre}) => {
     return(<>
+            
             <div className="card card-body shadow-sm mb-4 border-div">
+                <h5>Resumer Equipe</h5>
                {/* <h2 className='text-danger'>Recette: <CountUp end={recette} decimals={3} decimal="," duration={2} /></h2>  */}
                 <div className=''>
                         <h5 className='mb-1'>Selectionnez un element  </h5>
@@ -65,6 +68,7 @@ const Recette = ({recetteDate, setRecetteDate, PrintFunction, recette, familles,
 const BudgetCard = ({recetteDate, setRecetteDate, PrintFunction, recette, familles, printGenre, setPrintGenre, AddNotes}) => {
     return(<>
             <div className="card card-body shadow-sm mb-4 border-div">
+                <h5>Revenue depenses</h5>
                 <div className=''>
                         <h5 className='mb-1'>Ajouter A la Budget</h5>
                         <Select placeholder='Selectionnez' options={familles} value={printGenre} onChange={ (e, data) => setPrintGenre(data.value)} className='w-100 shadow-sm rounded mb-3'  />
@@ -165,7 +169,7 @@ function ToolsPage() {
                 <Select placeholder='Selectionnez' options={familles} value={printGenre} onChange={ (e, data) => setPrintGenre(data.value)} className='w-100 shadow-sm rounded mb-3'  />
                 <Button  className='rounded-pill btn-imprimer'  fluid onClick={ (e) => PrintFunction('printPrix')}><Icon name='print' /> Imprimer </Button>
             </div>
-            <div className="card card-body shadow-sm mb-4 ">
+            <div className="card card-body shadow-sm mb-4 border-div ">
                 <h5 className='mb-1'>Imprimer Code A Barre </h5>
                 <Select placeholder='Selectionnez' options={PrintStockPar} value={printGenreCteg} onChange={ (e, data) => setPrintGenreCteg(data.value)} className='w-100 shadow-sm rounded mb-3'  />
                 <Button  className='rounded-pill btn-imprimer'  fluid onClick={ (e) => PrintFunction('printStock')}><Icon name='print' /> Imprimer </Button>
@@ -209,25 +213,36 @@ function ToolsPage() {
             </div>
         </>)
     }
+    const LinkToolsCard = (props) =>{
+        return(<>
+            <div className='card shadow-sm p-2 mb-4 text-center border-div  '>
+                <NavLink exact='true' to={`${props.link}`}>
+                    <div className='row'>
+                        <div className='col-4 align-self-center'><img src={`https://assets.ansl.tn/Images/usful/${props.image}.svg`} width='80%'  height='40px' /> </div>
+                        <div className='col-8 align-self-center text-start'><h4> {props.text} </h4></div>
+                    </div>
+                    
+                </NavLink>
+            </div>
+
+        </>)
+    }
 
     return ( <>
         <Fade>
            <div className='row'>
                 <div className='col-12 col-lg-4'>
                     <div className="mb-4 sticky-top" style={{top:'70px'}}>
-                        <h5>Imprimer </h5>
+                        {/* <h5>Imprimer </h5> */}
                         {/* <Charts /> */}
                         <Imprimer />
-                        <h5>Resumer Equipe</h5>
                         <Recette recetteDate={recetteDate} setRecetteDate={setRecetteDate} PrintFunction={PrintFunction} recette={recette} familles={familles} printGenre={printGenre} setPrintGenre={setPrintGenre} />
                     </div>
                 </div> 
                 <div className='col-12 col-lg-5'>
                     <div className="mb-4 sticky-top" style={{top:'70px'}}>
-                            <h5>Ticket De Prix</h5>
                             <Notes NotesEndRef={NotesEndRef} noteD={noteD} setNoteD={setNoteD} noteList={noteList} AddNotes={AddNotes} DeleteNotes={DeleteNotes} />
                             {/* <Map /> */}
-                            <h5>Revenue depenses</h5>
                             <BudgetCard recetteDate={recetteDate} setRecetteDate={setRecetteDate} PrintFunction={PrintFunction} recette={recette} familles={budgetOption} printGenre={printGenre} setPrintGenre={setPrintGenre}/>
                     </div>
 
@@ -235,42 +250,12 @@ function ToolsPage() {
                 <div className='col-12 col-lg-3'>
                     <div className="mb-4 sticky-top" style={{top:'70px'}}>
                             <h5> Liens </h5>
-                            <div className='card shadow-sm p-2 mb-4 text-center border-div  '>
-                                <NavLink exact='true' to='tickets'>
-                                    <div className='row'>
-                                        <div className='col-4 align-self-center'><img src='https://assets.ansl.tn/Images/usful/prix.svg' width='80%'  height='40px' /> </div>
-                                        <div className='col-8 align-self-center text-start'><h4> TICKET DE PRIX </h4></div>
-                                    </div>
-                                    
-                                </NavLink>
-                            </div>
-                            <div className='card shadow-sm p-2 mb-4 text-center border-div  '>
-                                <NavLink exact='true' to='bugdet'>
-                                    <div className='row'>
-                                        <div className='col-4 align-self-center'><img src='https://assets.ansl.tn/Images/usful/finance.svg' width='80%'  height='40px' /> </div>
-                                        <div className='col-8 align-self-center text-start'><h4> BUDGET TOTALE </h4></div>
-                                    </div>
-                                    
-                                </NavLink>
-                            </div>
-                            <div className='card shadow-sm p-2 mb-4 text-center border-div  '>
-                                <NavLink exact='true' to='dates'>
-                                    <div className='row'>
-                                        <div className='col-4 align-self-center'><img src='https://assets.ansl.tn/Images/usful/date_proche.svg' width='80%'  height='40px' /> </div>
-                                        <div className='col-8 align-self-center text-start'><h4> DATE PROCHE </h4></div>
-                                    </div>
-                                    
-                                </NavLink>
-                            </div>
-                            <div className='card shadow-sm p-2 mb-4 text-center border-div  '>
-                                <NavLink exact='true' to='rapport'>
-                                    <div className='row'>
-                                        <div className='col-4 align-self-center'><img src='https://assets.ansl.tn/Images/usful/catalogue.svg' width='80%'  height='40px' /> </div>
-                                        <div className='col-8 align-self-center text-start'><h4> RAPPORT </h4></div>
-                                    </div>
-                                    
-                                </NavLink>
-                            </div> 
+                            <LinkToolsCard text='TICKET DE PRIX' image='prix' link='tickets' />
+                            <LinkToolsCard text='BUDGET TOTALE ' image='finance' link='bugdet' />
+                            <LinkToolsCard text='DATE PROCHE' image='date_proche' link='dates' />
+                            <LinkToolsCard text='RAPPORT' image='catalogue' link='rapport' />
+
+ 
                             {/* <div className='card shadow-sm p-2 mb-4 text-center border-div  '>
                                 <NavLink exact='true' to='dbbu'>
                                     <div className='row'>

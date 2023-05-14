@@ -18,9 +18,9 @@ function UploadeCamionPage() {
     let [facturesList, setFactures] = useState([]); 
     let [clientList, setClients] = useState([]); 
     const [loadingPage, setLoadingP] = useState(true)
-    let camData = JSON.parse(localStorage.getItem(`Magazin_Caisse_LocalD`));
-    const camId = camData.Cam_ID; 
-    let [Offline, setOffline] = useState(JSON.parse(localStorage.getItem(`Magazin_Caisse_Offline`))); 
+    let caisseD = JSON.parse(localStorage.getItem(`${OneGConf.routerTagName}_LocalD`));
+    const caisseID = caisseD.Cam_ID; 
+    let [Offline, setOffline] = useState(JSON.parse(localStorage.getItem(`${OneGConf.routerTagName}_Offline`))); 
     const Genres = [
         {text: 'Stock', allT: stockList, whT: Offline.stock , whtTag :'stock' },
         {text: 'Facture', allT: facturesList, whT: Offline.facture , whtTag :'facture' },
@@ -51,7 +51,7 @@ function UploadeCamionPage() {
 
     /*#########################[Functions]##################################*/
     const SaveStockToIndsexDB = () =>{
-        let request = indexedDB.open('Magazin_Caisse_DB');
+        let request = indexedDB.open(`${OneGConf.routerTagName}_DB`);
         request.onsuccess = function(event) {
             var transaction = event.target.result.transaction(['Stock'], 'readwrite');
             var objectStore = transaction.objectStore('Stock');
@@ -72,7 +72,7 @@ function UploadeCamionPage() {
         };
     }
     const StockInIDB = () => {
-        let request = indexedDB.open('Magazin_Caisse_DB');
+        let request = indexedDB.open(`${OneGConf.routerTagName}_DB`);
         request.onsuccess = function(event) {
             var transaction = event.target.result.transaction(['Stock'], 'readwrite');
             var objectStore = transaction.objectStore('Stock');
@@ -86,8 +86,8 @@ function UploadeCamionPage() {
 
     const UpdateItem = (allTable, whTableTag) =>{
             Offline[whTableTag] = allTable
-            localStorage.setItem(`Magazin_Caisse_Offline`, JSON.stringify(Offline));
-            setOffline(JSON.parse(localStorage.getItem(`Magazin_Caisse_Offline`)))
+            localStorage.setItem(`${OneGConf.routerTagName}_Offline`, JSON.stringify(Offline));
+            setOffline(JSON.parse(localStorage.getItem(`${OneGConf.routerTagName}_Offline`)))
     }
     const GetPourcentageValue = (allTable, whTable) => {
             let all = allTable.length
@@ -104,14 +104,14 @@ function UploadeCamionPage() {
     const DeleteFromOffline = (targetTable, targetElm) =>{
         console.log(Offline[targetTable][targetElm])
         Offline[targetTable].splice(targetElm,1)
-        localStorage.setItem(`Magazin_Caisse_Offline`,  JSON.stringify(Offline));
+        localStorage.setItem(`${OneGConf.routerTagName}_Offline`,  JSON.stringify(Offline));
     }
     const SaveFactureFunc = (targetIndex) => {
         setLS(true)
         let factureSelected = Offline.factureToSave[targetIndex]
         console.log(factureSelected)
         axios.post(`${GConf.ApiRouterOneLink}/update/ajouter/facture`, {
-            forPID : camData.PID,
+            forPID : caisseD.PID,
             factureD: factureSelected,
         })
         .then(function (response) {
@@ -119,7 +119,7 @@ function UploadeCamionPage() {
                 toast.success("Facture Enregistreé !", GConf.TostSuucessGonf)
                 setLS(false)
                 Offline.factureToSave.splice(targetIndex,1)
-                localStorage.setItem(`Magazin_Caisse_Offline`,  JSON.stringify(Offline));
+                localStorage.setItem(`${OneGConf.routerTagName}_Offline`,  JSON.stringify(Offline));
             }
             else{
                 toast.error('Erreur!  esseyez de nouveaux', GConf.TostSuucessGonf)
@@ -144,7 +144,7 @@ function UploadeCamionPage() {
                 toast.success("Client Ajouter !", GConf.TostSuucessGonf)
                 setLS(false)
                 Offline.clientToSave.splice(targetIndex,1)
-                localStorage.setItem(`Magazin_Caisse_Offline`,  JSON.stringify(Offline));
+                localStorage.setItem(`${OneGConf.routerTagName}_Offline`,  JSON.stringify(Offline));
             }
             else{
                 toast.error('Erreur esseyez de nouveaux', GConf.TostSuucessGonf)
@@ -170,7 +170,7 @@ function UploadeCamionPage() {
                 toast.success("Camion Ajouteé !", GConf.TostSuucessGonf)
                 setLS(false)
                 Offline.camionToSave.splice(targetIndex,1)
-                localStorage.setItem(`Magazin_Caisse_Offline`,  JSON.stringify(Offline));
+                localStorage.setItem(`${OneGConf.routerTagName}_Offline`,  JSON.stringify(Offline));
             }
             else {
                     toast.error('Erreur esseyez de nouveaux', GConf.TostSuucessGonf)

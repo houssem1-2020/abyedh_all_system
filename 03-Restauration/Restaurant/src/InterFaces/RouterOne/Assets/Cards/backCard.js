@@ -1,8 +1,9 @@
 import React from 'react';
 import { NavLink } from 'react-router-dom';
+import OneGConf from '../OneGConf';
 function BackCard(props) {
     return ( <>
-            <div className='card card-body shadow-sm mb-2 rounded-0 fixed-top'>
+            <div className={`card card-body shadow-sm mb-2 rounded-0 fixed-top ${OneGConf.themeMode == 'dark' ? 'bg-dark-theme-1 text-white' : 'bg-ligth-theme-1' }`}>
                 <div className='row'>
                     <div className='col-2 align-self-center'>
                          <NavLink exact='false' to={props.data.link}><span className='bi bi-arrow-left-short bi-md'></span></NavLink>

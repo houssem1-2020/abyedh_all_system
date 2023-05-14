@@ -20,10 +20,10 @@ const SearchModalCard = ({modalS,setModalS,rechercheList,saveBtnState,rechercheK
         return(<>
             <div className='card p-3 mb-2 shadow-sm '>
                 <div className='row'>
-                    <div className='col-3 text-danger'>{props.data.P_Code}</div>
+                    <div className='col-3 text-danger'>{props.data.A_Code}</div>
                     <div className='col-6 '><b>{props.data.Name}</b></div>
                     <div className='col-2'>{(props.data.Prix_vente).toFixed(3)}</div>
-                    <div className='col-1'><Button   icon   className='rounded-circle p-2 bg-system-btn' onClick={()=> GetArticleDataByAID(props.data.P_Code)}>  <Icon name='plus' /></Button></div>
+                    <div className='col-1'><Button   icon   className='rounded-circle p-2 bg-system-btn' onClick={()=> GetArticleDataByAID(props.data.A_Code)}>  <Icon name='plus' /></Button></div>
                 </div>
             </div> 
         </>)
@@ -65,10 +65,10 @@ const SelectModalCard = ({modalT,setModaT,fastArticleList,saveBtnState,recherche
                 <div className='card p-3 mb-2 shadow-sm '>
                     <div className='row'>
                         <div className='col-10'>
-                            <div>{props.data.P_Code}</div>
+                            <div>{props.data.A_Code}</div>
                             <b>{props.data.Name}</b>
                         </div>
-                        <div className='col-2 align-self-center'><Button   icon   className='rounded-circle p-2 bg-system-btn' onClick={()=> GetArticleDataByAID(props.data.P_Code)}>  <Icon name='plus' /></Button></div>
+                        <div className='col-2 align-self-center'><Button   icon   className='rounded-circle p-2 bg-system-btn' onClick={()=> GetArticleDataByAID(props.data.A_Code)}>  <Icon name='plus' /></Button></div>
                     </div>
                 </div> 
             </div> 
@@ -148,8 +148,8 @@ function CaisseSimple() {
     //const socket = io.connect(GConf.ApiLinkSoket);
     const inputRef = useRef(null);
     const Today = new Date()
-    let Offline = JSON.parse(localStorage.getItem(`${OneGConf.routerTagName}_Offline`));
-    let caisseData = JSON.parse(localStorage.getItem(`${OneGConf.routerTagName}_LocalD`));
+    let Offline = JSON.parse(localStorage.getItem(`Magazin_Caisse_Offline`));
+    let caisseData = JSON.parse(localStorage.getItem(`Magazin_Caisse_LocalD`));
     const CaisseID = caisseData.C_ID;
     const [qrData, setQRData] = useState("Not Found")
     //const [stopStream, setStopStram] = useState(false)
@@ -158,8 +158,6 @@ function CaisseSimple() {
     const [factureD, setFactureD] = useState({client:'PASSAGER', Caisse : CaisseID , jour: Today.toISOString().split('T')[0], totale: 0 , State:'' , Espece:'', Paye_Bons:'' , articles:[]})
     const [articleNow, setArticleNow] = useState([])
     const [articleList, setArticleList] = useState([])
-    const [selectedArticleList, setSelectedArticleList] = useState([])
-    const [genreListe, setGenreList] = useState([])
     const [fastArticleList, setFastArticleList] = useState([])
     const [autofocusState, setAutoFocus] = useState(true)
     const [loadingPage, setLoadingP] = useState(true)
@@ -197,10 +195,6 @@ function CaisseSimple() {
     const [factureOffline, setFactureOL] = useState(false)
     const panes = [
         {
-            menuItem: { key: 'plats', icon: 'food', content: 'Plats ', className:`p-4 ${OneGConf.themeMode == 'dark' ? 'bg-dark-theme-1 text-white' : 'bg-ligth-theme-1' } ` }, 
-            render: () => <Tab.Pane attached={false} className={`${OneGConf.themeMode == 'dark' ? 'bg-dark-theme-1 text-white' : 'bg-ligth-theme-1' }`}> <PlatsListe /> </Tab.Pane>,
-        },
-        {
             menuItem: { key: 'start', icon: 'add circle', content: 'Entrer ', className:`p-4 ${OneGConf.themeMode == 'dark' ? 'bg-dark-theme-1 text-white' : 'bg-ligth-theme-1' } ` }, 
             render: () => <Tab.Pane attached={false} className={`${OneGConf.themeMode == 'dark' ? 'bg-dark-theme-1 text-white' : 'bg-ligth-theme-1' }`}> <AddArticles /> </Tab.Pane>,
         },
@@ -226,63 +220,39 @@ function CaisseSimple() {
     /*#########################[Use Effect]##################################*/
     useEffect(() => {
         
-        axios.post(`${GConf.ApiRouterOneLink}/nv/stock`, {
-            forPID: GConf.PID,
-            factureD: factureD,
-        })
-        .then(function (response) {
-            setArticleList(response.data)
-            GenerateGenreListe(response.data)
+        const request = indexedDB.open('Magazin_Caisse_DB');
+
+        request.onsuccess = (event) => {
+        const db = event.target.result;
+        const transaction = db.transaction('Stock', 'readonly');
+        const objectStore = transaction.objectStore('Stock');
+
+        const getAllRequest = objectStore.getAll();
+
+        getAllRequest.onsuccess = (event) => {
+            setArticleList(event.target.result)
+            const selectedListe =  event.target.result.filter(article => article.Fast_Input == 'true')
+            setFastArticleList(selectedListe)
             setLoadingP(false)
-        }).catch((error) => {
-            if(error.request) {
-              toast.error(<><div><h5>Probleme de Connextion</h5> </div></>, GConf.TostInternetGonf)   
-            }
-        });
+            
+        };
+        };
  
         setClientList(Offline.client)
-        
-        // const request = indexedDB.open('${OneGConf.routerTagName}_DB');
-
-        // request.onsuccess = (event) => {
-        // const db = event.target.result;
-        // const transaction = db.transaction('Stock', 'readonly');
-        // const objectStore = transaction.objectStore('Stock');
-
-        // const getAllRequest = objectStore.getAll();
-
-        // getAllRequest.onsuccess = (event) => {
-        //     setArticleList(event.target.result)
-        //     const selectedListe =  event.target.result.filter(article => article.Fast_Input == 'true')
-        //     setFastArticleList(selectedListe)
-        //     setLoadingP(false)
-            
-        // };
-        // };
-
-        
 
     }, [])
 
 
     /*#########################[Functions]##################################*/
     /*1- Ajouter Article */
-    const GenerateGenreListe = (listeTarget) =>{
-        const distinctNames = [...new Set(listeTarget.map(obj => obj.Genre))];
-        setGenreList(distinctNames)
-    }
-    const SetSelectedListeFunc = (selectedGenre) =>{
-        const selectedListe =  articleList.filter(article => article.Genre == selectedGenre)
-        setSelectedArticleList(selectedListe)
-    }
     const AddArticleToList = ()=>{
-        if (!articleNow.P_Code) {toast.error("Code à barre Invalide !", GConf.TostErrorGonf)}
+        if (!articleNow.A_Code) {toast.error("Code à barre Invalide !", GConf.TostErrorGonf)}
         else if (!articleNow.Name || articleNow.Name == '') {toast.error("Name Invalide !", GConf.TostErrorGonf)}
         else if (!articleNow.Qte || articleNow.Qte == '') {toast.error("Quantite Invalide !", GConf.TostErrorGonf)}
         else{
-            const searchObject = factureD.articles.find((article) => article.P_Code == articleNow.P_Code);
+            const searchObject = factureD.articles.find((article) => article.A_Code == articleNow.A_Code);
             if (searchObject) {
-                let IndexOfArticle = factureD.articles.findIndex((article) => article.P_Code == articleNow.P_Code)
+                let IndexOfArticle = factureD.articles.findIndex((article) => article.A_Code == articleNow.A_Code)
                 factureD.articles[IndexOfArticle].Qte = factureD.articles[IndexOfArticle].Qte + parseInt(articleNow.Qte)
                 factureD.articles[IndexOfArticle].PU = ((factureD.articles[IndexOfArticle].Qte) * factureD.articles[IndexOfArticle].Prix ).toFixed(3) 
                 setArticleNow([{}])
@@ -292,7 +262,7 @@ function CaisseSimple() {
                 
             } else {
                 let prix_u = (articleNow.Qte * articleNow.Prix_piece).toFixed(3)
-                let arrayToAdd = {id: factureD.articles.length+1 , P_Code: articleNow.P_Code, Name: articleNow.Name, Prix: articleNow.Prix_piece, Qte: parseInt(articleNow.Qte), PU: prix_u}
+                let arrayToAdd = {id: factureD.articles.length+1 , A_Code: articleNow.A_Code, Name: articleNow.Name, Prix: articleNow.Prix_piece, Qte: parseInt(articleNow.Qte), PU: prix_u}
                 factureD.articles.push(arrayToAdd)
                 setArticleNow([])
 
@@ -302,13 +272,13 @@ function CaisseSimple() {
         }        
     }
     const DeleteFromUpdateList = (value) =>{
-        const searchObject= factureD.articles.findIndex((article) => article.P_Code == value);
+        const searchObject= factureD.articles.findIndex((article) => article.A_Code == value);
         factureD.articles.splice(searchObject, 1);
         let resteArticles = factureD.articles;
         setFactureD({...factureD, articles: resteArticles })
     }
     const GetArticleData = (value) =>{
-        const searchObject= articleList.find((article) => article.P_Code == value);
+        const searchObject= articleList.find((article) => article.A_Code == value);
         let Prix_piece = (searchObject.Prix_vente / searchObject.Groupage)
         searchObject.Prix_piece = Prix_piece.toFixed(3)
         setArticleNow(searchObject);
@@ -332,7 +302,7 @@ function CaisseSimple() {
             setLS(true)
             setSaveBtnState(true)
             axios.post(`${GConf.ApiRouterOneLink}/nv/ajouter`, {
-                forPID: OneGConf.forPID.PID,
+                forPID: CaisseID,
                 factureD: factureD,
             })
             .then(function (response) {
@@ -354,7 +324,7 @@ function CaisseSimple() {
                   toast.error(<><div><h5>Probleme de Connextion</h5> La facture sera enregisstrer sur votre appareil  </div></>, GConf.TostInternetGonf)   
                   Offline.factureToSave.push(factureD)
                   setFID( Offline.factureToSave.length -1 )
-                  localStorage.setItem(`${OneGConf.routerTagName}_Offline`,  JSON.stringify(Offline));
+                  localStorage.setItem(`Magazin_Caisse_Offline`,  JSON.stringify(Offline));
                   setLS(false)
                 }
             });
@@ -404,7 +374,7 @@ function CaisseSimple() {
          else if (e.which == 32) {
             if (factureD.articles.length != 0) {
                 const lastElement = factureD.articles[factureD.articles.length - 1]
-                AddMoreQte(lastElement.P_Code,e.target.value)
+                AddMoreQte(lastElement.A_Code,e.target.value)
             }
          }
          else {
@@ -416,11 +386,11 @@ function CaisseSimple() {
         if (peseState) {
             let barreCode = barCodeValue.toString().substring(0, 7)
             let qte = (barCodeValue.toString().substring(7) / 10000).toFixed(3)
-            const searchObjectFirst= articleList.find((article) => article.P_Code == barreCode);
+            const searchObjectFirst= articleList.find((article) => article.A_Code == barreCode);
             if (searchObjectFirst) {
-                const searchObject = factureD.articles.find((article) => article.P_Code == barreCode);
+                const searchObject = factureD.articles.find((article) => article.A_Code == barreCode);
                 if (searchObject) {
-                    let IndexOfArticle = factureD.articles.findIndex((article) => article.P_Code == barreCode)
+                    let IndexOfArticle = factureD.articles.findIndex((article) => article.A_Code == barreCode)
                     factureD.articles[IndexOfArticle].Qte = (parseFloat(factureD.articles[IndexOfArticle].Qte) + parseFloat(qte)).toFixed(3)
                     factureD.articles[IndexOfArticle].PU = ((factureD.articles[IndexOfArticle].Qte) * factureD.articles[IndexOfArticle].Prix ).toFixed(3) 
                     setArticleNow([{}])
@@ -432,7 +402,7 @@ function CaisseSimple() {
                     setPeseState(false)
                     
                 } else {
-                    let arrayToAdd = {id: factureD.articles.length+1 , P_Code: barreCode, Name: searchObjectFirst.Name, Prix: searchObjectFirst.Prix_vente, Qte: qte, PU: (searchObjectFirst.Prix_vente * qte)}
+                    let arrayToAdd = {id: factureD.articles.length+1 , A_Code: barreCode, Name: searchObjectFirst.Name, Prix: searchObjectFirst.Prix_vente, Qte: qte, PU: (searchObjectFirst.Prix_vente * qte)}
                     factureD.articles.push(arrayToAdd)
                     setArticleNow([])
 
@@ -452,11 +422,11 @@ function CaisseSimple() {
                             </>, GConf.TostCaisseGonf)
             } 
         } else {
-            const searchObjectFirst= articleList.find((article) => article.P_Code == barCodeValue);
+            const searchObjectFirst= articleList.find((article) => article.A_Code == barCodeValue);
             if (searchObjectFirst) {
-                const searchObject = factureD.articles.find((article) => article.P_Code == barCodeValue);
+                const searchObject = factureD.articles.find((article) => article.A_Code == barCodeValue);
                 if (searchObject) {
-                    let IndexOfArticle = factureD.articles.findIndex((article) => article.P_Code == barCodeValue)
+                    let IndexOfArticle = factureD.articles.findIndex((article) => article.A_Code == barCodeValue)
                     factureD.articles[IndexOfArticle].Qte = factureD.articles[IndexOfArticle].Qte + 1
                     factureD.articles[IndexOfArticle].PU = ((factureD.articles[IndexOfArticle].Qte) * factureD.articles[IndexOfArticle].Prix ).toFixed(3) 
                     setArticleNow([{}])
@@ -467,7 +437,7 @@ function CaisseSimple() {
                     
                     
                 } else {
-                    let arrayToAdd = {id: factureD.articles.length+1 , P_Code: barCodeValue, Name: searchObjectFirst.Name, Prix: searchObjectFirst.Prix_vente, Qte: 1, PU: searchObjectFirst.Prix_vente}
+                    let arrayToAdd = {id: factureD.articles.length+1 , A_Code: barCodeValue, Name: searchObjectFirst.Name, Prix: searchObjectFirst.Prix_vente, Qte: 1, PU: searchObjectFirst.Prix_vente}
                     factureD.articles.push(arrayToAdd)
                     setArticleNow([])
 
@@ -497,7 +467,7 @@ function CaisseSimple() {
        
     }
     const AddMoreQte = (valueCode, qte) =>{
-        let IndexOfArticle = factureD.articles.findIndex((article) => article.P_Code == valueCode)
+        let IndexOfArticle = factureD.articles.findIndex((article) => article.A_Code == valueCode)
         factureD.articles[IndexOfArticle].Qte =  qte
         factureD.articles[IndexOfArticle].PU = ((factureD.articles[IndexOfArticle].Qte) * factureD.articles[IndexOfArticle].Prix ).toFixed(3) 
         setArticleNow([{}])
@@ -533,7 +503,6 @@ function CaisseSimple() {
         window.location.reload()
         
     }
-
     /*2- Paymment */
     const PaymmentBtnClicked = (value) =>{
         if (value === 'C') { 
@@ -579,7 +548,7 @@ function CaisseSimple() {
                   toast.error(<><div><h5>Probleme de Connextion</h5> Paymment à été enregistre localmment   </div></>, GConf.TostInternetGonf)   
                    Offline.factureToSave[gettedFID].Espece = keyaPaymment
                    Offline.factureToSave[gettedFID].State = 'Payee'
-                   localStorage.setItem(`${OneGConf.routerTagName}_Offline`,  JSON.stringify(Offline));
+                   localStorage.setItem(`Magazin_Caisse_Offline`,  JSON.stringify(Offline));
                   setLoadingP(false)
                 }
             });
@@ -626,7 +595,7 @@ function CaisseSimple() {
                   toast.error(<><div><h5>Probleme de Connextion</h5> Paymment à été enregistre localmment  </div></>, GConf.TostInternetGonf)   
                   Offline.factureToSave[gettedFID].Paye_Bons = JSON.stringify(CalculateBons(genre))
                   Offline.factureToSave[gettedFID].State = 'Payee'
-                  localStorage.setItem(`${OneGConf.routerTagName}_Offline`,  JSON.stringify(Offline));
+                  localStorage.setItem(`Magazin_Caisse_Offline`,  JSON.stringify(Offline));
                   setLoadingP(false)
                 }
             });
@@ -662,7 +631,7 @@ function CaisseSimple() {
                   toast.error(<><div><h5>Probleme de Connextion</h5> La facture sera enregisstrer sur votre appareil  </div></>, GConf.TostInternetGonf)   
                   Offline.factureToSave[gettedFID].Client = clientCredit.CL_ID
                   Offline.factureToSave[gettedFID].State = 'Credit'
-                  localStorage.setItem(`${OneGConf.routerTagName}_Offline`,  JSON.stringify(Offline));
+                  localStorage.setItem(`Magazin_Caisse_Offline`,  JSON.stringify(Offline));
                   setLoadingP(false)
                 }
             });
@@ -696,7 +665,7 @@ function CaisseSimple() {
                   toast.error(<><div><h5>Probleme de Connextion</h5> La facture sera enregisstrer sur votre appareil  </div></>, GConf.TostInternetGonf)   
                   Offline.factureToSave[gettedFID].Client = clientCredit.CL_ID
                   Offline.factureToSave[gettedFID].State = 'Payee'
-                  localStorage.setItem(`${OneGConf.routerTagName}_Offline`,  JSON.stringify(Offline));
+                  localStorage.setItem(`Magazin_Caisse_Offline`,  JSON.stringify(Offline));
                   setLoadingP(false)
                 }
             });
@@ -777,12 +746,12 @@ function CaisseSimple() {
         return(<>
                     <div className={`card shadow-sm p-2 mb-1 me-1 rounded-pill  ${OneGConf.themeMode == 'dark' ? 'bg-dark-theme-4 text-white' : 'bg-ligth-theme-4' } `} >
                         <div className='row p-0'>
-                            <div className='col-1 align-self-center text-start'><Button disabled={saveBtnState} onClick={() => DeleteFromUpdateList(props.dataA.P_Code)} icon="times" className='rounded-circle p-2 text-white bg-danger'></Button></div>
+                            <div className='col-1 align-self-center text-start'><Button disabled={saveBtnState} onClick={() => DeleteFromUpdateList(props.dataA.A_Code)} icon="times" className='rounded-circle p-2 text-white bg-danger'></Button></div>
                             <div className='col-9 text-start align-self-center ps-4'>
                                 <div>{props.dataA.Name}</div>
                                 <b className='text-blod'>{props.dataA.Qte}</b> x {props.dataA.Prix.toFixed(3)} = <span className='text-warning'>{parseFloat(props.dataA.PU).toFixed(3)}</span>
                             </div>
-                            <div className='col-2 align-self-center m-0'><Button disabled={saveBtnState} onClick={() => AddMoreQte(props.dataA.P_Code,keyBordI)} icon="plus cart" className='rounded-circle p-2 text-white bg-info'></Button></div>
+                            <div className='col-2 align-self-center m-0'><Button disabled={saveBtnState} onClick={() => AddMoreQte(props.dataA.A_Code,keyBordI)} icon="plus cart" className='rounded-circle p-2 text-white bg-info'></Button></div>
                         </div>
                     </div>
                 </>)
@@ -822,34 +791,7 @@ function CaisseSimple() {
             </div>
         </>)
     }
-    const PlatsListe = () =>{
-        const GenreListeCard = (props) =>{
-            return(<>
-                <div className='card card-body mb-1  text-danger ' onClick={() => SetSelectedListeFunc(props.text)}> {props.text} </div>
-            </>)
-        }
-        const ArticleItemCard = (props) =>{
-            return(<>
-                <div className='card p-3 text-secondary' onClick={() => GetArticleDataByAID(props.data.P_Code)}>
-                    {props.data.Name}
-                </div>
-            </>)
-        }
-        return(<>
-            <div className='row'>
-                <div className='col-4'>
-                    {
-                        genreListe.map((data,index) => <GenreListeCard key={index} text={data} /> )
-                    }
-                </div>
-                <div className='col-8'>
-                    {
-                        selectedArticleList.map((data,index) => <ArticleItemCard key={index} data={data} />)
-                    }
-                </div>
-            </div>
-        </>)
-    }
+    
 
     /*2- Paymment */
     const ClavierPaymmentCard = () =>{

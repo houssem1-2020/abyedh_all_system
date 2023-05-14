@@ -16,9 +16,9 @@ const GConf = {
 
     // main variables
     PID: GetPID(),
-    ApiLink : 'http://localhost:3010/restaurant', //https://api.system.abyedh.tn/apiSystemAbyedh/System 
-    ApiRouterOneLink : 'http://localhost:3010/restaurant-caisse', //https://api.system.abyedh.tn/apiSystemAbyedh/System 
-    ApiRouterTwoLink : 'http://localhost:3010/restaurant-caisse', //https://api.system.abyedh.tn/apiSystemAbyedh/System 
+    ApiLink : 'https://api.system.abyedh.tn/apiSystemAbyedh/restaurant', //https://api.system.abyedh.tn/apiSystemAbyedh/System 
+    ApiRouterOneLink : 'https://api.system.abyedh.tn/apiSystemAbyedh/restaurant-caisse', //https://api.system.abyedh.tn/apiSystemAbyedh/System 
+    ApiRouterTwoLink : 'https://api.system.abyedh.tn/apiSystemAbyedh/restaurant-caisse', //https://api.system.abyedh.tn/apiSystemAbyedh/System 
     DefaultTva: 0,
     themeColor : '#35ac67',
     themeColorLigth : '#b8cbd4',
@@ -125,7 +125,7 @@ const GConf = {
             // {id:6, name:"Table", icon:"upc-scan", link:"sk"},
             {id:7, name:"Clients", icon:"person", link:"cl"},
             {id:8, name:"Equipe", icon:"person-bounding-box", link:"tm"},
-            {id:9, name:"Outils", icon:"tools", link:"ot"},
+            // {id:9, name:"Outils", icon:"tools", link:"ot"},
     ],
 
     //main stat card
@@ -381,58 +381,65 @@ const GConf = {
     //setting
     Setting: [
         // { id: '01', title: "Activation", image: "01", description: "Etat de cabinet, camera, laboratoire ...", link:"activation"},
-        { id: '2', title: "Profile", image: "02", description: "moupouhpouhpouhpouhpuohpouhp...", link:"p/Profile",
-          items:[
-                {id: 1, genre:'C', title:"Ouverture & Fermeture", icon:"bell-fill", text:"Changer l'etat de disponiobilité , Ouvert/Fermé , Cela va changer votre etat sur l'annuaire", state:'checked'},
-                {id: 2, genre:'C', title:"Permission des Commentaires", icon:"chat-left-quote-fill", text:"Permettre à des visiteurs de votre profil de poster des commentaires.", state:true},
-                {id: 3, genre:'C', title:"Reception des Messages", icon:"envelope-paper-heart-fill", text:"Autorisée les nouveaux messages pour les non-clients ", state:true},
-                {id: 4, genre:'C', title:"Visiblité dans l'annuaire", icon:"journal-bookmark-fill", text:"Autorisée la visibilité sur l'annuaire par tous les visiteurs ", state:true},
-            ]
-        },
-        { id: '3', title: "Commandes", image: "04", description: "Etat de cabinet, camera, laboratoire ...", link:"p/Commandes",
+        // { id: '2', title: "Profile", image: "02", description: "moupouhpouhpouhpouhpuohpouhp...", link:"p/Profile",
+        //   items:[
+        //         {id: 1, genre:'C', title:"Ouverture & Fermeture", icon:"bell-fill", text:"Changer l'etat de disponiobilité , Ouvert/Fermé , Cela va changer votre etat sur l'annuaire", state:'checked'},
+        //         {id: 2, genre:'C', title:"Permission des Commentaires", icon:"chat-left-quote-fill", text:"Permettre à des visiteurs de votre profil de poster des commentaires.", state:true},
+        //         {id: 3, genre:'C', title:"Reception des Messages", icon:"envelope-paper-heart-fill", text:"Autorisée les nouveaux messages pour les non-clients ", state:true},
+        //         {id: 4, genre:'C', title:"Visiblité dans l'annuaire", icon:"journal-bookmark-fill", text:"Autorisée la visibilité sur l'annuaire par tous les visiteurs ", state:true},
+        //     ]
+        // },
+        { id: '3', title: "Commandes", image: "04", description: "Commandes , Nombre Maximele , Auto-Facturation ", link:"p/Commandes",
             items:[
                 {id: 1, genre:'C', title:"Reception des commandes", icon:"calendar4-week", text:"Accepter ou Reffuseé des Commandes", state:'checked'},
                 {id: 2, genre:'I', title:"Nombre maximale des commandes", icon:"123", text:"Nombre Maximales des commandes par jour ", state:true},
                 {id: 3, genre:'C', title:"Auto-facturation des  commandes", icon:"receipt-cutoff", text:"Changer l'etat de disponiobilité , Ouvert/Fermé , Cela va changer votre etat sur l'annuaire", state:true},
             ]
         },
-        { id: '4', title: "Stock", image: "07", description: "Etat de cabinet, camera, laboratoire ...", link:"p/Stock",
+        { id: '4', title: "Menu", image: "14", description: "Plats, Familles , Articels", link:"p/Menu",
+            items:[
+                {id: 1, genre:'C', title:"Ajouter des nouveaux Plats ", icon:"upc-scan", text:"Autoriseé l'ajout des nouveaux articles", state:'checked'},
+                {id: 2, genre:'C', title:"Autoriseé Nouveaux Famille ", icon:"box-arrow-in-down", text:"Autoriseé l'enregistremment des bons d'entreés", state:true},
+                {id: 3, genre:'C', title:"Autoriseé Nouveaux Articles", icon:"box-arrow-up", text:"Autoriseé l'enregistremment des bons de sortie", state:true},
+            ]
+        },
+        { id: '4', title: "Stock", image: "07", description: "Articles , Modifier , Bon Entre/Sortie", link:"p/Stock",
             items:[
                 {id: 1, genre:'C', title:"Ajouter des nouveaux articles ", icon:"upc-scan", text:"Autoriseé l'ajout des nouveaux articles", state:'checked'},
                 {id: 2, genre:'C', title:"Autoriseé Bon d'entre ", icon:"box-arrow-in-down", text:"Autoriseé l'enregistremment des bons d'entreés", state:true},
                 {id: 3, genre:'C', title:"Autoriseé Bon de sortie", icon:"box-arrow-up", text:"Autoriseé l'enregistremment des bons de sortie", state:true},
             ]
         },
-        { id: '5', title: "Factures", image: "08", description: "Etat de cabinet, camera, laboratoire ...", link:"p/Factures",
+        { id: '5', title: "Factures", image: "08", description: "Modification , Suppresssion , Credit", link:"p/Factures",
             items:[
                 {id: 1, genre:'I', title:" Nombre des Factures", icon:"receipt", text:"Nombre Maximale des factures par jour ", state:'checked'},
                 {id: 2, genre:'C', title:" Client Passager", icon:"person-heart", text:"Autoriseé les factures pour client : Passager", state:true},
                 {id: 3, genre:'C', title:" Gratuité", icon:"gift", text:"Autoriseé la gratuité pour les articles ", state:true},
             ]
         },
-        { id: '6', title: "Caisses", image: "13", description: "Etat de cabinet, camera, laboratoire ...", link:"p/Caisses",
+        { id: '6', title: "Caisses", image: "13", description: "Depenses , Auto-Syncronisation , Credit ", link:"p/Caisses",
             items:[
-                {id: 1, genre:'C', title:" Ajouter nouveaux camions", icon:"truck", text:"Autoriseé l'ajout des nouveaux camions", state:'checked'},
-                {id: 2, genre:'C', title:" Ajouter fond aux camions", icon:"basket2", text:"Autoriseé l'ajout des fond aux camions ", state:true},
-                {id: 3, genre:'C', title:" Faire Inventaire ", icon:"arrow-repeat", text:"Autoriseé l'inventaire aux camions", state:true},
-                {id: 4, genre:'C', title:" Controle des camions", icon:"toggles2", text:"Autoriseé le controle (modifier , supprimer stock , ..) des camions", state:true},
+                {id: 1, genre:'C', title:" Ajouter nouveaux caisses", icon:"truck", text:"Autoriseé l'ajout des nouveaux caisses", state:'checked'},
+                {id: 2, genre:'C', title:" Ajouter fond aux caisses", icon:"basket2", text:"Autoriseé l'ajout des fond aux caisses ", state:true},
+                {id: 3, genre:'C', title:" Faire Inventaire ", icon:"arrow-repeat", text:"Autoriseé l'inventaire aux caisses", state:true},
+                {id: 4, genre:'C', title:" Controle des caisses", icon:"toggles2", text:"Autoriseé le controle (modifier , supprimer stock , ..) des caisses", state:true},
             ]
         },
-        { id: '7', title: "Clients", image: "10", description: "Etat de cabinet, camera, laboratoire ...", link:"p/Clients",
+        { id: '7', title: "Clients", image: "10", description: "Nouveaux , Modifier , Fidelité", link:"p/Clients",
             items:[
-                {id: 1, genre:'C', title:" Ajouter Clients Par Camions ", icon:"person-heart", text:"Autoriseé L'ajout d'un client par comptes camions", state:'checked'},
-                {id: 2, genre:'C', title:" Ajouter Regions Par Camion ", icon:"map-fill", text:"Autoriseé L'ajout des regiuons par comptes camions", state:true},
-                {id: 3, genre:'C', title:" Fixer Posistion Clients Par Camions", icon:"geo-alt-fill", text:"Autoriseé le modification du position clients par comptes camions", state:true},
+                {id: 1, genre:'C', title:" Ajouter Clients Par caisses ", icon:"person-heart", text:"Autoriseé L'ajout d'un client par comptes caisses", state:'checked'},
+                {id: 2, genre:'C', title:" Ajouter Regions Par Camion ", icon:"map-fill", text:"Autoriseé L'ajout des regiuons par comptes caisses", state:true},
+                {id: 3, genre:'C', title:" Fixer Posistion Clients Par caisses", icon:"geo-alt-fill", text:"Autoriseé le modification du position clients par comptes caisses", state:true},
             ]
         },
-        { id: '8', title: "Fournisseur", image: "12", description: "Etat de cabinet, camera, laboratoire ...", link:"p/Fournisseur",
-            items:[
-                {id: 1, genre:'C', title:" Ajouter Fournisseur ", icon:"person-heart", text:"Autoriseé L'ajout d'un client par comptes camions", state:'checked'},
-                {id: 2, genre:'C', title:" Ajouter Regions Par Camion ", icon:"map-fill", text:"Autoriseé L'ajout des regiuons par comptes camions", state:true},
-                {id: 3, genre:'C', title:" Fixer Posistion Clients Par Camions", icon:"geo-alt-fill", text:"Autoriseé le modification du position clients par comptes camions", state:true},
-            ]
-        },
-        { id: '9', title: "Equipe", image: "11", description: "Etat de cabinet, camera, laboratoire ...", link:"p/Equipe",
+        // { id: '8', title: "Fournisseur", image: "12", description: "Etat de cabinet, camera, laboratoire ...", link:"p/Fournisseur",
+        //     items:[
+        //         {id: 1, genre:'C', title:" Ajouter Fournisseur ", icon:"person-heart", text:"Autoriseé L'ajout d'un client par comptes caisses", state:'checked'},
+        //         {id: 2, genre:'C', title:" Ajouter Regions Par Camion ", icon:"map-fill", text:"Autoriseé L'ajout des regiuons par comptes caisses", state:true},
+        //         {id: 3, genre:'C', title:" Fixer Posistion Clients Par caisses", icon:"geo-alt-fill", text:"Autoriseé le modification du position clients par comptes caisses", state:true},
+        //     ]
+        // },
+        { id: '9', title: "Equipe", image: "11", description: "Nouveaux , Presence , Avance , ", link:"p/Equipe",
             items:[
                 {id: 1, genre:'C', title:" Recéptions des exigence d'emploi", icon:"file-earmark-person", text:"Recevoire des demmandes de travaille", state:'checked'},
                 {id: 4, genre:'I', title:" Nombre maximale des missions", icon:"check2-square", text:"Npmbre maximale des mission pour membre par jour ", state:true},

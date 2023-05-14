@@ -40,7 +40,6 @@ function UpdateSettingPage() {
         })
         .then(function (response) {  
             setSetting(JSON.parse(response.data.setting[genre]))
-            console.log(response.data.setting[genre])
             setLoading(true)
         }).catch((error) => {
             if(error.request) {

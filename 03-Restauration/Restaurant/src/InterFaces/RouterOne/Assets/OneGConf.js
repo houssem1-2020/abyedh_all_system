@@ -1,14 +1,12 @@
-// const GetForPID = () =>{
-//     const getPID = JSON.parse(localStorage.getItem('Restaurant_Caisse_LocalD'));
-//     return getPID
-// }
 
 const OneGConf = {
     forPID: JSON.parse(localStorage.getItem('Restaurant_Caisse_LocalD')), //GetForPID(),
     themeColor: '#2f8d99',
+    themeMode: localStorage.getItem('Restaurant_Caisse_Theme'),
     default_Offline : {stock: [], facture: [],  client:[],  factureToSave:[], clientToSave:[], depensesToSave:[]},
     oneOffline : JSON.parse(localStorage.getItem(`Restaurant_Caisse_Offline`)),
     routerName : 'C',
+    routerTagName : 'Restaurant_Caisse',
 
     main : [
         {id:1, link:'nv', icon:'pc-display-horizontal', text:'CAISSES', desc:''},

@@ -10,8 +10,7 @@ import OneGConf from './Assets/OneGConf'
 
 function InputLandingPage() {
     /*#########################[Const]###########################*/
-    let CaisseData = OneGConf.forPID;
-    const CaisseId = OneGConf.forPID.Cam_ID;
+
 
     /*#########################[UseEffect]###########################*/
     useEffect(() => {
@@ -44,24 +43,36 @@ function InputLandingPage() {
 
     /*#########################[Function]###########################*/
     const logOutInput = () =>{    
-        //localStorage.clear();
         localStorage.removeItem(`Restaurant_Caisse_LocalD`);
         window.location.href = `/${OneGConf.routerName}`;
+    }
+
+    const ChangeThemeMode = () =>{
+        if (OneGConf.themeMode == 'dark') {
+            localStorage.setItem(`${OneGConf.routerTagName}_Theme`, 'ligth');
+            window.location.reload()
+        } else {
+            localStorage.setItem(`${OneGConf.routerTagName}_Theme`, 'dark');
+            window.location.reload()
+        }
+       
     }
 
     /*#########################[Card]###########################*/
     const MainTopCard = () =>{
         return(<>
-            <div className='card p-3 fixed-top border-0 shadow-sm rounded-0'>
+             <div className={`card p-3 fixed-top border-0 shadow-sm rounded-0 ${OneGConf.themeMode == 'dark' ? 'bg-dark-theme-1' : '' }`}>
                 <div className='row'>
-                    <div className='col-8 align-self-center'><h2> <span className="badge bg-info"> <span className='bi bi-pc-display-horizontal '></span>  {OneGConf.forPID.CA_Name} </span></h2></div>
-                    {/* <div className='col-1 align-self-center' >
-                        <NavLink to='up' exact="true" className={({ isActive }) => isActive ? "ps-1 pe-1 abyedh-list-a-s" : "ps-1 pe-1 abyedh-list"}><i className="bi bi-cloud-arrow-down fa-lg "></i></NavLink>
-                    </div> */}
-                    <div className='col-2 align-self-center' >
+                    <div className='col-9 align-self-center'><h2> <span className="badge bg-info"> <span className='bi bi-pc-display-horizontal '></span>  {OneGConf.forPID.CA_Name} </span></h2></div>
+                    <div className='col-1 align-self-center' >
+                        <div className="form-check form-switch ">
+                            <input className="form-check-input form-check-input-lg " type="checkbox" defaultChecked={OneGConf.themeMode == 'dark'}  onChange={() => ChangeThemeMode()}   />
+                        </div>
+                    </div>
+                    <div className='col-1 align-self-center' >
                         <NavLink to='up' exact="true" className={({ isActive }) => isActive ? "ps-1 pe-1 abyedh-list-a-s me-4" : "ps-1 pe-1 abyedh-list me-4"}><i className="bi bi-cloud-arrow-down-fill text-danger bi-upl "></i></NavLink>
                     </div>
-                    <div className='col-2 align-self-center' >
+                    <div className='col-1 align-self-center' >
                         <Button onClick={logOutInput} style={{backgroundColor:GConf.themeColor}} className='rounded-circle text-white p-2' icon='log out' />
                     </div>
                 </div>
@@ -70,27 +81,28 @@ function InputLandingPage() {
     }
 
     return ( <>
-            <MainTopCard />
-            <br />                
-            <br />                
-            <br />                
-            <br />   
-            <br />   
-            <br />   
-            <br />   
-            <Fade >            
-                <div className='container '>
-                    <div className='row'>
-                        <div className='col-6 mb-3'> <LinkCard data={OneGConf.main[0]} /> </div>
-                        <div className='col-6 mb-3'> <LinkCard data={OneGConf.main[1]} /> </div>
-                        <div className='col-4 mb-3'> <LinkCard data={OneGConf.main[2]} /> </div>
-                        {/* <div className='col-4 mb-3'> <LinkCard data={OneGConf.main[3]} /> </div> */}
-                        <div className='col-4 mb-3'> <LinkCard data={OneGConf.main[4]} /> </div>
-                        <div className='col-4 mb-3'> <LinkCard data={OneGConf.main[5]} /> </div>
+            <div className={`${OneGConf.themeMode == 'dark' ? 'bg-dark-theme-2' : '' }`} style={{height: '100vh', overflow: 'scroll'}}>
+                <MainTopCard />
+                <br />                
+                <br />                
+                <br />                
+                <br />   
+                <br />   
+                <br />   
+                <br />   
+                <Fade >            
+                    <div className='container '>
+                        <div className='row'>
+                            <div className='col-6 mb-3'> <LinkCard data={OneGConf.main[0]} /> </div>
+                            <div className='col-6 mb-3'> <LinkCard data={OneGConf.main[2]} /> </div>
+                            <div className='col-4 mb-3'> <LinkCard data={OneGConf.main[1]} /> </div>
+                            {/* <div className='col-4 mb-3'> <LinkCard data={OneGConf.main[3]} /> </div> */}
+                            <div className='col-4 mb-3'> <LinkCard data={OneGConf.main[4]} /> </div>
+                            <div className='col-4 mb-3'> <LinkCard data={OneGConf.main[5]} /> </div>
+                        </div>
                     </div>
-                </div>
-            </Fade> 
-              
+                </Fade> 
+            </div>
         </> );
 }
 

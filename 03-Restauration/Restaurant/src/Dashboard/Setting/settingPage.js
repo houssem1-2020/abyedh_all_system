@@ -194,7 +194,7 @@ function SettingPage() {
                                 <div className="flex-grow-1 ms-3">
                                     <b>{props.title}</b>
                                     <br />
-                                    <small className="text-secondary">Etat de cabinet, camera, laboratoire ...</small>
+                                    <small className="text-secondary">{props.description}</small>
                                 </div>
                             </div>
                         </div>
@@ -216,7 +216,7 @@ function SettingPage() {
                     </div>
                     <div className="col-12 col-lg-7">
                         <div className="list-group shadow-sm mb-4 border-div">
-                            {GConf.Setting.map((sett) => <SettingItemCard key={sett.id} link={sett.link} image={sett.image} title={sett.title} />)}
+                            {GConf.Setting.map((sett) => <SettingItemCard key={sett.id} link={sett.link} image={sett.image} description={sett.description} title={sett.title} />)}
                         </div>
                         {/*<h5>Profile</h5>
                         {loading ?  <ProfileSetting genre='1' setting={setting.Profile}/> : SKLT.CardList  }
