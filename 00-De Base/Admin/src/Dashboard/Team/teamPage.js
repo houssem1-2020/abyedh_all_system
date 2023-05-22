@@ -38,13 +38,14 @@ function TeamPage() {
     /*#########################[UseEffect]##################################*/
     useEffect(() => {
     axios.post(`${GConf.ApiLink}/team`, {
-        PID: GConf.PID,
+        PID: 'Admin',
     }).then(function (response) {
+        console.log(response.data)
         let testTable = []
         response.data.map( (getData) => testTable.push([
-        _(<AvatarCard lettre={capitalizeFirstLetter(getData.T_Name)} />),
-        getData.T_Name,
-        getData.T_Phone,
+        _(<AvatarCard lettre={capitalizeFirstLetter(getData.Name)} />),
+        getData.Name,
+        getData.Poste,
         getData.T_CIN,
         _(<div className ='badge p-1 bg-info'>{moment(getData.Start_at, "YYYYMMDD").fromNow() }</div>),
         getData.Poste,

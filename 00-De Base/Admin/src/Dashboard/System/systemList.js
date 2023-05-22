@@ -701,6 +701,7 @@ const ASIL = {
              ]},
         ]
     },
+   //13 (12-0)
     docteur:{
         colorTheme:'#085947',
         adsImageUrl:'docteur.svg',
@@ -917,6 +918,7 @@ const ASIL = {
              ]},
         ]
     },
+    //17 (16-0)
     garderie:{
         colorTheme:'#cf208f',
         adsImageUrl:'garderie.svg',
@@ -1187,6 +1189,7 @@ const ASIL = {
              ]},
         ]
     },
+    //22 (21-0)
     restaurant:{
         colorTheme:'#35ac67',
         adsImageUrl:'restaurant.svg',
@@ -1349,6 +1352,7 @@ const ASIL = {
              ]},
         ]
     },
+    //25 (24-0)
     transporteur:{
         colorTheme:'#be6e70',
         adsImageUrl:'transporteur.svg',
@@ -1457,6 +1461,7 @@ const ASIL = {
              ]},
         ]
     },
+    //27 (26-0)
     samsar:{
         colorTheme:'#455b7a',
         adsImageUrl:'samsar.svg',
@@ -1673,6 +1678,7 @@ const ASIL = {
              ]},
         ]
     },
+    //31 (30-0)
     handmade_menuisier:{
         colorTheme:'#cdb556',
         adsImageUrl:'handmade_menuisier.svg',
@@ -1997,6 +2003,7 @@ const ASIL = {
              ]},
         ]
     },
+    //37 (36-0)
     chantier_contracteur:{
         colorTheme:'#406163',
         adsImageUrl:'chantier_contracteur.svg',
@@ -2105,6 +2112,7 @@ const ASIL = {
              ]},
         ]
     },
+   //39 (38-0)
     car_parking:{
         colorTheme:'#2d4664',
         adsImageUrl:'car_parking.svg',
@@ -2267,6 +2275,7 @@ const ASIL = {
              ]},
         ]
     },
+    //42 (41-0)
     wedding_photographe:{
         colorTheme:'#c30052',
         adsImageUrl:'wedding_photographe.svg',
@@ -2483,6 +2492,7 @@ const ASIL = {
              ]},
         ]
     },
+    //46 (45-0)
     gym:{
         colorTheme:'#7aadab',
         adsImageUrl:'gym.svg',
@@ -2753,6 +2763,7 @@ const ASIL = {
              ]},
         ]
     },
+    //51 (50-0)
     farm:{
         colorTheme:'#72bcc7',
         adsImageUrl:'champ.svg',
@@ -2861,6 +2872,7 @@ const ASIL = {
              ]},
         ]
     }
+   //53 (52-0)
 
 }
 

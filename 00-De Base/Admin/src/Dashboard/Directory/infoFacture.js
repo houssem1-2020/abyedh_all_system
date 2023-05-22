@@ -9,86 +9,126 @@ import BreadCrumb from '../Assets/breadCrumb'
 import { toast } from 'react-toastify';
 import FrameForPrint from '../Assets/frameForPrint';
 import usePrintFunction from '../Assets/Hooks/printFunction';
+import { Cell, Pie, PieChart, Tooltip } from 'recharts';
 
 function FactureInfo() {
     /*#########################[Const]##################################*/
     const {FID} = useParams()
-    const [articleL, setArticleL] = useState([])
-    const [factureData, setFactData] = useState([])
+    const [rendredData, setRendredData] = useState([])
+    const [PieData, setPieData]= useState([])
+
+    const [commandeData, setCommandeD] = useState([])
+    const [facturerData, setFacturerD] = useState([])
     const [loading , setLoading] = useState(false)
-    const [stockState , setStockState] = useState(false)
-    const [toUpdatedList, setTUpList] = useState([])
-    let Offline = JSON.parse(localStorage.getItem(`${GConf.PID}_Offline`));
-    
-    /*#########################[UseEffect]##################################*/
+    const [btnState, setBtnState] = useState(false)
+
+
+    /*#########################[useEffect]##################################*/ 
     useEffect(() => {
-        axios.post(`${GConf.ApiLink}/facture/select`, {
+        axios.post(`${GConf.ApiLink}/annuaire/info`, {
             PID : GConf.PID,
-            fid: FID
+            tableName: FID
           })
           .then(function (response) {
-                if(!response.data[0]) {
-                    toast.error('Facture Introuvable !', GConf.TostSuucessGonf)
-                    setTimeout(() => {  window.location.href = "/S/ft"; }, 2000)
-                    
-                } else {
-                    setArticleL(JSON.parse(response.data[0].Articles))
-                    let UsedTableNow = []
-                    JSON.parse(response.data[0].Articles).map( (article) => {UsedTableNow.push([article.A_Code, article.Qte ])} )
-                    setTUpList(UsedTableNow)
-                    setFactData(response.data[0])
-                    setLoading(true)
-                    if(response.data[0].SDF == 'true'){setStockState(true)}
-                }    
+            setRendredData(response.data)
+            setLoading(true)  
           }).catch((error) => {
             if(error.request) {
-              toast.error(<><div><h5>Probleme de Connextion</h5> Impossible de Charger la facture de son source   </div></>, GConf.TostInternetGonf)   
-              const FactureTarged = Offline.facture.find((facture) => facture.F_ID == FID);
-              setLoading(true)
-              setArticleL(JSON.parse(FactureTarged.Articles))
-              setStockState(true)
-              setFactData(FactureTarged)
-              setStockState(true)
+              toast.error(<><div><h5>Probleme de Connextion</h5> Impossible de charger la commande   </div></>, GConf.TostInternetGonf)   
+              setLoading(true) 
             }
           });
     }, [])
 
-    /*#########################[Function]##################################*/
-    const PrintFunction = (frameId) =>{ usePrintFunction(frameId)}
-    const UpdateStock = () =>{
-        axios.post(`${GConf.ApiLink}/stock/bs`, {
+    /*#########################[Functions]##################################*/
+    const PrintFunction = (frameId) =>{ usePrintFunction(frameId) }
+    const RetunTableFunc = ({ data }) => {
+        // Get the column names from the object         
+        if (data[0]) {
+            const columnNames = Object.keys(data[0]);
+            return (
+                <table className='table table-bordered'>
+                <thead>
+                    <tr>
+                    {columnNames.map(columnName => (
+                        <th key={columnName}>{columnName}</th>
+                    ))}
+                    </tr>
+                </thead>
+                {/* <tbody>
+                    {Object.values(data).map((rowData, index) => (
+                    <tr key={index}>
+                        {Object.values(rowData).map((cellData, cellIndex) => (
+                        <td key={cellIndex}>{cellData}</td>
+                        ))}
+                    </tr>
+                    ))}
+                </tbody> */}
+                </table>
+            );
+        } else {
+               return(<>Pas de Donneé</>) 
+        }
+        
+    }
+
+    const FetchByGenre = (genre) =>{
+        let found = rendredData.filter(element => element.State === genre)
+        if (found) {
+            return(found.length)
+        } else {
+            return 0
+        }
+    
+ }
+
+    const UpdateState = (stateBtn) =>{
+        axios.post(`${GConf.ApiLink}/commande/controle`, {
             PID : GConf.PID,
-            artList: toUpdatedList,
+            FID: FID,
+            state: stateBtn
           })
-          .then(function (response) {      
-            if(response.data.affectedRows) {
-                axios.post(`${GConf.ApiLink}/facture/us`, { PID : GConf.PID,  fid: FID })
-                toast.success("Stock Modifier !", GConf.TostSuucessGonf)
-                setStockState(true)
-                setFactData({ ...factureData, SDF: 'true'})
-            }
-            else{
-                toast.error('Erreur Indéfine ', GConf.TostSuucessGonf)
-            }
+          .then(function (response) {
+            setCommandeD({ ...commandeData, State: stateBtn}) 
+            setBtnState(true)            
           }).catch((error) => {
             if(error.request) {
-              toast.error(<><div><h5>Probleme de Connextion</h5> Operation Annuleé  </div></>, GConf.TostInternetGonf)   
+              toast.error(<><div><h5>Probleme de Connextion</h5> Impossible de modifier L'etat du commande  </div></>, GConf.TostInternetGonf)   
+              setBtnState(true)
             }
           });
-
     }
-    const CalculateTVA =  (value) =>{
-        const facteur_p = (100 / (GConf.DefaultTva + 100));
-        return (parseFloat(value) * facteur_p).toFixed(3) 
+    const FacturerCommande = () =>{
+        axios.post(`${GConf.ApiLink}/facture/ajouter`, {
+            PID : GConf.PID,
+            factD: facturerData,
+        })
+        .then(function (response) { 
+            if(response.status = 200) {
+                UpdateState('A')
+                toast.success("Done !", GConf.TostSuucessGonf)
+                setBtnState(true)
+            }
+            else{
+                toast.error('Erreur esseyez de nouveaux', GConf.TostSuucessGonf)
+            }           
+        }).catch((error) => {
+            if(error.request) {
+              toast.error(<><div><h5>Probleme de Connextion</h5> Impossible de Facturer la commande  </div></>, GConf.TostInternetGonf)   
+              setBtnState(true)
+            }
+          });
+        
     }
-
+    
     /*#########################[Card]##################################*/
     const StateCard = ({ status }) => {
         const StateCard = (props) =>{ return <span className={`badge bg-${props.color}`}> {props.text} </span>}
         const statusCard = React.useCallback(() => {
           switch(status) {
-            case 'false': return <StateCard color='danger' text='Stock Non Regleé' />;  
-            case 'true': return <StateCard color='success' text='Stock Regleé' /> ;
+            case 'W': return <StateCard color='warning' text='En Attent' />;  
+            case 'A': return <StateCard color='success' text='Acepteé' /> ;
+            case 'R': return <StateCard color='danger' text='Refuseé' />;
             default:  return <StateCard color='secondary' text='Indefinie' />;    
           }
         }, [status]);
@@ -98,143 +138,79 @@ function FactureInfo() {
             {statusCard()}
           </div>
         );
-    }
-    const FactureHeader = () =>{
-        return(<>
-                <h2 className='text-center'>Facture Client </h2> 
-                <br />
-                <div className='row'>
-                    <div className='col-6'>
-                        <div className='text-danger'><b>STE ANASLOUMA DISTRUBUTION</b></div>
-                        <div className='text-secondary'><b>VILLE: </b> SIDI BOUROUIS</div>
-                        <div className='text-secondary'><b>MATRICULE F : </b> 1670146/D</div>
-                        <div className='text-secondary'><b>TEL : </b> 97913068</div>
-                        <div className='text-secondary'><b>FAX : </b> 78898081</div>
-                    </div>
-                    <div className='col-6'>
-                        <div className='text-secondary'><b>CODE FACTURE : </b> {FID}</div>
-                        <div className='text-secondary'><b>CLIENT: </b> 
-                        <Popup
-                                content={<>
-                                <div className='row'>
-                                    <div className='col-6'>
-                                        <div className='text-secondary'><b><span className='bi bi-qr-code text-danger'></span> : {factureData.Code_Fiscale}</b></div>   
-                                        <div className='text-secondary'><b><span className='bi bi-telephone text-danger'></span> : {factureData.Phone}</b></div>      
-                                    </div>
-                                    <div className='col-6'>
-                                        <div className='text-secondary'><b><span className='bi bi-geo-alt-fill text-danger'></span> : {factureData.Gouv}</b></div>   
-                                        <div className='text-secondary'><b><span className='bi bi-geo-alt text-danger'></span> : {factureData.Deleg}</b></div>   
-                                        
-                                    </div>
-                                    <div className='col-12'>
-                                        <div className='text-secondary'><b><span className='bi bi-pin-map text-danger'></span> : {factureData.Adress}</b></div>
-                                    </div>
-                                    
-                                </div>
-                                </> }
-                                wide='very'
-                                hoverable
-                                key={factureData.Name }
-                                header={<h3><span className='bi bi-person-fill'></span> {factureData.Name} </h3> }
-                                trigger={loading ? <NavLink  exact='true' to={`/S/cl/info/${factureData.CL_ID}`}> {factureData.Name } </NavLink>  : SKLT.BarreSkl }
-                            />
-                            </div>
-                        <div className='text-secondary'><b>M.F : </b> {factureData.Code_Fiscale}</div>
-                    </div>
-                </div>
-        </>)
-    }
+    };
     const TotaleCard = () =>{
         return(<>
                 <div className='card card-body shadow-sm mb-2'>
-                    <h5>Nette & Totale </h5>
-                    <div>Totale hors tax: {loading ? CalculateTVA(factureData.Tota) : SKLT.BarreSkl }</div>
-                    <div>TVA: {loading ? (factureData.Tota - CalculateTVA(factureData.Tota)).toFixed(3) : SKLT.BarreSkl }</div>
-                    <div>Timbre: 0.600 DT</div>
-                    <div className='text-danger'><b>Net A Payee TTC: {loading ? (parseFloat(factureData.Tota) + 0.600).toFixed(3) : SKLT.BarreSkl } </b></div>
+                    <div className='row'>
+                        <div className='col-4 border-end text-center'><h2>{FetchByGenre('W')}</h2><small>En Attent</small></div>
+                        <div className='col-4 border-end text-center'><h2>{FetchByGenre('A')}</h2><small>Accepte</small></div>
+                        <div className='col-4  text-center'><h2>{FetchByGenre('R')}</h2><small>Refusee</small></div>
+                    </div>
                 </div>
         </>)
     }
     const BtnsCard = () =>{
         return(<>
                 <div className='card card-body shadow-sm mb-2'>
-                    <h5>Controle</h5>
-                    <div className='row mb-2'>
+                <PieChartCard data={[{ name: 'En Attent', value: FetchByGenre('W') },{ name: 'Accepte', value: FetchByGenre('A') },{ name: 'Refuse', value: FetchByGenre('R') }]}/>
+                </div>
+        </>)
+    }
+    const PieChartCard =  (props) =>{
+        
+        const COLORS = ['#0088FE', '#00C49F', '#FFBB28', '#FF8042'];
+        return (
+            <PieChart width={300} height={200} >
+              <Pie
+                data={props.data}
+                cx={150}
+                cy={100}
+                innerRadius={60}
+                outerRadius={80}
+                fill="#8884d8"
+                paddingAngle={2}
+                dataKey="value"
+              >
+                {PieData.map((entry, index) => (
+                  <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
+                ))}
+              </Pie>
+              <Tooltip />
+            </PieChart>
+          );
+    }
+    const CommandeHeader = () =>{
+        return(<>
+                <h2 className='text-center mb-4'>Commande </h2> 
+                <br />
+                <div className='row'>
                     <div className='col-6'>
-                        <Button  className='rounded-pill btn-imprimer'  fluid onClick={(e) => PrintFunction('printFacture')}><Icon name='edit outline' /> Imprimer</Button>
+                        <div className='text-secondary'><b>CODE COMMANDE : </b> {FID}</div>
+                        <div className='text-secondary'><b>CLIENT: </b> {loading ? <NavLink  exact='true' to={`/S/cl/info/${commandeData.R_ID}`}> {commandeData.Name } </NavLink> : SKLT.BarreSkl } </div>
                     </div>
                     <div className='col-6'>
-                            <Button as='a' href={`/S/ft/modifier/${FID}`} animated disabled={stockState} className='rounded-pill bg-system-btn'  fluid>
-                                <Button.Content visible><Icon name='edit outline' /> Modifier </Button.Content>
-                                <Button.Content hidden>
-                                    <Icon name='arrow right' />
-                                </Button.Content>
-                            </Button>
-                    </div>
-                    </div>
-                    <div className='row mb-2'>
-                        <div className='col-6'>
-                            <Button  className='rounded-pill btn-danger'  fluid><Icon name='edit outline' /> Supprimer</Button>
-                        </div>
-                        <div className='col-6'>
-                            <Button  className='rounded-pill  btn-regler'  fluid disabled={stockState} onClick={UpdateStock}><Icon name='edit outline' /> R. Stock</Button>
-                        </div>
-                    </div>
-                    <div className='row mb-2'>
-                        <div className='col-6'>
-                            <Button  className='rounded-pill  btn-imprimer'  fluid onClick={(e) => PrintFunction('printBl')} ><Icon name='edit outline' /> BL</Button>
-                        </div>
-                        <div className='col-6'>
-                            <Button  className='rounded-pill  btn-imprimer'  fluid onClick={(e) => PrintFunction('printBs')}><Icon name='edit outline' /> BS</Button>
-                        </div>
+                        <div className='text-secondary'><b>Passé Le  : </b> {loading ?  new Date(commandeData.Passed_Day).toLocaleDateString('fr-FR').split( '/' ).reverse( ).join( '-' ) : SKLT.BarreSkl } </div>
+                        <div className='text-secondary'><b>Voulu Le : </b> {loading ? new Date(commandeData.Wanted_Day).toLocaleDateString('fr-FR').split( '/' ).reverse( ).join( '-' )  : SKLT.BarreSkl } </div>
                     </div>
                 </div>
         </>)
     }
-
+    
     return ( <> 
-        <BreadCrumb links={GConf.BreadCrumb.factureInfo} />
+        <BreadCrumb links={GConf.BreadCrumb.RequestInfo} />
         <br />
         <div className="row">
             <div className="col-12 col-lg-8">
-                <h2 className='text-end'><StateCard status={factureData.SDF} /></h2>
-                <FactureHeader />
+                <h1>{FID}</h1>
+                <br />
+                <div className="table-responsive">
+                    {loading ? <RetunTableFunc data={rendredData} /> : ''}
+                </div>
                 <br />
                 <br />
-                <table className="table">
-                    <thead>
-                        <tr>
-                        <th scope="col">No</th>
-                        <th scope="col">Designiation</th>
-                        <th scope="col">Qté</th>
-                        <th scope="col">PUHT</th>
-                        <th scope="col">TVA</th>
-                        <th scope="col">PUTTC</th>
-                        <th scope="col">Prix Net</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        
-                        {loading ?  
-                        <>
-                        {articleL.map( (artData, index) => 
-                            <tr key={index +1 }>
-                                <th scope="row">{index +1 }</th>
-                                <td>{artData.Name}</td>
-                                <td>{artData.Qte}</td>
-                                <td>{CalculateTVA(artData.Prix)}</td>
-                                <td>{GConf.DefaultTva} %</td>
-                                <td>{artData.Prix.toFixed(3)}</td>
-                                <td>{artData.PU}</td>
-                            </tr>
-                        )}
-                        
-                        </>
-                        : SKLT.FactureList }                        
-                        
-                    </tbody>
-                </table>
             </div>
+            
             <div className="col-12 col-lg-4">
             <Bounce bottom>
                 <div className="sticky-top" style={{top:'70px'}}>
@@ -244,9 +220,7 @@ function FactureInfo() {
             </Bounce>
             </div>
         </div>
-        <FrameForPrint frameId='printFacture' src={`/Pr/facture/info/${FID}`} />
-        <FrameForPrint frameId='printBl' src={`/Pr/facture/bonL/${FID}`} />
-        <FrameForPrint frameId='printBs' src={`/Pr/facture/bonS/${FID}`} />
+        {/* <FrameForPrint frameId='framed' src={printLink} /> */}
     </> );
 }
 

@@ -41,7 +41,7 @@ function ClientPage() {
         .then(function (response) {
             let testTable = []
             response.data.map( (getData) => testTable.push([
-                _(<img src={`https://abyedh.tn/Assets/images/p_pic/${getData.PictureId}.gif`} className='img-responsive' width='40px' height='40px'  />),
+                _(<img src={`https://cdn.abyedh.tn/images/p_pic/${getData.PictureId}.gif`} className='img-responsive' width='40px' height='40px'  />),
             getData.Name,
             getData.UID,
             getData.PID,

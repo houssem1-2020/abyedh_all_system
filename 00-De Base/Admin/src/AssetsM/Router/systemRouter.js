@@ -73,7 +73,7 @@ import SettingPage from '../../Dashboard/Setting/settingPage';
 import ConfrimationPage from '../../Dashboard/Setting/confirmation';
 import ClientRequest from '../../Dashboard/Client/clientRequest';
 
-
+import LeftSideCard from '../../Dashboard/leftSide';
 
 
 const SystemLanding = () => {
@@ -90,8 +90,9 @@ const SystemLanding = () => {
         <br />
         <br />
         <br />
-        <div className="container pt-4">
-            <Outlet />
+        <div className='row pt-4 m-1'>
+                <div className='col-12 col-md-12 col-lg-2'><LeftSideCard /></div>
+                <div className='col-12 col-md-12 col-lg-10'><Outlet /></div>
         </div>
     </>);
 }
@@ -128,7 +129,7 @@ const systemRouter = () => (
                 <Route path="ajouter-f" exact element={<AjouterFond />} />
                 <Route path="modifier-f/:FondID" exact element={<EditFond />} />
                 <Route path="inventaire" exact element={<InventaireCamion />}/>
-                <Route path="info/:CID" exact element={<CamionInfo />} />
+                <Route path="info/:UID" exact element={<CamionInfo />} />
                 <Route path="info/stock/:CID/:code" exact element={<CamionArticleInfo />} />
                 <Route path="info/facture/:CID/:FID" exact element={<CamionFactureInfo />} />
                 <Route path="info/fond/:CID/:FondID" exact element={<CamionFondInfo />} />

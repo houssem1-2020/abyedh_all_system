@@ -63,7 +63,7 @@ function NavBar(props) {
                             <NavLink onClick={LogOut} to='#' exact="true" className='ps-1 pe-1'><span className="bi bi-box-arrow-left fa-lg"></span></NavLink>
                         </div>
                         <NavLink onClick={Refresh} to='#' exact="true" className='ps-1 pe-3 mt-3'><span className="bi bi-arrow-clockwise fa-lg text-danger"></span></NavLink>
-                        <Modal
+                        {/* <Modal
                             closeIcon
                             //centered={false}
                             size='small'
@@ -92,17 +92,17 @@ function NavBar(props) {
                                         <NavLink to='up' exact="true" className={({ isActive }) => isActive ? "ps-1 pe-1 abyedh-list-a-s" : "ps-1 pe-1 abyedh-list"}><i className="bi bi-cloud-arrow-down bi-md"></i></NavLink>
                                         <h6>Mise à Jour</h6>
                                     </div>
-                                    {/* <div className='col-4 col-lg align-self-center text-center border-end '>
+                                    <div className='col-4 col-lg align-self-center text-center border-end '>
                                         <NavLink to='up' exact="true" className={({ isActive }) => isActive ? "ps-1 pe-1 abyedh-list-a-s" : "ps-1 pe-1 abyedh-list"}><i className="bi bi-cloud-arrow-down bi-md "></i></NavLink>
                                         <h6>Mise à Jour</h6>
-                                    </div>  */}
+                                    </div> 
                                     <div className='col-4 col-lg align-self-center text-center'>
                                         <NavLink onClick={LogOut} to='#' exact="true" className='ps-1 pe-1'><span className="bi bi-box-arrow-left bi-md"></span></NavLink>
                                         <h6>Déconnextion</h6>
                                     </div>   
                                 </div>
                             </Modal.Content>
-                        </Modal>
+                        </Modal> */}
                     </div>
                 </div>
             </div>

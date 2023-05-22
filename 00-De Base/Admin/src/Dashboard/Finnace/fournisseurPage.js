@@ -35,29 +35,29 @@ function FournisseurPage() {
 
     /*#########################[UseEffect]##################################*/
     useEffect(() => {
-    axios.post(`${GConf.ApiLink}/fournisseur`, {
-        PID : GConf.PID,
-      })
-      .then(function (response) {
-        console.log(response.data)
-         let testTable = []
-          response.data.map( (getData) => testTable.push([
-        _(<AvatarCard lettre={capitalizeFirstLetter(getData.Four_Name)} />),
-         getData.Four_Code_Fiscale,
-         getData.Four_Name,
-         getData.Four_Phone,
-         getData.Four_Adress,
-         getData.Articles_Genre,
-         getData.Jour_Periodique,
-         _(<Button className='rounded-pill bg-system-btn' size='mini' onClick={ (e) => NavigateFunction(`/S/fs/info/${getData.Four_ID}`)}><span className='d-none d-lg-inline'> Info </span><Icon  name='angle right' /></Button>)
-        ],))
-        setClientList(testTable)
-      }).catch((error) => {
-        if(error.request) {
-          toast.error(<><div><h5>Probleme de Connextion</h5> Chargemment des ancien Camion  </div></>, GConf.TostInternetGonf)   
-          setClientList(Offline.camion)
-        }
-      });
+    // axios.post(`${GConf.ApiLink}/fournisseur`, {
+    //     PID : GConf.PID,
+    //   })
+    //   .then(function (response) {
+    //     console.log(response.data)
+    //      let testTable = []
+    //       response.data.map( (getData) => testTable.push([
+    //     _(<AvatarCard lettre={capitalizeFirstLetter(getData.Four_Name)} />),
+    //      getData.Four_Code_Fiscale,
+    //      getData.Four_Name,
+    //      getData.Four_Phone,
+    //      getData.Four_Adress,
+    //      getData.Articles_Genre,
+    //      getData.Jour_Periodique,
+    //      _(<Button className='rounded-pill bg-system-btn' size='mini' onClick={ (e) => NavigateFunction(`/S/fs/info/${getData.Four_ID}`)}><span className='d-none d-lg-inline'> Info </span><Icon  name='angle right' /></Button>)
+    //     ],))
+    //     setClientList(testTable)
+    //   }).catch((error) => {
+    //     if(error.request) {
+    //       toast.error(<><div><h5>Probleme de Connextion</h5> Chargemment des ancien Camion  </div></>, GConf.TostInternetGonf)   
+    //       setClientList(Offline.camion)
+    //     }
+    //   });
     }, [])
 
 
@@ -81,8 +81,8 @@ function FournisseurPage() {
             <Fade>
                 <SubNav dataForNav={GConf.SubNavs.Fournisseur}/>
                 <br />
-                <TableGrid tableData={clientList} columns={GConf.TableHead.fournisseur} />
-                
+                {/* <TableGrid tableData={clientList} columns={GConf.TableHead.fournisseur} /> */}
+                ajouter outils : serveur , marketing , relation , ... 
             </Fade>         
         </>);
 }

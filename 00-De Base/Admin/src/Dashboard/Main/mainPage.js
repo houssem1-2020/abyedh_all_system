@@ -43,7 +43,6 @@ function MainPage() {
             PID : GConf.PID,
           })
           .then(function (response) {
-            
             setStat(response.data)
            
             
@@ -83,7 +82,7 @@ function MainPage() {
 
         return (<>
                 
-                <div className={`col-12 col-md-${props.data.col} mb-3`}>
+                <div className={`col-6 col-md-${props.data.col} mb-3`}>
                     <div className="card card-body bg-hover-card shadow-sm pb-2 border-div">
                         <NavLink exact="true" to={`../${props.data.link}`}   className="stretched-link" />
                         <div className="row">
@@ -92,7 +91,7 @@ function MainPage() {
                             </div>
                             <div className='col-8 align-self-center text-end p-2'>
                                 <div className="text-center">
-                                <h3 ><CountUp end={statistique[props.data.dataTag]} duration={3} /></h3>
+                                <h3 ><CountUp end={statistique[props.data.dataTag]} duration={1} /></h3>
                                     <small>{props.data.smallT}</small>
                                 </div>
                             </div>

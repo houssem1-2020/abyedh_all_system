@@ -38,7 +38,7 @@ function ControlPage() {
          new Date(getData.BirthDay).toLocaleDateString('fr-FR').split( '/' ).reverse( ).join( '-' ),
          getData.BirthGouv,
          _( <a  className='data-link-modal'  onClick={() => openEditModal(getData,true)} ><b> <span className='bi bi-arrows-fullscreen'></span> </b></a>),
-         _(<Button className='rounded-pill bg-system-btn' size='mini' onClick={ (e) => NavigateFunction(`/S/cm/info/${getData.UID}`)}><span className='d-none d-lg-inline'> Info </span><Icon  name='angle right' /></Button>)
+         _(<Button className='rounded-pill bg-system-btn' size='mini' onClick={ (e) => NavigateFunction(`/S/us/info/${getData.UID}`)}><span className='d-none d-lg-inline'> Info </span><Icon  name='angle right' /></Button>)
         ],))
         setCamionList(testTable)
       }).catch((error) => {

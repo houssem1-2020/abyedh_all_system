@@ -12,8 +12,8 @@ const GConf = {
     ADIL:AbyedhADIL,
     abyedhMap : TunMap,
     ApiLink : 'https://api.system.abyedh.tn/apiSystemAbyedh/admin', //https://api.system.abyedh.tn/apiSystemAbyedh/ 
-    ApiInputLink : 'http://localhost:3010/admindir', //https://api.system.abyedh.tn/apiSystemAbyedh/ 
-    ApiCamionLink : 'http://localhost:3010/admin', //https://api.system.abyedh.tn/apiSystemAbyedh/ 
+    ApiInputLink : 'https://api.system.abyedh.tn/apiSystemAbyedh/admindir', //https://api.system.abyedh.tn/apiSystemAbyedh/ 
+    ApiCamionLink : 'https://api.system.abyedh.tn/apiSystemAbyedh/admin', //https://api.system.abyedh.tn/apiSystemAbyedh/ 
     DefaultTva: 0,
     themeColor : '#e31945',
     themeColorLigth : '#b8cbd4',
@@ -78,26 +78,26 @@ const GConf = {
     NavsData : [
             {id:1, name:"Acceuil", icon:"house", link:"ma"},
             {id:2, name:"Communications", icon:"calendar2-check", link:"rq"},
-            {id:3, name:"System", icon:"pc-display", link:"sy"},
             {id:4, name:"Annuaire", icon:"search-heart", link:"an"},
+            {id:3, name:"System", icon:"pc-display", link:"sy"},
             {id:5, name:"User", icon:"person-lines-fill", link:"us"},
             {id:6, name:"Clients", icon:"people", link:"cl"},
             {id:7, name:"Equipe", icon:"person-bounding-box", link:"tm"},
-            {id:8, name:"Outils", icon:"tools", link:"ot"},
-            {id:9, name:"Stat", icon:"bar-chart-line-fill", link:"st"},
+            // {id:8, name:"Outils", icon:"tools", link:"ot"},
+            // {id:9, name:"Stat", icon:"bar-chart-line-fill", link:"st"},
             {id:10, name:"Finance", icon:"cash-coin", link:"fi"},
     ],
 
     //main stat card
     LinkCard: [
         { id: 1, col: 3 , tag:"System", dataTag:'articlesNum',  icon: 'pc-display', link:'sk/ajouter', smallT: 'System', desc: 'Activeé system' , stat:'22452'},
-        { id: 6, col: 3 , tag:"camion", dataTag:'RequestSystem', icon: 'box-arrow-left', link:'cl/demande', smallT: 'Inscription', desc: ' Ajouter Demande' , stat:'22'},
-        { id: 2, col: 3 , tag:"Recherche", dataTag:'search-heart', icon: 'search-heart', link:'ft/ajouter', smallT: 'Recherche', desc: 'Ajouter Record' , stat:'22452'},
-        { id: 3, col: 3 , tag:"client", dataTag:'clientsNum', icon: 'person-lines-fill', link:'cl/ajouter', smallT: 'Utilisateur', desc: 'Ajouter Utilisateur' , stat:'1235'},
+        { id: 6, col: 3 , tag:"camion", dataTag:'RequestSystem', icon: 'box-arrow-left', link:'cl/demande', smallT: 'Inscription', desc: ' N. Demande' , stat:'22'},
+        { id: 2, col: 3 , tag:"Recherche", dataTag:'totalAnnuaire', icon: 'search-heart', link:'ft/ajouter', smallT: 'Recherche', desc: 'N. Record' , stat:'22452'},
+        { id: 3, col: 3 , tag:"client", dataTag:'clientsNum', icon: 'person-lines-fill', link:'cl/ajouter', smallT: 'Utilisateur', desc: 'N. Utilisateur' , stat:'1235'},
         { id: 4, col: 3 , tag:"camion", dataTag:'camionsNum', icon: 'people', link:'cm/ajouter-f', smallT: 'Client', desc: 'Ajouter Client' , stat:'22'},
-        { id: 5, col: 3 , tag:"camion", dataTag:'camionsNum', icon: 'person-bounding-box', link:'cm/ajouter-f', smallT: 'Equipe', desc: 'Ajouter Membre' , stat:'22'},
-        { id: 6, col: 3 , tag:"camion", dataTag:'camionsNum', icon: 'calendar2-check', link:'cm/ajouter-f', smallT: 'Communication', desc: 'Aceeptez Communication' , stat:'22'},
-        { id: 6, col: 3 , tag:"camion", dataTag:'camionsNum', icon: 'calendar2-check', link:'cm/ajouter-f', smallT: 'Communication', desc: 'Aceeptez Communication' , stat:'22'},
+        { id: 5, col: 3 , tag:"camion", dataTag:'equipeNum', icon: 'person-bounding-box', link:'cm/ajouter-f', smallT: 'Equipe', desc: 'N. Membre' , stat:'22'},
+        { id: 6, col: 3 , tag:"camion", dataTag:'totalRequest', icon: 'calendar2-check', link:'cm/ajouter-f', smallT: 'Communication', desc: 'Aceeptez C.' , stat:'22'},
+        { id: 6, col: 3 , tag:"camion", dataTag:'evaluation', icon: 'cash-coin', link:'cm/ajouter-f', smallT: 'Evaluation', desc: 'Evaluation' , stat:'22'},
         
     ],
 
@@ -260,9 +260,9 @@ const GConf = {
             {id:3, icon: 'exclamation-circle', text: 'En Attent', link: 'g/en-attent', dropD: false },
         ],
         camion: [
-            {id:1,  icon: 'plus-circle', text: 'Ajouter Camion', link: 'ajouter-c', dropD: false},
-            {id:2,  icon: 'truck', text: 'Ajouter Fonds', link: 'ajouter-f', dropD: false},
-            {id:3,  icon: 'sliders', text: 'Inventaire', link: 'inventaire', dropD: false},
+            {id:1,  icon: 'plus-circle', text: 'Ajouter Membre', link: 'ajouter-c', dropD: false},
+            // {id:2,  icon: 'truck', text: 'Ajouter Fonds', link: 'ajouter-f', dropD: false},
+            // {id:3,  icon: 'sliders', text: 'Inventaire', link: 'inventaire', dropD: false},
         ],
         Stock: [
             {id:1,  icon: 'bookmark-plus', text: 'Nouveaux article', link: 'ajouter', dropD: false},
@@ -271,14 +271,17 @@ const GConf = {
             {id:4, icon: 'box-arrow-up', text: 'Bond Sortie', link: 'bs', dropD: false },
         ],
         facture: [
-            {id:1,  icon: 'receipt', text: 'Nouveaux Facture', link: 'ajouter', dropD: false},
-            {id:2,  icon: 'file-earmark-medical-fill', text: 'Resumer', link: 'resumer', dropD: false},
+            {id:1,  icon: 'receipt', text: 'Ajouter', link: 'ajouter', dropD: false},
+            {id:2,  icon: 'receipt', text: 'Modifier', link: 'ajouter', dropD: false},
+            {id:3,  icon: 'file-earmark-medical-fill', text: 'Image', link: 'resumer', dropD: false},
+            {id:4,  icon: 'file-earmark-medical-fill', text: 'Position', link: 'resumer', dropD: false},
+            {id:5,  icon: 'file-earmark-medical-fill', text: 'Activer', link: 'resumer', dropD: false},
         ],
         client: [
             {id:1,  icon: 'person-plus-fill', text: 'Nouveaux Client', link: 'ajouter', dropD: false},
             // {id:2,  icon: 'map-fill', text: 'Régions', link: 'regions', dropD: false},
-            // {id:2,  icon: 'pin-map-fill', text: 'Clients Map', link: 'map', dropD: false},
-            {id:2 ,  icon: 'bar-chart-line-fill', text: 'Statistique', link: 'map', dropD: false},
+            {id:2 ,  icon: 'map-fill', text: 'Demande', link: 'demande', dropD: false},
+            {id:3 ,  icon: 'bar-chart-line-fill', text: 'Statistique', link: 'map', dropD: false},
         ],
         Commande: [
             {id:1,  icon: 'person-plus-fill', text: 'Comptes', link: 'comptes', dropD: false},
@@ -298,8 +301,8 @@ const GConf = {
     
     //TableHead
     TableHead:{
-        facture:['*','ID','Client','Jour','Totale','Stock','X','Voir'],
-        request:['*','ID','Client', 'Passé le','Volu le','Totale','Etat','X','Voir'],
+        facture:['ID','Nom','Cree','Volume','Size','Voir'],
+        request:['*','ID','Nom', 'Cree','Volume','Size','Voir'],
         stock:['*','Nom', 'TAG', 'color','link','X','Voir'],
         camion:['*','Camion','Matricule', 'Chauffeur','Fond','Recette','X','Voir'],
         camionStock:['Code', 'Nom', 'Genre','Stock','Prix','Voir'],

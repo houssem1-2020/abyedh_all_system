@@ -9,49 +9,80 @@ import SKLT from '../../AssetsM/usedSlk';
 import { toast } from 'react-toastify';
 import usePrintFunction from '../Assets/Hooks/printFunction';
 import FrameForPrint from '../Assets/frameForPrint';
+import { Cell, Pie, PieChart, Tooltip } from 'recharts';
 
 
 function RequestInfo() {
     /*#########################[Const]##################################*/
     const {CID} = useParams()
-    const [articleL, setArticleL] = useState([])
+    const [rendredData, setRendredData] = useState([])
+    const [PieData, setPieData]= useState([])
+
     const [commandeData, setCommandeD] = useState([])
     const [facturerData, setFacturerD] = useState([])
     const [loading , setLoading] = useState(false)
     const [btnState, setBtnState] = useState(false)
-    const [printLink, setPrintLink] = useState(`/Pr/commande/${CID}`)
+
 
     /*#########################[useEffect]##################################*/ 
     useEffect(() => {
-        axios.post(`${GConf.ApiLink}/commande/info`, {
+        axios.post(`${GConf.ApiLink}/communication/info`, {
             PID : GConf.PID,
-            CID: CID
+            tableName: CID
           })
           .then(function (response) {
-                if (!response.data[0]) {
-                    toast.error('Commande Introuvable !', GConf.TostSuucessGonf)
-                    setTimeout(() => {  window.location.href = "/S/rq"; }, 2000)
-                } else {
-                    setArticleL(JSON.parse(response.data[0].Articles))
-                    setCommandeD(response.data[0])
-                    setLoading(true)  
-                    setFacturerD({client: response.data[0].Client, de:'Sidi Bourouis', vers: response.data[0].Adress, jour: response.data[0].Date_Volu, totale: response.data[0].Totale , articles:JSON.parse(response.data[0].Articles)})    
-                    if(response.data[0].State != 'W'){setBtnState(true)}  
-                    
-                }  
+            setRendredData(response.data)
+            setLoading(true)  
           }).catch((error) => {
             if(error.request) {
               toast.error(<><div><h5>Probleme de Connextion</h5> Impossible de charger la commande   </div></>, GConf.TostInternetGonf)   
-              setLoading(true)
-              setBtnState(true)
-              setArticleL([])
-              setCommandeD([])
+              setLoading(true) 
             }
           });
     }, [])
 
     /*#########################[Functions]##################################*/
     const PrintFunction = (frameId) =>{ usePrintFunction(frameId) }
+    const RetunTableFunc = ({ data }) => {
+        // Get the column names from the object         
+        if (data[0]) {
+            const columnNames = Object.keys(data[0]);
+            return (
+                <table className='table table-bordered'>
+                <thead>
+                    <tr>
+                    {columnNames.map(columnName => (
+                        <th key={columnName}>{columnName}</th>
+                    ))}
+                    </tr>
+                </thead>
+                {/* <tbody>
+                    {Object.values(data).map((rowData, index) => (
+                    <tr key={index}>
+                        {Object.values(rowData).map((cellData, cellIndex) => (
+                        <td key={cellIndex}>{cellData}</td>
+                        ))}
+                    </tr>
+                    ))}
+                </tbody> */}
+                </table>
+            );
+        } else {
+               return(<>Pas de Donneé</>) 
+        }
+        
+    }
+
+    const FetchByGenre = (genre) =>{
+        let found = rendredData.filter(element => element.State === genre)
+        if (found) {
+            return(found.length)
+        } else {
+            return 0
+        }
+    
+ }
+
     const UpdateState = (stateBtn) =>{
         axios.post(`${GConf.ApiLink}/commande/controle`, {
             PID : GConf.PID,
@@ -112,33 +143,43 @@ function RequestInfo() {
     const TotaleCard = () =>{
         return(<>
                 <div className='card card-body shadow-sm mb-2'>
-                    <h5>Nette & Totale </h5>
-                    <div>Totale hors tax: </div>
-                    <div>TVA: </div>
-                    <div>Timbre: 0.600 DT</div>
-                    <div className='text-danger'><b>Net A Payee TTC: {loading ? commandeData.Totale : SKLT.BarreSkl } </b></div>
+                    <div className='row'>
+                        <div className='col-4 border-end text-center'><h2>{FetchByGenre('W')}</h2><small>En Attent</small></div>
+                        <div className='col-4 border-end text-center'><h2>{FetchByGenre('A')}</h2><small>Accepte</small></div>
+                        <div className='col-4  text-center'><h2>{FetchByGenre('R')}</h2><small>Refusee</small></div>
+                    </div>
                 </div>
         </>)
     }
     const BtnsCard = () =>{
         return(<>
                 <div className='card card-body shadow-sm mb-2'>
-                    <h5>Controle</h5>
-                    <div className='row mb-2'>
-                        <div className='col-6'>
-                            <Button disabled={btnState} className='rounded-pill'  fluid onClick={ () => UpdateState('R')}><Icon name='edit outline' /> Anuulée</Button>
-                        </div>
-                        <div className='col-6'>
-                            <Button disabled={btnState} className='rounded-pill bg-system-btn '  fluid onClick={FacturerCommande}><Icon name='edit outline' /> Facturer </Button>
-                        </div>
-                    </div>
-                    <div className='row mb-2'>
-                        <div className='col-12'>
-                            <Button  className='rounded-pill btn-imprimer'  fluid onClick={(e) => PrintFunction('framed')}><Icon name='edit outline' /> Imprimer</Button>
-                        </div>
-                    </div>
+                <PieChartCard data={[{ name: 'En Attent', value: FetchByGenre('W') },{ name: 'Accepte', value: FetchByGenre('A') },{ name: 'Refuse', value: FetchByGenre('R') }]}/>
                 </div>
         </>)
+    }
+    const PieChartCard =  (props) =>{
+        
+        const COLORS = ['#0088FE', '#00C49F', '#FFBB28', '#FF8042'];
+        return (
+            <PieChart width={300} height={200} >
+              <Pie
+                data={props.data}
+                cx={150}
+                cy={100}
+                innerRadius={60}
+                outerRadius={80}
+                fill="#8884d8"
+                paddingAngle={2}
+                dataKey="value"
+              >
+                {PieData.map((entry, index) => (
+                  <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
+                ))}
+              </Pie>
+              <Tooltip />
+            </PieChart>
+          );
     }
     const CommandeHeader = () =>{
         return(<>
@@ -162,42 +203,10 @@ function RequestInfo() {
         <br />
         <div className="row">
             <div className="col-12 col-lg-8">
-                <h2 className='text-end'><StateCard status={commandeData.State} /></h2>
-                <CommandeHeader />
-                <br />
+                <h1>{CID}</h1>
                 <br />
                 <div className="table-responsive">
-                    <table className="table">
-                        <thead>
-                            <tr>
-                            <th scope="col">No</th>
-                            <th scope="col">Designiation</th>
-                            <th scope="col">Qté</th>
-                            <th scope="col">PUHT</th>
-                            <th scope="col">TVA</th>
-                            <th scope="col">PUTTC</th>
-                            <th scope="col">Prix Net</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            {loading ?  
-                            <>
-                            {articleL.map( (artData) => 
-                                <tr key={artData.id}>
-                                    <th scope="row">{artData.id}</th>
-                                    <td>{artData.Name}</td>
-                                    <td>{artData.Qte}</td>
-                                    <td>{artData.Prix.toFixed(3)}</td>
-                                    <td>0%</td>
-                                    <td>{artData.Prix.toFixed(3)}</td>
-                                    <td>{artData.PU}</td>
-                                </tr>
-                            )}
-                            </>
-                            : SKLT.FactureList }
-                            
-                        </tbody>
-                    </table>
+                    {loading ? <RetunTableFunc data={rendredData} /> : ''}
                 </div>
                 <br />
                 <br />
@@ -212,7 +221,7 @@ function RequestInfo() {
             </Bounce>
             </div>
         </div>
-        <FrameForPrint frameId='framed' src={printLink} />
+        {/* <FrameForPrint frameId='framed' src={printLink} /> */}
     </> );
 }
 
