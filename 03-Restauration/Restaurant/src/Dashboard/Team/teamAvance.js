@@ -4,7 +4,7 @@ import React from 'react';
 import { useState } from 'react';
 import { useEffect } from 'react';
 import { toast } from 'react-toastify';
-import { Button } from 'semantic-ui-react';
+import { Button, Modal } from 'semantic-ui-react';
 import { Icon } from 'semantic-ui-react';
 import { Input } from 'semantic-ui-react';
 import GConf from '../../AssetsM/generalConf';
@@ -21,7 +21,7 @@ const AddCard = ({teamListe, avanceData , setAvanceData , Ajouter }) =>{
                 <option key={index} value={team.T_ID}>{team.T_Name} - {team.Poste}</option>
                 )}
             </datalist>
-            <Input icon='users' list="teamListe"  onChange={ (e) => setAvanceData({...avanceData, Team_ID:e.target.value})} size="small" iconPosition='left' placeholder={avanceData.Team_ID}  fluid className='mb-1 shadow-sm' /> 
+            <Input icon='users' placeholder='Enter Membre' list="teamListe"  onChange={ (e) => setAvanceData({...avanceData, Team_ID:e.target.value})} size="small" iconPosition='left' value={avanceData.Team_ID}  fluid className='mb-1 shadow-sm' /> 
             
             <h5>Montant </h5> 
             <Input icon='asl' type='number' autoFocus={true}    onChange={ (e) => setAvanceData({...avanceData, Valeur:e.target.value})} size="small" iconPosition='left' placeholder='Valeur'  fluid className='mb-1 shadow-sm' />
@@ -31,12 +31,40 @@ const AddCard = ({teamListe, avanceData , setAvanceData , Ajouter }) =>{
     </div>
     </>
 }
+const DeleteModal = ({setDeleteModalS,DeleteAvance,editAvanceD,deletemodalS}) =>{
+    return(<>
+            <Modal
+                    size='mini'
+                    open={deletemodalS}
+                    dimmer = 'blurring'
+                    closeIcon
+                    onClose={() => setDeleteModalS(false)}
+                    onOpen={() => setDeleteModalS(true)}
+                    
+                >
+                    <Modal.Header><h4>Supprimer Avance</h4></Modal.Header>
+                    <Modal.Content>
+                            Voulez-Vous Vraimment Supprimer Cette Avance 
+                            <br />
+                            <br />
+                            <div className='mb-0 p-0'><h5> Valeur : {editAvanceD.Valeur}</h5></div>         
+                            <div><h5> Membre : {editAvanceD.T_Name} </h5></div>
+                    </Modal.Content>
+                    <Modal.Actions>
+                                {/* <Button className='rounded-pill' negative onClick={ () => setDeleteModalS(false)}> <span className='bi bi-x' ></span> </Button> */}
+                                <Button negative className='rounded-pill' onClick={DeleteAvance}>  <Icon name='trash' /> Supprimer </Button>
+                    </Modal.Actions>
+            </Modal>
+    </>)
+}
 
 function TeamAvance() {
     /*#########################[Const]##################################*/
     let  [avanceListe, setAvanceListe] = useState([]); 
     let  [teamListe, setTeamList] = useState([]); 
     let  [avanceData, setAvanceData] = useState({Team_ID:'', Valeur:''}); 
+    const [deletemodalS, setDeleteModalS] = useState(false)
+    const [editAvanceD, setEditAvanceD] = useState([])
 
     /*#########################[UseEffect]##################################*/
     useEffect(() => {
@@ -48,9 +76,9 @@ function TeamAvance() {
             response.data.map( (getData, index) => testTable.push([
            (index+1),
             getData.T_Name,
-            getData.Valeur,
+            parseFloat(getData.Valeur).toFixed(3),
             new Date(getData.AV_Date).toLocaleDateString('fr-FR').split( '/' ).reverse( ).join( '-' ),
-            _(<Button className='rounded-pill bg-danger text-white ' size='mini' onClick={ (e) => alert(getData.PK)}> X </Button>)
+            _(<Button className='rounded-pill bg-danger text-white ' size='mini' onClick={() => openEditModal(getData,false)}> X </Button>)
             ],))
             setAvanceListe(testTable)
           }).catch((error) => {
@@ -91,6 +119,14 @@ function TeamAvance() {
               });
         }
     }
+    const DeleteAvance = () =>{
+
+    }
+    const openEditModal = (event,selected) =>{
+        setEditAvanceD({PK: event.PK , Valeur:parseFloat(event.Valeur).toFixed(3), T_Name:event.T_Name})
+        setDeleteModalS(true)
+    }
+
     /*#########################[Card]##################################*/
     
 
@@ -103,6 +139,7 @@ function TeamAvance() {
                     <div className='col-12 col-lg-8'><TableGrid tableData={avanceListe} columns={['*','Nom','Jour', 'Valeur','X']} /></div>
                 </div>
             </div>
+            <DeleteModal setDeleteModalS={setDeleteModalS} DeleteAvance={DeleteAvance} editAvanceD={editAvanceD}  setEditAvanceD={setEditAvanceD} deletemodalS={deletemodalS} />
     </> );
 }
 

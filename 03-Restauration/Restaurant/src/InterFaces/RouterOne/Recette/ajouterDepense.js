@@ -26,7 +26,7 @@ const AddCard = ({depData, setDepData,reglerBtnState, AddDepense, Genres, setMod
 
 function DepenseRecette() {
     /*#########################[Const]##################################*/
-    let caisseData = JSON.parse(localStorage.getItem(`Magazin_Caisse_LocalD`));
+    let caisseData = OneGConf.forPID
     const CaisseID = caisseData.C_ID;
     let [depList, serDepList] = useState([])
     let [depData, setDepData] = useState({valeur : 0, Description:''})
@@ -42,7 +42,7 @@ function DepenseRecette() {
     const [keyBordI, setKeyBoedI] = useState(0)
 
     let [UpdateList, setUPDL] = useState(false)
-    let Offline = JSON.parse(localStorage.getItem(`Magazin_Caisse_Offline`));
+    let Offline = OneGConf.oneOffline
     const Genres = [
         { key: 1, value: 'Bons', text: 'Bons' },
         { key: 2, value: 'monnaie', text: 'صرف '},

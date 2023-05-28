@@ -1,6 +1,6 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Bounce } from 'react-reveal';
-import { Button, Form, Icon, Input, Loader, Select, TextArea } from 'semantic-ui-react';
+import { Button, Form, Icon, Input, Loader, Modal, Select, TextArea, TransitionablePortal } from 'semantic-ui-react';
 import GConf from '../../AssetsM/generalConf';
 import BreadCrumb from '../../AssetsM/Cards/breadCrumb'
 import useGetFamillePlat from '../../AssetsM/Hooks/fetchPlatFamille';
@@ -8,6 +8,7 @@ import { toast } from 'react-toastify';
 import useGetArticles from '../../AssetsM/Hooks/fetchArticles';
 import axios from 'axios';
 import useSaveNotification from '../../AssetsM/Hooks/saveNotifFunction';
+import { NavLink } from 'react-router-dom';
 
 const FindInDirectory = ({inDirArticle, setInDirA,FindInDirectoryFunc, loaderState, OnKeyPressFunc}) =>{
     return(<>
@@ -31,7 +32,17 @@ function AddPlatMenu() {
     const [loaderState, setLS] = useState(false)
     const SaveNotification = (genre,tag,table) =>{ useSaveNotification(genre,tag,table)}
     let Offline = JSON.parse(localStorage.getItem(`${GConf.PID}_Offline`));
-
+    const [modalS, setModalS] = useState(false)
+    /*#########################[UseEffect]##################################*/
+    useEffect(() => {
+        if (familles.length == 0) {
+            const timer = setTimeout(() => {
+                setModalS(true);
+              }, 1900);
+              
+              return () => clearTimeout(timer);
+        }
+      }, [familles])
     /*#########################[Functions ]##################################*/
     const SaveArticle = (event) => {
             if (!articleD.P_Code) {toast.error("Code à barre Invalide !", GConf.TostErrorGonf)}
@@ -184,6 +195,27 @@ function AddPlatMenu() {
                     </div>
                 </div>
             </Bounce>
+            <TransitionablePortal open={modalS} transition={{animation: 'fly up' , duration: 700 }}>
+                <Modal  
+                    //basic
+                    size='mini'
+                    open={modalS}
+                    closeIcon
+                    dimmer= 'blurring'
+                    onClose={() => setModalS(false)}
+                    onOpen={() => setModalS(true)}
+                >
+                    <Modal.Content>
+                        <div className='text-center mt-5 mb-5'>
+                            <h1 className='text-danger'>Vous n'avez pas aucune famille des plat</h1>
+                            <span className='bi bi-layout-wtf bi-xlg system-color'></span> 
+                            <NavLink to='/S/mu/famille'><h4>Ajouter des Famille Ici </h4></NavLink>
+                        </div>
+                    </Modal.Content>
+                    
+                </Modal> 
+            </TransitionablePortal>
+            
     </> );
 }
 

@@ -94,11 +94,11 @@ function InputLandingPage() {
                     <div className='container '>
                         <div className='row'>
                             <div className='col-6 mb-3'> <LinkCard data={OneGConf.main[0]} /> </div>
-                            <div className='col-6 mb-3'> <LinkCard data={OneGConf.main[2]} /> </div>
-                            <div className='col-4 mb-3'> <LinkCard data={OneGConf.main[1]} /> </div>
+                            {/* <div className='col-6 mb-3'> <LinkCard data={OneGConf.main[2]} /> </div> */}
+                            <div className='col-6 mb-3'> <LinkCard data={OneGConf.main[1]} /> </div>
                             {/* <div className='col-4 mb-3'> <LinkCard data={OneGConf.main[3]} /> </div> */}
-                            <div className='col-4 mb-3'> <LinkCard data={OneGConf.main[4]} /> </div>
-                            <div className='col-4 mb-3'> <LinkCard data={OneGConf.main[5]} /> </div>
+                            <div className='col-6 mb-3'> <LinkCard data={OneGConf.main[4]} /> </div>
+                            <div className='col-6 mb-3'> <LinkCard data={OneGConf.main[5]} /> </div>
                         </div>
                     </div>
                 </Fade> 

@@ -13,7 +13,7 @@ import { BrowserRouter as Router, Routes,Route, Outlet} from "react-router-dom";
 // import BonEntreSortie from '../../InterFaces/RouterThree/System/stock/stockBonES'
 
 // //System Facture
-// import FactureTemp from '../../InterFaces/RouterThree/System/facture/facture';
+import FactureTemp from '../../InterFaces/RouterThree/System/facture/facture';
 // import FactureOfflineTemp from '../../InterFaces/RouterThree/System/facture/factureOffline'
 // import BonsLivTemp from '../../InterFaces/RouterThree/System/facture/factureBonLS';
 // import ResumerFacture from '../../InterFaces/RouterThree/System/facture/factureComptable'
@@ -35,10 +35,12 @@ import { BrowserRouter as Router, Routes,Route, Outlet} from "react-router-dom";
 // import PrintPrix from '../../InterFaces/RouterThree/System/tools/toolsPrintPrix';
 // import PrintStock from '../../InterFaces/RouterThree/System/tools/toolsPrintStock';
 
-// //Camion Facture
-// import FactureCamion from '../../InterFaces/RouterThree/Camion/factureCamion';
+// Caisse 
+import FactureCaisse from '../../InterFaces/RouterThree/Caisse/factureCaisse';
+import OpenCaisse from '../../InterFaces/RouterThree/Caisse/openCaisse';
+import RecetteCamionTemp from '../../InterFaces/RouterThree/Caisse/recetteCaisse';
+
 // import CamionInventaireTemp from '../../InterFaces/RouterThree/System/camion/camionInventaireTemp';
-// import RecetteCamionTemp from '../../InterFaces/RouterThree/Camion/recetteCamion';
 // import Catalogueprint from '../../InterFaces/RouterThree/System/tools/catalogueprint';
 // import CommandeGroupBLS from '../../InterFaces/RouterThree/System/commande/camionBLS';
 // import CommandeGroupFacture from '../../InterFaces/RouterThree/System/commande/camionFacture';
@@ -48,7 +50,7 @@ import { BrowserRouter as Router, Routes,Route, Outlet} from "react-router-dom";
 //Camion Vente
 //Camion Recette
 
-
+import ProfilePID from '../../Dashboard/Profile/profilePID';
 
 
 
@@ -63,13 +65,13 @@ const PrintingRouter = () => (
                 <Route path="BonS/:bonId" element={<BonEntreSortie genre='Sortie' />} />
             </Route> */}
 
-            {/* <Route path="Facture">
-                <Route path="info/:fid" element={<FactureTemp />} />
-                <Route path="offline/info/:fid" element={<FactureOfflineTemp />} />
+            <Route path="Facture">
+                <Route path="info/:fid/:client" element={<FactureTemp />} />
+                {/* <Route path="offline/info/:fid" element={<FactureOfflineTemp />} />
                 <Route path="bonL/:fid" element={<BonsLivTemp genre='Livraison' />} />
                 <Route path="bonS/:fid" element={<BonsLivTemp genre='Sortie'/>} />
-                <Route path="resumer/:s/:e" element={<ResumerFacture />} />
-            </Route> */}
+                <Route path="resumer/:s/:e" element={<ResumerFacture />} /> */}
+            </Route>
             
             <Route path="Camion">
                 {/* <Route path="Fonds/fondTemp/:fid" element={<CamionFondTemp />} />
@@ -108,6 +110,12 @@ const PrintingRouter = () => (
                 <Route path="stock/article" element={<PrintStock />} />
                 <Route path="recette" element={<RecetteCamionTemp />} />
             </Route> */}
+            <Route path="ProfilePrint/pid" exact element={<ProfilePID />} />
+            <Route path="caisse">
+                <Route path="facture/:fid" element={<FactureCaisse />} />
+                <Route path="open" element={<OpenCaisse />} />
+                <Route path="recette" element={<RecetteCamionTemp />} />
+            </Route>
         </Route> 
 )
 

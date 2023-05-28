@@ -3,7 +3,7 @@ import { Bounce } from 'react-reveal';
 import { Link, NavLink } from 'react-router-dom';
 import GConf from '../../AssetsM/generalConf';
 import CountUp from 'react-countup';
-import { Button, Icon, Input,  Loader } from 'semantic-ui-react';
+import { Button, Icon, Input,  Loader, Modal } from 'semantic-ui-react';
 import axios from 'axios';
 import SKLT from '../../AssetsM/Cards/usedSlk';
 import { toast } from 'react-toastify';
@@ -15,7 +15,33 @@ function SettingPage() {
     const [confirmed , setConfirmed] = useState(false)
     const [setting , setSetting] = useState([])
     const [activationState , setActivationState] = useState(false)
-
+    const [modalS, setModalS] = useState(false)
+    const Defaultactivation = {
+        "PK": 4,
+        "PID": GConf.PID,
+        "State": "Expired",
+        "ExpiredThe": new Date(),
+        "FirstActivation": new Date(),
+        "LatsActivation": new Date()
+    }
+    const Defaultconfirmation = {
+        "PK": 4,
+        "PID": GConf.PID,
+        "Activated": "",
+    }
+    const defaultSettingData = {
+        "PK": 1,
+        "PID": GConf.PID,
+        "Profile": "[true,false,true]",
+        "Commandes": "[false,5,true]",
+        "Menu": "[true,false,true]",
+        "Stock": "[true,true,true]",
+        "Factures": "[2.2,true,true]",
+        "Caisses": "[true,false,false,false]",
+        "Clients": "[true,false,true]",
+        "Equipe": "[true,6]",
+        "Fournisseur": "[true,false,true]"
+    }
     /*###############################[UseEffect]############################# */
     useEffect(() => {
         axios.post(`${GConf.ApiLink}/parametre`, {
@@ -23,10 +49,27 @@ function SettingPage() {
         })
         .then(function (response) { 
             console.log(response.data)
-            setConfirmed(response.data.confirmation)
-            setActivationState(response.data.activation)
-            setSetting(response.data.setting)
-            setLoading(true)
+            if (!response.data.confirmation || !response.data.activation || !response.data.setting) {
+                setConfirmed(Defaultconfirmation)
+                setActivationState(Defaultactivation)
+                setSetting(defaultSettingData)
+                setLoading(true)
+                // const timer = setTimeout(() => {
+                //     setModalS(true);
+                //   }, 1900);
+                  
+                //   return () => clearTimeout(timer);
+                //AUTOINFORMATION
+
+                
+            } else {
+                setConfirmed(response.data.confirmation)
+                setActivationState(response.data.activation)
+                setSetting(response.data.setting)
+                setLoading(true)
+                
+            }
+            
         }).catch((error) => {
             if(error.request) {
               toast.error(<><div><h5>Probleme de Connextion</h5> Esseyeé de connecter plus tard</div></>, GConf.TostInternetGonf) 
@@ -216,7 +259,7 @@ function SettingPage() {
                     </div>
                     <div className="col-12 col-lg-7">
                         <div className="list-group shadow-sm mb-4 border-div">
-                            {GConf.Setting.map((sett) => <SettingItemCard key={sett.id} link={sett.link} image={sett.image} description={sett.description} title={sett.title} />)}
+                            {GConf.Setting.map((sett,index) => <SettingItemCard key={index} link={sett.link} image={sett.image} description={sett.description} title={sett.title} />)}
                         </div>
                         {/*<h5>Profile</h5>
                         {loading ?  <ProfileSetting genre='1' setting={setting.Profile}/> : SKLT.CardList  }
@@ -258,6 +301,25 @@ function SettingPage() {
                     </div>
                 </div>
         </Bounce>
+        <Modal  
+            //basic
+            size='mini'
+            open={modalS}
+            closeIcon
+            dimmer= 'blurring'
+            onClose={() => setModalS(false)}
+            onOpen={() => setModalS(true)}
+        >
+            <Modal.Content>
+                <div className='text-center mt-5 mb-5'>
+                    <h1 className='text-danger'>Une Errure s'est Produit </h1>
+                    <span className='bi bi-wrench-adjustable bi-xlg system-color'></span> 
+                    <NavLink to='/S/mu/famille'><h4>Cliquer Ici pour Informer l'administartion </h4></NavLink>
+                </div>
+            </Modal.Content>
+            
+        </Modal> 
+
     </>);
 }
  

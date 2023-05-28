@@ -8,7 +8,7 @@ import {toast } from 'react-toastify';
 import SKLT from '../../AssetsM/Cards/usedSlk';
 import useSaveNotification from '../../AssetsM/Hooks/saveNotifFunction';
 
-const EditModal = ({setModalS,EditPoste,editPosteD,setEditPosteD,modalS}) =>{
+const EditModal = ({setModalS,EditPoste,editPosteD,setEditPosteD,modalS,OnKeyPressFunc}) =>{
     return(<>
             <Modal
                     size='mini'
@@ -18,14 +18,18 @@ const EditModal = ({setModalS,EditPoste,editPosteD,setEditPosteD,modalS}) =>{
                     onClose={() => setModalS(false)}
                     onOpen={() => setModalS(true)}
                 >
-                    <Modal.Header><h4>Modifier Famille</h4></Modal.Header>
+                    <Modal.Header><h4>Modifier Poste</h4></Modal.Header>
                     <Modal.Content>
                             
-                            <h5 className='mb-1'>Famille</h5>
-                            <Input icon='tags' iconPosition='left'  placeholder='Non de la famille' className='w-100 border-0 rounded ' value={editPosteD.Poste} onChange={(e) => setEditPosteD({...editPosteD, Name: e.target.value })}/>
+                            <h5 className='mb-1'>Poste</h5>
+                            <Input icon='tags' iconPosition='left' onKeyPress={event => OnKeyPressFunc(event)} placeholder='Non de la Poste' className='w-100 border-0 rounded ' value={editPosteD.Poste} onChange={(e) => setEditPosteD({...editPosteD, Poste: e.target.value })}/>
+                            
+                            <h5 className='mb-1'>Salaire</h5>
+                            <Input icon='tags' iconPosition='left' onKeyPress={event => OnKeyPressFunc(event)} placeholder='Non de la Poste' className='w-100 border-0 rounded ' value={editPosteD.Salaire} onChange={(e) => setEditPosteD({...editPosteD, Salaire: e.target.value })}/>
+                            
                             <h5 className='mb-1'>Description </h5>
                             <Form>
-                                <TextArea  rows="3" placeholder='Designer la famille '  className='w-100' value={editPosteD.Description} onChange={(e) => setEditPosteD({...editPosteD, Description: e.target.value })}/>
+                                <TextArea  rows="3" placeholder='Designer la Poste ' onKeyPress={event => OnKeyPressFunc(event)}  className='w-100' value={editPosteD.Description} onChange={(e) => setEditPosteD({...editPosteD, Description: e.target.value })}/>
                             </Form>
                             <br />
                     </Modal.Content>
@@ -131,16 +135,16 @@ function TeamPoste() {
     }
     const EditPoste = () => {
         setLS(true)
-        axios.post(`${GConf.ApiLink}/stock/familles/modifier`, {
-            tag : GConf.PID,
+        axios.post(`${GConf.ApiLink}/team/poste/modifier`, {
+            PID : GConf.PID,
             posteD : editPosteD,
         }).then(function (response) {
             if(response.data.affectedRows) {
                 setModalS(false)
-                toast.success("Famille Modifier avec Suucess", GConf.TostSuucessGonf)
+                toast.success("Poste Modifier avec Suucess", GConf.TostSuucessGonf)
                 setUpdateFT(Math.random() * 10)
                 setLS(false)
-                SaveNotification('stockEditPoste',GConf.PID, editPosteD)
+                //SaveNotification('stockEditPoste',GConf.PID, editPosteD)
             }
             else{
                 setModalS(false)
@@ -169,7 +173,7 @@ function TeamPoste() {
         }
     }
     const openEditModal = (event,selected) =>{
-        setEditPosteD({PK: event.PK , Poste:event.Poste, Description:event.Description})
+        setEditPosteD({PK: event.PK , Poste:event.Poste, Salaire:event.Salaire, Description:event.Description})
         selected ? setModalS(true) : setDeleteModalS(true)
     }
     const handlePaginationChange = (e,{ activePage }) =>{
@@ -178,7 +182,11 @@ function TeamPoste() {
         let end = 5*  activePage
         setDisplayFamille(postesListe.slice(start, end));
     }
-
+    const OnKeyPressFunc = (e) => {
+        if (!((e.charCode >= 65 && e.charCode <= 90) || (e.charCode >= 97 && e.charCode <= 122) || (e.charCode >= 48 && e.charCode <= 57) || e.charCode == 42 || e.charCode == 32 || e.charCode == 47 )) {
+            e.preventDefault();
+        }   
+    }
 
    /*#########################[Card]##################################*/
     const PosteCard = (props) =>{
@@ -207,7 +215,14 @@ function TeamPoste() {
                 </div>
         </>)
     }
-
+    const EmptyListeCard = () =>{
+        return(<>
+            <div className='text-center'>
+                <span className='bi bi-layout-wtf bi-xlg system-color'></span> 
+                <h4>Ajouter des Poste à droite </h4>
+            </div>  
+        </>)
+    }
 
     return ( <> 
             <BreadCrumb links={GConf.BreadCrumb.TeamPoste} />
@@ -217,10 +232,17 @@ function TeamPoste() {
                     <div className='mb-3 text-end'>
                         <Pagination  onPageChange={handlePaginationChange} defaultActivePage={1} firstItem={null} lastItem={null} totalPages={Math.floor((postesListe.length / 5))+1} />
                     </div>
-                    {loading ?  
+                    {loading ?
                     <>
-                        {displayFamille.map( (data) => <PosteCard key={data.PK}  data={data} />)}
-                    </>
+                        {displayFamille.length == 0 ? 
+                        <EmptyListeCard />
+                        :
+                        <>
+                            {displayFamille.map( (data) => <PosteCard key={data.PK}  data={data} />)}
+                        </>
+                        }
+                    </>  
+                    
                     : SKLT.CardList }
                 
                 </div>
@@ -229,12 +251,12 @@ function TeamPoste() {
                     <div className="card card-body border-div mb-4 sticky-top" style={{top:'70px' , zIndex:'1'}}>
                         <h4>Ajouter Poste</h4>
                         <h5 className='mb-1'>Poste </h5>
-                        <Input icon='tags' iconPosition='left' value={posteD.Poste} placeholder='Poste ' className='w-100 border-0 rounded shadow-sm' onBlur={checkPosteExistance} onChange={(e) => setPosteD({...posteD, Poste: e.target.value })}/>
+                        <Input icon='tags' iconPosition='left' onKeyPress={event => OnKeyPressFunc(event)} value={posteD.Poste} placeholder='Poste ' className='w-100 border-0 rounded shadow-sm' onBlur={checkPosteExistance} onChange={(e) => setPosteD({...posteD, Poste: e.target.value })}/>
                         <h5 className='mb-1 mt-2'>Salaire </h5>
-                        <Input icon='dollar sign' type='number' iconPosition='left' value={posteD.Salaire} placeholder='Salaire' className='w-100 border-0 rounded shadow-sm'   onChange={(e) => setPosteD({...posteD, Salaire: e.target.value })}/>
+                        <Input icon='dollar sign' type='number' iconPosition='left'  value={posteD.Salaire} placeholder='Salaire' className='w-100 border-0 rounded shadow-sm'   onChange={(e) => setPosteD({...posteD, Salaire: e.target.value })}/>
                         <h5 className='mb-1'>Experience Exigeé </h5>
                         <Form>
-                            <TextArea  rows="3" placeholder='Experience ' value={posteD.Description} className='w-100 shadow-sm' onChange={(e) => setPosteD({...posteD, Description: e.target.value })}/>
+                            <TextArea  rows="3" placeholder='Experience ' onKeyPress={event => OnKeyPressFunc(event)} value={posteD.Description} className='w-100 shadow-sm' onChange={(e) => setPosteD({...posteD, Description: e.target.value })}/>
                         </Form>
                         <br />
                         <div className='text-end'>
@@ -244,7 +266,7 @@ function TeamPoste() {
                 </Bounce>
                 </div>
             </div>
-            <EditModal setModalS={setModalS} EditPoste={EditPoste} editPosteD={editPosteD}  setEditPosteD={setEditPosteD} modalS={modalS} />
+            <EditModal OnKeyPressFunc={OnKeyPressFunc} setModalS={setModalS} EditPoste={EditPoste} editPosteD={editPosteD}  setEditPosteD={setEditPosteD} modalS={modalS} />
             <DeleteModal setDeleteModalS={setDeleteModalS} DeletePoste={DeletePoste} editPosteD={editPosteD}  setEditPosteD={setEditPosteD} deletemodalS={deletemodalS} />
         </> );
 

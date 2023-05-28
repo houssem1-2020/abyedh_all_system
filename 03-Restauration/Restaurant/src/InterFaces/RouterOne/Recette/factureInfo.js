@@ -15,7 +15,7 @@ import OneGConf from '../Assets/OneGConf';
 function FactureInfo() {
     /*#########################[Const]##################################*/
     const {FID} = useParams()
-    let caisseData = JSON.parse(localStorage.getItem(`Magazin_Caisse_LocalD`));
+    let caisseData = OneGConf.forPID;
     const CaisseID = caisseData.C_ID; 
     let [articleL, setArticleL] = useState([])
     let [factureData, setFactData] = useState([])

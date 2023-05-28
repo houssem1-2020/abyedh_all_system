@@ -42,7 +42,7 @@ function CaisseRapide() {
     const [autofocusState, setAutoFocus] = useState(false)
     const [loadingPage, setLoadingP] = useState(true)
     //const [stopStream, setStopStram] = useState(false)
-    let Offline = JSON.parse(localStorage.getItem(`Magazin_Caisse_Offline`));
+    let Offline = OneGConf.oneOffline
     const panes = [
         {
             menuItem: { key: 'start', icon: 'add circle', content: 'Entrer ' }, 

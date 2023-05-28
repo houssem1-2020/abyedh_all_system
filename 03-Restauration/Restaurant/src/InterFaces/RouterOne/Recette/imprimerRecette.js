@@ -16,7 +16,7 @@ function ImprimerRecette() {
 
     /*#########################[Const]##################################*/
     const Today = new Date()
-    let caisseData = JSON.parse(localStorage.getItem(`Magazin_Caisse_LocalD`));
+    let caisseData = OneGConf.forPID;
     const CaisseID = caisseData.C_ID; 
     let [totale, setTotale] = useState('0,000')
     let [totaleDep, setTotaleDep] = useState('0,000')
@@ -87,12 +87,13 @@ function ImprimerRecette() {
                 <div className={`card card-body shadow-sm mb-2 text-center   ${OneGConf.themeMode == 'dark' ? 'bg-dark-theme-4 text-white' : '' }`}>
                     
                     <div className='row'>
-                        <div className='col-6 text-start'><h5 className='text-start mb-0'>Depenses</h5></div>
-                        <div className='col-6 text-end'><small className='text-end'><NavLink to='/C/L/rt/depenses' exact='true'>Voire Tous</NavLink></small></div>
+                        <div className='col-6 text-start'><h5 className='text-start mb-0'>Bons</h5></div>
+                        <div className='col-6 text-end d-none'><small className='text-end'><NavLink to='/C/L/rt/depenses' exact='true'>Voire Tous</NavLink></small></div>
                     </div>
                     <div className='row mb-3'>
-                        <div className='col-6 border-end'><h2 className='mb-0'>{totaleDep}</h2><small>sans bons</small></div>
-                        <div className='col-6 '><h2 className='mb-0'>{(parseFloat(totaleDep) + MakeBonsSomme()).toFixed(3)  }</h2><small>avec bons</small></div>
+                        {/* <div className='col-6 border-end'><h2 className='mb-0'>{totaleDep}</h2><small>sans bons</small></div>
+                        <div className='col-6 '><h2 className='mb-0'>{(parseFloat(totaleDep) + MakeBonsSomme()).toFixed(3)  }</h2><small>avec bons</small></div> */}
+                        <div className='col-12 '><h2 className='mb-0'>{MakeBonsSomme().toFixed(3)  }</h2> </div>
                     </div> 
                     
                     

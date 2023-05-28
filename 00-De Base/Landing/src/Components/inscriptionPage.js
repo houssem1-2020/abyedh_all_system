@@ -1,21 +1,22 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { NavLink, useParams } from 'react-router-dom';
-import { Select,Input ,  Button, Icon, Divider, Form, TextArea, Loader} from 'semantic-ui-react'
+import { Select,Input , Checkbox,  Button, Icon, Divider, Form, TextArea, Loader} from 'semantic-ui-react'
 import GConf from '../Assets/generalConf';
 import NavBar from './navBar';
 import L from 'leaflet';
 import 'leaflet/dist/leaflet.css';
-import { MapContainer, Marker, Popup, TileLayer } from 'react-leaflet';
+import { MapContainer, Marker, Popup, TileLayer, useMapEvents  } from 'react-leaflet';
 import { toast } from 'react-toastify';
 import axios from 'axios';
 // import LocationPicker from "react-leaflet-location-picker";
 import ReactGA from 'react-ga';
 
-const GeneralUserData = ({userData, setUserData, UDL, GouvChanged}) =>{
+const GeneralUserData = ({userData, setUserData, UDL, GouvChanged, targetSystem}) =>{
     return(<>
     <div className='card card-body shadow-sm border-div mb-3'>
-        <h5 className='text-end text-secondary ' dir='rtl'> <span className='bi bi-person-rolodex'></span>  معلومات عن صاحب النظام </h5>    
+        <h5 className='text-end text-secondary ' dir='rtl'> <span className='bi bi-person-rolodex'></span>  معلومات عن صاحب {targetSystem.businesName} </h5>    
             <div className='row'>
+                <div className='col-12 col-lg-6 d-none d-lg-flex align-self-center'><img src='https://cdn.abyedh.tn/images/Errors/error-log-in.png' className='img-responsive ' width='100%' height='auto'/></div>
                 <div className='col-12 col-lg-6 '>
                     <div className='mb-2'>
                         <small>الاسم و اللقب</small>
@@ -35,7 +36,7 @@ const GeneralUserData = ({userData, setUserData, UDL, GouvChanged}) =>{
                         <Select placeholder='إختر منطقة' fluid options={UDL} value={userData.deleg} onChange={(e, data) => setUserData({...userData, deleg: data.value })} />
                     </div>
                 </div>
-                <div className='col-12 col-lg-6 d-none d-lg-flex align-self-center'><img src='https://cdn.abyedh.tn/images/Errors/error-log-in.png' className='img-responsive ' width='100%' height='auto'/></div>
+                
             </div>
     </div>
     </>)
@@ -43,16 +44,16 @@ const GeneralUserData = ({userData, setUserData, UDL, GouvChanged}) =>{
 const GeneralProfileData = ({inscData, setInscData, PDL, GouvChanged, targetSystem}) =>{
     return(<>
         {/* <div className='card card-body shadow-sm border-div mb-3'> */}
-                <h5 className='text-end text-secondary ' dir='rtl'> <span className='bi bi-house-heart-fill'></span>  معلومات عامة </h5>
+                <h5 className='text-end text-secondary ' dir='rtl'> <span className='bi bi-house-heart-fill'></span>  معلومات عامة عن {targetSystem.businesName}  </h5>
                 <div className='row'>
                     <div className='col-12 col-lg-6 '> 
                         <div className='mb-2'>
-                            <small> إسم المهنة </small>
-                            <Input fluid icon='users' className='w-100 text-end font-droid' placeholder=' إسم المؤسسة' value={inscData.name} onChange={(e) => setInscData({...inscData, name: e.target.value })}   />
+                            <small> إسم {targetSystem.businesName} </small>
+                            <Input fluid icon='users' className='w-100 text-end font-droid' placeholder={`${targetSystem.businesName}`} value={inscData.name} onChange={(e) => setInscData({...inscData, name: e.target.value })}   />
                         </div>
                         <div className='mb-2'>
-                            <small> هاتف العمل </small>
-                            <Input fluid icon='phone' className='w-100 '  placeholder=' رقم هاتف العمل ' value={inscData.phone} onChange={(e) => setInscData({...inscData, phone: e.target.value })}  />
+                            <small> رقم الهاتف  </small>
+                            <Input fluid icon='phone' className='w-100 '  placeholder={` رقم هاتف ${targetSystem.businesName}`}   value={inscData.phone} onChange={(e) => setInscData({...inscData, phone: e.target.value })}  />
                         </div>
                         <div className='mb-2'>
                             <small>  الموقع الجغرافي</small>
@@ -60,7 +61,7 @@ const GeneralProfileData = ({inscData, setInscData, PDL, GouvChanged, targetSyst
                         <Select placeholder='إختر منطقة' fluid options={PDL} value={inscData.deleg} onChange={(e, data) => setInscData({...inscData, deleg: data.value })} />
                         </div>
                         <div className='mb-2'>
-                            <small>  العنوان</small>
+                            <small>  عنوان {targetSystem.businesName} </small>
                             <Form>
                                 <TextArea placeholder='العنوان'  value={inscData.adresse} onChange={(e) => setInscData({...inscData, adresse: e.target.value })} />
                             </Form>
@@ -72,7 +73,16 @@ const GeneralProfileData = ({inscData, setInscData, PDL, GouvChanged, targetSyst
         {/* </div> */}
     </>)
 }
-const Horaire = ({alwaysState, setAlwaysState, timming, setPauseDay , SetTimmingData}) =>{
+const Horaire = ({alwaysState, setAlwaysState, timming, setPauseDay , SetTimmingData,UpdateTimmingData, setSelectedUpdateDay, selectedUpdateDay}) =>{
+    const weekDays = [
+        { key: 'af', value: 'Lun', text: 'الانثنين' },
+        { key: 'ax', value: 'Mar', text: 'الثلاثاء' },
+        { key: 'al', value: 'Mer', text: 'الاربعاء' },
+        { key: 'dz', value: 'Jeu', text: 'الخميس' },
+        { key: 'as', value: 'Vend', text: 'الجمعة' },
+        { key: 'ad', value: 'Sam', text: 'السبت' },
+        { key: 'ao', value: 'Dim', text: 'الاحد' },
+      ]
     const ArabificationDate = (dateName) =>{
         switch (dateName) {
             case 'Lun' : return 'الإثــنين' 
@@ -94,7 +104,7 @@ const Horaire = ({alwaysState, setAlwaysState, timming, setPauseDay , SetTimming
                 break;
         }
     }
-    const DayHoraire = (props) =>{
+    const DayHoraireOLD = (props) =>{
         return(<>
                 <div className='row mb-1' >
                     <div  className='col-6 col-lg-3 order-1 order-lg-1 align-self-center mb-2'>
@@ -120,34 +130,80 @@ const Horaire = ({alwaysState, setAlwaysState, timming, setPauseDay , SetTimming
                 </div>
         </>)
     }
+    const DayHoraire = (props) =>{
+        return(<>
+                <div className={`row mb-1 ${props.data.dayOff ? 'd-none':''}`}>
+                    <div  className='col-4 col-lg-4 '>
+                        <b>{ArabificationDate(props.data.day)}</b>
+                    </div>
+                    <div  className='col-4 col-lg-4  '>
+                        <small>{props.data.matin.start} -- {props.data.matin.end}</small>
+                    </div>
+                    <div  className='col-4 col-lg-4  '>
+                    <small>{props.data.soir.start} -- {props.data.soir.end}</small>
+                    </div>
+                </div>
+        </>)
+    }
 
     return(<>
+        <br />
+        <br />
+        <br />
         <div className='card-body'>
             <h5 className='text-end text-secondary ' dir='rtl'> <span className='bi bi-calendar-week-fill'></span>   أوقات العمل  </h5>
-            <div className='card-body '>
-                <div className='row'>
-                    <div className='col-8 col-lg-11 align-self-center'> 
-                        <h5 className='mb-0'>مفتوح دائما</h5>  
-                        <small>عند تفعيل هذه الخاصية ستضهر في حالة مفتوح دائما </small>
-                    </div>
-                    <div className='col-4 col-lg-1 align-self-center'> 
-                        <div className="form-check form-switch">
-                            <input className="form-check-input form-check-input-lg" type="checkbox"  onChange={() => setAlwaysState(!alwaysState)}  checked={alwaysState} />
+            <div className='row'>
+                <div className='col-12 col-lg-7'>
+                    <div className='card-body'>
+                        <div className='row'>
+                            <div className='col-8 col-lg-9 align-self-center'> 
+                                <h5 className='mb-0'>مفتوح دائما</h5>  
+                                <small>عند تفعيل هذه الخاصية ستضهر في حالة مفتوح دائما </small>
+                            </div>
+                            <div className='col-4 col-lg-3  align-self-center '> 
+                                <div className="form-check form-switch">
+                                    <input className="form-check-input form-check-input-lg" type="checkbox"  onChange={() => setAlwaysState(!alwaysState)}  checked={alwaysState} />
+                                </div>
+                            </div>
                         </div>
+                        <Divider />
+                        <div className='row text-danger mb-2'>
+                            <div  className='col-4 col-lg-4'> <b>اليوم</b> </div>
+                            <div  className='col-4 col-lg-4'> <small>صباح</small> </div>
+                            <div  className='col-4 col-lg-4'> <small>مساء</small> </div>
+                        </div>
+                        
+                        {
+                            timming.map( (data,index) => <DayHoraire key={index} data={data} />)
+                        }
                     </div>
                 </div>
-                <Divider />
-                <div className='row text-danger mb-2'>
-                    <div  className='col-3 col-lg-3'> <b>اليوم</b> </div>
-                    <div  className='col-3 col-lg-4'> <small>صباح</small> </div>
-                    <div  className='col-3 col-lg-4'> <small>مساء</small> </div>
-                    <div  className='col-3 col-lg-1'> <small>راحة</small> </div>
+                <div className='col-12 col-lg-5'>
+                    <div className='card card-body border-div'>
+                        <h5>قم باختيار يوم لتعديل الوقت </h5>
+                        <Select options={weekDays} onChange={(e, { value }) => setSelectedUpdateDay(value)} className='mb-3'/>
+                        <div className='row mb-3 '>
+                            <div className='col-6'><Input  type='time' size='mini'  value={timming.find(obj => obj.day === selectedUpdateDay).matin.start}  fluid className='mb-1 w-100'  onChange={(e) => SetTimmingData(selectedUpdateDay,'matin','start',e.target.value)} /></div>
+                            <div className='col-6'><Input  type='time' size="mini"  value={timming.find(obj => obj.day === selectedUpdateDay).matin.end} fluid className='mb-1 w-100'  onChange={(e) => SetTimmingData(selectedUpdateDay,'matin','end',e.target.value)}/></div>
+                        </div>
+                        <div className='row mb-3'>
+                            <div className='col-6'><Input  type='time' size='mini'  value={timming.find(obj => obj.day === selectedUpdateDay).soir.start}   fluid className='mb-1 w-100'  onChange={(e) => SetTimmingData(selectedUpdateDay,'soir','start',e.target.value)} /></div>
+                            <div className='col-6'><Input  type='time' size="mini"  value={timming.find(obj => obj.day === selectedUpdateDay).soir.end}  fluid className='mb-1 w-100'  onChange={(e) => SetTimmingData(selectedUpdateDay,'soir','end',e.target.value)}/></div>
+                        </div>
+                        <div className='row mb-3'>
+                            <div className='col-2 text-end'>
+                                <div className="form-check form-switch">
+                                    <input className="form-check-input form-check-input-lg" type="checkbox" checked={timming.find(obj => obj.day === selectedUpdateDay).dayOff}   onChange={() => setPauseDay(selectedUpdateDay,selectedUpdateDay.dayOff)}   />
+                                </div>
+                            </div>
+                            <div className='col-10'>يوم راحة ؟ </div>
+                        </div>
+                        
+                        <Button size='mini'   icon className='rounded-pill  text-white font-droid' onClick={() => UpdateTimmingData()} fluid  >   <Icon name='world' /> تعديل  </Button>
+                    </div>
                 </div>
-                
-                {
-                    timming.map( (data,index) => <DayHoraire key={index} data={data} />)
-                }
             </div>
+            
         </div>
     </>)
 }
@@ -158,6 +214,8 @@ function Inscription() {
     let {system} = useParams()
     const Today = new Date()
     const targetSystem = GConf.landing[system]
+    let [okayForCondition , setOkayForCondition] = useState(false)
+    let [test , setTest] = useState(10)
 
     let [userData, setUserData] = useState({name :'', phone:'', birthday:Today.toISOString().split('T')[0] , gouv:'',deleg:''})
     let [inscData, setInscData] = useState({name :'', phone:'', adresse:'' , gouv:'', deleg:''})
@@ -166,11 +224,14 @@ function Inscription() {
     let [UDL ,setUDL] = useState([])
     let [PDL ,setPDL] = useState([])
 
+    let [selectedUpdateDay , setSelectedUpdateDay] = useState('Lun')
     let [alwaysState , setAlwaysState] = useState(false)
     let [timming, setTimming] = useState([{day:"Lun",dayOff:false,matin:{start:"08:00",end:"12:00"},soir:{start:"14:00",end:"16:00"}},{day:"Mar",dayOff:false,matin:{start:"08:00",end:"12:00"},soir:{start:"14:00",end:"16:00"}},{day:"Mer",dayOff:false,matin:{start:"08:00",end:"12:00"},soir:{start:"14:00",end:"16:00"}},{day:"Jeu",dayOff:false,matin:{start:"08:00",end:"12:00"},soir:{start:"14:00",end:"16:00"}},{day:"Vend",dayOff:false,matin:{start:"08:00",end:"12:00"},soir:{start:"14:00",end:"16:00"}},{day:"Sam",dayOff:false,matin:{start:"08:00",end:"12:00"},soir:{start:"14:00",end:"16:00"}},{day:"Dim",dayOff:false,matin:{start:"08:00",end:"12:00"},soir:{start:"14:00",end:"16:00"}}])
     
     let [loaderState, setLS] = useState(false)
     let [saveBtnState, setSaveBtnState] = useState(false)
+
+    let [position, setPosition] = useState({Lat: 36.83040, Lng: 10.13280})
 
     
     /* ############### UseEffect #################*/
@@ -215,12 +276,18 @@ function Inscription() {
             }
         }
 
+    }
+    const UpdateTimmingData = (day,time,genre,value) => {
+        //setTimming(...timming)
+        setTest(Math.random())
+
     }  
     const setPauseDay = (day,state) =>{
         const targetIndex = timming.findIndex(element => element.day === day)
         let copyOfHoraire = timming
         copyOfHoraire[targetIndex].dayOff = !state
         setTimming(copyOfHoraire)
+        setTest(Math.random())
     }
     const Inscription = () =>{
             if (!userData.name || userData.name == '') {toast.error("أدخل إسم و لقب المستخدم !", GConf.TostErrorGonf)}
@@ -234,6 +301,7 @@ function Inscription() {
             else if (!inscData.gouv || inscData.gouv == '' ) {toast.error("أدخل  ولاية العمل ", GConf.TostErrorGonf)}
             else if (!inscData.deleg || inscData.deleg == '' ) {toast.error("أدخل  مدينة العمل ", GConf.TostErrorGonf)}
             else if (!timming) {toast.error("أدخل أوقات العمل  !", GConf.TostErrorGonf)}
+            else if (!okayForCondition ) {toast.error("يحب أن توافق علي شروط الأستخدام ", GConf.TostErrorGonf)}
             else{
                 setLS(true)
                 axios.post(`${GConf.ApiLink}/signup`, {
@@ -242,6 +310,7 @@ function Inscription() {
                     inscData : inscData,
                     horaireData : timming,
                     alwaysOpen : alwaysState,
+                    position : position,
                 }).then(function (response) {
                     if(response.data.affectedRows) {
                         setSaveBtnState(true)
@@ -261,37 +330,75 @@ function Inscription() {
                 
             }
     }
+    const MapEventsHandler = ({ onLocationSelected }) => {
+        useMapEvents({
+          click: (e) => {
+            const { lat, lng } = e.latlng;
+            onLocationSelected({ lat, lng });
+          },
+        });
+      
+        return null;
+      };
+
+      const handleLocationSelected = (location) => {
+        setPosition({Lat: location.lat , Lng:location.lng})
+      };
+
     /* ############### Card #################*/
     
     const Location = () =>{
         return(<>
-            <div className='card card-body shadow-sm mb-3'>
+            <br />
+            <br />
+            <br />
+            <div className='  mb-3'>
                 <h5 className='text-end text-secondary ' dir='rtl'> <span className='bi bi-geo-alt-fill'></span>   الموقع الجغرافي </h5>
-                    {/* <MapContainer center={[36.83040,10.13280]} zoom={15} scrollWheelZoom={false} className="map-height">
+                    <MapContainer center={[position.Lat,position.Lng]} zoom={15} scrollWheelZoom={false} className="map-height cursor-map-crosshair border-div">
                         <TileLayer
                         attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
                         url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
                         />
-                        <Marker position={[36.83040,10.13280]}>
+                        <MapEventsHandler onLocationSelected={handleLocationSelected} />
+                        <Marker position={[position.Lat,position.Lng]}>
                             <Popup>
                                 
                             </Popup>
                         </Marker>
-                    </MapContainer> */}
-                    {/* <LocationPicker    /> */}
+                    </MapContainer> 
+                    {/* <LocationPicker    />*/}
             </div>
         </>)
     }
 
     const BtnCard = () =>{
         return(<>
-            <div className='card card-body shadow-sm mb-3'>
-                    <div className='row'>
-                        <div className='col-12 col-lg-4'>
-                                <Button size='mini' disabled={saveBtnState} icon className='rounded-pill  text-white font-droid' onClick={Inscription} fluid style={{backgroundColor: targetSystem.colorTheme}}>   <Icon name='world' /> تسجيل <Loader inverted active={loaderState} inline size='tiny' className='ms-2 text-danger'/></Button>
+            
+            <div className='card card-body shadow-sm mb-3 border-div'>
+            <h5 className='text-end text-secondary ' dir='rtl'> <span className='bi bi-save'></span>  تسجيل  </h5>
+                <div className='row'>
+                    <div className='col-12 col-lg-8'>
+                        <div className='text-secondary'>
+                            <ul>
+                                <li> بعد إستكمال التسجيل سنحاول الإتصال بكم في أقرب وقت ممكن من أجل مساعدتكم في عملية تثبيت النظام </li>
+                                <li> <span className='bi bi-exclamation-triangle-fill text-danger'></span> أي طلب تسجيل يحتوي علي معلومات خاطئة أو مضللة سيلغي آليا </li>
+                            </ul>
                         </div>
-                        <div className='col-12 col-lg-8'></div>
                     </div>
+                    <div className='col-12 col-lg-4 align-self-center'>
+                            <div className='row mb-3'>
+                                <div className='col-2 text-end'>
+                                    <Checkbox
+                                        onChange={(e, data) => setOkayForCondition(data.checked)}
+                                        checked={okayForCondition}
+                                    />
+                                </div>
+                                <div className='col-8 text-end'>موافق </div>
+                            </div>   
+                            
+                            <Button size='mini' disabled={saveBtnState} icon className='rounded-pill  text-white font-droid' onClick={Inscription} fluid style={{backgroundColor: targetSystem.colorTheme}}>   <Icon name='world' /> تسجيل <Loader inverted active={loaderState} inline size='tiny' className='ms-2 text-danger'/></Button>
+                    </div>
+                </div>
             </div>
         </>)
     }
@@ -333,20 +440,18 @@ function Inscription() {
                         <h2 className='text-center text-danger mb-5 font-hs-d mt-3'> الإشتراك في {targetSystem.systemTitle} </h2>
                         <h4 style={{color : targetSystem.colorTheme}}>
                             عملية إمتلاك {targetSystem.systemTitle} تمر بمرحلتين 
-                            {/* <ul>
-                                <li>1- إمتلاك حساب في منصة أبيض (<a href='https://abyedh.tn/' target='c_blank' >abyedh.tn</a>) </li>
-                                <li>2- إمتلاك حساب في  {targetSystem.systemTitle} </li>
-                            </ul> */}
                         </h4>
                         <br />
-                        <h6 className='text-secondary font-hs-n me-5 mb-3'> 1- إمتلاك حساب في منصة أبيض  (<a href='https://abyedh.tn/' target='c_blank' >abyedh.tn</a>) </h6> 
-                        <GeneralUserData userData={userData}  setUserData={setUserData} GouvChanged={GouvChanged} UDL={UDL} />
+                        <h6 className='text-secondary font-hs-n me-5 mb-2'> 1- إمتلاك حساب في منصة أبيض  (<a href='https://abyedh.tn/' target='c_blank' >abyedh.tn</a>) </h6> 
+                        <small className='text-secondary me-5 mb-4 ' > سيمكنك هذا الحساب من التحكم في {targetSystem.systemTitle} </small> 
+                        <br />
+                        <GeneralUserData userData={userData}  setUserData={setUserData} GouvChanged={GouvChanged} UDL={UDL} targetSystem={targetSystem} />
                         <br />
                         <h6 className='text-secondary font-hs-n me-5 mb-3 '> 2- إمتلاك حساب في  {targetSystem.systemTitle} </h6> 
                         <div className='card card-body shadow-sm border-div mb-3'>
                             <GeneralProfileData inscData={inscData} setInscData={setInscData} PDL={PDL}  targetSystem={targetSystem}  GouvChanged={GouvChanged}   />
-                            {/* <Location /> */}
-                            <Horaire alwaysState={alwaysState} setAlwaysState={setAlwaysState} timming={timming} setPauseDay={setPauseDay} SetTimmingData={SetTimmingData} />
+                            <Location />
+                            <Horaire alwaysState={alwaysState} setAlwaysState={setAlwaysState} timming={timming} setPauseDay={setPauseDay} SetTimmingData={SetTimmingData} setSelectedUpdateDay={setSelectedUpdateDay} selectedUpdateDay={selectedUpdateDay} UpdateTimmingData={UpdateTimmingData} />
                         </div>
                         <BtnCard /> 
                 </div>

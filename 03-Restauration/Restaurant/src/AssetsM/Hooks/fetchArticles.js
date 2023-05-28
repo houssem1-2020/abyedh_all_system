@@ -35,7 +35,7 @@ const useGetArticles = () => {
           });
     }, [])
 
-  return [data, pureData, selectedData];
+  return [pureData];
 };
 
 export default useGetArticles;

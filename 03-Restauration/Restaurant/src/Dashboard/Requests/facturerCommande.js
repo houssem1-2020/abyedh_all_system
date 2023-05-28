@@ -50,7 +50,7 @@ function FacturerCommande() {
         const Today = new Date()
         const [loading , setLoading] = useState(false)
         const [articleL, setArticleL] = useState([])
-        const [factureD, setFactureD] = useState({client:'PASSAGER', de:'Sidi Bourouis', vers:'', Fournisseurs:'INDEFENIE', Chauffeur:'', jour: Today.toISOString().split('T')[0], totale: 0 , articles:[]})
+        const [factureD, setFactureD] = useState({ CommandeID : CID, totale: 0 , articles:[]})
         const [articleNow, setArticleNow] = useState([])
         const [selectedList, setSelectedList] = useState([])
         const [toUpdatedList, setTUpList] = useState([]);
@@ -63,16 +63,17 @@ function FacturerCommande() {
         const [clientList, allClientList] = useGetClients()
         const [camionList, setCamionList] = useState([]);
         const [autofocusState, setAutoFocus] = useState(false)
-        const [codes , articleList, tableData] = useGetArticles()
+        const [tableData, setDataTable] = useState([]);
+        const [codes , articleList] = useGetArticles()
         const panes = [
             {
                 menuItem: { key: 'start', icon: 'add circle', content: 'Entrer ' }, 
                 render: () => <AddArticles />,
             },
-            {
-                menuItem: { key: 'client', icon: 'user', content:  'Date & Client' }, 
-                render: () =><MainDataCard factureD={factureD} setFactureD={setFactureD} clientList={clientList} allClientList={allClientList} camionList={camionList} OnKeyPressFunc={OnKeyPressFunc} />,
-            },
+            // {
+            //     menuItem: { key: 'client', icon: 'user', content:  'Date & Client' }, 
+            //     render: () =><MainDataCard factureD={factureD} setFactureD={setFactureD} clientList={clientList} allClientList={allClientList} camionList={camionList} OnKeyPressFunc={OnKeyPressFunc} />,
+            // },
             {
                 menuItem: { key: 'articles', icon: 'save', content:  'Enregistrer' }, 
                 render: () => <ButtonsCard />,
@@ -101,14 +102,12 @@ function FacturerCommande() {
         /* ############################### UseEffect ########################*/
         useEffect(() => {
                 //camionList
-                axios.post(`${GConf.ApiLink}/camions`,{PID :GConf.PID})
+                axios.post(`${GConf.ApiLink}/menu`,{PID :GConf.PID})
                     .then(function (response) {
-                        let ClientLN = []
-                        response.data.map( (dta) => {ClientLN.push({value : dta.Cam_ID, text : <>{dta.Cam_Name} : {dta.Matricule} - {dta.Chauffeur}</>, key: dta.PK})})
-                        setCamionList(ClientLN)
+                        setDataTable(response.data)
                     }).catch((error) => {
                     if(error.request) {
-                        toast.error(<><div><h5>Probleme de Connextion</h5> Les camion n'ont pas été chargeé </div></>, GConf.TostInternetGonf)   
+                        toast.error(<><div><h5>Probleme de Connextion</h5>  </div></>, GConf.TostInternetGonf)   
                     }
                 });
 
@@ -121,7 +120,7 @@ function FacturerCommande() {
                             toast.error('Commande Introuvable !', GConf.TostSuucessGonf)
                             setTimeout(() => {  window.location.href = "/S/rq"; }, 2000)
                         } else {
-                            setArticleL(JSON.parse(response.data[0].Articles))
+                            setArticleL(JSON.parse(response.data[0].C_Articles))
                             setLoading(true)
                         }  
                   }).catch((error) => {
@@ -134,13 +133,13 @@ function FacturerCommande() {
     
         /*#########################[Function]##################################*/
         const AddArticleToList = ()=>{
-            if (!articleNow.A_Code) {toast.error("Code à barre Invalide !", GConf.TostErrorGonf)}
+            if (!articleNow.P_Code) {toast.error("Code à barre Invalide !", GConf.TostErrorGonf)}
             else if (!articleNow.Name || articleNow.Name == '') {toast.error("Name Invalide !", GConf.TostErrorGonf)}
             else if (!articleNow.Qte || articleNow.Qte == '') {toast.error("Quantite Invalide !", GConf.TostErrorGonf)}
             else{
-                const searchObject = factureD.articles.find((article) => article.A_Code == articleNow.A_Code);
+                const searchObject = factureD.articles.find((article) => article.P_Code == articleNow.P_Code);
                 if (searchObject) {
-                    let IndexOfArticle = factureD.articles.findIndex((article) => article.A_Code == articleNow.A_Code)
+                    let IndexOfArticle = factureD.articles.findIndex((article) => article.P_Code == articleNow.P_Code)
                     factureD.articles[IndexOfArticle].Qte = factureD.articles[IndexOfArticle].Qte + parseInt(articleNow.Qte)
                     factureD.articles[IndexOfArticle].PU = ((factureD.articles[IndexOfArticle].Qte) * factureD.articles[IndexOfArticle].Prix ).toFixed(3)
                     toUpdatedList[IndexOfArticle][1] = toUpdatedList[IndexOfArticle][1] + parseInt(articleNow.Qte)
@@ -154,12 +153,12 @@ function FacturerCommande() {
                     
                 } else {
                     let prix_u = (articleNow.Prix_vente * articleNow.Qte).toFixed(3)
-                    let arrayToAdd = {id: factureD.articles.length + 1 , A_Code: articleNow.A_Code, Name: articleNow.Name, Prix: articleNow.Prix_vente, Qte: parseInt(articleNow.Qte), PU: prix_u}
+                    let arrayToAdd = {id: factureD.articles.length + 1 , P_Code: articleNow.P_Code, Name: articleNow.Name, Prix: articleNow.Prix_vente, Qte: parseInt(articleNow.Qte), PU: prix_u}
                     factureD.articles.push(arrayToAdd)
                     setArticleNow([])
                     let tot = MakeSum()
                     setFactureD({...factureD, totale: tot })            
-                    let arrayToUpdate = [articleNow.A_Code, parseInt(articleNow.Qte)]
+                    let arrayToUpdate = [articleNow.P_Code, parseInt(articleNow.Qte)]
                     toUpdatedList.push(arrayToUpdate)
                     setColisDes(false)  
                 }
@@ -179,7 +178,7 @@ function FacturerCommande() {
     
         }
         const GetArticleData = (value) =>{
-            const searchObject = articleList.find((article) => article.A_Code == value);
+            const searchObject = tableData.find((article) => article.P_Code == value);
             if (searchObject) {
                 setArticleNow(searchObject);
                 setAutoFocus(true)
@@ -196,29 +195,25 @@ function FacturerCommande() {
             return (tot.toFixed(3))
         }
         const SaveFacture = () =>{
-               if (!CheckClientValidite(factureD.client)) {toast.error("Client est Invalide !", GConf.TostErrorGonf)}
-                else if (!factureD.jour ) {toast.error("Date est Invalide !", GConf.TostErrorGonf)}
-                else if (!factureD.de) {toast.error("Destination De est Invalide !", GConf.TostErrorGonf)}
-                else if (!factureD.vers) {toast.error("Destination vers est Invalide !", GConf.TostErrorGonf)}
-                else if (!factureD.Fournisseurs) {toast.error("Camion  est Invalide !", GConf.TostErrorGonf)}
-                else if (!factureD.Chauffeur) {toast.error("Chauffeur  est Invalide !", GConf.TostErrorGonf)}
+                if (!factureD.CommandeID ) {toast.error("Commande ID est Invalide !", GConf.TostErrorGonf)}
                 else if (!factureD.totale) {toast.error("totale est Invalide !", GConf.TostErrorGonf)}
                 else if (!factureD.articles || factureD.articles.length == 0) {toast.error("article list est Invalide !", GConf.TostErrorGonf)}
                 else {
+                    console.log(factureD)
                     setLS(true)
-                    axios.post(`${GConf.ApiLink}/facture/ajouter`, {
+                    axios.post(`${GConf.ApiLink}/commande/facturer`, {
                         PID : GConf.PID,
-                        factD: factureD,
+                        factureD: factureD,
                     })
                     .then(function (response) {
+                        console.log(response.data)
                         if(response.status = 200) {
-                            setFID(response.data.FID)
                             setSaveBtnState(true)
                             toast.success("Facture Enregistreé !", GConf.TostSuucessGonf)
-                            setFactureLink(response.data);
+                            UpdateState('A')
                             setLS(false)
                             setUSBS(false)
-                            SaveNotification('factureAjouter',GConf.PID, factureD)
+                             
                         }
                         else{
                             toast.error('Erreur!  esseyez de nouveaux', GConf.TostSuucessGonf)
@@ -234,6 +229,24 @@ function FacturerCommande() {
                       });
     
                 }       
+        }
+        const UpdateState = (stateBtn) =>{
+            axios.post(`${GConf.ApiLink}/commande/controle`, {
+                PID : GConf.PID,
+                RID: CID,
+                state: stateBtn
+              })
+              .then(function (response) {
+                //setCommandeD({ ...commandeData, State: stateBtn}) 
+                
+                if(stateBtn != 'S'){
+                    //toast.success("Etat Changeé !", GConf.TostSuucessGonf)
+                }            
+              }).catch((error) => {
+                if(error.request) {
+                  toast.error(<><div><h5>Probleme de Connextion</h5> Impossible de modifier L'etat du commande  </div></>, GConf.TostInternetGonf)   
+                }
+              });
         }
         const GetPrixColis = () =>{
             if (articleNow.Qte) {
@@ -265,26 +278,26 @@ function FacturerCommande() {
                         <h5>Ajouter article</h5> 
                         <datalist id="articlesList">
                                 {tableData.map((test) =>
-                                <option key={test.key} value={test.value}>{test.text}</option>
+                                <option key={test.P_Code} value={test.P_Code}>{test.Name}</option>
                                 )}
                         </datalist>
                         <Input icon='pin' list="articlesList" placeholder='Entre aarticle'  onBlur={ (e) => GetArticleData(e.target.value)} size="small" iconPosition='left'   fluid className='mb-1' /> 
-                        <div className='m-2 text-secondary'><b> <span className='bi bi-upc '></span> Code a barre : {articleNow.A_Code} </b></div>
+                        <div className='m-2 text-secondary'><b> <span className='bi bi-upc '></span> Code a barre : {articleNow.P_Code} </b></div>
                         <div className='m-2 text-danger'><b><span className='bi bi-star-fill '></span> Nom : {articleNow.Name} </b></div> 
                         <div className='row'>
                             <div className='col-6'>
                             <div className='m-2 mb-4 text-success'><b><span className='bi bi-currency-dollar '></span> Prix : {articleNow.Prix_vente} </b></div> {/* <Input icon='dollar sign' value={articleNow.Prix_vente} size="small" iconPosition='left' placeholder='Prix'  fluid className='mb-1' /> */}
                             </div>
-                            <div className='col-3'>
+                            {/*<div className='col-3'>
                                 <Button size='small' disabled={saveBtnState} className='rounded-pill bg-warning text-dark' onClick={ () => setArticleNow({...articleNow, Prix_vente : 0})} fluid> Gratuit</Button>
                             </div>
-                            <div className='col-3'>
+                             <div className='col-3'>
                                 <Button size='small' disabled={saveBtnState} className='rounded-pill bg-warning text-dark' onClick={ () => setArticleNow({...articleNow, Prix_vente : articleNow.Prix_gros})} fluid> P. Gros</Button>
-                            </div>
+                            </div> */}
                         </div>
                         <div className='row'>
-                           <div className='col-8'>  <Input icon='dropbox' type='number' value={articleNow.Qte} autoFocus={autofocusState} onChange={ (e) => {articleNow.Qte = e.target.value}} size="small" iconPosition='left' placeholder='Quantite'  fluid className='mb-1' /> </div> 
-                           <div className='col-4'> <Button size='small' disabled={saveBtnState || colisDesaible} className='rounded-pill bg-danger text-white' onClick={ () => GetPrixColis()} fluid> Colis </Button> </div> 
+                           <div className='col-12'>  <Input icon='dropbox' type='number' value={articleNow.Qte} autoFocus={autofocusState} onChange={ (e) => {articleNow.Qte = e.target.value}} size="small" iconPosition='left' placeholder='Quantite'  fluid className='mb-1' /> </div> 
+                           {/* <div className='col-4'> <Button size='small' disabled={saveBtnState || colisDesaible} className='rounded-pill bg-danger text-white' onClick={ () => GetPrixColis()} fluid> Colis </Button> </div>  */}
                         </div>
                         
                         <br />
@@ -301,7 +314,7 @@ function FacturerCommande() {
                                     {props.dataA.Name}
                                 </div>
                                 <div className='col-5 align-self-center'><b>{props.dataA.Qte}</b> * {props.dataA.Prix} = {props.dataA.PU}</div>
-                                <div className='col-1 align-self-center'><Button icon="times" className='rounded-circle p-2 text-white bg-danger' disabled={saveBtnState} onClick={() => DeleteFromUpdateList(props.dataA.A_Code)}></Button></div>
+                                <div className='col-1 align-self-center'><Button icon="times" className='rounded-circle p-2 text-white bg-danger' disabled={saveBtnState} onClick={() => DeleteFromUpdateList(props.dataA.P_Code)}></Button></div>
                             </div>
                         </div>
                         </Ripples>

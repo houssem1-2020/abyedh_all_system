@@ -14,21 +14,22 @@ import usePrintFunction from '../../AssetsM/Hooks/printFunction';
 import FrameForPrint from '../../AssetsM/Cards/frameForPrint';
 import useSaveNotification from '../../AssetsM/Hooks/saveNotifFunction';
 import ReactImageZoom from 'react-image-zoom';
+import useGetArticles from '../../AssetsM/Hooks/fetchArticles';
 
-const EditArticle = ({articleD, setArticleD, checkPrixCompatiblite, familles, EditPlatFunction,loaderState,updateQte}) =>{
+const EditArticle = ({articleD, setArticleD, OnKeyPressFunc, checkPrixCompatiblite, familles, EditPlatFunction,loaderState,updateQte}) =>{
     return(<>
 
                 <div className='row'>
                         <div className='col-12 col-lg-12'>
                             <h5 className='mb-1'>Nom: </h5>
-                            <Input icon='star' iconPosition='left' placeholder='Nom' className='w-100 border-0 shadow-sm rounded mb-3' defaultValue={articleD.Name} onChange={(e) => setArticleD({...articleD, Name: e.target.value })}/>
+                            <Input icon='star' onKeyPress={event => OnKeyPressFunc(event)} iconPosition='left' placeholder='Nom' className='w-100 border-0 shadow-sm rounded mb-3' defaultValue={articleD.Name} onChange={(e) => setArticleD({...articleD, Name: e.target.value })}/>
                         </div>
                         
                 </div> 
                 <div className='row'>
                             <div className='col-12 col-lg-6'>
                                 <h5 className='mb-1'>Code  :</h5>
-                                <Input icon='barcode' disabled iconPosition='left' type='number' placeholder='code  ' className='w-100 border-0 shadow-sm rounded mb-3' defaultValue={articleD.P_Code} onChange={(e) => setArticleD({...articleD, P_Code: e.target.value })} />
+                                <Input icon='barcode'  disabled iconPosition='left' type='number' placeholder='code  ' className='w-100 border-0 shadow-sm rounded mb-3' defaultValue={articleD.P_Code} onChange={(e) => setArticleD({...articleD, P_Code: e.target.value })} />
                             </div>
                             <div className='col-12 col-lg-6'>
                                 <h5 className='mb-1'>Genre: </h5>
@@ -38,28 +39,28 @@ const EditArticle = ({articleD, setArticleD, checkPrixCompatiblite, familles, Ed
                 <div className='row'>
                             <div className='col-12 col-lg-6'>
                                 <h5 className='mb-1'>Cout: </h5>
-                                <Input icon='dollar' iconPosition='left' type='number' placeholder='achat' defaultValue={articleD.Cout} onBlur={checkPrixCompatiblite} className='w-100 border-0 shadow-sm rounded mb-3' onChange={(e) => setArticleD({...articleD, Cout: e.target.value })}/> 
+                                <Input icon='dollar'   iconPosition='left' type='number' placeholder='achat' defaultValue={articleD.Cout} onBlur={checkPrixCompatiblite} className='w-100 border-0 shadow-sm rounded mb-3' onChange={(e) => setArticleD({...articleD, Cout: e.target.value })}/> 
                             </div>
                             <div className='col-12 col-lg-6'>
                                 <h5 className='mb-1'>Prix Vente: </h5>
-                                <Input icon='dollar' iconPosition='left' type='number' placeholder='vente' defaultValue={articleD.Prix_vente} onBlur={checkPrixCompatiblite} className='w-100 border-0 shadow-sm rounded mb-3' onChange={(e) => setArticleD({...articleD, Prix_vente: e.target.value })}/>
+                                <Input icon='dollar'   iconPosition='left' type='number' placeholder='vente' defaultValue={articleD.Prix_vente} onBlur={checkPrixCompatiblite} className='w-100 border-0 shadow-sm rounded mb-3' onChange={(e) => setArticleD({...articleD, Prix_vente: e.target.value })}/>
                             </div>
 
                 </div> 
                 <div className='row'>
                             <div className='col-12 col-lg-6'>
                                 <h5 className='mb-1'>Prix Promo: </h5>
-                                <Input icon='dollar' iconPosition='left' type='number' placeholder='promo' className='w-100 border-0 shadow-sm rounded mb-3' defaultValue={articleD.Prix_promo}  onChange={(e) => setArticleD({...articleD, Prix_promo: e.target.value })}/>
+                                <Input icon='dollar'   iconPosition='left' type='number' placeholder='promo' className='w-100 border-0 shadow-sm rounded mb-3' defaultValue={articleD.Prix_promo}  onChange={(e) => setArticleD({...articleD, Prix_promo: e.target.value })}/>
                             </div>
                             <div className='col-12 col-lg-6'>
                                 <h5 className='mb-1'>Repture du stock: </h5>
-                                <Input icon='angle double down' iconPosition='left' type='number' placeholder='repture' className='w-100 border-0 shadow-sm rounded mb-3' defaultValue={articleD.Repture} onChange={(e) => setArticleD({...articleD, Repture: e.target.value })}/>
+                                <Input icon='angle double down' onKeyPress={event => OnKeyPressFunc(event)} iconPosition='left' type='number' placeholder='repture' className='w-100 border-0 shadow-sm rounded mb-3' defaultValue={articleD.Repture} onChange={(e) => setArticleD({...articleD, Repture: e.target.value })}/>
                             </div>
                 </div>
                 <div className='row'>
                     <h5 className='mb-1'>Description</h5>
                     <Form>
-                        <TextArea  rows="3" defaultValue={articleD.Description} className='w-100 shadow-sm rounded mb-3' onChange={(e) => setArticleD({...articleD, Description: e.target.value })}/>
+                        <TextArea onKeyPress={event => OnKeyPressFunc(event)} rows="3" defaultValue={articleD.Description} className='w-100 shadow-sm rounded mb-3' onChange={(e) => setArticleD({...articleD, Description: e.target.value })}/>
                     </Form> 
                 </div>
                 <div className='text-end mb-5'>
@@ -72,7 +73,11 @@ function PlatInfo() {
     /*#########################[Const]##################################*/
     let Today = new Date().toISOString().split('T')[0]
     let {code} = useParams();
+
     const[familles] = useGetFamillePlat()
+    const [stock] = useGetArticles()
+    const [articleNow, setArticleNow] = useState([])
+    const [ingredienListe, setIngredientListe] = useState([])
     const [loading , setLoading] = useState(false)
     const [articleD, setArticleD] = useState({});
     const [loaderState, setLS] = useState(false)
@@ -80,12 +85,15 @@ function PlatInfo() {
     const [updateQte, setUpdateQte] = useState(true)
     const [resDay , setResDay] = useState({start:Today, end:Today})
     const [articleEvents , setArticleEvents] = useState([])
-    const SaveNotification = (genre,tag,table) =>{ useSaveNotification(genre,tag,table)}
+    
     const props = {width: 400, height: 250, zoomWidth: 500, img: articleD ? articleD.Photo_Path : 'plat.png'};
-
+    const [saveBtnState, setSaveBtnState] = useState(false)
+    const [autofocusState, setAutoFocus] = useState(false)
     const [uploadImageName, setUploadImageName] = useState('')
     const [uploadImage, setUploadImages] = useState()
     const [displayedImage, setDisplayedImage] = useState()
+
+    const SaveNotification = (genre,tag,table) =>{ useSaveNotification(genre,tag,table)}
 
     const options = [
         { key: '1', value: 'plat_pizza.png', text: 'PIZZA', image: { src: 'https://cdn.abyedh.tn/images/system/Resto/plat_pizza.png', avatar: true } },
@@ -106,7 +114,7 @@ function PlatInfo() {
         },
         {
             menuItem: { key: 'edit', icon: 'edit outline', content: 'Modifier' }, 
-            render: () => <><Tab.Pane attached={false}><EditArticle articleD={articleD}  setArticleD={setArticleD} checkPrixCompatiblite={checkPrixCompatiblite} familles={familles} EditPlatFunction={EditPlatFunction} loaderState={loaderState} updateQte={updateQte} /></Tab.Pane><br /></>,
+            render: () => <><Tab.Pane attached={false}><EditArticle OnKeyPressFunc={OnKeyPressFunc} articleD={articleD}  setArticleD={setArticleD} checkPrixCompatiblite={checkPrixCompatiblite} familles={familles} EditPlatFunction={EditPlatFunction} loaderState={loaderState} updateQte={updateQte} /></Tab.Pane><br /></>,
         },
         {
             menuItem: { key: 'image', icon: 'image', content: 'Image' }, 
@@ -120,7 +128,6 @@ function PlatInfo() {
 
    /*#########################[UseEffect]##################################*/
     useEffect(() => {
-        // console.log(new Date().toISOString().split('T')[0])
         axios.post(`${GConf.ApiLink}/menu/plat`, {
             PID: GConf.PID,
             code: code, 
@@ -133,8 +140,9 @@ function PlatInfo() {
             } else {
                 
                 setArticleD(response.data.Data)
+                if(response.data.Data.Ingredient) {setIngredientListe(JSON.parse(response.data.Data.Ingredient))}
                 let inFactureList = []
-                response.data.InFacture.map( (factureList) => inFactureList.push( { title: GetTargetArticleQte(factureList.Articles,'Qte'), date: GenerateDate(factureList.Cre_Date, 1), className:'bg-primary border-0 w-25 text-center' }))
+                response.data.InFacture.map( (factureList) => inFactureList.push( { title: GetTargetArticleQte(factureList.Articles,'Qte'), date: GenerateDate(factureList.T_Date, 1), className:'bg-primary border-0 w-25 text-center' }))
                 setArticleEvents(inFactureList)
                 setLoading(true)
             }
@@ -156,6 +164,59 @@ function PlatInfo() {
         axios.post(`${GConf.ApiLink}/menu/modifier`, {
             PID :GConf.PID,
             articleND :articleD,
+        }).then(function (response) {
+            console.log(response.data)
+            if(response.data.affectedRows) {
+                toast.success("Plat Modifier !", GConf.TostSuucessGonf)
+                setLS(false)
+                //SaveNotification('stockEditArticle',GConf.PID, articleD)
+            }
+            else{
+                toast.error('Erreur esseyez de nouveaux', GConf.TostSuucessGonf)
+                setLS(false)
+            }
+        }).catch((error) => {
+            if(error.request) {
+              toast.error(<><div><h5>Probleme de Connextion</h5> Impossible de modifier le Plat  </div></>, GConf.TostInternetGonf)   
+              setLS(false)
+            }
+          });
+    }
+    const DeleteFromUpdateList = (value) =>{
+        const searchObject= ingredienListe.findIndex((article) => article.A_Code == value);
+        ingredienListe.splice(searchObject, 1);
+
+        let resteArticles = ingredienListe;
+        let tot = MakeSum()
+        setIngredientListe(resteArticles)
+
+        setArticleD({...articleD, Cout: tot})
+
+
+    }
+    const CalculateNewPrice = () =>{
+        const GetRealPrice = (CodeDuArticle) =>{
+            const searchObject = stock.find((article) => article.A_Code == CodeDuArticle);
+            if (searchObject) {
+                return(searchObject.Prix_achat);
+                
+            }else{
+                return(0);
+            }
+        }
+        let tot = 0
+        ingredienListe.map( (art) => { 
+           tot = tot +  (GetRealPrice(art.A_Code) * art.Qte)
+        })
+        return (tot)
+    }
+    const EditIngredientFunction = (event) => {
+        setLS(true)
+        axios.post(`${GConf.ApiLink}/menu/modifier/ingredient`, {
+            PID :GConf.PID,
+            CodePlat : code,
+            articleListe : ingredienListe,
+            Cout : articleD.Cout,
         }).then(function (response) {
             console.log(response.data)
             if(response.data.affectedRows) {
@@ -196,7 +257,50 @@ function PlatInfo() {
             }
           });
     }
-
+    const AddArticleToList = ()=>{
+        if (!articleNow.A_Code) {toast.error("Code à barre Invalide !", GConf.TostErrorGonf)}
+        else if (!articleNow.Name || articleNow.Name == '') {toast.error("Name Invalide !", GConf.TostErrorGonf)}
+        else if (!articleNow.Qte || articleNow.Qte == '') {toast.error("Quantite Invalide !", GConf.TostErrorGonf)}
+        else{
+            const searchObject = ingredienListe.find((article) => article.A_Code == articleNow.A_Code);
+            if (searchObject) {
+                let IndexOfArticle = ingredienListe.findIndex((article) => article.A_Code == articleNow.A_Code)
+                ingredienListe[IndexOfArticle].Qte = ingredienListe[IndexOfArticle].Qte + parseFloat(articleNow.Qte)
+                ingredienListe[IndexOfArticle].PU = ((ingredienListe[IndexOfArticle].Qte) * ingredienListe[IndexOfArticle].Prix ).toFixed(3)
+                let tot = MakeSum()
+                setArticleD({...articleD, Cout: tot })
+                
+                setArticleNow([{}])
+                setAutoFocus(false) 
+                
+                
+            } else {
+                let prix_u = (articleNow.Prix_vente * articleNow.Qte).toFixed(3)
+                let arrayToAdd = {id: ingredienListe.length + 1 , A_Code: articleNow.A_Code, Name: articleNow.Name, Prix: articleNow.Prix_achat, Qte: parseFloat(articleNow.Qte), PU: prix_u}
+                ingredienListe.push(arrayToAdd)
+                setArticleNow([])
+                let tot = MakeSum()
+                setArticleD({...articleD, Cout: tot })            
+            }
+        }
+    }
+    const GetArticleData = (value) =>{
+        const searchObject = stock.find((article) => article.A_Code == value);
+        if (searchObject) {
+            setArticleNow(searchObject);
+            setAutoFocus(true)
+            
+        }else{
+            toast.error('Article Indéfine ', GConf.TostSuucessGonf)
+        }
+    }
+    const MakeSum = () => {
+        let tot = 0
+        ingredienListe.map( (art) => { 
+           tot = tot +  (art.Prix * art.Qte)
+        })
+        return (tot)
+    }
     const DeleteArticle = () =>{
         setLS(true)
         axios.post(`${GConf.ApiLink}/menu/supprimer`, {
@@ -228,6 +332,7 @@ function PlatInfo() {
         }  
     }
     const PrintFunction = (frameId) =>{ usePrintFunction(frameId) }
+
     const GetTargetArticleQte = (value,column) =>{
         const JsValue = JSON.parse(value)
         const searchObject= JsValue.find((article) => article.P_Code == code);
@@ -282,7 +387,11 @@ function PlatInfo() {
         setDisplayedImage(URL.createObjectURL(e.target.files[0]))
         setUploadImages(e.target.files[0])
     }
-   
+    const OnKeyPressFunc = (e) => {
+        if (!((e.charCode >= 65 && e.charCode <= 90) || (e.charCode >= 97 && e.charCode <= 122) || (e.charCode >= 48 && e.charCode <= 57) || e.charCode == 42 || e.charCode == 32 || e.charCode == 47 )) {
+            e.preventDefault();
+        }   
+    }
    /*#########################[Card]##################################*/
     const PlatCard = (props) =>{
         const ReptureState = () =>{
@@ -393,14 +502,50 @@ function PlatInfo() {
         </>)
     }
     const IngredientCard = () =>{
+        const PriceUpdateCard = () =>{
+            return(<>
+                <div className='bg-danger text-white card-body mb-1 border-div'>
+                    <div className='row'>
+                        <div className='col-8'>
+                            <span className='bi bi-exclamation-triangle-fill text-warning bi-sm me-2'></span>  
+                            Le Cout de plat a éte augmenteé !!
+                        </div>
+                        <div className='col-4'></div>
+                    </div>
+                </div> 
+            </>)
+        }
         return(<>
-                <h5>Entrez les ingredient de ce plat </h5>
+                <h5 className='mb-1'>Entrez les ingredient de ce plat </h5>
+                {articleD.Cout < CalculateNewPrice() ? <PriceUpdateCard /> : '' }
                 <div className='row mb-2 '>
                     <div className='col-6 '>
-                        Input
+                        <h5>Ajouter article</h5> 
+                        <datalist id="articlesList">
+                                {stock.map((test) =>
+                                <option key={test.key} value={test.A_Code}>{test.Name}</option>
+                                )}
+                        </datalist>
+                        <Input icon='pin' list="articlesList" placeholder='Entre aarticle'  onBlur={ (e) => GetArticleData(e.target.value)} size="small" iconPosition='left'   fluid className='mb-1' /> 
+                        <div className='m-2 text-secondary'><b> <span className='bi bi-upc '></span> Code a barre : {articleNow.A_Code} </b></div>
+                        <div className='m-2 text-danger'><b><span className='bi bi-star-fill '></span> Nom : {articleNow.Name} </b></div> 
+                        <div className='row'>
+                            <div className='col-6'>
+                            <div className='m-2 mb-4 text-success'><b><span className='bi bi-currency-dollar '></span> Prix : {articleNow.Prix_vente} </b></div> {/* <Input icon='dollar sign' value={articleNow.Prix_vente} size="small" iconPosition='left' placeholder='Prix'  fluid className='mb-1' /> */}
+                            </div>
+                        </div>
+                        <Input icon='dropbox' type='number' value={articleNow.Qte} autoFocus={autofocusState} onChange={ (e) => {articleNow.Qte = e.target.value}} size="small" iconPosition='left' placeholder='Quantite'  fluid className='mb-1' /> 
+                        
+                        <br />
+                        <Button disabled={saveBtnState} className='rounded-pill bg-system-btn' onClick={AddArticleToList}>  <Icon name='edit outline' /> Ajouter</Button>
+                
                     </div>
                     <div className='col-6 '>
-                        Liste
+                            <ul>
+                                {ingredienListe.map( (val,index) => <li key={index} >{val.Qte} x {val.Name} = {(val.Prix * val.Qte).toFixed(3)} (<span className='bi bi-trash3-fill bi-xlsm text-danger' onClick={() => DeleteFromUpdateList(val.A_Code)}></span>)</li>)}
+                            </ul>
+                            <br />
+                            <Button onClick={EditIngredientFunction} className='text-end rounded-pill bg-system-btn' positive>  <Icon name='edit' /> Modifier <Loader inverted active={loaderState} inline size='tiny' className='ms-2 text-danger'/></Button>
                     </div>
                 </div> 
         </>)

@@ -22,7 +22,7 @@ const AddCard = ({teamListe, presenceD , setPresenceData , Ajouter }) =>{
                 <option key={index} value={team.T_ID}>{team.T_Name} - {team.Poste}</option>
                 )}
             </datalist>
-            <Input icon='users' list="teamListe"  onChange={ (e) => setPresenceData({...presenceD, Team_ID:e.target.value})} size="small" iconPosition='left' placeholder={presenceD.Team_ID}  fluid className='mb-1 shadow-sm' /> 
+            <Input icon='users'  placeholder='Enter Membre' list="teamListe"  onChange={ (e) => setPresenceData({...presenceD, Team_ID:e.target.value})} size="small" iconPosition='left' value={presenceD.Team_ID}  fluid className='mb-1 shadow-sm' /> 
             
             <h5>Montant </h5> 
             <Input icon='asl' type='date'      onChange={ (e) => setPresenceData({...presenceD, PR_Date: e.target.value})} defaultValue={presenceD.PR_Date} size="small" iconPosition='left' placeholder='Valeur'  fluid className='mb-1 shadow-sm' />

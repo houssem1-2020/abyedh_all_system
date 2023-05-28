@@ -100,7 +100,7 @@ function FacturePage() {
             <h4 style={{color : GConf.themeColor}}> <spn className={`bi bi-${props.icon} me-1 `}></spn>{props.text}</h4>
           </NavLink>
         </>) 
-     }
+    }
 
     return (<>
         <Fade>

@@ -148,8 +148,8 @@ function CaisseSimple() {
     //const socket = io.connect(GConf.ApiLinkSoket);
     const inputRef = useRef(null);
     const Today = new Date()
-    let Offline = JSON.parse(localStorage.getItem(`Magazin_Caisse_Offline`));
-    let caisseData = JSON.parse(localStorage.getItem(`Magazin_Caisse_LocalD`));
+    let Offline = OneGConf.oneOffline
+    let Offline = OneGConf.forPID
     const CaisseID = caisseData.C_ID;
     const [qrData, setQRData] = useState("Not Found")
     //const [stopStream, setStopStram] = useState(false)

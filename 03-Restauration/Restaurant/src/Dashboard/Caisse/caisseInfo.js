@@ -17,25 +17,25 @@ import { toast } from 'react-toastify';
 import useSaveNotification from '../../AssetsM/Hooks/saveNotifFunction';
 import { useNavigate} from 'react-router-dom';
 
-const EditCamionCard = ({camionD, setCamionD, EditCamion, GenrateKey, loaderState}) =>{
+const EditCamionCard = ({camionD, setCamionD, OnKeyPressFunc, EditCamion, GenrateKey, loaderState}) =>{
     return(<>
 
             <div className='p-1  mb-2'>
             <h5 className='mb-1'>Nom:</h5>
-                 <Input icon='truck' iconPosition='left' placeholder='Nom' className='w-100 border-0 shadow-sm rounded mb-1' value={camionD.CA_Name} onChange={(e) => setCamionD({...camionD, CA_Name: e.target.value })} />
+                 <Input icon='truck' iconPosition='left' onKeyPress={event => OnKeyPressFunc(event)} placeholder='Nom' className='w-100 border-0 shadow-sm rounded mb-1' value={camionD.CA_Name} onChange={(e) => setCamionD({...camionD, CA_Name: e.target.value })} />
             </div>
             <div className='p-1 mb-2'>
                 <h5 className='mb-1'> Fond:</h5>
-                <Input icon='user' iconPosition='left' placeholder='Chauffeur' className='w-100 border-0 shadow-sm rounded mb-1' value={camionD.Caisse_Fond} onChange={(e) => setCamionD({...camionD, Caisse_Fond: e.target.value })}/>
+                <Input icon='user' iconPosition='left' onKeyPress={event => OnKeyPressFunc(event)} placeholder='Chauffeur' className='w-100 border-0 shadow-sm rounded mb-1' value={camionD.Caisse_Fond} onChange={(e) => setCamionD({...camionD, Caisse_Fond: e.target.value })}/>
             </div>
             <div className='row mb-3'>
                     <div className='col-12 col-lg-6'>
                         <h5 className='mb-1'>Identifiant:</h5>
-                        <Input icon='linkify' iconPosition='left' placeholder='identifiant'  className='w-100 border-0 shadow-sm rounded mb-3' value={camionD.Identifiant} onChange={(e) => setCamionD({...camionD, Identifiant: e.target.value })} />
+                        <Input icon='linkify' iconPosition='left' onKeyPress={event => OnKeyPressFunc(event)} placeholder='identifiant'  className='w-100 border-0 shadow-sm rounded mb-3' value={camionD.Identifiant} onChange={(e) => setCamionD({...camionD, Identifiant: e.target.value })} />
                     </div>
                     <div className='col-9 col-lg-5'>
                         <h5 className='mb-1'>Mot De Pass: </h5>
-                        <Input icon='eye' iconPosition='left' placeholder='Nom' className='w-100 border-0 shadow-sm rounded mb-3' value={camionD.Password} onChange={(e) => setCamionD({...camionD, Password: e.target.value })}/>
+                        <Input icon='eye' iconPosition='left' placeholder='Nom' onKeyPress={event => OnKeyPressFunc(event)} className='w-100 border-0 shadow-sm rounded mb-3' value={camionD.Password} onChange={(e) => setCamionD({...camionD, Password: e.target.value })}/>
                     </div>
                     <div className='col-3 col-lg-1 align-self-center'>
                         <Button onClick={GenrateKey} className="rounded-pill " icon='random'></Button>
@@ -72,7 +72,7 @@ function CamionInfo() {
         },
         {
             menuItem: { key: 'editClient', icon: 'edit outline', content: 'Modifier' }, 
-            render: () => <><Tab.Pane className='border-div' attached={false}><EditCamionCard camionD={camionData}  setCamionD={setCamionD} GenrateKey={GenrateKey} EditCamion={EditCamion} loaderState={loaderState} /></Tab.Pane><br /></>,
+            render: () => <><Tab.Pane className='border-div' attached={false}><EditCamionCard OnKeyPressFunc={OnKeyPressFunc} camionD={camionData}  setCamionD={setCamionD} GenrateKey={GenrateKey} EditCamion={EditCamion} loaderState={loaderState} /></Tab.Pane><br /></>,
         },
         {
             menuItem: { key: 'delete', icon: 'trash alternate', content: 'Supprimer' }, 
@@ -210,6 +210,11 @@ function CamionInfo() {
             tot = tot + data[3]
         })
         return tot.toFixed(3)
+    }
+    const OnKeyPressFunc = (e) => {
+        if (!((e.charCode >= 65 && e.charCode <= 90) || (e.charCode >= 97 && e.charCode <= 122) || (e.charCode >= 48 && e.charCode <= 57) || e.charCode == 42 || e.charCode == 32 || e.charCode == 47 )) {
+            e.preventDefault();
+        }   
     }
     /* ############################### Card ################################*/
     const SDCF = (props)=>{

@@ -108,7 +108,7 @@ input[type="number"]:focus,
 .border-div{ border-radius: 10px !important; }
 
 /*map-height*/
-.map-height { height: 250px !important; }
+.map-height { height: 350px !important; }
 .map-height-lg { height: 440px !important;}
 .map-height-md { height: 900px !important; }
 .bg-system-btn{ background-color: var(--main-bg-color) !important; color: white !important; }
@@ -173,3 +173,4 @@ input[type="number"]:focus,
 .rounded-bottom-card{ border-radius: 40px 40px 0 0 ;}
 .border-ready{border-right: 3px solid #dc3545 !important;}
 Input{text-align: right !important;}
+.cursor-map-crosshair {cursor: crosshair !important;}

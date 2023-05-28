@@ -16,9 +16,9 @@ const GConf = {
 
     // main variables
     PID: GetPID(),
-    ApiLink : 'https://api.system.abyedh.tn/apiSystemAbyedh/restaurant', //https://api.system.abyedh.tn/apiSystemAbyedh/System 
-    ApiRouterOneLink : 'https://api.system.abyedh.tn/apiSystemAbyedh/restaurant-caisse', //https://api.system.abyedh.tn/apiSystemAbyedh/System 
-    ApiRouterTwoLink : 'https://api.system.abyedh.tn/apiSystemAbyedh/restaurant-caisse', //https://api.system.abyedh.tn/apiSystemAbyedh/System 
+    ApiLink : 'http://localhost:3010/restaurant', //https://api.system.abyedh.tn/apiSystemAbyedh/System 
+    ApiRouterOneLink : 'http://localhost:3010/restaurant-caisse', //https://api.system.abyedh.tn/apiSystemAbyedh/System 
+    ApiRouterTwoLink : 'http://localhost:3010/restaurant-caisse', //https://api.system.abyedh.tn/apiSystemAbyedh/System 
     DefaultTva: 0,
     themeColor : '#35ac67',
     themeColorLigth : '#b8cbd4',
@@ -81,6 +81,19 @@ const GConf = {
         progress: undefined,
         onClick : () => window.location.href = "/S/Parametre/paymment",
         theme: "light"
+    },
+    TostEmptyListe : {
+        position: "bottom-center",
+        autoClose: 6000,
+        //autoClose: false,
+        hideProgressBar: true,
+        closeOnClick: true,
+        closeButton: false,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        //theme: "colored"
+        style: { background: '#35ac67'},
     },
 
     //leafLeft
@@ -364,7 +377,7 @@ const GConf = {
         request:['*','ID','Client', 'Date','Table','Etat','X','Voir'],
         reservation:['*','ID','Client', 'Passé le','Volu le','Etat','X','Voir'],
         menu:['*','Code', 'Nom', 'Genre','Cout','P.vente','X','Voir'],
-        stock:['*','Code', 'Nom', 'Genre','Stock','P.achat', 'X','Voir'],
+        stock:['*','Code', 'Nom', 'Genre','Stock','P.achat','Voir'],
         camion:['*','Camion','Matricule', 'Chauffeur','Fond','Recette','X','Voir'],
         camionStock:['Code', 'Nom', 'Genre','Stock','Prix','Voir'],
         camionFacture:['ID','Client','Jour','Totale','Voir'],

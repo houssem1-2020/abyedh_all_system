@@ -11,6 +11,7 @@ import TableImage from '../../AssetsM/Cards/tableImg';
 import { Button , Divider, Icon, Modal, Statistic} from 'semantic-ui-react';
 import { useNavigate} from 'react-router-dom';
 import { toast } from 'react-toastify';
+import { NavLink } from 'react-router-dom';
 
 function CaissePage() {
   /*#########################[Const]##################################*/
@@ -86,18 +87,50 @@ function CaissePage() {
       </>)
   }
 
+  const MainSubNavCard = (props) =>{
+      return(<>
+        <NavLink exact='true' target='c_blank' to={`/S/${props.link}`} className='card card-body mb-1 rounded-pill shadow-sm d-inline-block ' >
+          <h4 style={{color : GConf.themeColor}}> <spn className={`bi bi-${props.icon} me-1 `}></spn>{props.text}</h4>
+        </NavLink>
+      </>) 
+  }
+
+  const EmptyListeCard = () =>{
+      return(<>
+          <div className='text-center mt-5'>
+              <span className='bi bi-window-plus bi-xlg system-color'></span> 
+              <h4>
+                <NavLink exact='true'   to={`/S/ca/ajouter-c`}   >
+                  Ajouter des Caisse Ici
+                </NavLink>
+              </h4>
+          </div>  
+      </>)
+  }
+
   return ( <>
-          <Fade>
-            <SubNav dataForNav={GConf.SubNavs.camion} />
+          
+            
+            <div className='row'>
+                <div className='col-12 col-lg-8'><SubNav dataForNav={GConf.SubNavs.camion} /></div>
+                <div className='col-12 col-lg-4 text-end align-self-center'><MainSubNavCard text='Interface Caisse' link='../C' icon='window-dock' />  </div>
+            </div>
+            <Fade>
               <br />
               {/* <TableGrid tableData={camionList} columns={GConf.TableHead.camion} /> */}
-              {
-                loadingPage ? 
-                  <div className='row'>
-                    {
-                      camionList.map( (data,index) => <CamionCard key={index}  data={data} />)
+              {loadingPage ? 
+                <>
+                    {camionList.length == 0 ? 
+                      <EmptyListeCard />
+                      :
+                      <div className='row'>
+                        {
+                          camionList.map( (data,index) => <CamionCard key={index}  data={data} />)
+                        }
+                      </div>
                     }
-                  </div>
+                </>
+                  
                 :
                 <>Loading</>
               }
@@ -115,15 +148,15 @@ function CaissePage() {
                         <tbody>
                             <tr>
                                 <td>ID : </td> 
-                                <td>{selectedArticle.Cam_ID}</td> 
+                                <td>{selectedArticle.C_ID}</td> 
                             </tr>
                             <tr>
-                                <td>Matricule : </td> 
-                                <td>{selectedArticle.Matricule}</td> 
+                                <td>Fond : </td> 
+                                <td>{selectedArticle.Caisse_Fond}</td> 
                             </tr>
                             <tr>
-                                <td>CHauffeur : </td> 
-                                <td>{selectedArticle.Chauffeur}</td> 
+                                <td>Caissier : </td> 
+                                <td>{selectedArticle.User_ID}</td> 
                             </tr>
                             <tr>
                                 <td>Identifiant : </td> 
@@ -131,14 +164,14 @@ function CaissePage() {
                             </tr>
                             <tr>
                                 <td>Mot de passe  :</td> 
-                                <td>{selectedArticle.Pasword}</td> 
+                                <td>{selectedArticle.Password}</td> 
                             </tr>
                           </tbody>
                       </table> 
               </Modal.Content>
               <Modal.Actions>
                           <Button className='rounded-pill' negative onClick={ () => setModalS(false)}> <span className='bi bi-x' ></span> Fermer</Button>
-                          <Button className='rounded-pill bg-system-btn'   onClick={ (e) => NavigateFunction(`/S/cm/info/${selectedArticle.Cam_ID}`)}><span className='d-none d-lg-inline'> Info </span><Icon  name='angle right' /></Button>
+                          <Button className='rounded-pill bg-system-btn'   onClick={ (e) => NavigateFunction(`/S/ca/info/${selectedArticle.C_ID}`)}><span className='d-none d-lg-inline'> Info </span><Icon  name='angle right' /></Button>
               </Modal.Actions>
       </Modal>
     </> );

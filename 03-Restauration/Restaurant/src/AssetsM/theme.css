@@ -48,12 +48,14 @@ a { text-decoration: none !important; }
 /*LogIn*/
 .login-caontainer { padding-top: 40px; }
 .w-login-input{ width: 60%; }
-@media only screen and (max-width: 768px) { .w-login-input{ width: 100%; } }
+.small-img-screen {width: 100% !important; height: '100px' !important; }
+@media only screen and (max-width: 768px) { .w-login-input{ width: 100%; } .small-img-screen {width: 100% !important; height: '170px' !important; } }
 
 /*navbar images*/
 .navBar-img { border-radius: 20px !important; }
 
 /*bootsrap icons*/
+.bi-xlsm { font-size: 13px; }
 .bi-xsm { font-size: 17px; }
 .bi-sm { font-size: 20px; }
 .bi-lg { font-size: 50px; }
@@ -92,6 +94,8 @@ input[type="number"]:focus,
 .abyedh-list-a-s { border-bottom: 2px solid var(--main-bg-color) !important; border-radius: 3px 3px 0px 0px !important; color: var(--main-bg-color) !important; font-weight: bold;}
 /* .abyedh-list-a { border-bottom: 3px solid var(--main-bg-color) !important; background-color: #dedfdf !important; border-radius: 7px 7px 0px 0px !important;  color: rgb(41, 41, 41) !important; font-size: 15px;} */
 .abyedh-list-a {background-color: var(--main-bg-color) !important; border-radius: 10px 10px 10px 10px !important;  color: #ffffff !important; font-size: 15px; font-weight: bold;}
+/* .abyedh-list-a {border-bottom: 3px solid var(--main-bg-color) !important;    color: var(--main-bg-color) !important; font-size: 15px; font-weight: bold;} */
+/* .pb-main-tab {padding-bottom: 18px !important;} */
 .btn-system { border-radius: 5px !important; margin-right: 10px; }
 .system-color { color: var(--main-bg-color) !important;  }
 .start-page-loader { z-index: 1101; position: fixed !important; top: 50% !important; left: 50% !important; }
@@ -231,10 +235,14 @@ input[type="number"]:focus,
   display: none !important;
 }
 .activeDocItem {
-  border-left: 3px solid var(--main-bg-color);
+  border-right: 3px solid var(--main-bg-color);
 }
 
 .bg-dark-theme-1{background-color: #242526 !important; }
 .bg-dark-theme-2{background-color: #18191a !important;}
 .bg-dark-theme-3{background-color: #3e4042 !important;}
 .bg-dark-theme-4{background-color: #5d5d5e !important;}
+.bg-gray {background-color: #dbdad7 !important;}
+.setting-input-text input {
+  text-align: right !important;
+}

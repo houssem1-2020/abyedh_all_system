@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { Bounce } from 'react-reveal';
-import { Tab, Divider, Icon, Statistic, Comment, Input, Button, Form, TextArea, Select, Loader, Dropdown, Checkbox} from 'semantic-ui-react';
+import { Tab, Divider, Icon, Statistic, Comment, Input, Button, Form, TextArea, Select, Loader, Dropdown, Checkbox, Label, Menu} from 'semantic-ui-react';
 import QRCode from "react-qr-code";
 import { Rating } from 'semantic-ui-react'
 import GConf from '../../AssetsM/generalConf';
@@ -14,6 +14,10 @@ import AvatarGroup from '@atlaskit/avatar-group';
 import FrameForPrint from '../../AssetsM/Cards/frameForPrint';
 import usePrintFunction from '../../AssetsM/Hooks/printFunction';
 import TunMap from '../../AssetsM/tunMap';
+import "react-responsive-carousel/lib/styles/carousel.min.css"; // requires a loader
+import { Carousel } from 'react-responsive-carousel';
+import FullCalendar from '@fullcalendar/react' // must go before plugins
+import timeGridPlugin from '@fullcalendar/timegrid';
 
 const EditProfile = ({generalData, setGeneralData, UpdateGeneralDataFunc, delegList,GetDelegList,loaderState}) =>{
     const genreOptions = [
@@ -127,15 +131,33 @@ function ProfilePage() {
         },
         {
             menuItem: { key: 'rate', icon: 'star', content: 'Evaluation' }, 
-            render: () => <><RatingProfile /><CommentsProfile /></>,
+            render: () => <><Tab.Pane className='border-div p-4' attached={false}><Tab menu={{ secondary: true, className: 'tab-right'}}  panes={RatingPanes} /></Tab.Pane><br /></>,
         }, 
         {
             menuItem: { key: 'print', icon: 'print', content: 'Imprimer' }, 
             render: () => <><Tab.Pane className='border-div' attached={false}><PrintProfile /></Tab.Pane><br /></>,
         },
     ]
-
-
+    const horairePanes = [
+        {
+          menuItem: { key: 'users', icon: 'edit', content: 'Entrer' }, 
+          render: () => <InputHoraireCard />,
+        },
+        {
+          menuItem: { key: 'calendar', icon: 'calendar', content:  'Calendrier', },  
+          render: () => <AcutelCalendarCard />,
+        },
+      ]
+    const RatingPanes = [
+        {
+          menuItem: { key: 'calendar', icon: 'star', content:  'Avis ', },  
+          render: () => <RatingProfile />,
+        },
+        {
+            menuItem: { key: 'users', icon: 'comment', content: 'Commentaire ' }, 
+            render: () => <CommentsProfile />,
+          },
+      ] 
     /*###############################[UseEffect]################################# */
     useEffect(() => {
         
@@ -144,11 +166,11 @@ function ProfilePage() {
             PID: GConf.PID,
         })
         .then(function (response) {
-            console.log(response.data)
             setGeneralData(response.data.general[0])
             setProfileData(response.data)
             setPasswordData(response.data.password[0]) 
             setImagesListe(response.data.images)
+
             if (response.data.horaire[0]) { setAlwaysState(response.data.horaire[0].ALL_Time) } else { }
             if (response.data.horaire[0]) { setHoraireData(JSON.parse(response.data.horaire[0].WorkingTime)) } else { } 
             setLoading(true)
@@ -218,6 +240,8 @@ function ProfilePage() {
         }
     }
 
+
+
     /* Rating */
     const CalculateRating = (table) =>{
         let tot = 0;
@@ -240,8 +264,12 @@ function ProfilePage() {
     }
     const CalculateReview = (table, value ) =>{
         let filteredArray = table.filter(obj => parseInt(obj.Rating) == value );
-
-        return(parseInt((filteredArray.length / table.length) * 100 ) )
+        if (filteredArray != 0) {
+            return(parseInt((filteredArray.length / table.length) * 100 ) )
+        } else {
+            return 0
+        }
+        
     }
     const ReturnAvatarGroupList = (list) =>{
         let FinalList = []
@@ -378,14 +406,39 @@ function ProfilePage() {
         }
     }
 
-
     /*Horiare */
 
-
-
-
-
     /*###############################[Card]################################# */
+    const PrintProfile = () =>{ 
+        return(<>
+            <div className="d-flex">
+                <div className="flex-shrink-0">
+                <QRCode value={GConf.PID} size={130} />
+                </div>
+                <div className="flex-grow-1 ms-3">
+                        <h1> {GConf.PID} </h1>
+                        Cet identifiant vous distinguera des autres inscrits sur la plateforme. Cela peut aussi être un court moyen de faire de la publicité pour vous
+                        <div>
+                        <Button size='mini' className='rounded-pill' onClick={() => navigator.clipboard.writeText(localStorage.getItem('PID'))}><Icon name='copy'  /> Copier PID</Button>
+                        </div>
+                        
+                </div>
+            </div>
+            <Divider />
+            <div className="d-flex">
+                <div className="flex-shrink-0">
+                <QRCode value={`S/P/${GConf.systemTag}/${GConf.PID}`} size={130} />
+                </div>
+                <div className="flex-grow-1 ms-3">
+                    Imprimez ce lien qui peut être accroché à la porte de votre magasin afin que vos clients puissent vous joindre facilement, et il peut également être partagé directement sur les réseaux sociaux
+                    <div className='mt-2'>
+                        <Button size='mini' positive onClick={(e) => PrintFunction('printPID')}> <Icon name='print'  />Imprimer</Button>
+                        <Button size='mini' primary target="_blank" href={`https://www.facebook.com/sharer/sharer.php?u=https://abyedh.tn/S/P/${GConf.systemTag}/${GConf.PID}`} >  <Icon name='facebook f' /> Partager </Button>
+                    </div>
+                </div>
+            </div>
+        </>)
+    }
     const ProfileCard = () =>{
         return(<>
             <div className="card card-body shadow-sm mb-4 sticky-top border-div" style={{top:'70px'}}>
@@ -440,32 +493,6 @@ function ProfilePage() {
 						</a>
 					</div>
 	            </div>
-            </div>
-        </>)
-    }
-    const PrintProfile = () =>{ 
-        return(<>
-            <div className="d-flex">
-                <div className="flex-shrink-0">
-                <QRCode value={GConf.PID} size={130} />
-                </div>
-                <div className="flex-grow-1 ms-3">
-                        <h1> {GConf.PID} </h1>
-                        Cet identifiant vous distinguera des autres inscrits sur la plateforme. Cela peut aussi être un court moyen de faire de la publicité pour vous
-                </div>
-            </div>
-            <Divider />
-            <div className="d-flex">
-                <div className="flex-shrink-0">
-                <QRCode value={`c=docteur&PID=${GConf.PID}`} size={130} />
-                </div>
-                <div className="flex-grow-1 ms-3">
-                    Imprimez ce lien qui peut être accroché à la porte de votre magasin afin que vos clients puissent vous joindre facilement, et il peut également être partagé directement sur les réseaux sociaux
-                    <div className='mt-2'>
-                        <Button size='mini' positive onClick={(e) => PrintFunction('printPID')}> <Icon name='print'  />Imprimer</Button>
-                        <Button size='mini' primary target="_blank" href={`https://www.facebook.com/sharer/sharer.php?u=https://abyedh.tn/S/P/${GConf.systemTag}/${GConf.PID}`} >  <Icon name='facebook f' /> Partager </Button>
-                    </div>
-                </div>
             </div>
         </>)
     }
@@ -613,10 +640,27 @@ function ProfilePage() {
                 </div>
             </>)
         }
+        const PasDeResultat = () =>{
+            return(<>
+                <div className='text-center'>
+                        <h3>
+                            <span className='bi bi-exclamation-triangle-fill text-info bi-md'></span> 
+                            Vous n'avait pas d'images
+                        </h3>
+                        <label onChange={handleFileSelect} htmlFor="formId"   className='text-info' role="button">
+                                <Input type='file' hidden name="Images" id="formId" multiple />
+                                <img src='https://assets.ansl.tn/Images/usful/uploadImage.jpg' width='100%'  height='150px' />
+                        </label>
+                        <h3>
+                            Cliquer Pour Charger des Imgaes 
+                        </h3>
+                </div>
+            </>)
+        }
         return(<>
             {imagesListe.length == 0 ?
                 <>
-                    <UploadImageCard title='Image de Profile' tag='profile' /> 
+                    {/* <UploadImageCard title='Image de Profile' tag='profile' />  */}
                     <br />
                     <div className='row'>
                             {todisplayedImage.length != '0' ? 
@@ -626,13 +670,28 @@ function ProfilePage() {
                                             <img src={URL.createObjectURL(todisplayedImage[index])} className='border border-2 rounded shadow-sm' width='200px' height='90px'  />
                                         </div>
                                 )}
+                                
+                                <br />
+                                <div className='text-end'>
+                                    <Button   className='rounded-pill bg-system-btn' size='tiny' onClick={() => UpdateImageFuncMultiple(formaDataArr)} ><Icon name='save' /> Enregistreé <Loader inverted active={loaderState} inline size='tiny' className='ms-2 text-danger'/></Button>
+                                </div>
+
                             </>   
-                            : 'PaS d\'image'}
+                            : 
+                            <PasDeResultat />}
                     </div>
                 </>
                 :
                 <>
-                    {imagesListe.map((data,index) => <DisplayImageCard key={index} imageLink={data.ImageLink} />)}
+                    <Carousel>
+                        {imagesListe.map((data,index) => 
+                                <div key={index}>
+                                    <img src={`https://cdn.abyedh.tn/images/Directory/${data.ImageLink}`} />
+                                    <p className="legend"><Button onClick={() => RemoveImageFunc(data.ImageLink)}>Supprimer</Button></p>
+                                </div>
+                        )}
+                    </Carousel>
+                    {/* {imagesListe.map((data,index) => <DisplayImageCard key={index} imageLink={data.ImageLink} />)} */}
                 </>  
             }
                 
@@ -653,9 +712,9 @@ function ProfilePage() {
             </>)
         }
         return (<>
-            <div className='card card-body shadow-sm border-div mb-2 text-center'>
+            {/* <div className='card card-body shadow-sm border-div mb-2 text-center'> */}
                 <h5 className='text-start'>Avis</h5>
-                <div className='row'>
+                <div className='row text-center'>
                     <div className='col-4 align-self-center'>
                         <h1 className='text-warning'>{loading ? <> {CalculateRating(profileData.review)}</>: 0 }</h1>
                         <Rating className='d-inline' maxRating={5} defaultRating={loading ? CalculateRating(profileData.review) : 0 } icon='star' disabled size='massive' />
@@ -668,8 +727,21 @@ function ProfilePage() {
                         <RatingBar name={4} value={loading ? CalculateReview(profileData.review, 4) : 0 } />
                         <RatingBar name={5} value={loading ? CalculateReview(profileData.review, 5) : 0 } />
                     </div>
-                </div>                
-            </div>
+                </div> 
+                <hr />
+                <h5>J'aimes</h5>
+                {/* <div style={{height:'200px', overflowX:'auto', overflowX:'hidden'}}> */}
+                        {/* <h2 className='text-center'>{profileData.likes ? profileData.likes.length : '...'}</h2>  */}
+                        <AvatarGroup className='text-center' size="large" maxCount={12} data={ReturnAvatarGroupList(profileData.likes)}   borderColor="#cfcecc" />
+                        {/* { loading ?
+                        
+                            profileData.likes.map( (data,index) => <a href='https://www.abyedh.tn' key={index}>{data.Name}</a>)
+
+                        : 'fa'
+                        } */}
+                        
+                {/* </div>                */}
+            {/* </div> */}
         </>)
     }
     const CommentsProfile = () =>{
@@ -694,65 +766,47 @@ function ProfilePage() {
         return(<>
         
                 <div className='row '>
-                    <div className='col-9 pe-1'>
-                        <div className='card card-body shadow-sm mb-2 border-div'>
-                        <h5>Commentaires</h5> 
-                        <div style={{height:'200px', overflowX:'auto', overflowX:'hidden'}}>
-                            { loading ?
-                                <Comment.Group>
-                                { profileData.review.map( (data,index) =>  <CommentsCard key={index} data={data} /> )}
-                                </Comment.Group>
-                                : '...'
-                            }    
-                        </div>  
+                    <div className='col-12 pe-1'>
+                            <h5>Commentaires</h5> 
+                            <div style={{height:'200px', overflowX:'auto', overflowX:'hidden'}}>
+                                { loading ?
+                                    <Comment.Group>
+                                    { profileData.review.map( (data,index) =>  <CommentsCard key={index} data={data} /> )}
+                                    </Comment.Group>
+                                    : '...'
+                                }    
+                            </div>  
+                    </div>
+                </div>
+        </>)
+    }
+    const DayHoraire = (props) =>{
+        return(<>
+                <div className='row'>
+                    <div  className='col-1 align-self-center'>
+                        <b>{props.data.day}</b>
+                    </div>
+                    <div  className='col-5'>
+                        <div className='row'>
+                            <div className='col-6'><Input icon='calendar alternate' type='time' size="mini" iconPosition='left' disabled={JSON.parse(props.data.dayOff)}  fluid className='mb-1' value={props.data.matin.start}/></div>
+                            <div className='col-6'><Input icon='calendar alternate' type='time' size="mini" iconPosition='left' disabled={JSON.parse(props.data.dayOff)}  fluid className='mb-1' value={props.data.matin.end}/></div>
                         </div>
                     </div>
-                    <div className='col-3 ps-1'>
-                        <div className='card card-body shadow-sm mb-2 border-div'>
-                            <h5>J'aimes</h5>
-                            <div style={{height:'200px', overflowX:'auto', overflowX:'hidden'}}>
-                                    <h2 className='text-center'>{profileData.likes ? profileData.likes.length : '...'}</h2> 
-                                    <AvatarGroup className='text-center' appearance="grid" maxCount={12} data={ReturnAvatarGroupList(profileData.likes)} size='small' borderColor="#cfcecc" />
-                                    {/* { loading ?
-                                    
-                                        profileData.likes.map( (data,index) => <a href='https://www.abyedh.tn' key={index}>{data.Name}</a>)
-
-                                    : 'fa'
-                                    } */}
-                                    
-                            </div>
+                    <div  className='col-5'>
+                        <div className='row'>
+                            <div className='col-6'><Input icon='calendar alternate' type='time' size="mini" iconPosition='left' disabled={JSON.parse(props.data.dayOff)}  fluid className='mb-1' value={props.data.soir.start}/></div>
+                            <div className='col-6'><Input icon='calendar alternate' type='time' size="mini" iconPosition='left' disabled={JSON.parse(props.data.dayOff)}  fluid className='mb-1' value={props.data.soir.end}/></div>
+                        </div>
+                    </div>
+                    <div  className='col-1 align-self-center'>
+                        <div className="form-check form-switch">
+                            <input className="form-check-input form-check-input-lg" type="checkbox"  onChange={() => setAlwaysState(!props.data.dayOff)}  checked={JSON.parse(props.data.dayOff)} />
                         </div>
                     </div>
                 </div>
         </>)
     }
-    const Horaire = () =>{
-        const DayHoraire = (props) =>{
-            return(<>
-                    <div className='row'>
-                        <div  className='col-1 align-self-center'>
-                            <b>{props.data.day}</b>
-                        </div>
-                        <div  className='col-5'>
-                            <div className='row'>
-                                <div className='col-6'><Input icon='calendar alternate' type='time' size="mini" iconPosition='left' disabled={JSON.parse(props.data.dayOff)}  fluid className='mb-1' value={props.data.matin.start}/></div>
-                                <div className='col-6'><Input icon='calendar alternate' type='time' size="mini" iconPosition='left' disabled={JSON.parse(props.data.dayOff)}  fluid className='mb-1' value={props.data.matin.end}/></div>
-                            </div>
-                        </div>
-                        <div  className='col-5'>
-                            <div className='row'>
-                                <div className='col-6'><Input icon='calendar alternate' type='time' size="mini" iconPosition='left' disabled={JSON.parse(props.data.dayOff)}  fluid className='mb-1' value={props.data.soir.start}/></div>
-                                <div className='col-6'><Input icon='calendar alternate' type='time' size="mini" iconPosition='left' disabled={JSON.parse(props.data.dayOff)}  fluid className='mb-1' value={props.data.soir.end}/></div>
-                            </div>
-                        </div>
-                        <div  className='col-1 align-self-center'>
-                            <div className="form-check form-switch">
-                                <input className="form-check-input form-check-input-lg" type="checkbox"  onChange={() => setAlwaysState(!props.data.dayOff)}  checked={JSON.parse(props.data.dayOff)} />
-                            </div>
-                        </div>
-                    </div>
-            </>)
-        }
+    const InputHoraireCard = () =>{
         return(<>
             <div className='card-body '>
                 <div className='row'>
@@ -791,7 +845,30 @@ function ProfilePage() {
                         </div>
                     </div>
             </div>
-
+            </>)
+    }
+    const AcutelCalendarCard = () =>{
+        return(<>
+        <FullCalendar 
+            plugins={[ timeGridPlugin ]}
+            initialView="timeGridWeek"
+            locale='fr' 
+            dayHeaderFormat = {{weekday: 'short'}}
+            events={[
+                { title: 'S1',  start: '2022-08-18T08:00:00' , end: "2022-08-18T12:00:00", display: 'background', backgroundColor:'red'},
+                { title: 'S2', start: '2022-08-18T14:00:00', end: "2022-08-18T18:00:00", display: 'background' },
+                { title: 'S1',  start: '2022-08-18T08:00:00' , end: "2022-08-18T12:00:00", display: 'background'},
+                { title: 'S2',  start: '2022-08-18T14:00:00' , end: "2022-08-18T18:00:00", display: 'background'},
+            ]}
+            headerToolbar='false'
+            height='350px'
+            allDaySlot= {false}
+        />
+        </>)
+    }
+    const Horaire = () =>{
+        return(<>
+            <Tab menu={{ secondary: true, className: 'tab-right'}} defaultActiveIndex={1} panes={horairePanes} />
         </>)
     }
     return (<>
@@ -808,7 +885,7 @@ function ProfilePage() {
                     </div>
         </div>
         </Bounce>
-        <FrameForPrint frameId='printPID' src={`/Pr/Profile/pid`} />
+        <FrameForPrint frameId='printPID' src={`/Pr/ProfilePrint/pid`} />
     </>);
 }
 

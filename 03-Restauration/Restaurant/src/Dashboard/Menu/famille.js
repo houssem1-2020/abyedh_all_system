@@ -8,7 +8,7 @@ import {toast } from 'react-toastify';
 import SKLT from '../../AssetsM/Cards/usedSlk';
 import useSaveNotification from '../../AssetsM/Hooks/saveNotifFunction';
 
-const EditModal = ({setModalS,EditFamille,editfamilleD,setEditFamilleD,modalS}) =>{
+const EditModal = ({setModalS,EditFamille,editfamilleD,setEditFamilleD,modalS,OnKeyPressFunc}) =>{
     return(<>
             <Modal
                     size='mini'
@@ -22,10 +22,10 @@ const EditModal = ({setModalS,EditFamille,editfamilleD,setEditFamilleD,modalS}) 
                     <Modal.Content>
                             
                             <h5 className='mb-1'>Famille</h5>
-                            <Input icon='tags' iconPosition='left'  placeholder='Non de la famille' className='w-100 border-0 rounded ' value={editfamilleD.Name} onChange={(e) => setEditFamilleD({...editfamilleD, Name: e.target.value })}/>
+                            <Input icon='tags' onKeyPress={event => OnKeyPressFunc(event)} iconPosition='left'  placeholder='Non de la famille' className='w-100 border-0 rounded ' value={editfamilleD.Name} onChange={(e) => setEditFamilleD({...editfamilleD, Name: e.target.value })}/>
                             <h5 className='mb-1'>Description </h5>
                             <Form>
-                                <TextArea  rows="3" placeholder='Designer la famille '  className='w-100' value={editfamilleD.Description} onChange={(e) => setEditFamilleD({...editfamilleD, Description: e.target.value })}/>
+                                <TextArea onKeyPress={event => OnKeyPressFunc(event)} rows="3" placeholder='Designer la famille '  className='w-100' value={editfamilleD.Description} onChange={(e) => setEditFamilleD({...editfamilleD, Description: e.target.value })}/>
                             </Form>
                             <br />
                     </Modal.Content>
@@ -187,7 +187,11 @@ function FamillesPlats() {
             
         }
     }
-
+    const OnKeyPressFunc = (e) => {
+        if (!((e.charCode >= 65 && e.charCode <= 90) || (e.charCode >= 97 && e.charCode <= 122) || (e.charCode >= 48 && e.charCode <= 57) || e.charCode == 42 || e.charCode == 32 || e.charCode == 47 )) {
+            e.preventDefault();
+        }   
+    }
    /*#########################[Card]##################################*/
     const FamilleCard = (props) =>{
         return(<>
@@ -212,7 +216,14 @@ function FamillesPlats() {
                 </div>
         </>)
     }
-
+    const EmptyListeCard = () =>{
+        return(<>
+            <div className='text-center'>
+                <span className='bi bi-layout-wtf bi-xlg system-color'></span> 
+                <h4>Ajouter des Famille à droite </h4>
+            </div>  
+        </>)
+    }
 
     return ( <> 
             <BreadCrumb links={GConf.BreadCrumb.menuFamille} />
@@ -225,7 +236,13 @@ function FamillesPlats() {
                     </div>
                     {loading ?  
                     <>
-                        {displayFamille.map( (data) => <FamilleCard key={data.PK}  data={data} />)}
+                        {displayFamille.length == 0 ? 
+                        <EmptyListeCard />
+                        :
+                        <>
+                            {displayFamille.map( (data) => <FamilleCard key={data.PK}  data={data} />)}
+                        </>
+                        }
                     </>
                     : SKLT.CardList }
                 
@@ -235,10 +252,10 @@ function FamillesPlats() {
                     <div className="card card-body border-div mb-4 sticky-top" style={{top:'70px' , zIndex:'1'}}>
                         <h4>Ajouter Famille</h4>
                         <h5 className='mb-1'>Nom </h5>
-                        <Input icon='tags' iconPosition='left' value={familleD.Name} placeholder='Non de la famille' className='w-100 border-0 rounded shadow-sm' onBlur={checkFamilleExistance} onChange={(e) => setFamilleD({...familleD, Name: e.target.value })}/>
+                        <Input icon='tags' onKeyPress={event => OnKeyPressFunc(event)} iconPosition='left' value={familleD.Name} placeholder='Non de la famille' className='w-100 border-0 rounded shadow-sm' onBlur={checkFamilleExistance} onChange={(e) => setFamilleD({...familleD, Name: e.target.value })}/>
                         <h5 className='mb-1'>Description </h5>
                         <Form>
-                            <TextArea  rows="3" placeholder='Designer la famille ' value={familleD.Description} className='w-100 shadow-sm' onChange={(e) => setFamilleD({...familleD, Description: e.target.value })}/>
+                            <TextArea onKeyPress={event => OnKeyPressFunc(event)} rows="3" placeholder='Designer la famille ' value={familleD.Description} className='w-100 shadow-sm' onChange={(e) => setFamilleD({...familleD, Description: e.target.value })}/>
                         </Form>
                         <br />
                         <div className='text-end'>
@@ -248,7 +265,7 @@ function FamillesPlats() {
                 </Bounce>
                 </div>
             </div>
-            <EditModal setModalS={setModalS} EditFamille={EditFamille} editfamilleD={editfamilleD}  setEditFamilleD={setEditFamilleD} modalS={modalS} />
+            <EditModal OnKeyPressFunc={OnKeyPressFunc} setModalS={setModalS} EditFamille={EditFamille} editfamilleD={editfamilleD}  setEditFamilleD={setEditFamilleD} modalS={modalS} />
             <DeleteModal setDeleteModalS={setDeleteModalS} DeleteFamille={DeleteFamille} editfamilleD={editfamilleD}  setEditFamilleD={setEditFamilleD} deletemodalS={deletemodalS} />
         </> );
 

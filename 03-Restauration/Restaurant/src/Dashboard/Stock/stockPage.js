@@ -51,7 +51,6 @@ function StockPage() {
                   getData.Genre,
                   getData.Quantite,
                   getData.Prix_achat.toFixed(3),
-                  _( <a  className='data-link-modal'  onClick={() => openEditModal(getData,true)} ><b> <span className='bi bi-arrows-fullscreen'></span> </b></a>),
                   _(<Button className='rounded-pill bg-system-btn' size='mini' onClick={ (e) => NavigateFunction(`/S/sk/info/${getData.A_Code}`)}><span className='d-none d-lg-inline'> Info </span> </Button>),
                ],))
                setArticleList(articleListContainer) 

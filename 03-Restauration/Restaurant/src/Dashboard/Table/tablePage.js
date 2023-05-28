@@ -191,6 +191,7 @@ function CaissePage() {
     
 
   }
+
   /*#########################[Function]##################################*/
   const  TableCard = (props) =>{
       return(<>
@@ -215,6 +216,14 @@ function CaissePage() {
           </div>
       </>)
   }
+  const EmptyListeCard = () =>{
+    return(<>
+          <div className='text-center'>
+              <span className='bi bi-bounding-box-circles bi-xlg system-color'></span> 
+              <h4>Ajouter des Tables à droite </h4>
+          </div>  
+      </>)
+  }
 
   return ( <>
           
@@ -225,11 +234,18 @@ function CaissePage() {
               <div className='col-12 col-lg-8'>
                 {
                   loadingPage ? 
-                    <div className='row'>
-                      {
-                        camionList.map( (data,index) => <TableCard key={index}  data={data} />)
-                      }
-                    </div>
+                    <>
+                        {camionList.length == 0 ? 
+                        <EmptyListeCard />
+                        :
+                        <div className='row'>
+                          {
+                            camionList.map( (data,index) => <TableCard key={index}  data={data} />)
+                          }
+                        </div>
+                        }
+                    </>
+                    
                   :
                   <>Loading</>
                 }

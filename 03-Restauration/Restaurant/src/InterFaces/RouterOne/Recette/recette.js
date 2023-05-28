@@ -13,7 +13,7 @@ function Recette() {
             <br />
             <div className='container'>
                 <div className='row'>
-                    {OneGConf.recette.map( (links) => <div  key={links.id}  className='col-12 col-md-4 mb-3'><LinkCard data={links} /></div>)}
+                    {OneGConf.recette.map( (links) => <div  key={links.id}  className='col-12 col-md-6 mb-3'><LinkCard data={links} /></div>)}
                 </div>
             </div>
         </div>    

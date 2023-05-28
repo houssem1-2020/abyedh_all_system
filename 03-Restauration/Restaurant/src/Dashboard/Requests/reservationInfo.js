@@ -20,6 +20,7 @@ function RequestInfo() {
     const [loading , setLoading] = useState(false)
     const [btnState, setBtnState] = useState(false)
     const [printLink, setPrintLink] = useState(`/Pr/commande/${CID}`)
+    const [loaderState, setLS] = useState(false)
 
     /*#########################[useEffect]##################################*/ 
     useEffect(() => {
@@ -34,8 +35,8 @@ function RequestInfo() {
                     setTimeout(() => {  window.location.href = "/S/rq"; }, 2000)
                 } else {
                     setCommandeD(response.data[0])
-                    setLoading(true)  
-                    setFacturerD({client: response.data[0].Client, de:'Sidi Bourouis', vers: response.data[0].Adress, jour: response.data[0].Date_Volu, totale: response.data[0].Totale , articles:JSON.parse(response.data[0].Articles)})    
+                    setLoading(true)
+                    //setFacturerD({client: response.data[0].Client, de:'Sidi Bourouis', vers: response.data[0].Adress, jour: response.data[0].Date_Volu, totale: response.data[0].Totale , articles:JSON.parse(response.data[0].Articles)})    
                     if(response.data[0].State != 'W' && response.data[0].State != 'S'){setBtnState(true)}
                     if(response.data[0].State == 'W' ){UpdateState('S') }
                     
@@ -54,13 +55,14 @@ function RequestInfo() {
     /*#########################[Functions]##################################*/
     const PrintFunction = (frameId) =>{ usePrintFunction(frameId) }
     const UpdateState = (stateBtn) =>{
-        axios.post(`${GConf.ApiLink}/commande/controle`, {
+        axios.post(`${GConf.ApiLink}/reservation/controle`, {
             PID : GConf.PID,
             RID: CID,
             state: stateBtn
           })
           .then(function (response) {
-            setCommandeD({ ...commandeData, State: stateBtn}) 
+            //setCommandeD({ ...commandeData, State: stateBtn}) 
+            toast.success("Etat Changeé !", GConf.TostSuucessGonf)
             if(stateBtn != 'S'){setBtnState(true)}            
           }).catch((error) => {
             if(error.request) {
@@ -91,7 +93,30 @@ function RequestInfo() {
           });
         
     }
-    
+    const SaveClientFunction = () =>{
+        console.log(commandeData)
+        setLS(true)
+        axios.post(`${GConf.ApiLink}/client/ajouter`, {
+            PID : GConf.PID,
+            clientD : {CIN: '', Name:commandeData.Name, Phone:commandeData.PhoneNum , Gouv:commandeData.BirthGouv, Deleg:commandeData.BirthDeleg, Adress:'', Releted_UID:commandeData.UID},
+        }).then(function (response) {
+            if(response.data.affectedRows) {
+                //setSaveBtnState(true)
+                toast.success("Client Ajouter !", GConf.TostSuucessGonf)
+                //SaveNotification('clientAjouter',GConf.PID, clientD)
+                setLS(false)
+            }
+            else{
+                toast.error('Erreur esseyez de nouveaux', GConf.TostSuucessGonf)
+                setLS(false)
+                }
+        }).catch((error) => {
+            if(error.request) {
+              toast.error(<><div><h5>Probleme de Connextion</h5> Le client sera enregistrer sur votre ordinateur   </div></>, GConf.TostInternetGonf)   
+            }
+          });
+          
+    }
     /*#########################[Card]##################################*/
     const StateCard = ({ status }) => {
         const StateCard = (props) =>{ return <span className={`badge bg-${props.color}`}> {props.text} </span>}
@@ -101,6 +126,7 @@ function RequestInfo() {
             case 'S': return <StateCard color='info' text='Vu' />;  
             case 'A': return <StateCard color='success' text='Acepteé' /> ;
             case 'R': return <StateCard color='danger' text='Refuseé' />;
+            case 'F': return <StateCard color='secondary' text='Termineé' />;
             default:  return <StateCard color='secondary' text='Indefinie' />;    
           }
         }, [status]);
@@ -122,7 +148,7 @@ function RequestInfo() {
                         <div className='col-12 col-lg-6'> Deleg : {loading ? commandeData.BirthDeleg : ''} </div> 
                     </div> 
                     <div className='text-end'>
-                    <Button  className='rounded-pill text-secondary' size='mini'    onClick={(e) => PrintFunction('framed')}><Icon name='edit outline' /> Enregistrer Client</Button>
+                        <Button  className='rounded-pill text-secondary btn-imprimer' size='mini' disabled={commandeData.Releted_UID}   onClick={(e) => SaveClientFunction()}><Icon name='edit outline' /> Enregistrer Client</Button>
                     </div>  
                 </div>
         </>)
@@ -133,19 +159,19 @@ function RequestInfo() {
                     <h5>Controle</h5>
                     <div className='row mb-2'>
                         <div className='col-6'>
-                            <Button disabled={btnState} className='rounded-pill'  fluid onClick={ () => UpdateState('R')}><Icon name='edit outline' /> Anuulée</Button>
+                            <Button disabled={btnState} className='rounded-pill bg-danger text-white'  fluid onClick={ () => UpdateState('R')}><Icon name='delete calendar' /> Anulée</Button>
                         </div>
                         <div className='col-6'>
-                            <Button as='a' href={`/S/rq/facturer/${CID}`} animated disabled={btnState} className='rounded-pill bg-system-btn'  fluid>
-                                <Button.Content visible><Icon name='edit outline' /> Facturer </Button.Content>
+                            {/* <Button as='a' href={`/S/rq/facturer/${CID}`} animated disabled={btnState} className='rounded-pill bg-system-btn'  fluid>
+                                <Button.Content visible><Icon name='cart plus' /> Facturer </Button.Content>
                                 <Button.Content hidden>
                                     <Icon name='arrow right' />
                                 </Button.Content>
-                            </Button>
-                            {/* <Button disabled={btnState} className='rounded-pill bg-system-btn '  fluid onClick={FacturerCommande}><Icon name='edit outline' /> Facturer </Button> */}
+                            </Button> */}
+                            <Button disabled={btnState} className='rounded-pill bg-system-btn '  fluid onClick={() => UpdateState('A')}><Icon name='check circle' /> Accepter </Button>
                         </div>
                     </div>
-                    <div className='row mb-2'>
+                    <div className='row mb-2 d-none'>
                         <div className='col-12'>
                             <Button  className='rounded-pill btn-imprimer'  fluid onClick={(e) => PrintFunction('framed')}><Icon name='edit outline' /> Imprimer</Button>
                         </div>
@@ -185,13 +211,33 @@ function RequestInfo() {
                 <br />
                 <div className='card card-body bg-transparent border-div mb-3'>
                     <h5>Info Reservation</h5>
-                    <div className='row mb-2'>
-                        <div className='col-12 col-lg-6'> Nom : {loading ? commandeData.User_Name : ''} </div> 
-                        <div className='col-12 col-lg-6'> Date : {loading ? new Date(commandeData.Wanted_Date).toLocaleDateString('fr-FR').split( '/' ).reverse( ).join( '-' ) : ''} </div> 
-                        <div className='col-12 col-lg-6'> Temps : {loading ? commandeData.Wanted_Time : ''} </div> 
-                        <div className='col-12 col-lg-6'> Table : {loading ? commandeData.Table_Num : ''} </div> 
-                        <div className='col-12 col-lg-6'> Commentaire : {loading ? commandeData.Comment : ''} </div> 
-                    </div> 
+                    <div class="table-responsive">
+                        <table class="table table-striped">
+                        <tbody>
+                            <tr>
+                                <th scope="row">Nom</th>
+                                <td>{loading ? commandeData.User_Name : ''}</td>
+                            </tr>
+                            <tr>
+                                <th scope="row">Date</th>
+                                <td>{loading ? new Date(commandeData.Wanted_Date).toLocaleDateString('fr-FR').split( '/' ).reverse( ).join( '-' ) : ''}</td>
+                            </tr>
+                            <tr>
+                                <th scope="row">Temps</th>
+                                <td>{loading ? commandeData.Wanted_Time : ''}</td>
+                            </tr>
+                            <tr>
+                                <th scope="row">Table</th>
+                                <td>{loading ? commandeData.Table_Num : ''}</td>
+                            </tr>
+                            <tr>
+                                <th scope="row">Commentaire</th>
+                                <td>{loading ? commandeData.Comment : ''}</td>
+                            </tr>
+                        </tbody>
+                        </table>
+                    </div>
+                     
                 </div>
                 <br />
                 <br />

@@ -186,11 +186,35 @@ const GConf = {
             ]
         },
     ],
+    //leafLeft
+    LeafleftIcon : {
+      iconUrl: require("leaflet/dist/images/position.gif"),
+      iconRetinaUrl: require("leaflet/dist/images/position.gif"),
+      iconSize: [10,10],
+      shadowSize: [0,0],
+      shadowUrl: '',
+      shadowSize:   [0,0],
+      iconAnchor:   [0,0],
+      shadowAnchor: [0,0],
+      popupAnchor:  [0,0]
+    },
+    LeafleftIconP : {
+         iconUrl: require("leaflet/dist/images/position-personal.gif"),
+         iconRetinaUrl: require("leaflet/dist/images/position-personal.gif"),
+         iconSize: [10,10],
+         shadowSize: [0,0],
+         shadowUrl: '',
+         shadowSize:   [0,0],
+         iconAnchor:   [0,0],
+         shadowAnchor: [0,0],
+         popupAnchor:  [0,0]
+    },
     landing:{
         ptvGros:{
             colorTheme:'#6f858f',
             adsImageUrl:'storage.svg',
             systemTitle:'نظام إداراة نقاط البيع بالجملة ',
+            businesName:'الشركة ',
             systemUrl:'https://ptvgros.system.abyedh.tn/',
             adsText:'نظام إداراة نقاط البيع بالجملة يساعدك علي مراقبة و التحكم في مخزون المنتجات (stock) و متابعة فواتيرك و الإتصال بعملاءك و متابعة طلباتهم .  كما يقدم لك واجهة رسومية (caisse) لتسجيل المبيعات و طباعة الفواتير.  بالإضافة إلي مجموعة من الأدوات الإبداعية (مثل واجهة إستخراج الأسعار)  التي تساعدك علي أداء عملك بجودة أفضل',
             prosList:[
@@ -245,6 +269,7 @@ const GConf = {
             colorTheme:'#5e7968',
             adsImageUrl:'ptvente_shop.svg',
             systemTitle:'نظام إداراة نقاط  بيع التجزئة ',
+            businesName:'المغازة ',
             systemUrl:'https://magazin.system.abyedh.tn',
             adsText:'نظام إداراة المغازاة و نقاط البيع يساعدك علي مراقبة و التحكم في مخزون المنتجات (stock) و متابعة فواتيرك و الإتصال بعملاءك و متابعة طلباتهم . كما يقدم لك واجهة رسومية (caisse) لتسجيل المبيعات و طباعة الفواتير. بالإضافة إلي مجموعة من الأدوات الإبداعية (مثل واجهة إستخراج الأسعار) التي تساعدك علي أداء عملك بجودة أفضل',
             prosList:[
@@ -256,6 +281,14 @@ const GConf = {
                 {id:6, title:'ذكي', color:'#d16200', icon:'lightbulb', text:'يقوم النضام بتجهيز خوارزمية لأتمتة العمليات الروتينية و المتكررة ما يعطي النضام صفة الذكاء و أتخاذ قرارات روتينية بنائا علي سلوك المستخدم'},
         
             ],
+            imageCarousel:[
+               {id:1, title:'إدارة العامة', color:'#4287f5', icon:'link-45deg', link:'magazin/magazin1.PNG'},
+               {id:2, title:'سهل', color:'#5dd492', icon:'emoji-smile', link:'magazin/magazin2.PNG'},
+               {id:3, title:'معين', color:'#8923e8', icon:'arrows-move', link:'magazin/magazin3.PNG'},
+               {id:4, title:'متطور', color:'#5d6360', icon:'arrow-repeat', link:'magazin/magazin4.PNG'},
+               {id:5, title:' مدعوم', color:'#e6327a', icon:'info-circle-fill', link:'magazin/magazin5.PNG'},
+       
+           ],
             prices:[
                  {id:1, tag:'نسخة مفتوحة', name:'', price:'500', ready:true,
                  pos:[
@@ -569,6 +602,7 @@ const GConf = {
             colorTheme:'#6edb8d',
             adsImageUrl:'pharmacie.svg',
             systemTitle:'نظام إداراة الصيدليات ',
+            businesName:'الصيدلية ',
             systemUrl:'https://pharmacie.system.abyedh.tn',
             adsText:'نظام إداراة نقاط الصيدليات يساعدك علي مراقبة و التحكم في مخزون المنتجات (stock) و متابعة فواتيرك و الإتصال بعملاءك و متابعة طلباتهم . كما يقدم لك واجهة رسومية (caisse) لتسجيل المبيعات و طباعة الفواتير. بالإضافة إلي مجموعة من الأدوات الإبداعية (مثل واجهة إستخراج الأسعار) التي تساعدك علي أداء عملك بجودة أفضل',
             prosList:[
@@ -677,6 +711,7 @@ const GConf = {
             colorTheme:'#b146c2',
             adsImageUrl:'boutique.svg',
             systemTitle:'نظام إداراة نقاط  بيع الملابس ',
+            businesName:'المتجر ',
             systemUrl:'https://boutique.system.abyedh.tn',
             adsText:'نظام إداراة نقاط بيع الملابس  يساعدك علي مراقبة و التحكم في مخزون المنتجات (stock) و متابعة فواتيرك و الإتصال بعملاءك و متابعة طلباتهم . كما يقدم لك واجهة رسومية (caisse) لتسجيل المبيعات و طباعة الفواتير. بالإضافة إلي مجموعة من الأدوات الإبداعية (مثل واجهة إستخراج الأسعار) التي تساعدك علي أداء عملك بجودة أفضل',
             prosList:[
@@ -688,6 +723,14 @@ const GConf = {
                 {id:6, title:'ذكي', color:'#d16200', icon:'lightbulb', text:'يقوم النضام بتجهيز خوارزمية لأتمتة العمليات الروتينية و المتكررة ما يعطي النضام صفة الذكاء و أتخاذ قرارات روتينية بنائا علي سلوك المستخدم'},
         
             ],
+            imageCarousel:[
+               {id:1, title:'إدارة العامة', color:'#4287f5', icon:'link-45deg', link:'boutique/boutique1.PNG'},
+               {id:2, title:'سهل', color:'#5dd492', icon:'emoji-smile', link:'boutique/boutique2.PNG'},
+               {id:3, title:'معين', color:'#8923e8', icon:'arrows-move', link:'boutique/boutique3.PNG'},
+               {id:4, title:'متطور', color:'#5d6360', icon:'arrow-repeat', link:'boutique/boutique4.PNG'},
+               {id:5, title:' مدعوم', color:'#e6327a', icon:'info-circle-fill', link:'boutique/boutique5.PNG'},
+       
+           ],
             prices:[
                  {id:1, tag:'نسخة مفتوحة', name:'', price:'500', ready:true,
                  pos:[
@@ -731,6 +774,7 @@ const GConf = {
             colorTheme:'#406163',
             adsImageUrl:'chantier_quincaillerie.svg',
             systemTitle:' Quancaillerie نظام إدارة  ',
+            businesName:'المتجر ',
             systemUrl:'https://quincaillerie.system.abyedh.tn',
             adsText:'نظام إداراة Quancaillerie  يساعدك علي مراقبة و التحكم في مخزون المنتجات (stock) و متابعة فواتيرك و الإتصال بعملاءك و متابعة طلباتهم . كما يقدم لك واجهة رسومية (caisse) لتسجيل المبيعات و طباعة الفواتير. بالإضافة إلي مجموعة من الأدوات الإبداعية (مثل واجهة إستخراج الأسعار) التي تساعدك علي أداء عملك بجودة أفضل',
             prosList:[
@@ -893,6 +937,7 @@ const GConf = {
             colorTheme:'#085947',
             adsImageUrl:'docteur.svg',
             systemTitle:' نظام إدارة العيادات الطبية ',
+            businesName:'العيادة ',
             systemUrl:'https://docteur.system.abyedh.tn',
             adsText:' نظام إداراة العيادات يقدم لك مجموعة من الأدوات و الحلول الرقمية التي تساعدك علي أداء عملك بالشكل الممتاز , كما أنه يبقيك دائما متصلا مع مرضاك  للإطمئنان علي صحتهم و متابعة تطور حالتهم الصحية , بالإضافة إلي مجموعة من لوحات لاتحكم الموجهة لفريق العمل لتتابع أداء مهامهم بسهولة , فضلا  عن مجموعة متميزة من الأدوات التي تعينك علي تطوير عملك ',
             prosList:[
@@ -904,6 +949,14 @@ const GConf = {
                 {id:6, title:'ذكي', color:'#d16200', icon:'lightbulb', text:'يقوم النضام بتجهيز خوارزمية لأتمتة العمليات الروتينية و المتكررة ما يعطي النضام صفة الذكاء و أتخاذ قرارات روتينية بنائا علي سلوك المستخدم'},
         
             ],
+            imageCarousel:[
+               {id:1, title:'إدارة العامة', color:'#4287f5', icon:'link-45deg', link:'docteur/docteur1.PNG'},
+               {id:2, title:'سهل', color:'#5dd492', icon:'emoji-smile', link:'docteur/docteur2.PNG'},
+               {id:3, title:'معين', color:'#8923e8', icon:'arrows-move', link:'docteur/docteur3.PNG'},
+               {id:4, title:'متطور', color:'#5d6360', icon:'arrow-repeat', link:'docteur/docteur4.PNG'},
+               {id:5, title:' مدعوم', color:'#e6327a', icon:'info-circle-fill', link:'docteur/docteur5.PNG'},
+       
+           ],
             prices:[
                  {id:1, tag:'نسخة مفتوحة', name:'', price:'500', ready:true,
                  pos:[
@@ -1109,6 +1162,7 @@ const GConf = {
             colorTheme:'#cf208f',
             adsImageUrl:'garderie.svg',
             systemTitle:'نظام  إدارة رياض الأطفال',
+            businesName:'الروضة ',
             systemUrl:'https://garderie.system.abyedh.tn/',
             adsText:'نظام إدارة  رياض الأطفال يمكنك من  متابعة مختلف الانشطة اللي تصير داخل المؤسسة متاعك , و بالتالي مزيد من التحكم و الإدارة الذكية لجعل عملية التعلم أكثر جودة و تطور . كما يوفر مجموعة من الأدوات الرقمية اللي تساعدك في تحسين جودة المادة التعليمة مثل البرنامج البيداغوجي و غيرها  ',
             prosList:[
@@ -1120,6 +1174,14 @@ const GConf = {
                 {id:6, title:'ذكي', color:'#d16200', icon:'lightbulb', text:'يقوم النضام بتجهيز خوارزمية لأتمتة العمليات الروتينية و المتكررة ما يعطي النضام صفة الذكاء و أتخاذ قرارات روتينية بنائا علي سلوك المستخدم'},
         
             ],
+            imageCarousel:[
+               {id:1, title:'إدارة العامة', color:'#4287f5', icon:'link-45deg', link:'garderie/garderie1.PNG'},
+               {id:2, title:'سهل', color:'#5dd492', icon:'emoji-smile', link:'garderie/garderie2.PNG'},
+               {id:3, title:'معين', color:'#8923e8', icon:'arrows-move', link:'garderie/garderie3.PNG'},
+               {id:4, title:'متطور', color:'#5d6360', icon:'arrow-repeat', link:'garderie/garderie4.PNG'},
+               {id:5, title:' مدعوم', color:'#e6327a', icon:'info-circle-fill', link:'garderie/garderie5.PNG'},
+       
+           ],
             prices:[
                  {id:1, tag:'نسخة مفتوحة', name:'', price:'500', ready:true,
                  pos:[
@@ -1163,6 +1225,7 @@ const GConf = {
             colorTheme:'#1caaa8',
             adsImageUrl:'autoecole.svg',
             systemTitle:'نظام مدرسة تعليم سياقة ',
+            businesName:'المدرسة ',
             systemUrl:'https://autoecole.system.abyedh.tn/',
             adsText:'نظام إداراة نقاط البيع بالجملة يساعدك علي مراقبة و التحكم في مخزون المنتجات (stock) و متابعة فواتيرك و الإتصال بعملاءك و متابعة طلباتهم . كما يقدم لك واجهة رسومية (caisse) لتسجيل المبيعات و طباعة الفواتير. بالإضافة إلي مجموعة من الأدوات الإبداعية (مثل واجهة إستخراج الأسعار) التي تساعدك علي أداء عملك بجودة أفضل',
             prosList:[
@@ -1217,6 +1280,7 @@ const GConf = {
             colorTheme:'#4a9998',
             adsImageUrl:'ecole.svg',
             systemTitle:'نظام إداراة المدارس الخاصة ',
+            businesName:'المدرسة ',
             systemUrl:'#',
             adsText:'نظام إداراة نقاط البيع بالجملة يساعدك علي مراقبة و التحكم في مخزون المنتجات (stock) و متابعة فواتيرك و الإتصال بعملاءك و متابعة طلباتهم . كما يقدم لك واجهة رسومية (caisse) لتسجيل المبيعات و طباعة الفواتير. بالإضافة إلي مجموعة من الأدوات الإبداعية (مثل واجهة إستخراج الأسعار) التي تساعدك علي أداء عملك بجودة أفضل',
             prosList:[
@@ -1379,6 +1443,7 @@ const GConf = {
             colorTheme:'#35ac67',
             adsImageUrl:'restaurant.svg',
             systemTitle:'نظام إداراة المطاعم ',
+            businesName:'المطعم',
             systemUrl:'https://restaurant.system.abyedh.tn/',
             adsText:'نظام إداراة نقاط البيع بالجملة يساعدك علي مراقبة و التحكم في مخزون المنتجات (stock) و متابعة فواتيرك و الإتصال بعملاءك و متابعة طلباتهم . كما يقدم لك واجهة رسومية (caisse) لتسجيل المبيعات و طباعة الفواتير. بالإضافة إلي مجموعة من الأدوات الإبداعية (مثل واجهة إستخراج الأسعار) التي تساعدك علي أداء عملك بجودة أفضل',
             prosList:[
@@ -1390,6 +1455,15 @@ const GConf = {
                 {id:6, title:'ذكي', color:'#d16200', icon:'lightbulb', text:'يقوم النضام بتجهيز خوارزمية لأتمتة العمليات الروتينية و المتكررة ما يعطي النضام صفة الذكاء و أتخاذ قرارات روتينية بنائا علي سلوك المستخدم'},
         
             ],
+            imageCarousel:[
+               {id:1, title:'إدارة العامة', color:'#4287f5', icon:'link-45deg', link:'restaurant/main.PNG'},
+               {id:2, title:'سهل', color:'#5dd492', icon:'emoji-smile', link:'restaurant/menu.PNG'},
+               {id:3, title:'معين', color:'#8923e8', icon:'arrows-move', link:'restaurant/facture.PNG'},
+               {id:4, title:'متطور', color:'#5d6360', icon:'arrow-repeat', link:'restaurant/stock.PNG'},
+               {id:5, title:' مدعوم', color:'#e6327a', icon:'info-circle-fill', link:'restaurant/tables.PNG'},
+               {id:6, title:'ذكي', color:'#d16200', icon:'lightbulb', link:'restaurant/caisse.PNG'},
+       
+           ],
             prices:[
                  {id:1, tag:'نسخة مفتوحة', name:'', price:'500', ready:true,
                  pos:[
@@ -1757,6 +1831,7 @@ const GConf = {
             colorTheme:'#7a8890',
             adsImageUrl:'avocat.svg',
             systemTitle:'نظام إداراة مكتب محامي',
+            businesName:'المكتب',
             systemUrl:'https://avocat.system.abyedh.tn/',
             adsText:'نظام إداراة نقاط البيع بالجملة يساعدك علي مراقبة و التحكم في مخزون المنتجات (stock) و متابعة فواتيرك و الإتصال بعملاءك و متابعة طلباتهم . كما يقدم لك واجهة رسومية (caisse) لتسجيل المبيعات و طباعة الفواتير. بالإضافة إلي مجموعة من الأدوات الإبداعية (مثل واجهة إستخراج الأسعار) التي تساعدك علي أداء عملك بجودة أفضل',
             prosList:[
@@ -2621,6 +2696,7 @@ const GConf = {
             colorTheme:'#0b97bf',
             adsImageUrl:'coiffure.svg',
             systemTitle:'نظام إداراة قاعات الحلاقة',
+            businesName:'قاعة الحلاقة',
             systemUrl:'https://coiffure.system.abyedh.tn/',
             adsText:'نظام إداراة نقاط البيع بالجملة يساعدك علي مراقبة و التحكم في مخزون المنتجات (stock) و متابعة فواتيرك و الإتصال بعملاءك و متابعة طلباتهم . كما يقدم لك واجهة رسومية (caisse) لتسجيل المبيعات و طباعة الفواتير. بالإضافة إلي مجموعة من الأدوات الإبداعية (مثل واجهة إستخراج الأسعار) التي تساعدك علي أداء عملك بجودة أفضل',
             prosList:[
@@ -2675,6 +2751,7 @@ const GConf = {
             colorTheme:'#7aadab',
             adsImageUrl:'gym.svg',
             systemTitle:'نظام إداراة قاعات الرياضة',
+            businesName:'قاعة الرياضة',
             systemUrl:'https://gym.system.abyedh.tn/',
             adsText:'   نظام إدارة  قاعات الرياضة هو نظام إدارة و  محاسبة و تواصل مع مشتركيك و مراقبة أداءهم و تطور نشاطهم الرياضي من خلال خلق فضاء للتفاعل إفتراضيا مع القاعة لتقييم خدماتها ...',
             prosList:[
@@ -2686,6 +2763,14 @@ const GConf = {
                 {id:6, title:'ذكي', color:'#d16200', icon:'lightbulb', text:'يقوم النضام بتجهيز خوارزمية لأتمتة العمليات الروتينية و المتكررة ما يعطي النضام صفة الذكاء و أتخاذ قرارات روتينية بنائا علي سلوك المستخدم'},
         
             ],
+            imageCarousel:[
+               {id:1, title:'إدارة العامة', color:'#4287f5', icon:'link-45deg', link:'gym/gym1.PNG'},
+               {id:2, title:'سهل', color:'#5dd492', icon:'emoji-smile', link:'gym/gym2.PNG'},
+               {id:3, title:'معين', color:'#8923e8', icon:'arrows-move', link:'gym/gym3.PNG'},
+               {id:4, title:'متطور', color:'#5d6360', icon:'arrow-repeat', link:'gym/gym4.PNG'},
+               {id:5, title:' مدعوم', color:'#e6327a', icon:'info-circle-fill', link:'gym/gym5.PNG'},
+       
+           ],
             prices:[
                  {id:1, tag:'نسخة مفتوحة', name:'', price:'500', ready:true,
                  pos:[

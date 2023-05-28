@@ -39,8 +39,8 @@ const HeadModalSearch = ({saveBtnState,rechercheKey,setRechercheKey,RechercheFun
 function CaissePannier() {
     /*#########################[Const]##################################*/
     const Today = new Date()
-    let Offline = JSON.parse(localStorage.getItem(`Magazin_Caisse_Offline`));
-    let caisseData = JSON.parse(localStorage.getItem(`Magazin_Caisse_LocalD`));
+    let Offline = OneGConf.oneOffline
+    let caisseData = OneGConf.forPID
     const CaisseID = caisseData.C_ID;
     const [qrData, setQRData] = useState("Not Found")
     //const [stopStream, setStopStram] = useState(false)

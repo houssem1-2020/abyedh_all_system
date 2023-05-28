@@ -9,6 +9,8 @@ import "swiper/css/grid";
 import "swiper/css/pagination";
 import { Button, Icon } from 'semantic-ui-react'
 import ReactGA from 'react-ga';
+import "react-responsive-carousel/lib/styles/carousel.min.css"; // requires a loader
+import { Carousel } from 'react-responsive-carousel';
 
 function LandingPage() {
     const topRef = useRef(20)
@@ -40,7 +42,7 @@ function LandingPage() {
 
     //card 
     const TopAdsCard = ()=>{
-        return(<>
+            return(<>
                 <div className="container" >
                     <div className='row mt-5'>
                         <div className='col-12 col-lg-4 order-1 '>
@@ -53,7 +55,7 @@ function LandingPage() {
                             </h5>
                             <div className="row" dir="rtl">
                                 <div className="col-lg-3 col-6 text-start  align-self-center mr-1 order-2 order-lg-1 mb-4">
-                                    <NavLink to={targetSystem.systemUrl == '#' ? '#' : `/Inscription/${system}`} className="btn btn-md btn-primary rounded-pill  float-right " > <span className="bi bi-at"></span> إشترك الأن <span className="bi bi-arrow-left-short"></span></NavLink>
+                                    <NavLink to={targetSystem.systemUrl == '#' ? '#' : `/Inscription/${system}`} className="btn btn-md btn-primary rounded-pill border-0 float-right " style={{backgroundColor: targetSystem.colorTheme}}> <span className="bi bi-at"></span> إشترك الأن <span className="bi bi-arrow-left-short"></span></NavLink>
                                 </div>
                                 <div className="col-lg-3 col-6 text-end">
                                     <span onClick={() => handleClick(targetSystem.systemTitle)}>
@@ -68,10 +70,60 @@ function LandingPage() {
 
                 </>)
     }
-    const ImgCarouselCard = ()=>{
-        return(<>
-        
+    const ImgCarouselCard = (props)=>{
+        const PCard = (props) =>{
+            return(<>
+                    <div className='row p-0 mb-4' style={{cursor: 'pointer'}}>
+                        <div className='col-12 col-lg-12 p-0 align-self-center text-center order-2 order-lg-1 '>
+                            <div className='mb-3 '>
+                                 <img src={`https://cdn.abyedh.tn/Images/system_landing/${props.data.link}`} className='img-responsive border-div  shadow-sm border small-img-screen' width='95%'   />
+                            </div>
+                        </div>
+                        {/* <div className='col-12 col-lg-5  p-0 order-1 order-lg-2    d-none d-lg-block' >
+                            <div className="text-start ms-4 text-secondary" dir='ltr'>
+                               
+                               
+                            </div> 
+                        </div> */}
+                    </div> 
                 </>)
+        }
+        return(<>
+                <br />
+                <br />
+                <br />
+                <br />
+                <div className="container-fluid" >
+                    <div className="card card-body   border-0 border-div 0 ">
+                        <div  dir="rtl">
+                            <Swiper
+                                slidesPerView= {1.3}
+                                centeredSlides = { true}
+                                spaceBetween={30}
+                                loop={true}
+                                pagination={{
+                                    dynamicBullets: true,
+                                }}
+                                modules={[Pagination]}
+                                // className="mySwiper pb-4 mb-1"
+                            >
+                                {props.data.map( (carouselData,index)=> <SwiperSlide key={index}>
+                                    <PCard  key={index} data={carouselData} index={index} /></SwiperSlide>)}
+                            </Swiper> 
+                        </div>
+                    </div>
+                    {/* <Carousel>
+                        {props.data.map((data,index) => 
+                                <div key={index}>
+                                    <img src={`https://cdn.abyedh.tn/Images/system_landing/${data.link}`} />
+                                    <p className="legend" dir='rtl'>
+                                        <i className={`bi bi-${data.icon}`}></i>  {data.title}
+                                    </p>
+                                </div>
+                        )}
+                    </Carousel> */}
+                </div>
+            </>)
     }
     const TrySystemCard = ()=>{
         return(<>
@@ -117,7 +169,7 @@ function LandingPage() {
                                 <i className={`bi bi-${props.data.icon}`}></i>
                             </div> */}
                             <div className='mb-3'>
-                                 <img src={`https://cdn.abyedh.tn/Images/system_landing/boutique${props.index +1 }.png`} className='img-responsive border-div shadow' width='70%' height='200px' />
+                                 <img src={`https://cdn.abyedh.tn/Images/system_landing/landing_img/landing_icon_${props.index}.png`} className='img-responsive  ' width='50%' height='200px' />
                             </div>
                         </div>
                     </div> 
@@ -170,7 +222,7 @@ function LandingPage() {
         }
         return(<>
                 <div className='container'>
-                    <h5 className="text-right text-danger mb-4" dir="rtl"><b> إشترك الأن وأحصل علي 14 يوم مجانية </b></h5>
+                        <h2 className="text-right  mb-4" dir="rtl" style={{color: targetSystem.colorTheme}}><b>   إشترك الآن وأحصل علي شهرين مجانييْن لتجرب النظام  </b></h2>
                         <div className='row d-none d-lg-flex' dir='rtl'>
                             {targetSystem.prices.map( (data,index) => <SpecificCard key={index} data={data} /> )}
                         </div>
@@ -230,11 +282,14 @@ function LandingPage() {
         <br />
         <br />
         <br />
-        <ImgCarouselCard />
+        <br />
+        <br />
+
+        {targetSystem.imageCarousel ? <ImgCarouselCard table={Pros} data={targetSystem.imageCarousel} /> : '' }
         <br />
         <br /> 
         <br />
-        <TrySystemCard />
+        {/*<TrySystemCard /> */}
         <br />
         <br /> 
         <br />

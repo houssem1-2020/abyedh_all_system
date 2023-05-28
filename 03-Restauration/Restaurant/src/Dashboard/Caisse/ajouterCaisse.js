@@ -56,7 +56,11 @@ function AjouterCamion() {
         let PWD =  Math.floor(Math.random() * 1000000);
         setCaisseD({...caisseD, Identifiant: ID , Password:PWD})
     }
-
+    const OnKeyPressFunc = (e) => {
+        if (!((e.charCode >= 65 && e.charCode <= 90) || (e.charCode >= 97 && e.charCode <= 122) || (e.charCode >= 48 && e.charCode <= 57) || e.charCode == 42 || e.charCode == 32 || e.charCode == 47 )) {
+            e.preventDefault();
+        }   
+    }
 
     return ( <>
             <BreadCrumb links={GConf.BreadCrumb.CamionAdd} />
@@ -66,20 +70,20 @@ function AjouterCamion() {
                     <div className='col-12 col-lg-8'>
                          <div className='p-1  mb-2'>
                             <h5 className='mb-1'>Nom:</h5>
-                            <Input icon='desktop' iconPosition='left' placeholder='Nom' className='w-100 border-0 shadow-sm rounded mb-1' onChange={(e) => setCaisseD({...caisseD, CA_Name: e.target.value })} />
+                            <Input icon='desktop' onKeyPress={event => OnKeyPressFunc(event)} iconPosition='left' placeholder='Nom' className='w-100 border-0 shadow-sm rounded mb-1' onChange={(e) => setCaisseD({...caisseD, CA_Name: e.target.value })} />
                         </div>
                         <div className='p-1 mb-2'>
                             <h5 className='mb-1'> Fond:</h5>
-                            <Input icon='dollar sign' iconPosition='left' placeholder='Fond' className='w-100 border-0 shadow-sm rounded mb-1' onChange={(e) => setCaisseD({...caisseD, Caisse_Fond: e.target.value })}/>
+                            <Input icon='dollar sign' onKeyPress={event => OnKeyPressFunc(event)} iconPosition='left' placeholder='Fond' className='w-100 border-0 shadow-sm rounded mb-1' onChange={(e) => setCaisseD({...caisseD, Caisse_Fond: e.target.value })}/>
                         </div>
                         <div className='row mb-3'>
                                 <div className='col-12 col-lg-6'>
                                     <h5 className='mb-1'>Identifiant:</h5>
-                                    <Input icon='linkify' iconPosition='left' placeholder='identifiant'  className='w-100 border-0 shadow-sm rounded mb-3' value={caisseD.Identifiant} onChange={(e) => setCaisseD({...caisseD, Identifiant: e.target.value })} />
+                                    <Input icon='linkify' iconPosition='left' onKeyPress={event => OnKeyPressFunc(event)}  placeholder='identifiant'  className='w-100 border-0 shadow-sm rounded mb-3' value={caisseD.Identifiant} onChange={(e) => setCaisseD({...caisseD, Identifiant: e.target.value })} />
                                 </div>
                                 <div className='col-9 col-lg-5'>
                                     <h5 className='mb-1'>Mot De Pass: </h5>
-                                    <Input icon='eye' iconPosition='left' placeholder='Nom' className='w-100 border-0 shadow-sm rounded mb-3' value={caisseD.Password} onChange={(e) => setCaisseD({...caisseD, Password: e.target.value })}/>
+                                    <Input icon='eye' iconPosition='left' onKeyPress={event => OnKeyPressFunc(event)}  placeholder='Nom' className='w-100 border-0 shadow-sm rounded mb-3' value={caisseD.Password} onChange={(e) => setCaisseD({...caisseD, Password: e.target.value })}/>
                                 </div>
                                 <div className='col-3 col-lg-1 align-self-center'>
                                    <Button onClick={GenrateKey} className="rounded-pill " icon='random'></Button>

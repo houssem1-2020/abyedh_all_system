@@ -84,7 +84,28 @@ function FactureInfo() {
         const facteur_p = (100 / (GConf.DefaultTva + 100));
         return (parseFloat(value) * facteur_p).toFixed(3) 
     }
-
+    const DeleteFacture = () =>{
+        axios.post(`${GConf.ApiLink}/facture/supprimer`, {
+            PID : GConf.PID,
+            FID: FID,
+          })
+          .then(function (response) {
+            if (response.data.affectedRows != 0) {
+                toast.error('Facture Supprimer  !', GConf.TostSuucessGonf)
+                setTimeout(() => {  window.location.href = "/S/ft"; }, 500)
+                //setLS(false)
+            } else {
+                //setLS(false)
+            }
+            console.log(response.data)
+           
+          }).catch((error) => {
+            if(error.request) {
+              toast.error(<><div><h5>Probleme de Connextion</h5> Impossible de modifier L'etat du commande  </div></>, GConf.TostInternetGonf)   
+              
+            }
+          });
+    }
     /*#########################[Card]##################################*/
     const StateCard = ({ status }) => {
         const StateCard = (props) =>{ return <span className={`badge bg-${props.color}`}> {props.text} </span>}
@@ -157,19 +178,22 @@ function FactureInfo() {
                 <div className='card card-body shadow-sm mb-2'>
                     <h5>Controle</h5>
                     <div className='row mb-2'>
-                    
-                    <div className='col-12'>
-                        <Button  className='rounded-pill btn-imprimer'  fluid onClick={(e) => PrintFunction('printFacture')}><Icon name='edit outline' /> Imprimer</Button>
+                        <div className='col-12 mb-3'>
+                            <Button  className='rounded-pill btn-imprimer'  fluid onClick={(e) => PrintFunction('printFacture')}><Icon name='print' /> Imprimer</Button>
+                        </div>
+                        <div className='col-12 '>
+                            <Button  className='rounded-pill bg-danger text-white'  fluid  onClick={DeleteFacture}><Icon name='trash' /> Supprimer</Button>
+                        </div>
+
                     </div>
-                    </div>
-                    <div className='row mb-2'>
+                    {/* <div className='row mb-2'>
                         <div className='col-6'>
-                            <Button  className='rounded-pill bg-danger text-white'  fluid><Icon name='edit outline' /> Supprimer</Button>
+                            <Button  className='rounded-pill bg-danger text-white'  fluid  onClick={DeleteFacture}><Icon name='edit outline' /> Supprimer</Button>
                         </div>
                         <div className='col-6'>
                             <Button  className='rounded-pill  btn-regler'  fluid disabled={stockState} onClick={RetouAuStock}><Icon name='edit outline' /> R. Stock</Button>
                         </div>
-                    </div>
+                    </div> */}
 
                 </div>
         </>)

@@ -87,6 +87,7 @@ import RapportPage from '../../Dashboard/Tools/rapportPage';
 import PaymmentPage from '../../Dashboard/Setting/paymment';
 import DocumentationPage from '../../Dashboard/Documentation/documentationPage';
 
+
 const SystemLanding = () => {
     useEffect(() => {
         //CheckAuthentification()
@@ -191,6 +192,7 @@ const systemRouter = () => (
             </Route>
 
             <Route path="Profile" exact element={<ProfilePage />} />
+            
             <Route path="Parametre" exact element={<SettingPage />} />
             <Route path="Parametre/paymment" exact element={<PaymmentPage />} />
             <Route path="Parametre/confirmation" exact element={<ConfrimationPage />} />

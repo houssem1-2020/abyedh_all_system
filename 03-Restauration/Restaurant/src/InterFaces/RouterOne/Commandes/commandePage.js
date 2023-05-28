@@ -142,13 +142,13 @@ const SelectClientCreditCard = ({clientCredit, setClientCredit ,clientList}) =>{
     </>)
 }
 
-function CaisseSimple() {
+function CommandePage() {
     /*#########################[Const]##################################*/
     //let request = window.indexedDB.open("Magazin", 2);
     //const socket = io.connect(GConf.ApiLinkSoket);
     const inputRef = useRef(null);
     const Today = new Date()
-    let Offline = OneGConf.oneOffline
+    let Offline = JSON.parse(localStorage.getItem(`${OneGConf.routerTagName}_Offline`));
     let caisseData = OneGConf.forPID
     const CaisseID = caisseData.C_ID;
     const [qrData, setQRData] = useState("Not Found")
@@ -196,10 +196,10 @@ function CaisseSimple() {
     /*4- Autres */
     const [factureOffline, setFactureOL] = useState(false)
     const panes = [
-        {
-            menuItem: { key: 'plats', icon: 'food', content: 'Plats ', className:`p-4 ${OneGConf.themeMode == 'dark' ? 'bg-dark-theme-1 text-white' : 'bg-ligth-theme-1' } ` }, 
-            render: () => <Tab.Pane attached={false} className={`${OneGConf.themeMode == 'dark' ? 'bg-dark-theme-1 text-white' : 'bg-ligth-theme-1' }`}> <PlatsListe /> </Tab.Pane>,
-        },
+        // {
+        //     menuItem: { key: 'plats', icon: 'food', content: 'Plats ', className:`p-4 ${OneGConf.themeMode == 'dark' ? 'bg-dark-theme-1 text-white' : 'bg-ligth-theme-1' } ` }, 
+        //     render: () => <Tab.Pane attached={false} className={`${OneGConf.themeMode == 'dark' ? 'bg-dark-theme-1 text-white' : 'bg-ligth-theme-1' }`}> <PlatsListe /> </Tab.Pane>,
+        // },
         {
             menuItem: { key: 'start', icon: 'add circle', content: 'Entrer ', className:`p-4 ${OneGConf.themeMode == 'dark' ? 'bg-dark-theme-1 text-white' : 'bg-ligth-theme-1' } ` }, 
             render: () => <Tab.Pane attached={false} className={`${OneGConf.themeMode == 'dark' ? 'bg-dark-theme-1 text-white' : 'bg-ligth-theme-1' }`}> <AddArticles /> </Tab.Pane>,
@@ -227,13 +227,12 @@ function CaisseSimple() {
     useEffect(() => {
         
         axios.post(`${GConf.ApiRouterOneLink}/nv/stock`, {
-            forPID: OneGConf.forPID.PID,
+            forPID: GConf.PID,
             factureD: factureD,
         })
         .then(function (response) {
             setArticleList(response.data)
             GenerateGenreListe(response.data)
-            setSelectedArticleList(response.data.filter(article => article.Genre == response.data[0].Genre))
             setLoadingP(false)
         }).catch((error) => {
             if(error.request) {
@@ -268,6 +267,27 @@ function CaisseSimple() {
 
     /*#########################[Functions]##################################*/
     /*1- Ajouter Article */
+    const SearchForCommande = (commandeID) =>{
+        if (!commandeID) {toast.error("Commande ID Invalide !", GConf.TostErrorGonf)}
+        else {
+            setLoadingP(true)
+            axios.post(`${GConf.ApiRouterOneLink}/commande/search`, {
+                forPID: OneGConf.forPID.PID,
+                FID: commandeID,
+                
+            })
+            .then(function (response) {              
+                setFactureD({...factureD, totale: MakeSum(), articles: JSON.parse(response.data.Articles) })
+                setLoadingP(false)
+            }).catch((error) => {
+                if(error.request) {
+                  toast.error(<><div><h5>Probleme de Connextion</h5> La facture sera enregisstrer sur votre appareil  </div></>, GConf.TostInternetGonf)   
+                  setLoadingP(false)
+                }
+            });
+
+        } 
+    }
     const GenerateGenreListe = (listeTarget) =>{
         const distinctNames = [...new Set(listeTarget.map(obj => obj.Genre))];
         setGenreList(distinctNames)
@@ -306,7 +326,7 @@ function CaisseSimple() {
         const searchObject= factureD.articles.findIndex((article) => article.P_Code == value);
         factureD.articles.splice(searchObject, 1);
         let resteArticles = factureD.articles;
-        setFactureD({...factureD, articles: resteArticles, totale: MakeSum() })
+        setFactureD({...factureD, articles: resteArticles })
     }
     const GetArticleData = (value) =>{
         const searchObject= articleList.find((article) => article.P_Code == value);
@@ -743,24 +763,25 @@ function CaisseSimple() {
                         <div className='mb-2'>
                              
                             
-                            <h2><span className='bi bi-keyboard'></span>  : {keyBordI}</h2>
+                            
                             {/* <Input type='number' inputRef={inputRef}  size='massive'  icon='barcode'   onKeyPress={(e) => EnterKyPressed(e)}  autoFocus={true}   iconPosition='left' placeholder=' '  fluid className='mb-1' /> */}
-                            <input type='text' className='form-control form-control-lg'  ref={inputRef} onKeyPress={(e) => EnterKyPressed(e)} autoFocus={true} />
+                            {/* <input type='text' className='form-control form-control-lg'  ref={inputRef} onKeyPress={(e) => EnterKyPressed(e)} autoFocus={true} /> */}
                             <br />
                             <div className='row '>
                                 <div className='col-12'>
-                                    <Button disabled={saveBtnState} fluid style={{height:'50px'}} className='border-div bg-system-btn' onClick={() => GetArticleDataByAID(keyBordI)}>  <Icon name='check' /> Ajouter</Button>
+                                    <Button disabled={saveBtnState} fluid style={{height:'50px'}} className='border-div bg-system-btn' onClick={() => SearchForCommande(keyBordI)}>  <Icon name='check' /> Rechercher </Button>
                                 </div>
                                 <div className='col-6 d-none'>
                                     <Button disabled={saveBtnState} fluid style={{height:'50px'}} className={`border-div ${peseState ? 'bg-warning text-white' : 'bg-white border '}`} onClick={() => setPeseState(!peseState)}>  <Icon name='balance' /> Pesé </Button>
                                 </div>
                             </div>
-                            {/* <h5>Enregistrer </h5> 
+                            <h5>Enregistrer </h5> 
                             
-                            <Button disabled={saveBtnState} fluid style={{height:'40px'}} className='rounded-pill bg-system-btn' onClick={() => SaveFacture()}>  <Icon name='save' /> Valideé Pour PASSAGER <Loader inverted active={loaderState} inline size='tiny' className='ms-2 text-danger'/></Button> */}
+                            <Button disabled={saveBtnState} fluid style={{height:'40px'}} className='rounded-pill bg-system-btn' onClick={() => SaveFacture()}>  <Icon name='save' /> Valideé Pour PASSAGER <Loader inverted active={loaderState} inline size='tiny' className='ms-2 text-danger'/></Button>
                         </div>
                     </div>
                     <div className='col-12 col-md-7 align-self-center'> 
+                        <h2><span className='bi bi-keyboard'></span>  : {keyBordI}</h2>
                         <ClavierCard /> 
                     </div>
                 </div> 
@@ -824,12 +845,11 @@ function CaisseSimple() {
         }
         const ArticleItemCard = (props) =>{
             return(<>
-                <div className='col-3 mb-1'>
-                    <div className={`card p-3 text-secondary h-100 btn ${OneGConf.themeMode == 'dark' ? 'bg-dark-theme-4 text-white' : ' ' }`} onClick={() => GetArticleDataByAID(props.data.P_Code)}>
+                <div className='col-6 mb-1'>
+                    <div className={`card p-3 text-secondary btn ${OneGConf.themeMode == 'dark' ? 'bg-dark-theme-4 text-white' : ' ' }`} onClick={() => GetArticleDataByAID(props.data.P_Code)}>
                         <div className='row'>
-                            <div className='col-12 text-end'><b>{props.data.Prix_vente.toFixed(3)}</b></div>
-                            <div className='col-12'><b><img src={`https://cdn.abyedh.tn/images/system/Resto/${props.data.Photo_Path}`} width='60px' height='60px' /></b></div>
-                            <div className='col-12'><h6>{props.data.Name}</h6></div>
+                            <div className='col-9'><h5>{props.data.Name}</h5></div>
+                            <div className='col-3'><b>{props.data.Prix_vente}</b></div>
                         </div>
                         
                     </div>
@@ -840,8 +860,8 @@ function CaisseSimple() {
             <div className='row'>
                     <div className='col-4'><Button disabled={saveBtnState && !payBtnState} fluid style={{height:'40px'}} className='rounded-pill bg-system-btn mb-3' onClick={()=> NewTicket()}>  <Icon name='redo' /> N. Ticket</Button></div> 
                     <div className='col-2'><Button  fluid style={{height:'40px'}} className='rounded-pill bg-system-btn mb-3' onClick={() =>PrintFunction('openCaisse')}>  <Icon name='lock open' /> </Button></div> 
-                    <div className='col-6'><Button disabled={saveBtnState} fluid style={{height:'40px'}} className='rounded-pill bg-system-btn' onClick={() => SaveFacture()}>  <Icon name='save' /> Valideé Pour PASSAGER <Loader inverted active={loaderState} inline size='tiny' className='ms-2 text-danger'/></Button></div>
-                    <div className='col-3 d-none'><Button disabled={saveBtnState} fluid style={{height:'40px'}} className='rounded-pill bg-system-btn mb-3' onClick={() => setModaT(true)}>  <Icon name='search' /> Trouver  </Button></div>
+                    <div className='col-3'><Button disabled={saveBtnState} fluid style={{height:'40px'}} className='rounded-pill bg-system-btn mb-3' onClick={() => setModalS(true)}>  <Icon name='search' /> Recherche </Button></div>
+                    <div className='col-3'><Button disabled={saveBtnState} fluid style={{height:'40px'}} className='rounded-pill bg-system-btn mb-3' onClick={() => setModaT(true)}>  <Icon name='search' /> Trouver  </Button></div>
             </div>
             <div className='row'>
                 <div className='col-3'>
@@ -895,8 +915,8 @@ function CaisseSimple() {
                         <ClavierPaymmentCard /> 
                     </div>
                     <div className='col-12 col-md-5'>
-                        <div className='mb-2 '>
-                            {/* <Button disabled={saveBtnState} fluid style={{height:'40px'}} className='rounded-pill bg-system-btn mb-3' onClick={() => setModaPS(true)}>  <Icon name='search' /> Sahcet & Carte de Recharge </Button> */}
+                        <div className='mb-2'>
+                        <Button disabled={saveBtnState} fluid style={{height:'40px'}} className='rounded-pill bg-system-btn mb-3' onClick={() => setModaPS(true)}>  <Icon name='search' /> Sahcet & Carte de Recharge </Button>
   
                             <h3 className='mb-2'>Totale : {factureD.totale}</h3> 
                             <h3 className='mb-2 mt-1'>Reste : {(keyaPaymment - factureD.totale).toFixed(3)}</h3> 
@@ -926,40 +946,6 @@ function CaisseSimple() {
     }
 
     /*3- Bons */
-    const ClavierBonsCard = () =>{
-        const BtnCard = (props) =>{
-            return(<>
-                <Button className={`shadow-sm ${props.bg == true ? 'bg-danger text-white ' : OneGConf.themeMode == 'dark' ? 'bg-dark-theme-3 text-white border-dark' : 'bg-white' } border mb-1 border-div `} style={{width:'100%', height:'60px'}} onClick={(e) => PaymmentBtnClicked(props.value) } ><h2>{props.value}</h2></Button>
-            </>)
-        }
-        return(<>
-            <div className='row'>
-                <div className='col'><Button fluid className={`shadow-sm  border mb-1 border-div `} style={{  height:'60px'}} onClick={(e) => PaymmentBtnClicked(5) } ><h5>5%</h5></Button></div>
-                <div className='col'><Button fluid className={`shadow-sm  border mb-1 border-div `} style={{  height:'60px'}} onClick={(e) => PaymmentBtnClicked(8) } ><h5>8%</h5></Button></div>
-                <div className='col'><Button fluid className={`shadow-sm  border mb-1 border-div `} style={{  height:'60px'}} onClick={(e) => PaymmentBtnClicked(10) } ><h5>10%</h5></Button></div>
-                <div className='col'><Button fluid className={`shadow-sm  border mb-1 border-div `} style={{  height:'60px'}} onClick={(e) => PaymmentBtnClicked(12) } ><h5>12%</h5></Button></div>
-                <div className='col'><Button fluid className={`shadow-sm  border mb-1 border-div `} style={{  height:'60px'}} onClick={(e) => PaymmentBtnClicked(15) } ><h5>15%</h5></Button></div>
-                
-            </div>
-            <div className='row '>
-                <div className='col-4 p-2'><BtnCard value='1' /></div>
-                <div className='col-4 p-2'><BtnCard value='2' /></div>
-                <div className='col-4 p-2'><BtnCard value='3' /></div>
-                <div className='col-4 p-2'><BtnCard value='4' /></div>
-                <div className='col-4 p-2'><BtnCard value='5' /></div>
-                <div className='col-4 p-2'><BtnCard value='6' /></div>
-                <div className='col-4 p-2'><BtnCard value='7' /></div>
-                <div className='col-4 p-2'><BtnCard value='8' /></div>
-                <div className='col-4 p-2'><BtnCard value='9' /></div>
-                <div className='col-4 p-2'><BtnCard value='0' /></div>
-                <div className='col-4 p-2'><BtnCard value='.'  bg={floatOpen} /></div>
-                <div className='col-4 p-2'><BtnCard value='00' /></div>
-                <div className='col-4 p-2'><BtnCard value='10' /></div>
-                <div className='col-4 p-2'><BtnCard value='20' /></div>
-                <div className='col-4 p-2'><BtnCard value='50' /></div>
-            </div>
-        </>)
-    }
     const ListeDesBonsCard = () =>{
         const BtnCard = (props) =>{
             return(<>
@@ -977,14 +963,9 @@ function CaisseSimple() {
         
                 <div className='row'>
                     <div className='col-12 col-md-7 align-self-center'>
-                        <ClavierBonsCard /> 
+                        <ListeDesBonsCard /> 
                     </div>
                     <div className='col-12 col-md-5'>
-                        <div className='row mb-3'>
-                            <div className='col-9'><Input type='number'   icon='money' value={keyaPaymment} onKeyPress={(e) => EnterKyPressed(e)} autoFocus={true} onChange={ (e) => {setKeyPaymment(Number(e.target.value)) }}   iconPosition='left' placeholder=' '  fluid className='mb-1' /></div>
-                            <div className='col-3 ms-0 me-0'> <Button disabled={false} fluid className='border-div   text-white' style={{height:'40px', backgroundColor : OneGConf.themeMode == 'dark' ? '#96999e': '#343536'}} onClick={() => setKeyPaymment('')}> <h2>C</h2> </Button> </div>
-                            
-                        </div>
                         <div className='row'>
                             <div className='col-6'>
                                     <div className='mb-2'>
@@ -1082,7 +1063,7 @@ function CaisseSimple() {
         return (<>
                 <div className='row mb-2'>
                         
-                        <div className='col-12 col-lg-6 mb-3 d-none'>
+                        <div className='col-12 col-lg-6 mb-3'>
                             <h3>Credit</h3> 
                             <SelectClientCard />
                             <div className='mt-4'>
@@ -1097,15 +1078,8 @@ function CaisseSimple() {
                         </div>
 
                         <div className='col-12 col-lg-6'>
-                            btn listen <br />
-                            cadre qr code reader <br />
-                            select btn 
-                        </div> 
-
-                        <div className='col-12 col-lg-6'>
                             <h3>Fidelité</h3> 
-                            <SelectClientCard />
-                            {/* <SelectClientFideliteCard clientFidele={clientFidele} setClientFidelle={setClientFidelle} clientList={clientList}/> */}
+                            <SelectClientFideliteCard clientFidele={clientFidele} setClientFidelle={setClientFidelle} clientList={clientList}/>
                             <div className='mt-4'>
                                 <h5>Client Info : </h5>
                                 <div>Nom :  {clientFidele ? clientFidele.CL_Name : '' } </div>
@@ -1176,4 +1150,4 @@ function CaisseSimple() {
 }
 
 
-export default CaisseSimple;
+export default CommandePage;

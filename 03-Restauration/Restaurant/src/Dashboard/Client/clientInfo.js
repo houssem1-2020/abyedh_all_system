@@ -16,20 +16,20 @@ import { toast } from 'react-toastify';
 import useSaveNotification from '../../AssetsM/Hooks/saveNotifFunction';
 import { useNavigate} from 'react-router-dom';
 
-const EditClientCard = ({clientD, setClientD, EditClient,delegList,GetDelegList,loaderState}) =>{
+const EditClientCard = ({clientD, setClientD, OnKeyPressFunc, EditClient,delegList,GetDelegList,loaderState}) =>{
     return(<>
             <div className='p-1'>
                         <div className='p-1 mb-2'>
                             <h5 className='mb-1'>CIN:</h5>
-                            <Input icon='key' iconPosition='left' placeholder='Matricule Fiscale' className='w-100 border-0 shadow-sm rounded mb-1'  value={clientD.CIN}  onChange={(e) => setClientD({...clientD, CIN: e.target.value })}/>
+                            <Input icon='key' iconPosition='left' onKeyPress={event => OnKeyPressFunc(event)} placeholder='Matricule Fiscale' className='w-100 border-0 shadow-sm rounded mb-1'  value={clientD.CIN}  onChange={(e) => setClientD({...clientD, CIN: e.target.value })}/>
                         </div>
                         <div className='p-1  mb-2'>
                             <h5 className='mb-1'>Nom Et Prenon :</h5>
-                            <Input icon='user' iconPosition='left' placeholder='Nom Et Prenon ' className='w-100 border-0 shadow-sm rounded mb-1' value={clientD.CL_Name} onChange={(e) => setClientD({...clientD, CL_Name: e.target.value })} />
+                            <Input icon='user' iconPosition='left' onKeyPress={event => OnKeyPressFunc(event)} placeholder='Nom Et Prenon ' className='w-100 border-0 shadow-sm rounded mb-1' value={clientD.CL_Name} onChange={(e) => setClientD({...clientD, CL_Name: e.target.value })} />
                         </div>
                         <div className='p-1 mb-2'>
                             <h5 className='mb-1'>Telephone :</h5>
-                            <Input icon='phone' iconPosition='left' placeholder='Telephone ' className='w-100 border-0 shadow-sm rounded mb-1' value={clientD.Phone} onChange={(e) => setClientD({...clientD, Phone: e.target.value })} />
+                            <Input icon='phone' iconPosition='left' onKeyPress={event => OnKeyPressFunc(event)} placeholder='Telephone ' className='w-100 border-0 shadow-sm rounded mb-1' value={clientD.Phone} onChange={(e) => setClientD({...clientD, Phone: e.target.value })} />
                         </div>
                         <div className='p-1 mb-2'>
                             <h5 className='mb-1'>Geolocation : { clientD.Gouv } , ({ clientD.Deleg }) </h5>
@@ -39,7 +39,7 @@ const EditClientCard = ({clientD, setClientD, EditClient,delegList,GetDelegList,
                         <div className='p-1 mb-2'>
                             <h5 className='mb-1'> Adresse:</h5>
                             <Form>
-                                <TextArea  rows="3" placeholder='designer votre article' className='w-100 shadow-sm rounded mb-3' value={clientD.Adress} onChange={(e) => setClientD({...clientD, Adress: e.target.value })}/>
+                                <TextArea  rows="3" onKeyPress={event => OnKeyPressFunc(event)} placeholder='designer votre article' className='w-100 shadow-sm rounded mb-3' value={clientD.Adress} onChange={(e) => setClientD({...clientD, Adress: e.target.value })}/>
                             </Form> 
                         </div>
                         <div className='text-end mb-5'>
@@ -125,7 +125,7 @@ function ClientInfo() {
         },
         {
             menuItem: { key: 'edit', icon: 'edit', content: 'Modifier' }, 
-            render: () => <><Tab.Pane className='border-div' attached={false}><EditClientCard clientD={clientD} setClientD={setClientD} EditClient={EditClient} delegList={delegList} GetDelegList={GetDelegList}  loaderState={loaderState}/></Tab.Pane><br /></>,
+            render: () => <><Tab.Pane className='border-div' attached={false}><EditClientCard OnKeyPressFunc={OnKeyPressFunc} clientD={clientD} setClientD={setClientD} EditClient={EditClient} delegList={delegList} GetDelegList={GetDelegList}  loaderState={loaderState}/></Tab.Pane><br /></>,
         },
         {
             menuItem: { key: 'verif', icon: 'edit', content: 'Verification' }, 
@@ -323,7 +323,6 @@ function ClientInfo() {
             e.preventDefault();
         }   
     }
-
     /* ############################### Card ################################*/
     const ClientCard = () =>{
         return (<>

@@ -103,7 +103,7 @@ function MenuPage() {
                       <Modal.Header><h4>{selectedArticle.Name}</h4></Modal.Header>
                       <Modal.Content>
                               <div className='row'>
-                                  <div className='col-4'> <img src={`https://assets.ansl.tn/Images/Articles/${selectedArticle.Photo_Path}`} className='img-responsive' width='80%' height='200px' /></div>
+                                  <div className='col-4'> <img src={`https://cdn.abyedh.tn/images/system/Resto/${selectedArticle.Photo_Path}`} className='img-responsive' width='80%' height='200px' /></div>
                                   <div className='col-8 align-self-center'>
                                         <table className='table table-striped'>
                                         <tbody>
@@ -112,7 +112,7 @@ function MenuPage() {
                                                  <td>{selectedArticle.P_Code}</td> 
                                               </tr>
                                               <tr>
-                                                 <td>Achat : </td> 
+                                                 <td>Cout : </td> 
                                                  <td>{selectedArticle.Cout ? (selectedArticle.Cout).toFixed(3) : ''}</td> 
                                               </tr>
                                               <tr>
@@ -120,24 +120,12 @@ function MenuPage() {
                                                  <td>{selectedArticle.Prix_vente ? (selectedArticle.Prix_vente).toFixed(3) : ''}</td> 
                                               </tr>
                                               <tr>
-                                                 <td>Gros :</td> 
-                                                 <td>{selectedArticle.Prix_gros ? (selectedArticle.Prix_gros).toFixed(3) : ''}</td> 
-                                              </tr>
-                                              <tr>
-                                                 <td>Qauntite :</td> 
-                                                 <td>{selectedArticle.Quantite}</td> 
-                                              </tr>
-                                              <tr>
                                                  <td>Repture  :</td> 
                                                  <td>{selectedArticle.Repture}</td> 
                                               </tr>
                                               <tr>
-                                                 <td>Groupage : </td> 
-                                                 <td>{selectedArticle.Groupage}</td> 
-                                              </tr>
-                                              <tr>
                                                  <td>Description</td> 
-                                                 <td>{selectedArticle.Detail}</td> 
+                                                 <td>{selectedArticle.Description}</td> 
                                               </tr>
                                           </tbody>
                                         </table>
@@ -146,7 +134,7 @@ function MenuPage() {
                       </Modal.Content>
                       <Modal.Actions>
                                   <Button className='rounded-pill' negative onClick={ () => setModalS(false)}> <span className='bi bi-x' ></span> Fermer</Button>
-                                  <Button className='rounded-pill bg-system-btn'   onClick={ (e) => NavigateFunction(`/S/sk/info/${selectedArticle.P_Code}`)}><span className='d-none d-lg-inline'> Info </span><Icon  name='angle right' /></Button>
+                                  <Button className='rounded-pill bg-system-btn'   onClick={ (e) => NavigateFunction(`/S/mu/info/${selectedArticle.P_Code}`)}><span className='d-none d-lg-inline'> Info </span><Icon  name='angle right' /></Button>
                       </Modal.Actions>
               </Modal>  
               </Transition>
