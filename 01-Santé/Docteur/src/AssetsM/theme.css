@@ -10,15 +10,53 @@ body { background-color: #ffffff !important; } /* Or: f4f4f4 - #f0f2f5 - f9fafb*
 ::-webkit-scrollbar-thumb:hover {  background: #595a5c; border-radius: 5px; }
 a { text-decoration: none !important; }
 
+/* Sepesific Scroll Bar*/
+.spesific-commp::-webkit-scrollbar { width: 20px !important;}
+.spesific-commp::-webkit-scrollbar-track { background-color: #f1f1f1 !important;}
+.spesific-commp::-webkit-scrollbar-thumb { background-color: #888 !important; border-radius: 5px !important; }
+
+/* Sepesific Scroll Bar*/
+.spesific-commp-2::-webkit-scrollbar { width: 13px !important;}
+.spesific-commp-2::-webkit-scrollbar-track { background-color: #f1f1f1 !important;}
+.spesific-commp-2::-webkit-scrollbar-thumb { background-color: #888 !important; border-radius: 5px !important; }
+
+
+@font-face {
+  font-family: "Droid";
+  src: url("../../public/Fonts/Droid.ttf");
+  font-size: 8px !important;
+}
+@font-face {
+  font-family: "Hs-b";
+  src: url("../../public/Fonts/HSB.otf");
+  font-size: 8px !important;
+}
+@font-face {
+  font-family: "Hs-t";
+  src: url("../../public/Fonts/HST.otf");
+  font-size: 10px !important;
+}
+@font-face {
+  font-family: "Hs-n";
+  src: url("../../public/Fonts/HS1.otf");
+  font-size: 10px !important;
+}
+.font-hs-d { font-family: "Hs-b" , "Droid" !important; }
+.font-hs-t { font-family: "Hs-t" , "Droid" !important; }
+.font-hs-n { font-family: "Hs-n" , "Droid" !important; }
+
 /*LogIn*/
 .login-caontainer { padding-top: 40px; }
 .w-login-input{ width: 60%; }
-@media only screen and (max-width: 768px) { .w-login-input{ width: 100%; } }
+.small-img-screen {width: 100% !important; height: '100px' !important; }
+@media only screen and (max-width: 768px) { .w-login-input{ width: 100%; } .small-img-screen {width: 100% !important; height: '170px' !important; } }
 
 /*navbar images*/
 .navBar-img { border-radius: 20px !important; }
 
 /*bootsrap icons*/
+.bi-xlsm { font-size: 13px; }
+.bi-xsm { font-size: 17px; }
 .bi-sm { font-size: 20px; }
 .bi-lg { font-size: 50px; }
 .bi-md { font-size: 30px; }
@@ -54,9 +92,12 @@ input[type="number"]:focus,
 }
 .abyedh-list { color:#798599 !important;  font-size: 15px; font-weight: bold;}
 .abyedh-list-a-s { border-bottom: 2px solid var(--main-bg-color) !important; border-radius: 3px 3px 0px 0px !important; color: var(--main-bg-color) !important; font-weight: bold;}
-/* .abyedh-list-a { border-bottom: 2px solid var(--main-bg-color) !important; background-color: #dedfdf !important; border-radius: 3px 3px 0px 0px !important;  color: rgb(41, 41, 41) !important; font-size: 15px;} */
-.abyedh-list-a {background-color: #cce0fc !important; border-radius: 9px 9px 9px 9px !important;  color: var(--main-bg-color) !important; font-size: 15px; font-weight: bold;}
+/* .abyedh-list-a { border-bottom: 3px solid var(--main-bg-color) !important; background-color: #dedfdf !important; border-radius: 7px 7px 0px 0px !important;  color: rgb(41, 41, 41) !important; font-size: 15px;} */
+.abyedh-list-a {background-color: var(--main-bg-color) !important; border-radius: 10px 10px 10px 10px !important;  color: #ffffff !important; font-size: 15px; font-weight: bold;}
+/* .abyedh-list-a {border-bottom: 3px solid var(--main-bg-color) !important;    color: var(--main-bg-color) !important; font-size: 15px; font-weight: bold;} */
+/* .pb-main-tab {padding-bottom: 18px !important;} */
 .btn-system { border-radius: 5px !important; margin-right: 10px; }
+.system-color { color: var(--main-bg-color) !important;  }
 .start-page-loader { z-index: 1101; position: fixed !important; top: 50% !important; left: 50% !important; }
 .btn-imprimer{background-color: #08a87d !important; color: white !important;}
 .btn-regler{background-color: #b3126d !important; color: white !important;}
@@ -73,7 +114,7 @@ input[type="number"]:focus,
 .active.item { border-color: var(--main-bg-color) !important; }
 .rounded-system{ border-radius: 20px; }
 .form-check-input{ width: 35px !important; height: 17px !important;}
-.form-check-input:checked { background-color: var(--main-bg-color) !important; border-color: pink; }
+.form-check-input:checked { background-color: var(--main-bg-color) !important; }
 .sub-sys-round{ border-radius: 15px !important; }
 .main-big-card{ background-image: linear-gradient(to right top, var(--main-bg-color),  #ffffff); border: 0px solid; }
 .catalogue-big-card{ background-image: linear-gradient(to bottom top, var(--main-bg-color) ,  #ffffff); border: 0px solid; }
@@ -92,6 +133,7 @@ input[type="number"]:focus,
 .map-height-cmd { height: 650px !important; }
 .map-height-sm{height: 50px;}
 .bg-system-btn{ background-color: var(--main-bg-color) !important; color: white !important; }
+.bg-system { background-color: var(--main-bg-color) !important; }
 .w-cal-in{ width: 26px !important; text-align: center !important;  background-color: #06c436 !important; }
 .w-cal-out{ width: 26px !important; text-align: center !important; background-color: #c40636 !important;}
 .fc-day-spancmd  { background-color: red !important;}
@@ -168,3 +210,40 @@ input[type="number"]:focus,
   /* box-shadow: 5px 10px rgb(238, 236, 236); */
 }
 .toast-bg-card{background-color: #ebedeb !important;}
+.tab-right{ justify-content:  flex-end !important }
+.floating-card {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  background-color: #007bff;
+  box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.3);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 30px;
+  color: #ffffff;
+  cursor: pointer;
+  transition: transform 0.3s ease-in-out;
+}
+
+.floating-card:hover {
+  transform: scale(1.1);
+}
+.no-menu-tabs .ui.menu {
+  display: none !important;
+}
+.activeDocItem {
+  border-right: 3px solid var(--main-bg-color);
+}
+
+.bg-dark-theme-1{background-color: #242526 !important; }
+.bg-dark-theme-2{background-color: #18191a !important;}
+.bg-dark-theme-3{background-color: #3e4042 !important;}
+.bg-dark-theme-4{background-color: #5d5d5e !important;}
+.bg-gray {background-color: #dbdad7 !important;}
+.setting-input-text input {
+  text-align: right !important;
+}

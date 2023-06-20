@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { MapContainer, Marker, TileLayer } from 'react-leaflet';
-import BackCard from '../Assets/backCard';
-import InputLinks from '../Assets/linksData';
+import BackCard from '../Assets/Cards/backCard';
+import GConf from '../Assets/linksData';
 import 'leaflet/dist/leaflet.css';
 import L from 'leaflet';
 import GConf from '../../AssetsM/generalConf';
@@ -23,7 +23,7 @@ function ClientPointage() {
          popupAnchor:  [0,0]
        });
     useEffect(() => {
-        axios.get(`${GConf.ApiLink}/client/map`)
+        axios.get(`${GConf.ApiLink}/eleve/map`)
         .then(function (response) {
             setClientPos(response.data)
             console.log(response.data)
@@ -31,7 +31,7 @@ function ClientPointage() {
     }, [])
 
     return ( <>
-        <BackCard data={InputLinks.backCard.clPtg}/>
+        <BackCard data={GConf.backCard.clPtg}/>
         <br />
         <div className='container'>
             <div className='card card-body shadow-sm mb-4 '></div>

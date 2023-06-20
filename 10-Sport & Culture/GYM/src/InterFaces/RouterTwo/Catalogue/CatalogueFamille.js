@@ -3,8 +3,8 @@ import React, { useEffect, useState } from 'react';
 import { NavLink } from 'react-router-dom';
 import GConf from '../../AssetsM/generalConf';
 import SKLT from '../../AssetsM/Cards/usedSlk';
-import BackCard from '../Assets/backCard';
-import InputLinks from '../Assets/linksData';
+import BackCard from '../Assets/Cards/backCard';
+import GConf from '../Assets/linksData';
 
 function CatalogueFamille() {
     //variables
@@ -13,7 +13,7 @@ function CatalogueFamille() {
 
     //useEffect
     useEffect(() => {
-        axios.post(`${GConf.ApiLink}/stock/familles`, {
+        axios.post(`${GConf.ApiLink}/forfait/familles`, {
             tag: GConf.SystemTag,
           })
           .then(function (response) {
@@ -45,7 +45,7 @@ function CatalogueFamille() {
     }
 
     return ( <>
-        <BackCard data={InputLinks.backCard.cgFamille}/>
+        <BackCard data={GConf.backCard.cgFamille}/>
         <br />
         <div className='container-fluid'>
                 {loading ?  

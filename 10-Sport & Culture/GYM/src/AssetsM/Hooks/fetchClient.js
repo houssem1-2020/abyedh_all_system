@@ -9,7 +9,7 @@ const useGetClients = () => {
     let Offline = JSON.parse(localStorage.getItem(`${GConf.PID}_Offline`));
     //Use Effects 
     useEffect(() => {
-        axios.post(`${GConf.ApiLink}/client`, {
+        axios.post(`${GConf.ApiLink}/membres`, {
             PID :  GConf.PID,
         })
         .then(function (response) {

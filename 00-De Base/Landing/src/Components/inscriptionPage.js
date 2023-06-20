@@ -199,7 +199,7 @@ const Horaire = ({alwaysState, setAlwaysState, timming, setPauseDay , SetTimming
                             <div className='col-10'>يوم راحة ؟ </div>
                         </div>
                         
-                        <Button size='mini'   icon className='rounded-pill  text-white font-droid' onClick={() => UpdateTimmingData()} fluid  >   <Icon name='world' /> تعديل  </Button>
+                        <Button size='mini'     className='rounded-pill    font-droid' onClick={() => UpdateTimmingData()} fluid  >   <Icon name='time' /> تعديل  </Button>
                     </div>
                 </div>
             </div>
@@ -280,6 +280,7 @@ function Inscription() {
     const UpdateTimmingData = (day,time,genre,value) => {
         //setTimming(...timming)
         setTest(Math.random())
+        toast.success("", GConf.TostAddedToTimming)
 
     }  
     const setPauseDay = (day,state) =>{
@@ -339,12 +340,26 @@ function Inscription() {
         });
       
         return null;
-      };
+    };
 
-      const handleLocationSelected = (location) => {
-        setPosition({Lat: location.lat , Lng:location.lng})
-      };
+    const handleLocationSelected = (location) => {
+    setPosition({Lat: location.lat , Lng:location.lng})
+    };
 
+    const GetMyLocation = () =>{
+        navigator.geolocation.getCurrentPosition(
+            function(position) {
+                if (!position.coords.latitude) {toast.error(<><div><h5>ENTRE VOTRE POSITION Lat</h5></div></>, GConf.TostInternetGonf)}
+                else if (!position.coords.longitude) {toast.error(<><div><h5>ENTRE VOTRE POSITION Lng</h5></div></>, GConf.TostInternetGonf)}
+                else{
+                    setPosition({Lat:position.coords.latitude, Lng:position.coords.longitude})
+                }
+            },
+            function(error) {
+                toast.error(<><div><h5>ENTRE VOTRE POSITION</h5></div></>, GConf.TostInternetGonf)
+            }
+        );
+    }
     /* ############### Card #################*/
     
     const Location = () =>{
@@ -353,7 +368,12 @@ function Inscription() {
             <br />
             <br />
             <div className='  mb-3'>
-                <h5 className='text-end text-secondary ' dir='rtl'> <span className='bi bi-geo-alt-fill'></span>   الموقع الجغرافي </h5>
+                    <div className='row'>
+                            <div className='col-6 align-self-center text-end'><h5 className='text-end text-secondary ' dir='rtl'> <span className='bi bi-geo-alt-fill'></span>   الموقع الجغرافي </h5></div>
+                            <div className='col-6 align-self-center text-start'><Button icon='map pin' className='rounded-circle' onClick={() => GetMyLocation()}></Button></div>
+                    </div> 
+                    
+                    <small className='mb-3'> قم بالنقر علي الزر لتحديد مكانك الحاليا إفتراضيا  </small>
                     <MapContainer center={[position.Lat,position.Lng]} zoom={15} scrollWheelZoom={false} className="map-height cursor-map-crosshair border-div">
                         <TileLayer
                         attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'

@@ -85,7 +85,7 @@ const GConf = {
             genre:'LI',
             Links:[
                 {id:1, tag:'restaurant', name:'نظام إدارة المطاعم ', link:'', img_url: 'restaurant.gif', color:'#35ac67', col:6, state:'', ready:true},
-                {id:2, tag:'cafe', name:'نظام إدارة المقاهي   ', link:'', img_url: 'cafe.gif', color:'#363636', col:6, state:''},
+                {id:2, tag:'cafe', name:'نظام إدارة المقاهي   ', link:'', img_url: 'cafe.gif', color:'#363636', col:6, state:'',  ready:true},
                 {id:3, tag:'hotel', name:'نظام إدارة الفنادق و النزل  ', link:'', img_url: 'hotel.gif', color:'#247cc7', col:12, state:'', ready:true},
             ]
         },
@@ -186,6 +186,19 @@ const GConf = {
             ]
         },
     ],
+    TostAddedToTimming : {
+      position: "bottom-left",
+      autoClose: 1000,
+      hideProgressBar: true,
+      closeOnClick: true,
+      closeButton: false,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+      className: 'w-alert-10',
+      theme: "colored",
+      
+  },
     //leafLeft
     LeafleftIcon : {
       iconUrl: require("leaflet/dist/images/position.gif"),
@@ -1507,8 +1520,9 @@ const GConf = {
             colorTheme:'#363636',
             adsImageUrl:'cafe.svg',
             systemTitle:'نظام إداراة المقاهي و قاعات الشاي',
-            systemUrl:'#',
-            adsText:'نظام إداراة نقاط البيع بالجملة يساعدك علي مراقبة و التحكم في مخزون المنتجات (stock) و متابعة فواتيرك و الإتصال بعملاءك و متابعة طلباتهم . كما يقدم لك واجهة رسومية (caisse) لتسجيل المبيعات و طباعة الفواتير. بالإضافة إلي مجموعة من الأدوات الإبداعية (مثل واجهة إستخراج الأسعار) التي تساعدك علي أداء عملك بجودة أفضل',
+            systemUrl:'https://cafe.system.abyedh.tn/Login',
+            businesName:'المقهي ',
+            adsText:'نكانك صاحب مطعم أبيض يوفرلك نظام إدارة و مراقبة و متابعة للمطعم وإلا العمل متاعك , من خلال بيئة إفتراضية تخليك ديما متصل بالزبائن متاعك لمعرفة ردود أفعالهم علي الخدمات اللي تقدمها ' ,
             prosList:[
                 {id:1, title:'متصل', color:'#4287f5', icon:'link-45deg', text:'يبقيك النظام في حالة إتصال دائم مع عملائك من خلال دليل شامل و تفاعلي يخول لهم التواصل معك بطريقة ذكية كما يبقيك متصل بكامل فريق العمل من خلال لوحات تحكم خاصة بهم لمتباعة أعمالهم و مراقبة مهامهم'},
                 {id:2, title:'سهل', color:'#5dd492', icon:'emoji-smile', text:'يهدف النظام أن يكون بسيطا ولكن فعال في نفس الوقت و ذلك من خلال تنضيمة و تبويبه بطريقة بسيطة في نسخته الحالية'},
@@ -1518,6 +1532,14 @@ const GConf = {
                 {id:6, title:'ذكي', color:'#d16200', icon:'lightbulb', text:'يقوم النضام بتجهيز خوارزمية لأتمتة العمليات الروتينية و المتكررة ما يعطي النضام صفة الذكاء و أتخاذ قرارات روتينية بنائا علي سلوك المستخدم'},
         
             ],
+            imageCarousel:[
+               {id:1, title:'إدارة العامة', color:'#4287f5', icon:'link-45deg', link:'cafe/cafe1.PNG'},
+               {id:2, title:'سهل', color:'#5dd492', icon:'emoji-smile', link:'cafe/cafe2.PNG'},
+               {id:3, title:'معين', color:'#8923e8', icon:'arrows-move', link:'cafe/cafe3.PNG'},
+               {id:4, title:'متطور', color:'#5d6360', icon:'arrow-repeat', link:'cafe/cafe4.PNG'},
+               {id:5, title:' مدعوم', color:'#e6327a', icon:'info-circle-fill', link:'cafe/cafe5.PNG'},
+       
+           ],
             prices:[
                  {id:1, tag:'نسخة مفتوحة', name:'', price:'500', ready:true,
                  pos:[

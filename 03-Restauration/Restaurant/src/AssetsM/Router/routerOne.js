@@ -33,15 +33,16 @@ import ImprimerRecette from '../../InterFaces/RouterOne/Recette/imprimerRecette'
 import MesFactures from '../../InterFaces/RouterOne/Recette/mesFactures';
 import FactureInfo from '../../InterFaces/RouterOne/Recette/factureInfo';
 import CommandePage from '../../InterFaces/RouterOne/Commandes/commandePage';
+import OneGConf from '../../InterFaces/RouterOne/Assets/OneGConf';
 
 
 
 
 const RedirectingPage = () => {
-    const OneIsLogged = localStorage.getItem(`Restaurant_Caisse_LocalD`);
+    const OneIsLogged = localStorage.getItem(`${OneGConf.routerTagName}_LocalD`);
     return (<>
         {
-            OneIsLogged ? <Navigate to='/C/L'  /> : <Navigate to='/C/logIn'  />
+            OneIsLogged ? <Navigate to={`/${OneGConf.routerName}/L`} /> : <Navigate to={`/${OneGConf.routerName}/logIn`}  />
         } 
 </>);}
 
@@ -77,9 +78,9 @@ const routerOne = () => (
                     </Route>
 
                     
-                    <Route path="cl" exact element={<Outlet />} >
+                    <Route path="cmdv" exact element={<Outlet />} >
                         <Route path="" exact element={<ClientList />} />
-                        <Route path="info/:CLID" exact element={<ReglemmentClient />} />
+                        <Route path="info/:CID" exact element={<ReglemmentClient />} />
                     </Route>
                     
                     <Route path="up" exact element={<UploadeCamionPage />} />

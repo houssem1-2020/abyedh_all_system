@@ -1,11 +1,15 @@
 
 const TwoGConf = {
-
-    forPID: JSON.parse(localStorage.getItem('Restaurant_Reservation_LocalD')), //GetForPID(),
+    TwoLocalStorage: JSON.parse(localStorage.getItem('Restaurant_Serveur')), //GetForPID(),
+    forPID: JSON.parse(localStorage.getItem('Restaurant_Serveur_LocalD')), //GetForPID(),
+    themeMode: localStorage.getItem('Restaurant_Serveur_Theme'),
+    twoOffline : JSON.parse(localStorage.getItem(`Restaurant_Serveur_Offline`)),
+    
     themeColor: '#2f8d99',
-    default_Offline : {stock: [], facture: [],  client:[],  factureToSave:[], clientToSave:[], depensesToSave:[]},
-    oneOffline : JSON.parse(localStorage.getItem(`Restaurant_Reservation_Offline`)),
+    default_Offline : {stock: [], facture: [],  client:[],  factureToSave:[], clientToSave:[], depensesToSave:[]}, 
     routerName : 'R',
+    routerTagName : 'Restaurant_Serveur',
+
 
     //main
     main : [
@@ -23,27 +27,27 @@ const TwoGConf = {
 
     //return back card 
     backCard:{
-        nv : {id:1, text:'Nouveaux Commande', link:'/C/L'},
+        nv : {id:1, text:'Nouveaux Commande', link:'/R/L'},
 
-        cl : {id:2, text:'Client Info', link:'/C/L/cl/List'},
-        clAdd : {id:3, text:'Ajouter Client', link:'/C/L'},
-        clPtg : {id:4, text:'Pointage des Clients', link:'/C/L'},
-        clMap : {id:5, text:'Recherche des Clients', link:'/C/L'},
-        clList : {id:6, text:'Liste des Clients', link:'/C/L'},
+        cl : {id:2, text:'Client Info', link:'/R/L/cl/List'},
+        clAdd : {id:3, text:'Ajouter Client', link:'/R/L'},
+        clPtg : {id:4, text:'Pointage des Clients', link:'/R/L'},
+        clMap : {id:5, text:'Recherche des Clients', link:'/R/L'},
+        clList : {id:6, text:'Liste des Clients', link:'/R/L'},
 
-        mc : {id:7, text:'Mes Commandes', link:'/C/L'},
-        mcInfo : {id:8, text:'Commande Info', link:'/C/L'},
-        mcInfo : {id:9, text:'Modifier Commande', link:'/C/L'},
+        mc : {id:7, text:'Mes Commandes', link:'/R/L'},
+        mcInfo : {id:8, text:'Commande Info', link:'/R/L'},
+        mcInfo : {id:9, text:'Modifier Commande', link:'/R/L'},
 
-        cg : {id:10, text:'Catalogue', link:'/C/L'},
-        cgList : {id:11, text:'Liste des Articles', link:'/C/L'},
-        cgFamille : {id:12, text:'Liste des Familles', link:'/C/L'},
-        cgInfo : {id:13, text:'Info Sur Article', link:'/C/L'},
-        cgPhoto: {id:14, text:'Ajoiuter Photo', link:'/C/L'},
+        cg : {id:10, text:'Catalogue', link:'/R/L'},
+        cgList : {id:11, text:'Liste des Articles', link:'/R/L'},
+        cgFamille : {id:12, text:'Liste des Familles', link:'/R/L'},
+        cgInfo : {id:13, text:'Info Sur Article', link:'/R/L'},
+        cgPhoto: {id:14, text:'Ajoiuter Photo', link:'/R/L'},
 
-        up: {id:15, text:'Mettre A jour', link:'/C/L'},
-        rt: {id:15, text:'Resumer', link:'/C/L'},
-        stat: {id:15, text:'Statistique', link:'/C/L'},
+        up: {id:15, text:'Mettre A jour', link:'/R/L'},
+        rt: {id:15, text:'Resumer', link:'/R/L'},
+        stat: {id:15, text:'Statistique', link:'/R/L'},
     }
 }
 export default TwoGConf

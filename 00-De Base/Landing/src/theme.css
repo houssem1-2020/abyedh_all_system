@@ -174,3 +174,4 @@ input[type="number"]:focus,
 .border-ready{border-right: 3px solid #dc3545 !important;}
 Input{text-align: right !important;}
 .cursor-map-crosshair {cursor: crosshair !important;}
+.w-alert-10{ width: auto !important; max-width: 47px !important; left: 20px;  }

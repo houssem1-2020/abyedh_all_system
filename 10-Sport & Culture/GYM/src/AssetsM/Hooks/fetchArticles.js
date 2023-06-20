@@ -11,7 +11,7 @@ const useGetArticles = () => {
 
     //Use Effects 
     useEffect(() => {
-        axios.post(`${GConf.ApiLink}/stock`, {
+        axios.post(`${GConf.ApiLink}/forfait`, {
             PID: GConf.PID,
         })
         .then(function (response) {
@@ -35,7 +35,7 @@ const useGetArticles = () => {
           });
     }, [])
 
-  return [data, pureData, selectedData];
+  return [pureData];
 };
 
 export default useGetArticles;

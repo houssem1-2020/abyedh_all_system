@@ -8,6 +8,7 @@ function TableGrid(props) {
                 data={props.tableData}
                 columns={props.columns}
                 search = {true}
+                page={2}
                 resizable = {true}
                 sort = {true}                
                 pagination= {{

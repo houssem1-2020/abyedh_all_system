@@ -24,15 +24,15 @@ function MainPage() {
     date.locale(fr)
     const panes = [
             {
-            menuItem: 'Commandes',
-            render: () => <ChartsContainer chart={<PieChartCard data={commandeD}/>} col='4' title='Distrubition des commandes' />,
+            menuItem: 'Abonnemment',
+            render: () => <ChartsContainer chart={<PieChartCard data={genreD}/>} col='4' title='Distrubition des Plats' />,
             },
             {
-            menuItem: 'Articles',
-            render: () => <ChartsContainer chart={<PieChartCard data={genreD}/>} col='4' title='Distrubition des articless' />,
-            },
+                menuItem: 'Souscription',
+                render: () => <ChartsContainer chart={<PieChartCard data={commandeD}/>} col='4' title='Distrubition des Reervation' />,
+                },
             {
-            menuItem: 'Clients',
+            menuItem: 'Membre',
             render: () => <ChartsContainer chart={<PieChartCard data={PieData}/>} col='4' title='Distrubition des client' />,
             },
     ]
@@ -44,16 +44,17 @@ function MainPage() {
           })
           .then(function (response) {
 
-            if(new Date(response.data.activationState.ExpiredThe) < new Date()){
+            if(response.data.activationState  && new Date(response.data.activationState.ExpiredThe) < new Date()){
                 //LogOut()
-
                 toast.error(<><div className='card-body w-100'>
                             <h3 className='text-danger'>Votre System est Expiré</h3> 
-                            vous devez réactiver votre système , Voir <a href='/S/Parametre'> Paramétre </a> pour plus d'info ou bien contactez l'administration ABYEDH
+                                vous devez réactiver votre système , Voir <a href='/S/Parametre/paymment'> Paimment </a> pour plus d'info 
+                                {/* ou bien contactez l'administration ABYEDH */}
                             </div>
                             </>, GConf.TostExpired)
             }
 
+            console.log(response.data)
             setStat(response.data)
 
             
@@ -62,19 +63,15 @@ function MainPage() {
             setPieData(clientDis)
 
             let genreDist = []
-            response.data.genreDistro.map((datacld) => genreDist.push({ name: datacld.Genre, value: datacld.Totale }))
+            response.data.forfaitDistro.map((datacld) => genreDist.push({ name: datacld.F_Name, value: datacld.Totale }))
             setGenreD(genreDist)
 
             let commandeDist = []
             response.data.commandeDistro.map((datacld) => commandeDist.push({ name: datacld.State, value: datacld.Totale }))
             setCommandeD(commandeDist)
-            
-            let camionRT = []
-            response.data.camionStat.map((data) => camionRT.push({ name: capitalizeFirstLetter(data.Chauffeur), value: data.Recette }))
-            setDataBar(camionRT)
 
             let DepoRT = []
-            response.data.RecetteDepo.map((data) => DepoRT.push({ name: data.Cre_Date.split('T')[0],  value: data.Totale.toFixed(3) }))
+            response.data.evolutionSeance.map((data) => DepoRT.push({ name: data.SE_Date.split('T')[0],  value: data.Totale.toFixed(3) }))
             setDepoRT(DepoRT)
         }).catch((error) => {
             if(error.request) {
@@ -93,7 +90,7 @@ function MainPage() {
 
         return (<>
                 
-                <div className={`col-12 col-md-${props.data.col} mb-3`}>
+                <div className={`col-12 col-md -${props.data.col} mb-3`}>
                     <div className="card card-body bg-hover-card shadow-sm pb-2 border-div">
                         <NavLink exact="true" to={`../${props.data.link}`}   className="stretched-link" />
                         <div className="row">
@@ -143,7 +140,7 @@ function MainPage() {
     }
     const LineChts = (props) => {
         return (<>
-           <ResponsiveContainer width="100%" height={220} >
+           <ResponsiveContainer width="100%" height={200} >
                 <AreaChart
                     width={200}
                     height={60}
@@ -231,24 +228,14 @@ function MainPage() {
             <LinksCrads /> 
             <div className='row p-0'>
                 <div className='col-12 col-lg-8 mb-4 '> 
-                        <h5 className='mt-3 mb-4'>Evolution de Recette</h5> 
-                        {/* <ChartsContainer chart={<LineChts  data={depoTR}/>} col='7' title='' /> */}
-                        <ChartsContainer chart={<BarCht />} col='7' title='Recette des Camions' /> 
+                        <h5 className='mt-3 mb-4'>Evolution de Seances</h5> 
+                        <ChartsContainer chart={<LineChts />} col='7' title='Seance par date' /> 
 
                 </div>
                 <div className='col-12 col-lg-4 mb-4'> <Tab menu={{ secondary: true }} panes={panes} /></div>
-                {/* <div className='col-12 col-lg-6 mb-4'><ChartsContainer chart={<BarCht />} col='5' title='Recette des Commandant' /> </div> */}
 
-            </div>
-            <div className="row justify-content-center mb-4 d-none">
-                <ChartsContainer chart={<BarCht />} col='5' title='Recette des Camions' />
-                {/* <ChartsContainer chart={<LineChts  data={depoTR}/>} col='7' title='Evolution de Recette' /> */}
-                <ChartsContainer chart={<PieChartCard data={commandeD}/>} col='4' title='Evolution de Recette' />
-                <ChartsContainer chart={<PieChartCard data={PieData}/>} col='4' title='Distrubition des client' />
-                {/* <ChartsContainer chart={<PieChartCard data={genreD}/>} col='4' title='Distrubition des articless' /> */}
             </div>    
         </Slide > 
-        {/* <Notification />    */}
     </>);
 }
 

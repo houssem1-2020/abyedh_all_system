@@ -3,9 +3,9 @@ import React, { useEffect, useState } from 'react';
 import { toast } from 'react-toastify';
 import { Button, Dropdown, Icon, Input, Loader, Select, Tab } from 'semantic-ui-react';
 import GConf from '../../AssetsM/generalConf';
-import AlimDefaultCateg from './alimentaireDefaultCateg'
-import CosmoDefaultCateg from './cosmetiqueDefaultCateg'
-import FrameForPrint from '../../AssetsM/Cards/frameForPrint';
+//import [] from './alimentaireDefaultCateg'
+//import CosmoDefaultCateg from './cosmetiqueDefaultCateg'
+import FrameForPrint from '../../AssetsM/Hooks/printFunction';
 import usePrintFunction from '../../AssetsM/Hooks/printFunction';
 
 const AjouterPage = ({catalogueToAdd,setCataToAdd,AjouterAuCatalogue, loaderState}) =>{
@@ -64,7 +64,7 @@ function CataloguePage() {
         { key: 1, value: 'Even' , text: 'I - Pages Paires : 2-4-6 ...' },
         { key: 2, value: 'Odd' , text: 'II - Pages Impaires : 1-3-5 : ...' },
     ]
-    const DefaultCateg = {alimentaire : AlimDefaultCateg , cosmetique : CosmoDefaultCateg }
+    const DefaultCateg = {alimentaire : [] , cosmetique : [] }
     const panes = [
         {
           menuItem: 'Modifier',

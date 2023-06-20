@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { Bounce } from 'react-reveal';
-import { Tab, Divider, Icon, Statistic, Comment, Input, Button, Form, TextArea, Select, Loader, Dropdown, Checkbox} from 'semantic-ui-react';
+import { Tab, Divider, Icon, Statistic, Comment, Input, Button, Form, TextArea, Select, Loader, Dropdown, Checkbox, Label, Menu} from 'semantic-ui-react';
 import QRCode from "react-qr-code";
 import { Rating } from 'semantic-ui-react'
 import GConf from '../../AssetsM/generalConf';
@@ -14,16 +14,17 @@ import AvatarGroup from '@atlaskit/avatar-group';
 import FrameForPrint from '../../AssetsM/Cards/frameForPrint';
 import usePrintFunction from '../../AssetsM/Hooks/printFunction';
 import TunMap from '../../AssetsM/tunMap';
+import "react-responsive-carousel/lib/styles/carousel.min.css"; // requires a loader
+import { Carousel } from 'react-responsive-carousel';
+import FullCalendar from '@fullcalendar/react' // must go before plugins
+import timeGridPlugin from '@fullcalendar/timegrid';
 
 const EditProfile = ({generalData, setGeneralData, UpdateGeneralDataFunc, delegList,GetDelegList,loaderState}) =>{
     const genreOptions = [
-        { key: 1 , value: 'Alimentaire', text: 'Alimentaire' },
-        { key: 2 , value: 'cosmetique', text: 'cosmetique' },
-        { key: 3 , value: 'habillemment', text: 'habillemment' },
-        { key: 4 , value: 'medicamment', text: 'medicamment' },
-        { key: 5 , value: 'educuatif', text: 'educuatif' },
-        { key: 6 , value: 'construction', text: 'construction' },
-        { key: 7 , value: 'Boisson', text: 'Boisson' },
+        { key: 1 , value: '5 ETOILE', text: '5 ETOILE' },
+        { key: 2 , value: 'MLAWOUI', text: 'MLAWOUI' },
+        { key: 3 , value: 'PIZZA', text: 'PIZZA' },
+        { key: 4 , value: 'FAST FOOD', text: 'FAST FOOD' },
         
       ]
     return ( <>
@@ -82,18 +83,29 @@ const EditPassword = ({passwordData, setPasswordData, UpdatePasswordFunc,loaderS
 function ProfilePage() {
     /*###############################[Const]################################# */
     const [profileData, setProfileData] = useState([])
-    const [generalData, setGeneralData] = useState({Name:'',Phone:'', Adress:'',Genre:''})
+    const [generalData, setGeneralData] = useState({Name:'',Phone:'', Adress:'',Genre:'', Lat: '0.0', Lng:'0.2'})
     const [passwordData, setPasswordData] = useState({Identification:'',PasswordSalt:''})
+    
+    /*Horiare */
     const [horaireData, setHoraireData] = useState([])
+    const [alwaysState , setAlwaysState] = useState(false)
+    const [delegList ,setDelegList] = useState([])
+
+    /*Images */
+    const [imagesListe, setImagesListe] = useState([])
     const [uploadImageName, setUploadImageName] = useState('')
     const [uploadImage, setUploadImages] = useState()
+    const [formaDataArr, setFormDataArr] = useState()
     const [displayedImage, setDisplayedImage] = useState()
-    const [alwaysState , setAlwaysState] = useState(false)
+    const [todisplayedImage, setToDisplayedImage] = useState([])
+    
+    /*Position */
+    const [myPosition, setMyPosition] = useState([36.17720,9.12337])
+
+    /* Others */
     const [loading , setLoading] = useState(false)
     const [saveBtnState, setSaveBtnState] = useState(false)
     const [loaderState, setLS] = useState(false)
-    const [myPosition, setMyPosition] = useState([36.17720,9.12337])
-    const [delegList ,setDelegList] = useState([])
 
     L.Icon.Default.mergeOptions(GConf.LeafleftIcon );
     const panes = [
@@ -119,27 +131,48 @@ function ProfilePage() {
         },
         {
             menuItem: { key: 'rate', icon: 'star', content: 'Evaluation' }, 
-            render: () => <><RatingProfile /><CommentsProfile /></>,
+            render: () => <><Tab.Pane className='border-div p-4' attached={false}><Tab menu={{ secondary: true, className: 'tab-right'}}  panes={RatingPanes} /></Tab.Pane><br /></>,
         }, 
         {
             menuItem: { key: 'print', icon: 'print', content: 'Imprimer' }, 
             render: () => <><Tab.Pane className='border-div' attached={false}><PrintProfile /></Tab.Pane><br /></>,
         },
     ]
-
-
+    const horairePanes = [
+        {
+          menuItem: { key: 'users', icon: 'edit', content: 'Entrer' }, 
+          render: () => <InputHoraireCard />,
+        },
+        {
+          menuItem: { key: 'calendar', icon: 'calendar', content:  'Calendrier', },  
+          render: () => <AcutelCalendarCard />,
+        },
+      ]
+    const RatingPanes = [
+        {
+          menuItem: { key: 'calendar', icon: 'star', content:  'Avis ', },  
+          render: () => <RatingProfile />,
+        },
+        {
+            menuItem: { key: 'users', icon: 'comment', content: 'Commentaire ' }, 
+            render: () => <CommentsProfile />,
+          },
+      ] 
     /*###############################[UseEffect]################################# */
     useEffect(() => {
+        
         GetPositionNow();
         axios.post(`${GConf.ApiLink}/profile`, {
             PID: GConf.PID,
         })
         .then(function (response) {
-            setProfileData(response.data)
-            setPasswordData(response.data.password[0])
             setGeneralData(response.data.general[0])
-            setAlwaysState(response.data.horaire[0].ALL_Time)
-            setHoraireData(JSON.parse(response.data.horaire[0].WorkingTime))
+            setProfileData(response.data)
+            setPasswordData(response.data.password[0]) 
+            setImagesListe(response.data.images)
+
+            if (response.data.horaire[0]) { setAlwaysState(response.data.horaire[0].ALL_Time) } else { }
+            if (response.data.horaire[0]) { setHoraireData(JSON.parse(response.data.horaire[0].WorkingTime)) } else { } 
             setLoading(true)
 
         }).catch((error) => {
@@ -152,13 +185,76 @@ function ProfilePage() {
     }, [])
 
     /*###############################[Function]################################# */
+    const PrintFunction = (frameId) =>{usePrintFunction(frameId)}
+    
+    /*Genrale */
+    const GetDelegList = (value) =>{
+        setGeneralData({...generalData, Gouv: value })
+        const found = TunMap.Deleg.filter(element => element.tag === value)
+        setDelegList(found)
+    }
+    const UpdateGeneralDataFunc = () =>{
+        if (!generalData.Matricule_F) {toast.error("Matricule est Invalide !", GConf.TostErrorGonf)}
+        else if (!generalData.Name ) {toast.error("Nom de la ste est  Invalide !", GConf.TostErrorGonf)}
+        else if (!generalData.Gouv ) {toast.error("Gouv est  Invalide !", GConf.TostErrorGonf)}
+        else if (!generalData.Deleg ) {toast.error("Delegation est  Invalide !", GConf.TostErrorGonf)}
+        else if (!generalData.Phone ) {toast.error("Phone est  Invalide !", GConf.TostErrorGonf)}
+        else if (!generalData.Adress ) {toast.error("Adress est  Invalide !", GConf.TostErrorGonf)}
+        else if (!generalData.Genre ) {toast.error("Genre est  Invalide !", GConf.TostErrorGonf)}
+        else{
+            setLS(true)
+            axios.post(`${GConf.ApiLink}/profile/update/general`, {
+                PID : GConf.PID,
+                profileDataSent : generalData,
+            }).then(function (response) {
+                console.log(response.data)
+                if(response.data.affectedRows) {
+                    toast.success("Profile Modifieé !", GConf.TostSuucessGonf)
+                    setLS(false)
+                }
+                else{
+                    toast.error('Erreur esseyez de nouveaux', GConf.TostSuucessGonf)
+                    setLS(false)
+                }
+            })                
+        }
+    }
+    const UpdatePasswordFunc = () =>{
+        if (!passwordData.Identification) {toast.error("Identifiant est Invalide !", GConf.TostErrorGonf)}
+        else if (!passwordData.PasswordSalt ) {toast.error("Mot de passe est  Invalide !", GConf.TostErrorGonf)}
+        else{
+            setLS(true)
+            axios.post(`${GConf.ApiLink}/profile/update/password`, {
+                PID : GConf.PID,
+                passwordDataSent : passwordData,
+            }).then(function (response) {
+                if(response.data.affectedRows) {
+                    toast.success("Mot de Passe Modifieé !", GConf.TostSuucessGonf)
+                    setLS(false)
+                }
+                else{
+                    toast.error('Erreur esseyez de nouveaux', GConf.TostSuucessGonf)
+                    setLS(false)
+                }
+            })                
+        }
+    }
+
+
+
+    /* Rating */
     const CalculateRating = (table) =>{
         let tot = 0;
         table.map( data => {
             tot = tot + data.Rating
         })
-
-        return parseFloat(tot / table.length).toFixed(1)
+        if (tot == 0) {
+            return tot
+        } else {
+            return parseFloat(tot / table.length).toFixed(1)
+        }
+        
+        //
     }
     const CalculateLikes = (table) =>{
         const WantedValue =  table.length ;
@@ -168,9 +264,21 @@ function ProfilePage() {
     }
     const CalculateReview = (table, value ) =>{
         let filteredArray = table.filter(obj => parseInt(obj.Rating) == value );
-
-        return(parseInt((filteredArray.length / table.length) * 100 ) )
+        if (filteredArray != 0) {
+            return(parseInt((filteredArray.length / table.length) * 100 ) )
+        } else {
+            return 0
+        }
+        
     }
+    const ReturnAvatarGroupList = (list) =>{
+        let FinalList = []
+
+        list.map( (data,index) => FinalList.push({ key: index, name: data.Name , src: `https://cdn.abyedh.tn/images/p_pic/${data.PictureId}.gif`},))
+        return FinalList
+    }
+
+    /*Images */
     const UploadImageFunc = (e) => {
         setDisplayedImage(URL.createObjectURL(e.target.files[0]))
         setUploadImages(e.target.files[0])
@@ -195,7 +303,27 @@ function ProfilePage() {
             });  
         } 
     }
-
+    const handleFileSelect = (event)  =>{
+        const files = event.target.files;
+        const formData = new FormData();
+        for (let i = 0; i < files.length; i++) {
+            const filename = `restaurant_${GConf.PID}_${i}-`;
+            formData.append('Images', files[i], filename);
+        }
+        formData.append("PID", GConf.PID);
+        //setDisplayedImage(URL.createObjectURL(event.target.files[0]))
+        const uploadedImages = Array.from(event.target.files);
+        setToDisplayedImage(uploadedImages);
+        //files.map(() => console.log(files.length))
+        
+        setFormDataArr(formData);
+        //UpdateImageFuncMultiple(formData);
+    }
+    const UpdateImageFuncMultiple = (formData) =>{
+        axios.post(`${GConf.ApiLink}/profile/images/ajouter`, formData)
+        .then(response => console.log(`Done ` + response.data))
+        .catch(error => console.log(error));
+    }
     // const UpdateImageFunc = () =>{
     //     if (!uploadImage) { } 
     //     else if (!uploadImageName) { }
@@ -219,18 +347,24 @@ function ProfilePage() {
     //     setDisplayedImage(URL.createObjectURL(e.target.files[0]))
     //     setUploadImages(e.target.files[0])
     // }
-    const PrintFunction = (frameId) =>{usePrintFunction(frameId)}
-    const ReturnAvatarGroupList = (list) =>{
-        let FinalList = []
-
-        list.map( (data,index) => FinalList.push({ key: index, name: data.Name , src: `https://cdn.abyedh.tn/images/p_pic/${data.PictureId}.gif`},))
-        return FinalList
+    const RemoveImageFunc = (imgName) => {
+        console.log(imgName.slice(0, -4))
+        axios.post(`${GConf.ApiLink}/profile/images/deletefile`, {
+            fileName : imgName,
+        }).then(function (response) {
+            console.log(response.data)
+            if(response.data.affectedRows) {
+                toast.success("Image Supprimeé !", GConf.TostSuucessGonf)
+                setLS(false)
+            }
+            else{
+                toast.error('Erreur esseyez de nouveaux', GConf.TostSuucessGonf)
+                setLS(false)
+            }
+        })
     }
-    const GetDelegList = (value) =>{
-        setGeneralData({...generalData, Gouv: value })
-        const found = TunMap.Deleg.filter(element => element.tag === value)
-        setDelegList(found)
-    }
+    
+    /*Position */
     const GetPositionNow = () =>{
         //get position 
         navigator.geolocation.getCurrentPosition(
@@ -247,57 +381,9 @@ function ProfilePage() {
         );
     }
     const CheckPositions = () =>{
-        let LAT = myPosition[0] === JSON.parse(generalData.Lat)
-        let LNG = myPosition[1] === JSON.parse(generalData.Lng)
+        let LAT = myPosition[0] === parseFloat(generalData.Lat)
+        let LNG = myPosition[1] === parseFloat(generalData.Lng)
         return (LAT && LNG)
-    }
-
-    /* Save */
-    const UpdateGeneralDataFunc = () =>{
-            if (!generalData.Matricule_F) {toast.error("Matricule est Invalide !", GConf.TostErrorGonf)}
-            else if (!generalData.Name ) {toast.error("Nom de la ste est  Invalide !", GConf.TostErrorGonf)}
-            else if (!generalData.Gouv ) {toast.error("Gouv est  Invalide !", GConf.TostErrorGonf)}
-            else if (!generalData.Deleg ) {toast.error("Delegation est  Invalide !", GConf.TostErrorGonf)}
-            else if (!generalData.Phone ) {toast.error("Phone est  Invalide !", GConf.TostErrorGonf)}
-            else if (!generalData.Adress ) {toast.error("Adress est  Invalide !", GConf.TostErrorGonf)}
-            else if (!generalData.Genre ) {toast.error("Genre est  Invalide !", GConf.TostErrorGonf)}
-            else{
-                setLS(true)
-                axios.post(`${GConf.ApiLink}/profile/update/general`, {
-                    PID : GConf.PID,
-                    profileDataSent : generalData,
-                }).then(function (response) {
-                    console.log(response.data)
-                    if(response.data.affectedRows) {
-                        toast.success("Profile Modifieé !", GConf.TostSuucessGonf)
-                        setLS(false)
-                    }
-                    else{
-                        toast.error('Erreur esseyez de nouveaux', GConf.TostSuucessGonf)
-                        setLS(false)
-                    }
-                })                
-            }
-    }
-    const UpdatePasswordFunc = () =>{
-        if (!passwordData.Identification) {toast.error("Identifiant est Invalide !", GConf.TostErrorGonf)}
-        else if (!passwordData.PasswordSalt ) {toast.error("Mot de passe est  Invalide !", GConf.TostErrorGonf)}
-        else{
-            setLS(true)
-            axios.post(`${GConf.ApiLink}/profile/update/password`, {
-                PID : GConf.PID,
-                passwordDataSent : passwordData,
-            }).then(function (response) {
-                if(response.data.affectedRows) {
-                    toast.success("Mot de Passe Modifieé !", GConf.TostSuucessGonf)
-                    setLS(false)
-                }
-                else{
-                    toast.error('Erreur esseyez de nouveaux', GConf.TostSuucessGonf)
-                    setLS(false)
-                }
-            })                
-        }
     }
     const UpdatePositionFunc = () =>{
         if (!passwordData.Identification) {toast.error("Identifiant est Invalide !", GConf.TostErrorGonf)}
@@ -320,17 +406,49 @@ function ProfilePage() {
         }
     }
 
+    /*Horiare */
+
     /*###############################[Card]################################# */
+    const PrintProfile = () =>{ 
+        return(<>
+            <div className="d-flex">
+                <div className="flex-shrink-0">
+                <QRCode value={GConf.PID} size={130} />
+                </div>
+                <div className="flex-grow-1 ms-3">
+                        <h1> {GConf.PID} </h1>
+                        Cet identifiant vous distinguera des autres inscrits sur la plateforme. Cela peut aussi être un court moyen de faire de la publicité pour vous
+                        <div>
+                        <Button size='mini' className='rounded-pill' onClick={() => navigator.clipboard.writeText(localStorage.getItem('PID'))}><Icon name='copy'  /> Copier PID</Button>
+                        </div>
+                        
+                </div>
+            </div>
+            <Divider />
+            <div className="d-flex">
+                <div className="flex-shrink-0">
+                <QRCode value={`S/P/${GConf.systemTag}/${GConf.PID}`} size={130} />
+                </div>
+                <div className="flex-grow-1 ms-3">
+                    Imprimez ce lien qui peut être accroché à la porte de votre magasin afin que vos clients puissent vous joindre facilement, et il peut également être partagé directement sur les réseaux sociaux
+                    <div className='mt-2'>
+                        <Button size='mini' positive onClick={(e) => PrintFunction('printPID')}> <Icon name='print'  />Imprimer</Button>
+                        <Button size='mini' primary target="_blank" href={`https://www.facebook.com/sharer/sharer.php?u=https://abyedh.tn/S/P/${GConf.systemTag}/${GConf.PID}`} >  <Icon name='facebook f' /> Partager </Button>
+                    </div>
+                </div>
+            </div>
+        </>)
+    }
     const ProfileCard = () =>{
         return(<>
             <div className="card card-body shadow-sm mb-4 sticky-top border-div" style={{top:'70px'}}>
 	            <div className="text-center ">
-	            	<img className="rounded-circle mb-3" src="https://assets.abyedh.tn/img/system/ads/storage.svg" width="90px" height="90px"/>
+	            	<img className="rounded-circle mb-3" src={`https://assets.abyedh.tn/img/system/ads/${GConf.systemTag}.svg`} width="90px" height="90px"/>
 	            
 	            	 <h6>{loading ? profileData.general[0].Name : SKLT.BarreSkl } </h6>
-	            	 <div><small className="text-secondary">Point de Vente En gros ({loading ? profileData.general[0].Genre : SKLT.BarreSkl })</small></div>
+	            	 <div><small className="text-secondary">Restaurant ({loading ? profileData.general[0].Genre : SKLT.BarreSkl })</small></div>
 	            	<div><small className="text-secondary"><span className="bi bi-geo-alt"></span> {loading ? <> {profileData.general[0].Adress} , {profileData.general[0].Gouv} </> : SKLT.BarreSkl } </small></div>
-	            	<div><small className="text-secondary"><span className="bi bi-telephone"></span> +216{loading ? profileData.general[0].Phone : SKLT.BarreSkl } </small></div> 
+	            	<div><small className="text-secondary"><span className="bi bi-telephone"></span> +216 {loading ? profileData.general[0].Phone : SKLT.BarreSkl } </small></div> 
                     <h5>PID : {localStorage.getItem('PID')} <Button size='mini' icon='copy' className='rounded-circle' onClick={() => navigator.clipboard.writeText(localStorage.getItem('PID'))}></Button> </h5>
 					<Divider /> 
 					<div className='row mt-2'>
@@ -369,38 +487,12 @@ function ProfilePage() {
 					<br />
 					<br />
 					<div className='d-grid gap-2'>
-						<a className='btn btn-danger btn btn-lg bnt-block rounded-pill text-white ' target="_blank" href={`https://t.abyedh.tn/S/P/storage/${GConf.PID}`}>
+						<a className='btn btn-danger btn btn-lg bnt-block rounded-pill text-white ' target="_blank" href={`https://abyedh.tn/S/P/${GConf.systemTag}/${GConf.PID}`}>
 							<span className='bi bi-person-circle me-3'></span>    
 							 Profile 
 						</a>
 					</div>
 	            </div>
-            </div>
-        </>)
-    }
-    const PrintProfile = () =>{ 
-        return(<>
-            <div className="d-flex">
-                <div className="flex-shrink-0">
-                <QRCode value={GConf.PID} size={130} />
-                </div>
-                <div className="flex-grow-1 ms-3">
-                        <h1> {GConf.PID} </h1>
-                        Cet identifiant vous distinguera des autres inscrits sur la plateforme. Cela peut aussi être un court moyen de faire de la publicité pour vous
-                </div>
-            </div>
-            <Divider />
-            <div className="d-flex">
-                <div className="flex-shrink-0">
-                <QRCode value={`c=docteur&PID=${GConf.PID}`} size={130} />
-                </div>
-                <div className="flex-grow-1 ms-3">
-                    Imprimez ce lien qui peut être accroché à la porte de votre magasin afin que vos clients puissent vous joindre facilement, et il peut également être partagé directement sur les réseaux sociaux
-                    <div className='mt-2'>
-                        <Button size='mini' positive onClick={(e) => PrintFunction('printPID')}> <Icon name='print'  />Imprimer</Button>
-                        <Button size='mini' primary target="_blank" href={`https://www.facebook.com/sharer/sharer.php?u=https://t.abyedh.tn/S/P/storage/${GConf.PID}`} >  <Icon name='facebook f' /> Partager </Button>
-                    </div>
-                </div>
             </div>
         </>)
     }
@@ -478,8 +570,8 @@ function ProfilePage() {
                 {/* <form encType="multipart/form-data"> */}
                     <div className='row'>
                         <div className='col-1 align-self-center text-end'>
-                            <label onChange={UploadImageFunc} htmlFor="formId" className='text-info ' role="button">
-                               <Input type='file' hidden name="imagez" id="formId"  />
+                            <label onChange={UploadImageFunc} htmlFor="formId"  className='text-info ' role="button">
+                                <Input type='file' hidden name="imagez" id="formId"   />
                                 <span className='bi bi-cloud-upload-fill bi-md'></span>
                             </label>
                         </div>
@@ -522,64 +614,87 @@ function ProfilePage() {
             return(<>
                 <div className='card p-2 shadow-sm mb-2 border-div'>
                     <div className='row'>
-                        <div className='col-2 align-self-center text-center'>
-                                <label onChange={UploadImageFunc} htmlFor="formId" className='text-info' role="button">
-                                    <Input type='file' hidden name="imagez" id="formId"  />
+                        <div className='col-6 align-self-center text-center'>
+                                <label onChange={handleFileSelect} htmlFor="formId"   className='text-info' role="button">
+                                    <Input type='file' hidden name="Images" id="formId" multiple />
                                     <span className='bi bi-cloud-upload-fill bi-md'> </span> 
                                 </label>
                                 
                         </div>
-                        <div className='col-10'>
-                            <div className=' text-center p-4  '>
-                                {displayedImage ? <img src={displayedImage} width='300px' height='160px'  /> : 'PaS d\'image'}
-                            </div>
+                        <div className='col-6'>
+                            <Button   className='rounded-pill bg-system-btn' size='tiny' onClick={() => UpdateImageFuncMultiple(formaDataArr)} ><Icon name='save' /> Enregistreé <Loader inverted active={loaderState} inline size='tiny' className='ms-2 text-danger'/></Button>
                         </div>
                         
                     </div>
                 </div>
             </>)
         }
-        return(<>
-                <UploadImageCard title='Image de Profile' tag='profile' /> 
-                <br />
-                <div className='row'>
-                        <div className='col-6'>
-                            <div className='card p-2 mb-2 border-div'>
-                                <h6>En tant que Image de profile</h6>
-                                <Button disabled={!saveBtnState} className='rounded-pill bg-system-btn' size='tiny' onClick={() => UpdateImageFunc('Profile')} ><Icon name='save' /> Enregistreé <Loader inverted active={loaderState} inline size='tiny' className='ms-2 text-danger'/></Button>
-                            </div>
-                        </div>
-                        <div className='col-6'>
-                            <div className='card p-2 mb-2 border-div'>
-                                <h6>En tant que Image 1</h6>
-                                <Button disabled={!saveBtnState} className='rounded-pill bg-system-btn' size='tiny' onClick={() => UpdateImageFunc('Image1')} ><Icon name='save' /> Enregistreé <Loader inverted active={loaderState} inline size='tiny' className='ms-2 text-danger'/></Button>
-                            </div>
-                        </div>
-                        <div className='col-6'>
-                            <div className='card p-2 mb-2 border-div'>
-                                <h6>En tant que Image 2</h6>
-                                <Button disabled={!saveBtnState} className='rounded-pill bg-system-btn' size='tiny' onClick={() => UpdateImageFunc('Image2')} ><Icon name='save' /> Enregistreé <Loader inverted active={loaderState} inline size='tiny' className='ms-2 text-danger'/></Button>
-                            </div>
-                        </div>
-                        <div className='col-6'>
-                            <div className='card p-2 mb-2 border-div'>
-                                <h6>En tant que Image 3</h6>
-                                <Button disabled={!saveBtnState} className='rounded-pill bg-system-btn' size='tiny' onClick={() => UpdateImageFunc('Image3')} ><Icon name='save' /> Enregistreé <Loader inverted active={loaderState} inline size='tiny' className='ms-2 text-danger'/></Button>
-                            </div>
-                        </div>
-                        <div className='col-6'>
-                            <div className='card p-2 mb-2 border-div'>
-                                <h6>En tant que Image 4</h6>
-                                <Button disabled={!saveBtnState} className='rounded-pill bg-system-btn' size='tiny' onClick={() => UpdateImageFunc('Image4')} ><Icon name='save' /> Enregistreé <Loader inverted active={loaderState} inline size='tiny' className='ms-2 text-danger'/></Button>
-                            </div>
-                        </div>
-                        <div className='col-6'>
-                            <div className='card p-2 mb-2 border-div'>
-                                <h6>En tant que Image 4</h6>
-                                <Button disabled={!saveBtnState} className='rounded-pill bg-system-btn' size='tiny' onClick={() => UpdateImageFunc('Image5')} ><Icon name='save' /> Enregistreé <Loader inverted active={loaderState} inline size='tiny' className='ms-2 text-danger'/></Button>
-                            </div>
-                        </div>     
+        const DisplayImageCard = (props) => {
+            return(<>
+                <div className='card card-body shadow-m mb-2 border-div'>
+                    <div className='row'>
+                       <div className='col-4'><img src={`https://cdn.abyedh.tn/images/Directory/${props.imageLink}`} className='border border-2 rounded shadow-sm' width='200px' height='90px'  /></div> 
+                       <div className='col-4'></div> 
+                       <div className='col-4'><Button onClick={() => RemoveImageFunc(props.imageLink)}>Delete Btn</Button></div> 
+                    </div>
                 </div>
+            </>)
+        }
+        const PasDeResultat = () =>{
+            return(<>
+                <div className='text-center'>
+                        <h3>
+                            <span className='bi bi-exclamation-triangle-fill text-info bi-md'></span> 
+                            Vous n'avait pas d'images
+                        </h3>
+                        <label onChange={handleFileSelect} htmlFor="formId"   className='text-info' role="button">
+                                <Input type='file' hidden name="Images" id="formId" multiple />
+                                <img src='https://assets.ansl.tn/Images/usful/uploadImage.jpg' width='100%'  height='150px' />
+                        </label>
+                        <h3>
+                            Cliquer Pour Charger des Imgaes 
+                        </h3>
+                </div>
+            </>)
+        }
+        return(<>
+            {imagesListe.length == 0 ?
+                <>
+                    {/* <UploadImageCard title='Image de Profile' tag='profile' />  */}
+                    <br />
+                    <div className='row'>
+                            {todisplayedImage.length != '0' ? 
+                            <>
+                                {todisplayedImage.map((data,index) => 
+                                        <div className='col-4 mb-3' key={index}>
+                                            <img src={URL.createObjectURL(todisplayedImage[index])} className='border border-2 rounded shadow-sm' width='200px' height='90px'  />
+                                        </div>
+                                )}
+                                
+                                <br />
+                                <div className='text-end'>
+                                    <Button   className='rounded-pill bg-system-btn' size='tiny' onClick={() => UpdateImageFuncMultiple(formaDataArr)} ><Icon name='save' /> Enregistreé <Loader inverted active={loaderState} inline size='tiny' className='ms-2 text-danger'/></Button>
+                                </div>
+
+                            </>   
+                            : 
+                            <PasDeResultat />}
+                    </div>
+                </>
+                :
+                <>
+                    <Carousel>
+                        {imagesListe.map((data,index) => 
+                                <div key={index}>
+                                    <img src={`https://cdn.abyedh.tn/images/Directory/${data.ImageLink}`} />
+                                    <p className="legend"><Button onClick={() => RemoveImageFunc(data.ImageLink)}>Supprimer</Button></p>
+                                </div>
+                        )}
+                    </Carousel>
+                    {/* {imagesListe.map((data,index) => <DisplayImageCard key={index} imageLink={data.ImageLink} />)} */}
+                </>  
+            }
+                
         </>)
     }
     const RatingProfile = () =>{
@@ -597,9 +712,9 @@ function ProfilePage() {
             </>)
         }
         return (<>
-            <div className='card card-body shadow-sm border-div mb-2 text-center'>
+            {/* <div className='card card-body shadow-sm border-div mb-2 text-center'> */}
                 <h5 className='text-start'>Avis</h5>
-                <div className='row'>
+                <div className='row text-center'>
                     <div className='col-4 align-self-center'>
                         <h1 className='text-warning'>{loading ? <> {CalculateRating(profileData.review)}</>: 0 }</h1>
                         <Rating className='d-inline' maxRating={5} defaultRating={loading ? CalculateRating(profileData.review) : 0 } icon='star' disabled size='massive' />
@@ -612,8 +727,21 @@ function ProfilePage() {
                         <RatingBar name={4} value={loading ? CalculateReview(profileData.review, 4) : 0 } />
                         <RatingBar name={5} value={loading ? CalculateReview(profileData.review, 5) : 0 } />
                     </div>
-                </div>                
-            </div>
+                </div> 
+                <hr />
+                <h5>J'aimes</h5>
+                {/* <div style={{height:'200px', overflowX:'auto', overflowX:'hidden'}}> */}
+                        {/* <h2 className='text-center'>{profileData.likes ? profileData.likes.length : '...'}</h2>  */}
+                        <AvatarGroup className='text-center' size="large" maxCount={12} data={ReturnAvatarGroupList(profileData.likes)}   borderColor="#cfcecc" />
+                        {/* { loading ?
+                        
+                            profileData.likes.map( (data,index) => <a href='https://www.abyedh.tn' key={index}>{data.Name}</a>)
+
+                        : 'fa'
+                        } */}
+                        
+                {/* </div>                */}
+            {/* </div> */}
         </>)
     }
     const CommentsProfile = () =>{
@@ -638,65 +766,47 @@ function ProfilePage() {
         return(<>
         
                 <div className='row '>
-                    <div className='col-9 pe-1'>
-                        <div className='card card-body shadow-sm mb-2 border-div'>
-                        <h5>Commentaires</h5> 
-                        <div style={{height:'200px', overflowX:'auto', overflowX:'hidden'}}>
-                            { loading ?
-                                <Comment.Group>
-                                { profileData.review.map( (data,index) =>  <CommentsCard key={index} data={data} /> )}
-                                </Comment.Group>
-                                : '...'
-                            }    
-                        </div>  
+                    <div className='col-12 pe-1'>
+                            <h5>Commentaires</h5> 
+                            <div style={{height:'200px', overflowX:'auto', overflowX:'hidden'}}>
+                                { loading ?
+                                    <Comment.Group>
+                                    { profileData.review.map( (data,index) =>  <CommentsCard key={index} data={data} /> )}
+                                    </Comment.Group>
+                                    : '...'
+                                }    
+                            </div>  
+                    </div>
+                </div>
+        </>)
+    }
+    const DayHoraire = (props) =>{
+        return(<>
+                <div className='row'>
+                    <div  className='col-1 align-self-center'>
+                        <b>{props.data.day}</b>
+                    </div>
+                    <div  className='col-5'>
+                        <div className='row'>
+                            <div className='col-6'><Input icon='calendar alternate' type='time' size="mini" iconPosition='left' disabled={JSON.parse(props.data.dayOff)}  fluid className='mb-1' value={props.data.matin.start}/></div>
+                            <div className='col-6'><Input icon='calendar alternate' type='time' size="mini" iconPosition='left' disabled={JSON.parse(props.data.dayOff)}  fluid className='mb-1' value={props.data.matin.end}/></div>
                         </div>
                     </div>
-                    <div className='col-3 ps-1'>
-                        <div className='card card-body shadow-sm mb-2 border-div'>
-                            <h5>J'aimes</h5>
-                            <div style={{height:'200px', overflowX:'auto', overflowX:'hidden'}}>
-                                    <h2 className='text-center'>{profileData.likes ? profileData.likes.length : '...'}</h2> 
-                                    <AvatarGroup className='text-center' appearance="grid" maxCount={12} data={ReturnAvatarGroupList(profileData.likes)} size='small' borderColor="#cfcecc" />
-                                    {/* { loading ?
-                                    
-                                        profileData.likes.map( (data,index) => <a href='https://www.abyedh.tn' key={index}>{data.Name}</a>)
-
-                                    : 'fa'
-                                    } */}
-                                    
-                            </div>
+                    <div  className='col-5'>
+                        <div className='row'>
+                            <div className='col-6'><Input icon='calendar alternate' type='time' size="mini" iconPosition='left' disabled={JSON.parse(props.data.dayOff)}  fluid className='mb-1' value={props.data.soir.start}/></div>
+                            <div className='col-6'><Input icon='calendar alternate' type='time' size="mini" iconPosition='left' disabled={JSON.parse(props.data.dayOff)}  fluid className='mb-1' value={props.data.soir.end}/></div>
+                        </div>
+                    </div>
+                    <div  className='col-1 align-self-center'>
+                        <div className="form-check form-switch">
+                            <input className="form-check-input form-check-input-lg" type="checkbox"  onChange={() => setAlwaysState(!props.data.dayOff)}  checked={JSON.parse(props.data.dayOff)} />
                         </div>
                     </div>
                 </div>
         </>)
     }
-    const Horaire = () =>{
-        const DayHoraire = (props) =>{
-            return(<>
-                    <div className='row'>
-                        <div  className='col-1 align-self-center'>
-                            <b>{props.data.day}</b>
-                        </div>
-                        <div  className='col-5'>
-                            <div className='row'>
-                                <div className='col-6'><Input icon='calendar alternate' type='time' size="mini" iconPosition='left' disabled={JSON.parse(props.data.dayOff)}  fluid className='mb-1' value={props.data.matin.start}/></div>
-                                <div className='col-6'><Input icon='calendar alternate' type='time' size="mini" iconPosition='left' disabled={JSON.parse(props.data.dayOff)}  fluid className='mb-1' value={props.data.matin.end}/></div>
-                            </div>
-                        </div>
-                        <div  className='col-5'>
-                            <div className='row'>
-                                <div className='col-6'><Input icon='calendar alternate' type='time' size="mini" iconPosition='left' disabled={JSON.parse(props.data.dayOff)}  fluid className='mb-1' value={props.data.soir.start}/></div>
-                                <div className='col-6'><Input icon='calendar alternate' type='time' size="mini" iconPosition='left' disabled={JSON.parse(props.data.dayOff)}  fluid className='mb-1' value={props.data.soir.end}/></div>
-                            </div>
-                        </div>
-                        <div  className='col-1 align-self-center'>
-                            <div className="form-check form-switch">
-                                <input className="form-check-input form-check-input-lg" type="checkbox"  onChange={() => setAlwaysState(!props.data.dayOff)}  checked={JSON.parse(props.data.dayOff)} />
-                            </div>
-                        </div>
-                    </div>
-            </>)
-        }
+    const InputHoraireCard = () =>{
         return(<>
             <div className='card-body '>
                 <div className='row'>
@@ -735,7 +845,30 @@ function ProfilePage() {
                         </div>
                     </div>
             </div>
-
+            </>)
+    }
+    const AcutelCalendarCard = () =>{
+        return(<>
+        <FullCalendar 
+            plugins={[ timeGridPlugin ]}
+            initialView="timeGridWeek"
+            locale='fr' 
+            dayHeaderFormat = {{weekday: 'short'}}
+            events={[
+                { title: 'S1',  start: '2022-08-18T08:00:00' , end: "2022-08-18T12:00:00", display: 'background', backgroundColor:'red'},
+                { title: 'S2', start: '2022-08-18T14:00:00', end: "2022-08-18T18:00:00", display: 'background' },
+                { title: 'S1',  start: '2022-08-18T08:00:00' , end: "2022-08-18T12:00:00", display: 'background'},
+                { title: 'S2',  start: '2022-08-18T14:00:00' , end: "2022-08-18T18:00:00", display: 'background'},
+            ]}
+            headerToolbar='false'
+            height='350px'
+            allDaySlot= {false}
+        />
+        </>)
+    }
+    const Horaire = () =>{
+        return(<>
+            <Tab menu={{ secondary: true, className: 'tab-right'}} defaultActiveIndex={1} panes={horairePanes} />
         </>)
     }
     return (<>
@@ -752,7 +885,7 @@ function ProfilePage() {
                     </div>
         </div>
         </Bounce>
-        <FrameForPrint frameId='printPID' src={`/Pr/Profile/pid`} />
+        <FrameForPrint frameId='printPID' src={`/Pr/ProfilePrint/pid`} />
     </>);
 }
 

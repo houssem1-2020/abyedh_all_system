@@ -56,7 +56,9 @@ function LogIn() {
         return(
             <>
             <div className='col-12 col-lg-4  text-center d-none d-lg-block fixed-top ' style={{backgroundColor:props.color, height:'100vh' }}>
-                <h1  style={{marginTop:'50%'}} className='text-white'><img src="https://cdn.abyedh.tn/Images/main-logo.png" alt="." className="p-0" width="120px" height="120px"/></h1>
+                {/* <h1  style={{marginTop:'50%'}} className='text-white'><img src="https://cdn.abyedh.tn/Images/main-logo.png" alt="." className="p-0" width="120px" height="120px"/></h1> */}
+                <h1  style={{marginTop:'30%'}} className='text-white'><img src="https://cdn.abyedh.tn/Images/main-logo.png" alt="." className="p-0" width="120px" height="120px"/></h1>
+                <h1  style={{marginTop:'1%'}} className='text-white'><img src="https://cdn.abyedh.tn/images/ads/boutique.svg" alt="." className="p-0" width="300px" height="300px"/></h1>
                 {/* <h5 className='text-white'>{GConf.SystemTag}</h5> */}
             </div>
             </>

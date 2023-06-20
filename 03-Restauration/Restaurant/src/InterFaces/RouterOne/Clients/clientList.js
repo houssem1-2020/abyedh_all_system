@@ -35,20 +35,20 @@ function ClientList() {
 
     /*################[UseEffect]###############*/
     useEffect(() => {
-        axios.post(`${GConf.ApiLink}/client`,{
-            PID: OneGConf.forPID.PID,
+        axios.post(`${GConf.ApiRouterOneLink}/commande/verifier`,{
+            forPID: OneGConf.forPID.PID,
         })
         .then(function (response) {
             let testTable = []
             response.data.map( (getData) => testTable.push([
-            _(<AvatarCard lettre={capitalizeFirstLetter(getData.CL_Name)} />),
-            getData.CL_Name,
-            getData.CIN,
-            getData.Phone,
-            new Date(getData.Creation_Date).toLocaleDateString('fr-FR').split( '/' ).reverse( ).join( '-' ),
-            getData.Adress,
-            _(<StateCard status={getData.Genre} />),
-            _(<Button className='rounded-pill bg-system-btn' size='mini' onClick={ (e) => NavigateFunction(`/C/L/cl/info/${getData.CL_ID}`)}><span className='d-none d-lg-inline'> Info </span><Icon  name='angle right' /></Button>)
+                _(<TableImage forStock image='order.png' />),
+                getData.R_ID,
+                getData.Name,
+                new Date(getData.R_Date).toLocaleDateString('fr-FR').split( '/' ).reverse( ).join( '-' ),
+                getData.Table_Num,
+                _(<StateCard status={getData.State} />),
+                // _( <a  className='data-link-modal'  onClick={() => openEditModal(getData,true)} ><b> <span className='bi bi-arrows-fullscreen'></span> </b></a>),
+                _(<Button className='rounded-pill bg-system-btn' size='mini' onClick={ (e) => NavigateFunction(`/C/L/cmdv/info/${getData.R_ID}`)}><span className='d-none d-lg-inline'> Info </span><Icon  name='angle right' /></Button>)
             ],))
             setClientList(testTable)
         })
@@ -75,10 +75,12 @@ function ClientList() {
         const StateCard = (props) =>{ return <span className={`badge bg-${props.color}`}> {props.text} </span>}
         const statusCard = React.useCallback(() => {
           switch(status) {
-            case 'Fidelite': return <StateCard color='primary' text='Fidelite' />;  
-            case 'Credit': return <StateCard color='danger' text='Credit' /> ;
-            case 'Waitting': return <StateCard color='warning' text='En Attend' /> ;
-            default:  return <StateCard color='secondary' text='Indefinie' />;    
+            case 'W': return <StateCard color='warning' text='En Attent' />;  
+            case 'S': return <StateCard color='info' text='Vu' />;  
+            case 'A': return <StateCard color='success' text='Acepteé' /> ;
+            case 'R': return <StateCard color='danger' text='Refuseé' />;
+            case 'F': return <StateCard color='secondary' text='Termineé' />;
+            default:  return <StateCard color='dark' text='Indefinie' />;    
           }
         }, [status]);
       
@@ -94,7 +96,7 @@ function ClientList() {
             <BackCard data={OneGConf.backCard.clList}/>
             <br />
             <div className='container'>
-                <TableGrid dark={true} tableData={clientList} columns={['*','Code','Client','Phone','Cree Le ','Adresse','Genre','Voir']} />
+                <TableGrid dark={true} tableData={clientList} columns={['*','ID','Client', 'Date','Table','Etat', 'Voir']} />
             </div>
         </div>
         </> );

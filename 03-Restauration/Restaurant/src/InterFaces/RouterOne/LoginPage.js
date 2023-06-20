@@ -27,13 +27,13 @@ function LoginPage() {
                 if(response.data.length != 0 ) {
                         toast.success("Connecteé !", GConf.TostSuucessGonf)
                         if (!OneGConf.oneOffline) {
-                            localStorage.setItem(`Restaurant_Caisse_Offline`, JSON.stringify(OneGConf.default_Offline));
+                            localStorage.setItem(`${OneGConf.routerTagName}_Offline`, JSON.stringify(OneGConf.default_Offline));
                         }
-                        localStorage.setItem(`Restaurant_Caisse_LocalD`, JSON.stringify(response.data));
+                        localStorage.setItem(`${OneGConf.routerTagName}_LocalD`, JSON.stringify(response.data));
                         indexedDB.databases().then((databases) => {
-                            const databaseExists = databases.some((database) => database.name === 'Restaurant_Caisse_DB');
+                            const databaseExists = databases.some((database) => database.name === '${OneGConf.routerTagName}_DB');
                             if (!databaseExists) {
-                                const request = indexedDB.open('Restaurant_Caisse_DB');
+                                const request = indexedDB.open('${OneGConf.routerTagName}_DB');
                                 request.onupgradeneeded = function(event) {
                                     var objectStore = event.target.result.createObjectStore('Stock', { keyPath: 'PK' });
                                     var objectStore2 = event.target.result.createObjectStore('Factucre', { keyPath: 'PK' });

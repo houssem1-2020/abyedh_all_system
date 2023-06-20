@@ -19,7 +19,7 @@ const GConf = {
     ApiCommandeLink : 'https://api.system.abyedh.tn/apiSystemAbyedh/magazin-caisse', //https://api.system.abyedh.tn/apiSystemAbyedh/System 
     ApiCamionLink : 'https://api.system.abyedh.tn/apiSystemAbyedh/magazin-caisse', //https://api.system.abyedh.tn/apiSystemAbyedh/System 
     DefaultTva: 0,
-    themeColor : '#5e7968',
+    themeColor : '#b146c2',
     themeColorLigth : '#b8cbd4',
     settingValue : GetSettingValue(),
     TostErrorGonf : {

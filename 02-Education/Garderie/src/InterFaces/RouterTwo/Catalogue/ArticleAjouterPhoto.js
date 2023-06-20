@@ -1,10 +1,10 @@
 import React from 'react';
-import BackCard from '../Assets/backCard';
-import InputLinks from '../Assets/linksData';
+import BackCard from '../Assets/Cards/backCard';
+import GConf from '../Assets/linksData';
 
 function ArticleAjouterPhoto() {
     return ( <>
-        <BackCard data={InputLinks.backCard.cgPhoto}/>
+        <BackCard data={GConf.backCard.cgPhoto}/>
         <br />
         Famille List
         </> );

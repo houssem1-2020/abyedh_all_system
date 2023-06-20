@@ -6,8 +6,8 @@ import { toast } from 'react-toastify';
 import { Button, Icon } from 'semantic-ui-react';
 import GConf from '../../AssetsM/generalConf';
 import SKLT from '../../AssetsM/Cards/usedSlk';
-import BackCard from '../Assets/backCard';
-import InputLinks from '../Assets/linksData';
+import BackCard from '../Assets/Cards/backCard';
+import GConf from '../Assets/linksData';
 
 function CommandeInfo() {
 
@@ -130,7 +130,7 @@ function CommandeInfo() {
     }
 
     return ( <>
-        <BackCard data={InputLinks.backCard.mcInfo}/>
+        <BackCard data={GConf.backCard.mcInfo}/>
         <br />
         <div className="container">
 

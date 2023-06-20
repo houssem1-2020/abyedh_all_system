@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import InputLinks from '../Assets/linksData'
+import GConf from '../Assets/linksData'
 import BackCard from '../Assets/backCard'
 import { Fade } from 'react-reveal';
 import { Button,  Dropdown, Icon, Input, Label, Loader, Tab } from 'semantic-ui-react';
@@ -87,7 +87,7 @@ function NouveauxFacture() {
         // setClientList(TableNow)
         setClientList(Offline.client)
 
-        axios.post(`${GConf.ApiCamionLink}/nv/stock`, {
+        axios.post(`${GConf.ApiRouterOneLink}/nv/stock`, {
             tag: GConf.SystemTag,
             camId: Cam_ID,
           }).then(function (response) {
@@ -102,7 +102,7 @@ function NouveauxFacture() {
         });
 
         //if stock regler non 
-        axios.post(`${GConf.ApiCamionLink}/sk/reglemment/check`, {
+        axios.post(`${GConf.ApiRouterOneLink}/sk/reglemment/check`, {
             tag: GConf.SystemTag,
             camId : Cam_ID,
             jour : Today.toISOString().split('T')[0]
@@ -169,7 +169,7 @@ function NouveauxFacture() {
             else if (!factureD.articles || factureD.articles.length == 0) {toast.error("article list est Invalide !", GConf.TostErrorGonf)}
             else {
                 setLS(true)
-                axios.post(`${GConf.ApiCamionLink}/nv/ajouter`, {
+                axios.post(`${GConf.ApiRouterOneLink}/nv/ajouter`, {
                     forPID: camData.PID,
                     factureD: factureD,
                 })
@@ -297,7 +297,7 @@ function NouveauxFacture() {
     // }
 
     return (  <>
-        <BackCard data={InputLinks.backCard.nv}/>
+        <BackCard data={GConf.backCard.nv}/>
         <br />
         <div className='container-fluid'>
             <Tab menu={{  pointing: true  }} panes={panes} />

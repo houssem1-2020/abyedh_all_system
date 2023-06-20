@@ -13,10 +13,12 @@ import 'react-toastify/dist/ReactToastify.css';
 //Router & Routes
 import { BrowserRouter as Router,Routes,Route, Outlet} from "react-router-dom";
 import { Navigate } from 'react-router-dom';
+
 import systemRouter from './AssetsM/Router/systemRouter';
 import routerOne from './AssetsM/Router/routerOne';
 import routerTwo from './AssetsM/Router/routerTwo';
 import routerThree from './AssetsM/Router/routerThree';
+import routerPrinting from './AssetsM/Router/routerPrinting';
 
 //Login  & Auth
 import LogIn from './LogIn/logIn';
@@ -27,8 +29,9 @@ function App() {
   //const and variables 
   const SystemRouter = systemRouter();
   const CaisseRouter = routerOne();
-  const ReservationRouter = routerTwo()
-  const PrintRouter = routerThree()
+  const ServeurRouter = routerTwo()
+  const ChefRouter = routerThree()
+  const PrintRouter = routerPrinting()
   const [progress, setProgress] = useState(2)
 
   //useefeects
@@ -63,7 +66,8 @@ function App() {
           <Route path="Auth" element={<AuthPage />} />
           {SystemRouter}
           {CaisseRouter}
-          {ReservationRouter}
+          {ServeurRouter}
+          {ChefRouter}
           {PrintRouter}
           <Route path="*" element={<NotFound />} />
         </Routes>   

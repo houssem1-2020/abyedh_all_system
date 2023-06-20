@@ -7,7 +7,7 @@ const useGetFamilleArticle = () => {
   const [pureData, setPureData] = useState([]);
   let Offline = JSON.parse(localStorage.getItem(`${GConf.PID}_Offline`));
   useEffect(() => {
-    axios.post(`${GConf.ApiLink}/stock/familles`, {
+    axios.post(`${GConf.ApiLink}/forfait/familles`, {
         PID: GConf.PID,
       })
       .then(function (response) {

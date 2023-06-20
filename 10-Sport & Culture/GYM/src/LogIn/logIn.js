@@ -5,19 +5,32 @@ import Bounce from 'react-reveal/Bounce';
 import axios from 'axios';
 import { toast } from 'react-toastify';
 import { NavLink, useNavigate} from 'react-router-dom';
-
+import { useReactPWAInstall } from 'react-pwa-install';
 
 function LogIn() {
     /*#########################[Const]##################################*/
     //const navigate = useNavigate();
     const [loginD, setLoginD] = useState([])
     const [loaderState, setLS] = useState(false)
+ 
+    // const [deferredPrompt, setDeferredPrompt] = useState(null);
 
-    
     /*#########################[UseEffect]##################################*/
     useEffect(() => {
         const getPID = GConf.PID
-        if (getPID) {window.location.href = "/S/ma";}      
+        if (getPID) {window.location.href = "/S/ma";}   
+        
+        // const handleBeforeInstallPrompt = (event) => {
+        //     event.preventDefault();
+        //     setDeferredPrompt(event);
+        //   };
+      
+        //   window.addEventListener('beforeinstallprompt', handleBeforeInstallPrompt);
+      
+        //   return () => {
+        //     window.removeEventListener('beforeinstallprompt', handleBeforeInstallPrompt);
+        //   };
+
     });
 
     /*#########################[Functions]##################################*/
@@ -52,6 +65,20 @@ function LogIn() {
             });
         }   
     }
+    // const handleInstall = () => {
+    //     if (deferredPrompt) {
+    //     deferredPrompt.prompt();
+    //     deferredPrompt.userChoice.then((choiceResult) => {
+    //         if (choiceResult.outcome === 'accepted') {
+    //         console.log('PWA installed');
+    //         } else {
+    //         console.log('PWA installation declined');
+    //         }
+    //         setDeferredPrompt(null);
+    //     });
+    //     }
+    // };
+    
 
     /*#########################[Card]##################################*/
     const LeftCard = (props) =>{
@@ -97,6 +124,10 @@ function LogIn() {
             <div className='col-12 col-md-1 col-lg-5'></div>
             <div className='col-12 col-md-10 col-lg-7'>
                 <div className='card-body' >
+                 {/*<div className='text-end'>
+                    You can Add a modal for this and only  
+                    {deferredPrompt && ( <Button onClick={handleInstall} className='shadow-sm rounded-pill'> <Icon name='angle double down' /> Télécharger </Button> )}
+                </div>*/}
                 <Bounce left>
                             <br />
                             <h2 className='text-cente'><Icon name='linkify' /> Connexion :</h2>

@@ -1,10 +1,10 @@
 import axios from 'axios';
 import React, { useEffect, useState } from 'react';
 import { NavLink } from 'react-router-dom';
-import GConf from '../../AssetsM/generalConf';
-import SKLT from '../../AssetsM/Cards/usedSlk';
-import BackCard from '../Assets/backCard';
-import InputLinks from '../Assets/linksData';
+import GConf from '../../../AssetsM/generalConf';
+import SKLT from '../../../AssetsM/Cards/usedSlk';
+import BackCard from '../Assets/Cards/backCard';
+import OneGConf from '../Assets/OneGConf';
 
 function FamilleList() {
     //variables
@@ -13,8 +13,8 @@ function FamilleList() {
 
     //useEffect
     useEffect(() => {
-        axios.post(`${GConf.ApiLink}/stock/familles`, {
-            PID: InputLinks.forPID.PID,
+        axios.post(`${GConf.ApiLink}/equipemment/familleplat`, {
+            PID: OneGConf.forPID.PID,
           })
           .then(function (response) {
             console.log(response.data)
@@ -26,9 +26,9 @@ function FamilleList() {
     //card
     const FamilleCard = (props) =>{
         return(<>
-                <div className='col-6'>
+                <div className='col-4'>
                     <NavLink exact="true" to={`/C/L/sk/List/${props.data.Genre}`}>
-                        <div className='card p-2 shadow-sm border-div bg-hover-card mb-2 text-center'>
+                        <div className={`card p-2 shadow-sm border-div bg-hover-card mb-2 text-center ${OneGConf.themeMode == 'dark' ? 'bg-dark-theme-1 text-white' : '' }`}>
                                 <div className='text-center mt-4 mb-2'>
                                     <span className='bi bi-boxes bi-lg' style={{width:'80px'}}></span>
                                 </div>
@@ -42,7 +42,8 @@ function FamilleList() {
     }
 
     return ( <>
-        <BackCard data={InputLinks.backCard.skList}/>
+    <div className={`${OneGConf.themeMode == 'dark' ? 'bg-dark-theme-2' : '' }`} style={{height: '100vh', overflow: 'scroll'}}>
+        <BackCard data={OneGConf.backCard.skList}/>
         <br />
         <div className='container'>
             <div className='row'>
@@ -53,6 +54,7 @@ function FamilleList() {
                 : SKLT.CardList }
             </div>
         </div>
+    </div>
         </> );
 }
 

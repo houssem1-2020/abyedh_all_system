@@ -4,10 +4,11 @@ import { BrowserRouter as Router,Routes,Route, Outlet, Navigate} from "react-rou
 //logIn & Landing 
 import LoginPage from '../../InterFaces/RouterTwo/LoginPage'
 import TwoLandingPage from '../../InterFaces/RouterTwo/TwoLandingPage'
+import TwoGConf from '../../InterFaces/RouterTwo/Assets/TwoGConf';
 
 
 // //ajouter commande
-// import NouveauxCommande from "../../InterFaces/RouterTwo/NCommande/nouveauxCommande";
+import NouveauxCommande from "../../InterFaces/RouterTwo/NCommande/nouveauxCommande";
 
 // //mes commandes
 // import CommandePage from '../../InterFaces/RouterTwo/MCommandes/commandePage';
@@ -38,10 +39,10 @@ import TwoLandingPage from '../../InterFaces/RouterTwo/TwoLandingPage'
 
 
 const RedirectingPage = () => {
-    const OneIsLogged = localStorage.getItem(`Restaurant_Reservation_LocalD`);
+    const OneIsLogged = localStorage.getItem(`${TwoGConf.routerTagName}_LocalD`);
     return (<>
         {
-            OneIsLogged ? <Navigate to='/R/L'  /> : <Navigate to='/R/logIn'  />
+            OneIsLogged ? <Navigate to={`/${TwoGConf.routerName}/L`}  /> : <Navigate to={`/${TwoGConf.routerName}/logIn`}  />
         } 
 </>);}
 
@@ -51,8 +52,8 @@ const routerTwo = () => (
             <Route path="logIn" exact element={<LoginPage />} />
              <Route path="L" exact element={<Outlet />} >
                     <Route path="" exact element={<TwoLandingPage />} />
-                   {/* <Route path="cm" exact element={<NouveauxCommande />} />
-                    <Route path="mc" exact element={<Outlet />} >
+                    <Route path="cm" exact element={<NouveauxCommande />} />
+                    {/*<Route path="mc" exact element={<Outlet />} >
                         <Route path="" exact element={<CommandePage />} />
                         <Route path="modifier/:CID" exact element={<CommandeEdit />} />
                         <Route path="info/:CID" exact element={<CommandeInfo />} />

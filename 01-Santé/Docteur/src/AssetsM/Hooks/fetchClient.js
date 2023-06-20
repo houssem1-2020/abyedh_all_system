@@ -4,12 +4,12 @@ import GConf from "../../AssetsM/generalConf";
 
 const useGetClients = () => {
     //const
-    const [data, setData] = useState(null);
-    const [pureData, setPureData] = useState(null);
+    const [data, setData] = useState([]);
+    const [pureData, setPureData] = useState([]);
     let Offline = JSON.parse(localStorage.getItem(`${GConf.PID}_Offline`));
     //Use Effects 
     useEffect(() => {
-        axios.post(`${GConf.ApiLink}/client`, {
+        axios.post(`${GConf.ApiLink}/patient`, {
             PID :  GConf.PID,
         })
         .then(function (response) {

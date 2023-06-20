@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import BreadCrumb  from '../../AssetsM/Cards/breadCrumb';
 import GConf from '../../AssetsM/generalConf';
-import { Button, Dropdown, Icon, Input , Loader, Tab} from 'semantic-ui-react';
+import { Button, Dropdown, Form, Icon, Input , Loader, Select, Tab, TextArea} from 'semantic-ui-react';
 import axios from 'axios';
 import { toast } from 'react-toastify';
 import useGetClients from '../../AssetsM/Hooks/fetchClient';
@@ -10,36 +10,45 @@ import useSaveNotification from '../../AssetsM/Hooks/saveNotifFunction';
 import Ripples from 'react-ripples'
 import { useParams } from 'react-router-dom';
 import SKLT from '../../AssetsM/Cards/usedSlk';
+import TunMap from '../../AssetsM/tunMap';
 
-const MainDataCard = ({factureD, setFactureD,clientList,allClientList,camionList, OnKeyPressFunc}) =>{
+const MainDataCard = ({abonnemmentData, setAbonnemmentData,forfaitListe, SaveAbonnementFunc, OnKeyPressFunc}) =>{
     return (<>
-            <div className='card card-body shadow-sm mb-2'>
-                <h5>Date & Client  </h5>
-                <Input icon='calendar alternate' type='date' size="small" iconPosition='left'   fluid className='mb-1' value={factureD.jour} onChange={(e) => setFactureD({...factureD, jour: e.target.value })}/>
-                <datalist id="clientList">
-                        {allClientList.map((test) =>
-                        <option key={test.key} value={test.CL_ID}>{test.Name} : {test.Code_Fiscale}</option>
-                        )}
-                </datalist>
-                <Input icon='add user' onKeyPress={event => OnKeyPressFunc(event)} list="clientList" placeholder={factureD.client}   onBlur={ (e) => setFactureD({...factureD, client: e.target.value })} size="small" iconPosition='left'   fluid className='mb-1' />
-                
+            <div className='card p-4 shadow-sm mb-2 border-div'>
+                <h5 className='mb-0 text-secondary '> Mmebre  </h5>
+                <Input icon='calendar alternate'   iconPosition='left'   fluid className='mb-1' value={abonnemmentData.jour} onChange={(e) => setAbonnemmentData({...abonnemmentData, jour: e.target.value })}/>
+                 
+                <h5 className='mb-0 mt-2 text-secondary '>Forfait  </h5>
                 <Dropdown
                     search
                     selection
                     wrapSelection={false}
-                    options={camionList}
-                    placeholder={factureD.Fournisseurs}
+                    options={forfaitListe}
+                    placeholder={abonnemmentData.Fournisseurs}
                     className='mb-1'
-                    onChange={(e, { value }) => setFactureD({...factureD, Fournisseurs: value })}
-                    value={factureD.Fournisseurs}
+                    onChange={(e, { value }) => setAbonnemmentData({...abonnemmentData, Fournisseurs: value })}
+                    value={abonnemmentData.Fournisseurs}
                 /> 
-                {/* <Input icon='truck' type='text' placeholder='Camion' size="small" iconPosition='left'   fluid className='mb-1' value={factureD.Fournisseurs} onChange={(e) => setFactureD({...factureD, Fournisseurs: e.target.value })}/> */}
-                <Input icon='user outline' onKeyPress={event => OnKeyPressFunc(event)} type='text' placeholder='Chauffeur' size="small" iconPosition='left'   fluid className='mb-1' value={factureD.Chauffeur} onChange={(e) => setFactureD({...factureD, Chauffeur: e.target.value })}/>
-                <div className='row'>
-                    <div className='col-6'><Input icon='map marker' onKeyPress={event => OnKeyPressFunc(event)} size="small" iconPosition='left' placeholder='De'  fluid className='mb-1'  value={factureD.de}  onChange={(e) => setFactureD({...factureD, de: e.target.value })}/></div>
-                    <div className='col-6'><Input icon='map marker onKeyPress={event => OnKeyPressFunc(event)} alternate' size="small" iconPosition='left' placeholder='Vers'  fluid className='mb-1' value={factureD.vers}  onChange={(e) => setFactureD({...factureD, vers: e.target.value })}/></div>
-                </div>
                 
+                <h5 className='mb-0 mt-2 text-secondary '>Depart  </h5>
+                <Input icon='truck' type='date' placeholder='Camion'  iconPosition='left'   fluid className='mb-1' value={abonnemmentData.Fournisseurs} onChange={(e) => setAbonnemmentData({...abonnemmentData, Fournisseurs: e.target.value })}/>
+                
+                <h5 className='mb-0 mt-2 text-secondary '>Nombre de seance  </h5>
+                <Input icon='user outline' onKeyPress={event => OnKeyPressFunc(event)} type='text' placeholder='Chauffeur'  iconPosition='left'   fluid className='mb-1' value={abonnemmentData.Chauffeur} onChange={(e) => setAbonnemmentData({...abonnemmentData, Chauffeur: e.target.value })}/> 
+                
+                <div className='row'>
+                    <div className='col-6'>
+                        <h5 className='mb-0 mt-2 text-secondary '>Temps d'entrainemment  </h5>
+                        <Input icon='map marker' type='time' onKeyPress={event => OnKeyPressFunc(event)}  iconPosition='left' placeholder='De'  fluid className='mb-1'  value={abonnemmentData.de}  onChange={(e) => setAbonnemmentData({...abonnemmentData, de: e.target.value })}/>
+                    </div>
+                    <div className='col-6'>
+                        <h5 className='mb-0 mt-2 text-secondary '>Temps d'entrainemment  </h5>
+                        <Input icon='map marker alternate'  type='time' onKeyPress={event => OnKeyPressFunc(event)}  iconPosition='left' placeholder='Vers'  fluid className='mb-1' value={abonnemmentData.vers}  onChange={(e) => setAbonnemmentData({...abonnemmentData, vers: e.target.value })}/>
+                    </div>
+                </div>
+                <div className='text-end mt-4'>
+                    <Button  className='rounded-pill text-secondary bg-system-btn'       onClick={(e) => SaveAbonnementFunc()}><Icon name='edit outline' /> Enregistrer Client</Button>
+                </div>
             </div>
     </>)
 }
@@ -48,177 +57,103 @@ function FacturerCommande() {
         /*#########################[Const]##################################*/
         const {CID} = useParams()
         const Today = new Date()
-        const [loading , setLoading] = useState(false)
+        const [commandeData, setCommandeD] = useState([])
         const [articleL, setArticleL] = useState([])
-        const [factureD, setFactureD] = useState({client:'PASSAGER', de:'Sidi Bourouis', vers:'', Fournisseurs:'INDEFENIE', Chauffeur:'', jour: Today.toISOString().split('T')[0], totale: 0 , articles:[]})
-        const [articleNow, setArticleNow] = useState([])
-        const [selectedList, setSelectedList] = useState([])
-        const [toUpdatedList, setTUpList] = useState([]);
-        const [factureLink, setFactureLink] = useState('*')
+        const [abonnemmentData, setAbonnemmentData] = useState({ CommandeID : CID, totale: 0 , articles:[]})
+        const [delegList ,setDelegList] = useState([])
+
         const [saveBtnState, setSaveBtnState] = useState(false)
         const [updateStockBtnState, setUSBS] = useState(true)
         const [loaderState, setLS] = useState(false)
-        const [colisDesaible, setColisDes] = useState(false)
-        const [gettedFID, setFID] = useState('')
-        const [clientList, allClientList] = useGetClients()
-        const [camionList, setCamionList] = useState([]);
-        const [autofocusState, setAutoFocus] = useState(false)
-        const [codes , articleList, tableData] = useGetArticles()
-        const panes = [
-            {
-                menuItem: { key: 'start', icon: 'add circle', content: 'Entrer ' }, 
-                render: () => <AddArticles />,
-            },
-            {
-                menuItem: { key: 'client', icon: 'user', content:  'Date & Client' }, 
-                render: () =><MainDataCard factureD={factureD} setFactureD={setFactureD} clientList={clientList} allClientList={allClientList} camionList={camionList} OnKeyPressFunc={OnKeyPressFunc} />,
-            },
-            {
-                menuItem: { key: 'articles', icon: 'save', content:  'Enregistrer' }, 
-                render: () => <ButtonsCard />,
-            }
-            
-        ]
+        const [btnState, setBtnState] = useState(false)
+        const [loading , setLoading] = useState(false)
+
         const panesRigth = [
             {
-                menuItem: { key: 'start', icon: 'list', content: 'Liste ' }, 
-                render: () => <>
-                        <TotaleCard />
-                        <h5>Listes des Articles</h5>    
-                        {factureD.articles.map( (val) => <ArticleListCard key={val.id} dataA={val}/>)}
-                        <br />
-                </>,
-            },
+                menuItem: { key: 'articles', icon: 'gift', content:  'Ajouter ' }, 
+                render: () => <MainDataCard abonnemmentData={abonnemmentData} setAbonnemmentData={setAbonnemmentData} SaveAbonnementFunc={SaveAbonnementFunc}  forfaitListe={[]}    OnKeyPressFunc={OnKeyPressFunc} />,
+            },            
             {
-                menuItem: { key: 'articles', icon: 'gift', content:  'Commande' }, 
-                render: () => <CommandeListCard/>,
+                menuItem: { key: 'start', icon: 'list', content: 'Info ' }, 
+                render: () => <CommandeInfoCard />,
             }
             
         ]
-        let Offline = JSON.parse(localStorage.getItem(`${GConf.PID}_Offline`));
-        const SaveNotification = (genre,tag,table) =>{ useSaveNotification(genre,tag,table)}
+ 
     
         /* ############################### UseEffect ########################*/
         useEffect(() => {
-                //camionList
-                axios.post(`${GConf.ApiLink}/camions`,{PID :GConf.PID})
-                    .then(function (response) {
-                        let ClientLN = []
-                        response.data.map( (dta) => {ClientLN.push({value : dta.Cam_ID, text : <>{dta.Cam_Name} : {dta.Matricule} - {dta.Chauffeur}</>, key: dta.PK})})
-                        setCamionList(ClientLN)
-                    }).catch((error) => {
-                    if(error.request) {
-                        toast.error(<><div><h5>Probleme de Connextion</h5> Les camion n'ont pas été chargeé </div></>, GConf.TostInternetGonf)   
-                    }
-                });
-
-                axios.post(`${GConf.ApiLink}/commande/info`, {
-                    PID : GConf.PID,
-                    CID: CID
-                  })
-                  .then(function (response) {
-                        if (!response.data[0]) {
-                            toast.error('Commande Introuvable !', GConf.TostSuucessGonf)
-                            setTimeout(() => {  window.location.href = "/S/rq"; }, 2000)
-                        } else {
-                            setArticleL(JSON.parse(response.data[0].Articles))
-                            setLoading(true)
-                        }  
-                  }).catch((error) => {
-                    if(error.request) {
-                      toast.error(<><div><h5>Probleme de Connextion</h5> Impossible de charger la commande   </div></>, GConf.TostInternetGonf)   
-                      setLoading(true)
-                    }
-                  });
+            axios.post(`${GConf.ApiLink}/request/info`, {
+                PID : GConf.PID,
+                CID: CID
+              })
+              .then(function (response) {
+                    console.log(response.data)
+                    if (!response.data[0]) {
+                        toast.error('Commande Introuvable !', GConf.TostSuucessGonf)
+                        setTimeout(() => {  window.location.href = "/S/rq"; }, 2000)
+                    } else {
+                        setCommandeD(response.data[0])
+                        setLoading(true)    
+                        if(response.data[0].State != 'W' && response.data[0].State != 'S'){setBtnState(true)}
+                        if(response.data[0].State == 'W' ){UpdateState('S') }
+                        
+                    }  
+              }).catch((error) => {
+                if(error.request) {
+                  toast.error(<><div><h5>Probleme de Connextion</h5> Impossible de charger la commande   </div></>, GConf.TostInternetGonf)   
+                  setLoading(true)
+                  setArticleL([])
+                  setCommandeD([])
+                }
+              });
         }, [])
     
         /*#########################[Function]##################################*/
-        const AddArticleToList = ()=>{
-            if (!articleNow.A_Code) {toast.error("Code à barre Invalide !", GConf.TostErrorGonf)}
-            else if (!articleNow.Name || articleNow.Name == '') {toast.error("Name Invalide !", GConf.TostErrorGonf)}
-            else if (!articleNow.Qte || articleNow.Qte == '') {toast.error("Quantite Invalide !", GConf.TostErrorGonf)}
-            else{
-                const searchObject = factureD.articles.find((article) => article.A_Code == articleNow.A_Code);
-                if (searchObject) {
-                    let IndexOfArticle = factureD.articles.findIndex((article) => article.A_Code == articleNow.A_Code)
-                    factureD.articles[IndexOfArticle].Qte = factureD.articles[IndexOfArticle].Qte + parseInt(articleNow.Qte)
-                    factureD.articles[IndexOfArticle].PU = ((factureD.articles[IndexOfArticle].Qte) * factureD.articles[IndexOfArticle].Prix ).toFixed(3)
-                    toUpdatedList[IndexOfArticle][1] = toUpdatedList[IndexOfArticle][1] + parseInt(articleNow.Qte)
-                    let tot = MakeSum()
-                    setFactureD({...factureD, totale: tot })
-                    
-                    setArticleNow([{}])
-                    setAutoFocus(false)
-                    setColisDes(false)  
-                    
-                    
-                } else {
-                    let prix_u = (articleNow.Prix_vente * articleNow.Qte).toFixed(3)
-                    let arrayToAdd = {id: factureD.articles.length + 1 , A_Code: articleNow.A_Code, Name: articleNow.Name, Prix: articleNow.Prix_vente, Qte: parseInt(articleNow.Qte), PU: prix_u}
-                    factureD.articles.push(arrayToAdd)
-                    setArticleNow([])
-                    let tot = MakeSum()
-                    setFactureD({...factureD, totale: tot })            
-                    let arrayToUpdate = [articleNow.A_Code, parseInt(articleNow.Qte)]
-                    toUpdatedList.push(arrayToUpdate)
-                    setColisDes(false)  
+        const SaveClientFunction = () =>{
+            console.log(commandeData)
+            setLS(true)
+            axios.post(`${GConf.ApiLink}/membres/ajouter`, {
+                PID : GConf.PID,
+                clientD : {CIN: '', Name:commandeData.Name, Phone:commandeData.PhoneNum , Gouv:commandeData.BirthGouv, Deleg:commandeData.BirthDeleg, Adress:'', Releted_UID:commandeData.UID},
+            }).then(function (response) {
+                if(response.data.affectedRows) {
+                    //setSaveBtnState(true)
+                    toast.success("Client Ajouter !", GConf.TostSuucessGonf)
+                    //SaveNotification('clientAjouter',GConf.PID, clientD)
+                    setLS(false)
                 }
-            }
+                else{
+                    toast.error('Erreur esseyez de nouveaux', GConf.TostSuucessGonf)
+                    setLS(false)
+                    }
+            }).catch((error) => {
+                if(error.request) {
+                  toast.error(<><div><h5>Probleme de Connextion</h5> Le client sera enregistrer sur votre ordinateur   </div></>, GConf.TostInternetGonf)   
+                }
+              });
+              
         }
-        const DeleteFromUpdateList = (value) =>{
-            const searchObject= factureD.articles.findIndex((article) => article.A_Code == value);
-            const searchObjectTwo = toUpdatedList.findIndex((article) => article[0] == value);
-            factureD.articles.splice(searchObject, 1);
-            toUpdatedList.splice(searchObjectTwo, 1);
-    
-            let resteArticles = factureD.articles;
-            let tot = MakeSum()
-    
-            setFactureD({...factureD, articles: resteArticles , totale: tot})
-    
-    
-        }
-        const GetArticleData = (value) =>{
-            const searchObject = articleList.find((article) => article.A_Code == value);
-            if (searchObject) {
-                setArticleNow(searchObject);
-                setAutoFocus(true)
-                
-            }else{
-                toast.error('Article Indéfine ', GConf.TostSuucessGonf)
-            }
-        }
-        const MakeSum = () => {
-            let tot = 0
-            factureD.articles.map( (art) => { 
-               tot = tot +  parseFloat(art.PU)
-            })
-            return (tot.toFixed(3))
-        }
-        const SaveFacture = () =>{
-               if (!CheckClientValidite(factureD.client)) {toast.error("Client est Invalide !", GConf.TostErrorGonf)}
-                else if (!factureD.jour ) {toast.error("Date est Invalide !", GConf.TostErrorGonf)}
-                else if (!factureD.de) {toast.error("Destination De est Invalide !", GConf.TostErrorGonf)}
-                else if (!factureD.vers) {toast.error("Destination vers est Invalide !", GConf.TostErrorGonf)}
-                else if (!factureD.Fournisseurs) {toast.error("Camion  est Invalide !", GConf.TostErrorGonf)}
-                else if (!factureD.Chauffeur) {toast.error("Chauffeur  est Invalide !", GConf.TostErrorGonf)}
-                else if (!factureD.totale) {toast.error("totale est Invalide !", GConf.TostErrorGonf)}
-                else if (!factureD.articles || factureD.articles.length == 0) {toast.error("article list est Invalide !", GConf.TostErrorGonf)}
+        const SaveAbonnementFunc = () =>{
+                if (!abonnemmentData.CommandeID ) {toast.error("Commande ID est Invalide !", GConf.TostErrorGonf)}
+                else if (!abonnemmentData.totale) {toast.error("totale est Invalide !", GConf.TostErrorGonf)}
+                else if (!abonnemmentData.articles || abonnemmentData.articles.length == 0) {toast.error("article list est Invalide !", GConf.TostErrorGonf)}
                 else {
+                    console.log(abonnemmentData)
                     setLS(true)
-                    axios.post(`${GConf.ApiLink}/facture/ajouter`, {
+                    axios.post(`${GConf.ApiLink}/commande/facturer`, {
                         PID : GConf.PID,
-                        factD: factureD,
+                        abonnemmentData: abonnemmentData,
                     })
                     .then(function (response) {
+                        console.log(response.data)
                         if(response.status = 200) {
-                            setFID(response.data.FID)
                             setSaveBtnState(true)
                             toast.success("Facture Enregistreé !", GConf.TostSuucessGonf)
-                            setFactureLink(response.data);
+                            UpdateState('A')
                             setLS(false)
                             setUSBS(false)
-                            SaveNotification('factureAjouter',GConf.PID, factureD)
+                             
                         }
                         else{
                             toast.error('Erreur!  esseyez de nouveaux', GConf.TostSuucessGonf)
@@ -227,141 +162,104 @@ function FacturerCommande() {
                     }).catch((error) => {
                         if(error.request) {
                           toast.error(<><div><h5>Probleme de Connextion</h5> La Facture sera enregistrer sur votre ordinateur    </div></>, GConf.TostInternetGonf)   
-                          Offline.factureToSave.push(factureD)
-                          localStorage.setItem(`${GConf.PID}_Offline`,  JSON.stringify(Offline));
+                           
                           setLS(false)
                         }
                       });
     
                 }       
         }
-        const GetPrixColis = () =>{
-            if (articleNow.Qte) {
-                const QteColis = (parseInt(articleNow.Qte) * articleNow.Colis)
-                setArticleNow({...articleNow, Qte : QteColis})
-                setColisDes(true)
-            } else {
-                toast.error('Pas de Quntitée', GConf.TostSuucessGonf)
-            }
-        }
-        const CheckClientValidite = (clientId) =>{
-            const exist = allClientList.find((client) => client.CL_ID == clientId);
-            if (exist) { return true  } else { return false}
+        const UpdateState = (stateBtn) =>{
+            axios.post(`${GConf.ApiLink}/commande/controle`, {
+                PID : GConf.PID,
+                RID: CID,
+                state: stateBtn
+              })
+              .then(function (response) {
+                //setCommandeD({ ...commandeData, State: stateBtn}) 
+                
+                if(stateBtn != 'S'){
+                    //toast.success("Etat Changeé !", GConf.TostSuucessGonf)
+                }            
+              }).catch((error) => {
+                if(error.request) {
+                  toast.error(<><div><h5>Probleme de Connextion</h5> Impossible de modifier L'etat du commande  </div></>, GConf.TostInternetGonf)   
+                }
+              });
         }
         const OnKeyPressFunc = (e) => {
             if (!((e.charCode >= 65 && e.charCode <= 90) || (e.charCode >= 97 && e.charCode <= 122) || (e.charCode >= 48 && e.charCode <= 57) || e.charCode == 42 || e.charCode == 32 || e.charCode == 47 )) {
                 e.preventDefault();
             }   
         }
-        const ThisSelected = (ind) =>{
-            articleL.at(ind).selected = true
-            console.log(articleL)
-            setArticleL([ ...articleL])
+        const GetDelegList = (value) =>{
+            setAbonnemmentData({...abonnemmentData, Gouv: value })
+            let found = TunMap.Deleg.filter(element => element.tag === value)
+            setDelegList([])
+            setDelegList(found)
         }
+
        /*#########################[Card]##################################*/
-        const AddArticles = () =>{
-            return (<>
-                    <div className='card card-body shadow-sm mb-2 border-div'>
-                        <h5>Ajouter article</h5> 
-                        <datalist id="articlesList">
-                                {tableData.map((test) =>
-                                <option key={test.key} value={test.value}>{test.text}</option>
-                                )}
-                        </datalist>
-                        <Input icon='pin' list="articlesList" placeholder='Entre aarticle'  onBlur={ (e) => GetArticleData(e.target.value)} size="small" iconPosition='left'   fluid className='mb-1' /> 
-                        <div className='m-2 text-secondary'><b> <span className='bi bi-upc '></span> Code a barre : {articleNow.A_Code} </b></div>
-                        <div className='m-2 text-danger'><b><span className='bi bi-star-fill '></span> Nom : {articleNow.Name} </b></div> 
-                        <div className='row'>
-                            <div className='col-6'>
-                            <div className='m-2 mb-4 text-success'><b><span className='bi bi-currency-dollar '></span> Prix : {articleNow.Prix_vente} </b></div> {/* <Input icon='dollar sign' value={articleNow.Prix_vente} size="small" iconPosition='left' placeholder='Prix'  fluid className='mb-1' /> */}
-                            </div>
-                            <div className='col-3'>
-                                <Button size='small' disabled={saveBtnState} className='rounded-pill bg-warning text-dark' onClick={ () => setArticleNow({...articleNow, Prix_vente : 0})} fluid> Gratuit</Button>
-                            </div>
-                            <div className='col-3'>
-                                <Button size='small' disabled={saveBtnState} className='rounded-pill bg-warning text-dark' onClick={ () => setArticleNow({...articleNow, Prix_vente : articleNow.Prix_gros})} fluid> P. Gros</Button>
-                            </div>
-                        </div>
-                        <div className='row'>
-                           <div className='col-8'>  <Input icon='dropbox' type='number' value={articleNow.Qte} autoFocus={autofocusState} onChange={ (e) => {articleNow.Qte = e.target.value}} size="small" iconPosition='left' placeholder='Quantite'  fluid className='mb-1' /> </div> 
-                           <div className='col-4'> <Button size='small' disabled={saveBtnState || colisDesaible} className='rounded-pill bg-danger text-white' onClick={ () => GetPrixColis()} fluid> Colis </Button> </div> 
-                        </div>
-                        
-                        <br />
-                        <Button disabled={saveBtnState} className='rounded-pill bg-system-btn' onClick={AddArticleToList}>  <Icon name='edit outline' /> Ajouter</Button>
-                    </div>
-            </>)
-        }
-        const ArticleListCard = (props) =>{
+        const CommandeInfoCard = () =>{
             return(<>
-                        <Ripples className='d-block p-0 mb-1 rounded-pill' >   
-                        <div className='card shadow-sm p-2   rounded-pill ps-4'>
-                            <div className='row'>
-                                <div className='col-6 text-start align-self-center'>
-                                    {props.dataA.Name}
-                                </div>
-                                <div className='col-5 align-self-center'><b>{props.dataA.Qte}</b> * {props.dataA.Prix} = {props.dataA.PU}</div>
-                                <div className='col-1 align-self-center'><Button icon="times" className='rounded-circle p-2 text-white bg-danger' disabled={saveBtnState} onClick={() => DeleteFromUpdateList(props.dataA.A_Code)}></Button></div>
-                            </div>
-                        </div>
-                        </Ripples>
-                    </>)
-        }
-        const ButtonsCard = () =>{
-            return (<>
-                    <div className='card card-body shadow-sm mb-2 border-div'>
-                        <h5>Buttons</h5>
-                        <div className='row mb-2'>
-                            <div className='col-12'>
-                                <Button  className='rounded-pill bg-system-btn' disabled={saveBtnState} fluid onClick={SaveFacture}><Icon name='save' /> Enregistrer <Loader inverted active={loaderState} inline size='tiny' className='ms-2'/></Button>
-                            </div>
-                        </div>
-                    </div>
-            </>)
-        }
-        const TotaleCard = () =>{
-            return(<>
-                    <div className='card card-body shadow-sm mb-2 sticky-top rounded-pill ' style={{top:'70px'}}>
-                        <div className='row'>
-                            <div className='col-9 align-self-center text-start'><h1>Totale : {factureD.totale}</h1></div>
-                            <div className='col-3 align-self-center text-center'><h5 className='mb-0'>{factureD.articles.length}</h5> articles</div>
-                        </div>
-                        
-                       
-                    </div>
-                </>)
-        }
-        const CommandeListCard = () =>{
-            return(<>
-                <div className="card-body">
-                    <div className="table-responsive">
-                        <table className="table">
-                            <thead>
-                                <tr>
-                                <th scope="col">No</th>
-                                <th scope="col">Designiation</th>
-                                <th scope="col">Qté</th>
-                                
-                                </tr>
-                            </thead>
-                            <tbody>
-                                {loading ?  
-                                <>
-                                {articleL.map( (artData, index) => 
-                                    <tr key={index} className={artData.selected ? 'text-decoration-line-through' : '' } >
-                                        <th scope="row">{index + 1}</th>
-                                        <td>{artData.Name}</td>
-                                        <td>{artData.Qte}</td>
-                                        <td><Button size='mini' disabled={artData.selected} className='p-1' onClick={() => ThisSelected(index)} icon='check'/> </td>     
-                                    </tr>
-                                )}
-                                </>
-                                : SKLT.FactureList }
-                                
-                            </tbody>
+                <div className='card p-4 shadow-sm mb-2 border-div'>
+                    <div class="table-responsive">
+                        <table class="table table-striped">
+                        <tbody>
+                            <tr>
+                                <th scope="row">Nom</th>
+                                <td>{loading ? commandeData.Name : ''}</td>
+                            </tr>
+                            <tr>
+                                <th scope="row">Date</th>
+                                <td>{loading ? new Date(commandeData.RDV_Date).toLocaleDateString('fr-FR').split( '/' ).reverse( ).join( '-' ) : ''}</td>
+                            </tr>
+                            <tr>
+                                <th scope="row">Passe Le</th>
+                                <td>{loading ? new Date(commandeData.R_Date).toLocaleDateString('fr-FR').split( '/' ).reverse( ).join( '-' ) : ''}</td>
+                            </tr>
+                            <tr>
+                                <th scope="row">Commentaire</th>
+                                <td>{loading ? commandeData.Comment : ''}</td>
+                            </tr>
+                        </tbody>
                         </table>
                     </div>
                 </div>
+                </>)
+        }
+ 
+        const UserCard = () =>{
+            return(<>
+                    <div className='card card-body shadow-sm mb-2 mt-3 border-div'>
+                        <h5>Info Client</h5>
+                        <div className='row mb-2'>
+                            <div className='text-center mb-3'> 
+                                <img src={`https://cdn.abyedh.tn/images/p_pic/05.gif`} className='rounded-circle' width='60px'/>
+                            </div>
+                            <div className='col-12 col-lg-6 mb-3'> Nom :  {loading ? commandeData.Name : ''}
+                                <Input icon='add user' onKeyPress={event => OnKeyPressFunc(event)} list="clientList" placeholder={loading ? commandeData.Name : ''} value={abonnemmentData.Name}  onBlur={ (e) => setAbonnemmentData({...abonnemmentData, Name: e.target.value })}  iconPosition='left'   fluid className='mb-1' />
+                            </div> 
+                            <div className='col-12 col-lg-6 mb-3'> Phone : {loading ? commandeData.PhoneNum : ''}
+                                <Input icon='add user' onKeyPress={event => OnKeyPressFunc(event)} list="clientList" placeholder={loading ? commandeData.PhoneNum : ''} value={abonnemmentData.PhoneNum}   onBlur={ (e) => setAbonnemmentData({...abonnemmentData, PhoneNum: e.target.value })}  iconPosition='left'   fluid className='mb-1' />
+                            </div> 
+                            <div className='col-12 col-lg-6 mb-3'> Gouv : {loading ? commandeData.BirthGouv : ''} 
+                                <Select placeholder=' Gouvernorat' fluid className='mb-2' options={TunMap.Gouv} value={abonnemmentData.Gouv} onChange={(e, { value }) => GetDelegList(value)} />
+                            </div> 
+                            <div className='col-12 col-lg-6 mb-3'> Deleg : {loading ? commandeData.BirthGouv : ''}
+                                <Select placeholder=' Delegation ' fluid value={abonnemmentData.Deleg} options={delegList} onChange={(e, { value }) => setAbonnemmentData({...abonnemmentData, Deleg: value })} />
+                            </div> 
+                            <div className='col-12 mb-3'>
+                                Deleg : {loading ? commandeData.BirthGouv : ''}
+                                <Form>
+                                    <TextArea  rows="3" onKeyPress={event => OnKeyPressFunc(event)} placeholder='designer votre article' className='w-100 shadow-sm rounded mb-3' value={abonnemmentData.Adress} onChange={(e) => setAbonnemmentData({...abonnemmentData, Adress: e.target.value })}/>
+                                </Form> 
+                            </div>
+                        </div> 
+                        <div className='text-end'>
+                            <Button  className='rounded-pill text-secondary btn-imprimer' size='mini' disabled={commandeData.Releted_UID}   onClick={(e) => SaveClientFunction()}><Icon name='edit outline' /> Enregistrer Client</Button>
+                        </div>  
+                    </div>
             </>)
         }
         return (<>
@@ -370,11 +268,11 @@ function FacturerCommande() {
             <div className='row'>
                 <div className='col-12 col-lg-5'>
                     <div className="mb-4 sticky-top" style={{top:'70px'}}>
-                        <Tab menu={{widths: panes.length , pointing: true  }} panes={panes} />        
+                        <UserCard />
                     </div>
                 </div>
                 <div className='col-12 col-lg-7'>
-                    <Tab menu={{widths: panes.length , secondary: true, pointing: true  }} panes={panesRigth} />             
+                    <Tab menu={{widths: panesRigth.length , secondary: true, pointing: true  }} panes={panesRigth} />
                 </div>
             </div>
         </> );

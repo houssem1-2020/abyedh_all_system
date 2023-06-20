@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
-import InputLinks from '../Assets/linksData'
-import BackCard from '../Assets/backCard'
+import GConf from '../Assets/linksData'
+import BackCard from '../Assets/Cards/backCard'
 import { toast } from 'react-toastify';
 import GConf from '../../AssetsM/generalConf';
 import axios from 'axios';
@@ -64,7 +64,7 @@ function StatPage() {
           );
     }
     return ( <>
-       <BackCard data={InputLinks.backCard.stat}/>
+       <BackCard data={GConf.backCard.stat}/>
         <br />
         <div className='container-fluid'>
              <div className='row'>

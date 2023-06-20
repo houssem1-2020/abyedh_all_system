@@ -18,7 +18,8 @@ const GConf = {
     PID: GetPID(),
     ApiLink : 'http://localhost:3010/restaurant', //https://api.system.abyedh.tn/apiSystemAbyedh/System 
     ApiRouterOneLink : 'http://localhost:3010/restaurant-caisse', //https://api.system.abyedh.tn/apiSystemAbyedh/System 
-    ApiRouterTwoLink : 'http://localhost:3010/restaurant-caisse', //https://api.system.abyedh.tn/apiSystemAbyedh/System 
+    ApiRouterTwoLink : 'http://localhost:3010/restaurant-serveur', //https://api.system.abyedh.tn/apiSystemAbyedh/System 
+    ApiRouterThreeLink : 'http://localhost:3010/restaurant-chef', //https://api.system.abyedh.tn/apiSystemAbyedh/System 
     DefaultTva: 0,
     themeColor : '#35ac67',
     themeColorLigth : '#b8cbd4',
@@ -95,6 +96,7 @@ const GConf = {
         //theme: "colored"
         style: { background: '#35ac67'},
     },
+    
 
     //leafLeft
     LeafleftIcon : {
@@ -122,8 +124,8 @@ const GConf = {
 
     //Subsystems
     SubSystemLink : [
-        {id: 1, title:'Reservations', text:'Interface Pour Gerer Les Reservations', icon:'pc-display-horizontal', link:'/R'},
         {id: 3, title:'Caisse', text:'Interface Pour La Caisse', icon:'pc-display', link:'/C'},
+        {id: 1, title:'Serveur', text:'Interface Pour Passer Des Commandes', icon:'pencil-square', link:'/R'},
     ],
 
     //NavBar Items

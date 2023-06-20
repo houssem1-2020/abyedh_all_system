@@ -1,15 +1,15 @@
 import React from 'react';
 import LinkCard from '../Assets/linksCard'
-import InputLinks from '../Assets/linksData'
-import BackCard from '../Assets/backCard'
+import GConf from '../Assets/linksData'
+import BackCard from '../Assets/Cards/backCard'
 import LandingList from '../Assets/landingList';
 
 
 function Stock() {
     return ( <>
-        <BackCard data={InputLinks.backCard.cg}/>
+        <BackCard data={GConf.backCard.cg}/>
         <br />
-        <LandingList list={InputLinks.stock} />
+        <LandingList list={GConf.stock} />
         </> );
 }
 

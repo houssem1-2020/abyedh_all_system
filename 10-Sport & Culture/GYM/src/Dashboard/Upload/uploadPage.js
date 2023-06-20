@@ -86,7 +86,7 @@ function UpdatePage() {
         setLS(true)
         let factureSelected = Offline.factureToSave[targetIndex]
         console.log(factureSelected)
-        axios.post(`${GConf.ApiLink}/facture/ajouter`, {
+        axios.post(`${GConf.ApiLink}/abonnement/ajouter`, {
             PID: GConf.PID,
             factD: factureSelected,
         })
@@ -117,7 +117,7 @@ function UpdatePage() {
     const SaveArticleFunc = (targetIndex) => {
         setLS(true)
         let ArticleSelected = Offline.articleToSave[targetIndex]
-        axios.post(`${GConf.ApiLink}/stock/ajouter`, {
+        axios.post(`${GConf.ApiLink}/forfait/ajouter`, {
             Tag : GConf.PID,
             articleD : ArticleSelected,
         }).then(function (response) {
@@ -143,7 +143,7 @@ function UpdatePage() {
     const SaveClientFunc = (targetIndex) => {
         setLS(true)
         let clientSelected = Offline.clientToSave[targetIndex]
-        axios.post(`${GConf.ApiLink}/client/ajouter`, {
+        axios.post(`${GConf.ApiLink}/membres/ajouter`, {
             tag : GConf.PID,
             clientD : clientSelected,
         }).then(function (response) {

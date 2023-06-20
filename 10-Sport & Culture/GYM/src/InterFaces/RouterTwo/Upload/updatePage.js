@@ -1,7 +1,7 @@
 import React, {useEffect,useState}  from 'react';
 import axios from 'axios';
-import BackCard from '../Assets/backCard';
-import InputLinks from '../Assets/linksData';
+import BackCard from '../Assets/Cards/backCard';
+import GConf from '../Assets/linksData';
 import { toast } from 'react-toastify';
 import { Segment , Icon, Input, Button, Loader, Dropdown, Dimmer} from 'semantic-ui-react';
 import { CircularProgressbar,  buildStyles } from 'react-circular-progressbar';
@@ -188,7 +188,7 @@ function UploadeCommandePage() {
     }
 
     return (<>
-        <BackCard data={InputLinks.backCard.up}/>
+        <BackCard data={GConf.backCard.up}/>
        <br />
         <Dimmer active={loaderState || loadingPage} page inverted style={{minHeight:'100% !important'}}>
             <Loader inverted>{loadingPage == true ? 'Chargemment' : 'Enregistremment'} </Loader>

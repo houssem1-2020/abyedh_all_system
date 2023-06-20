@@ -25,10 +25,10 @@ function InputLoginPage() {
             }).then(function (response) {
                 if(response.data.length != 0) {
                     toast.success("Connecteé !", GConf.TostSuucessGonf)
-                    if (!TwoGConf.oneOffline) {
-                        localStorage.setItem(`Restaurant_Reservation_Offline`, JSON.stringify(TwoGConf.default_Offline));
+                    if (!TwoGConf.twoOffline) {
+                        localStorage.setItem(`${TwoGConf.routerTagName}_Offline`, JSON.stringify(TwoGConf.default_Offline));
                     }
-                    localStorage.setItem(`Restaurant_Reservation_LocalD`, JSON.stringify(response.data));
+                    localStorage.setItem(`${TwoGConf.routerTagName}_LocalD`, JSON.stringify(response.data));
                     window.location.href = `/${TwoGConf.routerName}`;
                 }
                 else{

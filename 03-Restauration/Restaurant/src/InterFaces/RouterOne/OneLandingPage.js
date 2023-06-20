@@ -43,7 +43,7 @@ function InputLandingPage() {
 
     /*#########################[Function]###########################*/
     const logOutInput = () =>{    
-        localStorage.removeItem(`Restaurant_Caisse_LocalD`);
+        localStorage.removeItem(`${OneGConf.routerTagName}_LocalD`);
         window.location.href = `/${OneGConf.routerName}`;
     }
 

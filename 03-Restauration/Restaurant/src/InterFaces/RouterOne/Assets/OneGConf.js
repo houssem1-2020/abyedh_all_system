@@ -15,8 +15,9 @@ const OneGConf = {
         {id:2, link:'cmd', icon:'cart4', text:'COMMANDES', desc:''},
         {id:3, link:'sk', icon:'box2-heart-fill', text:'CAISSE RAPIDE', desc:''},
         {id:4, link:'vt', icon:'cart-check-fill', text:'VENTES', desc:''},
-        {id:5, link:'cl', icon:'person-rolodex', text:'CLIENTS', desc:''},
+        {id:5, link:'cmdv', icon:'bag-check-fill', text:'ACCEPTER COMMANDE', desc:''},
         {id:6, link:'rt', icon:'coin', text:'RECETTE', desc:''},
+        {id:5, link:'cl', icon:'person-rolodex', text:'CLIENTS', desc:''},
     ],
 
     client : [

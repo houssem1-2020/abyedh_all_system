@@ -1,15 +1,15 @@
 import React, { useEffect, useState } from 'react';
-import InputLinks from '../Assets/linksData'
-import BackCard from '../Assets/backCard'
+import OneGConf from '../Assets/OneGConf'
+import BackCard from '../Assets/Cards/backCard'
 import { Fade } from 'react-reveal';
 import { Button,  Dropdown, Icon, Input, Label, Loader, Tab } from 'semantic-ui-react';
-import useGetArticles from '../../Dashboard/Assets/Hooks/fetchArticles';
-import useGetClients from '../../Dashboard/Assets/Hooks/fetchClient';
+import useGetArticles from '../../../AssetsM/Hooks/fetchArticles';
+import useGetClients from '../../../AssetsM/Hooks/fetchClient';
 import { toast } from 'react-toastify';
-import GConf from '../../AssetsM/generalConf';
+import GConf from '../../../AssetsM/generalConf';
 import axios from 'axios';
-import FrameForPrint from '../../Dashboard/Assets/frameForPrint';
-import usePrintFunction from '../../Dashboard/Assets/Hooks/printFunction';
+import FrameForPrint from '../../../AssetsM/Cards/frameForPrint';
+import usePrintFunction from '../../../AssetsM/Hooks/printFunction';
 import BarcodeScannerComponent from "react-qr-barcode-scanner";
 
 const MainDataCard = ({factureD, setFactureD,clientList}) =>{
@@ -42,7 +42,7 @@ function CaisseRapide() {
     const [autofocusState, setAutoFocus] = useState(false)
     const [loadingPage, setLoadingP] = useState(true)
     //const [stopStream, setStopStram] = useState(false)
-    let Offline = JSON.parse(localStorage.getItem(`Magazin_Caisse_Offline`));
+    let Offline = OneGConf.oneOffline
     const panes = [
         {
             menuItem: { key: 'start', icon: 'add circle', content: 'Entrer ' }, 
@@ -468,7 +468,7 @@ function CaisseRapide() {
         </>)
     }
     return (  <>
-        <BackCard data={InputLinks.backCard.nv}/>
+        <BackCard data={OneGConf.backCard.nv}/>
         <br />
         <div className='container-fluid'>
             <div className='row'>

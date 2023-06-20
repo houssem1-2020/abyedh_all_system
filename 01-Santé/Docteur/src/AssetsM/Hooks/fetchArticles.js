@@ -11,7 +11,7 @@ const useGetArticles = () => {
 
     //Use Effects 
     useEffect(() => {
-        axios.post(`${GConf.ApiLink}/stock`, {
+        axios.post(`${GConf.ApiLink}/ordonance/medicamment`, {
             PID: GConf.PID,
         })
         .then(function (response) {
@@ -22,6 +22,7 @@ const useGetArticles = () => {
             setData(TableNow)
             setSelectData(SelectTableNow)
             setPureData(response.data)
+
         }).catch((error) => {
             if(error.request) {
                 let TableNow = []
@@ -35,7 +36,7 @@ const useGetArticles = () => {
           });
     }, [])
 
-  return [data, pureData, selectedData];
+  return [pureData];
 };
 
 export default useGetArticles;

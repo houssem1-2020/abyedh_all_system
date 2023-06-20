@@ -11,7 +11,7 @@ const useGetArticles = () => {
     useEffect(() => {
         
           async function fetchData() {
-            await axios.post(`${GConf.ApiLink}/stock`, {
+            await axios.post(`${GConf.ApiLink}/forfait`, {
                 PID: GConf.PID,
             })
             .then(function (response) {

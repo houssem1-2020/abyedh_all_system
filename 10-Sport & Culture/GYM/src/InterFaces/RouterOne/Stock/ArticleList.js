@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
-import BackCard from '../Assets/backCard';
-import InputLinks from '../Assets/linksData';
+import BackCard from '../Assets/Cards/backCard';
+import OneGConf from '../Assets/linksData';
 import { Button, Icon } from 'semantic-ui-react';
 import TableGrid from '../../Dashboard/Assets/tableGrid';
 import axios from 'axios';
@@ -12,7 +12,7 @@ function ArticleList() {
     let [tableData, setTableData] = useState([]); 
 
   useEffect(() => {
-    axios.post(`${GConf.ApiCommandeLink}/stock`, {
+    axios.post(`${GConf.ApiGerantLink}/stock`, {
         forPID : camData.PID,
         genre : '1'
       })
@@ -34,7 +34,7 @@ function ArticleList() {
     }, [])
 
     return ( <>
-        <BackCard data={InputLinks.backCard.skList}/>
+        <BackCard data={OneGConf.backCard.skList}/>
        
         <br />
         <div className='container-fluid'>

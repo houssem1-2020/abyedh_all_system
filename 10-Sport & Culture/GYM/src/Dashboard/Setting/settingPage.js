@@ -3,7 +3,7 @@ import { Bounce } from 'react-reveal';
 import { Link, NavLink } from 'react-router-dom';
 import GConf from '../../AssetsM/generalConf';
 import CountUp from 'react-countup';
-import { Button, Icon, Input,  Loader } from 'semantic-ui-react';
+import { Button, Icon, Input,  Loader, Modal } from 'semantic-ui-react';
 import axios from 'axios';
 import SKLT from '../../AssetsM/Cards/usedSlk';
 import { toast } from 'react-toastify';
@@ -15,7 +15,33 @@ function SettingPage() {
     const [confirmed , setConfirmed] = useState(false)
     const [setting , setSetting] = useState([])
     const [activationState , setActivationState] = useState(false)
-
+    const [modalS, setModalS] = useState(false)
+    const Defaultactivation = {
+        "PK": 4,
+        "PID": GConf.PID,
+        "State": "Expired",
+        "ExpiredThe": new Date(),
+        "FirstActivation": new Date(),
+        "LatsActivation": new Date()
+    }
+    const Defaultconfirmation = {
+        "PK": 4,
+        "PID": GConf.PID,
+        "Activated": "",
+    }
+    const defaultSettingData = {
+        "PK": 1,
+        "PID": GConf.PID,
+        "Profile": "[true,false,true]",
+        "Commandes": "[false,5,true]",
+        "Menu": "[true,false,true]",
+        "Stock": "[true,true,true]",
+        "Factures": "[2.2,true,true]",
+        "Caisses": "[true,false,false,false]",
+        "Clients": "[true,false,true]",
+        "Equipe": "[true,6]",
+        "Fournisseur": "[true,false,true]"
+    }
     /*###############################[UseEffect]############################# */
     useEffect(() => {
         axios.post(`${GConf.ApiLink}/parametre`, {
@@ -23,10 +49,27 @@ function SettingPage() {
         })
         .then(function (response) { 
             console.log(response.data)
-            setConfirmed(response.data.confirmation)
-            setActivationState(response.data.activation)
-            setSetting(response.data.setting)
-            setLoading(true)
+            if (!response.data.confirmation || !response.data.activation || !response.data.setting) {
+                setConfirmed(Defaultconfirmation)
+                setActivationState(Defaultactivation)
+                setSetting(defaultSettingData)
+                setLoading(true)
+                // const timer = setTimeout(() => {
+                //     setModalS(true);
+                //   }, 1900);
+                  
+                //   return () => clearTimeout(timer);
+                //AUTOINFORMATION
+
+                
+            } else {
+                setConfirmed(response.data.confirmation)
+                setActivationState(response.data.activation)
+                setSetting(response.data.setting)
+                setLoading(true)
+                
+            }
+            
         }).catch((error) => {
             if(error.request) {
               toast.error(<><div><h5>Probleme de Connextion</h5> Esseyeé de connecter plus tard</div></>, GConf.TostInternetGonf) 
@@ -94,24 +137,38 @@ function SettingPage() {
                     <div>{new Date(props.data.LatsActivation).toLocaleDateString()} <i className="bi bi-arrow-left-right"></i> {new Date(props.data.ExpiredThe).toLocaleDateString()}</div>
             </>)
         }
+        const RedirectToActivationCard = () =>{
+            return(<>
+
+                <div className='row mt-5'>
+                    <div className='col-9 align-self-center'> <h5>Activer Votre system ici </h5></div>
+                    <div className='col-3'>
+                        <NavLink exact='true' to='paymment'>
+                            <Button  className='rounded-pill text-dark' size="tiny"    style={{backgroundColor : '#fcba03'}}>  Activer </Button> 
+                        </NavLink>
+                    </div>
+                </div>
+            </>) 
+        }
         return (<>
                 <div className="card card-body shadow-sm mb-3 border-div " style={{backgroundColor:'#dae8f0'}}>
                     <h3 style={{color:GConf.themeColor}}> <span className='bi bi-toggle-on'></span> Activation</h3>
                     
                     <div className="row">
-                        <div className="col-12 col-md-6  border-end">
-                            {/* {activationState.State == 'Activated' ? <Activated data={activationState} /> : <Expired data={activationState} />} */}
-                            {CalculateResteJour(activationState.ExpiredThe) > 0 ? <Activated data={activationState} /> : <Expired data={activationState} />}
-                        </div>
-                        <div className="col-12 col-md-6 align-self-center text-center">
+                        <div className="col-12 col-md-5 align-self-center text-center">
                             <h1 className="pb-0 mb-0 text-danger"> <CountUp end={CalculateResteJour(activationState.ExpiredThe)} duration={2} /> </h1>
                             <small>Jour</small>
                         </div>
+                        <div className="col-12 col-md-7  border-end">
+                            {/* {activationState.State == 'Activated' ? <Activated data={activationState} /> : <Expired data={activationState} />} */}
+                            {CalculateResteJour(activationState.ExpiredThe) > 0 ? <Activated data={activationState} /> : <Expired data={activationState} />}
+                        </div>
+                        {CalculateResteJour(activationState.ExpiredThe) > 0 ? '' :  <RedirectToActivationCard />} 
                     </div>
                 </div>
                 <div className="card card-body shadow-sm mb-3 border-div" style={{backgroundColor:'#e6daf0'}}>
                     <h3 style={{color:GConf.themeColor}}><span className='bi bi-check-circle-fill'></span> Confirmation</h3>
-                    {confirmed.Activated == 'YES' ? <ConirmedCard /> : <NonConirmedCard />}
+                    {confirmed.Activated == 'true' ? <ConirmedCard /> : <NonConirmedCard />}
                 </div>  
         </>);
     }
@@ -180,7 +237,7 @@ function SettingPage() {
                                 <div className="flex-grow-1 ms-3">
                                     <b>{props.title}</b>
                                     <br />
-                                    <small className="text-secondary">Etat de cabinet, camera, laboratoire ...</small>
+                                    <small className="text-secondary">{props.description}</small>
                                 </div>
                             </div>
                         </div>
@@ -202,7 +259,7 @@ function SettingPage() {
                     </div>
                     <div className="col-12 col-lg-7">
                         <div className="list-group shadow-sm mb-4 border-div">
-                            {GConf.Setting.map((sett) => <SettingItemCard key={sett.id} link={sett.link} image={sett.image} title={sett.title} />)}
+                            {GConf.Setting.map((sett,index) => <SettingItemCard key={index} link={sett.link} image={sett.image} description={sett.description} title={sett.title} />)}
                         </div>
                         {/*<h5>Profile</h5>
                         {loading ?  <ProfileSetting genre='1' setting={setting.Profile}/> : SKLT.CardList  }
@@ -244,6 +301,25 @@ function SettingPage() {
                     </div>
                 </div>
         </Bounce>
+        <Modal  
+            //basic
+            size='mini'
+            open={modalS}
+            closeIcon
+            dimmer= 'blurring'
+            onClose={() => setModalS(false)}
+            onOpen={() => setModalS(true)}
+        >
+            <Modal.Content>
+                <div className='text-center mt-5 mb-5'>
+                    <h1 className='text-danger'>Une Errure s'est Produit </h1>
+                    <span className='bi bi-wrench-adjustable bi-xlg system-color'></span> 
+                    <NavLink to='/S/mu/famille'><h4>Cliquer Ici pour Informer l'administartion </h4></NavLink>
+                </div>
+            </Modal.Content>
+            
+        </Modal> 
+
     </>);
 }
  

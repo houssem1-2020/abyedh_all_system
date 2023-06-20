@@ -7,7 +7,7 @@ const useGetClientMap = () => {
   const [pureData, setPureData] = useState(null);
 
   useEffect(() => {
-    axios.post(`${GConf.ApiLink}/client/map`, {
+    axios.post(`${GConf.ApiLink}/membres/map`, {
         PID: GConf.PID,
       })
       .then(function (response) {

@@ -1,12 +1,13 @@
 import React, { useEffect, useState } from 'react';
-import InputLinks from '../Assets/linksData'
-import BackCard from '../Assets/backCard'
+//import GConf from '../Assets/linksData'
+import BackCard from '../Assets/Cards/backCard'
 import { Fade } from 'react-reveal';
 import { Button,  Dropdown, Icon, Input, Label, Loader, Tab } from 'semantic-ui-react';
-import useGetArticles from '../../Dashboard/Assets/Hooks/fetchArticles';
+//import useGetArticles from '../../Dashboard/Assets/Hooks/fetchArticles';
 import { toast } from 'react-toastify';
-import GConf from '../../AssetsM/generalConf';
+import GConf from '../../../AssetsM/generalConf';
 import axios from 'axios';
+import TwoGConf from '../Assets/TwoGConf';
 
 const MainDataCard = ({commandeD, setCommandeD,clientList}) =>{
     return (<>
@@ -26,7 +27,7 @@ const MainDataCard = ({commandeD, setCommandeD,clientList}) =>{
 
 function NouveauxCommande() {
     /*#########################[Const]##################################*/
-    let CmdData = JSON.parse(localStorage.getItem(`${GConf.SystemTag}_Cmd_LocalD`));
+    let CmdData = TwoGConf.forPID
     let UID = CmdData.CID; 
     const Today = new Date()
     const [commandeD, setCommandeD] = useState({client:'PASSAGER', UID : UID , jour: Today.toISOString().split('T')[0], totale: 0 , articles:[]})
@@ -38,7 +39,7 @@ function NouveauxCommande() {
     const [loadingPage, setLoadingP] = useState(true)
     const [loaderState, setLS] = useState(false)
     const [autofocusState, setAutoFocus] = useState(false)
-    let Offline = JSON.parse(localStorage.getItem(`${GConf.SystemTag}_Cmd_Offline`));
+    let Offline = TwoGConf.twoOffline
     const panes = [
         {
             menuItem: { key: 'start', icon: 'add circle', content: 'Entrer ' }, 
@@ -283,7 +284,7 @@ function NouveauxCommande() {
 
 
     return (  <>
-        <BackCard data={InputLinks.backCard.nv}/>
+        <BackCard data={TwoGConf.backCard.nv}/>
         <br />
         <div className='container-fluid'>
             <Tab menu={{  pointing: true  }} panes={panes} />

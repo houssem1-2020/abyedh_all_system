@@ -14,6 +14,7 @@ import usePrintFunction from '../../../AssetsM/Hooks/printFunction';
 import BarcodeScannerComponent from "react-qr-barcode-scanner";
 import { Modal } from 'semantic-ui-react';
 //import { io } from "socket.io-client";
+import { QrReader } from 'react-qr-reader';
 
 const SearchModalCard = ({modalS,setModalS,rechercheList,saveBtnState,rechercheKey,setRechercheKey,RechercheFunction,GetArticleDataByAID}) => {
     const RechercheListeCard = (props) =>{
@@ -163,6 +164,7 @@ function CaisseSimple() {
     const [fastArticleList, setFastArticleList] = useState([])
     const [autofocusState, setAutoFocus] = useState(true)
     const [loadingPage, setLoadingP] = useState(true)
+    const [showKeyBoerd, sethowKeyBord] = useState(false)
 
     const [keyBordI, setKeyBoedI] = useState('')
     const [floatOpen, setFloatOpen] = useState(false)
@@ -186,12 +188,15 @@ function CaisseSimple() {
 
     /*3- Bons */
     const [selectedBon, setSelectedBon] = useState(1)
+    const [keyBonsValue, setKeyBonsValue] = useState('')
+    const [selectedPoucentage, setSelectedPourcentage] = useState(0)
 
     /*4- Clients */
     const [clientList, setClientList] = useState([])
     const [clientCredit, setClientCredit ] = useState()
     const [clientFidele, setClientFidelle ] = useState()
     const [fideliteState, setFideliteState ] = useState()
+    const [scanResult, setScanResult] = useState(false);
 
     /*4- Autres */
     const [factureOffline, setFactureOL] = useState(false)
@@ -200,10 +205,10 @@ function CaisseSimple() {
             menuItem: { key: 'plats', icon: 'food', content: 'Plats ', className:`p-4 ${OneGConf.themeMode == 'dark' ? 'bg-dark-theme-1 text-white' : 'bg-ligth-theme-1' } ` }, 
             render: () => <Tab.Pane attached={false} className={`${OneGConf.themeMode == 'dark' ? 'bg-dark-theme-1 text-white' : 'bg-ligth-theme-1' }`}> <PlatsListe /> </Tab.Pane>,
         },
-        {
-            menuItem: { key: 'start', icon: 'add circle', content: 'Entrer ', className:`p-4 ${OneGConf.themeMode == 'dark' ? 'bg-dark-theme-1 text-white' : 'bg-ligth-theme-1' } ` }, 
-            render: () => <Tab.Pane attached={false} className={`${OneGConf.themeMode == 'dark' ? 'bg-dark-theme-1 text-white' : 'bg-ligth-theme-1' }`}> <AddArticles /> </Tab.Pane>,
-        },
+        // {
+        //     menuItem: { key: 'start', icon: 'add circle', content: 'Entrer ', className:`p-4 ${OneGConf.themeMode == 'dark' ? 'bg-dark-theme-1 text-white' : 'bg-ligth-theme-1' } ` }, 
+        //     render: () => <Tab.Pane attached={false} className={`${OneGConf.themeMode == 'dark' ? 'bg-dark-theme-1 text-white' : 'bg-ligth-theme-1' }`}> <AddArticles /> </Tab.Pane>,
+        // },
         {
             menuItem: { key: 'articles', icon: 'bitcoin', content: 'Paymment ' , className:`p-4 ${OneGConf.themeMode == 'dark' ? 'bg-dark-theme-1 text-white' : 'bg-ligth-theme-1' } `  }, 
             render: () => <Tab.Pane attached={false} className={`${OneGConf.themeMode == 'dark' ? 'bg-dark-theme-1 text-white' : 'bg-ligth-theme-1' }`}> <PaymmentCard />  </Tab.Pane>,
@@ -589,21 +594,43 @@ function CaisseSimple() {
     }
 
     /*3- Bons */
+    const BonsBtnClicked = (value) =>{
+        if (value === 'C') { 
+            setKeyBonsValue('') 
+        } 
+        else if (value === '.' ) { 
+            setFloatOpen(true)
+        } 
+        else {             
+            if (floatOpen) {
+                setKeyBonsValue(prevInput => prevInput + '.' + parseFloat(value))
+                setFloatOpen(false)
+            } else {
+                setKeyBonsValue(prevInput => prevInput + parseFloat(value))
+            }
+        }
+    }
     const BonSlected= (value) =>{
-        setSelectedBon(value)
+        if (keyBonsValue != '' && parseFloat(keyBonsValue) != 0) {
+            setSelectedPourcentage(value)
+            let pureValue = keyBonsValue * ( 1 - (value / 100)) 
+            setSelectedBon(pureValue)
+        } else {
+            //setSelectedBon(0)
+        }
+       
     }
     const CalculateBons = (genre) => {
         if (genre == 'Plus') {
-            return {qte : Math.trunc(factureD.totale / selectedBon) +1 , valeur : selectedBon}
+            return {qte : Math.trunc(factureD.totale / selectedBon) +1 , bon : keyBonsValue, valeur : selectedBon, pourcentage: selectedPoucentage}
         } else {
-            return {qte : Math.trunc(factureD.totale / selectedBon) , valeur : selectedBon}
+            return {qte : Math.trunc(factureD.totale / selectedBon) , bon : keyBonsValue , valeur : selectedBon, pourcentage: selectedPoucentage}
         }
     }
     const SavePaymmentBons = (genre) =>{
 
         if (!gettedFID || gettedFID == '') {toast.error("Une Erreur s'est Produit !", GConf.TostErrorGonf)}
         else if (selectedBon == '') {toast.error("Solde Insufisante !", GConf.TostErrorGonf)}
-        // else if (JSON.parse(factureD.totale) > JSON.parse(keyaPaymment)) {toast.error("Solde Insufisante !", GConf.TostErrorGonf)}
         else {
             setLoadingP(true)
             axios.post(`${GConf.ApiRouterOneLink}/nv/payee/bons`, {
@@ -824,7 +851,7 @@ function CaisseSimple() {
         }
         const ArticleItemCard = (props) =>{
             return(<>
-                <div className='col-3 mb-1'>
+                <div className='col-6 col-lg-3 mb-1'>
                     <div className={`card p-3 text-secondary h-100 btn ${OneGConf.themeMode == 'dark' ? 'bg-dark-theme-4 text-white' : ' ' }`} onClick={() => GetArticleDataByAID(props.data.P_Code)}>
                         <div className='row'>
                             <div className='col-12 text-end'><b>{props.data.Prix_vente.toFixed(3)}</b></div>
@@ -840,19 +867,28 @@ function CaisseSimple() {
             <div className='row'>
                     <div className='col-4'><Button disabled={saveBtnState && !payBtnState} fluid style={{height:'40px'}} className='rounded-pill bg-system-btn mb-3' onClick={()=> NewTicket()}>  <Icon name='redo' /> N. Ticket</Button></div> 
                     <div className='col-2'><Button  fluid style={{height:'40px'}} className='rounded-pill bg-system-btn mb-3' onClick={() =>PrintFunction('openCaisse')}>  <Icon name='lock open' /> </Button></div> 
-                    <div className='col-6'><Button disabled={saveBtnState} fluid style={{height:'40px'}} className='rounded-pill bg-system-btn' onClick={() => SaveFacture()}>  <Icon name='save' /> Valideé Pour PASSAGER <Loader inverted active={loaderState} inline size='tiny' className='ms-2 text-danger'/></Button></div>
+                    <div className='col-5'><Button disabled={saveBtnState} fluid style={{height:'40px'}} className='rounded-pill bg-system-btn' onClick={() => SaveFacture()}>  <Icon name='save' /> Valideé Pour PASSAGER <Loader inverted active={loaderState} inline size='tiny' className='ms-2 text-danger'/></Button></div>
+                    <div className='col-1'><Button icon className={` ${showKeyBoerd  ? 'bg-warning text-danger' : OneGConf.themeMode == 'dark' ? 'bg-dark-theme-3 text-white' : 'bg-ligth-theme-3' } }`} onClick={() => sethowKeyBord(!showKeyBoerd)}> <Icon name='keyboard' /> </Button></div>
                     <div className='col-3 d-none'><Button disabled={saveBtnState} fluid style={{height:'40px'}} className='rounded-pill bg-system-btn mb-3' onClick={() => setModaT(true)}>  <Icon name='search' /> Trouver  </Button></div>
             </div>
             <div className='row'>
-                <div className='col-3'>
+                <div className='col-12 col-lg-3 spesific-commp-2' style={{height: '58vh', overflow: 'scroll', overflowX:'hidden'}}>
                     {
                         genreListe.map((data,index) => <GenreListeCard key={index} text={data} /> )
                     }
+
                 </div>
-                <div className='col-9'>
+                <div className='col-12 col-lg-9'>
                     <div className='row'>
                         {
-                            selectedArticleList.map((data,index) => <ArticleItemCard key={index} data={data} />)
+                            showKeyBoerd ? 
+                            <>
+                                <h2><span className='bi bi-keyboard'></span>  : {keyBordI}</h2>
+                                <ClavierCard />
+                            </>
+                            :
+                            <>{selectedArticleList.map((data,index) => <ArticleItemCard key={index} data={data} />)}</> 
+                             
                         }
                     </div>
                     
@@ -929,17 +965,17 @@ function CaisseSimple() {
     const ClavierBonsCard = () =>{
         const BtnCard = (props) =>{
             return(<>
-                <Button className={`shadow-sm ${props.bg == true ? 'bg-danger text-white ' : OneGConf.themeMode == 'dark' ? 'bg-dark-theme-3 text-white border-dark' : 'bg-white' } border mb-1 border-div `} style={{width:'100%', height:'60px'}} onClick={(e) => PaymmentBtnClicked(props.value) } ><h2>{props.value}</h2></Button>
+                <Button className={`shadow-sm ${props.bg == true ? 'bg-danger text-white ' : OneGConf.themeMode == 'dark' ? 'bg-dark-theme-3 text-white border-dark' : 'bg-white' } border mb-1 border-div `} style={{width:'100%', height:'60px'}} onClick={(e) => BonsBtnClicked(props.value) } ><h2>{props.value}</h2></Button>
             </>)
         }
         return(<>
             <div className='row'>
-                <div className='col'><Button fluid className={`shadow-sm  border mb-1 border-div `} style={{  height:'60px'}} onClick={(e) => PaymmentBtnClicked(5) } ><h5>5%</h5></Button></div>
-                <div className='col'><Button fluid className={`shadow-sm  border mb-1 border-div `} style={{  height:'60px'}} onClick={(e) => PaymmentBtnClicked(8) } ><h5>8%</h5></Button></div>
-                <div className='col'><Button fluid className={`shadow-sm  border mb-1 border-div `} style={{  height:'60px'}} onClick={(e) => PaymmentBtnClicked(10) } ><h5>10%</h5></Button></div>
-                <div className='col'><Button fluid className={`shadow-sm  border mb-1 border-div `} style={{  height:'60px'}} onClick={(e) => PaymmentBtnClicked(12) } ><h5>12%</h5></Button></div>
-                <div className='col'><Button fluid className={`shadow-sm  border mb-1 border-div `} style={{  height:'60px'}} onClick={(e) => PaymmentBtnClicked(15) } ><h5>15%</h5></Button></div>
-                
+                <div className='col'><Button fluid className={`shadow-sm  border mb-1 border-div ${selectedPoucentage == 5 ? 'bg-warning border-0 text-danger' : ''}`} style={{  height:'60px'}} onClick={(e) => BonSlected(0) } ><h5><span className='bi bi-gift-fill'></span></h5></Button></div>
+                {/* <div className='col'><Button fluid className={`shadow-sm  border mb-1 border-div ${selectedPoucentage == 5 ? 'bg-warning border-0 text-danger' : ''}`} style={{  height:'60px'}} onClick={(e) => BonSlected(5) } ><h5>5%</h5></Button></div> */}
+                <div className='col'><Button fluid className={`shadow-sm  border mb-1 border-div ${selectedPoucentage == 8 ? 'bg-warning border-0 text-danger' : ''} `} style={{  height:'60px'}} onClick={(e) => BonSlected(8) } ><h5>8%</h5></Button></div>
+                <div className='col'><Button fluid className={`shadow-sm  border mb-1 border-div ${selectedPoucentage == 10 ? 'bg-warning border-0 text-danger' : ''} `} style={{  height:'60px'}} onClick={(e) => BonSlected(10) } ><h5>10%</h5></Button></div>
+                <div className='col'><Button fluid className={`shadow-sm  border mb-1 border-div ${selectedPoucentage == 12 ? 'bg-warning border-0 text-danger' : ''} `} style={{  height:'60px'}} onClick={(e) => BonSlected(12) } ><h5>12%</h5></Button></div>
+                <div className='col'><Button fluid className={`shadow-sm  border mb-1 border-div ${selectedPoucentage == 15 ? 'bg-warning border-0 text-danger' : ''} `} style={{  height:'60px'}} onClick={(e) => BonSlected(15) } ><h5>15%</h5></Button></div>
             </div>
             <div className='row '>
                 <div className='col-4 p-2'><BtnCard value='1' /></div>
@@ -981,9 +1017,8 @@ function CaisseSimple() {
                     </div>
                     <div className='col-12 col-md-5'>
                         <div className='row mb-3'>
-                            <div className='col-9'><Input type='number'   icon='money' value={keyaPaymment} onKeyPress={(e) => EnterKyPressed(e)} autoFocus={true} onChange={ (e) => {setKeyPaymment(Number(e.target.value)) }}   iconPosition='left' placeholder=' '  fluid className='mb-1' /></div>
-                            <div className='col-3 ms-0 me-0'> <Button disabled={false} fluid className='border-div   text-white' style={{height:'40px', backgroundColor : OneGConf.themeMode == 'dark' ? '#96999e': '#343536'}} onClick={() => setKeyPaymment('')}> <h2>C</h2> </Button> </div>
-                            
+                            <div className='col-9 align-self-center'><h2><span className='bi bi-keyboard'></span>  : {keyBonsValue == '' ? '0' : parseFloat(keyBonsValue).toFixed(3)} <span className='bi bi-arrow-left-right'></span> {selectedBon == 1 ? '0' : selectedBon.toFixed(3)} </h2>  </div>
+                            <div className='col-3 ms-0 me-0'> <Button disabled={false} fluid className='border-div   text-white' style={{height:'50px', backgroundColor : OneGConf.themeMode == 'dark' ? '#96999e': '#343536'}} onClick={() => {setKeyBonsValue(''); setSelectedBon(1) ; setSelectedPourcentage(0)}}> <h2>C</h2> </Button> </div>   
                         </div>
                         <div className='row'>
                             <div className='col-6'>
@@ -993,14 +1028,6 @@ function CaisseSimple() {
                                         <h3 className='mb-2 mt-1'>Tot: {((Math.trunc(factureD.totale / selectedBon) +1) * selectedBon).toFixed(3)}</h3> 
                                         <h3 className='mb-2 mt-1'>R : {(((Math.trunc(factureD.totale / selectedBon) +1) * selectedBon).toFixed(3) - factureD.totale).toFixed(3)}</h3> 
                                         <br />
-                                        <div className='row mb-2'>
-                                            <div className='col-6'>
-                                                <Button  fluid  className='border-div bg-primary text-white ' icon  >  <Icon name='arrow up' /></Button>
-                                            </div>
-                                            <div className='col-6'>
-                                                <Button  fluid  className='border-div bg-secondary text-white' icon >  <Icon name='arrow down' /> </Button>
-                                            </div>
-                                        </div>
                                         <div className='row'>
                                             <div className='col-12'>
                                                 <Button disabled={payBtnState ||!saveBtnState} fluid style={{height:'50px'}} className='border-div bg-success text-white' onClick={() => SavePaymmentBons('Plus')}>  <Icon name='check' /> Payeé</Button>
@@ -1015,14 +1042,6 @@ function CaisseSimple() {
                                         <h3 className='mb-2 mt-1'>Tot: {((Math.trunc(factureD.totale / selectedBon)) * selectedBon).toFixed(3)}</h3> 
                                         <h3 className='mb-2 mt-1'>T : {(((Math.trunc(factureD.totale / selectedBon)) * selectedBon).toFixed(3) - factureD.totale).toFixed(3)}</h3> 
                                         <br />
-                                        <div className='row mb-2'>
-                                            <div className='col-6'>
-                                                <Button  fluid  className='border-div bg-primary text-white ' icon  >  <Icon name='arrow up' /></Button>
-                                            </div>
-                                            <div className='col-6'>
-                                                <Button  fluid  className='border-div bg-secondary text-white' icon >  <Icon name='arrow down' /> </Button>
-                                            </div>
-                                        </div>
                                         <div className='row'>
                                             <div className='col-12'>
                                                 <Button disabled={payBtnState ||!saveBtnState} fluid style={{height:'50px'}} className='border-div bg-danger text-white' onClick={() => SavePaymmentBons('Moins')}>  <Icon name='check' /> Payeé</Button>
@@ -1036,7 +1055,6 @@ function CaisseSimple() {
                                         <div className='col-9'><Button disabled={!saveBtnState || !payBtnState} fluid style={{height:'40px'}} className='rounded-pill bg-system-btn mb-3' onClick={() =>PrintFunction('printFacture')}>  <Icon name='print' /> Imprimer </Button></div>
                                         <div className='col-3 text-center'><Button  fluid style={{height:'40px'}} className='rounded-pill bg-system-btn mb-3' onClick={() =>PrintFunction('openCaisse')}>  <Icon name='lock open' /> </Button></div> 
                                     </div>
-                                    {/* <Button disabled={!saveBtnState || !payBtnState} fluid style={{height:'40px'}} className='rounded-pill bg-system-btn mb-3' onClick={() =>PrintFunction('printFacture')}>  <Icon name='print' /> Imprimer </Button> */}
                             </div>
                         </div>  
                     </div> 
@@ -1048,7 +1066,7 @@ function CaisseSimple() {
     const SelectClientCard = () =>{
         const ClientCardList = (props) =>{
             return(<>
-                <div className='card p-3 mb-2 shadow-sm rounded' onClick={() => setClientCredit(props.data)}>
+                <div className='card p-3 mb-2 shadow-sm rounded' onClick={() => setClientFidelle(props.data)}>
                     <div className='row'>
                             <div className='col-4'>{props.data.CL_ID}</div> 
                             <div className='col-6'>{props.data.CL_Name}</div> 
@@ -1073,7 +1091,8 @@ function CaisseSimple() {
                         </Modal.Content>
                     </Modal>
                 </div>  
-                <div className='col-9'><SelectClientCreditCard clientCredit={clientCredit} setClientCredit={setClientCredit} clientList={clientList}/></div>  
+                <div className='col-9'><SelectClientFideliteCard clientFidele={clientFidele} setClientFidelle={setClientFidelle} clientList={clientList}/></div>  
+                {/* <div className='col-9'><SelectClientCreditCard clientCredit={clientCredit} setClientCredit={setClientCredit} clientList={clientList}/></div>   */}
             </div>
             
         </>)
@@ -1097,9 +1116,22 @@ function CaisseSimple() {
                         </div>
 
                         <div className='col-12 col-lg-6'>
-                            btn listen <br />
-                            cadre qr code reader <br />
-                            select btn 
+                            {scanResult ?
+                            (
+                            <QrReader
+                                    constraints={{ facingMode: 'environment' }}
+                                    scanDelay={500}
+                                    onResult={(result, error) => {
+                                    if (!!result) {  setClientFidelle(clientList.find(obj => obj.CL_ID == result.text)) ; setScanResult(false) }
+                                    if (!!error) { console.log(error); }
+                                    }}
+                                    style={{  width: "150px",height: "150px" }}
+                            />
+                            ) : (
+                                <div className='text-center mt-4'>
+                                    <Button onClick={() => setScanResult(true)}>Cliquer Pour Scanner</Button>
+                                </div>
+                            )}
                         </div> 
 
                         <div className='col-12 col-lg-6'>
