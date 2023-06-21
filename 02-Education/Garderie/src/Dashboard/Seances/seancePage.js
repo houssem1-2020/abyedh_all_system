@@ -28,16 +28,18 @@ function FacturePage() {
             PID : GConf.PID,
         })
         .then(function (response) {
+            console.log(response.data)
             let factureListContainer = []
             response.data.map( (getData) => factureListContainer.push([
             _(<TableImage image='seance.png' />),
-            getData.S_ID,
-            getData.PA_Name,
-            getData.Maladie,
-            new Date(getData.S_Date).toLocaleDateString('fr-FR').split( '/' ).reverse( ).join( '-' ),
-            getData.S_Time,
-            _(<StateCard status={getData.State_Degre} />),
-            _(<StateCard status={getData.State} />),
+            getData.SE_ID,
+            getData.CL_Name,
+            getData.T_Name,
+            getData.Salle_Name,
+            new Date(getData.SE_Date).toLocaleDateString('fr-FR').split( '/' ).reverse( ).join( '-' ),
+            getData.SE_Time_Start,
+            getData.SE_Time_Finish,
+            _(<StateCard status={getData.SE_State} />),
             _(<Button className='rounded-pill bg-system-btn' size='mini' onClick={ (e) => NavigateFunction(`/S/sa/info/${getData.S_ID}`)}><span className='d-none d-lg-inline'> Info </span><Icon  name='angle right' /></Button>)
             ],))
             setFactureList(factureListContainer)
@@ -109,58 +111,9 @@ function FacturePage() {
                 <div className='col-12 col-lg-4 text-end align-self-center'><MainSubNavCard text='Offres' link='of' icon='bounding-box-circles' />  </div>
             </div>
             <br />
-            <TableGrid tableData={facturesList} columns={GConf.TableHead.facture} />
+            <TableGrid tableData={facturesList} columns={GConf.TableHead.seance} />
         </Fade>
-        <Modal
-                size='small'
-                open={modalS}
-                closeIcon
-                onClose={() => setModalS(false)}
-                onOpen={() => setModalS(true)}
-            >
-                <Modal.Header><h4>{selectedArticle.Name}</h4></Modal.Header>
-                <Modal.Content scrolling>
 
-                        <table className='table table-striped'>
-                            <thead>
-                                <tr>
-                                <th scope="col">No</th>
-                                <th scope="col">Designiation</th>
-                                <th scope="col">Qté</th>
-                                <th scope="col">PUHT</th>
-                                <th scope="col">PUTTC</th>
-                                <th scope="col">Prix Net</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                            {
-                                selectedArticle.Articles ? 
-                                <>
-                                {
-                                    JSON.parse(selectedArticle.Articles).map( (data,index) => 
-                                        <tr key={index +1 }>
-                                            <th scope="row">{index +1 }</th>
-                                            <td>{data.Name}</td>
-                                            <td>{data.Qte}</td>
-                                            <td>{GConf.DefaultTva} %</td>
-                                            <td>{data.Prix ? data.Prix.toFixed(3) : ''}</td>
-                                            <td>{data.PU}</td>
-                                        </tr>
-                                    )
-                                }
-                                </>
-                                :
-                                <>
-                                </>
-                            }
-                            </tbody>
-                        </table> 
-                </Modal.Content>
-                <Modal.Actions>
-                            <Button className='rounded-pill' negative onClick={ () => setModalS(false)}> <span className='bi bi-x' ></span> Fermer</Button>
-                            <Button className='rounded-pill bg-system-btn'   onClick={ (e) => NavigateFunction(`/S/sa/info/${selectedArticle.F_ID}`)}><span className='d-none d-lg-inline'> Info </span><Icon  name='angle right' /></Button>
-                </Modal.Actions>
-        </Modal>
     </>);
 }
 

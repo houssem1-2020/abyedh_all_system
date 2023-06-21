@@ -151,7 +151,7 @@ const GConf = {
             {id:4, name:"Abonnement", icon:"receipt-cutoff", link:"ab"},
             {id:5, name:"Classes", icon:"pc-display-horizontal", link:"cl"},
             {id:6, name:"Seances", icon:"receipt-cutoff", link:"sa"},
-            {id:8, name:"Enseignant", icon:"person-bounding-box", link:"tm"},
+            {id:8, name:"Equipe", icon:"person-bounding-box", link:"tm"},
             // {id:9, name:"Outils", icon:"tools", link:"ot"},
 
     ],
@@ -385,6 +385,7 @@ const GConf = {
     //TableHead
     TableHead:{
         facture:['*','ID','Caisse','Client','Jour','Temps','Totale','Etat','Voir'],
+        seance:['*','ID','Classe','Prof','Salle','Date','De','Vers','Etat','Voir'],
         seances:['*','ID','Caisse','Client','Jour','Temps','Etat','Voir'],
         request:['*','ID','Client', 'Date','Table','Etat','X','Voir'],
         reservation:['*','ID','Client', 'Passé le','Volu le','Etat','X','Voir'],
