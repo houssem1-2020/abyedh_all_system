@@ -47,7 +47,7 @@ function FournisseurPage() {
     ]
     /*#########################[UseEffect]##################################*/
     useEffect(() => {
-        axios.post(`${GConf.ApiLink}/fournisseur`, {
+        axios.post(`${GConf.ApiLink}/bultin`, {
             PID : GConf.PID,
           })
           .then(function (response) {
@@ -104,7 +104,7 @@ function FournisseurPage() {
         else if (!fournisseurData.Adress) {toast.error("Adresee Invalide !", GConf.TostErrorGonf)}
         else{
             setLS(true)
-            axios.post(`${GConf.ApiLink}/fournisseur/ajouter`, {
+            axios.post(`${GConf.ApiLink}/bultin/ajouter`, {
                 PID : GConf.PID,
                 fournisseurData : fournisseurData,
             }).then(function (response) {
@@ -144,7 +144,7 @@ function FournisseurPage() {
 
     return ( 
         <>
-                <NavLink exaxt='true' to='/S/mu'><Button className='rounded-circle' icon='arrow left' /></NavLink>
+                <NavLink exaxt='true' to='/S/el'><Button className='rounded-circle' icon='arrow left' /></NavLink>
             
                 {/* <SubNav dataForNav={GConf.SubNavs.Fournisseur}/>*/}
                 <br /> 

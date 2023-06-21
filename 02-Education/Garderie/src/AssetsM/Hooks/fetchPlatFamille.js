@@ -7,7 +7,7 @@ const useGetFamillePlat = () => {
   const [pureData, setPureData] = useState([]);
   let Offline = JSON.parse(localStorage.getItem(`${GConf.PID}_Offline`));
   useEffect(() => {
-    axios.post(`${GConf.ApiLink}/menu/familleplat`, {
+    axios.post(`${GConf.ApiLink}/classes/niveaux`, {
         PID: GConf.PID,
       })
       .then(function (response) {

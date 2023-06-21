@@ -20,8 +20,11 @@ import MenuPage from '../../Dashboard/Classes/classePage';
 import AddPlatMenu from '../../Dashboard/Classes/addClasse';
 import PlatInfo from "../../Dashboard/Classes/classeInfo";
 import FamillesPlats from "../../Dashboard/Classes/niveaux";
-// import BonSortie from '../../Dashboard/Menu/bonSortie';
-// import BonsEntre from '../../Dashboard/Menu/bonEntre';
+import AjouterExamain from '../../Dashboard/Classes/ajouterExamain';
+import CalendarExamain from '../../Dashboard/Classes/calendarExamain';
+import AjouterEmploi from '../../Dashboard/Classes/ajouterEmploi';
+import EditEmploi from '../../Dashboard/Classes/editEmploi';
+
 
 //Stock
 import StockPage from '../../Dashboard/Offres/forfaitPage';
@@ -36,9 +39,9 @@ import ResumerFactures from '../../Dashboard/Abonnemment/resumerAbonnemment';
 
 //Camion 
 import CaissePage from '../../Dashboard/Seances/seancePage'
-import AjouterCamion from "../../Dashboard/Seances/ajouterSeance";
-import CamionInfo from '../../Dashboard/Seances/seanceInfo'
-import CaisseBons from '../../Dashboard/Seances/seanceBons';
+import AjouterCamion from "../../Dashboard/Seances/ajoutreSeance";
+import CamionInfo from '../../Dashboard/Seances/infoSeance'
+import CaisseBons from '../../Dashboard/Seances/resumerSeance';
 
 //Table 
 import TabblePage from '../../Dashboard/Salles/sallePage'
@@ -74,17 +77,6 @@ import EditMatiere from '../../Dashboard/Matiere/matiereFamille';
 import RechercheMatiere from '../../Dashboard/Matiere/editMatiere';
 import MatiereInfo from '../../Dashboard/Matiere/matiereInfo';
 
-import ExamainPage from '../../Dashboard/Examain/examainPage';
-import AjouterExamain from '../../Dashboard/Examain/ajouterExamain';
-import CalendarExamain from '../../Dashboard/Examain/calendarExamain';
-import RechercheExamain from '../../Dashboard/Examain/editExamain';
-import ExamainInfo from '../../Dashboard/Examain/examainInfo';
-
-import EmploiPage from '../../Dashboard/Emploi/emploiPage';
-import AjouterEmploi from '../../Dashboard/Emploi/ajouterEmploi';
-import CalendarEmploi from '../../Dashboard/Emploi/calendarEmploi';
-import RechercheEmploi from '../../Dashboard/Emploi/editEmploi';
-import EmploiInfo from '../../Dashboard/Emploi/emploiInfo';
 
 
 
@@ -189,28 +181,18 @@ const systemRouter = () => (
                 <Route path="ajouter" exact element={<AddPlatMenu />} />
                 <Route path="niveaux" exact element={<FamillesPlats />} />
                 <Route path="info/:code" exact element={<PlatInfo />} />
+                <Route path="emploi" exact element={<AjouterEmploi />} />
+                <Route path="emploi/edit/:EID" exact element={<EditEmploi />} />
+                <Route path="examain" exact element={<AjouterExamain />} />
+                <Route path="examain/edit/:EID" exact element={<CalendarExamain />} />
             </Route>
             <Route path="sl" exact element={<Outlet />}>
                 <Route path="" exact element={<TabblePage />} />
             </Route>
-            <Route path="em" exact element={<Outlet />} >
-                <Route path="" exact element={<EmploiPage />} />
-                <Route path="info/:FSID" exact element={<EmploiInfo />} />
-                <Route path="ajouter" exact element={<AjouterEmploi />} />
-                <Route path="calendrier" exact element={<CalendarEmploi />} />
-                <Route path="recherche" exact element={<RechercheEmploi />} />
-            </Route>
-            <Route path="ex" exact element={<Outlet />} >
-                <Route path="" exact element={<ExamainPage />} />
-                <Route path="info/:FSID" exact element={<ExamainInfo />} />
-                <Route path="ajouter" exact element={<AjouterExamain />} />
-                <Route path="calendrier" exact element={<CalendarExamain />} />
-                <Route path="recherche" exact element={<RechercheExamain />} />
-            </Route>
 
             <Route path="sa" exact element={<Outlet />}>
                 <Route path="" exact element={<CaissePage />} />
-                <Route path="ajouter-c" exact element={<AjouterCamion />} />
+                <Route path="ajouter" exact element={<AjouterCamion />} />
                 <Route path="bons" exact element={<CaisseBons />} />
                 <Route path="info/:CID" exact element={<CamionInfo />} />
             </Route>

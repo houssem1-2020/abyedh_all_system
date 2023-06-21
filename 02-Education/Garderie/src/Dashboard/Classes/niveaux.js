@@ -81,7 +81,7 @@ function FamillesPlats() {
 
     /*#########################[UseEffect]##################################*/
     useEffect(() => {
-        axios.post(`${GConf.ApiLink}/menu/familleplat`, {
+        axios.post(`${GConf.ApiLink}/classes/niveaux`, {
             PID : GConf.PID,
           })
           .then(function (response) {
@@ -104,7 +104,7 @@ function FamillesPlats() {
         else if (!familleD.Description) {toast.error("Description est Invamlide !", GConf.TostErrorGonf)}
         else{
             setLS(true)
-            axios.post(`${GConf.ApiLink}/menu/familles/ajouter`, {
+            axios.post(`${GConf.ApiLink}/classes/familles/ajouter`, {
                 PID : GConf.PID,
                 familleD : familleD,
             }).then(function (response) {
@@ -131,7 +131,7 @@ function FamillesPlats() {
     }
     const EditFamille = () => {
         setLS(true)
-        axios.post(`${GConf.ApiLink}/menu/familles/modifier`, {
+        axios.post(`${GConf.ApiLink}/classes/familles/modifier`, {
             PID : GConf.PID,
             familleD : editfamilleD,
         }).then(function (response) {

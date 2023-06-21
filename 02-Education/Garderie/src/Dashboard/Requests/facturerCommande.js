@@ -102,7 +102,7 @@ function FacturerCommande() {
         /* ############################### UseEffect ########################*/
         useEffect(() => {
                 //camionList
-                axios.post(`${GConf.ApiLink}/menu`,{PID :GConf.PID})
+                axios.post(`${GConf.ApiLink}/classes`,{PID :GConf.PID})
                     .then(function (response) {
                         setDataTable(response.data)
                     }).catch((error) => {

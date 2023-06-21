@@ -105,20 +105,24 @@ function PlatInfo() {
 
     const panes = [
         {
-            menuItem: { key: 'suivie', icon: 'calendar alternate', content: 'Suivie' }, 
+            menuItem: { key: 'suivie', icon: 'calendar alternate', content: 'Eleve' }, 
             render: () =><><Tab.Pane attached={false}><Calendar /></Tab.Pane><br /></>,
         },
         {
-            menuItem: { key: 'resumer', icon: 'tasks', content: 'Ingrédient' }, 
+            menuItem: { key: 'suivie', icon: 'calendar alternate', content: 'Professeurs' }, 
+            render: () =><><Tab.Pane attached={false}><Calendar /></Tab.Pane><br /></>,
+        },
+        {
+            menuItem: { key: 'suivie', icon: 'calendar alternate', content: 'Emploi' }, 
+            render: () =><><Tab.Pane attached={false}><Calendar /></Tab.Pane><br /></>,
+        },
+        {
+            menuItem: { key: 'resumer', icon: 'tasks', content: 'Examain' }, 
             render: () => <><Tab.Pane attached={false}><IngredientCard /></Tab.Pane><br /></>,
         },
         {
             menuItem: { key: 'edit', icon: 'edit outline', content: 'Modifier' }, 
             render: () => <><Tab.Pane attached={false}><EditArticle OnKeyPressFunc={OnKeyPressFunc} articleD={articleD}  setArticleD={setArticleD} checkPrixCompatiblite={checkPrixCompatiblite} familles={familles} EditPlatFunction={EditPlatFunction} loaderState={loaderState} updateQte={updateQte} /></Tab.Pane><br /></>,
-        },
-        {
-            menuItem: { key: 'image', icon: 'image', content: 'Image' }, 
-            render: () => <><Tab.Pane attached={false}><Images /></Tab.Pane><br /></>,
         },
         {
             menuItem: { key: 'delete', icon: 'trash alternate', content: 'Supprimer' }, 
@@ -161,7 +165,7 @@ function PlatInfo() {
     /*#########################[Function]##################################*/
     const EditPlatFunction = (event) => {
         setLS(true)
-        axios.post(`${GConf.ApiLink}/menu/modifier`, {
+        axios.post(`${GConf.ApiLink}/classes/modifier`, {
             PID :GConf.PID,
             articleND :articleD,
         }).then(function (response) {
@@ -212,7 +216,7 @@ function PlatInfo() {
     }
     const EditIngredientFunction = (event) => {
         setLS(true)
-        axios.post(`${GConf.ApiLink}/menu/modifier/ingredient`, {
+        axios.post(`${GConf.ApiLink}/classes/modifier/ingredient`, {
             PID :GConf.PID,
             CodePlat : code,
             articleListe : ingredienListe,
@@ -237,7 +241,7 @@ function PlatInfo() {
     }
     const UpdatePhotoFunction = (pathLink) => {
         setLS(true)
-        axios.post(`${GConf.ApiLink}/menu/modifier/image`, {
+        axios.post(`${GConf.ApiLink}/classes/modifier/image`, {
             PID  :GConf.PID,
             code : code,
             path : articleD.Photo_Path
@@ -303,7 +307,7 @@ function PlatInfo() {
     }
     const DeleteArticle = () =>{
         setLS(true)
-        axios.post(`${GConf.ApiLink}/menu/supprimer`, {
+        axios.post(`${GConf.ApiLink}/classes/supprimer`, {
             tag :GConf.PID,
             code : code ,
             pk: articleD.PK

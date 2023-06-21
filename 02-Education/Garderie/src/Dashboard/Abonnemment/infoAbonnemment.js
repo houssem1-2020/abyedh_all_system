@@ -1,260 +1,326 @@
-import axios from 'axios';
 import React, { useEffect, useState } from 'react';
-import { Bounce } from 'react-reveal';
-import { NavLink, useParams } from 'react-router-dom';
-import { Button,  Icon, Popup} from 'semantic-ui-react';
-import SKLT from '../../AssetsM/Cards/usedSlk';
 import GConf from '../../AssetsM/generalConf';
 import BreadCrumb from '../../AssetsM/Cards/breadCrumb'
+import { Button, Divider, Form, Icon, Input, Loader, Select, Dropdown, Statistic, Header, TextArea } from 'semantic-ui-react';
+import { Tab } from 'semantic-ui-react';
+import { useParams } from 'react-router-dom';
+import axios from 'axios';
+import FullCalendar from '@fullcalendar/react' // must go before plugins
+import dayGridPlugin from '@fullcalendar/daygrid' // a plugin!
+import useGetFamillePlat from '../../AssetsM/Hooks/fetchPlatFamille';
 import { toast } from 'react-toastify';
-import FrameForPrint from '../../AssetsM/Cards/frameForPrint';
+import SKLT from '../../AssetsM/Cards/usedSlk';
 import usePrintFunction from '../../AssetsM/Hooks/printFunction';
-import { Input } from 'semantic-ui-react';
+import FrameForPrint from '../../AssetsM/Cards/frameForPrint';
+import useSaveNotification from '../../AssetsM/Hooks/saveNotifFunction';
+import ReactImageZoom from 'react-image-zoom';
+import useGetArticles from '../../AssetsM/Hooks/fetchArticles';
+
+const EditArticle = ({abonnemmentData, setAbonnemmentData, OnKeyPressFunc,  forfaitListe, membreListe, EditAbonnemtInfo, loaderState,updateQte}) =>{
+    return(<>
+                    <h5 className='mb-0 text-secondary '> Mmebre  </h5>
+                    <datalist id="clientList">
+                        {membreListe.map((test) =>
+                        <option key={test.ME_ID} value={test.ME_ID}>{test.ME_Name} : {test.Phone}</option>
+                        )}  
+                    </datalist>
+                    <Input icon='add user' onKeyPress={event => OnKeyPressFunc(event)} list="clientList" placeholder={abonnemmentData.Membre_ID}   onBlur={ (e) => setAbonnemmentData({...abonnemmentData, Membre_ID: e.target.value })} size="small" iconPosition='left'   fluid className='mb-1' />
+                
+                    
+                    <h5 className='mb-0 mt-2 text-secondary '>Forfait  </h5>
+                    <Dropdown
+                        search
+                        fluid
+                        selection
+                        wrapSelection={false}
+                        options={forfaitListe}
+                        placeholder={'Forfait'}
+                        className='mb-1'
+                        onChange={(e, { value }) => setAbonnemmentData({...abonnemmentData, Forfait_ID: value })}
+                        value={abonnemmentData.Forfait_ID}
+                    /> 
+                    <div className='row'>
+                        <div className='col-6'>
+                            <h5 className='mb-0 mt-2 text-secondary '>Depart  </h5>
+                            <Input icon='truck' type='date' placeholder='Camion'  iconPosition='left'   fluid className='mb-1' value={abonnemmentData.AB_Depart_Date} onChange={(e) => setAbonnemmentData({...abonnemmentData, AB_Depart_Date: e.target.value })}/> 
+                        </div>
+                        <div className='col-6'>
+                            <h5 className='mb-0 mt-2 text-secondary '>Terminer   </h5>
+                            <Input icon='truck' type='date' placeholder='Camion'  iconPosition='left'   fluid className='mb-1' value={abonnemmentData.AB_Termine_Date} onChange={(e) => setAbonnemmentData({...abonnemmentData, AB_Termine_Date: e.target.value })}/> 
+                        </div>
+                    </div>
+
+                    <div className='row'>
+                        <div className='col-6'>
+                            <h5 className='mb-0 mt-2 text-secondary '>Temps d'entrainemment  </h5>
+                            <Input icon='map marker' type='time' onKeyPress={event => OnKeyPressFunc(event)}  iconPosition='left' placeholder='De'  fluid className='mb-1'  value={abonnemmentData.AB_Depart_Time}  onChange={(e) => setAbonnemmentData({...abonnemmentData, AB_Depart_Time : e.target.value })}/>
+                        </div>
+                        <div className='col-6'>
+                            <h5 className='mb-0 mt-2 text-secondary '>Temps d'entrainemment  </h5>
+                            <Input icon='map marker alternate'  type='time' onKeyPress={event => OnKeyPressFunc(event)}  iconPosition='left' placeholder='Vers'  fluid className='mb-1' value={abonnemmentData.AB_Termine_Time}  onChange={(e) => setAbonnemmentData({...abonnemmentData, AB_Termine_Time: e.target.value })}/>
+                        </div>
+                    </div>
+
+                    <div className='text-end mb-5 mt-3'>
+                        <Button onClick={EditAbonnemtInfo} className='text-end rounded-pill bg-system-btn' positive>  <Icon name='edit' /> Modifier <Loader inverted active={loaderState} inline size='tiny' className='ms-2 text-danger'/></Button>
+                    </div>
+    </>)
+}
 
 function FactureInfo() {
     /*#########################[Const]##################################*/
-    const {FID} = useParams()
-    const [articleL, setArticleL] = useState([])
-    const [factureData, setFactData] = useState([])
-    const [client, setClient] = useState('Passager')
+    let Today = new Date().toISOString().split('T')[0]
+    let {FID} = useParams();
+    const [abonnemmentData, setAbonnemmentData] = useState({});
+    const [seanceListe, setSeanceListe] = useState([])
+    const [forfaitListe ,setForfaliListe] = useState([])
+    const [membreListe ,setMmebreListe] = useState([])
+
+     
+ 
+ 
     const [loading , setLoading] = useState(false)
-    const [stockState , setStockState] = useState(false)
-    const [toUpdatedList, setTUpList] = useState([])
-    let Offline = JSON.parse(localStorage.getItem(`${GConf.PID}_Offline`));
-    
-    /*#########################[UseEffect]##################################*/
+
+    const [loaderState, setLS] = useState(false)
+ 
+
+ 
+    const panes = [
+        {
+            menuItem: { key: 'Seances', icon: 'calendar alternate', content: 'Seances' }, 
+            render: () =><><Tab.Pane attached={false}><Calendar /></Tab.Pane><br /></>,
+        },
+        {
+            menuItem: { key: 'renouveler', icon: 'tasks', content: 'Renouvellement' }, 
+            render: () => <><Tab.Pane attached={false}><RenouvellmentCard /></Tab.Pane><br /></>,
+        },
+        {
+            menuItem: { key: 'edit', icon: 'edit outline', content: 'Modifier' }, 
+            render: () => <><Tab.Pane attached={false}><EditArticle OnKeyPressFunc={OnKeyPressFunc} abonnemmentData={abonnemmentData}  setAbonnemmentData={setAbonnemmentData}  forfaitListe={forfaitListe} membreListe={membreListe} EditAbonnemtInfo={EditAbonnemtInfo} loaderState={loaderState}   /></Tab.Pane><br /></>,
+        },
+ 
+        {
+            menuItem: { key: 'delete', icon: 'trash alternate', content: 'Supprimer' }, 
+            render: () => <><Tab.Pane attached={false}><DeleteAbonnementCard  /></Tab.Pane><br /></>,
+        },
+    ]
+
+   /*#########################[UseEffect]##################################*/
     useEffect(() => {
-        axios.post(`${GConf.ApiLink}/abonnement/select`, {
-            PID : GConf.PID,
-            fid: FID
-          })
-          .then(function (response) {
-                if(!response.data[0]) {
-                    toast.error('Facture Introuvable !', GConf.TostSuucessGonf)
-                    setTimeout(() => {  window.location.href = "/S/ft"; }, 2000)
-                    
-                } else {
-                    //setArticleL(JSON.parse(response.data[0].Articles))
-                    setClient(response.data[0].ME_Name)
-                    let UsedTableNow = []
-                    //JSON.parse(response.data[0].Articles).map( (article) => {UsedTableNow.push([article.A_Code, article.Qte ])} )
-                    setTUpList(UsedTableNow)
-                    setFactData(response.data[0])
-                    setLoading(true)
-                    if(response.data[0].SDF == 'true'){setStockState(true)}
-                }    
-          }).catch((error) => {
-            if(error.request) {
-              toast.error(<><div><h5>Probleme de Connextion</h5> Impossible de Charger la facture de son source   </div></>, GConf.TostInternetGonf)   
-              const FactureTarged = Offline.facture.find((facture) => facture.F_ID == FID);
-              setLoading(true)
-              setArticleL(JSON.parse(FactureTarged.Articles))
-              setStockState(true)
-              setFactData(FactureTarged)
-              setStockState(true)
-            }
-          });
+            axios.post(`${GConf.ApiLink}/abonnement/select`, {
+                PID : GConf.PID,
+                fid: FID
+            })
+            .then(function (response) {
+                console.log(response.data)
+                    if(response.data.Data.length == 0) {
+                        toast.error('Abonnement Introuvable !', GConf.TostSuucessGonf)
+                        setTimeout(() => {  window.location.href = "/S/ab"; }, 2000)
+                        
+                    } else {
+                        setAbonnemmentData(response.data.Data)
+                        let SeanceL = []
+                        response.data.Seances.map( (Seance) => SeanceL.push( { title: Seance.SE_Date, date: Seance.SE_Date , className:'bg-warning border-0 w-25 text-center'}))
+                        setSeanceListe(SeanceL)
+                        setLoading(true)
+                    }    
+            }).catch((error) => {
+                if(error.request) {
+                toast.error(<><div><h5>Probleme de Connextion</h5> Impossible de Charger les Info de son source   </div></>, GConf.TostInternetGonf)   
+                }
+            });
+
+            axios.post(`${GConf.ApiLink}/forfait`, {
+                PID : GConf.PID,
+             })
+             .then(function (response) {
+                let forfaitToListe = [] 
+                response.data.map((data,index) => forfaitToListe.push({
+                    key: index ,
+                    text: data.F_Name,
+                    value: data.F_ID
+                }))
+                setForfaliListe(forfaitToListe)
+             }).catch((error) => {
+                setForfaliListe([])
+             });
+    
+             axios.post(`${GConf.ApiLink}/membres`, {
+                PID : GConf.PID,
+             })
+             .then(function (response) {
+                setMmebreListe(response.data)
+             }).catch((error) => {
+                setMmebreListe([])
+             });
+
     }, [])
 
+
     /*#########################[Function]##################################*/
-    const PrintFunction = (frameId) =>{ usePrintFunction(frameId)}
-    const RetouAuStock = () =>{
-        axios.post(`${GConf.ApiLink}/forfait/be`, {
-            PID : GConf.PID,
-            artList: articleL,
-          })
-          .then(function (response) {      
+    const EditAbonnemtInfo = (event) => {
+        setLS(true)
+        axios.post(`${GConf.ApiLink}/equipemment/modifier`, {
+            PID :GConf.PID,
+            articleND :abonnemmentData,
+        }).then(function (response) {
+            console.log(response.data)
             if(response.data.affectedRows) {
-                // axios.post(`${GConf.ApiLink}/abonnement/us`, { PID : GConf.PID,  fid: FID })
-                toast.success("Stock Modifier !", GConf.TostSuucessGonf)
-                setStockState(true)
-                setFactData({ ...factureData, SDF: 'true'})
+                toast.success("Plat Modifier !", GConf.TostSuucessGonf)
+                setLS(false)
+                //SaveNotification('stockEditArticle',GConf.PID, abonnemmentData)
             }
             else{
-                toast.error('Erreur Indéfine ', GConf.TostSuucessGonf)
+                toast.error('Erreur esseyez de nouveaux', GConf.TostSuucessGonf)
+                setLS(false)
             }
-          }).catch((error) => {
+        }).catch((error) => {
             if(error.request) {
-              toast.error(<><div><h5>Probleme de Connextion</h5> Operation Annuleé  </div></>, GConf.TostInternetGonf)   
+              toast.error(<><div><h5>Probleme de Connextion</h5> Impossible de modifier le Plat  </div></>, GConf.TostInternetGonf)   
+              setLS(false)
             }
           });
-
     }
-    const CalculateTVA =  (value) =>{
-        const facteur_p = (100 / (GConf.DefaultTva + 100));
-        return (parseFloat(value) * facteur_p).toFixed(3) 
-    }
-    const DeleteFacture = () =>{
-        axios.post(`${GConf.ApiLink}/abonnement/supprimer`, {
-            PID : GConf.PID,
-            FID: FID,
-          })
-          .then(function (response) {
+    const DeleteArticle = () =>{
+        setLS(true)
+        axios.post(`${GConf.ApiLink}/equipemment/supprimer`, {
+            tag :GConf.PID,
+            code : FID ,
+            pk: abonnemmentData.PK
+        }).then(function (response) {
             if (response.data.affectedRows != 0) {
-                toast.error('Facture Supprimer  !', GConf.TostSuucessGonf)
-                setTimeout(() => {  window.location.href = "/S/ft"; }, 500)
-                //setLS(false)
+                toast.error('Article Supprimer  !', GConf.TostSuucessGonf)
+                setTimeout(() => {  window.location.href = "/S/sk"; }, 500)
+                setLS(false)
             } else {
-                //setLS(false)
+                setLS(false)
             }
             console.log(response.data)
-           
-          }).catch((error) => {
+        }).catch((error) => {
             if(error.request) {
-              toast.error(<><div><h5>Probleme de Connextion</h5> Impossible de modifier L'etat du commande  </div></>, GConf.TostInternetGonf)   
-              
+              toast.error(<><div><h5>Probleme de Connextion</h5> Impossible de supprimer l'article  </div></>, GConf.TostInternetGonf)   
+              setLS(false)
             }
           });
     }
-    /*#########################[Card]##################################*/
-    const StateCard = ({ status }) => {
-        const StateCard = (props) =>{ return <span className={`badge bg-${props.color}`}> {props.text} </span>}
-        const statusCard = React.useCallback(() => {
-          switch(status) {
-            case 'Payee': return <StateCard color='success' text='Payeé' />;  
-            case 'Credit': return <StateCard color='danger' text='Credit' /> ;
-            case 'Waitting': return <StateCard color='warning' text='En Attend' /> ;
-            default:  return <StateCard color='secondary' text='Indefinie' />;    
-          }
-        }, [status]);
-      
-        return (
-          <div className="container">
-            {statusCard()}
-          </div>
-        );
+    const OnKeyPressFunc = (e) => {
+        if (!((e.charCode >= 65 && e.charCode <= 90) || (e.charCode >= 97 && e.charCode <= 122) || (e.charCode >= 48 && e.charCode <= 57) || e.charCode == 42 || e.charCode == 32 || e.charCode == 47 )) {
+            e.preventDefault();
+        }   
     }
-    const FactureHeader = () =>{
-        return(<>
-                <h2 className='text-center'>Facture Client </h2> 
-                <div className='row'>
-                    <div className='col-6'>
-                        <div className='text-secondary'><b>FACTURE ID : </b> {factureData.FACT_ID}</div>
-                        <div className='text-secondary'><b>CODE FACTURE : </b> {FID}</div>
-                        <div className='text-secondary'><b>CLIENT: {factureData.ME_Name} </b> 
-                        <Popup
-                                content={<>
-                                <div className='row'>
-                                    <div className='col-6'>   
-                                        <div className='text-secondary'><b><span className='bi bi-telephone text-danger'></span> : {factureData.Phone}</b></div>      
-                                    </div>
-                                    <div className='col-6'>
-                                        <div className='text-secondary'><b><span className='bi bi-geo-alt-fill text-danger'></span> : {factureData.Gouv}</b></div>   
-                                        <div className='text-secondary'><b><span className='bi bi-geo-alt text-danger'></span> : {factureData.Deleg}</b></div>   
-                                        
-                                    </div>
-                                    <div className='col-12'>
-                                        <div className='text-secondary'><b><span className='bi bi-pin-map text-danger'></span> : {factureData.Adress}</b></div>
-                                    </div>
-                                    
+
+   /*#########################[Card]##################################*/
+    const AbonnementCard = (props) =>{
+        return (<>
+            <div className="sticky-top" style={{top:'70px'}}>
+                <div className='card card-body shadow-sm mb-2 border-div'>
+                    <div className="upper">
+                        <div className="mcbg main-big-card"></div>
+                    </div>
+                    <div className="img-card-container text-center">
+                        <div className="card-container notification">
+                            <img src={`https://cdn.abyedh.tn/images/system/garderie/abonnemment.png`} className="rounded-circle bg-white" width="80px" height="80px" />                    
+                        </div>
+                    </div>
+                    <div className="mt-5 text-center">
+                            <h4 className='mb-0 mt-1'><span className="bi bi-bookmark-star-fill"></span> {loading ? props.data.ME_Name : SKLT.BarreSkl } </h4> 
+                            <h4 className='mb-0 mt-1'><span className="bi bi-bookmark-star-fill"></span> {loading ? props.data.F_Name : SKLT.BarreSkl } </h4> 
+                            <h6 className="text-secondary">  {loading ? <><span className="bi bi-bookmark-star-fill"></span> { props.data.Genre } </>: SKLT.BarreSkl} </h6>
+                            <Divider horizontal className='text-secondary mt-4'>Periode</Divider>
+                            <div className='row text-center'>
+                                <div className='col-6'>
+                                    <Statistic color='red' size='tiny'>
+                                    {loading ?  
+                                        <Statistic.Value>
+                                           <h3> {new Date(props.data.AB_Depart_Date).toLocaleDateString('fr-FR').split( '/' ).reverse( ).join( '-' )} </h3>
+                                        </Statistic.Value>
+                                        : SKLT.ProfileSkl }  
+                                        <Statistic.Label>De</Statistic.Label>
+                                    </Statistic>
                                 </div>
-                                </> }
-                                wide='very'
-                                hoverable
-                                key={factureData.Name }
-                                header={<h3><span className='bi bi-person-fill'></span> {factureData.ME_Name} </h3> }
-                                trigger={loading ? <NavLink  exact='true' to={`/S/cl/info/${factureData.ME_ID}`}> {factureData.Name } </NavLink>  : SKLT.BarreSkl }
-                            />
+                                <div className='col-6'>
+                                    <Statistic color='green' size='tiny'>
+                                        {loading ?  
+                                        <Statistic.Value>
+                                             <h3> {new Date(props.data.AB_Termine_Date).toLocaleDateString('fr-FR').split( '/' ).reverse( ).join( '-' )} </h3> 
+                                        </Statistic.Value>
+                                        : SKLT.ProfileSkl }
+                                        <Statistic.Label>jusqu'a</Statistic.Label>
+                                    </Statistic>
+                                </div>
                             </div>
-                    </div>
-                    <div className='col-6'>
-                        <div className='text-danger'><b>Date : </b> {new Date(factureData.T_Date).toLocaleDateString('fr-FR').split( '/' ).reverse( ).join( '-' )} </div>
-                        <div className='text-secondary'><b>Temps: </b> {factureData.T_Time} </div>
-                        <div className='text-secondary'><b>Caisse: </b> {factureData.CA_Name} </div>
+                            <Divider horizontal className='text-secondary mt-4'>seances</Divider>
+                            <div className='row text-center'>
+                                <div className='col-6  align-self-center border-end'>
+                                        <h2 className='mb-0'>{props.data.NB_Seance}</h2>
+                                        <small className='text-secondary'>Deja</small>
+                                </div>
+                                <div className='col-6 align-self-center'>
+                                        <h2 className='mb-0'>{props.data.NB_Seance - seanceListe.length}</h2>
+                                        <small className='text-secondary'>reste</small>
+                                </div>
+                        </div>
                     </div>
                 </div>
-        </>)
+            </div>
+        </>);
     }
-    const TotaleCard = () =>{
+    const Calendar = () =>{
         return(<>
-                <div className='card card-body shadow-sm mb-2'>
-                    <h5>Nette & Totale </h5>
-                    <div className='text-danger'><b>Net A Payee TTC: {loading ? (parseFloat(factureData.Final_Value) + 0.600).toFixed(3) : SKLT.BarreSkl } </b></div>
-                </div>
+        <FullCalendar 
+            plugins={[ dayGridPlugin ]}
+            initialView="dayGridMonth"
+            locale='fr' 
+            events={seanceListe}
+            height='420px'
+            navLinks ={true}
+        />
         </>)
     }
-    const BtnsCard = () =>{
+    const DeleteAbonnementCard = () =>{
         return(<>
-                <div className='card card-body shadow-sm mb-2'>
-                    <h5>Controle</h5>
-                    <div className='row mb-2'>
-                        <div className='col-12 mb-3'>
-                            <Button  className='rounded-pill btn-imprimer'  fluid onClick={(e) => PrintFunction('printFacture')}><Icon name='print' /> Imprimer</Button>
-                        </div>
-                        <div className='col-12 '>
-                            <Button  className='rounded-pill bg-danger text-white'  fluid  onClick={DeleteFacture}><Icon name='trash' /> Supprimer</Button>
-                        </div>
-
-                    </div>
-                    {/* <div className='row mb-2'>
-                        <div className='col-6'>
-                            <Button  className='rounded-pill bg-danger text-white'  fluid  onClick={DeleteFacture}><Icon name='edit outline' /> Supprimer</Button>
-                        </div>
-                        <div className='col-6'>
-                            <Button  className='rounded-pill  btn-regler'  fluid disabled={stockState} onClick={RetouAuStock}><Icon name='edit outline' /> R. Stock</Button>
-                        </div>
-                    </div> */}
-
+            <h3 className="text-secondary">Voulez-Vous Vraimment Supprimer Cett Article ?</h3> 
+            <div className='row'>
+                <div className='col-9'>
+                    <h5 className="text-danger text-left"><b>Lorsque Vous Supprimer L'Article : </b></h5>
+                    <ul className="text-info text-left">
+                    <li>L'article ne sera pas visible dans la branche 'Stock'</li>
+                    <li>Tous les article avec son code a barre se suppriment </li>
+                    <li>L'article Soit visible seulemment dans les facture  </li>
+                    </ul>
                 </div>
+                <div className='col-lg-3 d-none d-lg-block align-self-center'>
+                    <div className='text-center'>
+                            <img src='https://assets.ansl.tn/Images/usful/delete.svg' width='80%'  height='80px' /> 
+                    </div> 
+                </div>
+            </div>
+            <div className='text-end'>
+                <button type="submit" name="add" className="btn btn-danger rounded-pill" onClick={DeleteArticle}><span className="bi bi-check"></span> Oui, Supprimer <Loader inverted active={loaderState} inline size='tiny' className='ms-2 text-danger'/></button>
+            </div>
         </>)
     }
+    const RenouvellmentCard = () =>{
+ 
+        return(<>
+                 Renouveller
+        </>)
+    }
+ 
 
     return ( <> 
-        <BreadCrumb links={GConf.BreadCrumb.factureInfo} />
-        <br />
-        <div className="row">
-            <div className="col-12 col-lg-8">
-                <h2 className='text-end'><StateCard status={factureData.Pay_State} /></h2>
-                <FactureHeader />
+                <BreadCrumb links={GConf.BreadCrumb.platInfo} />
                 <br />
-                <br />
-                <table className="table">
-                    <thead>
-                        <tr>
-                        <th scope="col">No</th>
-                        <th scope="col">Designiation</th>
-                        <th scope="col">Qté</th>
-                        <th scope="col">PUHT</th>
-                        <th scope="col">TVA</th>
-                        <th scope="col">PUTTC</th>
-                        <th scope="col">Prix Net</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        
-                        {loading ?  
-                        <>
-                        {articleL.map( (artData, index) => 
-                            <tr key={index +1 }>
-                                <th scope="row">{index +1 }</th>
-                                <td>{artData.Name}</td>
-                                <td>{artData.Qte}</td>
-                                <td>{CalculateTVA(artData.Prix)}</td>
-                                <td>{GConf.DefaultTva} %</td>
-                                <td>{artData.Prix.toFixed(3)}</td>
-                                <td>{artData.PU}</td>
-                            </tr>
-                        )}
-                        
-                        </>
-                        : SKLT.FactureList }                        
-                        
-                    </tbody>
-                </table>
-            </div>
-            <div className="col-12 col-lg-4">
-            <Bounce bottom>
-                <div className="sticky-top" style={{top:'70px'}}>
-                    <TotaleCard />
-                    <Input icon='user' size="small" iconPosition='left' placeholder='Client  '  fluid className='mb-1' value={client}  onChange={(e) => setClient(e.target.value)} />
-                    <BtnsCard />
+                <div className="row">
+                    <div className="col-12 col-lg-4">
+                        <AbonnementCard data={abonnemmentData}/> 
+                    </div>
+                    <div className="col-12 col-lg-8">
+                        <Tab menu={{ secondary: true, pointing: true ,className: "wrapped"}} panes={panes} />
+                    </div>  
                 </div>
-            </Bounce>
-            </div>
-        </div>
-        <FrameForPrint frameId='printFacture' src={`/Pr/facture/info/${FID}/${client}`} />
-    </> );
+                 
+     </> );
 }
-
 
 export default FactureInfo;

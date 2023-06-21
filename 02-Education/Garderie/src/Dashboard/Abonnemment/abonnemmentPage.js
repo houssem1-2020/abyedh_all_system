@@ -30,12 +30,12 @@ function FacturePage() {
         .then(function (response) {
             let factureListContainer = []
             response.data.map( (getData) => factureListContainer.push([
-            _(<TableImage image='facture.jpg' />),
+            _(<TableImage image='abonnemment.png' />),
             getData.AB_ID,
+            getData.EL_Name,
             getData.F_Name,
-            getData.ME_Name,
-            new Date(getData.AB_Date).toLocaleDateString('fr-FR').split( '/' ).reverse( ).join( '-' ),
-            getData.AB_Time,
+            new Date(getData.AB_Depart_Date).toLocaleDateString('fr-FR').split( '/' ).reverse( ).join( '-' ),
+            new Date(getData.AB_Termine_Date).toLocaleDateString('fr-FR').split( '/' ).reverse( ).join( '-' ),
             getData.Tarif,
             _(<StateCard status={getData.State} />),
             _(<Button className='rounded-pill bg-system-btn' size='mini' onClick={ (e) => NavigateFunction(`/S/ab/info/${getData.AB_ID}`)}><span className='d-none d-lg-inline'> Info </span><Icon  name='angle right' /></Button>)
@@ -46,7 +46,7 @@ function FacturePage() {
               toast.error(<><div><h5>Probleme de Connextion</h5> Les Donnée importeé sont les ancien donneé</div></>, GConf.TostInternetGonf) 
               let factureListContainer = []
                  Offline.facture.map( (getData) => factureListContainer.push([
-                _(<TableImage image='facture.jpg' />),
+                _(<TableImage image='abonnemment.png' />),
                 getData.AB_ID,
                 getData.Name,
                 new Date(getData.T_Date).toLocaleDateString('fr-FR'),
@@ -73,9 +73,9 @@ function FacturePage() {
         const statusCard = React.useCallback(() => {
           switch(status) {
             case 'Payee': return <StateCard color='success' text='Payeé' />;  
-            case 'Credit': return <StateCard color='danger' text='Credit' /> ;
-            case 'Waitting': return <StateCard color='warning' text='En Attend' /> ;
-            default:  return <StateCard color='secondary' text='Indefinie' />;    
+            case 'NonPayee': return <StateCard color='danger' text='Non Payeé' /> ;
+            case 'EnAttent': return <StateCard color='secondary' text='En Court' /> ;
+            default:  return <StateCard color='warninf' text='Indefinie' />;    
           }
         }, [status]);
       
@@ -96,7 +96,7 @@ function FacturePage() {
     const MainSubNavCard = (props) =>{
         return(<>
            <NavLink exact='true' to={`/S/${props.link}`} className='card card-body mb-1 rounded-pill shadow-sm d-inline-block ' >
-            <h4 style={{color : GConf.themeColor}}> <spn className={`bi bi-${props.icon} me-1 `}></spn>{props.text}</h4>
+            <h4 style={{color : GConf.themeColor}}> <span className={`bi bi-${props.icon} me-1 `}></span>{props.text}</h4>
           </NavLink>
         </>) 
     }

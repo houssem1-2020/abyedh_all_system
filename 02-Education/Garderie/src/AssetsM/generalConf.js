@@ -150,7 +150,7 @@ const GConf = {
             {id:3, name:"Eleve", icon:"people", link:"el"},
             {id:4, name:"Abonnement", icon:"receipt-cutoff", link:"ab"},
             {id:5, name:"Classes", icon:"pc-display-horizontal", link:"cl"},
-            {id:5, name:"Seances", icon:"receipt-cutoff", link:"sa"},
+            {id:6, name:"Seances", icon:"receipt-cutoff", link:"sa"},
             {id:8, name:"Enseignant", icon:"person-bounding-box", link:"tm"},
             // {id:9, name:"Outils", icon:"tools", link:"ot"},
 
@@ -344,8 +344,9 @@ const GConf = {
         ],
         Menu: [
             {id:1,  icon: 'bookmark-plus', text: 'Nouveaux Classe', link: 'ajouter', dropD: false},
-            {id:2, icon: 'tags', text: 'Famille des Plats', link: 'Niveaux', dropD: false },
-            // {id:3, icon: 'box-arrow-in-up', text: 'Bond entre', link: 'be', dropD: false },
+            {id:2, icon: 'tags', text: 'Niveaux', link: 'Niveaux', dropD: false },
+            {id:3, icon: 'tags', text: 'Emploi', link: 'emploi', dropD: false },
+            {id:4, icon: 'box-arrow-in-up', text: 'Examain', link: 'examain', dropD: false },
             // {id:4, icon: 'box-arrow-up', text: 'Bond Sortie', link: 'bs', dropD: false },
         ],
         Stock: [
@@ -387,6 +388,7 @@ const GConf = {
         seances:['*','ID','Caisse','Client','Jour','Temps','Etat','Voir'],
         request:['*','ID','Client', 'Date','Table','Etat','X','Voir'],
         reservation:['*','ID','Client', 'Passé le','Volu le','Etat','X','Voir'],
+        classes:['*','ID', 'Nom', 'Niveaux','Saisson','Voir'],
         menu:['*','Code', 'Nom', 'Genre','Cout','P.vente','X','Voir'],
         stock:['*','Code', 'Nom', 'Genre','Tarif','Voir'],
         camion:['*','Camion','Matricule', 'Chauffeur','Fond','Recette','X','Voir'],

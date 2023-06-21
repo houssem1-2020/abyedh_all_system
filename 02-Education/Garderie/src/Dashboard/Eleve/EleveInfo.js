@@ -96,9 +96,13 @@ function ClientInfo() {
     const [clientD, setClientD] = useState([])
     const [position, setPosition] = useState([36.17720,9.12337])
     
-    const [reservationListe, setReservation] = useState([])
-    const [commande, setCommande] = useState([])
-    const [factures, setFactures] = useState([])
+    const [seanceListe, setSeanceListe] = useState([])
+    const [abonnemmentListe, setAbonnemmentListe] = useState([])
+    const [examainListe, setExamainListe] = useState([])
+
+    const [bultinListe, setBultinListe] = useState([])
+    const [avertissementListe, setAvertissemmentListe] = useState([])
+    const [retenueListe, setRetenueListe] = useState([])
 
     const [inAbyedhSearch, setInAbyedhSearchUID] = useState();
     const [dataInAbyedh, setDataInAbyedh] = useState([]);
@@ -113,34 +117,38 @@ function ClientInfo() {
     const panes = [
         {
             menuItem: { key: 'home', icon: 'home', content: 'Seances' }, 
-            render: () => <><TableGrid tableData={factures} columns={['ID','Client','Jour','Temps','Totale','Voir']} /><br /></>,
+            render: () => <><TableGrid tableData={seanceListe} columns={['ID','Client','Jour','Temps','Totale','Voir']} /><br /></>,
         },
         {
-            menuItem: { key: 'commande', icon: 'calendar alternate', content: 'Abonnemment' }, 
-            render: () =><TableGrid tableData={commande} columns={GConf.TableHead.clientCommande} />,
+            menuItem: { key: 'prence', icon: 'prence', content: 'Presence' }, 
+            render: () => <><TableGrid tableData={seanceListe} columns={['ID','Client','Jour','Temps','Totale','Voir']} /><br /></>,
         },
         {
-            menuItem: { key: 'Reservation', icon: 'calendar alternate', content: 'Examain' }, 
-            render: () =><TableGrid tableData={reservationListe} columns={['ID','Client','Jour','Temps','Totale','Voir']} />,
+            menuItem: { key: 'abonnemment', icon: 'calendar alternate', content: 'Abon..' }, 
+            render: () =><TableGrid tableData={abonnemmentListe} columns={['ID','Client','Jour','Temps','Totale','Voir']} />,
         },
         {
-            menuItem: { key: 'commande', icon: 'calendar alternate', content: 'Bultin' }, 
-            render: () =><TableGrid tableData={commande} columns={GConf.TableHead.clientCommande} />,
+            menuItem: { key: 'examain', icon: 'calendar alternate', content: 'Examain' }, 
+            render: () =><TableGrid tableData={examainListe} columns={['ID','Client','Jour','Temps','Totale','Voir']} />,
         },
         {
-            menuItem: { key: 'Reservation', icon: 'calendar alternate', content: 'Averstissement' }, 
-            render: () =><TableGrid tableData={reservationListe} columns={['ID','Client','Jour','Temps','Totale','Voir']} />,
+            menuItem: { key: 'avertissement', icon: 'calendar alternate', content: 'Avert..' }, 
+            render: () =><TableGrid tableData={avertissementListe} columns={['ID','Client','Jour','Temps','Totale','Voir']} />,
         },
         {
-            menuItem: { key: 'Reservation', icon: 'calendar alternate', content: 'Retenue' }, 
-            render: () =><TableGrid tableData={reservationListe} columns={['ID','Client','Jour','Temps','Totale','Voir']} />,
+            menuItem: { key: 'retenue', icon: 'calendar alternate', content: 'Retenue' }, 
+            render: () =><TableGrid tableData={retenueListe} columns={['ID','Client','Jour','Temps','Totale','Voir']} />,
+        },
+        {
+            menuItem: { key: 'bultin', icon: 'calendar alternate', content: 'Bultin' }, 
+            render: () =><TableGrid tableData={bultinListe} columns={['ID','Client','Jour','Temps','Totale','Voir']} />,
         },
         {
             menuItem: { key: 'edit', icon: 'edit', content: 'Modifier' }, 
             render: () => <><Tab.Pane className='border-div' attached={false}><EditClientCard OnKeyPressFunc={OnKeyPressFunc} clientD={clientD} setClientD={setClientD} EditClient={EditClient} delegList={delegList} GetDelegList={GetDelegList}  loaderState={loaderState}/></Tab.Pane><br /></>,
         },
         {
-            menuItem: { key: 'verif', icon: 'edit', content: 'Verifier' }, 
+            menuItem: { key: 'verific', icon: 'edit', content: 'Verifier' }, 
             render: () => <><Tab.Pane className='border-div' attached={false}><FindInDirectory clientD={clientD} RelateToUID={RelateToUID} saveBtnRUIState={saveBtnRUIState} inAbyedhSearch={inAbyedhSearch}  setInAbyedhSearchUID={setInAbyedhSearchUID} FindInDirectoryFunc={FindInDirectoryFunc} loaderState={loaderState} OnKeyPressFunc={OnKeyPressFunc} dataInAbyedh={dataInAbyedh}/></Tab.Pane><br /></>,
         },
         {
@@ -166,19 +174,9 @@ function ClientInfo() {
                 console.log(response.data)
                 setClientD(response.data.Data)
                 
-                let factureTable = []
-                response.data.Abonnement.map( (getData, index) => factureTable.push([ 
-                getData.T_ID,
-                getData.CA_Name,
-                new Date(getData.T_Date).toLocaleDateString('fr-FR').split( '/' ).reverse( ).join( '-' ),
-                getData.T_Time,
-                getData.Final_Value,
-                _(<Button className='rounded-pill bg-system-btn' size='mini' onClick={ (e) => NavigateFunction(`/S/ft/info/${getData.T_ID}`)}><span className='d-none d-lg-inline'> Info </span><Icon  name='angle right' /></Button>)
-                ],))
-                setFactures(factureTable)
-
-                let commandeTable = []
-                response.data.Seances.map( (getData, index) => commandeTable.push([ 
+ 
+                let seanceTable = []
+                response.data.Examain.map( (getData, index) => seanceTable.push([ 
                     getData.R_ID,
                     response.data.Data.ME_Name,
                     new Date(getData.R_Date).toLocaleDateString('fr-FR').split( '/' ).reverse( ).join( '-' ),
@@ -186,10 +184,22 @@ function ClientInfo() {
                     _(<StateCard status={getData.State} />),
                     _(<Button className='rounded-pill bg-system-btn' size='mini' onClick={ (e) => NavigateFunction(`/S/rq/cm/info/${getData.R_ID}`)}><span className='d-none d-lg-inline'> Info </span><Icon  name='angle right' /></Button>)
                 ],))
-                setCommande(commandeTable)
+                setSeanceListe(seanceTable)
+                 
 
-                let reservationTable = []
-                response.data.Souscription.map( (getData, index) => reservationTable.push([ 
+                let abonnementTable = []
+                response.data.Abonnement.map( (getData, index) => abonnementTable.push([ 
+                    getData.R_ID,
+                    response.data.Data.ME_Name,
+                    new Date(getData.AB_Date).toLocaleDateString('fr-FR').split( '/' ).reverse( ).join( '-' ),
+                    getData.Table_Num,
+                    _(<StateCard status={getData.State} />),
+                    _(<Button className='rounded-pill bg-system-btn' size='mini' onClick={ (e) => NavigateFunction(`/S/rq/cm/info/${getData.R_ID}`)}><span className='d-none d-lg-inline'> Info </span><Icon  name='angle right' /></Button>)
+                ],))
+                setAbonnemmentListe(abonnementTable)
+
+                let examainTable = []
+                response.data.Examain.map( (getData, index) => examainTable.push([ 
                     getData.R_ID,
                     response.data.Data.ME_Name,
                     new Date(getData.R_Date).toLocaleDateString('fr-FR').split( '/' ).reverse( ).join( '-' ),
@@ -197,7 +207,41 @@ function ClientInfo() {
                     _(<StateCard status={getData.State} />),
                     _(<Button className='rounded-pill bg-system-btn' size='mini' onClick={ (e) => NavigateFunction(`/S/rq/cm/info/${getData.R_ID}`)}><span className='d-none d-lg-inline'> Info </span><Icon  name='angle right' /></Button>)
                 ],))
-                setReservation(reservationTable)
+                setExamainListe(examainTable)
+
+                let BultinTable = []
+                response.data.Bultin.map( (getData, index) => BultinTable.push([ 
+                    getData.R_ID,
+                    response.data.Data.ME_Name,
+                    new Date(getData.R_Date).toLocaleDateString('fr-FR').split( '/' ).reverse( ).join( '-' ),
+                    getData.Table_Num,
+                    _(<StateCard status={getData.State} />),
+                    _(<Button className='rounded-pill bg-system-btn' size='mini' onClick={ (e) => NavigateFunction(`/S/rq/cm/info/${getData.R_ID}`)}><span className='d-none d-lg-inline'> Info </span><Icon  name='angle right' /></Button>)
+                ],))
+                setBultinListe(BultinTable)
+
+                let AvertissementTable = []
+                response.data.Avertissemnt.map( (getData, index) => AvertissementTable.push([ 
+                    getData.R_ID,
+                    response.data.Data.ME_Name,
+                    new Date(getData.R_Date).toLocaleDateString('fr-FR').split( '/' ).reverse( ).join( '-' ),
+                    getData.Table_Num,
+                    _(<StateCard status={getData.State} />),
+                    _(<Button className='rounded-pill bg-system-btn' size='mini' onClick={ (e) => NavigateFunction(`/S/rq/cm/info/${getData.R_ID}`)}><span className='d-none d-lg-inline'> Info </span><Icon  name='angle right' /></Button>)
+                ],))
+                setAvertissemmentListe(AvertissementTable)
+                
+                let retenueTable = []
+                response.data.Retenue.map( (getData, index) => retenueTable.push([ 
+                    getData.R_ID,
+                    response.data.Data.ME_Name,
+                    new Date(getData.R_Date).toLocaleDateString('fr-FR').split( '/' ).reverse( ).join( '-' ),
+                    getData.Table_Num,
+                    _(<StateCard status={getData.State} />),
+                    _(<Button className='rounded-pill bg-system-btn' size='mini' onClick={ (e) => NavigateFunction(`/S/rq/cm/info/${getData.R_ID}`)}><span className='d-none d-lg-inline'> Info </span><Icon  name='angle right' /></Button>)
+                ],))
+                setRetenueListe(retenueTable)
+
 
                 setLoading(true)
                 
@@ -341,7 +385,7 @@ function ClientInfo() {
             <div className="sticky-top" style={{top:'70px'}}>
                 <div className='card card-body shadow-sm mb-2 border-div'>
                     <div className='row'>
-                        <div className='col-12 col-lg-3 border-end'>
+                        <div className='col-12 col-lg-3  border-end'>
                             <div className="upper">
                                 <div className="mcbg-eleve main-big-card"></div>
                             </div>
@@ -352,35 +396,40 @@ function ClientInfo() {
                             </div>
 
                         </div>
-                        <div className='col-12 col-lg-3 border-end'>
-                            <h4 className='mt-2'>{loading ? clientD.ME_Name : SKLT.BarreSkl } </h4> 
-                            <h6 className="text-secondary">  {loading ? <><span className="bi bi-geo-alt-fill"></span> { clientD.Adress } </>: SKLT.BarreSkl} </h6>
+                        <div className='col-12 col-lg-3 align-self-center border-end'>
+                            <h4 className='mt-2'>{loading ? clientD.EL_Name : SKLT.BarreSkl } </h4> 
+                            <h6 className="text-secondary">  {loading ? <><span className="bi bi-geo-alt-fill"></span> { new Date(clientD.EL_Naissance).toLocaleDateString('fr-FR').split( '/' ).reverse( ).join( '-' ) } </>: SKLT.BarreSkl} </h6>
+                            <h6 className="text-secondary">  {loading ? <><span className="bi bi-geo-alt-fill"></span> { clientD.EL_Genre} </>: SKLT.BarreSkl} </h6>
                             <h6 className="text-secondary"> {loading ? <><span className="bi bi-geo-fill"></span> { clientD.Gouv } , ({ clientD.Deleg })</>: SKLT.BarreSkl } </h6>
+ 
                         </div>
-                        <div className='col-12 col-lg-3 border-end'>
+                        <div className='col-12 col-lg-3 align-self-center border-end'>
                             <div className='row text-center'>
                                 <div className='col-12'>    
-                                    {loading ?  
-                                        <Statistic color='red' size='tiny'>
-                                            <Statistic.Value>
-                                                {clientD.Releted_UID ? clientD.Releted_UID : 'Non Verifieé'} 
-                                            </Statistic.Value>
-                                        </Statistic>
+                                    {loading ? 
+                                        <div className='text-start'>
+                                            <div> {clientD.Releted_UID ? clientD.Releted_UID : 'Non Verifieé'}</div>
+                                            <div> {clientD.EL_Classe}</div>
+                                            <div> {clientD.EL_Resultat}</div>
+                                            <div> {GConf.currentSeasson}</div>
+                                        </div>
+
                                     : SKLT.BarreSkl }  
                                     
                                 </div>
                             </div>
 
                         </div>
-                        <div className='col-12 col-lg-3'>
+                        <div className='col-12 col-lg-3 align-self-center'>
                             <div className='row text-center'>
                                 <div className='col-12 mb-3'> 
                                     {loading ?  
-                                        <Statistic color='green' size='tiny'>
-                                            <Statistic.Value>
-                                                {GConf.currentSeasson} 
-                                            </Statistic.Value>
-                                        </Statistic>
+                                        <div className='text-start'>
+                                            <div>{clientD.EL_Pere_Nom}</div>
+                                            <div>{clientD.EL_Pere_Phone} / {clientD.EL_Pere_Metier}</div>
+                                            <div>{clientD.EL_Mere_Nom}</div>
+                                            <div>{clientD.EL_Mere_Phone} / {clientD.EL_Mere_Metier}</div>
+                                        </div>  
                                     : SKLT.BarreSkl }   
                                 </div>
                                 
@@ -418,8 +467,8 @@ function ClientInfo() {
                     <h5 className="text-danger text-left"><b>Lorsque Vous Supprimer Un Client : </b></h5>
                     <ul className="text-info text-left">
                     <li>le Client  ne sera pas visible dans la branche 'Clients'</li>
-                    <li>Tous les factures relier a ce client peut s'endomager   </li>
-                    <li>vous ne pouver pas passer ni factures ni commandes avec ce clients autremment   </li>
+                    <li>Tous les examainListe relier a ce client peut s'endomager   </li>
+                    <li>vous ne pouver pas passer ni examainListe ni abonnemmentListes avec ce clients autremment   </li>
                     </ul>
                 </div>
                 <div className='col-lg-3 d-none d-lg-block align-self-center'>

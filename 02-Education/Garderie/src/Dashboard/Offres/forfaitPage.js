@@ -45,9 +45,9 @@ function StockPage() {
             } else {
                let articleListContainer = []
                response.data.map( (getData) => articleListContainer.push([
-                  _(<TableImage image={'article.png'} forStock onClick={() => openEditModal(getData,true)}/>),
+                  _(<TableImage image={'tarif.png'}  onClick={() => openEditModal(getData,true)}/>),
                   getData.F_ID,
-                  getData.F_Name,
+                  getData.Service,
                   getData.Genre,
                   getData.Tarif.toFixed(3),
                   _(<Button className='rounded-pill bg-system-btn' size='mini' onClick={ (e) => NavigateFunction(`/S/of/info/${getData.F_ID}`)}><span className='d-none d-lg-inline'> Info </span> </Button>),
@@ -59,9 +59,9 @@ function StockPage() {
                toast.error(<><div><h5>Probleme de Connextion</h5> Chargemment des article dans votre ordinateur </div></>, GConf.TostInternetGonf) 
                let articleListContainer = []
                Offline.stock.map( (getData) => articleListContainer.push([
-                  _(<TableImage image={'article.png'} forStock onClick={() => openEditModal(getData,true)}/>),
+                  _(<TableImage image={'tarif.png'}  onClick={() => openEditModal(getData,true)}/>),
                   getData.F_ID,
-                  getData.F_Name,
+                  getData.Service,
                   getData.Genre,
                   getData.Tarif.toFixed(3),
                   _(<Button className='rounded-pill bg-system-btn' size='mini' onClick={ (e) => NavigateFunction(`/S/of/info/${getData.F_ID}`)}><span className='d-none d-lg-inline'> Info </span> </Button>),

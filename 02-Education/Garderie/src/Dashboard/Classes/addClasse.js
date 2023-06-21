@@ -24,46 +24,39 @@ const FindInDirectory = ({inDirArticle, setInDirA,FindInDirectoryFunc, loaderSta
 
 function AddPlatMenu() {
     /*#########################[Const]##################################*/
-    const [familles] = useGetFamillePlat() 
+    const [niveaux] = useGetFamillePlat() 
     const [inDirArticle, setInDirA] = useState();  
     const [articles] = useGetArticles()  
-    const [articleD, setArticleD] = useState({Groupage:1});
+    const [classeData, setClasseData] = useState({CL_Seasson: GConf.currentSeasson, });
     const [saveBtnState, setSaveBtnState] = useState('')
     const [loaderState, setLS] = useState(false)
-    const SaveNotification = (genre,tag,table) =>{ useSaveNotification(genre,tag,table)}
+ 
     let Offline = JSON.parse(localStorage.getItem(`${GConf.PID}_Offline`));
     const [modalS, setModalS] = useState(false)
     /*#########################[UseEffect]##################################*/
     useEffect(() => {
-        if (familles.length == 0) {
+        if (niveaux.length == 0) {
             const timer = setTimeout(() => {
                 setModalS(true);
               }, 1900);
               
               return () => clearTimeout(timer);
         }
-      }, [familles])
+      }, [niveaux])
     /*#########################[Functions ]##################################*/
     const SaveArticle = (event) => {
-            if (!articleD.P_Code) {toast.error("Code à barre Invalide !", GConf.TostErrorGonf)}
-            else if (!articleD.Name || articleD.Name == '') {toast.error("Name Invalide !", GConf.TostErrorGonf)}
-            else if (!articleD.Genre) {toast.error("Genre Invalide !", GConf.TostErrorGonf)}
-            else if (!articleD.Cout) {toast.error("Prix Achat Invalide !", GConf.TostErrorGonf)}
-            else if (!articleD.Prix_vente) {toast.error("Prix Vente Invalide !", GConf.TostErrorGonf)}
-            else if (!articleD.Prix_promo) {toast.error("Prix Promo Invalide !", GConf.TostErrorGonf)}
-            else if (!articleD.Repture) {toast.error("Repture Invalide !", GConf.TostErrorGonf)}
-            else if (!articleD.Description) {toast.error("Description Invalide !", GConf.TostErrorGonf)}
+            if (!classeData.CL_Name) {toast.error("Nom est Invalide !", GConf.TostErrorGonf)}
+            else if (!classeData.CL_Niveaux || classeData.Name == '') {toast.error("Niveaux est Invalide !", GConf.TostErrorGonf)}
             else{
                 setLS(true)
-                axios.post(`${GConf.ApiLink}/menu/ajouter`, {
+                axios.post(`${GConf.ApiLink}/classes/ajouter`, {
                     PID : GConf.PID,
-                    articleD : articleD,
+                    classeData : classeData,
                 }).then(function (response) {
                     if(response.data.affectedRows) {
-                        setSaveBtnState('disabled')
-                        toast.success("Article Enregistreé !", GConf.TostSuucessGonf)
+                        setSaveBtnState(false)
+                        toast.success("Classes  Enregistreé !", GConf.TostSuucessGonf)
                         setLS(false)
-                        //SaveNotification('stockSaveArticle',GConf.PID, articleD)
                     }
                     else{
                         toast.error('Erreur esseyez de nouveaux', GConf.TostSuucessGonf)
@@ -72,7 +65,7 @@ function AddPlatMenu() {
                 }).catch((error) => {
                     if(error.request) {
                       toast.error(<><div><h5>Probleme de Connextion</h5> L'article sera enregistrer sue votre ordinateur </div></>, GConf.TostInternetGonf)   
-                      Offline.articleToSave.push(articleD)
+                      Offline.articleToSave.push(classeData)
                       localStorage.setItem(`${GConf.PID}_Offline`,  JSON.stringify(Offline));
                       setLS(false)
                     }
@@ -82,18 +75,18 @@ function AddPlatMenu() {
             
     }  
     const checkArticleExistance = () =>{
-        if(articleD.P_Code){
-            if(articles.includes(parseInt(articleD.P_Code))) {
+        if(classeData.CL_ID){
+            if(articles.includes(parseInt(classeData.CL_ID))) {
                 toast.error("Article Exist Deja", GConf.TostErrorGonf)
-                setArticleD({...articleD, P_Code: '' })
+                setClasseData({...classeData, CL_ID: '' })
             } 
         }
     }
     const checkPrixCompatiblite = () =>{
-        if(articleD.Cout && articleD.Prix_vente){
-            if(parseFloat(articleD.Cout) > parseFloat(articleD.Prix_vente)) {
+        if(classeData.Cout && classeData.Prix_vente){
+            if(parseFloat(classeData.Cout) > parseFloat(classeData.Prix_vente)) {
                 toast.error("Le Prix d'achat > Prix de Vente", GConf.TostErrorGonf)
-                setArticleD({...articleD, Prix_vente: '', Cout: '' })
+                setClasseData({...classeData, Prix_vente: '', Cout: '' })
             } 
         }
         
@@ -108,7 +101,7 @@ function AddPlatMenu() {
                 if(response.data.length  != 0) {
                     toast.success("Article Connu !", GConf.TostSuucessGonf)
                     setLS(false)
-                    setArticleD({ ...articleD, P_Code: response.data.P_Code,  Name: response.data.Name, Groupage : response.data.Colis, Socite : response.data.Socite})
+                    setClasseData({ ...classeData, CL_ID: response.data.CL_ID,  Name: response.data.Name, Groupage : response.data.Colis, Socite : response.data.Socite})
                 }
                 else{
                     toast.error('Pas De Resultat ', GConf.TostSuucessGonf)
@@ -140,59 +133,26 @@ function AddPlatMenu() {
                         <div className='row'>
                                 <div className='col-12 col-lg-12'>
                                     <h5 className='mb-1'>Nom: </h5>
-                                    <Input icon='star' iconPosition='left' placeholder='Nom' className='w-100 border-0 shadow-sm rounded mb-3' onKeyPress={event => OnKeyPressFunc(event)} value={articleD.Name}  onChange={(e) => setArticleD({...articleD, Name: e.target.value })}/>
+                                    <Input icon='star' iconPosition='left' placeholder='Nom' className='w-100 border-0 shadow-sm rounded mb-3' onKeyPress={event => OnKeyPressFunc(event)} value={classeData.CL_Name}  onChange={(e) => setClasseData({...classeData, CL_Name: e.target.value })}/>
                                 </div>
-                    </div> 
-                    <div className='row'>
-                                <div className='col-12 col-lg-6'>
-                                    <h5 className='mb-1'>Code  :</h5>
-                                    <Input icon='barcode' iconPosition='left' type='number' placeholder='code  ' className='w-100 border-0 shadow-sm rounded mb-3' onKeyPress={event => OnKeyPressFunc(event)} onBlur={checkArticleExistance} value={articleD.P_Code} onChange={(e) => setArticleD({...articleD, P_Code: e.target.value })} />
-                                </div>
-                                <div className='col-12 col-lg-6'>
-                                    <h5 className='mb-1'>Genre: </h5>
-                                   <Select placeholder='Selectionner Une Famille' options={familles} className='w-100 shadow-sm rounded mb-3' value={articleD.Genre} onChange={(e, data) => setArticleD({...articleD, Genre: data.value })} />  
-                                </div>
-                    </div>
-                    <div className='row'>
-                                <div className='col-12 col-lg-6'>
-                                    <h5 className='mb-1'>Cout: </h5>
-                                    <Input icon='dollar' iconPosition='left' type='number' placeholder='achat' value={articleD.Cout} onBlur={checkPrixCompatiblite} className='w-100 border-0 shadow-sm rounded mb-3' onChange={(e) => setArticleD({...articleD, Cout: e.target.value })}/> 
-                                </div>
-                                <div className='col-12 col-lg-6'>
-                                    <h5 className='mb-1'>Prix Vente: </h5>
-                                    <Input icon='dollar' iconPosition='left' type='number' placeholder='vente' value={articleD.Prix_vente} onBlur={checkPrixCompatiblite} className='w-100 border-0 shadow-sm rounded mb-3' onChange={(e) => setArticleD({...articleD, Prix_vente: e.target.value })}/>
-                                </div>
-                                
-                    </div> 
-                    <div className='row'>
-                                <div className='col-12 col-lg-6'>
-                                    <h5 className='mb-1'>Prix Promo: </h5>
-                                    <Input icon='dollar' iconPosition='left' type='number' placeholder='promo' className='w-100 border-0 shadow-sm rounded mb-3' onChange={(e) => setArticleD({...articleD, Prix_promo: e.target.value })}/>
-                                </div>
-                                <div className='col-12 col-lg-6'>
-                                    <h5 className='mb-1'>Repture du stock: </h5>
-                                    <Input icon='angle double down' iconPosition='left' type='number' placeholder='Repture' className='w-100 border-0 shadow-sm rounded mb-3' onChange={(e) => setArticleD({...articleD, Repture: e.target.value })}/>
-                                </div>
-                    </div>
-                    <div className='row'>
-                        <h5 className='mb-1'>Description</h5>
-                            <Form>
-                                <TextArea  rows="3" placeholder='designer votre article' className='w-100 shadow-sm rounded mb-3' onKeyPress={event => OnKeyPressFunc(event)}  onChange={(e) => setArticleD({...articleD, Description: e.target.value })}/>
-                            </Form> 
-                        </div>
-                        <div className='text-end mb-5'>
-                            <Button onClick={SaveArticle}  className={`text-end rounded-pill bg-system-btn ${saveBtnState}`}  positive>  <Icon name='save outline' /> Enregistrer <Loader inverted active={loaderState} inline size='tiny' className='ms-2 text-danger'/></Button>
-                        </div>
-                    </div>
-                    <div className='col-lg-4 '>
-                        <FindInDirectory inDirArticle={inDirArticle}  setInDirA={setInDirA} FindInDirectoryFunc={FindInDirectoryFunc} loaderState={loaderState} OnKeyPressFunc={OnKeyPressFunc} />
-                        <br />  
-                        <br />  
-                        <br />  
-                        <div className='text-center d-none d-lg-block  align-self-center'>
-                                <img src='https://assets.ansl.tn/Images/usful/articles-add.svg' width='80%'  height='200px' /> 
                         </div> 
-                    </div>
+                        <div className='row'>
+                                <div className='col-12 col-lg-12'>
+                                    <h5 className='mb-1'>Niveaux: </h5>
+                                   <Select placeholder='Selectionner Une Famille' options={niveaux} className='w-100 shadow-sm rounded mb-3' value={classeData.CL_Niveaux} onChange={(e, data) => setClasseData({...classeData, CL_Niveaux: data.value })} />  
+                                </div>
+                        </div>
+ 
+                            <div className='text-end mb-5'>
+                                <Button onClick={SaveArticle}  className={`text-end rounded-pill bg-system-btn ${saveBtnState}`}  positive>  <Icon name='save outline' /> Enregistrer <Loader inverted active={loaderState} inline size='tiny' className='ms-2 text-danger'/></Button>
+                            </div>
+                        </div>
+                        <div className='col-lg-4 '>
+ 
+                            <div className='text-center d-none d-lg-block  align-self-center'>
+                                    <img src='https://assets.ansl.tn/Images/usful/articles-add.svg' width='80%'  height='200px' /> 
+                            </div> 
+                        </div>
                 </div>
             </Bounce>
             <TransitionablePortal open={modalS} transition={{animation: 'fly up' , duration: 700 }}>

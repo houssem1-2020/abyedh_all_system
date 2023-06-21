@@ -13,7 +13,7 @@ function FamilleList() {
 
     //useEffect
     useEffect(() => {
-        axios.post(`${GConf.ApiLink}/menu/familleplat`, {
+        axios.post(`${GConf.ApiLink}/classes/familleplat`, {
             PID: OneGConf.forPID.PID,
           })
           .then(function (response) {

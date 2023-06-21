@@ -41,19 +41,21 @@ function ResumerFactures() {
     /*#########################[Function ]##################################*/
     const FetchTargetFactures = () =>{
         setLS(true)
-        axios.post(`${GConf.ApiLink}/abonnement/resumer`, {
+        axios.post(`${GConf.ApiLink}/seances/resumer`, {
             PID : GConf.PID,
             targetDate: targetDate,
         })
         .then(function (response) {
             let factureListContainer = []
             response.data.map( (getData) => factureListContainer.push([
-            getData.AB_ID,
-            getData.ME_Name,
-            getData.F_Name,
-            new Date(getData.AB_Depart_Date).toLocaleDateString('fr-FR').split( '/' ).reverse( ).join( '-' ),
+            getData.T_ID,
+            getData.CA_Name,
+            getData.CL_Name,
+            new Date(getData.T_Date).toLocaleDateString('fr-FR').split( '/' ).reverse( ).join( '-' ),
+            getData.T_Time,
+            getData.Final_Value,
             _(<StateCard status={getData.Pay_State} />),
-            _(<Button className='rounded-pill bg-system-btn' size='mini' onClick={ (e) => NavigateFunction(`/S/ab/info/${getData.AB_ID}`)}><span className='d-none d-lg-inline'> </span><Icon  name='angle right' /></Button>)
+            _(<Button className='rounded-pill bg-system-btn' size='mini' onClick={ (e) => NavigateFunction(`/S/ft/info/${getData.T_ID}`)}><span className='d-none d-lg-inline'> </span><Icon  name='angle right' /></Button>)
             ],))
             setFactureList(factureListContainer)
 
@@ -79,9 +81,9 @@ function ResumerFactures() {
         const statusCard = React.useCallback(() => {
           switch(status) {
             case 'Payee': return <StateCard color='success' text='Payeé' />;  
-            case 'NonPayee': return <StateCard color='danger' text='Non Payeé' /> ;
-            case 'EnAttent': return <StateCard color='secondary' text='En Court' /> ;
-            default:  return <StateCard color='warninf' text='Indefinie' />;        
+            case 'Credit': return <StateCard color='danger' text='Credit' /> ;
+            case 'Waitting': return <StateCard color='warning' text='En Attend' /> ;
+            default:  return <StateCard color='secondary' text='Indefinie' />;    
           }
         }, [status]);
       
@@ -102,7 +104,7 @@ function ResumerFactures() {
                 </div>
             </div>
             <div className='col-12 col-lg-8'>
-                <TableGrid tableData={factureList} columns={['ID','Membre','Forfait','Jour', 'Etat' ,'Voir']} />                        
+                <TableGrid tableData={factureList} columns={['ID','Caisse','Client','Jour','Temps','Totale','Etat', 'Voir']} />                        
             </div>
         </div>
         <FrameForPrint frameId='printResumer' src={`/Pr/Facture/resumer/${targetDate.start}/${targetDate.end}`} />
