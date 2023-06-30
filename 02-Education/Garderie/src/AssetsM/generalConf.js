@@ -30,10 +30,10 @@ const GConf = {
 
     // main variables
     PID: GetPID(),
-    ApiLink : 'http://localhost:3010/garderie', //https://api.system.abyedh.tn/apiSystemAbyedh/System 
-    ApiRouterOneLink : 'http://localhost:3010/garderie-caisse', //https://api.system.abyedh.tn/apiSystemAbyedh/System 
-    ApiRouterTwoLink : 'http://localhost:3010/garderie-serveur', //https://api.system.abyedh.tn/apiSystemAbyedh/System 
-    ApiRouterThreeLink : 'http://localhost:3010/garderie-chef', //https://api.system.abyedh.tn/apiSystemAbyedh/System 
+    ApiLink : 'https://api.system.abyedh.tn/apiSystemAbyedh/garderie', //https://api.system.abyedh.tn/apiSystemAbyedh/System 
+    ApiRouterOneLink : 'https://api.system.abyedh.tn/apiSystemAbyedh/garderie-caisse', //https://api.system.abyedh.tn/apiSystemAbyedh/System 
+    ApiRouterTwoLink : 'https://api.system.abyedh.tn/apiSystemAbyedh/garderie-serveur', //https://api.system.abyedh.tn/apiSystemAbyedh/System 
+    ApiRouterThreeLink : 'https://api.system.abyedh.tn/apiSystemAbyedh/garderie-chef', //https://api.system.abyedh.tn/apiSystemAbyedh/System 
     DefaultTva: 0,
     themeColor : '#cf208f',
     themeColorLigth : '#b8cbd4',
