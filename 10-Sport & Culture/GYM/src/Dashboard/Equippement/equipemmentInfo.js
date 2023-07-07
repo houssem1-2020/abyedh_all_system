@@ -10,54 +10,39 @@ import dayGridPlugin from '@fullcalendar/daygrid' // a plugin!
 import useGetFamillePlat from '../../AssetsM/Hooks/fetchPlatFamille';
 import { toast } from 'react-toastify';
 import SKLT from '../../AssetsM/Cards/usedSlk';
- 
+import useGetEquipemment from '../../AssetsM/Hooks/fetchEquipemment';
+import useGetFamilleEquipmment from '../../AssetsM/Hooks/fetchPlatFamille';
 
-const EditArticle = ({equipemmetD, setEquipemmentD, OnKeyPressFunc, checkPrixCompatiblite, familles, EditEquipemmentFunc,loaderState,updateQte}) =>{
+const EditArticle = ({equipemmentD, setEquipemmentD, OnKeyPressFunc,  checkCodeEquipExistance, GenerateRandomCode, familles, EditEquipemmentFunc,loaderState}) =>{
     return(<>
-
                 <div className='row'>
-                        <div className='col-12 col-lg-12'>
+                        <div className='col-12 col-lg-5'>
+                                <h5 className='mb-1'>Code  :  </h5>
+                                <Input icon='barcode' disabled={true} iconPosition='left' type='number' placeholder='code  ' className='w-100 border-0 shadow-sm rounded mb-3' onKeyPress={event => OnKeyPressFunc(event)} onBlur={checkCodeEquipExistance} value={equipemmentD.INS_Code} onChange={(e) => setEquipemmentD({...equipemmentD, INS_Code: e.target.value })} />
+                            </div>
+                            <div className='col-12 col-lg-1 align-self-center'>
+                                <Button disabled={true} icon className='rounded-circle mt-2' onClick={() => GenerateRandomCode()}><Icon name='add' /></Button>
+                            </div>
+                        <div className='col-12 col-lg-6'>
                             <h5 className='mb-1'>Nom: </h5>
-                            <Input icon='star' onKeyPress={event => OnKeyPressFunc(event)} iconPosition='left' placeholder='Nom' className='w-100 border-0 shadow-sm rounded mb-3' defaultValue={equipemmetD.Name} onChange={(e) => setEquipemmentD({...equipemmetD, Name: e.target.value })}/>
+                            <Input icon='star' iconPosition='left' placeholder='Nom' className='w-100 border-0 shadow-sm rounded mb-3' onKeyPress={event => OnKeyPressFunc(event)} value={equipemmentD.INS_Name}  onChange={(e) => setEquipemmentD({...equipemmentD, INS_Name: e.target.value })}/>
                         </div>
-                        
                 </div> 
                 <div className='row'>
-                            <div className='col-12 col-lg-6'>
-                                <h5 className='mb-1'>Code  :</h5>
-                                <Input icon='barcode'  disabled iconPosition='left' type='number' placeholder='code  ' className='w-100 border-0 shadow-sm rounded mb-3' defaultValue={equipemmetD.P_Code} onChange={(e) => setEquipemmentD({...equipemmetD, P_Code: e.target.value })} />
-                            </div>
-                            <div className='col-12 col-lg-6'>
-                                <h5 className='mb-1'>Genre: </h5>
-                               <Select placeholder='Selectionez une Categorie' options={familles} className='w-100 shadow-sm rounded mb-3' defaultValue={equipemmetD.Genre} onChange={(e, data) => setEquipemmentD({...equipemmetD, Genre: data.value })} />  
-                            </div>
-                </div>
-                <div className='row'>
-                            <div className='col-12 col-lg-6'>
-                                <h5 className='mb-1'>Cout: </h5>
-                                <Input icon='dollar'   iconPosition='left' type='number' placeholder='achat' defaultValue={equipemmetD.Cout} onBlur={checkPrixCompatiblite} className='w-100 border-0 shadow-sm rounded mb-3' onChange={(e) => setEquipemmentD({...equipemmetD, Cout: e.target.value })}/> 
-                            </div>
-                            <div className='col-12 col-lg-6'>
-                                <h5 className='mb-1'>Prix Vente: </h5>
-                                <Input icon='dollar'   iconPosition='left' type='number' placeholder='vente' defaultValue={equipemmetD.Prix_vente} onBlur={checkPrixCompatiblite} className='w-100 border-0 shadow-sm rounded mb-3' onChange={(e) => setEquipemmentD({...equipemmetD, Prix_vente: e.target.value })}/>
-                            </div>
-
-                </div> 
-                <div className='row'>
-                            <div className='col-12 col-lg-6'>
-                                <h5 className='mb-1'>Prix Promo: </h5>
-                                <Input icon='dollar'   iconPosition='left' type='number' placeholder='promo' className='w-100 border-0 shadow-sm rounded mb-3' defaultValue={equipemmetD.Prix_promo}  onChange={(e) => setEquipemmentD({...equipemmetD, Prix_promo: e.target.value })}/>
-                            </div>
-                            <div className='col-12 col-lg-6'>
-                                <h5 className='mb-1'>Repture du stock: </h5>
-                                <Input icon='angle double down' onKeyPress={event => OnKeyPressFunc(event)} iconPosition='left' type='number' placeholder='repture' className='w-100 border-0 shadow-sm rounded mb-3' defaultValue={equipemmetD.Repture} onChange={(e) => setEquipemmentD({...equipemmetD, Repture: e.target.value })}/>
-                            </div>
+                        <div className='col-12 col-lg-6'>
+                            <h5 className='mb-1'>Genre: </h5>
+                        <Select placeholder='Selectionner Une Famille' options={familles} className='w-100 shadow-sm rounded mb-3' value={equipemmentD.INS_Genre} onChange={(e, data) => setEquipemmentD({...equipemmentD, INS_Genre: data.value })} />  
+                        </div>
+                        <div className='col-12 col-lg-6'>
+                            <h5 className='mb-1'>Quantite  :</h5>
+                            <Input icon='boxes' iconPosition='left' type='number' placeholder='Quantite' className='w-100 border-0 shadow-sm rounded mb-3' onKeyPress={event => OnKeyPressFunc(event)}   value={equipemmentD.INS_Qte} onChange={(e) => setEquipemmentD({...equipemmentD, INS_Qte: e.target.value })} />
+                        </div>
                 </div>
                 <div className='row'>
                     <h5 className='mb-1'>Description</h5>
-                    <Form>
-                        <TextArea onKeyPress={event => OnKeyPressFunc(event)} rows="3" defaultValue={equipemmetD.Description} className='w-100 shadow-sm rounded mb-3' onChange={(e) => setEquipemmentD({...equipemmetD, Description: e.target.value })}/>
-                    </Form> 
+                        <Form>
+                            <TextArea  rows="3" placeholder='Description' className='w-100 shadow-sm rounded mb-3' onKeyPress={event => OnKeyPressFunc(event)} value={equipemmentD.Description}  onChange={(e) => setEquipemmentD({...equipemmentD, Description: e.target.value })}/>
+                        </Form> 
                 </div>
                 <div className='text-end mb-5'>
                     <Button onClick={EditEquipemmentFunc} className='text-end rounded-pill bg-system-btn' positive>  <Icon name='edit' /> Modifier <Loader inverted active={loaderState} inline size='tiny' className='ms-2 text-danger'/></Button>
@@ -69,15 +54,15 @@ function PlatInfo() {
     /*#########################[Const]##################################*/
  
     let {code} = useParams();
-    const [equipemmetD, setEquipemmentD] = useState({});
+    const [equipemmentD, setEquipemmentD] = useState({});
     const[familles] = useGetFamillePlat()
     const [loading , setLoading] = useState(false)
     const [loaderState, setLS] = useState(false)
- 
+    const [articles, fullListe] = useGetEquipemment() 
     const [updateQte, setUpdateQte] = useState(true)
     const [articleCalendar , setArticleCalendar] = useState([])
     
-    const props = {width: 400, height: 250, zoomWidth: 500, img: equipemmetD ? equipemmetD.Photo_Path : 'tools.jpg'};
+    const props = {width: 400, height: 250, zoomWidth: 500, img: equipemmentD ? equipemmentD.Photo_Path : 'tools.jpg'};
 
     const options = [
         { key: '1', value: '001.png', text: 'Les bancs de musculation', image: { src: 'https://cdn.abyedh.tn/images/system/gym/001.png', avatar: true } },
@@ -95,7 +80,7 @@ function PlatInfo() {
         },
         {
             menuItem: { key: 'edit', icon: 'edit outline', content: 'Modifier' }, 
-            render: () => <><Tab.Pane attached={false}><EditArticle OnKeyPressFunc={OnKeyPressFunc} equipemmetD={equipemmetD}  setEquipemmentD={setEquipemmentD} checkPrixCompatiblite={checkPrixCompatiblite} familles={familles} EditEquipemmentFunc={EditEquipemmentFunc} loaderState={loaderState} updateQte={updateQte} /></Tab.Pane><br /></>,
+            render: () => <><Tab.Pane attached={false}><EditArticle OnKeyPressFunc={OnKeyPressFunc} equipemmentD={equipemmentD}  setEquipemmentD={setEquipemmentD} checkCodeEquipExistance={checkCodeEquipExistance} familles={familles} EditEquipemmentFunc={EditEquipemmentFunc} loaderState={loaderState} GenerateRandomCode={GenerateRandomCode} /></Tab.Pane><br /></>,
         },
         {
             menuItem: { key: 'image', icon: 'image', content: 'Image' }, 
@@ -140,13 +125,12 @@ function PlatInfo() {
         setLS(true)
         axios.post(`${GConf.ApiLink}/equipemment/modifier`, {
             PID :GConf.PID,
-            articleND :equipemmetD,
+            equipemmentD : equipemmentD,
+            INS_Code : code,
         }).then(function (response) {
-            console.log(response.data)
             if(response.data.affectedRows) {
-                toast.success("Plat Modifier !", GConf.TostSuucessGonf)
+                toast.success("Instrumment Modifier !", GConf.TostSuucessGonf)
                 setLS(false)
-                //SaveNotification('stockEditArticle',GConf.PID, equipemmetD)
             }
             else{
                 toast.error('Erreur esseyez de nouveaux', GConf.TostSuucessGonf)
@@ -164,7 +148,7 @@ function PlatInfo() {
         axios.post(`${GConf.ApiLink}/equipemment/modifier/image`, {
             PID  :GConf.PID,
             code : code,
-            path : equipemmetD.Photo_Path
+            path : equipemmentD.Photo_Path
         }).then(function (response) {
             if(response.data.affectedRows) {
                 toast.success("Image Modifier !", GConf.TostSuucessGonf)
@@ -186,7 +170,7 @@ function PlatInfo() {
         axios.post(`${GConf.ApiLink}/equipemment/supprimer`, {
             tag :GConf.PID,
             code : code ,
-            pk: equipemmetD.PK
+            pk: equipemmentD.PK
         }).then(function (response) {
             if (response.data.affectedRows != 0) {
                 toast.error('Article Supprimer  !', GConf.TostSuucessGonf)
@@ -203,18 +187,27 @@ function PlatInfo() {
             }
           });
     }
-    const checkPrixCompatiblite = () =>{
-        if(equipemmetD.PrixA && equipemmetD.PrixV){
-            if(equipemmetD.PrixA > equipemmetD.PrixV) {
-                toast.error("Le Prix d'achat > Prix de Vente", GConf.TostErrorGonf)
-                setEquipemmentD({...equipemmetD, PrixV: '', PrixA: '' })
+    const checkCodeEquipExistance = () =>{    
+        if(equipemmentD.INS_Code){
+            if(articles.includes(parseInt(equipemmentD.INS_Code))) {
+                toast.error("Article Exist Deja", GConf.TostErrorGonf)
+                setEquipemmentD({...equipemmentD, INS_Code: '' })
             } 
-        }  
+        }
     }
     const OnKeyPressFunc = (e) => {
         if (!((e.charCode >= 65 && e.charCode <= 90) || (e.charCode >= 97 && e.charCode <= 122) || (e.charCode >= 48 && e.charCode <= 57) || e.charCode == 42 || e.charCode == 32 || e.charCode == 47 )) {
             e.preventDefault();
         }   
+    }
+    const GenerateRandomCode = () =>{
+        let randomNumber;
+
+        do {
+            randomNumber = Math.floor(Math.random() * (99999 - 111111 + 1)) + 11111;
+        } while (articles.includes(randomNumber));
+
+        setEquipemmentD({...equipemmentD, INS_Code: randomNumber })
     }
 
    /*#########################[Card]##################################*/
@@ -229,7 +222,7 @@ function PlatInfo() {
                     </div>
                     <div className="img-card-container text-center">
                         <div className="card-container notification">
-                            <img src={`https://cdn.abyedh.tn/images/system/gym/${equipemmetD.Photo_Path}`} className="rounded-circle bg-white" width="80px" height="80px" />                    
+                            <img src={`https://cdn.abyedh.tn/images/system/gym/${equipemmentD.Photo_Path}`} className="rounded-circle bg-white" width="80px" height="80px" />                    
                         </div>
                     </div>
                     <div className="mt-5 text-center ">
@@ -291,14 +284,13 @@ function PlatInfo() {
     }
     const DeleteEquipemmentCard = () =>{
         return(<>
-            <h3 className="text-secondary">Voulez-Vous Vraimment Supprimer Cett Article ?</h3> 
+            <h3 className="text-secondary">Voulez-Vous Vraimment Supprimer Cett Instrumment ?</h3> 
             <div className='row'>
                 <div className='col-9'>
-                    <h5 className="text-danger text-left"><b>Lorsque Vous Supprimer L'Article : </b></h5>
+                    <h5 className="text-danger text-left"><b>Lorsque Vous Supprimer L'Instrumment : </b></h5>
                     <ul className="text-info text-left">
-                    <li>L'article ne sera pas visible dans la branche 'Stock'</li>
-                    <li>Tous les article avec son code a barre se suppriment </li>
-                    <li>L'article Soit visible seulemment dans les facture  </li>
+                    <li>L'Instrumment ne sera pas visible dans la branche 'Equipemment'</li>
+                    <li>Tous les Instrumment avec son code vont se supriment  </li>
                     </ul>
                 </div>
                 <div className='col-lg-3 d-none d-lg-block align-self-center'>
@@ -317,11 +309,11 @@ function PlatInfo() {
         return(<>
         <div className='row p-2 mb-2'>   
              <div className='col-8'>
-                <Select options={options} fluid placeholder='Choisir Une Image ' onChange={(e, data) => setEquipemmentD({...equipemmetD, Photo_Path: data.value })}  />
+                <Select options={options} fluid placeholder='Choisir Une Image ' onChange={(e, data) => setEquipemmentD({...equipemmentD, Photo_Path: data.value })}  />
              </div>
              <div className='col-4'> 
                     <div className='card card-body  text-center p-4 mb-2 border-3 img-container'>
-                        <img src={`https://cdn.abyedh.tn/images/system/gym/${equipemmetD.Photo_Path}`} width='100%' height='150px'  /> 
+                        <img src={`https://cdn.abyedh.tn/images/system/gym/${equipemmentD.Photo_Path}`} width='100%' height='150px'  /> 
                     </div>
                     <Button fluid className='rounded-pill' onClick={(e) => UpdatePhotoFunction(props.link)} >Modifier </Button> 
              </div>
@@ -335,7 +327,7 @@ function PlatInfo() {
                 <br />
                 <div className="row">
                     <div className="col-12 col-lg-4">
-                        <EquipemmentCard data={equipemmetD}/> 
+                        <EquipemmentCard data={equipemmentD}/> 
                     </div>
                     <div className="col-12 col-lg-8">
                         <Tab menu={{ secondary: true, pointing: true ,className: "wrapped"}} panes={panes} />

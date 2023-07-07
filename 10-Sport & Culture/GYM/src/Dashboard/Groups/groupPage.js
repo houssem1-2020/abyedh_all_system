@@ -8,12 +8,12 @@ import SKLT from '../../AssetsM/Cards/usedSlk';
 import TableGrid from '../../AssetsM/Cards/tableGrid';
 import GoBtn from '../../AssetsM/Cards/goBtn';
 import TableImage from '../../AssetsM/Cards/tableImg';
-import { Button , Divider, Icon, Modal, Input, Loader} from 'semantic-ui-react';
+import { Button , Divider, Icon, Modal, Input, Loader, Form, Select, TextArea} from 'semantic-ui-react';
 import { useNavigate} from 'react-router-dom';
 import { toast } from 'react-toastify';
 import { NavLink } from 'react-router-dom';
 
-const EditModal = ({setModalS,EditTable,edittableD,setEditTableD,modalS}) =>{
+const EditModal = ({setModalS,EditTable,editGroupData,setEditGroupData,modalS}) =>{
   return(<>
           <Modal
                   size='mini'
@@ -27,11 +27,11 @@ const EditModal = ({setModalS,EditTable,edittableD,setEditTableD,modalS}) =>{
                   <Modal.Content>
                   <div className='p-1  mb-2'>
                               <h5 className='mb-1'>Nom:</h5>
-                                  <Input icon='stop circle' iconPosition='left' placeholder='Nom' className='w-100 border-0 shadow-sm rounded mb-1' value={edittableD.Name}  onChange={(e) => setEditTableD({...edittableD, Name: e.target.value })} />
+                                  <Input icon='stop circle' iconPosition='left' placeholder='Nom' className='w-100 border-0 shadow-sm rounded mb-1' value={editGroupData.Name}  onChange={(e) => setEditGroupData({...editGroupData, Name: e.target.value })} />
                               </div>
                               <div className='p-1 mb-2'>
                                   <h5 className='mb-1'> Numero:</h5>
-                                  <Input icon='sort numeric up' iconPosition='left' placeholder='Numero' className='w-100 border-0 shadow-sm rounded mb-1' value={edittableD.Num} onChange={(e) => setEditTableD({...edittableD, Num: e.target.value })}/>
+                                  <Input icon='sort numeric up' iconPosition='left' placeholder='Numero' className='w-100 border-0 shadow-sm rounded mb-1' value={editGroupData.Num} onChange={(e) => setEditGroupData({...editGroupData, Num: e.target.value })}/>
                               </div>
                   </Modal.Content>
                   <Modal.Actions>
@@ -41,7 +41,7 @@ const EditModal = ({setModalS,EditTable,edittableD,setEditTableD,modalS}) =>{
           </Modal>
   </>)
 }
-const DeleteModal = ({setDeleteModalS,DeleteTable,edittableD,setEditTableD,deletemodalS}) =>{
+const DeleteModal = ({setDeleteModalS,DeleteTable,editGroupData,setEditGroupData,deletemodalS}) =>{
   return(<>
           <Modal
                   size='mini'
@@ -57,8 +57,8 @@ const DeleteModal = ({setDeleteModalS,DeleteTable,edittableD,setEditTableD,delet
                           Voulez-Vous Vraimment Supprimer Cette Table 
                           <br />
                           <br />
-                          <div className='mb-0 p-0'><h5> Table : {edittableD.Name}</h5></div>         
-                          <div><h5> Numero : {edittableD.Num} </h5></div>
+                          <div className='mb-0 p-0'><h5> Table : {editGroupData.Name}</h5></div>         
+                          <div><h5> Numero : {editGroupData.Num} </h5></div>
                   </Modal.Content>
                   <Modal.Actions>
                               {/* <Button className='rounded-pill' negative onClick={ () => setDeleteModalS(false)}> <span className='bi bi-x' ></span> </Button> */}
@@ -70,52 +70,37 @@ const DeleteModal = ({setDeleteModalS,DeleteTable,edittableD,setEditTableD,delet
 
 function CaissePage() {
   /*#########################[Const]##################################*/
-  let [camionList, setCamionList] = useState([ SKLT.TableSlt ]); 
+  const Today = new Date()
+  let [GrouListe, setGroupListe] = useState([]); 
   let [loadingPage, setLoadingP] = useState(false); 
   const navigate = useNavigate();
   let Offline = JSON.parse(localStorage.getItem(`${GConf.PID}_Offline`));
   const [modalS, setModalS] = useState(false)
-  const [selectedArticle, setSelectedArticle] = useState([])
-  const [tableD, setTableD] = useState([])
-  const [saveBtnState, setSaveBtnState] = useState('')
+ 
+  const [groupData, setGroupData] = useState({GP_Temps: new Date().toLocaleTimeString([],{ hourCycle: 'h23'})})
+  const [saveBtnState, setSaveBtnState] = useState(false)
   const [loaderState, setLS] = useState(false)
-  const [edittableD, setEditTableD] = useState([])
+  const [editGroupData, setEditGroupData] = useState([])
   const [deletemodalS, setDeleteModalS] = useState(false)
+  const Genres = [
+    {id:1 , value: 'Male', text : 'Male'},
+    {id:1 , value: 'Female', text : 'Female'},
+    {id:1 , value: 'Mixte', text : 'Mixte'},
+  ]
 
   /*#########################[UseEffect]##################################*/
   useEffect(() => {
-    axios.post(`${GConf.ApiLink}/tables`, {
+    axios.post(`${GConf.ApiLink}/groupe`, {
         PID: GConf.PID,
       })
       .then(function (response) {
         setLoadingP(true)
-         let testTable = []
-          response.data.map( (getData) => testTable.push([
-         _(<TableImage image='camion.jpg' />),
-         getData.Table_Name,
-         getData.Matricule,
-         getData.Chauffeur,
-         getData.Fond,
-         getData.Recette,
-         _( <a  className='data-link-modal'  onClick={() => openEditModal(getData,true)} ><b> <span className='bi bi-arrows-fullscreen'></span> </b></a>),
-         _(<Button className='rounded-pill bg-system-btn' size='mini' onClick={ (e) => NavigateFunction(`/S/cm/info/${getData.Cam_ID}`)}><span className='d-none d-lg-inline'> Info </span><Icon  name='angle right' /></Button>)
-        ],))
-        setCamionList(response.data)
+        setGroupListe(response.data)
       }).catch((error) => {
         if(error.request) {
           toast.error(<><div><h5>Probleme de Connextion</h5> Chargemment des ancien Camion  </div></>, GConf.TostInternetGonf)   
           let testTable = []
-          Offline.camion.map( (getData) => testTable.push([
-          _(<TableImage image='camion.jpg' />),
-          getData.Cam_Name,
-          getData.Matricule,
-          getData.Chauffeur,
-          getData.Fond,
-          getData.Recette,
-          _( <a  className='data-link-modal'  onClick={() => openEditModal(getData,true)} ><b> <span className='bi bi-arrows-fullscreen'></span> </b></a>),
-          _(<Button className='rounded-pill bg-system-btn' size='mini' onClick={ (e) => NavigateFunction(`/S/cm/info/${getData.Cam_ID}`)}><span className='d-none d-lg-inline'> Info </span><Icon  name='angle right' /></Button>)
-          ],))
-          setCamionList(Offline.camion)
+          setGroupListe(Offline.camion)
         }
       });
     }, [])
@@ -124,21 +109,24 @@ function CaissePage() {
   const NavigateFunction = (link) => {  navigate(link) }
 
   const openEditModal = (event,selected) =>{
-    setEditTableD({PK: event.PK , Name:event.Table_Name, Num:event.Table_Num})
+    setEditGroupData({PK: event.PK , Name:event.Table_Name, Num:event.Table_Num})
     selected ? setModalS(true) : setDeleteModalS(true)
 }
-  const SaveTable = () => {
-      if (!tableD.Table_Name) {toast.error("Matricule Invalide !", GConf.TostErrorGonf)}
-      else if (!tableD.Table_Num) {toast.error("Nom Invalide !", GConf.TostErrorGonf)}
+  const SaveGroupFunction = () => {
+      if (!groupData.GP_Name) {toast.error("Nom Invalide !", GConf.TostErrorGonf)}
+      else if (!groupData.GP_Genre) {toast.error("Genre Invalide !", GConf.TostErrorGonf)}
+      else if (!groupData.GP_Activite) {toast.error("Activite Invalide !", GConf.TostErrorGonf)}
+      else if (!groupData.GP_Temps) {toast.error("Temps Invalide !", GConf.TostErrorGonf)}
+      else if (!groupData.GP_Cotch) {toast.error("Cotch Invalide !", GConf.TostErrorGonf)}
       else{
               setLS(true)
-              axios.post(`${GConf.ApiLink}/tables/ajouter`, {
+              axios.post(`${GConf.ApiLink}/groupe/ajouter`, {
                   PID : GConf.PID,
-                  tableD : tableD,
+                  groupData : groupData,
               }).then(function (response) {
                   console.log(response.data)
                   if(response.data.affectedRows) {
-                      setSaveBtnState('disabled')
+                      setSaveBtnState(true)
                       toast.success("Table Ajouteé !", GConf.TostSuucessGonf)
                       setLS(false)
                       
@@ -150,7 +138,7 @@ function CaissePage() {
               }).catch((error) => {
                   if(error.request) {
                     toast.error(<><div><h5>Probleme de Connextion</h5> Le Camion sera enregistrer sur votre ordinateur   </div></>, GConf.TostInternetGonf)   
-                    Offline.camionToSave.push(tableD)
+                    Offline.camionToSave.push(groupData)
                     localStorage.setItem(`${GConf.PID}_Offline`,  JSON.stringify(Offline));
                     setLS(false)
 
@@ -165,16 +153,16 @@ function CaissePage() {
   }
   const EditTable = () => {
     setLS(true)
-    axios.post(`${GConf.ApiLink}/tables/modifier`, {
+    axios.post(`${GConf.ApiLink}/groupe/modifier`, {
         PID : GConf.PID,
-        editTableD : edittableD,
+        editGroupData : editGroupData,
     }).then(function (response) {
         if(response.data.affectedRows) {
             setModalS(false)
             toast.success("Table Modifier avec Suucess", GConf.TostSuucessGonf)
             //setUpdateFT(Math.random() * 10)
             setLS(false)
-            //SaveNotification('stockEditTable',GConf.PID, edittableD)
+            //SaveNotification('stockEditTable',GConf.PID, editGroupData)
         }
         else{
             setModalS(false)
@@ -191,25 +179,40 @@ function CaissePage() {
     
 
   }
+  const OnKeyPressFunc = (e) => {
+    if (!((e.charCode >= 65 && e.charCode <= 90) || (e.charCode >= 97 && e.charCode <= 122) || (e.charCode >= 48 && e.charCode <= 57) || e.charCode == 42 || e.charCode == 32 || e.charCode == 47 )) {
+        e.preventDefault();
+    }   
+}
 
   /*#########################[Function]##################################*/
-  const  TableCard = (props) =>{
+  const  GrouCard = (props) =>{
       return(<>
-          <div className='col-12 col-md-4 mb-3'>
+          <div className='col-12 col-md-6 mb-3'>
             <div className='card card-body border-div  shadow-sm h-100 bg-hover-card-st'>
-                    <div className="text-center">
-                            <div className='row mb-0'>
-                                <div className='col-4 align-self-center text-center'><img src="https://cdn.abyedh.tn/images/system/Resto/table.png" className="rounded" width="50px" /></div>
-                                <div className='col-8 align-self-center text-start'>
-                                  <h4 className='mt-2 mb-0'><a  className='data-link-modal' ><b> {loadingPage ? props.data.Table_Name : SKLT.BarreSkl } </b></a> </h4> 
-                                  <h5 className="text-secondary mt-0 mb-2"> NO:  {loadingPage ? props.data.Table_Num : 0 } </h5>
-                                </div>
-                            </div>
-                            
+              <div className='row'>
+                  <div className='col-6'>
+                  <div className="text-center">
+                      <div className='row mb-0'>
+                          <div className='col-4 align-self-center text-center'><img src="https://cdn.abyedh.tn/images/system/gym/group.jpg" className="rounded" width="50px" /></div>
+                          <div className='col-8 align-self-center text-start'>
+                            <h4 className='mb-0 ms-2'><a  className='data-link-modal' ><b> {loadingPage ? props.data.GP_Name : SKLT.BarreSkl } </b></a> </h4> 
+                            <h5 className='mt-2 mb-0'> <span className='bi bi-bookmarks-fill '></span> <b> {loadingPage ? props.data.GP_Genre : SKLT.BarreSkl } </b> </h5>
+                          </div>
+                      </div>            
                     </div>
+
+                  </div>
+                  <div className='col-6'>
+                        <h5 className='mt-0 mb-0'> <span className='bi bi-bicycle '></span> <b> {loadingPage ? props.data.GP_Activite : SKLT.BarreSkl } </b> </h5>
+                        <h5 className='mt-0 mb-0'> <span className='bi bi-calendar '></span> <b> {loadingPage ? props.data.GP_Temps : SKLT.BarreSkl } </b> </h5>
+                        <h5 className='mt-0 mb-0'> <span className='bi bi-person '></span> <b> {loadingPage ? props.data.GP_Cotch : SKLT.BarreSkl } </b> </h5>
+                  </div>
+              </div>
+                    
                     <div className='row mb-0'>
-                                <div className='col-6 align-self-center text-center'><Button className='rounded-pill bg-primary text-white mt-2' size='mini' icon fluid  onClick={() => openEditModal(props.data,true)} ><span className='d-none d-lg-inline'>  </span><Icon  name='edit' /></Button></div>
-                                <div className='col-6 align-self-center text-center'><Button className='rounded-pill bg-danger text-white mt-2' size='mini' icon fluid  onClick={() => openEditModal(props.data,false)} ><span className='d-none d-lg-inline'>  </span><Icon  name='trash' /></Button></div>
+                                <div className='col-8 align-self-center text-center'><Button className='rounded-pill bg-primary text-white mt-2' size='mini' icon fluid  onClick={() => openEditModal(props.data,true)} ><span className='d-none d-lg-inline'>  </span><Icon  name='edit' /> Modifier </Button></div>
+                                <div className='col-4 align-self-center text-center'><Button className='rounded-pill bg-danger text-white mt-2' size='mini' icon fluid  onClick={() => openEditModal(props.data,false)} ><span className='d-none d-lg-inline'>  </span><Icon  name='trash' /> Supp</Button></div>
                     </div>
                     
             </div>
@@ -227,7 +230,7 @@ function CaissePage() {
 
   return ( <>
           
-            <NavLink exaxt='true' to='/S/ft'><Button className='rounded-circle' icon='arrow left' /></NavLink>
+            <NavLink exaxt='true' to='/S/mb'><Button className='rounded-circle' icon='arrow left' /></NavLink>
             <br /> 
             <br /> 
             <div className='row'>
@@ -235,12 +238,12 @@ function CaissePage() {
                 {
                   loadingPage ? 
                     <>
-                        {camionList.length == 0 ? 
+                        {GrouListe.length == 0 ? 
                         <EmptyListeCard />
                         :
                         <div className='row'>
                           {
-                            camionList.map( (data,index) => <TableCard key={index}  data={data} />)
+                            GrouListe.map( (data,index) => <GrouCard key={index}  data={data} />)
                           }
                         </div>
                         }
@@ -255,21 +258,35 @@ function CaissePage() {
                         <div className='card card-body border-div shadow-sm mb-4'>
                               <div className='p-1  mb-2'>
                                   <h5 className='mb-1'>Nom:</h5>
-                                  <Input icon='stop circle' iconPosition='left' placeholder='Nom' className='w-100 border-0 shadow-sm rounded mb-1' onChange={(e) => setTableD({...tableD, Table_Name: e.target.value })} />
+                                  <Input icon='stop circle' iconPosition='left' placeholder='Nom' className='w-100 border-0 shadow-sm rounded mb-1' onChange={(e) => setGroupData({...groupData, GP_Name: e.target.value })} />
                               </div>
                               <div className='p-1 mb-2'>
-                                  <h5 className='mb-1'> Numero:</h5>
-                                  <Input icon='sort numeric up' iconPosition='left' placeholder='Numero' className='w-100 border-0 shadow-sm rounded mb-1' onChange={(e) => setTableD({...tableD, Table_Num: e.target.value })}/>
+                                  <h5 className='mb-1'> Genre:</h5>
+                                  <Select placeholder='Choisir Uu Poste'  options={Genres}  className='w-100 shadow-sm rounded mb-3' value={groupData.GP_Genre} onChange={(e, data) => setGroupData({...groupData, GP_Genre: data.value })} />
+                              </div>
+                              <div className='p-1 mb-2'>
+                                  <h5 className='mb-1'> Activite:</h5>
+                                  <Form>
+                                      <TextArea  rows="2" placeholder='Adresse' onKeyPress={event => OnKeyPressFunc(event)} className='w-100 shadow-sm rounded mb-3' value={groupData.GP_Activite} onChange={(e) => setGroupData({...groupData, GP_Activite: e.target.value })}/>
+                                  </Form>
+                              </div>
+                              <div className='p-1 mb-2'>
+                                  <h5 className='mb-1'> Temps d'entrainnement:</h5>
+                                  <Input icon='map marker' type='time' onKeyPress={event => OnKeyPressFunc(event)}  iconPosition='left' placeholder='De'  fluid className='mb-1 shadow-sm'  value={groupData.GP_Temps}  onChange={(e) => setGroupData({...groupData, GP_Temps : e.target.value })}/>
+                              </div>
+                              <div className='p-1 mb-2'>
+                                  <h5 className='mb-1'> Cotch :</h5>
+                                  <Input icon='male' iconPosition='left' placeholder='Nom' className='w-100 border-0 shadow-sm rounded mb-1' onChange={(e) => setGroupData({...groupData, GP_Cotch: e.target.value })} />
                               </div>
                               <div className='text-end mb-2'>
-                                  <Button  onClick={SaveTable}  className={`text-end rounded-pill bg-system-btn ${saveBtnState}`} positive>  <Icon name='save outline' /> Enregistrer <Loader inverted active={loaderState} inline size='tiny' className='ms-2 text-danger'/></Button>
+                                  <Button  onClick={SaveGroupFunction}  className='text-end rounded-pill bg-system-btn ' disabled={saveBtnState} positive>  <Icon name='save outline' /> Enregistrer <Loader inverted active={loaderState} inline size='tiny' className='ms-2 text-danger'/></Button>
                               </div>
                         </div>
                     </div>
               </div>
             </div>
-            <EditModal setModalS={setModalS} EditTable={EditTable} edittableD={edittableD}  setEditTableD={setEditTableD} modalS={modalS} />
-            <DeleteModal setDeleteModalS={setDeleteModalS} DeleteTable={DeleteTable} edittableD={edittableD}  setEditTableD={setEditTableD} deletemodalS={deletemodalS} />
+            <EditModal setModalS={setModalS} EditTable={EditTable} editGroupData={editGroupData}  setEditGroupData={setEditGroupData} modalS={modalS} />
+            <DeleteModal setDeleteModalS={setDeleteModalS} DeleteTable={DeleteTable} editGroupData={editGroupData}  setEditGroupData={setEditGroupData} deletemodalS={deletemodalS} />
     </> );
 }
 

@@ -16,6 +16,7 @@ import { NavLink } from 'react-router-dom';
 
 function FacturePage() {
     /*#########################[Const]##################################*/
+    const Today = new Date()
     const navigate = useNavigate();
     const [seanceListe, setSeanceListe] = useState([SKLT.TableSlt]); 
      
@@ -27,16 +28,16 @@ function FacturePage() {
             PID : GConf.PID,
         })
         .then(function (response) {
-            console.log(response.data)
+            //console.log(response.data)
             let factureListContainer = []
             response.data.map( (getData) => factureListContainer.push([
-            _(<TableImage image='seance.png' />),
+            _(<TableImage image='seance.jpg' />),
             getData.SE_ID,
             getData.F_Name ,
             getData.ME_Name,
             new Date(getData.SE_Date).toLocaleDateString('fr-FR').split( '/' ).reverse( ).join( '-' ),
             getData.SE_Time,
-            _(<StateCard status={getData.SE_State} />),
+            _(FindSeanceState(getData.SE_Date,getData.SE_Time)),
             _(<Button className='rounded-pill bg-system-btn' size='mini' onClick={ (e) => NavigateFunction(`/S/sa/info/${getData.SE_ID}`)}><span className='d-none d-lg-inline'> Info </span><Icon  name='angle right' /></Button>)
             ],))
             setSeanceListe(factureListContainer)
@@ -57,9 +58,10 @@ function FacturePage() {
         const statusCard = React.useCallback(() => {
           switch(status) {
             case 'C': return <StateCard color='warning' text='En Cours' />;  
-            case 'A': return <StateCard color='danger' text='Annuleé' /> ;
+            case 'P': return <StateCard color='secondary' text='Pas Encore' /> ;
             case 'T': return <StateCard color='success' text='Termineé' /> ;
-            default:  return <StateCard color='secondary' text='Indefinie' />;    
+            case 'PA': return <StateCard color='info' text='Aujourd hui' /> ;
+            default:  return <StateCard color='primary' text='Indefinie' />;    
           }
         }, [status]);
       
@@ -70,11 +72,23 @@ function FacturePage() {
         );
     };
 
+    const FindSeanceState = (date,time) => {
+      var currentTime = new Date('2000-01-01T' + time + 'Z');
+      currentTime.setTime(currentTime.getTime() + (2 * 60 * 60 * 1000));
+
+      if (Today.toLocaleDateString('fr-FR').split( '/' ).reverse( ).join( '-' ) < new Date(date).toLocaleDateString('fr-FR').split( '/' ).reverse( ).join( '-' )) { return <StateCard status={'P'} />} 
+      else if (Today.toLocaleDateString('fr-FR').split( '/' ).reverse( ).join( '-' ) > new Date(date).toLocaleDateString('fr-FR').split( '/' ).reverse( ).join( '-' )) { return <StateCard status={'T'} />}
+      else {
+        if ( new Date().toLocaleTimeString([],{ hourCycle: 'h23'}) > time ) { return <StateCard status={'PA'} /> } 
+        else if (new Date().toLocaleTimeString([],{ hourCycle: 'h23'}) > currentTime.toTimeString().slice(0, 8)) { return <StateCard status={'T'} />}
+        else { return <StateCard status={'C'} /> }
+      }
+    }
     /*#########################[Card]##################################*/
    
     const MainSubNavCard = (props) =>{
         return(<>
-           <NavLink exact='true' to={`/S/${props.link}`} className='card card-body mb-1 rounded-pill shadow-sm d-inline-block ' >
+           <NavLink exact='true' target='c_blanck' to={`/S/${props.link}`} className='card card-body mb-1 rounded-pill shadow-sm d-inline-block ' >
             <h4 style={{color : GConf.themeColor}}> <span className={`bi bi-${props.icon} me-1 `}></span>{props.text}</h4>
           </NavLink>
         </>) 

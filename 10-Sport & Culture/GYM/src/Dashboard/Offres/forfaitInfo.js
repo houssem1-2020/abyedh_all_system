@@ -3,38 +3,29 @@ import GConf from '../../AssetsM/generalConf';
 import BreadCrumb from '../../AssetsM/Cards/breadCrumb'
 import { Button, Divider, Form, Icon, Input, Loader, Select, Dropdown, Statistic, Header, TextArea } from 'semantic-ui-react';
 import { Tab } from 'semantic-ui-react';
-import { useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import axios from 'axios';
 import { toast } from 'react-toastify';
 import SKLT from '../../AssetsM/Cards/usedSlk';
+import { _ } from 'gridjs-react';
+import TableImage from '../../AssetsM/Cards/tableImg';
+import TableGrid from '../../AssetsM/Cards/tableGrid';
  
 
-const EditArticle = ({forfaitD, setFordaitD, checkPrixCompatiblite, familles, EditArticleFunction,loaderState,updateQte}) =>{
+const EditArticle = ({forfaitD, setFordaitD, OnKeyPressFunc,  EditArticleFunction,loaderState }) =>{
     return(<>
 
-                <h5 className='mb-1'>Code à barre:</h5>
-                <Input icon='barcode' disabled iconPosition='left' type='number' placeholder='code a barre' className='w-100 border-0 shadow-sm rounded mb-3' defaultValue={forfaitD.A_Code} onChange={(e) => setFordaitD({...forfaitD, A_Code: e.target.value })} />
                 <h5 className='mb-1 mt-0'>Nom: </h5>
-                <Input icon='star' iconPosition='left' placeholder='Nom' className='w-100 border-0 shadow-sm rounded mb-3' defaultValue={forfaitD.Name} onChange={(e) => setFordaitD({...forfaitD, Name: e.target.value })}/>
+                <Input icon='star' iconPosition='left' placeholder='Nom' className='w-100 border-0 shadow-sm rounded mb-3' onKeyPress={event => OnKeyPressFunc(event)} value={forfaitD.F_Name}  onChange={(e) => setFordaitD({...forfaitD, F_Name: e.target.value })}/>
                 
+                <h5 className='mb-1 mt-0'>Tarif: </h5>
+                <Input icon='dollar' iconPosition='left' placeholder='Tarif' className='w-100 border-0 shadow-sm rounded mb-3' onKeyPress={event => OnKeyPressFunc(event)} value={forfaitD.Tarif}  onChange={(e) => setFordaitD({...forfaitD, Tarif: e.target.value })}/>
+
                 <div className='row'>
-                            <div className='col-12 col-lg-4'>
-                                <h5 className='mb-1'>Genre: </h5>
-                                <Input icon='dollar' iconPosition='left'   placeholder='genre' defaultValue={forfaitD.Genre}   className='w-100 border-0 shadow-sm rounded mb-3' onChange={(e) => setFordaitD({...forfaitD, Genre: e.target.value })}/> </div>
-                            <div className='col-12 col-lg-4'>
-                                <h5 className='mb-1'>Prix Acaht: </h5>
-                                <Input icon='dollar' iconPosition='left' type='number' placeholder='achat' defaultValue={forfaitD.Prix_achat} onBlur={checkPrixCompatiblite} className='w-100 border-0 shadow-sm rounded mb-3' onChange={(e) => setFordaitD({...forfaitD, Prix_achat: e.target.value })}/> 
-                            </div>
-                            <div className='col-12 col-lg-4'>
-                                <h5 className='mb-1'>Quantité: </h5>
-                                <Input icon='dropbox' iconPosition='left' type='number' disabled={true} placeholder='quantité' className='w-100 border-0 shadow-sm rounded mb-3' defaultValue={forfaitD.Quantite} onChange={(e) => setFordaitD({...forfaitD, Quantite: e.target.value })}/> 
-                            </div>
-                </div> 
-                <div className='row'>
-                            <div className='col-12 col-lg-12'>
-                                <h5 className='mb-1'>Repture du stock: </h5>
-                                <Input icon='angle double down' iconPosition='left' type='number' placeholder='repture' className='w-100 border-0 shadow-sm rounded mb-3' defaultValue={forfaitD.Repture} onChange={(e) => setFordaitD({...forfaitD, Repture: e.target.value })}/>
-                            </div>
+                    <div className='col-12'>
+                        <h5 className='mb-1'>Nombre de Seance: </h5>
+                        <Input icon='tag' iconPosition='left' type='number' placeholder='Nombre de Seance' value={forfaitD.NB_Seance}   className='w-100 border-0 shadow-sm rounded mb-3' onChange={(e) => setFordaitD({...forfaitD, NB_Seance: e.target.value })}/> 
+                    </div>
                 </div>
                 <div className='text-end mb-5'>
                     <Button onClick={EditArticleFunction} className='text-end rounded-pill bg-system-btn' positive>  <Icon name='edit' /> Modifier <Loader inverted active={loaderState} inline size='tiny' className='ms-2 text-danger'/></Button>
@@ -45,7 +36,7 @@ const EditArticle = ({forfaitD, setFordaitD, checkPrixCompatiblite, familles, Ed
 function ArticleInfo() {
     /*#########################[Const]##################################*/
     let {code} = useParams();
-
+    const navigate = useNavigate();
     
     const [forfaitD, setFordaitD] = useState({});
     const [forfaitListe , setForfaitListe] = useState([])
@@ -56,11 +47,11 @@ function ArticleInfo() {
     const panes = [
         {
             menuItem: { key: 'resumer', icon: 'file excel', content: 'Abonneé' }, 
-            render: () => <><Tab.Pane attached={false}><StockESCard /></Tab.Pane><br /></>,
+            render: () => <> <TableGrid tableData={forfaitListe} columns={['ID','Mmebre','Depart','Saisson','Seances','Etat','Voir']} /> <br /></>,
         },
         {
             menuItem: { key: 'edit', icon: 'edit outline', content: 'Modifier' }, 
-            render: () => <><Tab.Pane attached={false}><EditArticle forfaitD={forfaitD}  setFordaitD={setFordaitD}   EditArticleFunction={EditArticleFunction} loaderState={loaderState}   /></Tab.Pane><br /></>,
+            render: () => <><Tab.Pane attached={false}><EditArticle forfaitD={forfaitD}  setFordaitD={setFordaitD} OnKeyPressFunc={OnKeyPressFunc}  EditArticleFunction={EditArticleFunction} loaderState={loaderState}   /></Tab.Pane><br /></>,
         },
         {
             menuItem: { key: 'delete', icon: 'trash alternate', content: 'Supprimer' }, 
@@ -75,12 +66,27 @@ function ArticleInfo() {
             code: code, 
           })
           .then(function (response) {
-            if(!response.data[0]) {
+            console.log(response.data)
+            if(!response.data.Data.F_ID) {
                 toast.error('Forfait Introuvable !', GConf.TostSuucessGonf)
                 setTimeout(() => {  window.location.href = "/S/of"; }, 2000)
                 
             } else {
-                setFordaitD(response.data[0])
+                setFordaitD(response.data.Data)
+                let abonemmentContainer = []
+               response.data.Abonnement.map( (getData) => abonemmentContainer.push([
+ 
+                getData.AB_ID,
+                getData.ME_Name,
+ 
+                new Date(getData.AB_Depart_Date).toLocaleDateString('fr-FR').split( '/' ).reverse( ).join( '-' ),
+                getData.AB_Saisson,
+                getData.Tarif,
+                _(<StateCard status={CheckPaymmentOfMonth(getData.AB_Paymment)} />),
+                _(<Button className='rounded-pill bg-system-btn' size='mini' onClick={ (e) => NavigateFunction(`/S/ab/info/${getData.AB_ID}`)}><span className='d-none d-lg-inline'> </span><Icon  name='angle right' /></Button>)
+               ],))
+               setForfaitListe(abonemmentContainer)
+
                 setLoading(true)
             }
                 
@@ -93,17 +99,22 @@ function ArticleInfo() {
           });
 
     }, [])
-
+    const OnKeyPressFunc = (e) => {
+        if (!((e.charCode >= 65 && e.charCode <= 90) || (e.charCode >= 97 && e.charCode <= 122) || (e.charCode >= 48 && e.charCode <= 57) || e.charCode == 42 || e.charCode == 32 || e.charCode == 47 )) {
+              e.preventDefault();
+        }   
+     }
 
     /*#########################[Function]##################################*/
     const EditArticleFunction = (event) => {
         setLS(true)
         axios.post(`${GConf.ApiLink}/forfait/modifier`, {
             PID :GConf.PID,
-            articleND :forfaitD,
+            F_ID :code,
+            forfaitData :forfaitD,
         }).then(function (response) {
             if(response.data.affectedRows) {
-                toast.success("Article Modifier !", GConf.TostSuucessGonf)
+                toast.success("Forfait Modifier !", GConf.TostSuucessGonf)
                 setLS(false)
                  
             }
@@ -140,11 +151,15 @@ function ArticleInfo() {
             }
           });
     }
- 
- 
- 
- 
-   
+    const NavigateFunction = (link) => {  navigate(link) }
+    const CheckPaymmentOfMonth = (value) =>{
+        let searchForMonth = JSON.parse(value).find((data) => data.mois == (new Date()).getMonth() + 1)
+        if (searchForMonth) {
+            return 'Payee'
+        } else {
+            return 'NonPayee'
+        }
+    }
    /*#########################[Card]##################################*/
     const ForfaitCard = (props) =>{
         const ReptureState = () =>{
@@ -184,14 +199,14 @@ function ArticleInfo() {
     }
     const DeleteForfaitCard = () =>{
         return(<>
-            <h3 className="text-secondary">Voulez-Vous Vraimment Supprimer Cett Article ?</h3> 
+            <h3 className="text-secondary">Voulez-Vous Vraimment Supprimer Cett Forfait ?</h3> 
             <div className='row'>
                 <div className='col-9'>
-                    <h5 className="text-danger text-left"><b>Lorsque Vous Supprimer L'Article : </b></h5>
+                    <h5 className="text-danger text-left"><b>Lorsque Vous Supprimer L'Forfait : </b></h5>
                     <ul className="text-info text-left">
-                    <li>L'article ne sera pas visible dans la branche 'Stock'</li>
-                    <li>Tous les article avec son code a barre se suppriment </li>
-                    <li>L'article Soit visible seulemment dans les facture  </li>
+                    <li>L'Forfait ne sera pas visible dans la branche 'Stock'</li>
+                    <li>Tous les Forfait avec cette ID vont se supprimé </li>
+                    <li>L'Forfait Soit visible seulemment dans les Abonnement  </li>
                     </ul>
                 </div>
                 <div className='col-lg-3 d-none d-lg-block align-self-center'>
@@ -205,16 +220,25 @@ function ArticleInfo() {
             </div>
         </>)
     }
-    const StockESCard = () =>{
-        return(<>
-                <h5>Liste des forfait dans abonnemment  </h5>
-                 
-        </>)
-    }
-
-
+    const StateCard = ({ status }) => {
+        const StateCard = (props) =>{ return <span className={`badge bg-${props.color}`}> {props.text} </span>}
+        const statusCard = React.useCallback(() => {
+          switch(status) {
+            case 'Payee': return <StateCard color='success' text='Payeé' />;  
+            case 'NonPayee': return <StateCard color='danger' text='Non Payeé' /> ;
+            case 'EnAttent': return <StateCard color='secondary' text='En Court' /> ;
+            default:  return <StateCard color='warninf' text='Indefinie' />;    
+          }
+        }, [status]);
+      
+        return (
+          <div className="container">
+            {statusCard()}
+          </div>
+        );
+    };
     return ( <> 
-                <BreadCrumb links={GConf.BreadCrumb.stockInfo} />
+                <BreadCrumb links={GConf.BreadCrumb.forfraitInfo} />
                 <br />
                 <div className="row">
                     <div className="col-12 col-lg-4">

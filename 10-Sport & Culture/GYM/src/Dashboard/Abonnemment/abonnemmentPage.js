@@ -28,6 +28,7 @@ function FacturePage() {
             PID : GConf.PID,
         })
         .then(function (response) {
+ 
             let factureListContainer = []
             response.data.map( (getData) => factureListContainer.push([
             _(<TableImage image='abonnemment.png' />),
@@ -35,9 +36,9 @@ function FacturePage() {
             getData.ME_Name,
             getData.F_Name,
             new Date(getData.AB_Depart_Date).toLocaleDateString('fr-FR').split( '/' ).reverse( ).join( '-' ),
-            new Date(getData.AB_Termine_Date).toLocaleDateString('fr-FR').split( '/' ).reverse( ).join( '-' ),
+            getData.AB_Saisson,
             getData.Tarif,
-            _(<StateCard status={getData.State} />),
+            _(<StateCard status={CheckPaymmentOfMonth(getData.AB_Paymment)} />),
             _(<Button className='rounded-pill bg-system-btn' size='mini' onClick={ (e) => NavigateFunction(`/S/ab/info/${getData.AB_ID}`)}><span className='d-none d-lg-inline'> Info </span><Icon  name='angle right' /></Button>)
             ],))
             setFactureList(factureListContainer)
@@ -86,6 +87,14 @@ function FacturePage() {
         );
     };
 
+    const CheckPaymmentOfMonth = (value) =>{
+        let searchForMonth = JSON.parse(value).find((data) => data.mois == (new Date()).getMonth() + 1)
+        if (searchForMonth) {
+            return 'Payee'
+        } else {
+            return 'NonPayee'
+        }
+    }
     /*#########################[Card]##################################*/
     const SDF = (props)=>{
       return(<>
@@ -109,7 +118,7 @@ function FacturePage() {
                 <div className='col-12 col-lg-4 text-end align-self-center'><MainSubNavCard text='Offres' link='of' icon='bounding-box-circles' />  </div>
             </div>
             <br />
-            <TableGrid tableData={facturesList} columns={GConf.TableHead.facture} />
+            <TableGrid tableData={facturesList} columns={GConf.TableHead.abonnemment} />
         </Fade>
         <Modal
                 size='small'

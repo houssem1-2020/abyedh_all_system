@@ -136,7 +136,7 @@ function StockPage() {
               <br />
               <br />
               <div className='row'>
-                  <div className='col-12 col-lg-8'><TableGrid tableData={forfaitListe} columns={GConf.TableHead.stock} /></div>
+                  <div className='col-12 col-lg-8'><TableGrid tableData={forfaitListe} columns={GConf.TableHead.Offre} /></div>
                   <div className='col-12 col-lg-4  '>
                      <div className="sticky-top" style={{top:'70px'}}>
                         <div className='card card-body border-div shadow-sm mb-4'>
@@ -146,12 +146,12 @@ function StockPage() {
                               <Input icon='star' iconPosition='left' placeholder='Nom' className='w-100 border-0 shadow-sm rounded mb-3' onKeyPress={event => OnKeyPressFunc(event)} value={forfaitD.F_Name}  onChange={(e) => setForfaitD({...forfaitD, F_Name: e.target.value })}/>
                               
                               <h5 className='mb-1 mt-0'>Tarif: </h5>
-                              <Input icon='tag' iconPosition='left' placeholder='Genre' className='w-100 border-0 shadow-sm rounded mb-3' onKeyPress={event => OnKeyPressFunc(event)} value={forfaitD.Tarif}  onChange={(e) => setForfaitD({...forfaitD, Tarif: e.target.value })}/>
+                              <Input icon='dollar' iconPosition='left' placeholder='Tarif' className='w-100 border-0 shadow-sm rounded mb-3' onKeyPress={event => OnKeyPressFunc(event)} value={forfaitD.Tarif}  onChange={(e) => setForfaitD({...forfaitD, Tarif: e.target.value })}/>
 
                               <div className='row'>
                                  <div className='col-12'>
-                                       <h5 className='mb-1'>Nombre de Seabce: </h5>
-                                       <Input icon='dollar' iconPosition='left' type='number' placeholder='Tarif' value={forfaitD.NB_Seance}   className='w-100 border-0 shadow-sm rounded mb-3' onChange={(e) => setForfaitD({...forfaitD, NB_Seance: e.target.value })}/> 
+                                       <h5 className='mb-1'>Nombre de Seance: </h5>
+                                       <Input icon='tag' iconPosition='left' type='number' placeholder='Nombre de Seance' value={forfaitD.NB_Seance}   className='w-100 border-0 shadow-sm rounded mb-3' onChange={(e) => setForfaitD({...forfaitD, NB_Seance: e.target.value })}/> 
                                  </div>
                               </div>
                               <div className='text-end mb-2'>

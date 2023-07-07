@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import BreadCrumb  from '../../AssetsM/Cards/breadCrumb';
 import GConf from '../../AssetsM/generalConf';
-import { Button, Dropdown, Icon, Input , Loader, Tab} from 'semantic-ui-react';
+import { Button, Dropdown, Icon, Input , Loader, Select, Tab} from 'semantic-ui-react';
 import axios from 'axios';
 import { toast } from 'react-toastify';
 import useGetClients from '../../AssetsM/Hooks/fetchClient';
@@ -17,12 +17,26 @@ import { Bounce } from 'react-reveal';
 function AjouterFacture() {
     /*#########################[Const]##################################*/
     const Today = new Date()
-    const [abonnemmentData, setAbonnemmentData] = useState({AB_Depart_Date: Today.toISOString().split('T')[0] , AB_Termine_Date : Today.toISOString().split('T')[0] , AB_Depart_Time : new Date().toLocaleTimeString([],{ hourCycle: 'h23'}) , AB_Termine_Time : new Date().toLocaleTimeString([],{ hourCycle: 'h23'})})
+    const [abonnemmentData, setAbonnemmentData] = useState({AB_Depart_Date: Today.toISOString().split('T')[0] , AB_Saisson : Today.toISOString().split('T')[0] , AB_Depart_Time : new Date().toLocaleTimeString([],{ hourCycle: 'h23'}) , AB_Termine_Time : new Date().toLocaleTimeString([],{ hourCycle: 'h23'})})
     const [forfaitListe ,setForfaliListe] = useState([])
     const [membreListe ,setMmebreListe] = useState([])
     const [loaderState, setLS] = useState(false)
     const [btnState, setSaveBtnState] = useState(false)
- 
+    const SaisonChoise = [
+        {id:1, value :'2022', text:'2022'},
+        {id:2, value :'2023', text:'2023'},
+        {id:3, value :'2024', text:'2024'},
+        {id:4, value :'2025', text:'2025'},
+        {id:5, value :'2026', text:'2026'},
+        {id:6, value :'2027', text:'2027'},
+        {id:7, value :'2028', text:'2028'},
+        {id:8, value :'2029', text:'2029'},
+        {id:9, value :'2030', text:'2030'},
+        {id:10, value :'2031', text:'2031'},
+        {id:11, value :'2032', text:'2032'},
+        {id:12, value :'2033', text:'2033'},
+        {id:13, value :'2034', text:'2034'},
+    ]
  
 
     /* ############################### UseEffect ########################*/
@@ -58,7 +72,7 @@ function AjouterFacture() {
         if (!abonnemmentData.Forfait_ID ) {toast.error("Forfait_ID  est Invalide !", GConf.TostErrorGonf)}
         else if (!abonnemmentData.Membre_ID ) {toast.error("Membre_ID est Invalide !", GConf.TostErrorGonf)}
         else if (!abonnemmentData.AB_Depart_Date ) {toast.error("Jour de Depart est Invalide !", GConf.TostErrorGonf)}
-        else if (!abonnemmentData.AB_Termine_Date ) {toast.error("Jour de Terminaison est Invalide !", GConf.TostErrorGonf)}
+        else if (!abonnemmentData.AB_Saisson ) {toast.error("Jour de Terminaison est Invalide !", GConf.TostErrorGonf)}
         else if (!abonnemmentData. AB_Depart_Time ) {toast.error("Temps de Depart  est Invalide !", GConf.TostErrorGonf)}
         else if (!abonnemmentData. AB_Termine_Time ) {toast.error("Temps de Terminaison  est Invalide !", GConf.TostErrorGonf)}
         else {
@@ -97,7 +111,7 @@ function AjouterFacture() {
  
     
     return (<>
-        <BreadCrumb links={GConf.BreadCrumb.factureAjouter} />
+        <BreadCrumb links={GConf.BreadCrumb.abonnemmentAjouter} />
         <br />
         <Bounce left>
             <div className='row'>
@@ -109,8 +123,6 @@ function AjouterFacture() {
                         )}
                     </datalist>
                     <Input icon='add user' onKeyPress={event => OnKeyPressFunc(event)} list="clientList" placeholder={abonnemmentData.Membre_ID}   onBlur={ (e) => setAbonnemmentData({...abonnemmentData, Membre_ID: e.target.value })} size="small" iconPosition='left'   fluid className='mb-1 shadow-sm' />
-                
-                    
                     <h5 className='mb-0 mt-2 text-secondary '>Forfait  </h5>
                     <Dropdown
                         search
@@ -125,27 +137,27 @@ function AjouterFacture() {
                     /> 
                     <div className='row'>
                         <div className='col-6'>
-                            <h5 className='mb-0 mt-2 text-secondary '>Depart  </h5>
-                            <Input icon='truck' type='date' placeholder='Camion'  iconPosition='left'   fluid className='mb-1 shadow-sm' value={abonnemmentData.AB_Depart_Date} onChange={(e) => setAbonnemmentData({...abonnemmentData, AB_Depart_Date: e.target.value })}/> 
+                            <h5 className='mb-0 mt-2 text-secondary '> Saison   </h5>
+                            <Select placeholder='Saisson'  options={SaisonChoise}  className='w-100 shadow-sm rounded mb-3' value={abonnemmentData.AB_Saisson} onChange={(e, data) => setAbonnemmentData({...abonnemmentData, AB_Saisson: data.value })} />
                         </div>
                         <div className='col-6'>
-                            <h5 className='mb-0 mt-2 text-secondary '>Terminer   </h5>
-                            <Input icon='truck' type='date' placeholder='Camion'  iconPosition='left'   fluid className='mb-1 shadow-sm' value={abonnemmentData.AB_Termine_Date} onChange={(e) => setAbonnemmentData({...abonnemmentData, AB_Termine_Date: e.target.value })}/> 
+                            <h5 className='mb-0 mt-2 text-secondary '>Depart Le </h5>
+                            <Input icon='calendar' type='date' placeholder='Camion'  iconPosition='left'   fluid className='mb-1 shadow-sm' value={abonnemmentData.AB_Depart_Date} onChange={(e) => setAbonnemmentData({...abonnemmentData, AB_Depart_Date: e.target.value })}/> 
                         </div>
                     </div>
 
                     <div className='row'>
                         <div className='col-6'>
-                            <h5 className='mb-0 mt-2 text-secondary '>Temps d'entrainemment  </h5>
-                            <Input icon='map marker' type='time' onKeyPress={event => OnKeyPressFunc(event)}  iconPosition='left' placeholder='De'  fluid className='mb-1 shadow-sm'  value={abonnemmentData.AB_Depart_Time}  onChange={(e) => setAbonnemmentData({...abonnemmentData, AB_Depart_Time : e.target.value })}/>
+                            <h5 className='mb-0 mt-2 text-secondary '>Temps d'entrainemment Depart  </h5>
+                            <Input icon='time' type='time' onKeyPress={event => OnKeyPressFunc(event)}  iconPosition='left' placeholder='De'  fluid className='mb-1 shadow-sm'  value={abonnemmentData.AB_Depart_Time}  onChange={(e) => setAbonnemmentData({...abonnemmentData, AB_Depart_Time : e.target.value })}/>
                         </div>
                         <div className='col-6'>
-                            <h5 className='mb-0 mt-2 text-secondary '>Temps d'entrainemment  </h5>
-                            <Input icon='map marker alternate'  type='time' onKeyPress={event => OnKeyPressFunc(event)}  iconPosition='left' placeholder='Vers'  fluid className='mb-1 shadow-sm' value={abonnemmentData.AB_Termine_Time}  onChange={(e) => setAbonnemmentData({...abonnemmentData, AB_Termine_Time: e.target.value })}/>
+                            <h5 className='mb-0 mt-2 text-secondary '>Temps d'entrainemment Terminer </h5>
+                            <Input icon='time'  type='time' onKeyPress={event => OnKeyPressFunc(event)}  iconPosition='left' placeholder='Vers'  fluid className='mb-1 shadow-sm' value={abonnemmentData.AB_Termine_Time}  onChange={(e) => setAbonnemmentData({...abonnemmentData, AB_Termine_Time: e.target.value })}/>
                         </div>
                     </div>
                     <div className='text-end mt-4'>
-                        <Button  className='rounded-pill text-secondary bg-system-btn'   disabled={btnState}    onClick={(e) => SaveAbonnementFunc()}><Icon name='edit outline' /> Enregistrer Client <Loader active={loaderState} /> </Button>
+                        <Button  className='rounded-pill text-secondary bg-system-btn'   disabled={btnState}    onClick={(e) => SaveAbonnementFunc()}><Icon name='edit outline' /> Enregistrer Abonnemment <Loader active={loaderState} /> </Button>
                     </div>
                 </div>
                 <div className='col-12 col-lg-4 align-self-center'>

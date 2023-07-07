@@ -82,7 +82,6 @@ function AddEquipemment() {
     }  
     const checkCodeEquipExistance = () =>{    
         if(equipemmentD.INS_Code){
-            console.log(articles.includes(parseInt(equipemmentD.INS_Code)))
             if(articles.includes(parseInt(equipemmentD.INS_Code))) {
                 toast.error("Article Exist Deja", GConf.TostErrorGonf)
                 setEquipemmentD({...equipemmentD, INS_Code: '' })
@@ -119,40 +118,51 @@ function AddEquipemment() {
             e.preventDefault();
         }   
     }
+    const GenerateRandomCode = () =>{
+        let randomNumber;
 
+        do {
+            randomNumber = Math.floor(Math.random() * (99999 - 111111 + 1)) + 11111;
+        } while (articles.includes(randomNumber));
+
+        setEquipemmentD({...equipemmentD, INS_Code: randomNumber })
+    }
     /*  */
 
     return ( <>
 
-            <BreadCrumb links={GConf.BreadCrumb.menuAddPlat} />
+            <BreadCrumb links={GConf.BreadCrumb.addEquipemment} />
             <br />
             <Bounce left>
                 <div className='row'>
-                    <div className='col-12 col-lg-8'>
+                       <div className='col-12 col-lg-8'>
                         <div className='row'>
+                                <div className='col-12 col-lg-5'>
+                                        <h5 className='mb-1'>Code  :  </h5>
+                                        <Input icon='barcode' iconPosition='left' type='number' placeholder='code  ' className='w-100 border-0 shadow-sm rounded mb-3' onKeyPress={event => OnKeyPressFunc(event)} onBlur={checkCodeEquipExistance} value={equipemmentD.INS_Code} onChange={(e) => setEquipemmentD({...equipemmentD, INS_Code: e.target.value })} />
+                                    </div>
+                                    <div className='col-12 col-lg-1 align-self-center'>
+                                        <Button  icon className='rounded-circle mt-2' onClick={() => GenerateRandomCode()}><Icon name='add' /></Button>
+                                    </div>
                                 <div className='col-12 col-lg-6'>
                                     <h5 className='mb-1'>Nom: </h5>
                                     <Input icon='star' iconPosition='left' placeholder='Nom' className='w-100 border-0 shadow-sm rounded mb-3' onKeyPress={event => OnKeyPressFunc(event)} value={equipemmentD.INS_Name}  onChange={(e) => setEquipemmentD({...equipemmentD, INS_Name: e.target.value })}/>
                                 </div>
-                                <div className='col-12 col-lg-6'>
-                                        <h5 className='mb-1'>Code  :</h5>
-                                        <Input icon='barcode' iconPosition='left' type='number' placeholder='code  ' className='w-100 border-0 shadow-sm rounded mb-3' onKeyPress={event => OnKeyPressFunc(event)} onBlur={checkCodeEquipExistance} value={equipemmentD.INS_Code} onChange={(e) => setEquipemmentD({...equipemmentD, INS_Code: e.target.value })} />
-                                    </div>
                         </div> 
                         <div className='row'>
-                                    <div className='col-12 col-lg-6'>
-                                        <h5 className='mb-1'>Qte  :</h5>
-                                        <Input icon='barcode' iconPosition='left' type='number' placeholder='code  ' className='w-100 border-0 shadow-sm rounded mb-3' onKeyPress={event => OnKeyPressFunc(event)}   value={equipemmentD.INS_Qte} onChange={(e) => setEquipemmentD({...equipemmentD, INS_Qte: e.target.value })} />
-                                    </div>
-                                    <div className='col-12 col-lg-6'>
-                                        <h5 className='mb-1'>Genre: </h5>
-                                    <Select placeholder='Selectionner Une Famille' options={familles} className='w-100 shadow-sm rounded mb-3' value={equipemmentD.INS_Genre} onChange={(e, data) => setEquipemmentD({...equipemmentD, INS_Genre: data.value })} />  
-                                    </div>
+                                <div className='col-12 col-lg-6'>
+                                    <h5 className='mb-1'>Genre: </h5>
+                                <Select placeholder='Selectionner Une Famille' options={familles} className='w-100 shadow-sm rounded mb-3' value={equipemmentD.INS_Genre} onChange={(e, data) => setEquipemmentD({...equipemmentD, INS_Genre: data.value })} />  
+                                </div>
+                                <div className='col-12 col-lg-6'>
+                                    <h5 className='mb-1'>Quantite  :</h5>
+                                    <Input icon='boxes' iconPosition='left' type='number' placeholder='Quantite' className='w-100 border-0 shadow-sm rounded mb-3' onKeyPress={event => OnKeyPressFunc(event)}   value={equipemmentD.INS_Qte} onChange={(e) => setEquipemmentD({...equipemmentD, INS_Qte: e.target.value })} />
+                                </div>
                         </div>
                         <div className='row'>
                             <h5 className='mb-1'>Description</h5>
                                 <Form>
-                                    <TextArea  rows="3" placeholder='designer votre article' className='w-100 shadow-sm rounded mb-3' onKeyPress={event => OnKeyPressFunc(event)}  onChange={(e) => setEquipemmentD({...equipemmentD, Description: e.target.value })}/>
+                                    <TextArea  rows="3" placeholder='Description' className='w-100 shadow-sm rounded mb-3' onKeyPress={event => OnKeyPressFunc(event)}  onChange={(e) => setEquipemmentD({...equipemmentD, Description: e.target.value })}/>
                                 </Form> 
                         </div>
                         <div className='text-end mb-5'>

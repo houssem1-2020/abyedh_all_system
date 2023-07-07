@@ -112,15 +112,15 @@ function ClientInfo() {
 
     const panes = [
         {
-            menuItem: { key: 'home', icon: 'home', content: 'Factures' }, 
-            render: () => <><TableGrid tableData={factures} columns={['ID','Client','Jour','Temps','Totale','Voir']} /><br /></>,
+            menuItem: { key: 'home', icon: 'home', content: 'Abonnemment' }, 
+            render: () => <><TableGrid tableData={factures} columns={['ID','Forfait','Saisson','Depart','Temps','Voir']} /><br /></>,
         },
         {
-            menuItem: { key: 'commande', icon: 'calendar alternate', content: 'Commandes' }, 
-            render: () =><TableGrid tableData={commande} columns={GConf.TableHead.clientCommande} />,
+            menuItem: { key: 'commande', icon: 'calendar alternate', content: 'Seances' }, 
+            render: () =><TableGrid tableData={commande} columns={['ID','Forfait','Jour','Temps','Etat','Voir']} />,
         },
         {
-            menuItem: { key: 'Reservation', icon: 'calendar alternate', content: 'Reservation' }, 
+            menuItem: { key: 'Reservation', icon: 'calendar alternate', content: 'Souscription' }, 
             render: () =><TableGrid tableData={reservationListe} columns={['ID','Client','Jour','Temps','Totale','Voir']} />,
         },
         {
@@ -156,22 +156,22 @@ function ClientInfo() {
                 
                 let factureTable = []
                 response.data.Abonnement.map( (getData, index) => factureTable.push([ 
-                getData.T_ID,
-                getData.CA_Name,
-                new Date(getData.T_Date).toLocaleDateString('fr-FR').split( '/' ).reverse( ).join( '-' ),
-                getData.T_Time,
-                getData.Final_Value,
+                getData.AB_ID,
+                getData.F_Name,
+                getData.AB_Saisson,
+                new Date(getData.AB_Depart_Date).toLocaleDateString('fr-FR').split( '/' ).reverse( ).join( '-' ),
+                getData.AB_Depart_Time,
                 _(<Button className='rounded-pill bg-system-btn' size='mini' onClick={ (e) => NavigateFunction(`/S/ft/info/${getData.T_ID}`)}><span className='d-none d-lg-inline'> Info </span><Icon  name='angle right' /></Button>)
                 ],))
                 setFactures(factureTable)
 
                 let commandeTable = []
                 response.data.Seances.map( (getData, index) => commandeTable.push([ 
-                    getData.R_ID,
-                    response.data.Data.ME_Name,
-                    new Date(getData.R_Date).toLocaleDateString('fr-FR').split( '/' ).reverse( ).join( '-' ),
-                    getData.Table_Num,
-                    _(<StateCard status={getData.State} />),
+                    getData.SE_ID,
+                    getData.F_Name ,
+                    new Date(getData.SE_Date).toLocaleDateString('fr-FR').split( '/' ).reverse( ).join( '-' ),
+                    getData.SE_Time,
+                    _(<StateSeanceCard status={getData.SE_State} />),
                     _(<Button className='rounded-pill bg-system-btn' size='mini' onClick={ (e) => NavigateFunction(`/S/rq/cm/info/${getData.R_ID}`)}><span className='d-none d-lg-inline'> Info </span><Icon  name='angle right' /></Button>)
                 ],))
                 setCommande(commandeTable)
@@ -333,7 +333,7 @@ function ClientInfo() {
                     </div>
                     <div className="img-card-container text-center">
                         <div className="card-container">
-                            <img src="https://system.anaslouma.tn/Assets/images/fourniss.png" className="rounded-circle" width="80" />                    
+                            <img src="https://cdn.abyedh.tn/images/system/gym/membre.jpg" className="rounded-circle" width="80" />                    
                         </div>
                     </div>
                     <div className="mt-5 text-center">
@@ -389,15 +389,15 @@ function ClientInfo() {
                     </div>
         </>);
     }
-    const DeleteClient= () =>{
-        return(<><h3 className="text-secondary">Voulez-Vous Vraimment Supprimer Ce Camion ?</h3> 
+    const DeleteClient = () =>{
+        return(<><h3 className="text-secondary">Voulez-Vous Vraimment Supprimer Ce Membre ?</h3> 
         <div className='row'>
                 <div className='col-9'>
-                    <h5 className="text-danger text-left"><b>Lorsque Vous Supprimer Un Client : </b></h5>
+                    <h5 className="text-danger text-left"><b>Lorsque Vous Supprimer Un Membre : </b></h5>
                     <ul className="text-info text-left">
-                    <li>le Client  ne sera pas visible dans la branche 'Clients'</li>
-                    <li>Tous les factures relier a ce client peut s'endomager   </li>
-                    <li>vous ne pouver pas passer ni factures ni commandes avec ce clients autremment   </li>
+                    <li>le Membre  ne sera pas visible dans la branche 'Membres'</li>
+                    <li>Tous les Abonnement et les seances  relier a ce Membre peut s'endomager   </li>
+                    <li>vous ne pouver pas passer ni abonnemment  ni seance avec ce Membres autremment   </li>
                     </ul>
                 </div>
                 <div className='col-lg-3 d-none d-lg-block align-self-center'>
@@ -428,7 +428,23 @@ function ClientInfo() {
           </div>
         );
     };
-    
+    const StateSeanceCard = ({ status }) => {
+        const StateCard = (props) =>{ return <span className={`badge bg-${props.color}`}> {props.text} </span>}
+        const statusCard = React.useCallback(() => {
+          switch(status) {
+            case 'C': return <StateCard color='warning' text='En Cours' />;  
+            case 'A': return <StateCard color='danger' text='Annuleé' /> ;
+            case 'T': return <StateCard color='success' text='Termineé' /> ;
+            default:  return <StateCard color='secondary' text='Indefinie' />;    
+          }
+        }, [status]);
+      
+        return (
+          <div className="container">
+            {statusCard()}
+          </div>
+        );
+    };
     return ( <> 
          <BreadCrumb links={GConf.BreadCrumb.ClientInfo} />
          <br />

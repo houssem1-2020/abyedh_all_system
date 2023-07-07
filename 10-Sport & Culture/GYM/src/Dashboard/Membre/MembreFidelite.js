@@ -6,58 +6,8 @@ import BreadCrumb from '../../AssetsM/Cards/breadCrumb'
 import axios from 'axios';
 import {toast } from 'react-toastify';
 import SKLT from '../../AssetsM/Cards/usedSlk';
-import useSaveNotification from '../../AssetsM/Hooks/saveNotifFunction';
-
-const EditModal = ({setModalS,EditRegion,editRegionD,setRegionEdit,modalS,Gouvernorat}) =>{
-    return(<>
-            <Modal
-                    size='mini'
-                    open={modalS}
-                    dimmer = 'blurring'
-                    closeIcon
-                    onClose={() => setModalS(false)}
-                    onOpen={() => setModalS(true)}
-                >
-                    <Modal.Header><h4>Modifier Region</h4></Modal.Header>
-                    <Modal.Content>                        
-                            <h5 className='mb-1'>Gouvernorat</h5>
-                                <Select placeholder='Choisir Une Gouvernement' options={Gouvernorat}  defaultValue={editRegionD.Gouv}  className='w-100 shadow-sm rounded mb-3' onChange={(e, data) => setRegionEdit({...editRegionD, Gouv: data.value })} />
-                            <h5 className='mb-1'>Region </h5>
-                            <Input icon='map pin' iconPosition='left' value={editRegionD.Localisation} placeholder='Non de la Region' className='w-100 border-0 rounded '   onChange={(e) => setRegionEdit({...editRegionD, Localisation: e.target.value })}/>
-                            <br />
-                    </Modal.Content>
-                    <Modal.Actions>
-                                <Button  className=' bg-system-btn rounded-pill' onClick={EditRegion}>  <Icon name='save' /> Enregistrer </Button>
-                    </Modal.Actions>
-            </Modal>
-    </>)
-}
-const DeleteModal = ({setDeleteModalS,DeleteRegion,editRegionD,setRegionEdit,deletemodalS}) =>{
-    return(<>
-            <Modal
-                    size='mini'
-                    open={deletemodalS}
-                    dimmer = 'blurring'
-                    closeIcon
-                    onClose={() => setDeleteModalS(false)}
-                    onOpen={() => setDeleteModalS(true)}
-                    
-                >
-                    <Modal.Header><h4>Supprimer Region</h4></Modal.Header>
-                    <Modal.Content>
-                            Voulez-Vous Vraimment Supprimer Cette Region 
-                            <br />
-                            <br />
-                            <div className='mb-0 p-0'><h5> Gouvernorat : {editRegionD.Gouv}</h5></div>         
-                            <div><h5> Localisation : {editRegionD.Localisation} </h5></div>
-                    </Modal.Content>
-                    <Modal.Actions>
-                                {/* <Button className='rounded-pill' negative onClick={ () => setDeleteModalS(false)}> <span className='bi bi-x' ></span> </Button> */}
-                                <Button negative className='rounded-pill' onClick={DeleteRegion}>  <Icon name='trash' /> Supprimer </Button>
-                    </Modal.Actions>
-            </Modal>
-    </>)
-}
+ 
+ 
 
 function ClientRegions() {
     //variables
@@ -71,13 +21,7 @@ function ClientRegions() {
 
     const [displayFamille, setDisplayFamille] = useState([]);
     const [saveBtnState, setSaveBtnState] = useState('')
-    const [updateFT, setUpdateFT] = useState('')
-    const [regionD, setRegionD] = useState([])
-    const [editRegionD, setRegionEdit] = useState([])
-    const [modalS, setModalS] = useState(false)
-    const [deletemodalS, setDeleteModalS] = useState(false)
     const [loaderState, setLS] = useState(false)
-    
     const [activePage , setActivePage] = useState(1)
 
     const TopG = [
@@ -88,8 +32,8 @@ function ClientRegions() {
         { key: '5', value: '200', text: '100' },
     ]
     const ClassmmentG = [
-        { key: '1', value: 'Nombre', text: 'Nombre de Facture' },
-        { key: '2', value: 'Totale', text: 'Totale Factures' },
+        { key: '1', value: 'Abonnemment', text: 'Nombre de d\'abonnemment ' },
+        { key: '2', value: 'Seance', text: 'Nombre de Seances' },
     ]
  
    
@@ -126,41 +70,9 @@ function ClientRegions() {
               });
         }
     }
-    const EditRegion = () => {
-        setLS(true)
-        axios.post(`${GConf.ApiLink}/membres/map/modifier`, {
-            tag : GConf.PID,
-            editRegionD : editRegionD,
-        }).then(function (response) {
-            console.log(response.data)
-            if(response.data.affectedRows) {
-                setModalS(false)
-                toast.success("Famille Modifier avec Suucess", GConf.TostSuucessGonf)
-                setUpdateFT(Math.random() * 10)
-                setLS(false)
-            }
-            else{
-                setModalS(false)
-                toast.error('Erreur esseyez de nouveaux', GConf.TostSuucessGonf)
-                setLS(false)
-            }
-            
-        }).catch((error) => {
-            if(error.request) {
-              toast.error(<><div><h5>Probleme de Connextion</h5> Impossible de modifier la regions  </div></>, GConf.TostInternetGonf)   
-              setLS(false)
-            }
-          });
-        
-
-    }
-    const DeleteRegion = () =>{
-
-    }
- 
-    const openEditModal = (event,selected) =>{
-        setRegionEdit({PK: event.PK , Gouv:event.Gouv, Localisation:event.Localisation})
-        selected ? setModalS(true) : setDeleteModalS(true)
+    
+    const SaveClassment = () =>{
+        console.log('classment ')
     }
     const handlePaginationChange = (e,{ activePage }) =>{
         setActivePage(activePage)
@@ -181,13 +93,13 @@ function ClientRegions() {
                                     <h2 className='m-2 ms-3 me-3 system-color'>{props.rang+1}</h2>
                                 </div>
                                 <div className="flex-grow-1 ms-2">
-                                    <h6 className='mb-1'>{props.data.CL_Name}</h6>
-                                    <small> {props.data.CL_ID}  </small>
+                                    <h6 className='mb-1'>{props.data.ME_Name}</h6>
+                                    <small> {props.data.ME_ID}  </small>
                                 </div>
                             </div>
                         </div>
                         <div className='col-3 align-self-center'>
-                            {props.data.Totale.toFixed(3)}
+                                    <h3>{props.data.Totale}</h3> 
                         </div> 
                     </div>
                 </div>
@@ -196,7 +108,7 @@ function ClientRegions() {
 
 
     return ( <> 
-            <BreadCrumb links={GConf.BreadCrumb.ClientRegion} />
+            <BreadCrumb links={GConf.BreadCrumb.ClientFidelite} />
             <br />
             <div className="row">
                 <div className="col-12 col-lg-8">
@@ -225,19 +137,18 @@ function ClientRegions() {
                             <Select placeholder='Classment Selon' options={ClassmmentG}  className='w-100 shadow-sm rounded' onChange={(e, data) => SetFGenre(data.value)} />
                         <br />
                         <div className='row'>
-                            <div className='col-6 '>
+                            <div className='col-12 '>
                                 <Button fluid className={`bg-system-btn rounded-pill ${saveBtnState}`} onClick={MakeClassment}>   <Icon name='list ol' /> Classer <Loader inverted active={loaderState} inline size='tiny' className='ms-2'/></Button>
                             </div>
-                            <div className='col-6 '>
-                                <Button fluid className={`bg-success text-white rounded-pill ${saveBtnState}`} onClick={MakeClassment}>   <Icon name='save' /> Enregistrer <Loader inverted active={loaderState} inline size='tiny' className='ms-2'/></Button>
-                            </div>
+                            {/* <div className='col-6 '>
+                                <Button fluid className={`bg-success text-white rounded-pill ${saveBtnState}`} onClick={SaveClassment}>   <Icon name='save' /> Enregistrer <Loader inverted active={loaderState} inline size='tiny' className='ms-2'/></Button>
+                            </div> */}
                         </div>
                     </div>
                 </Bounce>
                 </div>
             </div>
-            <EditModal setModalS={setModalS} EditRegion={EditRegion} editRegionD={editRegionD}  setRegionEdit={setRegionEdit} modalS={modalS} Gouvernorat={TopG}/>
-            <DeleteModal setDeleteModalS={setDeleteModalS} DeleteRegion={DeleteRegion} editRegionD={editRegionD}  setRegionEdit={setRegionEdit} deletemodalS={deletemodalS} />
+ 
         </> );
 
 }

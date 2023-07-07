@@ -443,7 +443,7 @@ function ProfilePage() {
         return(<>
             <div className="card card-body shadow-sm mb-4 sticky-top border-div" style={{top:'70px'}}>
 	            <div className="text-center ">
-	            	<img className="rounded-circle mb-3" src={`https://assets.abyedh.tn/img/system/ads/${GConf.systemTag}.svg`} width="90px" height="90px"/>
+	            	<img className="rounded-circle mb-3" src={`https://cdn.abyedh.tn/images/ads/${GConf.systemTag}.svg`} width="90px" height="90px"/>
 	            
 	            	 <h6>{loading ? profileData.general[0].Name : SKLT.BarreSkl } </h6>
 	            	 <div><small className="text-secondary">Restaurant ({loading ? profileData.general[0].Genre : SKLT.BarreSkl })</small></div>
