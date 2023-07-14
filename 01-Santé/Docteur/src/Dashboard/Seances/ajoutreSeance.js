@@ -12,25 +12,33 @@ import { EditorState, convertToRaw, Modifier } from 'draft-js';
 import { Editor } from 'react-draft-wysiwyg';
 import draftToHtml from 'draftjs-to-html'; // Updated import statement
 import 'react-draft-wysiwyg/dist/react-draft-wysiwyg.css';
+import TableGrid from '../../AssetsM/Cards/tableGrid';
+import { QrReader } from 'react-qr-reader';
 
 const TerminerCard = ({seanceData, setSeanceData,allClientList, OnKeyPressFunc}) =>{
     const StateDegree = [
-        {value : 'Ganger', text : 'Dangereur', key: 1},
-        {value : 'Ganger', text : 'Assey Normale', key: 2},
-        {value : 'Ganger', text : 'Normale', key: 3},
-        {value : 'Ganger', text : 'Bien', key: 4},
+        {value : 'En Bonne État', text : 'En Bonne État', key: 1},
+        {value : 'Malade', text : 'Malade ', key: 2},
+        {value : 'En Réanimation', text : 'En Réanimation', key: 3},
+        {value : 'En Soins Palliatifs', text : 'En Soins Palliatifs', key: 4},
+        {value : 'En Quarantaine', text : 'En Quarantaine', key: 5},
+        {value : 'En Observation',text : 'En Observation', key: 6},
+    ]
+
+    const SeanceGenre = [
+        {value : 'En Bonne État', text : 'En Bonne État', key: 1},
+        {value : 'Malade', text : 'Malade ', key: 2},
+        {value : 'En Réanimation', text : 'En Réanimation', key: 3},
+        {value : 'En Soins Palliatifs', text : 'En Soins Palliatifs', key: 4},
+        {value : 'En Quarantaine', text : 'En Quarantaine', key: 5},
+        {value : 'En Observation',text : 'En Observation', key: 6},
     ]
     return (<>
              
-                <h5>Date & Patient  </h5>
+                <h5>Date   </h5>
                 <Input icon='calendar alternate' type='date' size="small" iconPosition='left'   fluid className='mb-1' value={seanceData.S_Date} onChange={(e) => setSeanceData({...seanceData, S_Date: e.target.value })}/>
-                <datalist id="clientList">
-                        {allClientList.map((test) =>
-                        <option key={test.key} value={test.PA_ID}>{test.PA_Name} : {test.Phone}</option>
-                        )}
-                </datalist>
-                <Input icon='add user' onKeyPress={event => OnKeyPressFunc(event)} list="clientList" placeholder={seanceData.S_Patient}   onBlur={ (e) => setSeanceData({...seanceData, S_Patient: e.target.value })} size="small" iconPosition='left'   fluid className='mb-1' />
-                <h5>Danger  </h5>
+                
+                <h5 className='mt-1 '>Degreé de Danger  </h5>
                 <Dropdown
                     fluid
                     search
@@ -41,55 +49,114 @@ const TerminerCard = ({seanceData, setSeanceData,allClientList, OnKeyPressFunc})
                     className='mb-1'
                     onChange={(e, { value }) => setSeanceData({...seanceData, State_Degre: value })}
                     value={seanceData.State_Degre}
-                /> 
+                />
+                <h5 className='mt-1 '>Genre de Seance  </h5>
+                <Dropdown
+                    fluid
+                    search
+                    selection
+                    wrapSelection={false}
+                    options={SeanceGenre}
+                    placeholder={seanceData.State_Degre}
+                    className='mb-1'
+                    onChange={(e, { value }) => setSeanceData({...seanceData, State_Degre: value })}
+                    value={seanceData.State_Degre}
+                />
  
                 
  
     </>)
 }
 const ResultCard = ({seanceData, setSeanceData,OnKeyPressFunc}) =>{
-    return (<>
-            <div className='card card-body shadow-sm mb-2 border-div'>
-                <h5>Resultat  </h5>
+    return (<> 
+                <h5>Resultat : maladie </h5>
                 <Form>
                     <TextArea rows={10} placeholder='Maladie' onKeyPress={event => OnKeyPressFunc(event)} value={seanceData.Resultat} onChange={(e) => setSeanceData({...seanceData, Resultat : e.target.value })} />
                 </Form>
                 <br /> 
                 <br /> 
-            </div>
+            
     </>)
 }
 function AjouterFacture() {
     /*#########################[Const]##################################*/
     const Today = new Date()
-    const [seanceData, setSeanceData] = useState({S_Patient:'PASSAGER',  Diagnostic: 'Null', Resultat:'', Maladie:'',  S_Date: Today.toISOString().split('T')[0], State_Degre: '' , ordonance:[]})
+    const [seanceData, setSeanceData] = useState({S_Patient:'PASSAGER',  Diagnostic: 'Null', Resultat:'', Maladie:'',  S_Date: Today.toISOString().split('T')[0], State_Degre: '' , ordonance:[], analyses:[]})
     const [diagnostiqueValue, setDiagnistiqueValue] = useState(EditorState.createEmpty());
     const [gettedOrFID, setOrId] = useState('')
     const [saveBtnState, setSaveBtnState] = useState(false)
     const [loaderState, setLS] = useState(false)
+    const [analyseNow, setAnalyseNow] = useState([])
     const [articleNow, setArticleNow] = useState([])
     const [articleList] = useGetArticles()
     const [clientList, allClientList] = useGetClients()
-    const [autofocusState, setAutoFocus] = useState(false)
     
- 
+    const [selectedClient, setSelectedClient] = useState({})
+    const [patientRDVListe, setPatientRDVListe] = useState([])
+    const [patientSeanceListe, setPatientSeanceListe] = useState([])
+    const [patientOrdonanceListe, setPatientOrdonanceListe] = useState([])
+    const [autofocusState, setAutoFocus] = useState(false)
+    const [scanResultSeance, setScanResultSeance] = useState(false);
+    
     const panes = [
+        {
+            menuItem: { key: 'client', icon: 'user', content:  'Patient' }, 
+            render: () =><PatientCard />,
+        },
         {
             menuItem: { key: 'start', icon: 'add circle', content: 'Diagnostique ' }, 
             render: () => <DiagnostiqueCard />,
         },
         {
-            menuItem: { key: 'client', icon: 'user', content:  'Resultat' }, 
-            render: () =><ResultCard seanceData={seanceData} setSeanceData={setSeanceData} clientList={clientList} allClientList={allClientList}  OnKeyPressFunc={OnKeyPressFunc} />,
+            menuItem: { key: 'anaslyse', icon: 'chart bar', content:  'Analyses' }, 
+            render: () =><AnalysesCard  />,
         },
         {
-            menuItem: { key: 'clidsgent', icon: 'user', content:  'Ordonance' }, 
+            menuItem: { key: 'clidsgent', icon: 'list alternate outline', content:  'Ordonance' }, 
             render: () =><OrdonanceCard  />,
         },
         {
-            menuItem: { key: 'articles', icon: 'save', content:  'Terminer' }, 
-            render: () =><><FinishCard /></> ,
+            menuItem: { key: 'articles', icon: 'save', content:  'Resultat' }, 
+            render: () =><><div className='card card-body shadow-sm mb-2 border-div'>
+                                <div className='row'>
+                                    <div className='col-12 col-lg-7'>
+                                        <ResultCard seanceData={seanceData} setSeanceData={setSeanceData} clientList={clientList} allClientList={allClientList}  OnKeyPressFunc={OnKeyPressFunc} />
+                                        
+                                    </div>
+                                    <div className='col-12 col-lg-5 align-self-center'>
+                                            <TerminerCard seanceData={seanceData} setSeanceData={setSeanceData} clientList={clientList} allClientList={allClientList}   OnKeyPressFunc={OnKeyPressFunc} />
+                                            <br />
+                                            <div className='row mb-2'>
+                                                <div className='col-12'>
+                                                    <Button  className='rounded-pill bg-system-btn' disabled={saveBtnState} fluid onClick={SaveSeance}><Icon name='save' /> Enregistrer <Loader inverted active={loaderState} inline size='tiny' className='ms-2'/></Button>
+                                                </div>
+                                            </div>
+                                            <div className='row mb-2'>
+                                                <div className='col-12'>
+                                                    <Button  className='rounded-pill btn-imprimer' disabled={!saveBtnState} fluid onClick={(e) => PrintFunction('printFacture')}><Icon name='print' /> Imprimer Ordonance</Button>
+                                                </div>
+                                            </div>
+                                            
+                                    </div>
+                                </div>
+                            </div></> ,
         }
+        
+    ]
+    const patientPanes = [
+        {
+            menuItem: { key: 'start',   content: 'Seances ' }, 
+            render: () =>  <TableGrid tableData={patientSeanceListe} columns={["IK ","55","hh","555"]} /> ,
+        },
+        {
+            menuItem: { key: 'anaslyse',  content:  'RendyVous' }, 
+            render: () =><TableGrid tableData={patientRDVListe} columns={["IK ","55","hh","555"]} />,
+        },
+        {
+            menuItem: { key: 'clidsgent',   content:  'Ordonance' }, 
+            render: () =><TableGrid tableData={patientOrdonanceListe} columns={["IK ","55","hh","555"]} />,
+        },
+ 
         
     ]
     let Offline = JSON.parse(localStorage.getItem(`${GConf.PID}_Offline`));
@@ -116,6 +183,15 @@ function AjouterFacture() {
         const rawContentState = convertToRaw(diagnostiqueValue.getCurrentContent());
         const htmlValue = draftToHtml(rawContentState)
         return(JSON.stringify(htmlValue))
+    }
+    const AddAnalyseToListe = ()=>{
+        if (!analyseNow.Grandeur) {toast.error("Code à barre Invalide !", GConf.TostErrorGonf)}
+        else if (!analyseNow.Valeur || analyseNow.Valeur == '') {toast.error("Name Invalide !", GConf.TostErrorGonf)}
+        else{
+                let arrayToAdd = {id: seanceData.analyses.length + 1 , PK: analyseNow.PK, Grandeur: analyseNow.Grandeur, Valeur: analyseNow.Valeur }
+                seanceData.analyses.push(arrayToAdd)
+                setAnalyseNow([])
+        }
     }
     const AddMedicammentToListe = ()=>{
         if (!articleNow.PK) {toast.error("Code à barre Invalide !", GConf.TostErrorGonf)}
@@ -157,7 +233,7 @@ function AjouterFacture() {
                 setLS(true)
                 axios.post(`${GConf.ApiLink}/seances/ajouter`, {
                     PID : GConf.PID,
-                    seanceData: {S_Patient: seanceData.S_Patient,  Diagnostic: GenerateDiagnostiqueHTml(), Resultat:seanceData.Resultat, Maladie:seanceData.Maladie,  S_Date: Today.toISOString().split('T')[0], State_Degre: seanceData.State_Degre , ordonance:seanceData.ordonance} ,
+                    seanceData: {S_Patient: seanceData.S_Patient,  Diagnostic: GenerateDiagnostiqueHTml(), Resultat:seanceData.Resultat, Maladie:seanceData.Maladie,  S_Date: Today.toISOString().split('T')[0], State_Degre: seanceData.State_Degre , ordonance:seanceData.ordonance, analyses:seanceData.analyses} ,
                 })
                 .then(function (response) {
                     if(response.status = 200) {
@@ -186,6 +262,33 @@ function AjouterFacture() {
         if (!((e.charCode >= 65 && e.charCode <= 90) || (e.charCode >= 97 && e.charCode <= 122) || (e.charCode >= 48 && e.charCode <= 57) || e.charCode == 42 || e.charCode == 32 || e.charCode == 47 )) {
             e.preventDefault();
         }   
+    }
+    const SelectClientFunction = (value) => {
+        setSeanceData({...seanceData, S_Patient: value })
+        let filtedClient = allClientList.find((data) => data.PA_ID == value)
+        setSelectedClient(filtedClient)
+        
+        axios.post(`${GConf.ApiLink}/patient/info`,{PID :GConf.PID, patientId: value})
+            .then(function (response) {
+                console.log(response.data.Seances)
+                let seanceCont = []
+                response.data.Seances.map( (getData) => {seanceCont.push([ getData.Maladie ,  getData.State_Degre ,  getData.PK])})
+                setPatientSeanceListe(seanceCont)
+
+                let rdvCont = []
+                response.data.RDV.map( (dta) => {rdvCont.push({value : dta.Cam_ID, text : <>{dta.Cam_Name} : {dta.Matricule} - {dta.Chauffeur}</>, key: dta.PK})})
+                setPatientRDVListe(rdvCont)
+
+                let ordonanceCont = []
+                response.data.Ordonance.map( (dta) => {ordonanceCont.push({value : dta.Cam_ID, text : <>{dta.Cam_Name} : {dta.Matricule} - {dta.Chauffeur}</>, key: dta.PK})})
+                setPatientOrdonanceListe(ordonanceCont)
+
+            }).catch((error) => {
+            if(error.request) {
+                toast.error(<><div><h5>Probleme de Connextion</h5> Les camion n'ont pas été chargeé </div></>, GConf.TostInternetGonf)   
+            }
+            });
+
     }
    /*#########################[Card]##################################*/
     const DiagnostiqueCard = () =>{
@@ -237,6 +340,7 @@ function AjouterFacture() {
                 </div>
         </>)
     }
+
     const AddArticles = () =>{
         return (<>
                 <div className='card card-body shadow-sm mb-2 border-div'>
@@ -278,33 +382,6 @@ function AjouterFacture() {
                     </Ripples>
                 </>)
     }
-    const FinishCard = () =>{
-        return (<>
-                <div className='card card-body shadow-sm mb-2 border-div'>
-                    <div className='row'>
-                        <div className='col-12 col-lg-7'>
-                            <TerminerCard seanceData={seanceData} setSeanceData={setSeanceData} clientList={clientList} allClientList={allClientList}   OnKeyPressFunc={OnKeyPressFunc} />
-                        </div>
-                        <div className='col-12 col-lg-5 align-self-center'>
-                                <br />
-                                <div className='row mb-2'>
-                                    <div className='col-12'>
-                                        <Button  className='rounded-pill bg-system-btn' disabled={saveBtnState} fluid onClick={SaveSeance}><Icon name='save' /> Enregistrer <Loader inverted active={loaderState} inline size='tiny' className='ms-2'/></Button>
-                                    </div>
-                                </div>
-                                <div className='row mb-2'>
-                                    <div className='col-12'>
-                                        <Button  className='rounded-pill btn-imprimer' disabled={!saveBtnState} fluid onClick={(e) => PrintFunction('printFacture')}><Icon name='print' /> Imprimer Ordonance</Button>
-                                    </div>
-                                </div>
-                                 
-                        </div>
-                    </div>
-                </div>
-                <br />
-                <br />
-        </>)
-    }
     const OrdonanceCard = () =>{
         return(<>
                 <div className='row'>
@@ -322,11 +399,103 @@ function AjouterFacture() {
                 </div>
             </>)
     }
-    
+
+    const AddAnalyse = () =>{
+        return (<>
+                <div className='card card-body shadow-sm mb-2 border-div'>
+                    <h5>Ajouter Grandeur</h5> 
+                    <Input icon='pin'   placeholder='Grandeur'  value={analyseNow.Grandeur}  onChange={ (e) => {analyseNow.Grandeur = e.target.value}} size="small" iconPosition='left'   fluid className='mb-1' />                     
+                    <Input icon='dropbox' type='text' value={analyseNow.valeur} autoFocus={autofocusState}  onChange={ (e) => {analyseNow.Valeur = e.target.value}}  size="small" iconPosition='left' placeholder='Valeur'  fluid className='mb-1' />
+                    
+                    <br />
+                    <Button disabled={saveBtnState} className='rounded-pill bg-system-btn' onClick={AddAnalyseToListe}>  <Icon name='edit outline' /> Ajouter</Button>
+                </div>
+        </>)
+    }
+    const AnalyseListCard = (props) =>{
+        return(<>
+                    <Ripples className='d-block p-0 mb-1 rounded-pill' >   
+                    <div className='card shadow-sm p-2   rounded-pill ps-4'>
+                        <div className='row'>
+                            <div className='col-6 text-start align-self-center'>
+                                <div>{props.dataA.Nom}*{props.dataA.Grandeur}</div> 
+                                <small>{props.dataA.Forme}</small>
+                            </div>
+                            <div className='col-5 align-self-center'><b>{props.dataA.Valeur}</b></div>
+                            <div className='col-1 align-self-center'><Button icon="times" className='rounded-circle p-2 text-white bg-danger' disabled={saveBtnState} onClick={() => DeleteFromUpdateList(props.dataA.PK)}></Button></div>
+                        </div>
+                    </div>
+                    </Ripples>
+                </>)
+    }
+    const AnalysesCard = () =>{
+        return(<>
+                <div className='row'>
+                    <div className='col-12 col-lg-5'>
+                        <div className="mb-4 sticky-top" style={{top:'70px'}}>
+                            <AddAnalyse  />        
+                        </div>
+                    </div>
+                    <div className='col-12 col-lg-7'>
+                            <h5>Listes des Analyses</h5>    
+                            {seanceData.analyses.map( (val) => <AnalyseListCard key={val.id} dataA={val}/>)}
+                            <br />
+                            
+                    </div>
+                </div>
+            </>)
+    }
+ 
+
+    const PatientCard = () => {
+        return(<>
+        
+            <div className='row mb-4'>
+                    <div className='col-12 col-md-4'>
+                        <div className='card card-body md-3 shadow-sm border-div'>
+                            <h5>Patient </h5> 
+                            <datalist id="clientList">
+                                    {allClientList.map((test,index) =>
+                                    <option key={index} value={test.PA_ID}>{test.PA_Name} : {test.Phone}</option>
+                                    )}
+                            </datalist>
+                            <Input icon='add user' onKeyPress={event => OnKeyPressFunc(event)} list="clientList" placeholder={seanceData.S_Patient}   onBlur={ (e) => SelectClientFunction(e.target.value) } size="small" iconPosition='left'   fluid className='mb-1' />
+                            <h4 className='mb-1'>Nom: {selectedClient.PA_Name  ? selectedClient.PA_Name  : ''}</h4>
+                            <h4 className='mt-1 mb-1'>Adresse : {selectedClient.Adress  ? selectedClient.Adress  : ''} </h4>
+                            <h4 className='mt-1 mb-1'>Nombre de Seance  : {patientSeanceListe.length} </h4>
+                            <h4 className='mt-1 mb-1'>Etat Sanitaires : {patientSeanceListe.length != 0 ? patientSeanceListe[patientSeanceListe.length - 1][0] : ''}</h4>
+                            {scanResultSeance ? 
+                            (
+                            <QrReader
+                                    constraints={{  facingMode: 'environment' }}
+                                    scanDelay={500}
+                                    onResult={(result, error) => {
+                                    if (!!result) {  SelectClientFunction(result.text); setScanResultSeance(false) }
+                                    if (!!error) { console.log(error);  }
+                                    }}
+                                    style={{  width: "150px",height: "150px" }}
+                            />
+                            ) : (
+                                <div className='text-center mt-4'>
+                                    <Button onClick={() => setScanResultSeance(true)}>Cliquer Pour Scanner</Button>
+                                    <br />
+                                    <br />
+                                    <br />
+                                    <span className='bi bi-qr-code mt-3 bi-lg' style={{color: GConf.themeColor, fontSize:'150px'}}></span>
+                                </div>
+                            )}
+                        </div>
+                    </div>
+                    <div className='col-12 col-md-8'>  
+                        <Tab menu={{ attached: false  }} panes={patientPanes} />
+                    </div>
+            </div>
+        </>)
+    }
     return (<>
         <BreadCrumb links={GConf.BreadCrumb.factureAjouter} />
         <br />
-        {/* Hiba State : <div dangerouslySetInnerHTML={{ __html: 'hibaState' }}></div> */}
+ 
         <Tab menu={{  secondary: true  }} panes={panes} />
         {/* <FrameForPrint frameId='printFacture' src={`/Pr/facture/info/${gettedOrFID}`} /> */}
     </> );

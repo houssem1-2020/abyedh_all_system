@@ -58,32 +58,8 @@ function FactureInfo() {
 
     /*#########################[Function]##################################*/
     const PrintFunction = (frameId) =>{ usePrintFunction(frameId)}
-    const RetouAuStock = () =>{
-        axios.post(`${GConf.ApiLink}/stock/be`, {
-            PID : GConf.PID,
-            artList: articleL,
-          })
-          .then(function (response) {      
-            if(response.data.affectedRows) {
-                // axios.post(`${GConf.ApiLink}/facture/us`, { PID : GConf.PID,  ORID: ORID })
-                toast.success("Stock Modifier !", GConf.TostSuucessGonf)
-                setStockState(true)
-                setFactData({ ...factureData, SDF: 'true'})
-            }
-            else{
-                toast.error('Erreur Indéfine ', GConf.TostSuucessGonf)
-            }
-          }).catch((error) => {
-            if(error.request) {
-              toast.error(<><div><h5>Probleme de Connextion</h5> Operation Annuleé  </div></>, GConf.TostInternetGonf)   
-            }
-          });
-
-    }
-    const CalculateTVA =  (value) =>{
-        const facteur_p = (100 / (GConf.DefaultTva + 100));
-        return (parseFloat(value) * facteur_p).toFixed(3) 
-    }
+ 
+ 
     const DeleteFacture = () =>{
         axios.post(`${GConf.ApiLink}/facture/supprimer`, {
             PID : GConf.PID,
@@ -107,13 +83,13 @@ function FactureInfo() {
           });
     }
     /*#########################[Card]##################################*/
-    const StateCard = ({ status }) => {
+    const StateSellCard = ({ status }) => {
         const StateCard = (props) =>{ return <span className={`badge bg-${props.color}`}> {props.text} </span>}
         const statusCard = React.useCallback(() => {
           switch(status) {
-            case 'Payee': return <StateCard color='success' text='Payeé' />;  
-            case 'Credit': return <StateCard color='danger' text='Credit' /> ;
-            case 'Waitting': return <StateCard color='warning' text='En Attend' /> ;
+            case 'Valide': return <StateCard color='success' text='Terminer' />;  
+            case 'Annulee': return <StateCard color='danger' text='Annuleé' /> ;
+            case 'Waitting': return <StateCard color='warning' text='En Attent' /> ;
             default:  return <StateCard color='secondary' text='Indefinie' />;    
           }
         }, [status]);
@@ -123,56 +99,26 @@ function FactureInfo() {
             {statusCard()}
           </div>
         );
-    }
+    };
     const FactureHeader = () =>{
         return(<>
                 <h2 className='text-center'>ORDONANCE </h2> 
                 <div className='row'>
                     <div className='col-6'>
-                        <div className='text-secondary'><b>FACTURE ID : </b> {factureData.FACT_ID}</div>
-                        <div className='text-secondary'><b>CODE FACTURE : </b> {ORID}</div>
-                        <div className='text-secondary'><b>CLIENT: {factureData.CL_Name} </b> 
-                        <Popup
-                                content={<>
-                                <div className='row'>
-                                    <div className='col-6'>   
-                                        <div className='text-secondary'><b><span className='bi bi-telephone text-danger'></span> : {factureData.Phone}</b></div>      
-                                    </div>
-                                    <div className='col-6'>
-                                        <div className='text-secondary'><b><span className='bi bi-geo-alt-fill text-danger'></span> : {factureData.Gouv}</b></div>   
-                                        <div className='text-secondary'><b><span className='bi bi-geo-alt text-danger'></span> : {factureData.Deleg}</b></div>   
-                                        
-                                    </div>
-                                    <div className='col-12'>
-                                        <div className='text-secondary'><b><span className='bi bi-pin-map text-danger'></span> : {factureData.Adress}</b></div>
-                                    </div>
-                                    
-                                </div>
-                                </> }
-                                wide='very'
-                                hoverable
-                                key={factureData.Name }
-                                header={<h3><span className='bi bi-person-fill'></span> {factureData.CL_Name} </h3> }
-                                trigger={loading ? <NavLink  exact='true' to={`/S/cl/info/${factureData.CL_ID}`}> {factureData.Name } </NavLink>  : SKLT.BarreSkl }
-                            />
-                            </div>
+                        <div className='text-secondary'><b>ORDONANCE ID : </b> {factureData.OR_ID}</div>
+                        <div className='text-secondary'><b>CODE ORDONANCE : </b> {ORID}</div>
+                        <div className='text-secondary'><b>PATIENT: {factureData.PA_Name} </b> 
+                    </div>
                     </div>
                     <div className='col-6'>
-                        <div className='text-danger'><b>Date : </b> {new Date(factureData.T_Date).toLocaleDateString('fr-FR').split( '/' ).reverse( ).join( '-' )} </div>
-                        <div className='text-secondary'><b>Temps: </b> {factureData.T_Time} </div>
-                        <div className='text-secondary'><b>Caisse: </b> {factureData.CA_Name} </div>
+                        <div className='text-danger'><b>Date : </b> {new Date(factureData.OR_Date).toLocaleDateString('fr-FR').split( '/' ).reverse( ).join( '-' )} </div>
+                        <div className='text-secondary'><b>Temps: </b> {factureData.OR_Time} </div>
+ 
                     </div>
                 </div>
         </>)
     }
-    const TotaleCard = () =>{
-        return(<>
-                <div className='card card-body shadow-sm mb-2'>
-                    <h5>Nette & Totale </h5>
-                    <div className='text-danger'><b>Net A Payee TTC: {loading ? (parseFloat(factureData.Final_Value) + 0.600).toFixed(3) : SKLT.BarreSkl } </b></div>
-                </div>
-        </>)
-    }
+ 
     const BtnsCard = () =>{
         return(<>
                 <div className='card card-body shadow-sm mb-2'>
@@ -205,7 +151,7 @@ function FactureInfo() {
         <br />
         <div className="row">
             <div className="col-12 col-lg-8">
-                <h2 className='text-end'><StateCard status={factureData.Pay_State} /></h2>
+                <h2 className='text-end'><StateSellCard status={factureData.OR_State} /></h2>
                 <FactureHeader />
                 <br />
                 <br />
@@ -214,11 +160,9 @@ function FactureInfo() {
                         <tr>
                         <th scope="col">No</th>
                         <th scope="col">Designiation</th>
-                        <th scope="col">Qté</th>
-                        <th scope="col">PUHT</th>
-                        <th scope="col">TVA</th>
-                        <th scope="col">PUTTC</th>
-                        <th scope="col">Prix Net</th>
+                        <th scope="col">Dosage</th>
+                        <th scope="col">Forme</th>
+                        <th scope="col">Presentation</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -228,12 +172,10 @@ function FactureInfo() {
                         {articleL.map( (artData, index) => 
                             <tr key={index +1 }>
                                 <th scope="row">{index +1 }</th>
-                                <td>{artData.Name}</td>
-                                <td>{artData.Qte}</td>
-                                <td>{CalculateTVA(artData.Prix)}</td>
-                                <td>{GConf.DefaultTva} %</td>
-                                <td>{artData.Prix }</td>
-                                <td>{artData.PU}</td>
+                                <td>{artData.Nom}</td>
+                                <td>{artData.Dosage}</td>
+                                <td>{artData.Forme }</td>
+                                <td>{artData.Presentation}</td>
                             </tr>
                         )}
                         
@@ -246,8 +188,6 @@ function FactureInfo() {
             <div className="col-12 col-lg-4">
             <Bounce bottom>
                 <div className="sticky-top" style={{top:'70px'}}>
-                    <TotaleCard />
-                    <Input icon='user' size="small" iconPosition='left' placeholder='Client  '  fluid className='mb-1' value={client}  onChange={(e) => setClient(e.target.value)} />
                     <BtnsCard />
                 </div>
             </Bounce>

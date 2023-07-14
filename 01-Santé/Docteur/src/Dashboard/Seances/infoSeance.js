@@ -14,50 +14,7 @@ import draftToHtml from 'draftjs-to-html'; // Updated import statement
 import 'react-draft-wysiwyg/dist/react-draft-wysiwyg.css';
 import { useParams } from 'react-router-dom';
 
-const TerminerCard = ({seanceData, setSeanceData,allClientList, OnKeyPressFunc}) =>{
-    const StateDegree = [
-        {value : 'Ganger', text : 'Dangereur', key: 1},
-        {value : 'Ganger', text : 'Assey Normale', key: 2},
-        {value : 'Ganger', text : 'Normale', key: 3},
-        {value : 'Ganger', text : 'Bien', key: 4},
-    ]
-    return (<>
-             
-                <h5>Date & Patient  </h5>
-                <Input icon='calendar alternate' type='date' size="small" iconPosition='left'   fluid className='mb-1' value={seanceData.S_Date} onChange={(e) => setSeanceData({...seanceData, S_Date: e.target.value })}/>
-                <datalist id="clientList">
-                        {allClientList.map((test) =>
-                        <option key={test.key} value={test.PA_ID}>{test.PA_Name} : {test.Phone}</option>
-                        )}
-                </datalist>
-                <Input icon='add user' onKeyPress={event => OnKeyPressFunc(event)} list="clientList" placeholder={seanceData.S_Patient}   onBlur={ (e) => setSeanceData({...seanceData, S_Patient: e.target.value })} size="small" iconPosition='left'   fluid className='mb-1' />
-                <h5>Danger  </h5>
-                <Dropdown
-                    fluid
-                    search
-                    selection
-                    wrapSelection={false}
-                    options={StateDegree}
-                    placeholder={seanceData.State_Degre}
-                    className='mb-1'
-                    onChange={(e, { value }) => setSeanceData({...seanceData, State_Degre: value })}
-                    value={seanceData.State_Degre}
-                /> 
  
-                
- 
-    </>)
-}
-const ResultCard = ({seanceData}) =>{
-    return (<>
-            <div className='card card-body shadow-sm mb-2 border-div'>
-                <h5>Resultat  </h5>
-                    {seanceData.Resultat}
-                <br /> 
-                <br /> 
-            </div>
-    </>)
-}
 function FactureInfo() {
     /*#########################[Const]##################################*/
     const Today = new Date()
@@ -79,16 +36,20 @@ function FactureInfo() {
             menuItem: { key: 'start', icon: 'add circle', content: 'Diagnostique ' }, 
             render: () => <DiagnostiqueCard />,
         },
+        // {
+        //     menuItem: { key: 'client', icon: 'user', content:  'Resultat' }, 
+        //     render: () =><ResultCard seanceData={seanceData} setSeanceData={setSeanceData} clientList={clientList} allClientList={allClientList}  OnKeyPressFunc={OnKeyPressFunc} />,
+        // },
         {
-            menuItem: { key: 'client', icon: 'user', content:  'Resultat' }, 
-            render: () =><ResultCard seanceData={seanceData} setSeanceData={setSeanceData} clientList={clientList} allClientList={allClientList}  OnKeyPressFunc={OnKeyPressFunc} />,
+            menuItem: { key: 'sdfgsds', icon: 'chart bar', content:  'Analyses' }, 
+            render: () =><AnalyseCard  />,
         },
         {
-            menuItem: { key: 'clidsgent', icon: 'user', content:  'Ordonance' }, 
+            menuItem: { key: 'clidsgent', icon: 'list alternate outline', content:  'Ordonance' }, 
             render: () =><OrdonanceCard  />,
         },
         {
-            menuItem: { key: 'articles', icon: 'save', content:  'Terminer' }, 
+            menuItem: { key: 'articles', icon: 'list alternate outline', content:  'Info' }, 
             render: () =><><FinishCard /></> ,
         }
         
@@ -199,11 +160,12 @@ function FactureInfo() {
             e.preventDefault();
         }   
     }
+    
    /*#########################[Card]##################################*/
     const DiagnostiqueCard = () =>{
         return (<>
-                <div className='card card-body shadow-sm border-div '>
-                    <h5>Diagnostique  </h5>
+                <div className='card-body   '>
+                     
                     <div dangerouslySetInnerHTML={{ __html: seanceData.Diagnostic }}></div>
                     <br />
                 </div>
@@ -239,39 +201,50 @@ function FactureInfo() {
                     <Ripples className='d-block p-0 mb-1 rounded-pill' >   
                     <div className='card shadow-sm p-2   rounded-pill ps-4'>
                         <div className='row'>
-                            <div className='col-6 text-start align-self-center'>
+                            <div className='col-4 text-start align-self-center'>
                                 <div>{props.dataA.Nom}*{props.dataA.Dosage}</div> 
+                            </div>
+                            <div className='col-4 text-start align-self-center'>
                                 <small>{props.dataA.Forme}</small>
                             </div>
-                            <div className='col-5 align-self-center'><b>{props.dataA.Emploi_Mode}</b></div>
-                            <div className='col-1 align-self-center'><Button icon="times" className='rounded-circle p-2 text-white bg-danger' disabled={saveBtnState} onClick={() => DeleteFromUpdateList(props.dataA.PK)}></Button></div>
+                            <div className='col-4 align-self-center'><b>{props.dataA.Emploi_Mode}</b></div>
+                            {/* <div className='col-1 align-self-center'><Button icon="times" className='rounded-circle p-2 text-white bg-danger' disabled={saveBtnState} onClick={() => DeleteFromUpdateList(props.dataA.PK)}></Button></div> */}
                         </div>
                     </div>
                     </Ripples>
                 </>)
     }
+    const StateCard = ({ status }) => {
+        const StateCard = (props) =>{ return <span className={`badge badge-lg bg-${props.color}`}> {props.text} </span>}
+        const statusCard = React.useCallback(() => {
+          switch(status) {
+            case 'En Bonne État': return <StateCard color='success' text='En Bonne État' />;  
+            case 'Malade': return <StateCard color='danger' text='Malade' /> ;
+            case 'En Réanimation': return <StateCard color='warning' text='En Réanimation' /> ;
+            case 'En Soins Palliatifs': return <StateCard color='dark' text='En Soins Palliatifs' /> ;
+            case 'En Quarantaine': return <StateCard color='primary' text='En Quarantaine' /> ;
+            case 'En Observation': return <StateCard color='info' text='En Observation' /> ;
+            default:  return <StateCard color='secondary' text='Indefinie' />;    
+          }
+        }, [status]);
+      
+        return (
+           <span> {statusCard()} </span>
+            
+           
+        );
+    };
+
     const FinishCard = () =>{
         return (<>
-                <div className='card card-body shadow-sm mb-2 border-div'>
-                    <div className='row'>
-                        <div className='col-12 col-lg-7'>
-                            <TerminerCard seanceData={seanceData} setSeanceData={setSeanceData} clientList={clientList} allClientList={allClientList}   OnKeyPressFunc={OnKeyPressFunc} />
-                        </div>
-                        <div className='col-12 col-lg-5 align-self-center'>
-                                <br />
-                                <div className='row mb-2'>
-                                    <div className='col-12'>
-                                        <Button  className='rounded-pill bg-system-btn' disabled={saveBtnState} fluid onClick={SaveSeance}><Icon name='save' /> Enregistrer <Loader inverted active={loaderState} inline size='tiny' className='ms-2'/></Button>
-                                    </div>
-                                </div>
-                                <div className='row mb-2'>
-                                    <div className='col-12'>
-                                        <Button  className='rounded-pill btn-imprimer' disabled={!saveBtnState} fluid onClick={(e) => PrintFunction('printFacture')}><Icon name='print' /> Imprimer Ordonance</Button>
-                                    </div>
-                                </div>
-                                 
-                        </div>
-                    </div>
+                <div className='card card-body  mb-2 border-div'>
+ 
+                                    <h5 className='mt-1 mb-1 '>Datte : {new Date(seanceData.S_Date).toLocaleDateString('fr-FR').split( '/' ).reverse( ).join( '-' )}</h5>
+                                    <h5 className='mt-1 mb-1 '>Degre : <StateCard status={seanceData.State_Degre} /></h5>
+                                    <p>
+                                        {seanceData.Resultat}
+                                    </p>
+
                 </div>
                 <br />
                 <br />
@@ -279,19 +252,13 @@ function FactureInfo() {
     }
     const OrdonanceCard = () =>{
         return(<>
-                <div className='row'>
-                    {/* <div className='col-12 col-lg-5'>
-                        <div className="mb-4 sticky-top" style={{top:'70px'}}>
-                            <AddArticles  />        
-                        </div>
-                    </div> */}
-                    <div className='col-12 col-lg-7'>
+                    <div className='card card-body border-div'>
                             <h5>Listes des Medicamment</h5>    
                             {medicammentListe.map( (val) => <ArticleListCard key={val.id} dataA={val}/>)}
                             <br />
                             
                     </div>
-                </div>
+ 
             </>)
     }
     const BtnsCard = () =>{
@@ -300,8 +267,9 @@ function FactureInfo() {
                     <h5>Controle</h5>
                     <div className='row mb-2'>
                     <div className='col-6'>
-                        <Button  className='rounded-pill btn-imprimer'  fluid onClick={(e) => PrintFunction('printFacture')}><Icon name='edit outline' /> Imprimer</Button>
+                        <Button  className='rounded-pill btn-danger'  fluid><Icon name='edit outline' /> Supprimer</Button>
                     </div>
+
                     <div className='col-6'>
                             <Button as='a' href={`/S/sa/modifier/${FID}`} animated   className='rounded-pill bg-system-btn'  fluid>
                                 <Button.Content visible><Icon name='edit outline' /> Modifier </Button.Content>
@@ -311,19 +279,28 @@ function FactureInfo() {
                             </Button>
                     </div>
                     </div>
-                    <div className='row mb-2'>
-                        <div className='col-6'>
-                            <Button  className='rounded-pill btn-danger'  fluid><Icon name='edit outline' /> Supprimer</Button>
+                    <div className='row '> 
+                        <div className='col-12  mb-2'>
+                            <Button  className='rounded-pill btn-imprimer'  fluid onClick={(e) => PrintFunction('printFacture')}><Icon name='edit outline' /> Imprimer Ordonance </Button>
                         </div>
-                        <div className='col-6'>
-                            <Button  className='rounded-pill  btn-regler'  fluid    ><Icon name='edit outline' /> R. Stock</Button>
+                        <div className='col-12  mb-2'>
+                            <Button  className='rounded-pill btn-imprimer'  fluid onClick={(e) => PrintFunction('printFacture')}><Icon name='edit outline' /> Imprimer Un Rapport</Button>
                         </div>
                     </div>
                      
                 </div>
         </>)
     }
-
+    const AnalyseCard = () =>{
+        return(<>
+                <div className='card card-body border-div'>
+                        <h5>Listes des Analyse</h5>    
+                        {medicammentListe.map( (val) => <ArticleListCard key={val.id} dataA={val}/>)}
+                        <br />
+                        
+                </div>
+        </>)
+    }
     return (<>
         <BreadCrumb links={GConf.BreadCrumb.factureAjouter} />
         <br />

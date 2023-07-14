@@ -88,8 +88,8 @@ function ClientRegions() {
         { key: '5', value: '200', text: '100' },
     ]
     const ClassmmentG = [
-        { key: '1', value: 'Nombre', text: 'Nombre de Facture' },
-        { key: '2', value: 'Totale', text: 'Totale Factures' },
+        { key: '1', value: 'rdv', text: 'Nombre de Rendy-Vous' },
+        { key: '2', value: 'seances', text: 'Nombre de Seances' },
     ]
  
    
@@ -194,6 +194,14 @@ function ClientRegions() {
         </>)
     }
 
+    const EmptyListeCard = () =>{
+        return(<>
+            <div className='text-center mt-5'>
+                <span className='bi bi-list-stars bi-xlg system-color'></span> 
+ 
+            </div>  
+        </>)
+    }
 
     return ( <> 
             <BreadCrumb links={GConf.BreadCrumb.ClientRegion} />
@@ -208,7 +216,15 @@ function ClientRegions() {
                         {resultList.map( (data) => <RegionCard key={data.PK}  data={data} />)}
                     </>
                     : SKLT.CardList } */}
-                    {resultList.map( (data,index) => <RegionCard key={index}  data={data} rang={index} />)}
+                    {resultList.length == 0 ? 
+                      <EmptyListeCard />
+                      :
+                      <>
+                      {resultList.map( (data,index) => <RegionCard key={index}  data={data} rang={index} />)}
+                      </>
+                    }
+
+                    
                 
                 </div>
                 <div className="col-12 col-lg-4">

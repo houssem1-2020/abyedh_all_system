@@ -170,6 +170,11 @@ const GConf = {
             {id:2, name:'Information', linkable:false}
         ],
 
+        forfraitInfo: [
+            {id:1, name:'Tarif', linkable:true, link:"/S/of"},
+            {id:2, name:'Information', linkable:false}
+        ],
+
         stockAddArticle: [
             {id:1, name:'Stock', linkable:true, link:"/S/of"},
             {id:2, name:'Ajouter Article', linkable:false}
@@ -247,8 +252,8 @@ const GConf = {
             {id:4, name:'Voir', linkable:false}
         ],
         ClientAdd: [
-            {id:1, name:'Client', linkable:true, link:"/S/mb"},
-            {id:2, name:'Ajouter Client', linkable:false}
+            {id:1, name:'Patient', linkable:true, link:"/S/pt"},
+            {id:2, name:'Ajouter Patient', linkable:false}
         ],
         ClientInfo: [
             {id:1, name:'Client', linkable:true, link:"/S/mb"},
@@ -367,7 +372,10 @@ const GConf = {
     
     //TableHead
     TableHead:{
+        seance:['*','ID','Patient','Maldaie','Degreé','Jour','Temps','Analyse','Ordonance','Voir'],
+        seance:['*','ID','Patient','Maldaie','Degreé','Jour','Temps','Analyse','Ordonance','Voir'],
         facture:['*','ID','Caisse','Client','Jour','Temps','Totale','Etat','Voir'],
+        ordonance:['*','ID','Patient','Date','Temps','Seance ?','Etat','Voir'],
         seances:['*','ID','Caisse','Client','Jour','Temps','Etat','Voir'],
         request:['*','ID','Client', 'Date','Table','Etat','X','Voir'],
         reservation:['*','ID','Client', 'Passé le','Volu le','Etat','X','Voir'],
@@ -382,6 +390,7 @@ const GConf = {
         clientFacture:['ID','Client','Jour','Totale','Voir'],
         clientFactureC:['ID','Client','Jour','Totale','Voir'],
         team:['*','Nom','Tel', 'CIN','Commencé', 'Post','Voir'],
+        medicammentPage:['*','Code','Genre','Nom', 'Dosage','Forme', 'Presentation','Classe','Voir'],
         fournisseur:['*','MF','Nom','Tel', 'Adresse','Genre', 'Jour','Voir']
 
     },

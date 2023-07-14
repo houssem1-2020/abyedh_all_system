@@ -112,15 +112,15 @@ function ClientInfo() {
 
     const panes = [
         {
-            menuItem: { key: 'home', icon: 'home', content: 'Factures' }, 
-            render: () => <><TableGrid tableData={factures} columns={['ID','Client','Jour','Temps','Totale','Voir']} /><br /></>,
-        },
-        {
-            menuItem: { key: 'commande', icon: 'calendar alternate', content: 'Commandes' }, 
+            menuItem: { key: 'commande', icon: 'calendar alternate', content: 'Seances' }, 
             render: () =><TableGrid tableData={commande} columns={GConf.TableHead.clientCommande} />,
         },
         {
-            menuItem: { key: 'Reservation', icon: 'calendar alternate', content: 'Reservation' }, 
+            menuItem: { key: 'home', icon: 'home', content: 'Ordonance' }, 
+            render: () => <><TableGrid tableData={factures} columns={['ID','Client','Jour','Temps', 'Voir']} /><br /></>,
+        },
+        {
+            menuItem: { key: 'Reservation', icon: 'calendar alternate', content: 'RendyVous' }, 
             render: () =><TableGrid tableData={reservationListe} columns={['ID','Client','Jour','Temps','Totale','Voir']} />,
         },
         {
@@ -156,23 +156,22 @@ function ClientInfo() {
                 
                 let factureTable = []
                 response.data.Ordonance.map( (getData, index) => factureTable.push([ 
-                getData.T_ID,
-                getData.CA_Name,
-                new Date(getData.T_Date).toLocaleDateString('fr-FR').split( '/' ).reverse( ).join( '-' ),
-                getData.T_Time,
-                getData.Final_Value,
-                _(<Button className='rounded-pill bg-system-btn' size='mini' onClick={ (e) => NavigateFunction(`/S/ft/info/${getData.T_ID}`)}><span className='d-none d-lg-inline'> Info </span><Icon  name='angle right' /></Button>)
+                getData.OR_ID,
+                response.data.Data.PA_Name,
+                new Date(getData.OR_Date).toLocaleDateString('fr-FR').split( '/' ).reverse( ).join( '-' ),
+                getData.OR_Time,
+                _(<Button className='rounded-pill bg-system-btn' size='mini' onClick={ (e) => NavigateFunction(`/S/or/info/${getData.OR_ID}`)}><span className='d-none d-lg-inline'> Info </span><Icon  name='angle right' /></Button>)
                 ],))
                 setFactures(factureTable)
 
                 let commandeTable = []
                 response.data.Seances.map( (getData, index) => commandeTable.push([ 
-                    getData.R_ID,
+                    getData.S_ID,
                     response.data.Data.PA_Name,
-                    new Date(getData.R_Date).toLocaleDateString('fr-FR').split( '/' ).reverse( ).join( '-' ),
-                    getData.Table_Num,
-                    _(<StateCard status={getData.State} />),
-                    _(<Button className='rounded-pill bg-system-btn' size='mini' onClick={ (e) => NavigateFunction(`/S/rq/cm/info/${getData.R_ID}`)}><span className='d-none d-lg-inline'> Info </span><Icon  name='angle right' /></Button>)
+                    new Date(getData.S_Date).toLocaleDateString('fr-FR').split( '/' ).reverse( ).join( '-' ),
+                    getData.S_Time,
+                    getData.State_Degre,
+                    _(<Button className='rounded-pill bg-system-btn' size='mini' onClick={ (e) => NavigateFunction(`/S/sa/info/${getData.S_ID}`)}><span className='d-none d-lg-inline'> Info </span><Icon  name='angle right' /></Button>)
                 ],))
                 setCommande(commandeTable)
 
@@ -181,7 +180,6 @@ function ClientInfo() {
                     getData.R_ID,
                     response.data.Data.PA_Name,
                     new Date(getData.R_Date).toLocaleDateString('fr-FR').split( '/' ).reverse( ).join( '-' ),
-                    getData.Table_Num,
                     _(<StateCard status={getData.State} />),
                     _(<Button className='rounded-pill bg-system-btn' size='mini' onClick={ (e) => NavigateFunction(`/S/rq/cm/info/${getData.R_ID}`)}><span className='d-none d-lg-inline'> Info </span><Icon  name='angle right' /></Button>)
                 ],))

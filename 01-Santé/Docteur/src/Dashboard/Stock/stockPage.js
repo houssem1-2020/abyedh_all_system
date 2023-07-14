@@ -57,11 +57,12 @@ function FournisseurPage() {
               response.data.map( (getData) => testTable.push([
             _(<AvatarCard lettre={capitalizeFirstLetter(getData.Nom)} />),
             getData.PK,
+            _(<StateCard status={getData.PID} />),
             getData.Nom,
             getData.Dosage,
             getData.Forme,
             getData.Presentation,
-            getData.Jour_Periodique,
+            getData.Classe,
             _(<Button className='rounded-pill bg-system-btn' size='mini' onClick={ (e) => NavigateFunction(`/S/sk/info/${getData.ID}`)}><span className='d-none d-lg-inline'> Info </span> </Button>)
             ],))
             setClientList(testTable)
@@ -142,7 +143,21 @@ function FournisseurPage() {
                 
             </>)
     }
-
+    const StateCard = ({ status }) => {
+        const StateCard = (props) =>{ return <span className={`badge bg-${props.color}`}> {props.text} </span>}
+        const statusCard = React.useCallback(() => {
+          switch(status) {
+            case 'ABYEDH': return <StateCard color='info' text='Publique' />;  
+            default:  return <StateCard color='success' text='Priveé' />;    
+          }
+        }, [status]);
+      
+        return (
+          <div className="container">
+            {statusCard()}
+          </div>
+        );
+    };
     return ( 
         <>
                 
@@ -153,7 +168,7 @@ function FournisseurPage() {
  
                 <br /> 
  
-                <TableGrid tableData={clientList} columns={GConf.TableHead.fournisseur} />
+                <TableGrid tableData={clientList} columns={GConf.TableHead.medicammentPage} />
                 
                 
                 <Modal

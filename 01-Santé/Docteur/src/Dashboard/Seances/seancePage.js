@@ -28,16 +28,19 @@ function FacturePage() {
             PID : GConf.PID,
         })
         .then(function (response) {
+            console.log(JSON.parse(response.data[0].Analyses))
             let factureListContainer = []
             response.data.map( (getData) => factureListContainer.push([
             _(<TableImage image='seance.png' />),
             getData.S_ID,
             getData.PA_Name,
             getData.Maladie,
+            _(<StateCard status={getData.State_Degre} />),
             new Date(getData.S_Date).toLocaleDateString('fr-FR').split( '/' ).reverse( ).join( '-' ),
             getData.S_Time,
-            _(<StateCard status={getData.State_Degre} />),
-            _(<StateCard status={getData.State} />),
+            _(CheckAnlyseOrdoCard(JSON.parse(getData.Analyses).length),'analyse'),
+            _(CheckAnlyseOrdoCard(getData.Ordonance, 'ordonance')),
+            // _(<CheckAnlyseOrdoCard status={JSON.parse().lenght} />),
             _(<Button className='rounded-pill bg-system-btn' size='mini' onClick={ (e) => NavigateFunction(`/S/sa/info/${getData.S_ID}`)}><span className='d-none d-lg-inline'> Info </span><Icon  name='angle right' /></Button>)
             ],))
             setFactureList(factureListContainer)
@@ -45,17 +48,6 @@ function FacturePage() {
             if(error.request) {
               toast.error(<><div><h5>Probleme de Connextion</h5> Les Donnée importeé sont les ancien donneé</div></>, GConf.TostInternetGonf) 
               let factureListContainer = []
-                 Offline.facture.map( (getData) => factureListContainer.push([
-                _(<TableImage image='seance.png' />),
-                getData.S_ID,
-                getData.Name,
-                new Date(getData.T_Date).toLocaleDateString('fr-FR'),
-                new Date(getData.T_Date).toLocaleDateString('fr-FR'),
-                getData.Tarif,
-                getData.Cam_Name,
-
-                _(<Button className='rounded-pill bg-system-btn' size='mini' onClick={ (e) => NavigateFunction(`/S/sa/info/${getData.S_ID}`)}><span className='d-none d-lg-inline'> Info </span><Icon  name='angle right' /></Button>)
-                ],))
                 setFactureList(factureListContainer)
             }
           });
@@ -72,9 +64,12 @@ function FacturePage() {
         const StateCard = (props) =>{ return <span className={`badge bg-${props.color}`}> {props.text} </span>}
         const statusCard = React.useCallback(() => {
           switch(status) {
-            case 'A': return <StateCard color='success' text='Payeé' />;  
-            case 'R': return <StateCard color='danger' text='Credit' /> ;
-            case 'W': return <StateCard color='warning' text='En Attend' /> ;
+            case 'En Bonne État': return <StateCard color='success' text='En Bonne État' />;  
+            case 'Malade': return <StateCard color='danger' text='Malade' /> ;
+            case 'En Réanimation': return <StateCard color='warning' text='En Réanimation' /> ;
+            case 'En Soins Palliatifs': return <StateCard color='dark' text='En Soins Palliatifs' /> ;
+            case 'En Quarantaine': return <StateCard color='primary' text='En Quarantaine' /> ;
+            case 'En Observation': return <StateCard color='info' text='En Observation' /> ;
             default:  return <StateCard color='secondary' text='Indefinie' />;    
           }
         }, [status]);
@@ -84,6 +79,15 @@ function FacturePage() {
             {statusCard()}
           </div>
         );
+    };
+
+    const CheckAnlyseOrdoCard = (lenght,genre) => {
+        if (genre == 'ordonance') {
+            if (lenght == '') {  return <span className='bi bi-x-circle-fill bi-xlsm text-danger'></span> } else {  return <span className='bi bi-check-circle-fill bi-xlsm text-success'></span>  }
+        } else {
+            if (lenght == 0) {  return <span className='bi bi-x-circle-fill bi-xlsm text-danger'></span> } else {  return <span className='bi bi-check-circle-fill bi-xlsm text-success'></span>  }
+        }
+         
     };
 
     /*#########################[Card]##################################*/
@@ -109,7 +113,7 @@ function FacturePage() {
                 <div className='col-12 col-lg-4 text-end align-self-center'><MainSubNavCard text='Offres' link='of' icon='bounding-box-circles' />  </div>
             </div>
             <br />
-            <TableGrid tableData={facturesList} columns={GConf.TableHead.facture} />
+            <TableGrid tableData={facturesList} columns={GConf.TableHead.seance} />
         </Fade>
         <Modal
                 size='small'

@@ -48,14 +48,17 @@ function ResumerFactures() {
         .then(function (response) {
             let factureListContainer = []
             response.data.map( (getData) => factureListContainer.push([
-            getData.T_ID,
-            getData.CA_Name,
-            getData.CL_Name,
-            new Date(getData.T_Date).toLocaleDateString('fr-FR').split( '/' ).reverse( ).join( '-' ),
-            getData.T_Time,
-            getData.Final_Value,
-            _(<StateCard status={getData.Pay_State} />),
-            _(<Button className='rounded-pill bg-system-btn' size='mini' onClick={ (e) => NavigateFunction(`/S/ft/info/${getData.T_ID}`)}><span className='d-none d-lg-inline'> </span><Icon  name='angle right' /></Button>)
+ 
+            getData.S_ID,
+            getData.PA_Name,
+            getData.Maladie,
+            _(<StateCard status={getData.State_Degre} />),
+            new Date(getData.S_Date).toLocaleDateString('fr-FR').split( '/' ).reverse( ).join( '-' ),
+            getData.S_Time,
+            _(CheckAnlyseOrdoCard(JSON.parse(getData.Analyses).length),'analyse'),
+            _(CheckAnlyseOrdoCard(getData.Ordonance, 'ordonance')),
+            // _(<CheckAnlyseOrdoCard status={JSON.parse().lenght} />),
+            _(<Button className='rounded-pill bg-system-btn' size='mini' onClick={ (e) => NavigateFunction(`/S/sa/info/${getData.S_ID}`)}><span className='d-none d-lg-inline'> Info </span><Icon  name='angle right' /></Button>)
             ],))
             setFactureList(factureListContainer)
 
@@ -80,9 +83,12 @@ function ResumerFactures() {
         const StateCard = (props) =>{ return <span className={`badge bg-${props.color}`}> {props.text} </span>}
         const statusCard = React.useCallback(() => {
           switch(status) {
-            case 'Payee': return <StateCard color='success' text='Payeé' />;  
-            case 'Credit': return <StateCard color='danger' text='Credit' /> ;
-            case 'Waitting': return <StateCard color='warning' text='En Attend' /> ;
+            case 'En Bonne État': return <StateCard color='success' text='En Bonne État' />;  
+            case 'Malade': return <StateCard color='danger' text='Malade' /> ;
+            case 'En Réanimation': return <StateCard color='warning' text='En Réanimation' /> ;
+            case 'En Soins Palliatifs': return <StateCard color='dark' text='En Soins Palliatifs' /> ;
+            case 'En Quarantaine': return <StateCard color='primary' text='En Quarantaine' /> ;
+            case 'En Observation': return <StateCard color='info' text='En Observation' /> ;
             default:  return <StateCard color='secondary' text='Indefinie' />;    
           }
         }, [status]);
@@ -92,6 +98,15 @@ function ResumerFactures() {
             {statusCard()}
           </div>
         );
+    };
+
+    const CheckAnlyseOrdoCard = (lenght,genre) => {
+        if (genre == 'ordonance') {
+            if (lenght == '') {  return <span className='bi bi-x-circle-fill bi-xlsm text-danger'></span> } else {  return <span className='bi bi-check-circle-fill bi-xlsm text-success'></span>  }
+        } else {
+            if (lenght == 0) {  return <span className='bi bi-x-circle-fill bi-xlsm text-danger'></span> } else {  return <span className='bi bi-check-circle-fill bi-xlsm text-success'></span>  }
+        }
+         
     };
 
     return ( <>
@@ -104,7 +119,7 @@ function ResumerFactures() {
                 </div>
             </div>
             <div className='col-12 col-lg-8'>
-                <TableGrid tableData={factureList} columns={['ID','Caisse','Client','Jour','Temps','Totale','Etat', 'Voir']} />                        
+                <TableGrid tableData={factureList} columns={['ID','Patient','Maldaie','Degreé','Jour','Temps','Analyse','Ordonance','Voir']} />                        
             </div>
         </div>
         <FrameForPrint frameId='printResumer' src={`/Pr/Facture/resumer/${targetDate.start}/${targetDate.end}`} />

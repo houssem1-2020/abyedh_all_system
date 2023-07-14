@@ -3,12 +3,13 @@ import BreadCrumb from '../../AssetsM/Cards/breadCrumb';
 import GConf from '../../AssetsM/generalConf';
 import TunMap from '../../AssetsM/tunMap';
 import { Bounce } from 'react-reveal';
-import { Button, Form, Icon, Input, Loader, Select, TextArea } from 'semantic-ui-react';
+import { Button, Form, Icon, Input, Loader, Select, Tab, TextArea } from 'semantic-ui-react';
 import useGetCamion from '../../AssetsM/Hooks/fetchCamion';
 import { toast } from 'react-toastify';
 import axios from 'axios';
 import useSaveNotification from '../../AssetsM/Hooks/saveNotifFunction';
 import { useEffect } from 'react';
+import { QrReader } from 'react-qr-reader';
 
 const FindInDirectory = ({inDirArticle, setInDirA,FindInDirectoryFunc, loaderState, OnKeyPressFunc}) =>{
     return(<>
@@ -31,13 +32,50 @@ function AjouterClient() {
     const [saveBtnState, setSaveBtnState] = useState(false)
     const [loaderState, setLS] = useState(false)
     const [delegList ,setDelegList] = useState([]) 
+    const [scanResultSeance, setScanResultSeance] = useState(false);
+
     const SaveNotification = (genre,tag,table) =>{ useSaveNotification(genre,tag,table)}
     let Offline = JSON.parse(localStorage.getItem(`${GConf.PID}_Offline`));
     const clientGenres = [
         { key: 1 , value: 'af', text: 'Alimentaire' },
         { key: 2 , value: 'af', text: 'Cosmetique' },
         { key: 3 , value: 'af', text: 'Medicale' },
-      ]
+    ]
+    const panes = [
+        {
+            menuItem: { key: 'client', icon: 'user', content:  'Entrer' }, 
+            render: () =><FindInDirectory inDirArticle={inDirArticle}  setInDirA={setInDirA} FindInDirectoryFunc={FindInDirectoryFunc} loaderState={loaderState} OnKeyPressFunc={OnKeyPressFunc} />,
+        },
+        {
+            menuItem: { key: 'start', icon: 'add circle', content: 'Scaneer ' }, 
+            render: () => <>
+                        {scanResultSeance ? 
+                            (
+                            <QrReader
+                                    constraints={{  facingMode: 'environment' }}
+                                    scanDelay={500}
+                                    onResult={(result, error) => {
+                                    if (!!result) {  FindInDirectoryFunc(result.text); setScanResultSeance(false) }
+                                    if (!!error) { console.log(error);  }
+                                    }}
+                                    style={{  width: "150px",height: "150px" }}
+                            />
+                            ) : (
+                                <div className='text-center mt-4'>
+                                    <Button onClick={() => setScanResultSeance(true)}>Cliquer Pour Scanner</Button>
+                                    <br />
+                                    <br />
+                                    <br />
+                                    <span className='bi bi-qr-code mt-3 bi-lg' style={{color: GConf.themeColor, fontSize:'150px'}}></span>
+                                </div>
+                            )}
+
+            </>,
+        },
+ 
+        
+    ]
+
     /*################[UseEffect]###############*/
     useEffect(() => {
         axios.post(`${GConf.ApiLink}/patient`,{
@@ -174,7 +212,7 @@ function AjouterClient() {
                         <div className='p-1 mb-2'>
                             <h5 className='mb-1'> Adresse:</h5>
                             <Form>
-                                <TextArea  rows="3" onKeyPress={event => OnKeyPressFunc(event)} placeholder='designer votre article' className='w-100 shadow-sm rounded mb-3' value={patientD.Adress} onChange={(e) => setPatientD({...patientD, Adress: e.target.value })}/>
+                                <TextArea  rows="3" onKeyPress={event => OnKeyPressFunc(event)} placeholder='Adresse' className='w-100 shadow-sm rounded mb-3' value={patientD.Adress} onChange={(e) => setPatientD({...patientD, Adress: e.target.value })}/>
                             </Form> 
                         </div>
                         <div className='text-end mb-5'>
@@ -182,7 +220,7 @@ function AjouterClient() {
                         </div>
                     </div>
                     <div className='col-lg-4 '>
-                        <FindInDirectory inDirArticle={inDirArticle}  setInDirA={setInDirA} FindInDirectoryFunc={FindInDirectoryFunc} loaderState={loaderState} OnKeyPressFunc={OnKeyPressFunc} />
+                        <Tab menu={{  secondary: true  }} panes={panes} />
                         <br />  
                         <br />  
                         <br />  

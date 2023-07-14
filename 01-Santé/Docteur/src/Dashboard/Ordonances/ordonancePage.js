@@ -36,8 +36,8 @@ function FacturePage() {
             getData.PA_Name,
             new Date(getData.OR_Date).toLocaleDateString('fr-FR').split( '/' ).reverse( ).join( '-' ),
             getData.OR_Time,
-            _(getData.Is_Seance ? 'O' :'N'),
-            _(<StateCard status={getData.State} />),
+            _(CheckIsSeanceCard(getData.Is_Seances)),
+            _(<StateSellCard status={getData.OR_State} />),
             _(<Button className='rounded-pill bg-system-btn' size='mini' onClick={ (e) => NavigateFunction(`/S/or/info/${getData.OR_ID}`)}><span className='d-none d-lg-inline'> Info </span><Icon  name='angle right' /></Button>)
             ],))
             setFactureList(factureListContainer)
@@ -45,14 +45,6 @@ function FacturePage() {
             if(error.request) {
               toast.error(<><div><h5>Probleme de Connextion</h5> Les Donnée importeé sont les ancien donneé</div></>, GConf.TostInternetGonf) 
               let factureListContainer = []
-                 Offline.facture.map( (getData) => factureListContainer.push([
-                _(<TableImage image='ordonance.png' />),
-                getData.OR_ID,
-                getData.PA_Name,
-                new Date(getData.OR_Date).toLocaleDateString('fr-FR'),
-                new Date(getData.OR_Date).toLocaleDateString('fr-FR'),
-                _(<Button className='rounded-pill bg-system-btn' size='mini' onClick={ (e) => NavigateFunction(`/S/ft/info/${getData.OR_ID}`)}><span className='d-none d-lg-inline'> Info </span><Icon  name='angle right' /></Button>)
-                ],))
                 setFactureList(factureListContainer)
             }
           });
@@ -69,7 +61,7 @@ function FacturePage() {
         const StateCard = (props) =>{ return <span className={`badge bg-${props.color}`}> {props.text} </span>}
         const statusCard = React.useCallback(() => {
           switch(status) {
-            case 'Payee': return <StateCard color='success' text='Terminer' />;  
+            case 'O': return <StateCard color='success' text='Terminer' />;  
             case 'Credit': return <StateCard color='danger' text='Annuleé' /> ;
             case 'Waitting': return <StateCard color='warning' text='En Cours' /> ;
             default:  return <StateCard color='secondary' text='Indefinie' />;    
@@ -81,6 +73,29 @@ function FacturePage() {
             {statusCard()}
           </div>
         );
+    };
+    const StateSellCard = ({ status }) => {
+        const StateCard = (props) =>{ return <span className={`badge bg-${props.color}`}> {props.text} </span>}
+        const statusCard = React.useCallback(() => {
+          switch(status) {
+            case 'Valide': return <StateCard color='success' text='Terminer' />;  
+            case 'Annulee': return <StateCard color='danger' text='Annuleé' /> ;
+            case 'Waitting': return <StateCard color='warning' text='En Attent' /> ;
+            default:  return <StateCard color='secondary' text='Indefinie' />;    
+          }
+        }, [status]);
+      
+        return (
+          <div className="container">
+            {statusCard()}
+          </div>
+        );
+    };
+    const CheckIsSeanceCard = (data) => {
+        console.log(data)
+        if (data == '') { return <span className='bi bi-x-circle-fill bi-xlsm text-danger'></span> } 
+        else {  return <span className='bi bi-check-circle-fill bi-xlsm text-success'></span>  }
+         
     };
 
     /*#########################[Card]##################################*/
@@ -106,7 +121,7 @@ function FacturePage() {
                 <div className='col-12 col-lg-4 text-end align-self-center'><MainSubNavCard text='Stock' link='sk' icon='window-dock' />  </div>
             </div>
             <br />
-            <TableGrid tableData={facturesList} columns={GConf.TableHead.seances} />
+            <TableGrid tableData={facturesList} columns={GConf.TableHead.ordonance} />
         </Fade>
         <Modal
                 size='small'
