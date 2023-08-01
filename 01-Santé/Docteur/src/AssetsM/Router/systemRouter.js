@@ -132,13 +132,13 @@ const systemRouter = () => (
                 <Route path="facturer/:CID" exact element={<FacturerCommande />} />
                 <Route path="calendrier" exact element={<CalendarCommandes />} />
                 <Route path="cm/info/:CID" exact element={<RequestCommandeInfo />} />
-                <Route path="rs/info/:CID" exact element={<RequestReservationInfo />} />
+                <Route path="rs/info/:CID" exact element={<RequestCommandeInfo />} />
             </Route>
             <Route path="rp" exact element={<Outlet />}>
                 <Route path="" exact element={<MenuPage />} />
                 <Route path="ajouter" exact element={<AddPlatMenu />} />
                 <Route path="famille" exact element={<FamillesPlats />} />
-                <Route path="info/:code" exact element={<PlatInfo />} />
+                <Route path="info/:RPID" exact element={<PlatInfo />} />
             </Route>
             <Route path="of" exact element={<Outlet />}>
                 <Route path="" exact element={<StockPage />} />
@@ -168,7 +168,7 @@ const systemRouter = () => (
             </Route>
             <Route path="sk" exact element={<Outlet />} >
                 <Route path="" exact element={<FournisseurPage />} />
-                <Route path="info/:FSID" exact element={<FournisseurInfo />} />
+                <Route path="info/:MEID" exact element={<FournisseurInfo />} />
                 <Route path="ajouter" exact element={<AjouterFournisseur />} />
                 <Route path="calendrier" exact element={<CalendarFournisseur />} />
                 <Route path="recherche" exact element={<RechercheFournisseur />} />

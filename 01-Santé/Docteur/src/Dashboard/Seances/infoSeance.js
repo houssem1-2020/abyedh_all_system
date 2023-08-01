@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import BreadCrumb  from '../../AssetsM/Cards/breadCrumb';
 import GConf from '../../AssetsM/generalConf';
-import { Button, Dropdown, Icon, Input , Loader, Tab, Form, TextArea} from 'semantic-ui-react';
+import { Button, Dropdown, Icon, Input , Loader, Tab, Form, TextArea, Placeholder} from 'semantic-ui-react';
 import axios from 'axios';
 import { toast } from 'react-toastify';
 import useGetClients from '../../AssetsM/Hooks/fetchClient';
@@ -23,12 +23,14 @@ function FactureInfo() {
     const [diagnostiqueValue, setDiagnistiqueValue] = useState(EditorState.createEmpty());
     const [gettedOrFID, setOrId] = useState('')
     const [medicammentListe, setMedicammentListe] = useState([])
+    const [analysesListe, setAnalyseListe] = useState([])
     const [saveBtnState, setSaveBtnState] = useState(false)
     const [loaderState, setLS] = useState(false)
     const [articleNow, setArticleNow] = useState([])
     const [articleList] = useGetArticles()
     const [clientList, allClientList] = useGetClients()
     const [autofocusState, setAutoFocus] = useState(false)
+    const [loading, setLoading] = useState(true)
     
  
     const panes = [
@@ -64,18 +66,20 @@ function FactureInfo() {
                 SID: FID
                 })
                 .then(function (response) {
+                    console.log(response.data)
                     if(!response.data[0]) {
-                        toast.error('Facture Introuvable !', GConf.TostSuucessGonf)
+                        toast.error('Seance Introuvable !', GConf.TostSuucessGonf)
                         setTimeout(() => {  window.location.href = "/S/sa"; }, 2000)
                         
                     } else {
                         setSeanceData(response.data[0])
-                        
-                        
+                        if (response.data[0].Analyses != '[]') {
+                            setAnalyseListe(JSON.parse(response.data[0].Analyses))
+                        }
                         if (response.data[0].OR_Articles != '[]') {
-                            console.log(response.data[0].OR_Articles)
                             setMedicammentListe(JSON.parse(response.data[0].OR_Articles))
                         }
+                        setLoading(false)
                     }    
                 }).catch((error) => {
                 if(error.request) {
@@ -239,11 +243,11 @@ function FactureInfo() {
         return (<>
                 <div className='card card-body  mb-2 border-div'>
  
-                                    <h5 className='mt-1 mb-1 '>Datte : {new Date(seanceData.S_Date).toLocaleDateString('fr-FR').split( '/' ).reverse( ).join( '-' )}</h5>
-                                    <h5 className='mt-1 mb-1 '>Degre : <StateCard status={seanceData.State_Degre} /></h5>
-                                    <p>
-                                        {seanceData.Resultat}
-                                    </p>
+                        <h5 className='mt-1 mb-1 '><span className='bi bi-calendar'></span> Date & Heure  : {new Date(seanceData.S_Date).toLocaleDateString('fr-FR').split( '/' ).reverse( ).join( '-' )} | {seanceData.S_Time} </h5>
+                        <h5 className='mt-1 mb-1 '><span className='bi bi-calendar'></span> Degre : <StateCard status={seanceData.State_Degre} /></h5>
+                        <p>
+                            {seanceData.Resultat}
+                        </p>
 
                 </div>
                 <br />
@@ -252,11 +256,35 @@ function FactureInfo() {
     }
     const OrdonanceCard = () =>{
         return(<>
-                    <div className='card card-body border-div'>
+                    <div className='  card-body border-div'>
                             <h5>Listes des Medicamment</h5>    
-                            {medicammentListe.map( (val) => <ArticleListCard key={val.id} dataA={val}/>)}
-                            <br />
-                            
+                            {/* {medicammentListe.map( (val) => <ArticleListCard key={val.id} dataA={val}/>)}
+                            <br /> */}
+                <table className="table">
+                    <thead>
+                        <tr>
+                        <th scope="col">No</th>
+                        <th scope="col">Designiation</th>
+                        <th scope="col">Dosage</th>
+                        <th scope="col">Forme</th>
+                        <th scope="col">Presentation</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+ 
+                        {medicammentListe.map( (artData, index) => 
+                            <tr key={index +1 }>
+                                <th scope="row">{index +1 }</th>
+                                <td>{artData.Nom}</td>
+                                <td>{artData.Dosage}</td>
+                                <td>{artData.Forme }</td>
+                                <td>{artData.Presentation}</td>
+                            </tr>
+                        )}
+                     
+                        
+                    </tbody>
+                </table>   
                     </div>
  
             </>)
@@ -291,14 +319,48 @@ function FactureInfo() {
                 </div>
         </>)
     }
+    const AnalyseListCard = (props) =>{
+        return(<>
+                    <li>
+                        <div className='row '>
+                            <div className='col-5 text-start align-self-center'>
+                                <div>{props.dataA.Grandeur}</div> 
+                            </div>
+                            <div className='col-5 text-start align-self-center'>
+                                <small>{props.dataA.Valeur}</small>
+                            </div>
+ 
+                            
+                        </div>
+                    </li>
+                </>)
+    }
     const AnalyseCard = () =>{
         return(<>
-                <div className='card card-body border-div'>
+                <div className=' card-body border-div'>
                         <h5>Listes des Analyse</h5>    
-                        {medicammentListe.map( (val) => <ArticleListCard key={val.id} dataA={val}/>)}
+                        {analysesListe.map( (val,index) => <ul  key={index}><AnalyseListCard dataA={val}/></ul>)}
                         <br />
                         
                 </div>
+        </>)
+    }
+    const LoadingCard = () =>{
+        const SimpleLoadinCard = (props) =>{
+            return(<>
+                <Placeholder fluid className='border-div w-100' style={{ height: props.fullHeight ? 180 : 40}}>
+                    <Placeholder.Image />
+                </Placeholder>
+            </>)
+        }
+        return(<>
+            <div className='row'>
+                <div className='col-2 mb-2'> <SimpleLoadinCard /> </div>
+                <div className='col-2 mb-2'> <SimpleLoadinCard /> </div>
+                <div className='col-2 mb-2'> <SimpleLoadinCard /> </div>
+                <div className='col-2 mb-2'> <SimpleLoadinCard /> </div>
+                <div className='col-12'> <SimpleLoadinCard  fullHeight/> </div>
+            </div>
         </>)
     }
     return (<>
@@ -306,7 +368,8 @@ function FactureInfo() {
         <br />
         <div className='row'>
             <div className='col-12 col-lg-8'>
-                <Tab menu={{  secondary: true  }} panes={panes} />
+                {loading ? <LoadingCard /> : <Tab menu={{  secondary: true  }} panes={panes} />}
+                
             </div>
             <div className='col-12 col-lg-4'>
                 <div className="sticky-top" style={{top:'70px'}}>

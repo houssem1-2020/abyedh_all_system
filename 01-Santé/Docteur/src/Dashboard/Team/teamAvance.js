@@ -4,14 +4,14 @@ import React from 'react';
 import { useState } from 'react';
 import { useEffect } from 'react';
 import { toast } from 'react-toastify';
-import { Button, Modal } from 'semantic-ui-react';
+import { Button, Loader, Modal } from 'semantic-ui-react';
 import { Icon } from 'semantic-ui-react';
 import { Input } from 'semantic-ui-react';
 import GConf from '../../AssetsM/generalConf';
 import BreadCrumb from '../../AssetsM/Cards/breadCrumb';
 import TableGrid from '../../AssetsM/Cards/tableGrid';
 
-const AddCard = ({teamListe, avanceData , setAvanceData , Ajouter }) =>{
+const AddCard = ({teamListe, avanceData , setAvanceData , Ajouter , loaderState}) =>{
     return<>
     <div className="sticky-top" style={{top:'70px'}}>
         <div className='card card-body shadow-sm border-div mb-2'>
@@ -26,7 +26,7 @@ const AddCard = ({teamListe, avanceData , setAvanceData , Ajouter }) =>{
             <h5>Montant </h5> 
             <Input icon='asl' type='number' autoFocus={true}    onChange={ (e) => setAvanceData({...avanceData, Valeur:e.target.value})} size="small" iconPosition='left' placeholder='Valeur'  fluid className='mb-1 shadow-sm' />
             <br />
-            <Button disabled={false}  className='rounded-pill bg-system-btn' onClick={Ajouter}>  <Icon name='edit outline' /> Ajouter</Button>
+            <Button disabled={false}  className='rounded-pill bg-system-btn' onClick={Ajouter}>  <Icon name='edit outline' /> Ajouter <Loader inverted active={loaderState} inline size='tiny' className='ms-2 text-danger'/> </Button>
         </div>
     </div>
     </>
@@ -52,7 +52,7 @@ const DeleteModal = ({setDeleteModalS,DeleteAvance,editAvanceD,deletemodalS}) =>
                     </Modal.Content>
                     <Modal.Actions>
                                 {/* <Button className='rounded-pill' negative onClick={ () => setDeleteModalS(false)}> <span className='bi bi-x' ></span> </Button> */}
-                                <Button negative className='rounded-pill' onClick={DeleteAvance}>  <Icon name='trash' /> Supprimer </Button>
+                                <Button negative className='rounded-pill' onClick={() => DeleteAvance()}>  <Icon name='trash' /> Supprimer </Button>
                     </Modal.Actions>
             </Modal>
     </>)
@@ -65,6 +65,7 @@ function TeamAvance() {
     let  [avanceData, setAvanceData] = useState({Team_ID:'', Valeur:''}); 
     const [deletemodalS, setDeleteModalS] = useState(false)
     const [editAvanceD, setEditAvanceD] = useState([])
+    const [loaderState, setLS] = useState(false)
 
     /*#########################[UseEffect]##################################*/
     useEffect(() => {
@@ -74,11 +75,11 @@ function TeamAvance() {
           .then(function (response) {
             let testTable = []
             response.data.map( (getData, index) => testTable.push([
-           (index+1),
+            getData.TPK,
             getData.T_Name,
             parseFloat(getData.Valeur).toFixed(3),
             new Date(getData.AV_Date).toLocaleDateString('fr-FR').split( '/' ).reverse( ).join( '-' ),
-            _(<Button className='rounded-pill bg-danger text-white ' size='mini' onClick={() => openEditModal(getData,false)}> X </Button>)
+            _(<Button className='rounded-pill bg-danger text-white ' size='mini' icon onClick={() => openEditModal(getData,false)}> <Icon name='trash alternate' /> </Button>)
             ],))
             setAvanceListe(testTable)
           }).catch((error) => {
@@ -104,13 +105,14 @@ function TeamAvance() {
         if (!avanceData.Team_ID) { toast.error("Memebre Invalide !", GConf.TostErrorGonf) } 
         else if (!avanceData.Valeur) { toast.error("Valeur Invalide !", GConf.TostErrorGonf) } 
         else {
-            console.log('uyg')
+            setLS(true)
             axios.post(`${GConf.ApiLink}/team/anavce/ajoute`, {
                 PID :  GConf.PID ,
                 avanceD : avanceData
               })
               .then(function (response) {
-                toast.success("Avance Ajouter  !", GConf.TostSuucessGonf)   
+                toast.success("Avance Ajouter  !", GConf.TostSuucessGonf) 
+                setLS(false)  
                  
             }).catch((error) => {
                 if(error.request) {
@@ -120,10 +122,25 @@ function TeamAvance() {
         }
     }
     const DeleteAvance = () =>{
-
+        console.log(editAvanceD.PK)
+        if (!editAvanceD.PK) { toast.error("Avance Invalide !", GConf.TostErrorGonf) } 
+        else {
+            axios.post(`${GConf.ApiLink}/team/anavce/supprimer`, {
+                PID :  GConf.PID ,
+                PK : editAvanceD.PK
+              })
+              .then(function (response) {
+                toast.success("Avance Supprimer  !", GConf.TostSuucessGonf)   
+                setDeleteModalS(false)
+            }).catch((error) => {
+                if(error.request) {
+                  toast.error(<><div><h5>Probleme de Connextion</h5> Chargemment des ancien Camion  </div></>, GConf.TostInternetGonf)   
+                }
+              });
+        }
     }
     const openEditModal = (event,selected) =>{
-        setEditAvanceD({PK: event.PK , Valeur:parseFloat(event.Valeur).toFixed(3), T_Name:event.T_Name})
+        setEditAvanceD({PK: event.TPK , Valeur:parseFloat(event.Valeur).toFixed(3), T_Name:event.T_Name})
         setDeleteModalS(true)
     }
 
@@ -135,7 +152,7 @@ function TeamAvance() {
             <br />
             <div className='container'>
                 <div className='row'>
-                    <div className='col-12 col-lg-4'><AddCard teamListe={teamListe} avanceData={avanceData} setAvanceData={setAvanceData} Ajouter={Ajouter} /></div>
+                    <div className='col-12 col-lg-4'><AddCard teamListe={teamListe} avanceData={avanceData} setAvanceData={setAvanceData} Ajouter={Ajouter} loaderState={loaderState} /></div>
                     <div className='col-12 col-lg-8'><TableGrid tableData={avanceListe} columns={['*','Nom','Jour', 'Valeur','X']} /></div>
                 </div>
             </div>

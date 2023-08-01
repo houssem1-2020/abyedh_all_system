@@ -24,7 +24,7 @@ const EditFSCard = ({fournisseurData, setFSData, EditClient,delegList,GetDelegLi
                         </div>
                         <div className='p-1  mb-2'>
                             <h5 className='mb-1'>Nom Et Prenon :</h5>
-                            <Input icon='user' iconPosition='left' placeholder='Nom Et Prenon ' className='w-100 border-0 shadow-sm rounded mb-1' value={fournisseurData.Four_Name} onChange={(e) => setFSData({...fournisseurData, Four_Name: e.target.value })} />
+                            <Input icon='user' iconPosition='left' placeholder='Nom Et Prenon ' className='w-100 border-0 shadow-sm rounded mb-1' value={fournisseurData.Nom} onChange={(e) => setFSData({...fournisseurData, Nom: e.target.value })} />
                         </div>
                         <div className='p-1 mb-2'>
                             <h5 className='mb-1'>Telephone :</h5>
@@ -36,7 +36,7 @@ const EditFSCard = ({fournisseurData, setFSData, EditClient,delegList,GetDelegLi
                         </div>
                         <div className='p-1 mb-2'>
                             <h5 className='mb-1'>Geolocation</h5>
-                            <Select placeholder='Selectionnez Gouvernorat' fluid className='mb-2' options={TunMap.Gouv} value={fournisseurData.Four_Gouv} onChange={(e, { value }) => GetDelegList(value)} />
+                            <Select placeholder='Selectionnez Gouvernorat' fluid className='mb-2' options={TunMap.Gouv} value={fournisseurData.Forme} onChange={(e, { value }) => GetDelegList(value)} />
                             <Select placeholder='Selectionnez Delegation ' fluid value={fournisseurData.Four_Deleg} options={delegList} onChange={(e, { value }) => setFSData({...fournisseurData, Four_Deleg: value })} />
                         </div>
                         {/* <div className='p-1 mb-2'>
@@ -47,7 +47,7 @@ const EditFSCard = ({fournisseurData, setFSData, EditClient,delegList,GetDelegLi
                         <div className='p-1 mb-2'>
                             <h5 className='mb-1'> Adresse:</h5>
                             <Form>
-                                <TextArea  rows="3" placeholder='designer votre article' className='w-100 shadow-sm rounded mb-3' value={fournisseurData.Four_Adress} onChange={(e) => setFSData({...fournisseurData, Four_Adress: e.target.value })}/>
+                                <TextArea  rows="3" placeholder='designer votre article' className='w-100 shadow-sm rounded mb-3' value={fournisseurData.Dosage} onChange={(e) => setFSData({...fournisseurData, Dosage: e.target.value })}/>
                             </Form> 
                         </div>
                         <div className='text-end mb-5'>
@@ -85,7 +85,7 @@ const FindInDirectory = ({inDirArticle, setInDirA,FindInDirectoryFunc, loaderSta
 
 function FournisseurInfo() {
          /* ############################### Const ################################*/
-         const {FSID} = useParams()
+         const {MEID} = useParams()
          const [fournisseurData, setFSData] = useState([])
          const [position, setPosition] = useState([36.17720,9.12337])
          const [commande, setCommande] = useState([])
@@ -98,21 +98,14 @@ function FournisseurInfo() {
          const [delegList ,setDelegList] = useState([]) 
          const panes = [
               {
-                  menuItem: { key: 'reciept', icon: 'file text', content: 'Factures' }, 
-                  render: () =><><TableGrid tableData={factures} columns={GConf.TableHead.clientFacture} /> </> ,
-              },
-              {
-                menuItem: { key: 'reciept', icon: 'check circle', content: 'Verification' }, 
-                render: () =><Tab.Pane className='border-div mb-4' attached={false}><FindInDirectory inDirArticle={inDirArticle}  setInDirA={setInDirA} FindInDirectoryFunc={FindInDirectoryFunc} loaderState={loaderState} OnKeyPressFunc={OnKeyPressFunc} fromDirectory={fromDirectory}/> </Tab.Pane> ,
+                  menuItem: { key: 'dfgdrZ', icon: 'file text', content: 'Info' }, 
+                  render: () =><Tab.Pane className='border-div' attached={false}><MedicammentInfo  /></Tab.Pane> ,
               },
               {
                 menuItem: { key: 'edit', icon: 'edit', content: 'Modifier' }, 
                 render: () => <><Tab.Pane className='border-div' attached={false}><EditFSCard fournisseurData={fournisseurData} setFSData={setFSData} EditClient={EditClient} delegList={delegList} GetDelegList={GetDelegList}  loaderState={loaderState}/></Tab.Pane><br /></>,
               },
-              {
-                 menuItem: { key: 'suivie', icon: 'map pin', content: 'Position' }, 
-                 render: () =><><Tab.Pane className='border-div' attached={false} tabular={true}><PositionCard /></Tab.Pane><br /></>,
-             },
+ 
              {
                  menuItem: { key: 'delete', icon: 'trash alternate', content: 'Supprimer' }, 
                  render: () => <><Tab.Pane className='border-div' attached={false}><DeleteFS /></Tab.Pane><br /></>,
@@ -126,16 +119,16 @@ function FournisseurInfo() {
              //client Info
              axios.post(`${GConf.ApiLink}/ordonance/medicamment/select`, {
                  tag: GConf.PID,
-                 fourId : FSID
+                 PK : MEID
              }).then(function (response) {
-              console.log(response.data)
-                 if(!response.data[0].PK) {
-                     toast.error('Fournisseur Introuvable !', GConf.TostSuucessGonf)
-                     setTimeout(() => {  window.location.href = "/S/fs"; }, 2000)
+                    console.log(response.data)
+                 if(!response.data.PK) {
+                     toast.error('Medicament Introuvable !', GConf.TostSuucessGonf)
+                     setTimeout(() => {  window.location.href = "/S/sk"; }, 2000)
                      
                  } else {
-                     setFSData(response.data[0])
-                     setPosition([response.data[0].Four_Lat,response.data[0].Four_Lng])
+                     setFSData(response.data)
+                      
                      setLoading(true)
                      
                  }
@@ -154,7 +147,7 @@ function FournisseurInfo() {
      
           /* ############################### Functions ################################*/
             const GetDelegList = (value) =>{
-             setFSData({...fournisseurData, Four_Gouv: value })
+             setFSData({...fournisseurData, Forme: value })
              const found = TunMap.Deleg.filter(element => element.tag === value)
              setDelegList(found)
             }
@@ -193,7 +186,7 @@ function FournisseurInfo() {
                     setLS(true)
                     axios.post(`${GConf.ApiLink}/fournisseur/supprimer`, {
                         PID : GConf.PID,
-                        clientId : FSID,
+                        clientId : MEID,
                     }).then(function (response) {
                         if(response.data.affectedRows) {
                             toast.success("Client Supprimer !", GConf.TostSuucessGonf)
@@ -251,36 +244,28 @@ function FournisseurInfo() {
                              <div className="mcbg main-big-card"></div>
                          </div>
                          <div className="img-card-container text-center">
-                             <div className="card-container">
-                                 <img src="https://system.anaslouma.tn/Assets/images/fourniss.png" className="rounded-circle" width="80" />                    
+                             <div className="card-container bg-white">
+                                 <img src="https://cdn.abyedh.tn/images/system/docteur/medicaments.png" className="rounded-circle" width="80" />                    
                              </div>
                          </div>
                          <div className="mt-5 text-center">
-                                 <h4 className='mt-2'>{loading ? fournisseurData.Four_Name : SKLT.BarreSkl } </h4> 
-                                 <h6 className="text-secondary">  {loading ? <><span className="bi bi-geo-alt-fill"></span> { fournisseurData.Four_Adress } </>: SKLT.BarreSkl} </h6>
-                                 <h6 className="text-secondary"> {loading ? <><span className="bi bi-geo-fill"></span> { fournisseurData.Four_Gouv } </>: SKLT.BarreSkl } </h6>
-                                 <Divider horizontal className='text-secondary mt-4'>Matricule.F</Divider>
+                                 <h4 className='mt-2'>{loading ? fournisseurData.Nom : SKLT.BarreSkl } </h4> 
+                                 <h6 className="text-secondary">  {loading ? <><span className="bi bi-geo-alt-fill"></span> { fournisseurData.Dosage } </>: SKLT.BarreSkl} </h6>
+                                 <h6 className="text-secondary"> {loading ? <><span className="bi bi-geo-fill"></span> { fournisseurData.Forme } </>: SKLT.BarreSkl } </h6>
+                                 <Divider horizontal className='text-secondary mt-4'>Dosage.F</Divider>
                                  <div className='row text-center'>
                                      <div className='col-12'>    
                                          {loading ?  
-                                             <Statistic color='red' size='tiny'>
-                                                 <Statistic.Value>
-                                                     {fournisseurData.Four_Code_Fiscale} 
-                                                 </Statistic.Value>
-                                             </Statistic>
+                                             <h1><span className="badge bg-danger ">{loading ? fournisseurData.Dosage : '' }</span></h1>
                                          : SKLT.BarreSkl }  
                                          
                                      </div>
                                  </div>
-                                 <Divider horizontal className='text-secondary mt-4'>Telephone</Divider>
+                                 <Divider horizontal className='text-secondary mt-4'>Presentaion</Divider>
                                  <div className='row text-center'>
                                      <div className='col-12 mb-3'> 
                                          {loading ?  
-                                             <Statistic color='green' size='tiny'>
-                                                 <Statistic.Value>
-                                                     {fournisseurData.Four_Phone} 
-                                                 </Statistic.Value>
-                                             </Statistic>
+                                             <h2><span className="badge bg-success ">{loading ? fournisseurData.Presentation : '' }</span></h2>
                                          : SKLT.BarreSkl }   
                                      </div>
                                      
@@ -290,23 +275,84 @@ function FournisseurInfo() {
                  </div>
              </>);
          }
-         const PositionCard = () =>{
-             return (<>
-                         <div className='p-1'>
-                                 <h5>Location</h5>
-                                 <MapContainer center={position} zoom={9} scrollWheelZoom={false} className="map-height">
-                                     <TileLayer
-                                     attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
-                                     url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
-                                     />
-                                     <Marker position={position}>
-                                         <Popup>
-                                             
-                                         </Popup>
-                                     </Marker>
-                                 </MapContainer> 
-                         </div>
-             </>);
+         const MedicammentInfo = () =>{
+            return(<>
+                    <h5>Info Generale</h5>
+                    <div class="table-responsive">
+                        <table class="table table-striped">
+                        <tbody>
+                            <tr>
+                                <th scope="row">Nom</th>
+                                <td>{loading ? fournisseurData.Nom : '' }</td>
+                            </tr>
+                            <tr>
+                                <th scope="row">Dosage</th>
+                                <td>{loading ? fournisseurData.Dosage : '' }</td>
+                            </tr>
+                            <tr>
+                                <th scope="row">Forme</th>
+                                <td>{loading ? fournisseurData.Forme : '' }</td>
+                            </tr>
+                            <tr>
+                                <th scope="row">Presentation</th>
+                                <td>{loading ? fournisseurData.Presentation : '' }</td>
+                            </tr>
+                            <tr>
+                                <th scope="row">DCI</th>
+                                <td>{loading ? fournisseurData.DCI : '' }</td>
+                            </tr>
+                            <tr>
+                                <th scope="row">Classe</th>
+                                <td>{loading ? fournisseurData.Classe : '' }</td>
+                            </tr>
+                            <tr>
+                                <th scope="row">Sous_Classe</th>
+                                <td>{loading ? fournisseurData.Sous_Classe : '' }</td>
+                            </tr>
+                            <tr>
+                                <th scope="row">Laboratoire</th>
+                                <td>{loading ? fournisseurData.Laboratoire : '' }</td>
+                            </tr>
+                            <tr>
+                                <th scope="row">AMM</th>
+                                <td>{loading ? fournisseurData.AMM : '' }</td>
+                            </tr>
+                            <tr>
+                                <th scope="row">Date_AMM</th>
+                                <td>{loading ? fournisseurData.Date_AMM : '' }</td>
+                            </tr>
+                            <tr>
+                                <th scope="row">Conditionnement_primaire</th>
+                                <td>{loading ? fournisseurData.Conditionnement_primaire : '' }</td>
+                            </tr>
+                            <tr>
+                                <th scope="row">Specifocation</th>
+                                <td>{loading ? fournisseurData.Specifocation : '' }</td>
+                            </tr>
+                            <tr>
+                                <th scope="row">Specifocation</th>
+                                <td>{loading ? fournisseurData.Specifocation : '' }</td>
+                            </tr>
+                            <tr>
+                                <th scope="row">Duree_de_conservation</th>
+                                <td>{loading ? fournisseurData.Duree_de_conservation : '' }</td>
+                            </tr>
+                            <tr>
+                                <th scope="row">Indications</th>
+                                <td>{loading ? fournisseurData.Indications : '' }</td>
+                            </tr>
+                            <tr>
+                                <th scope="row">G_P_B</th>
+                                <td>{loading ? fournisseurData.G_P_B : '' }</td>
+                            </tr>
+                            <tr>
+                                <th scope="row">VEIC</th>
+                                <td>{loading ? fournisseurData.VEIC : '' }</td>
+                            </tr>
+                        </tbody>
+                        </table>
+                    </div>
+            </>)
          }
          const DeleteFS= () =>{
              return(<><h3 className="text-secondary">Voulez-Vous Vraimment Supprimer Ce Camion ?</h3> 

@@ -5,21 +5,28 @@ import FullCalendar from '@fullcalendar/react' // must go before plugins
 import dayGridPlugin from '@fullcalendar/daygrid' // a plugin!
 import axios from 'axios';
 import { toast } from 'react-toastify';
+import { Button, Icon, Input } from 'semantic-ui-react';
+import { useNavigate} from 'react-router-dom';
 
 function CalendarCommandes() {
     /*#########################[Const]##################################*/
     const [articleEvents , setArticleEvents] = useState([])
+    const [todayListe , setTodayListe] = useState([])
+    const [fetchCalendar , setFetchCalendar] = useState({De_Date : '2023-05-09', Vers_Date :'2023-08-09'})
+    const navigate = useNavigate();
 
     /*#########################[UseEffect]##################################*/
     useEffect(() => {
-        axios.post(`${GConf.ApiLink}/commande`, {
+        axios.post(`${GConf.ApiLink}/request`, {
           PID : GConf.PID,
         })
         .then(function (response) {
-            let commandeContainer = []
-            //console.log(new Date(response.data[0].Date_Volu).toLocaleDateString('fr-FR').split( '/' ).reverse( ).join( '-' ))
-            response.data.map( (commandeDate) => commandeContainer.push( { title: commandeDate.Client, className:'bg-transpareant border text-dark',  date: new Date(commandeDate.Date_Volu).toLocaleDateString('fr-FR').split( '/' ).reverse( ).join( '-' ) }))
-            setArticleEvents(commandeContainer)
+ 
+            setTodayListe(response.data.filter((data) => data.State == 'A' && data.RDV_Date ==  new Date().toLocaleDateString('fr-FR').split( '/' ).reverse( ).join( '-' )))
+            let calendarData = []
+            response.data.map( (getData) => calendarData.push( { title: getData.Name , date: new Date(getData.RDV_Date).toLocaleDateString('fr-FR').split( '/' ).reverse( ).join( '-' ), className: GenerateColor(getData.State)}))
+            setArticleEvents(calendarData)
+
         }).catch((error) => {
             if(error.request) {
               toast.error(<><div><h5>Probleme de Connextion</h5> Impossible de modifier l'article  </div></>, GConf.TostInternetGonf)   
@@ -28,20 +35,83 @@ function CalendarCommandes() {
           });
     }, [])
 
+    /*#########################[Functions]#############################*/
+    const NavigateFunction = (link) => { navigate(link) }
+    const GenerateColor = (genre) => {
+        switch (genre) {
+            case 'W': return 'border-0 bg-danger';  
+            case 'S': return 'border-0 bg-info' ;  
+            case 'A': return 'border-0 bg-success';
+            case 'R': return 'border-0 bg-danger' ;
+            case 'RT': return 'border-0 bg-retarder';
+            case 'RD': return 'border-0 bg-rederecter' ;
+            case 'F': return 'border-0 bg-secondary';
+            default:  return 'border-0 bg-dark';
+        }
+    }
+    const SearchTargetEventFun = () =>{
+
+    }
+    /*#########################[Card]##################################*/
+    const TodayListeCard = (props) =>{
+        return(<>
+                <div className='card p-2 border-div mb-2 bg-white shadow-sm'>
+                    <div className='row'>
+                        <div className='col-5 align-self-center'>{props.data.Name}</div>
+                        <div className='col-4 align-self-center'>10:12</div>
+                        <div className='col-3'><Button  size='tiny' icon  onClick={ (e) => NavigateFunction(`/S/rq/rs/info/${props.data.R_ID}`)} className='rounded-pill bg-system-btn ' >  <Icon name='arrow right' /> </Button></div>
+                    </div> 
+                </div>
+        </>)
+    }
+    const FetchOldEventCard = () =>{
+        return(<>
+        <div className='card card-body border-div mb-3 '>
+            <h5 className='mb-1' >Recherche ...</h5>
+            <div className='row'>
+      
+                <div className='col-5 align-self-center'>
+                    <Input icon='calendar alternate' type='date' size="small" iconPosition='left'   fluid className='mb-1' value={fetchCalendar.De_Date} onChange={(e) => setFetchCalendar({...fetchCalendar, De_Date: e.target.value })}/>
+                </div>
+                <div className='col-5 align-self-center'>
+                    <Input icon='calendar alternate' type='date' size="small" iconPosition='left'   fluid className='mb-1' value={fetchCalendar.Vers_Date} onChange={(e) => setFetchCalendar({...fetchCalendar, Vers_Date: e.target.value })}/>
+                </div>
+                <div className='col-2 align-self-center'>
+                    <Button  className='rounded-pill text-secondary btn-imprimer' icon onClick={(e) => SearchTargetEventFun()}><Icon name='search' /> Recherche </Button>
+                </div>
+            </div>
+        </div>
+        </>)
+    }
+
     return ( <>
         <BreadCrumb links={GConf.BreadCrumb.RequestCalendar} />
         <br />
-        <div className='card p-5 border-div mb-4'>
-            <FullCalendar 
-                plugins={[ dayGridPlugin ]}
-                initialView="dayGridMonth"
-                locale='fr' 
-                events={articleEvents}
-                height='510px'
-                //allDaySlot= {false}
-                navLinks={true}
-                buttonText= {{ today:    'aujourd\'hui', }}
-            />
+        <div className='row'>
+           <div className='col-12 col-lg-9'>  
+                <FetchOldEventCard />  
+                <FullCalendar 
+                    plugins={[ dayGridPlugin ]}
+                    initialView="dayGridMonth"
+                    locale='fr' 
+                    events={articleEvents}
+                    height='590px'
+                    //allDaySlot= {false}
+                    navLinks={true}
+                    buttonText= {{ today: 'aujourd\'hui', }}
+                />
+            </div>
+            <div className='col-12 col-lg-3'>
+                <div className="sticky-top" style={{top:'90px', zIndex:'999'}}>
+                    <h5>Rendy-vous D'aujourd'hui </h5>
+                    <div className='spesific-commp' style={{height: '70vh', overflow: 'scroll', overflowX:'hidden'}}>
+                        {
+                            todayListe.map((data,index) => <TodayListeCard key={index} data={data} /> )
+                        }
+                    </div>
+                    
+                </div> 
+            </div> 
         </div>
         <br />
         <br />

@@ -133,7 +133,7 @@ function AjouterTeam() {
         if (!inDirArticle) {toast.error("Entrer Un UID  !", GConf.TostErrorGonf)}
         else{
             setLS(true)
-            axios.post(`${GConf.ApiLink}/patient/checkAbyedhDb`, {
+            axios.post(`${GConf.ApiLink}/membres/checkAbyedhDb`, {
                 UID : inDirArticle,
             }).then(function (response) {
                 if(response.data.length  != 0) {

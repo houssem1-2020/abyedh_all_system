@@ -13,36 +13,39 @@ import { Editor } from 'react-draft-wysiwyg';
 import draftToHtml from 'draftjs-to-html'; // Updated import statement
 import 'react-draft-wysiwyg/dist/react-draft-wysiwyg.css';
 
-const TerminerCard = ({seanceData, setSeanceData,allClientList, OnKeyPressFunc}) =>{
-    const StateDegree = [
-        {value : 'Ganger', text : 'Dangereur', key: 1},
-        {value : 'Ganger', text : 'Assey Normale', key: 2},
-        {value : 'Ganger', text : 'Normale', key: 3},
-        {value : 'Ganger', text : 'Bien', key: 4},
+const TerminerCard = ({rapportData, setRapportData,allClientList, OnKeyPressFunc}) =>{
+    const rapportGenre = [
+        {value : 'Finance', text : 'Dangereur', key: 1},
+        {value : 'Patient', text : 'Assey Normale', key: 2},
+        {value : 'Seances', text : 'Normale', key: 3},
+        {value : 'Maladie', text : 'Bien', key: 4},
     ]
     return (<>
              
-            <h5>Date & Patient  </h5>
-            <Input icon='calendar alternate' type='date' size="small" iconPosition='left'   fluid className='mb-1' value={seanceData.S_Date} onChange={(e) => setSeanceData({...seanceData, S_Date: e.target.value })}/>
-            <datalist id="clientList">
-                    {allClientList.map((test,index) =>
-                    <option key={index} value={test.PA_ID}>{test.PA_Name} : {test.Phone}</option>
-                    )}
-            </datalist>
-            <Input icon='add user' onKeyPress={event => OnKeyPressFunc(event)} list="clientList" placeholder={seanceData.S_Patient}   onBlur={ (e) => setSeanceData({...seanceData, S_Patient: e.target.value })} size="small" iconPosition='left'   fluid className='mb-1' />
-            <h5>Danger  </h5>
+            <h5 className='mb-1 mt-1'>Titre  </h5>
+            <Input icon='add user' onKeyPress={event => OnKeyPressFunc(event)} list="clientList" placeholder={rapportData.RA_Titre}   onBlur={ (e) => setRapportData({...rapportData, RA_Titre: e.target.value })} size="small" iconPosition='left'   fluid className='mb-1' />
+
+            <h5 className='mb-1 mt-1'>Sujet </h5>
+            <Form>
+                <TextArea rows={2} placeholder='Maladie' onKeyPress={event => OnKeyPressFunc(event)} value={rapportData.RA_Sujet} onChange={(e) => setRapportData({...rapportData, RA_Sujet : e.target.value })} />
+            </Form>
+
+            <h5 className='mb-1 mt-1'>Date   </h5>
+            <Input icon='calendar alternate' type='date' size="small" iconPosition='left'   fluid className='mb-1' value={rapportData.RA_Date} onChange={(e) => setRapportData({...rapportData, RA_Date: e.target.value })}/>
+ 
+            <h5 className='mb-1 mt-1'>Genre  </h5>
             <Dropdown
                 fluid
                 search
                 selection
                 wrapSelection={false}
-                options={StateDegree}
-                placeholder={seanceData.State_Degre}
+                options={rapportGenre}
+                placeholder={rapportData.RA_Genre}
                 className='mb-1'
-                onChange={(e, { value }) => setSeanceData({...seanceData, State_Degre: value })}
-                value={seanceData.State_Degre}
+                onChange={(e, { value }) => setRapportData({...rapportData, RA_Genre: value })}
+                value={rapportData.RA_Genre}
             /> 
- 
+
                 
  
     </>)
@@ -51,7 +54,7 @@ const TerminerCard = ({seanceData, setSeanceData,allClientList, OnKeyPressFunc})
 function AjouterFacture() {
     /*#########################[Const]##################################*/
     const Today = new Date()
-    const [seanceData, setSeanceData] = useState({S_Patient:'PASSAGER',  Diagnostic: 'Null', Resultat:'', Maladie:'',  S_Date: Today.toISOString().split('T')[0], State_Degre: '' , ordonance:[]})
+    const [rapportData, setRapportData] = useState({ RA_Content: 'Null', RA_Titre:'', RA_Genre:'', RA_Sujet:'',  RA_Date: Today.toISOString().split('T')[0], RA_State: 'S'  })
     const [diagnostiqueValue, setDiagnistiqueValue] = useState(EditorState.createEmpty());
     const [gettedOrFID, setOrId] = useState('')
     const [saveBtnState, setSaveBtnState] = useState(false)
@@ -70,7 +73,32 @@ function AjouterFacture() {
          
         {
             menuItem: { key: 'articles', icon: 'save', content:  'Terminer' }, 
-            render: () =><><FinishCard /></> ,
+            render: () =><><div className='row'>
+                        <div className='col-12 col-lg-8'><ViewCard /></div>
+                        <div className='col-12 col-lg-4'>
+                            <div className='card card-body shadow-sm mb-2 border-div'>
+                                <div className='row'>
+                                    <div className='col-12  '>
+                                        <TerminerCard rapportData={rapportData} setRapportData={setRapportData} clientList={clientList} allClientList={allClientList}   OnKeyPressFunc={OnKeyPressFunc} />
+                                    </div>
+                                    <div className='col-12  '>
+                                            <br />
+                                            <div className='row mb-2'>
+                                                <div className='col-12'>
+                                                    <Button  className='rounded-pill bg-system-btn' disabled={saveBtnState} fluid onClick={SaveRapport}><Icon name='save' /> Enregistrer <Loader inverted active={loaderState} inline size='tiny' className='ms-2'/></Button>
+                                                </div>
+                                            </div>
+                                            <div className='row mb-2'>
+                                                <div className='col-12'>
+                                                    <Button  className='rounded-pill btn-imprimer' disabled={!saveBtnState} fluid onClick={(e) => PrintFunction('printFacture')}><Icon name='print' /> Imprimer Ordonance</Button>
+                                                </div>
+                                            </div>
+                                            
+                                    </div>
+                                </div>
+                            </div>    
+                        </div> 
+                    </div></> ,
         }
         
     ]
@@ -78,8 +106,7 @@ function AjouterFacture() {
  
 
     /* ############################### UseEffect ########################*/
-    useEffect(() => {
-          
+    useEffect(() => {      
           //console.log(articleList)
             // //camionList
             // axios.post(`${GConf.ApiLink}/camions`,{PID :GConf.PID})
@@ -100,19 +127,17 @@ function AjouterFacture() {
         const htmlValue = draftToHtml(rawContentState)
         return(JSON.stringify(htmlValue))
     }
-    const SaveSeance = () =>{
-            if (!seanceData.Diagnostic ) {toast.error("Diagnostique est Invalide !", GConf.TostErrorGonf)}
-            else if (!seanceData.S_Patient) {toast.error("Patient De est Invalide !", GConf.TostErrorGonf)}
-            // else if (!seanceData.Maladie) {toast.error("Maladie vers est Invalide !", GConf.TostErrorGonf)}
-            else if (!seanceData.Resultat) {toast.error("Resultat  est Invalide !", GConf.TostErrorGonf)}
-            else if (!seanceData.State_Degre) {toast.error("Dnager   est Invalide !", GConf.TostErrorGonf)}
-            else if (!seanceData.S_Date) {toast.error("Date est Invalide !", GConf.TostErrorGonf)}
-            else if (!seanceData.ordonance ) {toast.error("Ordonance list est Invalide !", GConf.TostErrorGonf)}
+    const SaveRapport = () =>{
+            if (!rapportData.RA_Content ) {toast.error("Diagnostique est Invalide !", GConf.TostErrorGonf)}
+            else if (!rapportData.RA_Titre) {toast.error("Patient De est Invalide !", GConf.TostErrorGonf)}
+            else if (!rapportData.RA_Sujet) {toast.error("RA_Sujet  est Invalide !", GConf.TostErrorGonf)}
+            else if (!rapportData.RA_Date) {toast.error("Dnager   est Invalide !", GConf.TostErrorGonf)}
+            else if (!rapportData.RA_State) {toast.error("Date est Invalide !", GConf.TostErrorGonf)}
             else {
                 setLS(true)
-                axios.post(`${GConf.ApiLink}/seances/ajouter`, {
+                axios.post(`${GConf.ApiLink}/rapport/ajouter`, {
                     PID : GConf.PID,
-                    seanceData: {S_Patient: seanceData.S_Patient,  Diagnostic: GenerateDiagnostiqueHTml(), Resultat:seanceData.Resultat, Maladie:seanceData.Maladie,  S_Date: Today.toISOString().split('T')[0], State_Degre: seanceData.State_Degre , ordonance:seanceData.ordonance} ,
+                    rapportData: {RA_Titre: rapportData.RA_Titre,  RA_Content: GenerateDiagnostiqueHTml(), RA_Sujet:rapportData.RA_Sujet, Maladie:rapportData.Maladie,  RA_Date: Today.toISOString().split('T')[0] , RA_State: rapportData.RA_State,  RA_Genre: rapportData.RA_Genre,} ,
                 })
                 .then(function (response) {
                     if(response.status = 200) {
@@ -128,7 +153,7 @@ function AjouterFacture() {
                 }).catch((error) => {
                     if(error.request) {
                       toast.error(<><div><h5>Probleme de Connextion</h5> La Seance sera enregistrer sur votre ordinateur    </div></>, GConf.TostInternetGonf)   
-                      Offline.SeanceToSave.push(seanceData)
+                      Offline.SeanceToSave.push(rapportData)
                       localStorage.setItem(`${GConf.PID}_Offline`,  JSON.stringify(Offline));
                       setLS(false)
                     }
@@ -167,8 +192,8 @@ function AjouterFacture() {
             </>)
         }
         return (<>
-                <div className='card card-body shadow-sm border-div '>
-                    <h5>Rapport  </h5>
+                <div className='  card-body   mb-4'  >
+  
                     <Editor
                         toolbar={{
                             inline: { inDropdown: true },
@@ -178,8 +203,10 @@ function AjouterFacture() {
                             // history: { inDropdown: true },
                             toolbarCustomButtons: { inDropdown: true },
                           }}
+                        height = '500px' 
+                        placeholder='Ecrivez Ici Votre rapport  | '
                         editorState={diagnostiqueValue}
-                        toolbarClassName="toolbarClassName border-div p-3 pb-2 bg-system text-dark"
+                        toolbarClassName="toolbarClassName border-div p-3 pb-2 shadow-sm text-dark"
                         wrapperClassName="wrapperClassName"
                         editorClassName="editorClassName"
                         onEditorStateChange={setDiagnistiqueValue}
@@ -192,43 +219,18 @@ function AjouterFacture() {
                 </div>
         </>)
     }
-    const FinishCard = () =>{
-        return (<>
-                <div className='card card-body shadow-sm mb-2 border-div'>
-                    <div className='row'>
-                        <div className='col-12  '>
-                            <TerminerCard seanceData={seanceData} setSeanceData={setSeanceData} clientList={clientList} allClientList={allClientList}   OnKeyPressFunc={OnKeyPressFunc} />
-                        </div>
-                        <div className='col-12  '>
-                                <br />
-                                <div className='row mb-2'>
-                                    <div className='col-12'>
-                                        <Button  className='rounded-pill bg-system-btn' disabled={saveBtnState} fluid onClick={SaveSeance}><Icon name='save' /> Enregistrer <Loader inverted active={loaderState} inline size='tiny' className='ms-2'/></Button>
-                                    </div>
-                                </div>
-                                <div className='row mb-2'>
-                                    <div className='col-12'>
-                                        <Button  className='rounded-pill btn-imprimer' disabled={!saveBtnState} fluid onClick={(e) => PrintFunction('printFacture')}><Icon name='print' /> Imprimer Ordonance</Button>
-                                    </div>
-                                </div>
-                                 
-                        </div>
-                    </div>
-                </div>
-                <br />
-                <br />
+  
+    const ViewCard = () =>{
+        return(<>
+            <div dangerouslySetInnerHTML={{ __html: draftToHtml(convertToRaw(diagnostiqueValue.getCurrentContent())) }}></div>
+            <br />
         </>)
     }
- 
     
     return (<>
         <BreadCrumb links={GConf.BreadCrumb.factureAjouter} />
         <br />
-        
-        <div className='row'>
-            <div className='col-12 col-lg-8'><DiagnostiqueCard /></div>
-            <div className='col-12 col-lg-4'><FinishCard /></div> 
-        </div>
+        <Tab menu={{  secondary: true  }} panes={panes} />
         {/* <FrameForPrint frameId='printFacture' src={`/Pr/facture/info/${gettedOrFID}`} /> */}
     </> );
     }

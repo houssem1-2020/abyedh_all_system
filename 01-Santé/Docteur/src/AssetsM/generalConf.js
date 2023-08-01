@@ -142,10 +142,10 @@ const GConf = {
 
     //main stat card
     LinkCard: [
-        { id: 1, col: 2 , tag:"rapport", dataTag:'rapportNum',  icon: 'upc-scan', link:'mu/ajouter', smallT: 'Rapport', desc: 'Nouveaux', isFloat : false , stat:'22452'},
-        { id: 2, col: 2 , tag:"seance", dataTag:'seanceNum', icon: 'receipt-cutoff', link:'ft/resumer', smallT: 'Seance', desc: 'Nouveaux', isFloat : false , stat:'22452'},
-        { id: 3, col: 2 , tag:"patient", dataTag:'patientNum', icon: 'person', link:'cl/ajouter', smallT: 'Patient', desc: 'Ajouter', isFloat : false , stat:'1235'},
-        { id: 4, col: 2 , tag:"caisse", dataTag:'ordonanceNum', icon: 'pc-display-horizontal', link:'ca', smallT: 'Ordonance', desc: 'Nouveaux', isFloat : false , stat:'22'},
+        { id: 1, col: 2 , tag:"rapport", dataTag:'rapportNum',  icon: 'file-earmark-bar-graph', link:'rp/ajouter', smallT: 'Rapport', desc: 'Nouveaux', isFloat : false , stat:'22452'},
+        { id: 2, col: 2 , tag:"seance", dataTag:'seanceNum', icon: 'stopwatch', link:'sa/ajouter', smallT: 'Seance', desc: 'Nouveaux', isFloat : false , stat:'22452'},
+        { id: 3, col: 2 , tag:"patient", dataTag:'patientNum', icon: 'person', link:'pt/ajouter', smallT: 'Patient', desc: 'Ajouter', isFloat : false , stat:'1235'},
+        { id: 4, col: 2 , tag:"caisse", dataTag:'ordonanceNum', icon: 'receipt-cutoff', link:'or/ajouter-c', smallT: 'Ordonance', desc: 'Nouveaux', isFloat : false , stat:'22'},
         { id: 4, col: 2 , tag:"Equipe", dataTag:'equipeNum', icon: 'microsoft-teams', link:'tm/presence', smallT: 'Equipe', desc: 'Presence', isFloat : false , stat:'22'},
     ],
 
@@ -197,8 +197,8 @@ const GConf = {
             {id:2, name:'Information', linkable:false}
         ],
         factureAjouter:[
-            {id:1, name:'Seance', linkable:true, link:"/S/ab"},
-            {id:2, name:'Ajouter Facture', linkable:false}
+            {id:1, name:'Seance', linkable:true, link:"/S/sa"},
+            {id:2, name:'Ajouter Seance', linkable:false}
         ],
         factureInfo:[
             {id:1, name:'Seance', linkable:true, link:"/S/ab"},
@@ -378,7 +378,7 @@ const GConf = {
         ordonance:['*','ID','Patient','Date','Temps','Seance ?','Etat','Voir'],
         seances:['*','ID','Caisse','Client','Jour','Temps','Etat','Voir'],
         request:['*','ID','Client', 'Date','Table','Etat','X','Voir'],
-        reservation:['*','ID','Client', 'Passé le','Volu le','Etat','X','Voir'],
+        reservation:['*','ID','Client', 'Passé le','Volu le','Temps','Etat','Enreg.?','Voir'],
         menu:['*','Code', 'Nom', 'Genre','Cout','P.vente','X','Voir'],
         stock:['*','Code', 'Nom', 'Genre','Tarif','Voir'],
         camion:['*','Camion','Matricule', 'Chauffeur','Fond','Recette','X','Voir'],

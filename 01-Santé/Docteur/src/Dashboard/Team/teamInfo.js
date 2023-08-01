@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import GConf from '../../AssetsM/generalConf';
 import TunMap from '../../AssetsM/tunMap';
 import BreadCrumb from '../../AssetsM/Cards/breadCrumb'
-import { Button, Divider, Icon, Input, Statistic, Form, Loader, Select, TextArea } from 'semantic-ui-react';
+import { Button, Divider, Icon, Input, Statistic, Form, Loader, Select, TextArea, Modal } from 'semantic-ui-react';
 import { MapContainer, TileLayer, Marker, Popup } from 'react-leaflet';
 import { Tab } from 'semantic-ui-react';
 import { useParams } from 'react-router-dom';
@@ -14,7 +14,7 @@ import SKLT from '../../AssetsM/Cards/usedSlk';
 import TableGrid from '../../AssetsM/Cards/tableGrid';
 import { toast } from 'react-toastify';
 import useSaveNotification from '../../AssetsM/Hooks/saveNotifFunction';
-import { Navigate } from 'react-router-dom';
+import { useNavigate} from 'react-router-dom';
 import useGetPostes from '../../AssetsM/Hooks/fetchPostes'
 
 const EditTeamCard = ({teamData, setTeamData, OnKeyPressFunc, EditTeam,delegList, Postes, GetDelegList,loaderState}) =>{
@@ -102,6 +102,32 @@ const FindInDirectory = ({inAbyedhSearch,saveBtnRUIState,teamData, setInAbyedhSe
 
     </>)
 }
+const DeleteModal = ({setDeleteModalS,DeletePresence,editAvanceD,deletemodalS}) =>{
+    return(<>
+            <Modal
+                    size='mini'
+                    open={deletemodalS}
+                    dimmer = 'blurring'
+                    closeIcon
+                    onClose={() => setDeleteModalS(false)}
+                    onOpen={() => setDeleteModalS(true)}
+                    
+                >
+                    <Modal.Header><h4>Supprimer Avance</h4></Modal.Header>
+                    <Modal.Content>
+                            Voulez-Vous Vraimment Supprimer Cette Avance 
+                            <br />
+                            <br />
+                            <div className='mb-0 p-0'><h5> Date : {editAvanceD.Date}</h5></div>         
+                            <div><h5> Key : {editAvanceD.PK} </h5></div>
+                    </Modal.Content>
+                    <Modal.Actions>
+                                {/* <Button className='rounded-pill' negative onClick={ () => setDeleteModalS(false)}> <span className='bi bi-x' ></span> </Button> */}
+                                <Button negative className='rounded-pill' onClick={() => DeletePresence()}>  <Icon name='trash' /> Supprimer </Button>
+                    </Modal.Actions>
+            </Modal>
+    </>)
+}
 
 function TeamInfo() {
         /* ############################### Const ################################*/
@@ -120,6 +146,10 @@ function TeamInfo() {
         const [loading , setLoading] = useState(false)
         const [loaderState, setLS] = useState(false)
         const [delegList ,setDelegList] = useState([]) 
+
+        const [deletemodalS, setDeleteModalS] = useState(false)
+        const [editAvanceD, setEditAvanceD] = useState([])
+
         const panes = [
             {
                 menuItem: { key: 'fffgg', icon: 'file text', content: 'Presence' }, 
@@ -127,7 +157,7 @@ function TeamInfo() {
             },
             {
                 menuItem: { key: 'test', icon: 'file text', content: 'Avances' }, 
-                render: () =><><TableGrid tableData={avances} columns={['*','Nom','Jour', 'Valeur','Supp']} /> </> ,
+                render: () =><><TableGrid tableData={avances} columns={['*','Nom', 'Valeur','Jour','Voir']} /> </> ,
             },
             {
             menuItem: { key: 'edit', icon: 'edit', content: 'Modifier' }, 
@@ -145,7 +175,7 @@ function TeamInfo() {
         L.Icon.Default.mergeOptions(GConf.LeafleftIcon );
         const SaveNotification = (genre,tag,table) =>{ useSaveNotification(genre,tag,table)}
         const [Postes] = useGetPostes() 
-
+        let navigate = useNavigate();
     /* ############################### UseEffect ################################*/
     useEffect(() => {
         //client Info
@@ -153,31 +183,32 @@ function TeamInfo() {
             PID:  GConf.PID,
             Team_ID : TID
         }).then(function (response) {
-            if(!response.data[0].PK) {
-                toast.error('team Introuvable !', GConf.TostSuucessGonf)
-                setTimeout(() => {  window.location.href = "/S/fs"; }, 2000)
+            console.log(response.data)
+            if(!response.data.Data.length == 0) {
+                toast.error('Membre Introuvable !', GConf.TostSuucessGonf)
+                setTimeout(() => {  window.location.href = "/S/tm"; }, 2000)
                 
             } else {
-                setTeamData(response.data[0])
+                setTeamData(response.data.Data)
                 setLoading(true)
                 
                 let presenceTable = []
-                response.data[0].Presence.map( (getData, index) => presenceTable.push([ 
-                (index+1),
-                response.data[0].T_Name,  
+                response.data.Presence.map( (getData, index) => presenceTable.push([ 
+                getData.PK,
+                response.data.Data.T_Name,  
                 new Date(getData.PR_Date).toLocaleDateString('fr-FR').split( '/' ).reverse( ).join( '-' ), 
-                getData.Description,
-                _(<Button className='rounded-pill bg-danger text-white ' size='mini' onClick={ (e) => alert(getData.PK)}> X </Button>)
+                'Absence',
+                _(<Button className='rounded-pill bg-danger text-white ' icon size='mini' onClick={() => openEditModal(getData,false)}> <Icon name='trash alternate' /> </Button>)
                 ],))
                 setPresence(presenceTable)
 
                 let avancesTable = []
-                response.data[0].Avances.map( (getData,index) => avancesTable.push([ 
-                    (index+1),
-                    response.data[0].T_Name,
+                response.data.Avances.map( (getData,index) => avancesTable.push([ 
+                    getData.PK,
+                    response.data.Data.T_Name,
                     parseFloat(getData.Valeur).toFixed(3),
                     new Date(getData.AV_Date).toLocaleDateString('fr-FR').split( '/' ).reverse( ).join( '-' ),
-                    _(<Button className='rounded-pill bg-danger text-white ' size='mini' onClick={ (e) => alert(getData.PK)}> X </Button>)
+                    _(<Button className='rounded-pill bg-system-btn' size='mini' onClick={ (e) => NavigateFunction(`/S/tm/avances`)}><span className='d-none d-lg-inline'> Info </span><Icon  name='angle right' /></Button>)
                     ],))
                 setAvances(avancesTable)
 
@@ -255,44 +286,45 @@ function TeamInfo() {
                     }
                 });
     }
+    const NavigateFunction = (link) => {  navigate(link) }
     const FindInDirectoryFunc = () =>{
-        if (!inDirArticle) {toast.error("Entrer Un Code A Barre  !", GConf.TostErrorGonf)}
+        if (!inAbyedhSearch) {toast.error("Entrer Un Code A Barre  !", GConf.TostErrorGonf)}
         else{
             setLS(true)
-            axios.post(`${GConf.ApiLink}/fournisseur/checkAbyedhDb`, {
-                PID : inDirArticle,
+            axios.post(`${GConf.ApiLink}/membres/checkAbyedhDb`, {
+                UID : inAbyedhSearch,
             }).then(function (response) {
                 if(response.data.length  != 0) {
-                    toast.success("Fournisseur Existe !", GConf.TostSuucessGonf)
+                    toast.success("Client Existe !", GConf.TostSuucessGonf)
                     setLS(false)
-                    //setFSData({ ...fournisseurData, Releted_PID: response.data.PID, T_CIN: response.data.Matricule_F , Gouv: response.data.Gouv,   Name: response.data.Name, Phone : response.data.Phone , Adress : response.data.Adress })
+                    setSaveBtnRUIState(false)
+                    setDataInAbyedh(response.data)
+                    
                 }
                 else{
-                    toast.error('Pas De Fournisseur ', GConf.TostSuucessGonf)
+                    toast.error('Pas De Clients ', GConf.TostSuucessGonf)
                     setLS(false)
                 }
             }).catch((error) => {
                 if(error.request) {
-                    toast.error(<><div><h5>Probleme de Connextion</h5> </div></>, GConf.TostInternetGonf)   
-                    setLS(false)
+                  toast.error(<><div><h5>Probleme de Connextion</h5> </div></>, GConf.TostInternetGonf)   
+                  setLS(false)
                 }
-                });
+              });
             
         }
     }
-    const NavigateFunction = (link) => {  Navigate(link) }
-
     const RelateToUID = () =>{
         if (!inAbyedhSearch) {toast.error("Entrer Un Code A Barre  !", GConf.TostErrorGonf)}
         else{
             setLS(true)
-            axios.post(`${GConf.ApiLink}/patient/verification`, {
+            axios.post(`${GConf.ApiLink}/team/verification`, {
                 PID : GConf.PID,
                 UID : inAbyedhSearch,
                 T_ID : TID,
             }).then(function (response) {
                 if(response.data.affectedRows) {
-                    toast.success("Client Verifieé !", GConf.TostSuucessGonf)
+                    toast.success("Mmebre Verifieé !", GConf.TostSuucessGonf)
                     setLS(false)
                     setSaveBtnRUIState(true)
                     setTeamData({ ...teamData, Releted_UID: inAbyedhSearch})
@@ -315,6 +347,28 @@ function TeamInfo() {
             e.preventDefault();
         }   
     }
+    const DeletePresence = () =>{
+        if (!editAvanceD.PK) { toast.error("Avance Invalide !", GConf.TostErrorGonf) } 
+        else {
+            axios.post(`${GConf.ApiLink}/team/presence/supprimer`, {
+                PID :  GConf.PID ,
+                PK : editAvanceD.PK
+              })
+              .then(function (response) {
+                toast.success("Presence Supprimer  !", GConf.TostSuucessGonf)   
+                setDeleteModalS(false)
+            }).catch((error) => {
+                if(error.request) {
+                  toast.error(<><div><h5>Probleme de Connextion</h5> Chargemment des ancien Mmebre  </div></>, GConf.TostInternetGonf)   
+                }
+              });
+        }
+    }
+    const openEditModal = (event,selected) =>{
+        setEditAvanceD({PK: event.PK , Date:new Date(event.PR_Date).toLocaleDateString('fr-FR').split( '/' ).reverse( ).join( '-' ), T_Name:event.T_Name})
+        setDeleteModalS(true)
+    }
+
     /* ############################### Card ################################*/
     const TeamCard = () =>{
             return (<>
@@ -325,7 +379,7 @@ function TeamInfo() {
                         </div>
                         <div className="img-card-container text-center">
                             <div className="card-container">
-                                <img src="https://system.anaslouma.tn/Assets/images/fourniss.png" className="rounded-circle" width="80" />                    
+                                <img src="https://cdn.abyedh.tn/images/system/profile.png" className="rounded-circle" width="80" />                    
                             </div>
                         </div>
                         <div className="mt-5 text-center">
@@ -363,31 +417,15 @@ function TeamInfo() {
                 </div>
             </>);
     }
-    const PresenceCard = () =>{
-            return (<>
-                <div className='p-1'>
-                        <h5>Presence</h5>
-                        
-                </div>
-            </>);
-    }
-    const AvanceCard = () =>{
-        return (<>
-                <div className='p-1'>
-                        <h5>General</h5>
-                            
-                </div>
-        </>);
-    }
     const DeleteTeam= () =>{
-            return(<><h3 className="text-secondary">Voulez-Vous Vraimment Supprimer Ce Camion ?</h3> 
+            return(<><h3 className="text-secondary">Voulez-Vous Vraimment Supprimer Ce Mmebre ?</h3> 
             <div className='row'>
                     <div className='col-9'>
-                        <h5 className="text-danger text-left"><b>Lorsque Vous Supprimer Un Client : </b></h5>
+                        <h5 className="text-danger text-left"><b>Lorsque Vous Supprimer Un Membre : </b></h5>
                         <ul className="text-info text-left">
-                        <li>le Client  ne sera pas visible dans la branche 'Clients'</li>
-                        <li>Tous les factures relier a ce client peut s'endomager   </li>
-                        <li>vous ne pouver pas passer ni factures ni commandes avec ce clients autremment   </li>
+                        <li>le Membre  ne sera pas visible dans la branche 'Membres'</li>
+                        <li>Tous les operation relier a ce Membre peut s'endomager   </li>
+                        
                         </ul>
                     </div>
                     <div className='col-lg-3 d-none d-lg-block align-self-center'>
@@ -411,6 +449,7 @@ function TeamInfo() {
                         <Tab  menu={{secondary: true, pointing: true ,className: "wrapped"}} panes={panes} />
                     </div>
             </div>
+            <DeleteModal setDeleteModalS={setDeleteModalS} DeletePresence={DeletePresence} editAvanceD={editAvanceD}  setEditAvanceD={setEditAvanceD} deletemodalS={deletemodalS} />
     </> );
 }
 

@@ -161,6 +161,7 @@ function RequestInfo() {
                         <div className='col-6'>
                             <Button disabled={btnState} className='rounded-pill bg-danger text-white'  fluid onClick={ () => UpdateState('R')}><Icon name='delete calendar' /> Anulée</Button>
                         </div>
+                        
                         <div className='col-6'>
                             <Button as='a' href={`/S/rq/facturer/${CID}`} animated disabled={btnState} className='rounded-pill bg-system-btn'  fluid>
                                 <Button.Content visible><Icon name='calendar check' /> Accepteé </Button.Content>
@@ -204,9 +205,7 @@ function RequestInfo() {
                 <div className='row'>
                     <div className='col-8'><h2 className='text-center mb-4'>Rendy Vous </h2></div>
                     <div className='col-4'><h2 className='text-end'><StateCard status={commandeData.State} /></h2></div>
-                </div>
-                
-                 
+                </div>   
                 <br />
                 <br />
                 <div className='card card-body bg-transparent border-div mb-3'>

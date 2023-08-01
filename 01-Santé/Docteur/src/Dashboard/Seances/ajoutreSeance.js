@@ -14,8 +14,11 @@ import draftToHtml from 'draftjs-to-html'; // Updated import statement
 import 'react-draft-wysiwyg/dist/react-draft-wysiwyg.css';
 import TableGrid from '../../AssetsM/Cards/tableGrid';
 import { QrReader } from 'react-qr-reader';
+import { useLocation } from 'react-router-dom';
+import { _ } from 'gridjs-react';
+import { useNavigate} from 'react-router-dom';
 
-const TerminerCard = ({seanceData, setSeanceData,allClientList, OnKeyPressFunc}) =>{
+const TerminerCard = ({seanceData, setSeanceData,allClientList,offresListe ,OnKeyPressFunc}) =>{
     const StateDegree = [
         {value : 'En Bonne État', text : 'En Bonne État', key: 1},
         {value : 'Malade', text : 'Malade ', key: 2},
@@ -37,7 +40,7 @@ const TerminerCard = ({seanceData, setSeanceData,allClientList, OnKeyPressFunc})
              
                 <h5>Date   </h5>
                 <Input icon='calendar alternate' type='date' size="small" iconPosition='left'   fluid className='mb-1' value={seanceData.S_Date} onChange={(e) => setSeanceData({...seanceData, S_Date: e.target.value })}/>
-                
+
                 <h5 className='mt-1 '>Degreé de Danger  </h5>
                 <Dropdown
                     fluid
@@ -56,11 +59,11 @@ const TerminerCard = ({seanceData, setSeanceData,allClientList, OnKeyPressFunc})
                     search
                     selection
                     wrapSelection={false}
-                    options={SeanceGenre}
-                    placeholder={seanceData.State_Degre}
+                    options={offresListe}
+                    placeholder={seanceData.Forfait_ID}
                     className='mb-1'
-                    onChange={(e, { value }) => setSeanceData({...seanceData, State_Degre: value })}
-                    value={seanceData.State_Degre}
+                    onChange={(e, { value }) => setSeanceData({...seanceData, Forfait_ID: value })}
+                    value={seanceData.Forfait_ID}
                 />
  
                 
@@ -69,6 +72,8 @@ const TerminerCard = ({seanceData, setSeanceData,allClientList, OnKeyPressFunc})
 }
 const ResultCard = ({seanceData, setSeanceData,OnKeyPressFunc}) =>{
     return (<> 
+                <h5>Maladie   </h5>
+                <Input icon='calendar alternate' type='text' size="small" iconPosition='left'   fluid className='mb-1' value={seanceData.Maladie} onChange={(e) => setSeanceData({...seanceData, Maladie: e.target.value })}/>
                 <h5>Resultat : maladie </h5>
                 <Form>
                     <TextArea rows={10} placeholder='Maladie' onKeyPress={event => OnKeyPressFunc(event)} value={seanceData.Resultat} onChange={(e) => setSeanceData({...seanceData, Resultat : e.target.value })} />
@@ -81,7 +86,9 @@ const ResultCard = ({seanceData, setSeanceData,OnKeyPressFunc}) =>{
 function AjouterFacture() {
     /*#########################[Const]##################################*/
     const Today = new Date()
-    const [seanceData, setSeanceData] = useState({S_Patient:'PASSAGER',  Diagnostic: 'Null', Resultat:'', Maladie:'',  S_Date: Today.toISOString().split('T')[0], State_Degre: '' , ordonance:[], analyses:[]})
+    const navigate = useNavigate();
+    const isRendyVous = new URLSearchParams(useLocation().search).get('CID')
+    const [seanceData, setSeanceData] = useState({S_Patient:'PASSAGER',  Diagnostic: 'Null', Resultat:'', Maladie:'',  Forfait_ID:'', S_Date: Today.toISOString().split('T')[0], State_Degre: '' , ordonance:[], analyses:[]})
     const [diagnostiqueValue, setDiagnistiqueValue] = useState(EditorState.createEmpty());
     const [gettedOrFID, setOrId] = useState('')
     const [saveBtnState, setSaveBtnState] = useState(false)
@@ -97,6 +104,9 @@ function AjouterFacture() {
     const [patientOrdonanceListe, setPatientOrdonanceListe] = useState([])
     const [autofocusState, setAutoFocus] = useState(false)
     const [scanResultSeance, setScanResultSeance] = useState(false);
+
+    const [commandeData, setCommandeData] = useState(false);
+    const [offresListe, setOffreListe] = useState([]);
     
     const panes = [
         {
@@ -124,7 +134,7 @@ function AjouterFacture() {
                                         
                                     </div>
                                     <div className='col-12 col-lg-5 align-self-center'>
-                                            <TerminerCard seanceData={seanceData} setSeanceData={setSeanceData} clientList={clientList} allClientList={allClientList}   OnKeyPressFunc={OnKeyPressFunc} />
+                                            <TerminerCard seanceData={seanceData} setSeanceData={setSeanceData} clientList={clientList} offresListe={offresListe} allClientList={allClientList}   OnKeyPressFunc={OnKeyPressFunc} />
                                             <br />
                                             <div className='row mb-2'>
                                                 <div className='col-12'>
@@ -146,15 +156,31 @@ function AjouterFacture() {
     const patientPanes = [
         {
             menuItem: { key: 'start',   content: 'Seances ' }, 
-            render: () =>  <TableGrid tableData={patientSeanceListe} columns={["IK ","55","hh","555"]} /> ,
+            render: () =>  <TableGrid tableData={patientSeanceListe} columns={["ID ","Date","Temps","Info"]} /> ,
         },
         {
             menuItem: { key: 'anaslyse',  content:  'RendyVous' }, 
-            render: () =><TableGrid tableData={patientRDVListe} columns={["IK ","55","hh","555"]} />,
+            render: () =><TableGrid tableData={patientRDVListe} columns={["ID ","Date","Temps","Info"]} />,
         },
         {
             menuItem: { key: 'clidsgent',   content:  'Ordonance' }, 
-            render: () =><TableGrid tableData={patientOrdonanceListe} columns={["IK ","55","hh","555"]} />,
+            render: () =><TableGrid tableData={patientOrdonanceListe} columns={["ID ","Date","Temps","Info"]} />,
+        },
+ 
+        
+    ]
+    const selectMainPanes = [
+        {
+            menuItem: { key: 'Pa',   content: <><span className='bi bi-person'></span></> }, 
+            render: () =>  <SelectPatientCard /> ,
+        },
+        {
+            menuItem: { key: 'vsdsd',  content:  <><span className='bi bi-qr-code'></span></>  }, 
+            render: () =><SelectPatientBYQRCard />,
+        },
+        {
+            menuItem: { key: 'sdsd',   content:  <><span className='bi bi-calendar'></span></>  }, 
+            render: () =><SelectRDVCard />,
         },
  
         
@@ -164,21 +190,37 @@ function AjouterFacture() {
 
     /* ############################### UseEffect ########################*/
     useEffect(() => {
-          //console.log(articleList)
-            // //camionList
-            // axios.post(`${GConf.ApiLink}/camions`,{PID :GConf.PID})
-            // .then(function (response) {
-            //     let ClientLN = []
-            //     response.data.map( (dta) => {ClientLN.push({value : dta.Cam_ID, text : <>{dta.Cam_Name} : {dta.Matricule} - {dta.Chauffeur}</>, key: dta.PK})})
-            //     setCamionList(ClientLN)
-            // }).catch((error) => {
-            // if(error.request) {
-            //     toast.error(<><div><h5>Probleme de Connextion</h5> Les camion n'ont pas été chargeé </div></>, GConf.TostInternetGonf)   
-            // }
-            // });
+        if (isRendyVous) {
+            axios.post(`${GConf.ApiLink}/request/info`,{
+                PID :GConf.PID,
+                CID: isRendyVous
+            })
+            .then(function (response) {
+                 
+                setCommandeData(response.data[0])
+            }).catch((error) => {
+            if(error.request) {
+                toast.error(<><div><h5>Probleme de Connextion</h5> Les camion n'ont pas été chargeé </div></>, GConf.TostInternetGonf)   
+            }
+            });
+        }
+        axios.post(`${GConf.ApiLink}/forfait`,{
+            PID :GConf.PID,
+             
+        })
+        .then(function (response) {
+            let TableNow = []
+            response.data.map( (dta) => {TableNow.push({text : dta.Tarif_Name, value : dta.Tarif_ID, key: dta.PK})})
+            setOffreListe(TableNow)
+        }).catch((error) => {
+        if(error.request) {
+            toast.error(<><div><h5>Probleme de Connextion</h5>   </div></>, GConf.TostInternetGonf)   
+        }
+        });
     }, [])
 
     /*#########################[Function]##################################*/
+    const NavigateFunction = (link) => {  navigate(link) }
     const GenerateDiagnostiqueHTml = ()=>{
         const rawContentState = convertToRaw(diagnostiqueValue.getCurrentContent());
         const htmlValue = draftToHtml(rawContentState)
@@ -228,12 +270,12 @@ function AjouterFacture() {
             else if (!seanceData.Resultat) {toast.error("Resultat  est Invalide !", GConf.TostErrorGonf)}
             else if (!seanceData.State_Degre) {toast.error("Dnager   est Invalide !", GConf.TostErrorGonf)}
             else if (!seanceData.S_Date) {toast.error("Date est Invalide !", GConf.TostErrorGonf)}
-            else if (!seanceData.ordonance ) {toast.error("Ordonance list est Invalide !", GConf.TostErrorGonf)}
+            else if (!seanceData.ordonance  ) {toast.error("Ordonance list est Invalide !", GConf.TostErrorGonf)}
             else {
                 setLS(true)
                 axios.post(`${GConf.ApiLink}/seances/ajouter`, {
                     PID : GConf.PID,
-                    seanceData: {S_Patient: seanceData.S_Patient,  Diagnostic: GenerateDiagnostiqueHTml(), Resultat:seanceData.Resultat, Maladie:seanceData.Maladie,  S_Date: Today.toISOString().split('T')[0], State_Degre: seanceData.State_Degre , ordonance:seanceData.ordonance, analyses:seanceData.analyses} ,
+                    seanceData: {S_Patient: seanceData.S_Patient, Forfait_ID: seanceData.Forfait_ID,  Diagnostic: GenerateDiagnostiqueHTml(), Resultat:seanceData.Resultat, Maladie:seanceData.Maladie,  S_Date: Today.toISOString().split('T')[0], State_Degre: seanceData.State_Degre , ordonance:seanceData.ordonance, analyses:seanceData.analyses} ,
                 })
                 .then(function (response) {
                     if(response.status = 200) {
@@ -264,23 +306,39 @@ function AjouterFacture() {
         }   
     }
     const SelectClientFunction = (value) => {
-        setSeanceData({...seanceData, S_Patient: value })
-        let filtedClient = allClientList.find((data) => data.PA_ID == value)
-        setSelectedClient(filtedClient)
-        
-        axios.post(`${GConf.ApiLink}/patient/info`,{PID :GConf.PID, patientId: value})
+        if (value) {
+            setSeanceData({...seanceData, S_Patient: value })
+            let filtedClient = allClientList.find((data) => data.PA_ID == value)
+            setSelectedClient(filtedClient)
+            
+            axios.post(`${GConf.ApiLink}/patient/info`,{PID :GConf.PID, patientId: value})
             .then(function (response) {
                 console.log(response.data.Seances)
                 let seanceCont = []
-                response.data.Seances.map( (getData) => {seanceCont.push([ getData.Maladie ,  getData.State_Degre ,  getData.PK])})
+                response.data.Seances.map( (getData) => {seanceCont.push([
+                    getData.S_ID,
+                    new Date(getData.S_Date).toLocaleDateString('fr-FR').split( '/' ).reverse( ).join( '-' ),
+                    getData.S_Time,
+                    _(<Button className='rounded-pill bg-system-btn' size='mini' icon onClick={ (e) => openCustomWindow(`/S/sa/info/${getData.S_ID}`)}><span className='d-none d-lg-inline'></span><Icon  name='arrows alternate' /></Button>)
+                    ],)})
                 setPatientSeanceListe(seanceCont)
 
                 let rdvCont = []
-                response.data.RDV.map( (dta) => {rdvCont.push({value : dta.Cam_ID, text : <>{dta.Cam_Name} : {dta.Matricule} - {dta.Chauffeur}</>, key: dta.PK})})
+                response.data.RDV.map( (getData) => {rdvCont.push([
+                    getData.R_ID,
+                    new Date(getData.RDV_Date).toLocaleDateString('fr-FR').split( '/' ).reverse( ).join( '-' ),
+                    getData.RDV_Time,
+                    _(<Button className='rounded-pill bg-system-btn' size='mini' icon onClick={ (e) => openCustomWindow(`/S/rq/rs/info/${getData.R_ID}`)}><span className='d-none d-lg-inline'></span><Icon  name='arrows alternate' /></Button>)
+                    ],)})
                 setPatientRDVListe(rdvCont)
 
                 let ordonanceCont = []
-                response.data.Ordonance.map( (dta) => {ordonanceCont.push({value : dta.Cam_ID, text : <>{dta.Cam_Name} : {dta.Matricule} - {dta.Chauffeur}</>, key: dta.PK})})
+                response.data.Ordonance.map( (getData) => {ordonanceCont.push([
+                    getData.OR_ID,
+                    new Date(getData.OR_Date).toLocaleDateString('fr-FR').split( '/' ).reverse( ).join( '-' ),
+                    getData.OR_Time,
+                    _(<Button className='rounded-pill bg-system-btn' size='mini' icon onClick={ (e) => openCustomWindow(`/S/or/info/${getData.OR_ID}`)}><span className='d-none d-lg-inline'></span><Icon  name='arrows alternate' /></Button>)
+                    ],)})
                 setPatientOrdonanceListe(ordonanceCont)
 
             }).catch((error) => {
@@ -288,8 +346,17 @@ function AjouterFacture() {
                 toast.error(<><div><h5>Probleme de Connextion</h5> Les camion n'ont pas été chargeé </div></>, GConf.TostInternetGonf)   
             }
             });
-
+        }
     }
+    const openCustomWindow = (link) => {
+        const width = 800;
+        const height = 600;
+        const url = `https://docteur.system.abyedh.tn${link}`;
+    
+        // Open the link in a new window with custom width and height
+        window.open(url, '_blank', `width=${width}, height=${height}`);
+      };
+
    /*#########################[Card]##################################*/
     const DiagnostiqueCard = () =>{
         const AddStar = (textToAdd) => {
@@ -445,49 +512,88 @@ function AjouterFacture() {
                 </div>
             </>)
     }
- 
-
+    const SelectPatientCard = () => {
+        return(<>
+            <h5>Patient </h5> 
+            <datalist id="clientList">
+                    {allClientList.map((test,index) =>
+                    <option key={index} value={test.PA_ID}>{test.PA_Name} : {test.Phone}</option>
+                    )}
+            </datalist>
+            <Input icon='add user' onKeyPress={event => OnKeyPressFunc(event)} list="clientList" placeholder={seanceData.S_Patient}   onBlur={ (e) => SelectClientFunction(e.target.value) } size="small" iconPosition='left'   fluid className='mb-1' />
+            <h4 className='mb-1'>Nom: {selectedClient.PA_Name  ? selectedClient.PA_Name  : ''}</h4>
+            <h4 className='mt-1 mb-1'>Adresse : {selectedClient.Adress  ? selectedClient.Adress  : ''} </h4>
+            <h4 className='mt-1 mb-1'>Nombre de Seance  : {patientSeanceListe.length} </h4>
+            <h4 className='mt-1 mb-1'>Etat Sanitaires : {patientSeanceListe.length != 0 ? patientSeanceListe[patientSeanceListe.length - 1][0] : ''}</h4>
+            
+        </>)
+    }
+    const SelectPatientBYQRCard = () => {
+        return(<>
+            {scanResultSeance ? 
+            (
+            <QrReader
+                    constraints={{  facingMode: 'environment' }}
+                    scanDelay={500}
+                    onResult={(result, error) => {
+                    if (!!result) {  SelectClientFunction(result.text); setScanResultSeance(false) }
+                    if (!!error) { console.log(error);  }
+                    }}
+                    style={{  width: "150px",height: "150px" }}
+            />
+            ) : (
+                <div className='text-center mt-2'>
+                    <div className='bi bi-qr-code mb-4 bi-lg' style={{color: GConf.themeColor, fontSize:'150px'}}></div>
+                    <Button onClick={() => setScanResultSeance(true)}>Cliquer Pour Scanner Un Patient</Button>
+                </div>
+            )}
+        </>)
+    }
+    const SelectRDVCard = () => {
+        return(<>
+            { isRendyVous ? 
+            <>
+                <div>Nom : {commandeData.Name ? commandeData.Name : ''}</div>   
+                <div>Patient ?: {commandeData.Releted_UID ? <span className='badge bg-success p-2'>Déja Enregistreé</span> : <span className='badge bg-danger badge-lg'>Nouveaux Membre</span>}</div>   
+                <div>Comentaire : {commandeData.Comment ? commandeData.Comment : ''}</div>   
+            </> 
+            : 
+            <>
+                {scanResultSeance ? 
+                (
+                <QrReader
+                        constraints={{  facingMode: 'environment' }}
+                        scanDelay={500}
+                        onResult={(result, error) => {
+                        if (!!result) {  SelectClientFunction(result.text); setScanResultSeance(false) }
+                        if (!!error) { console.log(error);  }
+                        }}
+                        style={{  width: "150px",height: "150px" }}
+                />
+                ) : (
+                    <div className='text-center mt-2'>
+                        <div className='bi bi-qr-code mb-4 bi-lg' style={{color: GConf.themeColor, fontSize:'150px'}}></div>
+                        <Button onClick={() => setScanResultSeance(true)}>Cliquer Pour Scanner Un RendyVous</Button>   
+                    </div>
+                )}
+            </> 
+            }
+                
+        </>)
+    }
     const PatientCard = () => {
         return(<>
         
             <div className='row mb-4'>
                     <div className='col-12 col-md-4'>
+                        
                         <div className='card card-body md-3 shadow-sm border-div'>
-                            <h5>Patient </h5> 
-                            <datalist id="clientList">
-                                    {allClientList.map((test,index) =>
-                                    <option key={index} value={test.PA_ID}>{test.PA_Name} : {test.Phone}</option>
-                                    )}
-                            </datalist>
-                            <Input icon='add user' onKeyPress={event => OnKeyPressFunc(event)} list="clientList" placeholder={seanceData.S_Patient}   onBlur={ (e) => SelectClientFunction(e.target.value) } size="small" iconPosition='left'   fluid className='mb-1' />
-                            <h4 className='mb-1'>Nom: {selectedClient.PA_Name  ? selectedClient.PA_Name  : ''}</h4>
-                            <h4 className='mt-1 mb-1'>Adresse : {selectedClient.Adress  ? selectedClient.Adress  : ''} </h4>
-                            <h4 className='mt-1 mb-1'>Nombre de Seance  : {patientSeanceListe.length} </h4>
-                            <h4 className='mt-1 mb-1'>Etat Sanitaires : {patientSeanceListe.length != 0 ? patientSeanceListe[patientSeanceListe.length - 1][0] : ''}</h4>
-                            {scanResultSeance ? 
-                            (
-                            <QrReader
-                                    constraints={{  facingMode: 'environment' }}
-                                    scanDelay={500}
-                                    onResult={(result, error) => {
-                                    if (!!result) {  SelectClientFunction(result.text); setScanResultSeance(false) }
-                                    if (!!error) { console.log(error);  }
-                                    }}
-                                    style={{  width: "150px",height: "150px" }}
-                            />
-                            ) : (
-                                <div className='text-center mt-4'>
-                                    <Button onClick={() => setScanResultSeance(true)}>Cliquer Pour Scanner</Button>
-                                    <br />
-                                    <br />
-                                    <br />
-                                    <span className='bi bi-qr-code mt-3 bi-lg' style={{color: GConf.themeColor, fontSize:'150px'}}></span>
-                                </div>
-                            )}
+                            <Tab menu={{ secondary: true  }} panes={selectMainPanes} />
+                           
                         </div>
                     </div>
                     <div className='col-12 col-md-8'>  
-                        <Tab menu={{ attached: false  }} panes={patientPanes} />
+                        <Tab menu={{ secondary: true, pointing: true  }} panes={patientPanes} />
                     </div>
             </div>
         </>)
@@ -497,6 +603,7 @@ function AjouterFacture() {
         <br />
  
         <Tab menu={{  secondary: true  }} panes={panes} />
+        
         {/* <FrameForPrint frameId='printFacture' src={`/Pr/facture/info/${gettedOrFID}`} /> */}
     </> );
     }

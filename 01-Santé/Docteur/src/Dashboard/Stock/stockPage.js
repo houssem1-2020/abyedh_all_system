@@ -63,7 +63,7 @@ function FournisseurPage() {
             getData.Forme,
             getData.Presentation,
             getData.Classe,
-            _(<Button className='rounded-pill bg-system-btn' size='mini' onClick={ (e) => NavigateFunction(`/S/sk/info/${getData.ID}`)}><span className='d-none d-lg-inline'> Info </span> </Button>)
+            _(<Button className='rounded-pill bg-system-btn' size='mini' onClick={ (e) => NavigateFunction(`/S/sk/info/${getData.PK}`)}><span className='d-none d-lg-inline'> Info </span> </Button>)
             ],))
             setClientList(testTable)
           }).catch((error) => {

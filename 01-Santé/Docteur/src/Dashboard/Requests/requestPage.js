@@ -14,6 +14,7 @@ import { useNavigate} from 'react-router-dom';
 import FullCalendar from '@fullcalendar/react' // must go before plugins
 import dayGridPlugin from '@fullcalendar/daygrid' // a plugin!
 import { Menu } from 'semantic-ui-react';
+import { NavLink } from 'react-router-dom';
 
 function RequestPage() {
     /*#########################[Const]##################################*/
@@ -29,7 +30,7 @@ function RequestPage() {
         render: () => <TableGrid tableData={FetchByGenreReserv('W')} columns={GConf.TableHead.reservation} />,
       },
       {
-        menuItem: { key: 'attent',  content: <span className='text-warning'><b><span className='bi bi-hourglass-split'></span> En Attent</b></span> , className:'rounded-pill'},
+        menuItem: { key: 'vu',  content: <span className='text-warning'><b><span className='bi bi-hourglass-split'></span> En Attent</b></span> , className:'rounded-pill'},
         render: () => <TableGrid tableData={FetchByGenreReserv('S')} columns={GConf.TableHead.reservation} />,
       },
       {
@@ -41,8 +42,16 @@ function RequestPage() {
         render: () => <TableGrid tableData={FetchByGenreReserv('R')} columns={GConf.TableHead.reservation} />,
       },
       {
-        menuItem: { key: 'refuse',  content: <span className='text-danger'><b><span className='bi bi-x-square-fill'></span> Refuseé</b></span>, className:'rounded-pill' },
+        menuItem: { key: 'terminer',  content: <span className='text-danger'><b><span className='bi bi-x-square-fill'></span> Retardeé</b></span>, className:'rounded-pill' },
         render: () => <TableGrid tableData={FetchByGenreReserv('F')} columns={GConf.TableHead.reservation} />,
+      },
+      {
+        menuItem: { key: 'retarde',  content: <span className='text-danger'><b><span className='bi bi-x-square-fill'></span> Redirecte</b></span>, className:'rounded-pill' },
+        render: () => <TableGrid tableData={FetchByGenreReserv('RT')} columns={GConf.TableHead.reservation} />,
+      },
+      {
+        menuItem: { key: 'redirecte',  content: <span className='text-danger'><b><span className='bi bi-x-square-fill'></span> Refuseé</b></span>, className:'rounded-pill' },
+        render: () => <TableGrid tableData={FetchByGenreReserv('RD')} columns={GConf.TableHead.reservation} />,
       },
     ]
 
@@ -55,6 +64,7 @@ function RequestPage() {
           if (!response.data) {
                 toast.error('Probleme de Connextion', GConf.TostSuucessGonf)
           } else {
+  
             setReservationList(response.data)
             
           }
@@ -84,9 +94,9 @@ function RequestPage() {
             commandeDate.Name,
             new Date(commandeDate.R_Date).toLocaleDateString('fr-FR').split( '/' ).reverse( ).join( '-' ),
             new Date(commandeDate.RDV_Date).toLocaleDateString('fr-FR').split( '/' ).reverse( ).join( '-' ),
- 
+            commandeDate.RDV_Time,
             _(<StateCard status={commandeDate.State} />),
-            _( <a  className='data-link-modal'  onClick={() => openEditModal(commandeDate,true)} ><b> <span className='bi bi-arrows-fullscreen'></span> </b></a>),
+            _(CheckIsPatientCard(commandeDate.Releted_UID)),
             _(<Button className='rounded-pill bg-system-btn' size='mini' onClick={ (e) => NavigateFunction(`/S/rq/rs/info/${commandeDate.R_ID}`)}><span className='d-none d-lg-inline'> Info </span><Icon  name='angle right' /></Button>)
         ],))
       return(commandeContainer)
@@ -106,6 +116,8 @@ function RequestPage() {
             case 'S': return <StateCard color='info' text='Vu' />;  
             case 'A': return <StateCard color='success' text='Acepteé' /> ;
             case 'R': return <StateCard color='danger' text='Refuseé' />;
+            case 'RT': return <StateCard color='retarder' text='Retardeé' />;
+            case 'RD': return <StateCard color='rederecter' text='Redirecteé' />;
             case 'F': return <StateCard color='secondary' text='Termineé' />;
             default:  return <StateCard color='dark' text='Indefinie' />;    
           }
@@ -117,7 +129,10 @@ function RequestPage() {
           </div>
         );
     };
-    
+    const CheckIsPatientCard = (relatedId) => {
+      if (relatedId == null) {  return <span className='bi bi-x-circle-fill bi-xlsm text-danger'></span> } else {  return <span className='bi bi-check-circle-fill bi-xlsm text-success'></span>  }
+       
+  }; 
     const CustomTabs = () => {
       return(<>
         <div className='row mb-3'>
@@ -151,6 +166,20 @@ function RequestPage() {
                       </b>
                     </span>
                   </Menu.Item>
+                  <Menu.Item active={activeIndex == 5} className='rounded-pill' onClick={ () => setActiveIndex(5)}>
+                    <span style={{color:'#ab009d'}}>
+                      <b>
+                        <span className='bi bi-arrow-clockwise'></span> Retardeé
+                      </b>
+                    </span>
+                  </Menu.Item>
+                  <Menu.Item active={activeIndex == 6} className='rounded-pill' onClick={ () => setActiveIndex(6)}>
+                    <span style={{color:'#92ab03'}}>
+                      <b>
+                        <span className='bi bi-compass-fill'></span> Redirecteé
+                      </b>
+                    </span>
+                  </Menu.Item>
                   <Menu.Item active={activeIndex == 4} className='rounded-pill' onClick={ () => setActiveIndex(4)}>
                     <span className='text-secondary'>
                       <b>
@@ -161,11 +190,20 @@ function RequestPage() {
               </Menu>
           </div>
           <div className='col-4 text-end'>
-              <Button icon='calendar alternate' className='rounded-pill bg-system-btn me-4' onClick={() => openEditModal('justOpen',true)} />
+              {/* <Button icon='calendar alternate' className='rounded-pill bg-system-btn me-4' onClick={() => openEditModal('justOpen',true)} /> */}
+              <MainSubNavCard text='Calendrier' link='rq/calendrier' icon='calendar-week' />
           </div>
         </div>
       </>)
     }
+    const MainSubNavCard = (props) =>{
+      return(<>
+         <NavLink exact='true' to={`/S/${props.link}`} className='card card-body mb-1 rounded-pill shadow-sm d-inline-block ' >
+           <h4 style={{color : GConf.themeColor}}> <span className={`bi bi-${props.icon} me-1 `}></span>{props.text}</h4>
+         </NavLink> 
+      </>) 
+   }
+
     return (<>
             
         <Fade>

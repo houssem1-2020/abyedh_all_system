@@ -28,7 +28,7 @@ function FacturePage() {
             PID : GConf.PID,
         })
         .then(function (response) {
-            console.log(JSON.parse(response.data[0].Analyses))
+             
             let factureListContainer = []
             response.data.map( (getData) => factureListContainer.push([
             _(<TableImage image='seance.png' />),

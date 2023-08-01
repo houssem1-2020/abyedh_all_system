@@ -9,7 +9,8 @@ import { NavLink } from 'react-router-dom';
 import CountUp from 'react-countup';
 import { toast } from 'react-toastify';
 import { Tab } from 'semantic-ui-react';
-
+import FullCalendar from '@fullcalendar/react' // must go before plugins
+import dayGridPlugin from '@fullcalendar/daygrid' // a plugin!
 
 function MainPage() {
     /*#########################[Const]##################################*/
@@ -20,6 +21,7 @@ function MainPage() {
     const [commandeD, setCommandeD]= useState([])
     const [dataBar, setDataBar]= useState([])
     const [depoTR, setDepoRT]= useState([])
+    const [articleEvents , setArticleEvents] = useState([])
     const now = new Date();
     date.locale(fr)
     const panes = [
@@ -37,6 +39,16 @@ function MainPage() {
             },
     ]
 
+    const FakeData = [
+        { name: '1',  value: 10 },
+        { name: '2',  value: 20 },
+        { name: '3',  value: 30 },
+        { name: '4',  value: 10 },
+        { name: '5',  value: 50 },
+        { name: '6',  value: 180 },
+        { name: '7',  value: 102 },
+        { name: '8',  value: 54 },
+    ]
    /*#########################[UseEffect]##################################*/
     useEffect(() => {
         axios.post(`${GConf.ApiLink}/ma/stat`, {
@@ -72,6 +84,10 @@ function MainPage() {
             let DepoRT = []
             response.data.evolutionSeance.map((data) => DepoRT.push({ name: data.S_Date.split('T')[0],  value: data.Totale.toFixed(3) }))
             setDepoRT(DepoRT)
+
+            let calendarData = []
+            response.data.rdvCalendar.map( (getData) => calendarData.push( { title: getData.Name , date: new Date(getData.RDV_Date).toLocaleDateString('fr-FR').split( '/' ).reverse( ).join( '-' )}))
+            setArticleEvents(calendarData)
 
         }).catch((error) => {
             if(error.request) {
@@ -140,7 +156,7 @@ function MainPage() {
     }
     const LineChts = (props) => {
         return (<>
-           <ResponsiveContainer width="100%" height={200} >
+           <ResponsiveContainer width="100%" height={140} >
                 <AreaChart
                     width={200}
                     height={60}
@@ -228,11 +244,27 @@ function MainPage() {
             <LinksCrads /> 
             <div className='row p-0'>
                 <div className='col-12 col-lg-8 mb-4 '> 
-                        <h5 className='mt-3 mb-4'>Evolution des Seances</h5> 
-                        <ChartsContainer chart={<LineChts />} col='7' title='Seance par date' />
+                    <FullCalendar 
+                        plugins={[ dayGridPlugin ]}
+                        initialView="dayGridMonth"
+                        locale='fr' 
+                        events={articleEvents}
+                        height='500px'
+                        //allDaySlot= {false}
+                        navLinks={true}
+                        buttonText= {{ today:    'aujourd\'hui', }}
+                    />
 
                 </div>
-                <div className='col-12 col-lg-4 mb-4'> <Tab menu={{ secondary: true }} panes={panes} /></div>
+                <div className='col-12 col-lg-4 mb-4'> 
+
+                        <div className="card p-1 border-div mb-2">
+                            <h6 className='m-1'><b>Evolution des Seances</b></h6>
+                            <LineChts />
+                        </div>
+                
+                        <Tab menu={{ secondary: true }} panes={panes} />
+                </div>
             </div>
   
         </Slide > 
