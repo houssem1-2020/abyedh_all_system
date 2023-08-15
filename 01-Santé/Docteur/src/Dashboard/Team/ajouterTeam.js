@@ -3,7 +3,7 @@ import BreadCrumb from '../../AssetsM/Cards/breadCrumb';
 import GConf from '../../AssetsM/generalConf';
 import TunMap from '../../AssetsM/tunMap';
 import { Bounce } from 'react-reveal';
-import { Button, Form, Icon, Input, Loader, Modal, Select, TextArea, TransitionablePortal } from 'semantic-ui-react';
+import { Button, Form, Icon, Input, Loader,  Tab, Modal, Select, TextArea, TransitionablePortal } from 'semantic-ui-react';
 import useGetCamion from '../../AssetsM/Hooks/fetchCamion';
 import { toast } from 'react-toastify';
 import axios from 'axios';
@@ -11,6 +11,7 @@ import useGetPostes from '../../AssetsM/Hooks/fetchPostes'
 import { useEffect } from 'react';
 import { NavLink } from 'react-router-dom';
 // import useGetPostes from '../Assets/Hooks/fetchPostes';
+import { QrReader } from 'react-qr-reader';
 
 const FindInDirectory = ({inDirArticle, setInDirA,FindInDirectoryFunc, loaderState, OnKeyPressFunc}) =>{
     return(<>
@@ -42,6 +43,39 @@ function AjouterTeam() {
     //   {key:4, value:'Contoire', text:'Contoiore'},
     //   {key:5, value:'Stage', text:'Stagiére'},
     // ]
+    const [scanResultSeance, setScanResultSeance] = useState(false);
+    const panes = [
+        {
+            menuItem: { key: 'client', icon: 'user', content:  'Entrer' }, 
+            render: () =><FindInDirectory inDirArticle={inDirArticle}  setInDirA={setInDirA} FindInDirectoryFunc={FindInDirectoryFunc} loaderState={loaderState} OnKeyPressFunc={OnKeyPressFunc} />,
+        },
+        {
+            menuItem: { key: 'start', icon: 'add circle', content: 'Scaneer ' }, 
+            render: () => <div className='card card-body border-div shadow-sm mb-1'>
+                        {scanResultSeance ? 
+                            (
+                            <QrReader
+                                    constraints={{  facingMode: 'environment' }}
+                                    scanDelay={500}
+                                    onResult={(result, error) => {
+                                    if (!!result) {  FindInDirectoryFunc(result.text); setScanResultSeance(false) }
+                                    if (!!error) { console.log(error);  }
+                                    }}
+                                    style={{  width: "150px",height: "150px" }}
+                            />
+                            ) : (
+                                <div className='text-center mt-4'>
+                                    <div className='bi bi-qr-code mb-4 bi-lg' style={{color: GConf.themeColor, fontSize:'150px'}}></div>
+                                    <Button onClick={() => setScanResultSeance(true)}>Cliquer Pour Scanner</Button>
+                                </div>
+                            )}
+
+            </div>,
+        },
+ 
+        
+    ]
+
     /*#########################[UseEffect]##################################*/
         useEffect(() => {
         axios.post(`${GConf.ApiLink}/team`,{
@@ -197,7 +231,8 @@ function AjouterTeam() {
                             </div>
                         </div>
                         <div className='col-lg-4 d-none d-lg-block   '> 
-                            <FindInDirectory inDirArticle={inDirArticle}  setInDirA={setInDirA} FindInDirectoryFunc={FindInDirectoryFunc} loaderState={loaderState} OnKeyPressFunc={OnKeyPressFunc} />
+                            <Tab menu={{  secondary: true  }} panes={panes} />
+                            
                             <br />  
                             <br />  
                             <br />  

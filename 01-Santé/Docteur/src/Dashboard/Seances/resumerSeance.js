@@ -20,9 +20,9 @@ const InputDatCard = ({targetDate, setTargetDate, FetchTargetFactures,PrintFunct
             <div className='mt-3'>
                 <Button  className='rounded-pill bg-system-btn' onClick={FetchTargetFactures} fluid><Icon name='search' /> Rechercher <Loader inverted active={loaderState} inline size='tiny' className='ms-2 text-danger'/> </Button>
             </div>
-            <div className='mt-3'>
+            {/* <div className='mt-3'>
                 <Button  className='rounded-pill btn-imprimer' onClick={(e) => PrintFunction('printResumer')} fluid><Icon name='print' /> Imprimer </Button>
-            </div>
+            </div> */}
             
             
         </div>
@@ -49,7 +49,7 @@ function ResumerFactures() {
             let factureListContainer = []
             response.data.map( (getData) => factureListContainer.push([
  
-            getData.S_ID,
+            //getData.S_ID,
             getData.PA_Name,
             getData.Maladie,
             _(<StateCard status={getData.State_Degre} />),
@@ -119,7 +119,7 @@ function ResumerFactures() {
                 </div>
             </div>
             <div className='col-12 col-lg-8'>
-                <TableGrid tableData={factureList} columns={['ID','Patient','Maldaie','Degreé','Jour','Temps','Analyse','Ordonance','Voir']} />                        
+                <TableGrid tableData={factureList} columns={['Patient','Maldaie','Degreé','Jour','Temps','Analyse','Ordonance','Voir']} />                        
             </div>
         </div>
         <FrameForPrint frameId='printResumer' src={`/Pr/Facture/resumer/${targetDate.start}/${targetDate.end}`} />

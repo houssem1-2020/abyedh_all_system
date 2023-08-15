@@ -28,7 +28,7 @@ function AjouterClient() {
     /*################[Variable]###############*/
     const [patientList, setPatientList] = useState([]); 
     const [inDirArticle, setInDirA] = useState();
-    const [patientD, setPatientD] = useState([])
+    const [patientD, setPatientD] = useState({PA_Naissance : new Date().toISOString().split('T')[0]})
     const [saveBtnState, setSaveBtnState] = useState(false)
     const [loaderState, setLS] = useState(false)
     const [delegList ,setDelegList] = useState([]) 
@@ -48,7 +48,7 @@ function AjouterClient() {
         },
         {
             menuItem: { key: 'start', icon: 'add circle', content: 'Scaneer ' }, 
-            render: () => <>
+            render: () => <div className='card card-body border-div shadow-sm mb-1'>
                         {scanResultSeance ? 
                             (
                             <QrReader
@@ -62,15 +62,12 @@ function AjouterClient() {
                             />
                             ) : (
                                 <div className='text-center mt-4'>
+                                    <div className='bi bi-qr-code mb-4 bi-lg' style={{color: GConf.themeColor, fontSize:'150px'}}></div>
                                     <Button onClick={() => setScanResultSeance(true)}>Cliquer Pour Scanner</Button>
-                                    <br />
-                                    <br />
-                                    <br />
-                                    <span className='bi bi-qr-code mt-3 bi-lg' style={{color: GConf.themeColor, fontSize:'150px'}}></span>
                                 </div>
                             )}
 
-            </>,
+            </div>,
         },
  
         
@@ -99,17 +96,17 @@ function AjouterClient() {
         setDelegList(found)
     }
     const checkClientExistance = () =>{
-        if(patientD.CIN){
-            const foundClient = patientList.find(element => element.CIN === patientD.CIN)
+        if(patientD.PA_Naissance){
+            const foundClient = patientList.find(element => element.PA_Naissance === patientD.PA_Naissance)
             if (foundClient) {
                 toast.error("Client Exist Deja", GConf.TostErrorGonf)
-                setPatientD({...patientD, CIN: '' })
+                setPatientD({...patientD, PA_Naissance: '' })
             }
             
         }
     }
     const SaveClient = (event) => {
-        if (!patientD.CIN) {toast.error("Matricule Invalide !", GConf.TostErrorGonf)}
+        if (!patientD.PA_Naissance) {toast.error("Matricule Invalide !", GConf.TostErrorGonf)}
         else if (!patientD.Name) {toast.error("Nom Invalide !", GConf.TostErrorGonf)}
         else if (!patientD.Phone) {toast.error("Phone Invalide !", GConf.TostErrorGonf)}
         else if (!patientD.Gouv) {toast.error("Gouvernorat Invalide !", GConf.TostErrorGonf)}
@@ -183,14 +180,16 @@ function AjouterClient() {
             <Bounce left>
                 <div className='row'>
                     <div className='col-12 col-lg-8'>
-                         <div className='p-1 mb-2'>
-                            <h5 className='mb-1'>CIN:</h5>
-                            <Input icon='key' iconPosition='left' onKeyPress={event => OnKeyPressFunc(event)} placeholder='CIN' className='w-100 border-0 shadow-sm rounded mb-1' value={patientD.CIN} onBlur={checkClientExistance}   onChange={(e) => setPatientD({...patientD, CIN: e.target.value })}/>
-                         </div>
+                         
                          <div className='p-1  mb-2'>
                             <h5 className='mb-1'>Nom Et Prenon :</h5>
                             <Input icon='user' iconPosition='left' onKeyPress={event => OnKeyPressFunc(event)} placeholder='Nom Et Prenon ' className='w-100 border-0 shadow-sm rounded mb-1' value={patientD.Name} onChange={(e) => setPatientD({...patientD, Name: e.target.value })} />
                         </div>
+                        <div className='p-1 mb-2'>
+                            <h5 className='mb-1'>Date de Naissance:</h5>
+                            <Input icon='key' type='date' iconPosition='left' onKeyPress={event => OnKeyPressFunc(event)} placeholder='Date de Naissance' className='w-100 border-0 shadow-sm rounded mb-1' value={patientD.PA_Naissance} onBlur={checkClientExistance}   onChange={(e) => setPatientD({...patientD, PA_Naissance: e.target.value })}/>
+                         </div>
+
                         <div className='p-1 mb-2'>
                             <h5 className='mb-1'>Telephone :</h5>
                             <Input icon='phone' iconPosition='left' onKeyPress={event => OnKeyPressFunc(event)} placeholder='Telephone ' className='w-100 border-0 shadow-sm rounded mb-1' value={patientD.Phone} onChange={(e) => setPatientD({...patientD, Phone: e.target.value })} />

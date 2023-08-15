@@ -29,14 +29,14 @@ function DataBaseBU() {
     let [stockCamionLinkBtn , setStockCamionLinkBtn] = useState(true)
 
     let exportedTable = [
-        { name: '05_restaurant_caisses', where: `PID = ${GConf.PID}`, toExport : true },
-        { name: '05_restaurant_factures', where: `PID = ${GConf.PID}`, toExport : true },
-        { name: '05_restaurant_menu', where: `PID = ${GConf.PID}`, toExport : true},
-        { name: '05_restaurant_menu_genre', where: `PID = ${GConf.PID}`, toExport : true},
-        { name: '05_restaurant_clients', where: `PID = ${GConf.PID}`, toExport : true},
-        { name: '05_restaurant_setting', where: `PID = ${GConf.PID}`, toExport : true},
-        { name: '05_restaurant_tables', where: `PID = ${GConf.PID}`, toExport : true},
-        { name: '05_restaurant_team', where: `PID = ${GConf.PID}`, toExport : true},
+        { name: '01_docteur_rapports', where: `PID = ${GConf.PID}`, toExport : true },
+        { name: '01_docteur_ordonance', where: `PID = ${GConf.PID}`, toExport : true },
+        { name: '01_docteur_seances', where: `PID = ${GConf.PID}`, toExport : true},
+        { name: '01_docteur_tarif', where: `PID = ${GConf.PID}`, toExport : true},
+        { name: '01_docteur_patient', where: `PID = ${GConf.PID}`, toExport : true},
+        { name: '01_docteur_setting', where: `PID = ${GConf.PID}`, toExport : true},
+        { name: '000_abyedh_medicamment', where: `PID = ${GConf.PID}`, toExport : true},
+        { name: '01_docteur_team', where: `PID = ${GConf.PID}`, toExport : true},
     ]
 
     /* ############################### UseEffect ################################*/
@@ -109,13 +109,13 @@ function DataBaseBU() {
             <div className='card card-body shadow-sm mb-4 border-div'>
                <h5>Sauvegarder Vos Donneé Sur Votre Ordonateur  </h5> 
                
-               <Checkbox className='mb-2' label='Sauvgarder le menu' defaultChecked  onChange={(event, data) =>  UpdateTableStet('05_restaurant_menu',data.checked)}/>
-               <Checkbox className='mb-2' label='Sauvgarder les genres menu' defaultChecked  onChange={(event, data) =>  UpdateTableStet('05_restaurant_menu_genre',data.checked)}/>
-               <Checkbox className='mb-2' label='Sauvgarder les factures ' defaultChecked onChange={(event, data) =>  UpdateTableStet('05_restaurant_factures',data.checked)} />
-               <Checkbox className='mb-2' label='Sauvgarder les caisses ' defaultChecked onChange={(event, data) =>  UpdateTableStet('05_restaurant_caisses',data.checked)} />
-               <Checkbox className='mb-2' label='Sauvgarder les clients ' defaultChecked onChange={(event, data) =>  UpdateTableStet('05_restaurant_clients',data.checked)} />
-               <Checkbox className='mb-2' label='Sauvgarder l"equipe ' defaultChecked onChange={(event, data) =>  UpdateTableStet('05_restaurant_team',data.checked)} />
-               <Checkbox className='mb-2' label='Sauvgarder les Tables ' defaultChecked onChange={(event, data) =>  UpdateTableStet('05_restaurant_tables',data.checked)} />
+               <Checkbox className='mb-2' label='Sauvgarder les Seances' defaultChecked  onChange={(event, data) =>  UpdateTableStet('01_docteur_seances',data.checked)}/>
+               <Checkbox className='mb-2' label='Sauvgarder les Traif' defaultChecked  onChange={(event, data) =>  UpdateTableStet('01_docteur_tarif',data.checked)}/>
+               <Checkbox className='mb-2' label='Sauvgarder les Ordonances ' defaultChecked onChange={(event, data) =>  UpdateTableStet('01_docteur_ordonance',data.checked)} />
+               <Checkbox className='mb-2' label='Sauvgarder les Rapport ' defaultChecked onChange={(event, data) =>  UpdateTableStet('01_docteur_rapports',data.checked)} />
+               <Checkbox className='mb-2' label='Sauvgarder les Patients ' defaultChecked onChange={(event, data) =>  UpdateTableStet('01_docteur_patient',data.checked)} />
+               <Checkbox className='mb-2' label='Sauvgarder l equipe ' defaultChecked onChange={(event, data) =>  UpdateTableStet('01_docteur_team',data.checked)} />
+               <Checkbox className='mb-2' label='Sauvgarder les Tables ' defaultChecked onChange={(event, data) =>  UpdateTableStet('000_abyedh_medicamment',data.checked)} />
                <Checkbox className='mb-2' label='Sauvgarder les Paramétres ' defaultChecked onChange={(event, data) =>  UpdateTableStet('05_restaurant_setting',data.checked)} />
                
                <div className='text-end'>

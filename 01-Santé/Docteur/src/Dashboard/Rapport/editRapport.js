@@ -13,6 +13,8 @@ import { Editor } from 'react-draft-wysiwyg';
 import draftToHtml from 'draftjs-to-html'; // Updated import statement
 import 'react-draft-wysiwyg/dist/react-draft-wysiwyg.css';
 import FrameForPrint from '../../AssetsM/Cards/frameForPrint';
+import { useParams } from 'react-router-dom';
+import { ContentState, convertFromHTML } from 'draft-js';
 
 const TerminerCard = ({rapportData, setRapportData,allClientList, OnKeyPressFunc}) =>{
     const rapportGenre = [
@@ -33,7 +35,7 @@ const TerminerCard = ({rapportData, setRapportData,allClientList, OnKeyPressFunc
     return (<>
              
             <h5 className='mb-1 mt-1'>Titre  </h5>
-            <Input icon='text height' onKeyPress={event => OnKeyPressFunc(event)} list="clientList" placeholder='Titre'   onBlur={ (e) => setRapportData({...rapportData, RA_Titre: e.target.value })} size="small" iconPosition='left'   fluid className='mb-1' />
+            <Input icon='text height' onKeyPress={event => OnKeyPressFunc(event)} list="clientList" placeholder='Titre' value={rapportData.RA_Titre}  onBlur={ (e) => setRapportData({...rapportData, RA_Titre: e.target.value })} size="small" iconPosition='left'   fluid className='mb-1' />
 
             <h5 className='mb-1 mt-1'>Sujet </h5>
             <Form>
@@ -64,6 +66,7 @@ const TerminerCard = ({rapportData, setRapportData,allClientList, OnKeyPressFunc
 function AjouterFacture() {
     /*#########################[Const]##################################*/
     const Today = new Date()
+    const {RPID} = useParams()
     const [rapportData, setRapportData] = useState({ RA_Content: 'Null', RA_Titre:'', RA_Genre:'', RA_Sujet:'',  RA_Date: Today.toISOString().split('T')[0], RA_State: 'S'  })
     const [diagnostiqueValue, setDiagnistiqueValue] = useState(EditorState.createEmpty());
     const [gettedOrFID, setOrId] = useState(0)
@@ -73,7 +76,7 @@ function AjouterFacture() {
     const [articleList] = useGetArticles()
     const [clientList, allClientList] = useGetClients([[{},{}], [{},{}]])
     const [autofocusState, setAutoFocus] = useState(false)
-    
+    const [loading , setLoading] = useState(false)
  
     const panes = [
         {
@@ -116,19 +119,38 @@ function AjouterFacture() {
  
 
     /* ############################### UseEffect ########################*/
-    useEffect(() => {      
-          //console.log(articleList)
-            // //camionList
-            // axios.post(`${GConf.ApiLink}/camions`,{PID :GConf.PID})
-            // .then(function (response) {
-            //     let ClientLN = []
-            //     response.data.map( (dta) => {ClientLN.push({value : dta.Cam_ID, text : <>{dta.Cam_Name} : {dta.Matricule} - {dta.Chauffeur}</>, key: dta.PK})})
-            //     setCamionList(ClientLN)
-            // }).catch((error) => {
-            // if(error.request) {
-            //     toast.error(<><div><h5>Probleme de Connextion</h5> Les camion n'ont pas été chargeé </div></>, GConf.TostInternetGonf)   
-            // }
-            // });
+    /*#########################[UseEffect]##################################*/
+    useEffect(() => {
+        axios.post(`${GConf.ApiLink}/rapport/info`, {
+            PID : GConf.PID,
+            RPID: RPID
+          })
+          .then(function (response) {
+            console.log(response.data)
+                if(!response.data.PK) {
+                    toast.error('Rapport Introuvable !', GConf.TostSuucessGonf)
+                    setTimeout(() => {  window.location.href = "/S/rp"; }, 2000)
+                    
+                } else {
+                    const contentBlocks = convertFromHTML(response.data.RA_Content);
+                    const contentState = ContentState.createFromBlockArray(contentBlocks);
+
+                    // Set the converted ContentState to the EditorState
+                    const editorState = EditorState.createWithContent(contentState);
+                    setDiagnistiqueValue(editorState);
+
+                    setRapportData(response.data)
+                    setLoading(true)
+                     
+                }    
+          }).catch((error) => {
+            if(error.request) {
+              toast.error(<><div><h5>Probleme de Connextion</h5> Impossible de Charger la facture de son source   </div></>, GConf.TostInternetGonf)   
+              const FactureTarged = Offline.facture.find((facture) => facture.F_ID == RPID);
+              setLoading(true)
+ 
+            }
+          });
     }, [])
 
     /*#########################[Function]##################################*/
@@ -238,7 +260,7 @@ function AjouterFacture() {
     }
     
     return (<>
-        <BreadCrumb links={GConf.BreadCrumb.factureAjouter} />
+        <BreadCrumb links={GConf.BreadCrumb.factureEdit} />
         <br />
         <Tab menu={{  secondary: true  }} panes={panes} />
         <FrameForPrint frameId='printRapport' src={`/Pr/rapport/info/${gettedOrFID}`} />

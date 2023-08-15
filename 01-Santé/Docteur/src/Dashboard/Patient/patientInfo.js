@@ -19,13 +19,14 @@ import { useNavigate} from 'react-router-dom';
 const EditClientCard = ({clientD, setClientD, OnKeyPressFunc, EditClient,delegList,GetDelegList,loaderState}) =>{
     return(<>
             <div className='p-1'>
-                        <div className='p-1 mb-2'>
-                            <h5 className='mb-1'>CIN:</h5>
-                            <Input icon='key' iconPosition='left' onKeyPress={event => OnKeyPressFunc(event)} placeholder='Matricule Fiscale' className='w-100 border-0 shadow-sm rounded mb-1'  value={clientD.CIN}  onChange={(e) => setClientD({...clientD, CIN: e.target.value })}/>
-                        </div>
+                        
                         <div className='p-1  mb-2'>
                             <h5 className='mb-1'>Nom Et Prenon :</h5>
                             <Input icon='user' iconPosition='left' onKeyPress={event => OnKeyPressFunc(event)} placeholder='Nom Et Prenon ' className='w-100 border-0 shadow-sm rounded mb-1' value={clientD.PA_Name} onChange={(e) => setClientD({...clientD, PA_Name: e.target.value })} />
+                        </div>
+                        <div className='p-1 mb-2'>
+                            <h5 className='mb-1'>Date de Naissance:</h5>
+                            <Input icon='key' type='date' iconPosition='left'   placeholder='Matricule Fiscale' className='w-100 border-0 shadow-sm rounded mb-1'  value={clientD.PA_Naissance}  onChange={(e) => setClientD({...clientD, PA_Naissance: e.target.value })}/>
                         </div>
                         <div className='p-1 mb-2'>
                             <h5 className='mb-1'>Telephone :</h5>
@@ -54,7 +55,7 @@ const FindInDirectory = ({inAbyedhSearch,saveBtnRUIState,clientD, setInAbyedhSea
         {clientD.Releted_UID ? 
             <div className='row card-body'>
                 <div className='col-9'>
-                        <h5 className="text-danger text-left"><b>Ce Client est Verifier  : </b></h5>
+                        <h5 className="text-danger text-left"><b>Ce Patient est Verifier  : </b></h5>
                         <h1 className='display-4'>{clientD.Releted_UID }</h1> 
                 </div>
                 <div className='col-lg-3 d-none d-lg-block align-self-center'>
@@ -179,7 +180,8 @@ function ClientInfo() {
                 response.data.RDV.map( (getData, index) => reservationTable.push([ 
                     getData.R_ID,
                     response.data.Data.PA_Name,
-                    new Date(getData.R_Date).toLocaleDateString('fr-FR').split( '/' ).reverse( ).join( '-' ),
+                    new Date(getData.RDV_Date).toLocaleDateString('fr-FR').split( '/' ).reverse( ).join( '-' ),
+                     getData.RDV_Time,
                     _(<StateCard status={getData.State} />),
                     _(<Button className='rounded-pill bg-system-btn' size='mini' onClick={ (e) => NavigateFunction(`/S/rq/cm/info/${getData.R_ID}`)}><span className='d-none d-lg-inline'> Info </span><Icon  name='angle right' /></Button>)
                 ],))
@@ -210,7 +212,7 @@ function ClientInfo() {
         setDelegList(found)
     }
     const EditClient = () =>{
-        if (!clientD.CIN) {toast.error("Matricule Invalide !", GConf.TostErrorGonf)}
+        if (!clientD.PA_Naissance) {toast.error("Date de Naissance Invalide !", GConf.TostErrorGonf)}
         else if (!clientD.PA_Name) {toast.error("Nom Invalide !", GConf.TostErrorGonf)}
         else if (!clientD.Phone) {toast.error("Phone Invalide !", GConf.TostErrorGonf)}
         else if (!clientD.Gouv) {toast.error("Gouvernorat Invalide !", GConf.TostErrorGonf)}
@@ -338,6 +340,7 @@ function ClientInfo() {
                             <h4 className='mt-2'>{loading ? clientD.PA_Name : SKLT.BarreSkl } </h4> 
                             <h6 className="text-secondary">  {loading ? <><span className="bi bi-geo-alt-fill"></span> { clientD.Adress } </>: SKLT.BarreSkl} </h6>
                             <h6 className="text-secondary"> {loading ? <><span className="bi bi-geo-fill"></span> { clientD.Gouv } , ({ clientD.Deleg })</>: SKLT.BarreSkl } </h6>
+                            <h6 className="text-secondary"> {loading ? <><span className="bi bi-calendar"></span> {  new Date(clientD.PA_Naissance).toLocaleDateString('fr-FR').split( '/' ).join( '-' ) } </>: SKLT.BarreSkl } </h6>
                             <Divider horizontal className='text-secondary mt-4'>Verification</Divider>
                             <div className='row text-center'>
                                 <div className='col-12'>    
@@ -391,11 +394,11 @@ function ClientInfo() {
         return(<><h3 className="text-secondary">Voulez-Vous Vraimment Supprimer Ce Camion ?</h3> 
         <div className='row'>
                 <div className='col-9'>
-                    <h5 className="text-danger text-left"><b>Lorsque Vous Supprimer Un Client : </b></h5>
+                    <h5 className="text-danger text-left"><b>Lorsque Vous Supprimer Un Patient : </b></h5>
                     <ul className="text-info text-left">
-                    <li>le Client  ne sera pas visible dans la branche 'Clients'</li>
-                    <li>Tous les factures relier a ce client peut s'endomager   </li>
-                    <li>vous ne pouver pas passer ni factures ni commandes avec ce clients autremment   </li>
+                    <li>le Patient  ne sera pas visible dans la branche 'Patients'</li>
+                    <li>Tous les factures relier a ce Patient peut s'endomager   </li>
+                    <li>vous ne pouver pas passer ni factures ni commandes avec ce Patients autremment   </li>
                     </ul>
                 </div>
                 <div className='col-lg-3 d-none d-lg-block align-self-center'>
@@ -416,6 +419,9 @@ function ClientInfo() {
             case 'S': return <StateCard color='info' text='Vu' />;  
             case 'A': return <StateCard color='success' text='Acepteé' /> ;
             case 'R': return <StateCard color='danger' text='Refuseé' />;
+            case 'RT': return <StateCard color='retarder' text='Retardeé' />;
+            case 'RD': return <StateCard color='rederecter' text='Redirecteé' />;
+            case 'F': return <StateCard color='secondary' text='Termineé' />;
             default:  return <StateCard color='secondary' text='Indefinie' />;    
           }
         }, [status]);

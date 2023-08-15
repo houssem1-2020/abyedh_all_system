@@ -13,6 +13,7 @@ import { useNavigate} from 'react-router-dom';
 import { toast } from 'react-toastify';
 import moment from 'moment';
 import 'moment/locale/fr';
+import { NavLink } from 'react-router-dom';
 
 function TeamPage() {
     /*################[Variable]###############*/
@@ -74,11 +75,21 @@ function TeamPage() {
                 
             </>)
     }
+    const MainSubNavCard = (props) =>{
+        return(<>
+          <NavLink exact='true' target='c_blank' to={`/S/${props.link}`} className='card card-body mb-1 rounded-pill shadow-sm d-inline-block ' >
+            <h4 style={{color : GConf.themeColor}}> <spn className={`bi bi-${props.icon} me-1 `}></spn>{props.text}</h4>
+          </NavLink>
+        </>) 
+    }
 
     return ( 
         <>
             <Fade>
-                <SubNav dataForNav={GConf.SubNavs.Equipe}/>
+                <div className='row'>
+                    <div className='col-12 col-lg-8'><SubNav dataForNav={GConf.SubNavs.Equipe}/></div>
+                    <div className='col-12 col-lg-4 text-end align-self-center'><MainSubNavCard text='Interface RDV' link='../C' icon='window-dock' />  </div>
+                </div>
                 <br />
                 <TableGrid tableData={clientList} columns={GConf.TableHead.team} /> 
             </Fade>         

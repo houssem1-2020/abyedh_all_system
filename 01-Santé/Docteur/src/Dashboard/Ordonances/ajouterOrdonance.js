@@ -39,8 +39,9 @@ function AjouterFacture() {
     const [saveBtnState, setSaveBtnState] = useState(false)
  
     const [loaderState, setLS] = useState(false)
+    const [loadingPage, setLoadingState] = useState(true)
  
-    const [gettedFID, setFID] = useState('')
+    const [gettedFID, setFID] = useState(0)
     const [client, allClientList] = useGetClients()
     const [autofocusState, setAutoFocus] = useState(false)
     const [articleList] = useGetArticles()
@@ -65,18 +66,11 @@ function AjouterFacture() {
 
     /* ############################### UseEffect ########################*/
     useEffect(() => {
-            //camionList
-            // axios.post(`${GConf.ApiLink}/camions`,{PID :GConf.PID})
-            // .then(function (response) {
-            //     let ClientLN = []
-            //     response.data.map( (dta) => {ClientLN.push({value : dta.Cam_ID, text : <>{dta.Cam_Name} : {dta.Matricule} - {dta.Chauffeur}</>, key: dta.PK})})
-            //     setCamionList(ClientLN)
-            // }).catch((error) => {
-            // if(error.request) {
-            //     toast.error(<><div><h5>Probleme de Connextion</h5> Les camion n'ont pas été chargeé </div></>, GConf.TostInternetGonf)   
-            // }
-            // });
-    }, [])
+        if (articleList && articleList.length > 0) {
+            // Data is rendered, set loadingState to false
+            setLoadingState(false);
+          }
+    }, [articleList])
 
     /*#########################[Function]##################################*/
     const GetMedicammentData = (value) =>{
@@ -119,7 +113,7 @@ function AjouterFacture() {
                 })
                 .then(function (response) {
                     if(response.status = 200) {
-                        setFID(response.data.FID)
+                        setFID(response.data.OR_ID)
                         setSaveBtnState(true)
                         toast.success("Ordonance Enregistreé !", GConf.TostSuucessGonf)
                         setFactureLink(response.data);
@@ -154,12 +148,11 @@ function AjouterFacture() {
         }   
     }
     const SelectClientFunction = (value) => {
-        setOrdonanceD({...ordonanceD, OR_Patient: value })
-        let filtedClient = allClientList.find((data) => data.PA_ID == value)
-        setClientNow(filtedClient)
-        
-         
-
+        if (value) {
+            setOrdonanceD({...ordonanceD, OR_Patient: value })
+            let filtedClient = allClientList.find((data) => data.PA_ID == value)
+            setClientNow(filtedClient)
+        }
     }
 
    /*#########################[Card]##################################*/
@@ -172,6 +165,7 @@ function AjouterFacture() {
                         <option key={index} value={test.PK}>{test.Nom} : {test.Dosage} - {test.Forme} - {test.Presentation}  </option>
                         )}
                 </datalist>
+                <ProgressLoadingBar display={loadingPage} />
                 <Input icon='pin' list="articlesList" placeholder='Entre aarticle'  onBlur={ (e) => GetMedicammentData(e.target.value)} size="small" iconPosition='left'   fluid className='mb-1' /> 
                 <div className='m-2 mb-0 text-secondary'><b> <span className='bi bi-upc '></span> Code a barre : {articleNow.PK} </b></div>
                 <div className='m-2 mb-0 text-danger'><b><span className='bi bi-star-fill '></span> Nom : {articleNow.Nom} </b></div> 
@@ -215,7 +209,7 @@ function AjouterFacture() {
                     </div>
                     <div className='row mb-2'>
                         <div className='col-12'>
-                            <Button  className='rounded-pill btn-imprimer' disabled={!saveBtnState} fluid onClick={(e) => PrintFunction('printFacture')}><Icon name='print' /> Imprimer</Button>
+                            <Button  className='rounded-pill btn-imprimer' disabled={!saveBtnState} fluid onClick={(e) => PrintFunction('printOrdonance')}><Icon name='print' /> Imprimer</Button>
                         </div>
                         
                     </div>
@@ -223,7 +217,13 @@ function AjouterFacture() {
                 </div>
         </>)
     }
- 
+    const ProgressLoadingBar = (props) =>{
+        return(<>
+            <div className={`progress-bar-loading ${props.display == true ? '': 'd-none'}`}>
+                    <div className="progress-bar-loading-value"></div>
+                </div>
+            </>)
+    }
     
     return (<>
         <BreadCrumb links={GConf.BreadCrumb.factureAjouter} />
@@ -241,10 +241,8 @@ function AjouterFacture() {
                     <br />
                     
             </div>
-        </div>
-        {/* <FrameForPrint frameId='printFacture' src={`/Pr/facture/info/${gettedFID}`} />
-        <FrameForPrint frameId='printBl' src={`/Pr/facture/bonL/${gettedFID}`} /> */}
-        <FrameForPrint frameId='printBs' src={`/Pr/facture/bonS/${gettedFID}`} />
+        </div>=
+        <FrameForPrint frameId='printOrdonance' src={`/Pr/ordonance/info/${gettedFID}`} />
     </> );
     }
 

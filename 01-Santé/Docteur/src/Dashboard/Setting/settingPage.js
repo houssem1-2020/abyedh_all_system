@@ -259,7 +259,7 @@ function SettingPage() {
                     </div>
                     <div className="col-12 col-lg-7">
                         <div className="list-group shadow-sm mb-4 border-div">
-                            {GConf.Setting.map((sett,index) => <SettingItemCard key={index} link={sett.link} image={sett.image} description={sett.description} title={sett.title} />)}
+                            {GConf.Setting.map((sett,index) => <SettingItemCard key={index} link={sett.link} image={sett.image} description={sett.description} title={sett.text} />)}
                         </div>
                         {/*<h5>Profile</h5>
                         {loading ?  <ProfileSetting genre='1' setting={setting.Profile}/> : SKLT.CardList  }

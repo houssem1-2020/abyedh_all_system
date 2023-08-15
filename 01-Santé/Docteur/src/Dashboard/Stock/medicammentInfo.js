@@ -16,72 +16,115 @@ import { toast } from 'react-toastify';
 import useSaveNotification from '../../AssetsM/Hooks/saveNotifFunction';
 
 const EditFSCard = ({fournisseurData, setFSData, EditClient,delegList,GetDelegList,loaderState}) =>{
-    return(<>
+    const tableaux = [
+        { key: 1 , value: 'af', text: 'A' },
+        { key: 2 , value: 'af', text: 'O' },
+        { key: 3 , value: 'af', text: 'C' },
+        { key: 3 , value: 'af', text: 'B' },
+      ]
+  
+      const gpb = [
+          { key: 1 , value: 'af', text: 'Générique' },
+          { key: 2 , value: 'af', text: 'Princeps' },
+          { key: 3 , value: 'af', text: 'Biosimilaire' },
+        ]
+  
+        const VEIC = [
+          { key: 1 , value: 'af', text: 'Vital' },
+          { key: 2 , value: 'af', text: 'Essentiel' },
+          { key: 3 , value: 'af', text: 'Intermédiaire' },
+          { key: 3 , value: 'af', text: 'Confort' },
+        ]
+        return(<>
             <div className='p-1'>
-                        <div className='p-1 mb-2'>
-                            <h5 className='mb-1'>Matricule Fiscale:</h5>
-                            <Input icon='key' iconPosition='left' placeholder='Matricule Fiscale' className='w-100 border-0 shadow-sm rounded mb-1' disabled={true} value={fournisseurData.Four_Code_Fiscale}  onChange={(e) => setFSData({...fournisseurData, Four_Code_Fiscale: e.target.value })}/>
-                        </div>
-                        <div className='p-1  mb-2'>
-                            <h5 className='mb-1'>Nom Et Prenon :</h5>
-                            <Input icon='user' iconPosition='left' placeholder='Nom Et Prenon ' className='w-100 border-0 shadow-sm rounded mb-1' value={fournisseurData.Nom} onChange={(e) => setFSData({...fournisseurData, Nom: e.target.value })} />
-                        </div>
-                        <div className='p-1 mb-2'>
-                            <h5 className='mb-1'>Telephone :</h5>
-                            <Input icon='phone' iconPosition='left' placeholder='Telephone ' className='w-100 border-0 shadow-sm rounded mb-1' value={fournisseurData.Four_Phone} onChange={(e) => setFSData({...fournisseurData, Four_Phone: e.target.value })} />
-                        </div>
-                        <div className='p-1 mb-2'>
-                            <h5 className='mb-1'> Nom Sociale:</h5>
-                            <Input icon='home' iconPosition='left' placeholder='Nom Sociale' className='w-100 border-0 shadow-sm rounded mb-1' value={fournisseurData.Four_Social_Name}  onChange={(e) => setFSData({...fournisseurData, Four_Social_Name: e.target.value })}/>
-                        </div>
-                        <div className='p-1 mb-2'>
-                            <h5 className='mb-1'>Geolocation</h5>
-                            <Select placeholder='Selectionnez Gouvernorat' fluid className='mb-2' options={TunMap.Gouv} value={fournisseurData.Forme} onChange={(e, { value }) => GetDelegList(value)} />
-                            <Select placeholder='Selectionnez Delegation ' fluid value={fournisseurData.Four_Deleg} options={delegList} onChange={(e, { value }) => setFSData({...fournisseurData, Four_Deleg: value })} />
-                        </div>
-                        {/* <div className='p-1 mb-2'>
-                            <h5 className='mb-1'> Map:</h5>
-                            <Select placeholder='Choisir Une Region' options={clientMap}  className='w-100 shadow-sm rounded mb-3' value={fournisseurData.Gouv} onChange={(e, data) => setFSData({...fournisseurData, Gouv: data.value })} />  
-                           
-                        </div> */}
-                        <div className='p-1 mb-2'>
-                            <h5 className='mb-1'> Adresse:</h5>
-                            <Form>
-                                <TextArea  rows="3" placeholder='designer votre article' className='w-100 shadow-sm rounded mb-3' value={fournisseurData.Dosage} onChange={(e) => setFSData({...fournisseurData, Dosage: e.target.value })}/>
-                            </Form> 
-                        </div>
+                            <div className='row'>
+                                <div className='col-12 col-lg-6 p-1 mb-2'>
+                                    <h5 className='mb-1'>Nom:</h5>
+                                    <Input icon='medkit' iconPosition='left' placeholder='Nom' className='w-100 border-0 shadow-sm rounded mb-1' value={fournisseurData.Nom}   onChange={(e) => setFSData({...fournisseurData, Nom: e.target.value })}/>
+                                </div>
+                                <div className='col-12 col-lg-6 p-1 mb-2'>
+                                    <h5 className='mb-1'>Dosage :</h5>
+                                    <Input icon='medkit' iconPosition='left' placeholder='Dosage ' className='w-100 border-0 shadow-sm rounded mb-1' value={fournisseurData.Dosage} onChange={(e) => setFSData({...fournisseurData, Dosage: e.target.value })} />
+                                </div>
+                                <div className='col-12 col-lg-6 p-1 mb-2'>
+                                    <h5 className='mb-1'>Forme :</h5>
+                                    <Select placeholder='Choisir Une Region' options={tableaux}  className='w-100 shadow-sm rounded mb-3' onChange={(e, data) => setFSData({...fournisseurData, Forme: data.value })} />
+                                </div>
+
+                                <div className='col-12 col-lg-6 p-1 mb-2'>
+                                    <h5 className='mb-1'>Presentation:</h5>
+                                    <Input icon='medkit' iconPosition='left' placeholder='Presentation' className='w-100 border-0 shadow-sm rounded mb-1' value={fournisseurData.Presentation}   onChange={(e) => setFSData({...fournisseurData, Presentation: e.target.value })}/>
+                                </div>
+                                <div className='col-12 col-lg-6 p-1 mb-2'>
+                                    <h5 className='mb-1'>DCI :</h5>
+                                    <Input icon='medkit' iconPosition='left' placeholder='DCI ' className='w-100 border-0 shadow-sm rounded mb-1' value={fournisseurData.DCI} onChange={(e) => setFSData({...fournisseurData, DCI: e.target.value })} />
+                                </div>
+                                <div className='col-12 col-lg-6 p-1 mb-2'>
+                                    <h5 className='mb-1'>Classe :</h5>
+                                    <Input icon='medkit' iconPosition='left' placeholder='Classe ' className='w-100 border-0 shadow-sm rounded mb-1' value={fournisseurData.Classe} onChange={(e) => setFSData({...fournisseurData, Classe: e.target.value })} />
+                                </div>
+
+                                <div className='col-12 col-lg-6 p-1 mb-2'>
+                                    <h5 className='mb-1'>Sous_Classe:</h5>
+                                    <Input icon='medkit' iconPosition='left' placeholder='Sous_Classe' className='w-100 border-0 shadow-sm rounded mb-1' value={fournisseurData.Sous_Classe}   onChange={(e) => setFSData({...fournisseurData, Sous_Classe: e.target.value })}/>
+                                </div>
+                                <div className='col-12 col-lg-6 p-1 mb-2'>
+                                    <h5 className='mb-1'>Laboratoire :</h5>
+                                    <Input icon='medkit' iconPosition='left' placeholder='Laboratoire ' className='w-100 border-0 shadow-sm rounded mb-1' value={fournisseurData.Laboratoire} onChange={(e) => setFSData({...fournisseurData, Laboratoire: e.target.value })} />
+                                </div>
+                                <div className='col-12 col-lg-6 p-1 mb-2'>
+                                    <h5 className='mb-1'>AMM :</h5>
+                                    <Input icon='medkit' iconPosition='left' placeholder='AMM ' className='w-100 border-0 shadow-sm rounded mb-1' value={fournisseurData.AMM} onChange={(e) => setFSData({...fournisseurData, AMM: e.target.value })} />
+                                </div>
+
+                                <div className='col-12 col-lg-6 p-1 mb-2'>
+                                    <h5 className='mb-1'>Date_AMM:</h5>
+                                    <Input icon='medkit' type='date' iconPosition='left'   className='w-100 border-0 shadow-sm rounded mb-1' value={fournisseurData.Date_AMM}   onChange={(e) => setFSData({...fournisseurData, Date_AMM: e.target.value })}/>
+                                </div>
+                                <div className='col-12 col-lg-6 p-1 mb-2'>
+                                    <h5 className='mb-1'>Conditionnement_primaire :</h5>
+                                    <Form>
+                                        <TextArea  rows="3" placeholder='Conditionnement_primaire' className='w-100 shadow-sm rounded mb-3' value={fournisseurData.Conditionnement_primaire} onChange={(e) => setFSData({...fournisseurData, Conditionnement_primaire: e.target.value })}/>
+                                    </Form>
+                                </div>
+                                <div className='col-12 col-lg-6 p-1 mb-2'>
+                                    <h5 className='mb-1'>Specifocation :</h5>
+                                    <Form>
+                                        <TextArea  rows="3" placeholder='Specifocation' className='w-100 shadow-sm rounded mb-3' value={fournisseurData.Specifocation} onChange={(e) => setFSData({...fournisseurData, Specifocation: e.target.value })}/>
+                                    </Form>
+                                </div>
+
+                                <div className='col-12 col-lg-6 p-1 mb-2'>
+                                    <h5 className='mb-1'>Tableau:</h5>
+                                    <Select placeholder='Choisir Une Region' options={tableaux}  className='w-100 shadow-sm rounded mb-3' onChange={(e, data) => setFSData({...fournisseurData, Tableau: data.value })} />  
+                                </div>
+                                <div className='col-12 col-lg-6 p-1 mb-2'>
+                                    <h5 className='mb-1'>Duree_de_conservation :</h5>
+                                    <Input icon='medkit' iconPosition='left' placeholder='Duree_de_conservation ' className='w-100 border-0 shadow-sm rounded mb-1' value={fournisseurData.Duree_de_conservation} onChange={(e) => setFSData({...fournisseurData, Duree_de_conservation: e.target.value })} />
+                                </div>
+                                <div className='col-12   p-1 mb-2'>
+                                    <h5 className='mb-1'>Indications :</h5>
+                                    <Form>
+                                        <TextArea  rows="3" placeholder='Indications' className='w-100 shadow-sm rounded mb-3' value={fournisseurData.Indications} onChange={(e) => setFSData({...fournisseurData, Indications: e.target.value })}/>
+                                    </Form>
+                                </div>
+
+                                <div className='col-12 col-lg-6 p-1 mb-2'>
+                                    <h5 className='mb-1'>G_P_B:</h5>
+                                    <Select placeholder='Choisir Une Region' options={gpb}  className='w-100 shadow-sm rounded mb-3' onChange={(e, data) => setFSData({...fournisseurData, G_P_B: data.value })} />
+                                </div>
+                                <div className='col-12 col-lg-6 p-1 mb-2'>
+                                    <h5 className='mb-1'>VEIC :</h5>
+                                    <Select placeholder='Choisir Une Region' options={VEIC}  className='w-100 shadow-sm rounded mb-3' onChange={(e, data) => setFSData({...fournisseurData, VEIC: data.value })} />
+                                </div>
+                            </div>
                         <div className='text-end mb-5'>
                             <Button  onClick={EditClient}  className='text-end rounded-pill bg-system-btn ' positive>  <Icon name='save outline' /> Modifier <Loader inverted active={loaderState} inline size='tiny' className='ms-2 text-danger'/> </Button>
                         </div>
                     </div>
     </>)
 }
-const FindInDirectory = ({inDirArticle, setInDirA,FindInDirectoryFunc, loaderState, OnKeyPressFunc,fromDirectory}) =>{
-    
-    return(<>
-        <div className='row'>
-            <div className='col-6'>
-                <div className='card card-body border'>
-                    <h5>Recherche Dans La Base Abyedh </h5>
-                    <Input className='mb-4' placeholder='UID' onKeyPress={event => OnKeyPressFunc(event)} value={inDirArticle} onChange={(e) => setInDirA(e.target.value)} />
-                    <div className='text-end'>
-                        <Button  className='bg-system-btn rounded-pill' fluid onClick={() => FindInDirectoryFunc()}>   <Icon name='search' /> Recherche <Loader inverted active={loaderState} inline size='tiny' className='ms-2'/></Button>
-                    </div>
-                </div>  
-            </div>
-            <div className='col-6'>
-                <h5 className='text-secondary mt-1 mb-0'>Nom: {fromDirectory.Name}</h5>
-                <h5 className='text-secondary mt-1 mb-0'>Phone: {fromDirectory.Name}</h5>
-                <h5 className='text-secondary mt-1 mb-0'>Gouv: {fromDirectory.Name}</h5>
-                <h5 className='text-secondary mt-1 mb-0'>Deleg: {fromDirectory.Name}</h5>
-                <h5 className='text-secondary mt-1 mb-0'>Adresse: {fromDirectory.Name}</h5>
-            </div>
-            <div className='col-12 text-end'>
-                <Button  className='bg-success text-white rounded-pill' onClick={() => FindInDirectoryFunc()}>   <Icon name='check' /> Verifieé <Loader inverted active={loaderState} inline size='tiny' className='ms-2'/></Button>
-            </div>
-        </div>
-    </>)
-}
+ 
 
 function FournisseurInfo() {
          /* ############################### Const ################################*/
@@ -103,12 +146,12 @@ function FournisseurInfo() {
               },
               {
                 menuItem: { key: 'edit', icon: 'edit', content: 'Modifier' }, 
-                render: () => <><Tab.Pane className='border-div' attached={false}><EditFSCard fournisseurData={fournisseurData} setFSData={setFSData} EditClient={EditClient} delegList={delegList} GetDelegList={GetDelegList}  loaderState={loaderState}/></Tab.Pane><br /></>,
+                render: () => <><Tab.Pane className='border-div' attached={false}>{ loading && fournisseurData.PID != 'ABYEDH' ?  <EditFSCard fournisseurData={fournisseurData} setFSData={setFSData} EditClient={EditClient} delegList={delegList} GetDelegList={GetDelegList}  loaderState={loaderState}/> : <PublicMedicamment /> }</Tab.Pane><br /></>,
               },
  
              {
                  menuItem: { key: 'delete', icon: 'trash alternate', content: 'Supprimer' }, 
-                 render: () => <><Tab.Pane className='border-div' attached={false}><DeleteFS /></Tab.Pane><br /></>,
+                 render: () => <><Tab.Pane className='border-div' attached={false}>{ loading && fournisseurData.PID != 'ABYEDH' ? <DeleteFS /> : <PublicMedicamment /> }</Tab.Pane><br /></>,
              },
          ]
          L.Icon.Default.mergeOptions(GConf.LeafleftIcon );
@@ -203,32 +246,6 @@ function FournisseurInfo() {
                             setLS(false)  
                             }
                         });
-            }
-     
-            const FindInDirectoryFunc = () =>{
-                if (!inDirArticle) {toast.error("Entrer Un Code A Barre  !", GConf.TostErrorGonf)}
-                else{
-                    setLS(true)
-                    axios.post(`${GConf.ApiLink}/fournisseur/checkAbyedhDb`, {
-                        PID : inDirArticle,
-                    }).then(function (response) {
-                        if(response.data.length  != 0) {
-                            toast.success("Fournisseur Existe !", GConf.TostSuucessGonf)
-                            setLS(false)
-                            setFSData({ ...fournisseurData, Releted_PID: response.data.PID, Code_Fiscale: response.data.Matricule_F , Gouv: response.data.Gouv,   Name: response.data.Name, Phone : response.data.Phone , Adress : response.data.Adress })
-                        }
-                        else{
-                            toast.error('Pas De Fournisseur ', GConf.TostSuucessGonf)
-                            setLS(false)
-                        }
-                    }).catch((error) => {
-                        if(error.request) {
-                          toast.error(<><div><h5>Probleme de Connextion</h5> </div></>, GConf.TostInternetGonf)   
-                          setLS(false)
-                        }
-                      });
-                    
-                }
             }
             const OnKeyPressFunc = (e) => {
                 if (!((e.charCode >= 65 && e.charCode <= 90) || (e.charCode >= 97 && e.charCode <= 122) || (e.charCode >= 48 && e.charCode <= 57) || e.charCode == 42 || e.charCode == 32 || e.charCode == 47 )) {
@@ -355,14 +372,14 @@ function FournisseurInfo() {
             </>)
          }
          const DeleteFS= () =>{
-             return(<><h3 className="text-secondary">Voulez-Vous Vraimment Supprimer Ce Camion ?</h3> 
+             return(<><h3 className="text-secondary">Voulez-Vous Vraimment Supprimer Ce Medicamment ?</h3> 
              <div className='row'>
                      <div className='col-9'>
-                         <h5 className="text-danger text-left"><b>Lorsque Vous Supprimer Un Client : </b></h5>
+                         <h5 className="text-danger text-left"><b>Lorsque Vous Supprimer Un medicamment : </b></h5>
                          <ul className="text-info text-left">
-                         <li>le Client  ne sera pas visible dans la branche 'Clients'</li>
-                         <li>Tous les factures relier a ce client peut s'endomager   </li>
-                         <li>vous ne pouver pas passer ni factures ni commandes avec ce clients autremment   </li>
+                         <li>le medicamment  ne sera pas visible dans la branche 'medicamments'</li>
+                         <li>Tous les factures relier a ce medicamment peut s'endomager   </li>
+                         <li>vous ne pouver pas passer  ordonances   avec ce medicamments autremment   </li>
                          </ul>
                      </div>
                      <div className='col-lg-3 d-none d-lg-block align-self-center'>
@@ -374,6 +391,11 @@ function FournisseurInfo() {
              <div className='text-end'>
                  <button type="submit" name="add" className="btn btn-danger rounded-pill"  onClick={DeleteFSFunc}><span className="bi bi-check"></span> Oui, Supprimer <Loader inverted active={loaderState} inline size='tiny' className='ms-2 text-danger'/> </button>
              </div></>)
+         }
+         const PublicMedicamment = () => {
+            return(<>
+            Vous ne pouvez pas ni modifier ni supprimer cette medicamment , car c'est un medicament publique 
+            </>)
          }
     return ( <>
             <BreadCrumb links={GConf.BreadCrumb.FournisseurAdd} />

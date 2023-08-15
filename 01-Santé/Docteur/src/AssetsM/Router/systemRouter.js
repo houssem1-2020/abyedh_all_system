@@ -18,6 +18,7 @@ import CalendarCommandes from '../../Dashboard/Requests/calendar';
 //Menu
 import MenuPage from '../../Dashboard/Rapport/rapportPage';
 import AddPlatMenu from '../../Dashboard/Rapport/addRapport';
+import EditRapport from '../../Dashboard/Rapport/editRapport';
 import PlatInfo from "../../Dashboard/Rapport/rapportInfo";
 import FamillesPlats from "../../Dashboard/Rapport/famille";
 // import BonSortie from '../../Dashboard/Menu/bonSortie';
@@ -137,6 +138,7 @@ const systemRouter = () => (
             <Route path="rp" exact element={<Outlet />}>
                 <Route path="" exact element={<MenuPage />} />
                 <Route path="ajouter" exact element={<AddPlatMenu />} />
+                <Route path="modifier/:RPID" exact element={<EditRapport />} />
                 <Route path="famille" exact element={<FamillesPlats />} />
                 <Route path="info/:RPID" exact element={<PlatInfo />} />
             </Route>
@@ -164,7 +166,7 @@ const systemRouter = () => (
                 <Route path="" exact element={<ClientPage />} />
                 <Route path="ajouter" exact element={<AjouterClient />} />
                 <Route path="info/:CLID" exact element={<ClientInfo />} />
-                <Route path="fidelite" exact element={<ClientRegions />} />
+                <Route path="classemment" exact element={<ClientRegions />} />
             </Route>
             <Route path="sk" exact element={<Outlet />} >
                 <Route path="" exact element={<FournisseurPage />} />

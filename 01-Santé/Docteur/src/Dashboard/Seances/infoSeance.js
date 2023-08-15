@@ -13,11 +13,13 @@ import { Editor } from 'react-draft-wysiwyg';
 import draftToHtml from 'draftjs-to-html'; // Updated import statement
 import 'react-draft-wysiwyg/dist/react-draft-wysiwyg.css';
 import { useParams } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
+import FrameForPrint from '../../AssetsM/Cards/frameForPrint'
 
- 
 function FactureInfo() {
     /*#########################[Const]##################################*/
     const Today = new Date()
+    const navigate = useNavigate();
     let {FID} = useParams()
     const [seanceData, setSeanceData] = useState({S_Patient:'PASSAGER',  Diagnostic: 'Null', Resultat:'', Maladie:'',  S_Date: Today.toISOString().split('T')[0], State_Degre: '' , ordonance:[]})
     const [diagnostiqueValue, setDiagnistiqueValue] = useState(EditorState.createEmpty());
@@ -66,7 +68,7 @@ function FactureInfo() {
                 SID: FID
                 })
                 .then(function (response) {
-                    console.log(response.data)
+                     
                     if(!response.data[0]) {
                         toast.error('Seance Introuvable !', GConf.TostSuucessGonf)
                         setTimeout(() => {  window.location.href = "/S/sa"; }, 2000)
@@ -79,6 +81,7 @@ function FactureInfo() {
                         if (response.data[0].OR_Articles != '[]') {
                             setMedicammentListe(JSON.parse(response.data[0].OR_Articles))
                         }
+                        setOrId(response.data[0].Ordonance)
                         setLoading(false)
                     }    
                 }).catch((error) => {
@@ -122,26 +125,17 @@ function FactureInfo() {
             toast.error('Article Indéfine ', GConf.TostSuucessGonf)
         }
     }
-    const SaveSeance = () =>{
-            if (!seanceData.Diagnostic ) {toast.error("Diagnostique est Invalide !", GConf.TostErrorGonf)}
-            else if (!seanceData.S_Patient) {toast.error("Patient De est Invalide !", GConf.TostErrorGonf)}
-            // else if (!seanceData.Maladie) {toast.error("Maladie vers est Invalide !", GConf.TostErrorGonf)}
-            else if (!seanceData.Resultat) {toast.error("Resultat  est Invalide !", GConf.TostErrorGonf)}
-            else if (!seanceData.State_Degre) {toast.error("Dnager   est Invalide !", GConf.TostErrorGonf)}
-            else if (!seanceData.S_Date) {toast.error("Date est Invalide !", GConf.TostErrorGonf)}
-            else if (!seanceData.ordonance ) {toast.error("Ordonance list est Invalide !", GConf.TostErrorGonf)}
-            else {
+    const DeleteSeance = () =>{
+ 
                 setLS(true)
-                axios.post(`${GConf.ApiLink}/seances/ajouter`, {
+                axios.post(`${GConf.ApiLink}/seances/supprimer`, {
                     PID : GConf.PID,
-                    seanceData: {S_Patient: seanceData.S_Patient,  Diagnostic: GenerateDiagnostiqueHTml(), Resultat:seanceData.Resultat, Maladie:seanceData.Maladie,  S_Date: Today.toISOString().split('T')[0], State_Degre: seanceData.State_Degre , ordonance:seanceData.ordonance} ,
+                    FID:  FID
                 })
                 .then(function (response) {
                     if(response.status = 200) {
-                        setOrId(response.data.FID)
-                        setSaveBtnState(true)
-                        toast.success("Seance Enregistreé !", GConf.TostSuucessGonf)
-                        setLS(false)
+                        toast.success("Seance Supprimer !", GConf.TostSuucessGonf)
+                        setTimeout(() => {  window.location.href = "/S/sa"; }, 2000)
                     }
                     else{
                         toast.error('Erreur!  esseyez de nouveaux', GConf.TostSuucessGonf)
@@ -149,14 +143,13 @@ function FactureInfo() {
                     }
                 }).catch((error) => {
                     if(error.request) {
-                      toast.error(<><div><h5>Probleme de Connextion</h5> La Seance sera enregistrer sur votre ordinateur    </div></>, GConf.TostInternetGonf)   
-                      Offline.SeanceToSave.push(seanceData)
-                      localStorage.setItem(`${GConf.PID}_Offline`,  JSON.stringify(Offline));
+                      toast.error(<><div><h5>Probleme de Connextion</h5>     </div></>, GConf.TostInternetGonf)   
+                       
                       setLS(false)
                     }
                   });
 
-            }       
+      
     }
     const PrintFunction = (frameId) =>{ usePrintFunction(frameId)}
     const OnKeyPressFunc = (e) => {
@@ -164,7 +157,7 @@ function FactureInfo() {
             e.preventDefault();
         }   
     }
-    
+    const NavigateFunction = (link) => { navigate(link) }
    /*#########################[Card]##################################*/
     const DiagnostiqueCard = () =>{
         return (<>
@@ -244,8 +237,10 @@ function FactureInfo() {
                 <div className='card card-body  mb-2 border-div'>
  
                         <h5 className='mt-1 mb-1 '><span className='bi bi-calendar'></span> Date & Heure  : {new Date(seanceData.S_Date).toLocaleDateString('fr-FR').split( '/' ).reverse( ).join( '-' )} | {seanceData.S_Time} </h5>
-                        <h5 className='mt-1 mb-1 '><span className='bi bi-calendar'></span> Degre : <StateCard status={seanceData.State_Degre} /></h5>
+                        <h5 className='mt-1 mb-1 '><span className='bi bi-bandaid'></span> Maladie : {seanceData.Maladie}</h5>
+                        <h5 className='mt-1 mb-1 '><span className='bi bi-list-nested'></span> Degre de La Maladie : <StateCard status={seanceData.State_Degre} /></h5>
                         <p>
+                            <h5 className='mt-1 mb-1 '><span className='bi bi-chat-dots-fill'></span> Description de la maladie </h5>
                             {seanceData.Resultat}
                         </p>
 
@@ -295,11 +290,11 @@ function FactureInfo() {
                     <h5>Controle</h5>
                     <div className='row mb-2'>
                     <div className='col-6'>
-                        <Button  className='rounded-pill btn-danger'  fluid><Icon name='edit outline' /> Supprimer</Button>
+                        <Button  className='rounded-pill btn-danger' onClick={ () => DeleteSeance()}  fluid><Icon name='edit outline' /> Supprimer</Button>
                     </div>
 
                     <div className='col-6'>
-                            <Button as='a' href={`/S/sa/modifier/${FID}`} animated   className='rounded-pill bg-system-btn'  fluid>
+                            <Button as='a' onClick={ (e) => NavigateFunction(`/S/sa/modifier/${FID}`)}  animated   className='rounded-pill bg-system-btn'  fluid>
                                 <Button.Content visible><Icon name='edit outline' /> Modifier </Button.Content>
                                 <Button.Content hidden>
                                     <Icon name='arrow right' />
@@ -309,7 +304,7 @@ function FactureInfo() {
                     </div>
                     <div className='row '> 
                         <div className='col-12  mb-2'>
-                            <Button  className='rounded-pill btn-imprimer'  fluid onClick={(e) => PrintFunction('printFacture')}><Icon name='edit outline' /> Imprimer Ordonance </Button>
+                            <Button  className='rounded-pill btn-imprimer' disabled={gettedOrFID == ''}  fluid onClick={(e) => PrintFunction('printOrdonance')}><Icon name='edit outline' /> Imprimer Ordonance </Button>
                         </div>
                         <div className='col-12  mb-2'>
                             <Button  className='rounded-pill btn-imprimer'  fluid onClick={(e) => PrintFunction('printFacture')}><Icon name='edit outline' /> Imprimer Un Rapport</Button>
@@ -378,7 +373,7 @@ function FactureInfo() {
             </div>
         </div>
         
-        {/* <FrameForPrint frameId='printFacture' src={`/Pr/facture/info/${gettedOrFID}`} /> */}
+        <FrameForPrint frameId='printOrdonance' src={`/Pr/ordonance/info/${gettedOrFID}`} />
     </> );
     }
 

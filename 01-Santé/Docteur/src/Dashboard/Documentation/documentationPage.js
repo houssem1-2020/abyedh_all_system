@@ -32,7 +32,7 @@ function DocumentationPage() {
     const [activeAccoedIndex, setActiveAccordIndex] = useState(50)
     const panes = [
         { 
-            menuItem: { key: '00', icon: 'calendar alternate', content: 'Commandes'},  
+            menuItem: { key: '00', icon: 'calendar alternate', content: 'Rendy Vous'},  
             render: () => <CommandesCard /> 
         },
         { 
@@ -1325,11 +1325,11 @@ function DocumentationPage() {
             <div className='row'>
                 <div className='col-12 col-lg-3'>
                     <div className="sticky-top" style={{top:'70px'}}>
-                            <MenuItemCard text='Commandes' icon='calendar2-check' activeI={0} />
-                            <MenuItemCard text='Menu' icon='receipt-cutoff' activeI={1} />
-                            <MenuItemCard text='Caisses' icon='pc-display-horizontal' activeI={2} />
-                            <MenuItemCard text='Facture' icon='receipt-cutoff' activeI={3} />
-                            <MenuItemCard text='Clients' icon='person' activeI={4} />
+                            <MenuItemCard text='RendyVous' icon='calendar2-check' activeI={0} />
+                            <MenuItemCard text='Seance' icon='receipt-cutoff' activeI={1} />
+                            <MenuItemCard text='Rapport' icon='pc-display-horizontal' activeI={2} />
+                            <MenuItemCard text='Ordonance' icon='receipt-cutoff' activeI={3} />
+                            <MenuItemCard text='Patient' icon='person' activeI={4} />
                             <MenuItemCard text='Equipe' icon='person-bounding-box' activeI={5} />
                     </div>
                     <div className="floating-card" style={{zIndex: 10000}} onClick={ () => setModalS(true)}>

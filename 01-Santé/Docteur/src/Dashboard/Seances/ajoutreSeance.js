@@ -17,6 +17,7 @@ import { QrReader } from 'react-qr-reader';
 import { useLocation } from 'react-router-dom';
 import { _ } from 'gridjs-react';
 import { useNavigate} from 'react-router-dom';
+import FrameForPrint from '../../AssetsM/Cards/frameForPrint'
 
 const TerminerCard = ({seanceData, setSeanceData,allClientList,offresListe ,OnKeyPressFunc}) =>{
     const StateDegree = [
@@ -143,7 +144,7 @@ function AjouterFacture() {
                                             </div>
                                             <div className='row mb-2'>
                                                 <div className='col-12'>
-                                                    <Button  className='rounded-pill btn-imprimer' disabled={!saveBtnState} fluid onClick={(e) => PrintFunction('printFacture')}><Icon name='print' /> Imprimer Ordonance</Button>
+                                                    <Button  className='rounded-pill btn-imprimer' disabled={!saveBtnState} fluid onClick={(e) => PrintFunction('printOrdonance')}><Icon name='print' /> Imprimer Ordonance</Button>
                                                 </div>
                                             </div>
                                             
@@ -275,7 +276,7 @@ function AjouterFacture() {
                 setLS(true)
                 axios.post(`${GConf.ApiLink}/seances/ajouter`, {
                     PID : GConf.PID,
-                    seanceData: {S_Patient: seanceData.S_Patient, Forfait_ID: seanceData.Forfait_ID,  Diagnostic: GenerateDiagnostiqueHTml(), Resultat:seanceData.Resultat, Maladie:seanceData.Maladie,  S_Date: Today.toISOString().split('T')[0], State_Degre: seanceData.State_Degre , ordonance:seanceData.ordonance, analyses:seanceData.analyses} ,
+                    seanceData: {S_Patient: seanceData.S_Patient, Forfait_ID: seanceData.Forfait_ID,  Diagnostic: GenerateDiagnostiqueHTml(), Resultat:seanceData.Resultat, Maladie:seanceData.Maladie,  S_Date: seanceData.S_Date , State_Degre: seanceData.State_Degre , ordonance:seanceData.ordonance, analyses:seanceData.analyses} ,
                 })
                 .then(function (response) {
                     if(response.status = 200) {
@@ -604,7 +605,7 @@ function AjouterFacture() {
  
         <Tab menu={{  secondary: true  }} panes={panes} />
         
-        {/* <FrameForPrint frameId='printFacture' src={`/Pr/facture/info/${gettedOrFID}`} /> */}
+        <FrameForPrint frameId='printOrdonance' src={`/Pr/ordonance/info/${gettedOrFID}`} />
     </> );
     }
 

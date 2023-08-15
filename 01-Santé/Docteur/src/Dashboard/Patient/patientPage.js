@@ -44,7 +44,7 @@ function ClientPage() {
             response.data.map( (getData) => testTable.push([
             _(<AvatarCard lettre={capitalizeFirstLetter(getData.PA_Name)} />),
             getData.PA_Name,
-            getData.CIN,
+            new Date(getData.PA_Naissance).toLocaleDateString('fr-FR').split( '/' ).join( '-' ) ,
             getData.Phone,
             _(<>{getData.Gouv} , {getData.Deleg} </>),
             getData.Adress,
@@ -58,7 +58,7 @@ function ClientPage() {
             Offline.client.map( (getData) => testTable.push([
             _(<AvatarCard lettre={capitalizeFirstLetter(getData.PA_Name)} />),
             getData.PA_Name,
-            getData.CIN,
+            new Date(getData.PA_Naissance).toLocaleDateString('fr-FR').split( '/' ).join( '-' ) ,
             getData.Phone,
             _(<>{getData.Gouv} , {getData.Deleg} </>),
             getData.Adress,
@@ -95,7 +95,7 @@ function ClientPage() {
         <div className='row'>
             <div className='col-12 col-lg-8'><SubNav dataForNav={GConf.SubNavs.client}/></div>
             <div className='col-12 col-lg-4 text-end align-self-center'>
-                <MainSubNavCard text='Groupe' link='gp' icon='box-seam-fill' /> 
+                <MainSubNavCard text='Assurance' link='pt' icon='card-heading' /> 
             </div>
         </div>
         <Fade>

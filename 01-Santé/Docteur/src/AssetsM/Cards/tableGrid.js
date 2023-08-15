@@ -1,6 +1,6 @@
 import React from 'react';
 import { Grid, _ } from "gridjs-react";
-import "gridjs/dist/theme/mermaid.css";
+//import "gridjs/dist/theme/mermaid.css";
 
 function TableGrid(props) {
     return ( <>
@@ -34,10 +34,10 @@ function TableGrid(props) {
                 }}
                 className= {{
                     search:'w-100-seach-input shadow-sm',
-                    table:'rounded-0 border-2  w-100-seach-input',
+                    table:'rounded-0 border-2   w-100-seach-input',
                     paginationButtonNext:'bi bi-caret-right-fill text-success',
                     paginationButtonPrev :'bi bi-caret-left-fill text-danger' ,
-                    container: 'card card-body border-div shadow-sm mb-2'
+                    container: 'card card-body border-div  shadow-sm mb-2'
                 }}
                 style= {{
                     table: {
@@ -47,7 +47,7 @@ function TableGrid(props) {
                         padding:'15px', border:'none', borderBottom:'1px solid #7f7f7f'
                     },
                     td:{
-                        padding:'7px', paddingLeft:'10px', border:'none', borderBottom:'1px solid #e8e8e8'
+                        padding:'7px', paddingLeft:'10px', border:'none', borderBottom:'1px solid #e8e8e8', whiteSpace: 'nowrap',
                     },
                     container:{
                         padding : '18px'

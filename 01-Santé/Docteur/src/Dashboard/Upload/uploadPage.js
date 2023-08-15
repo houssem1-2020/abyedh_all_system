@@ -25,12 +25,12 @@ function UpdatePage() {
     const [loaderState, setLS] = useState(false)
     const SaveNotification = (genre,tag,table) =>{ useSaveNotification(genre,tag,table)}
     const Genres = [
-        {text: 'Commandes', allT: commandeList, whT: Offline.commande , whtTag :'commande' },
-        {text: 'Stock', allT: stockList, whT: Offline.stock , whtTag :'stock' },
-        {text: 'Facture', allT: facturesList, whT: Offline.facture , whtTag :'facture' },
-        {text: 'Camion', allT: camionList, whT: Offline.camion , whtTag :'camion' },
-        {text: 'Client', allT: clientList, whT: Offline.client , whtTag :'client' },
-        {text: 'Famille', allT: familleList, whT: Offline.famille , whtTag :'famille' },
+        {text: 'RendyVous', allT: commandeList, whT: Offline.commande , whtTag :'commande' },
+        {text: 'Seance', allT: facturesList, whT: Offline.facture , whtTag :'facture' },
+        {text: 'Rapports', allT: stockList, whT: Offline.stock , whtTag :'stock' },
+        {text: 'Ordonance', allT: camionList, whT: Offline.camion , whtTag :'camion' },
+        {text: 'Patient', allT: clientList, whT: Offline.client , whtTag :'client' },
+        // {text: 'Famille', allT: familleList, whT: Offline.famille , whtTag :'rapports' },
     ]
     /*#########################[UseEffect]##################################*/
     useEffect(() => {
@@ -39,7 +39,7 @@ function UpdatePage() {
         }).then(function (response) {
             setCommandes(response.data[0].commande)
             setStock(response.data[0].stock)
-            setFamille(response.data[0].stockFamille)
+            setFamille(response.data[0].rapports)
             setFactures(response.data[0].facture)
             setCamions(response.data[0].camion)
             setClients(response.data[0].client)
@@ -334,26 +334,26 @@ function UpdatePage() {
                 <OfflineItem genre={Genres[2]}/>
                 <OfflineItem genre={Genres[3]}/>
                 <OfflineItem genre={Genres[4]}/>
-                <OfflineItem genre={Genres[5]}/>
+                {/* <OfflineItem genre={Genres[5]}/> */}
             </div>
             <br />
             <br />
             <div className='p-2'>
-                <h5 className='bg-danger d-inline-block p-2 rounded-pill text-white ps-3 pe-3'><span className='bi bi-receipt-cutoff'></span> Facture à enregistreé : </h5>
+                <h5 className='bg-danger d-inline-block p-2 rounded-pill text-white ps-3 pe-3'><span className='bi bi-receipt-cutoff'></span> Seance à enregistreé : </h5>
                 <div className='row'>
                     {Offline.factureToSave.length != 0 ? Offline.factureToSave.map( (data, index) => <FactureTosaveCard key={index} data={data} offIndex={index} />) : <PasDeResult genre='Factures' />}  
                 </div>
 
-                <h5 className='bg-danger d-inline-block p-2 rounded-pill text-white ps-3 pe-3'><span className='bi bi-upc-scan'></span> Article à enregistreé : </h5>
+                <h5 className='bg-danger d-inline-block p-2 rounded-pill text-white ps-3 pe-3'><span className='bi bi-upc-scan'></span> Rapport à enregistreé : </h5>
                 {Offline.articleToSave.length != 0 ? Offline.articleToSave.map( (data, index) => <ArticleTosave key={index} data={data} offIndex={index}/>) : <PasDeResult genre='Articles' />}
 
-                <h5 className='bg-danger d-inline-block p-2 rounded-pill text-white ps-3 pe-3'><span className='bi bi-truck'></span> Camion à enregistreé : </h5>
+                {/*<h5 className='bg-danger d-inline-block p-2 rounded-pill text-white ps-3 pe-3'><span className='bi bi-truck'></span> Camion à enregistreé : </h5>
                 {Offline.camionToSave.length != 0 ? Offline.camionToSave.map( (data, index) => <CamionTosave key={index} data={data}  offIndex={index}/>) : <PasDeResult genre='Camion' />} 
 
-                {/* <h5>Fond à enregistreé : </h5>
+                 <h5>Fond à enregistreé : </h5>
                 {Offline.fondCamionToSave.length != 0 ? Offline.fondCamionToSave.map( (data, index) => <ArticleTosave key={index} data={data} />) : <PasDeResult genre='factures' />}  */}
 
-                <h5 className='bg-danger d-inline-block p-2 rounded-pill text-white ps-3 pe-3'><span className='bi bi-person'></span> Client à enregistreé : </h5>
+                <h5 className='bg-danger d-inline-block p-2 rounded-pill text-white ps-3 pe-3'><span className='bi bi-person'></span> Patient à enregistreé : </h5>
                 {Offline.clientToSave.length != 0 ? Offline.clientToSave.map( (data, index) => <ClientTosave key={index} data={data} offIndex={index}/>) : <PasDeResult genre='Clients' />}
             </div>
 
