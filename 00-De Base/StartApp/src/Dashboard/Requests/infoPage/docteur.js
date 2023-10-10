@@ -46,7 +46,7 @@ function DocteurSpecific() {
         axios.post(`${GConf.ApiLink}/request/info`, {
             PID : GConf.PID,
             CID: CID,
-            SystemTag : TAG
+            SystemTag : 'docteur_rdv'
           })
           .then(function (response) {
                  
@@ -81,7 +81,7 @@ function DocteurSpecific() {
             PID : GConf.PID,
             RID: CID,
             state: stateBtn,
-            SystemTag : TAG
+            SystemTag : 'docteur_rdv'
           })
           .then(function (response) {
             //setCommandeD({ ...commandeData, State: stateBtn}) 
@@ -226,10 +226,10 @@ function DocteurSpecific() {
                             <Button disabled={btnState} className='rounded-pill bg-success text-white'  fluid onClick={ () => UpdateState('A')}><Icon name='calendar check' /> Accepteé</Button>
                         </div>
                         <div className='col-6 mb-2'>
-                            <Button disabled={btnState} className='rounded-pill bg-retarder text-white'  fluid onClick={ () => openEditModal('RT')}><Icon name='delete calendar' /> Retardeé</Button>
+                            <Button disabled={btnState} className='rounded-pill bg-primary  text-white'  fluid onClick={ () => openEditModal('RT')}><Icon name='delete calendar' /> Retardeé</Button>
                         </div>
                         <div className='col-6 mb-2'>
-                            <Button disabled={btnState} className='rounded-pill bg-rederecter text-white'  fluid onClick={ () => openEditModal('RD')}><Icon name='delete calendar' /> Redirecteé</Button>
+                            <Button disabled={btnState} className='rounded-pill  bg-warning text-white'  fluid onClick={ () => openEditModal('RD')}><Icon name='delete calendar' /> Redirecteé</Button>
                         </div>
 
 
@@ -332,8 +332,8 @@ function DocteurSpecific() {
         <div className="row">
             <div className="col-12 col-lg-8">
                 <div className='row'>
-                    <div className='col-8'><h2 className='text-center mb-4'>Rendy Vous </h2></div>
-                    <div className='col-4'><h2 className='text-end'><StateCard status={commandeData.State} /></h2></div>
+                    <div className='col-5'><h3 className='text-center mb-4'>Rendy Vous </h3></div>
+                    <div className='col-7'><h3 className='text-end'><StateCard status={commandeData.State} /></h3></div>
                 </div> 
 
                 <div className='card card-body bg-transparent border-div mb-3 mt-2'>

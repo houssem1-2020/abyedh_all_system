@@ -30,12 +30,12 @@ function NavBar(props) {
                 <div className="row">
                     <div className="col-3 col-md-2 mb-3 align-self-center text-left">
                         <NavLink exact="true"  to={'/'}>   
-                            <img src="https://cdn.abyedh.tn/Images/main-logo.png" alt="." className="p-0" width="40px" height="30px"/>
+                        <img  className="  bg-danger border border-danger"   src="https://cdn.abyedh.tn/images/logo/mlogo.gif"   alt="Logo" style={{width:'17px', height:'35px', borderRadius: '10px 20px 10px 50px'}} />
                         </NavLink> 
                     </div>
                     <div className="col-5 col-md-8 pb-3 align-self-center text-left navsha">
                         <div className="text-left d-none d-lg-block">
-                            <h4>"La Page de communication avec qui vous permettre de rester proche  "</h4>
+                            {/*<h4>"La Page de communication avec qui vous permettre de rester proche  "</h4>*/}
                         </div>
                        {/* <div className="text-left d-none d-lg-block"> 
                             {GConf.NavsData.map((links) => 

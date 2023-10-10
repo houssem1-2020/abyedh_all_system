@@ -108,7 +108,7 @@ function RequestInfo() {
       const StateCard = (props) =>{ return <span className={`badge bg-${props.color}`}> {props.text} </span>}
       const statusCard = React.useCallback(() => {
       switch(status) {
-          case 'docteur': return <DocteurSpecific TAG={GConf.systemTag} PID={GConf.systemTag} />;  
+          case 'docteur_rdv': return <DocteurSpecific TAG={GConf.systemTag} PID={GConf.systemTag} />;  
           // case 'pharmacie': return <PharmacieSpecific TAG={GConf.systemTag} PID={GConf.systemTag} /> ;
           // case 'clinique': return <CliniqueSpecific TAG={GConf.systemTag} PID={GConf.systemTag} /> ;
           // case 'labo': return <LaboSpecific TAG={GConf.systemTag} PID={GConf.systemTag} /> ;

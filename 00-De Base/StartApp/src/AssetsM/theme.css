@@ -41,9 +41,22 @@ a { text-decoration: none !important; }
   src: url("../../public/Fonts/HS1.otf");
   font-size: 10px !important;
 }
+@font-face {
+  font-family: "Expo";
+  src: url("../../public/Fonts/Expo.ttf");
+  font-size: 10px !important;
+}
+@font-face {
+  font-family: "ExpoBook";
+  src: url("../../public/Fonts/ExpoBook.ttf");
+  font-size: 10px !important;
+}
+
 .font-hs-d { font-family: "Hs-b" , "Droid" !important; }
 .font-hs-t { font-family: "Hs-t" , "Droid" !important; }
 .font-hs-n { font-family: "Hs-n" , "Droid" !important; }
+.font-Expo { font-family: "Expo" , "Droid" !important; }
+.font-Expo-book { font-family: "ExpoBook" , "Droid" !important; }
 
  
 body,
@@ -61,7 +74,10 @@ a,
 TableCell,
 .Toastify__toast,
 .font-droid {
-  font-family: "Droid" , tahoma !important;
+  font-family: "ExpoBook" , tahoma !important;
+}
+.font-droid {
+  font-family: "ExpoBook" , tahoma !important;
 }
 
 /*LogIn*/
@@ -264,4 +280,10 @@ input[type="number"]:focus,
 .bg-gray {background-color: #dbdad7 !important;}
 .setting-input-text input {
   text-align: right !important;
+}
+.gridjs table td {
+  white-space: nowrap !important;
+  overflow: hidden !important;
+  /* text-overflow: ellipsis !important;  OUsed Old One  */
+  text-overflow: clip !important; /* Optional: Add ellipsis for long content */
 }

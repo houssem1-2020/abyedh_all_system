@@ -19,6 +19,10 @@ import { Navigate } from 'react-router-dom';
 import NavBar from './Dashboard/navBar'
 import LeftSideCard from './Dashboard/leftSide';
 
+import MainPage from './Dashboard/Main/mainPage';
+import SystemPage from './Dashboard/System/systemPage';
+import SpesificPage from './Dashboard/Spesific/spesificPage';
+
 //Commandes
 import RequestPage from './Dashboard/Requests/requestPage';
 import RequestReservationInfo from "./Dashboard/Requests/requestInfo"; 
@@ -102,10 +106,12 @@ function App() {
           <Route path="Login" element={<LogIn />} />
           <Route path="Auth" element={<AuthPage />} />
           <Route path="S" exact element={<SystemLanding />} >
-                <Route path="" exact element={<RequestPage />} />
+                <Route path="" exact element={<MainPage />} />
+                <Route path="System" exact element={<SystemPage />} />
+                <Route path="Spesific" exact element={<SpesificPage />} />
                 <Route path="rq" exact element={<Outlet />} >
-                    <Route path="" exact element={<RequestPage />} />
-                    <Route path="calendrier" exact element={<CalendarCommandes />} />
+                    <Route path=":TAG" exact element={<RequestPage />} />
+                    {/* <Route path="calendrier" exact element={<CalendarCommandes />} /> */}
                     <Route path="info/:TAG/:CID" exact element={<RequestReservationInfo />} />
                 </Route>
                 <Route path="Profile" exact element={<ProfilePage />} />

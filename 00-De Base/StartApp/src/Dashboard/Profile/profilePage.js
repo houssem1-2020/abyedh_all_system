@@ -28,6 +28,23 @@ const EditProfile = ({generalData, setGeneralData, UpdateGeneralDataFunc, delegL
         { key: 4 , value: 'FAST FOOD', text: 'FAST FOOD' },
         
       ]
+      const Livraisonoptions = [
+        { key: '1', value: 'INTIGO', text: 'INTIGO ', image: { src: 'https://foodealz.com/wp-content/uploads/2020/04/intigo-1-300x145-1.png', avatar: true } },
+        { key: '2', value: 'Yassir', text: 'Yassir ', image: { src: 'https://foodealz.com/wp-content/uploads/2020/04/yassir.png', avatar: true } },
+        { key: '3', value: 'Farm Trust', text: 'Farm Trust ', image: { src: 'https://foodealz.com/wp-content/uploads/2020/04/farmtrust.png', avatar: true } },
+        { key: '4', value: 'Founashop', text: 'Founashop', image: { src: 'https://foodealz.com/wp-content/uploads/2020/04/founa-shop.png', avatar: true } },
+        { key: '5', value: 'Joy s', text: 'Joy’s', image: { src: 'https://foodealz.com/wp-content/uploads/2020/04/28070452_400909117034010_1865031699315847664_o-300x300-1.jpg', avatar: true } },
+      ]
+
+      function GenerateGenreListe() {
+        return GConf.landing[GConf.systemTag].genreListe.map(item => ({
+            key: item.id.toString(),
+            value: item.value,
+            text: item.name,
+            image: { src: `https://cdn.abyedh.tn/images/Search/Land_icons/${item.imgSrc}.gif`, avatar: true }
+        }));
+    }
+
     return ( <>
         <h3>Information Génerale</h3> 
         {/* <h5 className='mb-1'>Matricule Fiscale</h5> */}
@@ -53,7 +70,7 @@ const EditProfile = ({generalData, setGeneralData, UpdateGeneralDataFunc, delegL
             selection
             fluid
             wrapSelection={false}
-            options={genreOptions}
+            options={GenerateGenreListe()}
             placeholder='Selectionnez Client'
             className='mb-1'
             onChange={(e, { value }) => setGeneralData({...generalData, Genre: value })}
@@ -108,6 +125,7 @@ function ProfilePage() {
     const [saveBtnState, setSaveBtnState] = useState(false)
     const [loaderState, setLS] = useState(false)
     const [activeIndex, setActiveIndex] = useState(0)
+    
 
     L.Icon.Default.mergeOptions(GConf.LeafleftIcon );
     const panes = [
@@ -451,38 +469,40 @@ function ProfilePage() {
 	            <div className="text-center ">
 	            	<img className="rounded-circle mb-3" src={`https://cdn.abyedh.tn/images/ads/${GConf.systemTag}.svg`} width="90px" height="90px"/>
 	            
-	            	 <h6>{loading ? profileData.general[0].Name : SKLT.BarreSkl } </h6>
-	            	 <div><small className="text-secondary">Restaurant ({loading ? profileData.general[0].Genre : SKLT.BarreSkl })</small></div>
+	            	 <h6 className='mb-0'>{loading ? profileData.general[0].Name : SKLT.BarreSkl } </h6>
+	            	 <div><small className="text-secondary">  ({loading ? profileData.general[0].Genre : SKLT.BarreSkl })</small></div>
 	            	<div><small className="text-secondary"><span className="bi bi-geo-alt"></span> {loading ? <> {profileData.general[0].Adress} , {profileData.general[0].Gouv} </> : SKLT.BarreSkl } </small></div>
 	            	<div><small className="text-secondary"><span className="bi bi-telephone"></span> +216 {loading ? profileData.general[0].Phone : SKLT.BarreSkl } </small></div> 
-                    <h5>PID : {localStorage.getItem('PID')} <Button size='mini' icon='copy' className='rounded-circle' onClick={() => navigator.clipboard.writeText(localStorage.getItem('PID'))}></Button> </h5>
-					<Divider /> 
-					<div className='row mt-2'>
-						<div className='col-6'>
-						    <Statistic color='red' size='small'>
-								<Statistic.Value>
-                                {loading ? CalculateRating(profileData.review) : SKLT.BarreSkl }
-								</Statistic.Value>
-								<Statistic.Label>Avis</Statistic.Label>
-							</Statistic>
-						</div>
-						<div className='col-6'>
-							<Statistic color='red' size='small'>
-								<Statistic.Value>
-                                 {loading ? CalculateLikes(profileData.likes) : SKLT.BarreSkl }
-								</Statistic.Value>
-								<Statistic.Label>J'aimes</Statistic.Label>
-							</Statistic>
-						</div>
-					</div>
-					<Divider />
- 
-					<br />
-					<br />
+                    <h5 className='mt-1 mb-2'>PID : {localStorage.getItem('PID')} <Button size='mini' icon='copy' className='rounded-circle' onClick={() => navigator.clipboard.writeText(localStorage.getItem('PID'))}></Button> </h5>
+					<span className='d-none d-md-block'>
+                        <Divider /> 
+                        <div className='row mt-2'>
+                            <div className='col-6'>
+                                <Statistic color='red' size='small'>
+                                    <Statistic.Value>
+                                    {loading ? CalculateRating(profileData.review) : SKLT.BarreSkl }
+                                    </Statistic.Value>
+                                    <Statistic.Label>Avis</Statistic.Label>
+                                </Statistic>
+                            </div>
+                            <div className='col-6'>
+                                <Statistic color='red' size='small'>
+                                    <Statistic.Value>
+                                    {loading ? CalculateLikes(profileData.likes) : SKLT.BarreSkl }
+                                    </Statistic.Value>
+                                    <Statistic.Label>J'aimes</Statistic.Label>
+                                </Statistic>
+                            </div>
+                        </div>
+                        <Divider />
+    
+                        <br />
+                        <br />
+                    </span>
 					<div className='d-grid gap-2'>
 						<a className='btn btn-danger btn btn-lg bnt-block rounded-pill text-white ' target="_blank" href={`https://abyedh.tn/S/P/${GConf.systemTag}/${GConf.PID}`}>
-							<span className='bi bi-person-circle me-3'></span>    
-							 Profile 
+							<span className='bi bi-person-circle me-2'></span>    
+							 Voir Profile Sur Abyedh.tn 
 						</a>
 					</div>
 	            </div>
@@ -865,9 +885,9 @@ function ProfilePage() {
         </>)
     }
     return (<>
-        <Bounce bottom>
+        {/* <Bounce bottom>
             <h5><span className="bi bi-person-circle"></span> Profile</h5>
-            <br /><br />
+            <br /><br /> */}
             <div className="row">
                     <div className="col-12 col-lg-4">
                         <ProfileCard /> 
@@ -916,7 +936,7 @@ function ProfilePage() {
                         <Tab activeIndex={activeIndex} menu={{ secondary: true, pointing: true , }} panes={panes} className="no-menu-tabs" />
                     </div>
         </div>
-        </Bounce>
+        {/* </Bounce> */}
         <FrameForPrint frameId='printPID' src={`/Pr/ProfilePrint/pid`} />
     </>);
 }
