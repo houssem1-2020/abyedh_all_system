@@ -1,23 +1,21 @@
 
 const OneGConf = {
-    OneLocalStorage: JSON.parse(localStorage.getItem('Restaurant_Caisse')), //GetForPID(),
-    forPID: JSON.parse(localStorage.getItem('Restaurant_Caisse_LocalD')), //GetForPID(),
-    themeMode: localStorage.getItem('Restaurant_Caisse_Theme'),
-    oneOffline : JSON.parse(localStorage.getItem(`Restaurant_Caisse_Offline`)),
+    OneLocalStorage: JSON.parse(localStorage.getItem('Docteur_rdv')), //GetForPID(),
+    forPID: JSON.parse(localStorage.getItem('Docteur_rdv_LocalD')), //GetForPID(),
+    themeMode: localStorage.getItem('Docteur_rdv_Theme'),
+    oneOffline : JSON.parse(localStorage.getItem(`Docteur_rdv_Offline`)),
     
     themeColor: '#2f8d99',
     default_Offline : {stock: [], facture: [],  client:[],  factureToSave:[], clientToSave:[], depensesToSave:[]}, 
     routerName : 'C',
-    routerTagName : 'Restaurant_Caisse',
+    routerTagName : 'Docteur_rdv',
 
     main : [
-        {id:1, link:'nv', icon:'pc-display-horizontal', text:'CAISSES', desc:''},
-        {id:2, link:'cmd', icon:'cart4', text:'COMMANDES', desc:''},
-        {id:3, link:'sk', icon:'box2-heart-fill', text:'CAISSE RAPIDE', desc:''},
-        {id:4, link:'vt', icon:'cart-check-fill', text:'VENTES', desc:''},
-        {id:5, link:'cmdv', icon:'bag-check-fill', text:'ACCEPTER COMMANDE', desc:''},
-        {id:6, link:'rt', icon:'coin', text:'RECETTE', desc:''},
-        {id:5, link:'cl', icon:'person-rolodex', text:'CLIENTS', desc:''},
+        {id:1, link:'cl', icon:'person', text:'PATIENT', desc:''},
+        {id:2, link:'rdv', icon:'calendar-check', text:'RENDY-VOUS', desc:''},
+        {id:3, link:'cld', icon:'calendar-week', text:'CALENDRIER', desc:''},
+        
+         
     ],
 
     client : [
@@ -43,14 +41,15 @@ const OneGConf = {
 
     //return back card 
     backCard:{
-        nv : {id:1, text:'Nouveaux Facture', link:'/C/L'},
-        pann : {id:1, text:'Nouveaux Facture', link:'/C/L/sk'},
+        nv : {id:1, text:'Nouveaux Patient', link:'/C/L'},
+        sk : {id:9, text:'Rendy-Vous', link:'/C/L'},
+        pann : {id:1, text:'Calendrier', link:'/C/L'},
 
         mf : {id:7, text:'Mes Factures', link:'/C/L/rt'},
         mfInfo : {id:8, text:'Facture Info', link:'/C/L/rt/vente'},
         mfEdit : {id:8, text:'Modifier Facture', link:'/C/L/rt/vente'},
        
-        sk : {id:9, text:'Stock', link:'/C/L'},
+       
         skList : {id:10, text:'Mon Stock', link:'/C/L/sk'},
         skInfo : {id:12, text:'Info Sur Article', link:'/C/L/sk'},
         skfamilleList: {id:13, text:'Mon Stock', link:'/C/L/sk/Famille'},

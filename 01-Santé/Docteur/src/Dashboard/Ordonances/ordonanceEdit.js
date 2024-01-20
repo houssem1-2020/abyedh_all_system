@@ -12,19 +12,28 @@ import useSaveNotification from '../../AssetsM/Hooks/saveNotifFunction';
 import Ripples from 'react-ripples'
 import { useParams } from 'react-router-dom';
 
-const MainDataCard = ({ordonanceD, setOrdonanceD,allClientList, SelectClientFunction, OnKeyPressFunc,clientNow}) =>{
+const MainDataCard = ({ordonanceD, setOrdonanceD,allClientList, OnKeyPressFunc}) =>{
+    const [clientNow, setClientNow] = useState({})
+    const SelectClientFunction = (value) => {
+        if (value) {
+            setOrdonanceD({...ordonanceD, OR_Patient: value })
+            let filtedClient = allClientList.find((data) => data.PA_ID == value)
+            setClientNow(filtedClient)
+        }
+    }
     return (<>
             <div className='card card-body shadow-sm mb-2'>
                 <h5>Date & Client  </h5>
-                <Input icon='calendar alternate' type='date' size="small" iconPosition='left'   fluid className='mb-1' value={ordonanceD.OR_Date} onChange={(e) => setOrdonanceD({...ordonanceD, OR_Date: e.target.value })}/>
+                <Input icon='calendar alternate' type='date' size="small" iconPosition='left'   fluid className='mb-1' value={new Date(ordonanceD.OR_Date).toLocaleDateString('en-CA', { year: 'numeric', month: '2-digit', day: '2-digit' })} onChange={(e) => setOrdonanceD({...ordonanceD, OR_Date: e.target.value })}/>
                 <datalist id="clientList">
                         {allClientList.map((test) =>
                         <option key={test.key} value={test.PA_ID}>{test.PA_Name} : {test.Phone}</option>
                         )}
                 </datalist>
-                <Input icon='add user' onKeyPress={event => OnKeyPressFunc(event)} list="clientList" placeholder={ordonanceD.OR_Patient}   onBlur={ (e) => SelectClientFunction(e.target.value) } size="small" iconPosition='left'   fluid className='mb-1' />
-                {/* <h4 className='mb-1 mt-1'>Nom: {clientNow.PA_Name  ? clientNow.PA_Name  : ''}</h4>
-                <h4 className='mt-1 mb-1'>Adresse : {clientNow.Adress  ? clientNow.Adress  : ''} </h4> */}
+                <Input icon='add user' onKeyPress={event => OnKeyPressFunc(event)} list="clientList" placeholder={ordonanceD.OR_Patient} defaultValue={ordonanceD.OR_Patient}   onBlur={ (e) => SelectClientFunction(e.target.value) } size="small" iconPosition='left'   fluid className='mb-1' />
+                <h4 className='mb-1 mt-1'>Nom: {clientNow.PA_Name  ? clientNow.PA_Name  : ''}</h4>
+                <h4 className='mt-1 mb-1'>Adresse : {clientNow.Adress  ? clientNow.Adress  : ''} </h4>
+         
             </div>
     </>)
 }
@@ -202,7 +211,7 @@ function AjouterFacture() {
                         )}
                 </datalist>
                 <ProgressLoadingBar display={loadingPage} />
-                <Input icon='pin' list="articlesList" placeholder='Entre aarticle'  onBlur={ (e) => GetMedicammentData(e.target.value)} size="small" iconPosition='left'   fluid className='mb-1' /> 
+                <Input icon='pin' list="articlesList" placeholder='Entre Medicamment'  onBlur={ (e) => GetMedicammentData(e.target.value)} size="small" iconPosition='left'   fluid className='mb-1' /> 
                 <div className='m-2 mb-0 text-secondary'><b> <span className='bi bi-upc '></span> Code a barre : {articleNow.PK} </b></div>
                 <div className='m-2 mb-0 text-danger'><b><span className='bi bi-star-fill '></span> Nom : {articleNow.Nom} </b></div> 
                 <div className='m-2 mb-0 text-info'><b><span className='bi bi-star-fill '></span> Dosage : {articleNow.Dosage} </b></div> 

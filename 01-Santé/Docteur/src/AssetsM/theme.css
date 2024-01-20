@@ -44,6 +44,23 @@ a { text-decoration: none !important; }
 .font-hs-d { font-family: "Hs-b" , "Droid" !important; }
 .font-hs-t { font-family: "Hs-t" , "Droid" !important; }
 .font-hs-n { font-family: "Hs-n" , "Droid" !important; }
+body,
+h1,
+h2,
+h3,
+h4,
+h5,
+input,
+Select,
+option,
+button,
+Table,
+a,
+TableCell,
+.Toastify__toast,
+.font-droid {
+  font-family: "Droid" , tahoma !important;
+}
 
 /*LogIn*/
 .login-caontainer { padding-top: 40px; }

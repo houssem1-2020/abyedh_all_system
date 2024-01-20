@@ -3,7 +3,7 @@ import React from 'react';
 import { useState } from 'react';
 import { useEffect } from 'react';
 import { toast } from 'react-toastify';
-import { Button } from 'semantic-ui-react';
+import { Button, Dropdown, Select } from 'semantic-ui-react';
 import { Icon } from 'semantic-ui-react';
 import { Input } from 'semantic-ui-react';
 import GConf from '../../AssetsM/generalConf';
@@ -13,18 +13,36 @@ import FullCalendar from '@fullcalendar/react' // must go before plugins
 import dayGridPlugin from '@fullcalendar/daygrid' // a plugin!
 
 const AddCard = ({teamListe, presenceD , setPresenceData , Ajouter }) =>{
-    return<>
+  const Genres = [
+    {key: 1 , text:'Presence', value:'P'},
+    {key: 1 , text:'Absence', value:'A'},
+  ]
+  return<>
     <div className="sticky-top" style={{top:'70px'}}>
         <div className='card card-body shadow-sm border-div mb-2'>
             <h5>Selectioner Membre</h5> 
+             
             <datalist id="teamListe">
                 {teamListe.map((team,index) =>
                 <option key={index} value={team.T_ID}>{team.T_Name} - {team.Poste}</option>
                 )}
             </datalist>
             <Input icon='users'  placeholder='Enter Membre' list="teamListe"  onChange={ (e) => setPresenceData({...presenceD, Team_ID:e.target.value})} size="small" iconPosition='left' value={presenceD.Team_ID}  fluid className='mb-1 shadow-sm' /> 
+            <h5 className='mt-2 mb-1'>Selectioner Genre</h5>
+            {/* <Select placeholder='Selectionez Genre' options={Genres} onChange={ (e) => setPresenceData({...presenceD, Genre:e.target.value})} /> */}
+            <Dropdown
+                fluid
+                search
+                selection
+                wrapSelection={false}
+                options={Genres}
+                placeholder={presenceD.Genre}
+                className='mb-1'
+                onChange={(e, { value }) => setPresenceData({...presenceD, Genre: value })}
+                value={presenceD.Genre}
+            /> 
             
-            <h5>Montant </h5> 
+            <h5 className='mt-2 mb-1'>Date </h5> 
             <Input icon='asl' type='date'      onChange={ (e) => setPresenceData({...presenceD, PR_Date: e.target.value})} defaultValue={presenceD.PR_Date} size="small" iconPosition='left' placeholder='Valeur'  fluid className='mb-1 shadow-sm' />
             <br />
             <Button disabled={false}  className='rounded-pill bg-system-btn' onClick={Ajouter}>  <Icon name='edit outline' /> Ajouter</Button>
@@ -39,7 +57,7 @@ function TeamDemande() {
     let  [presenceListe, setPresenceListe] = useState([]); 
     let  [teamListe, setTeamList] = useState([]); 
     let  [presenceD, setPresenceData] = useState({Team_ID:'', PR_Date: Today.toISOString().split('T')[0]}); 
-
+    
     /*#########################[UseEffect]##################################*/
     useEffect(() => {
         axios.post(`${GConf.ApiLink}/team/presence`, {
@@ -74,6 +92,7 @@ function TeamDemande() {
       const  Ajouter = () =>{
           if (!presenceD.Team_ID) { toast.error("Memebre Invalide !", GConf.TostErrorGonf) } 
           else if (!presenceD.PR_Date) { toast.error("Valeur Invalide !", GConf.TostErrorGonf) } 
+          else if (!presenceD.Genre) { toast.error("Genre Invalide !", GConf.TostErrorGonf) } 
           else {
               axios.post(`${GConf.ApiLink}/team/presence/ajoute`, {
                   PID :  GConf.PID ,

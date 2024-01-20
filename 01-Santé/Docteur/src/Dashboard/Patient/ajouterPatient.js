@@ -55,7 +55,7 @@ function AjouterClient() {
                                     constraints={{  facingMode: 'environment' }}
                                     scanDelay={500}
                                     onResult={(result, error) => {
-                                    if (!!result) {  FindInDirectoryFunc(result.text); setScanResultSeance(false) }
+                                    if (!!result) { FindClintByUID(result.text)}
                                     if (!!error) { console.log(error);  }
                                     }}
                                     style={{  width: "150px",height: "150px" }}
@@ -106,7 +106,7 @@ function AjouterClient() {
         }
     }
     const SaveClient = (event) => {
-        if (!patientD.PA_Naissance) {toast.error("Matricule Invalide !", GConf.TostErrorGonf)}
+        if (!patientD.PA_Naissance) {toast.error("Date de Naissance Invalide !", GConf.TostErrorGonf)}
         else if (!patientD.Name) {toast.error("Nom Invalide !", GConf.TostErrorGonf)}
         else if (!patientD.Phone) {toast.error("Phone Invalide !", GConf.TostErrorGonf)}
         else if (!patientD.Gouv) {toast.error("Gouvernorat Invalide !", GConf.TostErrorGonf)}
@@ -120,7 +120,7 @@ function AjouterClient() {
             }).then(function (response) {
                 if(response.data.affectedRows) {
                     setSaveBtnState(true)
-                    toast.success("Client Ajouter !", GConf.TostSuucessGonf)
+                    toast.success("Patint Ajouter !", GConf.TostSuucessGonf)
                     SaveNotification('clientAjouter',GConf.PID, patientD)
                     setLS(false)
                 }
@@ -141,8 +141,14 @@ function AjouterClient() {
         }
                 
     }
+    const FindClintByUID = (valueUID) =>{
+        // console.log(valueUID)
+        // setInDirA(valueUID)
+        // FindInDirectoryFunc();
+        setScanResultSeance(false) 
+    }
     const FindInDirectoryFunc = () =>{
-        if (!inDirArticle) {toast.error("Entrer Un Code A Barre  !", GConf.TostErrorGonf)}
+        if (!inDirArticle) {toast.error("Entrer UID du Patient !", GConf.TostErrorGonf)}
         else{
             setLS(true)
             axios.post(`${GConf.ApiLink}/patient/checkAbyedhDb`, {
@@ -199,7 +205,7 @@ function AjouterClient() {
                             <Input icon='home' iconPosition='left' onKeyPress={event => OnKeyPressFunc(event)} placeholder='Nom Sociale' className='w-100 border-0 shadow-sm rounded mb-1' value={patientD.Social_Name} onChange={(e) => setPatientD({...patientD, Social_Name: e.target.value })}/>
                         </div> */}
                         <div className='p-1 mb-2'>
-                            <h5 className='mb-1'>Geolocation</h5>
+                            <h5 className='mb-1'>Geolocalisation</h5>
                             <Select placeholder='Selectionnez Gouvernorat' fluid className='mb-2' options={TunMap.Gouv} value={patientD.gouv} onChange={(e, { value }) => GetDelegList(value)} />
                             <Select placeholder='Selectionnez Delegation ' fluid value={patientD.Deleg} options={delegList} onChange={(e, { value }) => setPatientD({...patientD, Deleg: value })} />
                         </div>

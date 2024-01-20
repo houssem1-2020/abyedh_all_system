@@ -35,7 +35,7 @@ const TerminerCard = ({rapportData, setRapportData,allClientList, OnKeyPressFunc
     return (<>
              
             <h5 className='mb-1 mt-1'>Titre  </h5>
-            <Input icon='text height' onKeyPress={event => OnKeyPressFunc(event)} list="clientList" placeholder='Titre' value={rapportData.RA_Titre}  onBlur={ (e) => setRapportData({...rapportData, RA_Titre: e.target.value })} size="small" iconPosition='left'   fluid className='mb-1' />
+            <Input icon='text height' onKeyPress={event => OnKeyPressFunc(event)} list="clientList" placeholder='Titre' value={rapportData.RA_Titre}  onChange={ (e) => setRapportData({...rapportData, RA_Titre: e.target.value })} size="small" iconPosition='left'   fluid className='mb-1' />
 
             <h5 className='mb-1 mt-1'>Sujet </h5>
             <Form>
@@ -69,7 +69,7 @@ function AjouterFacture() {
     const {RPID} = useParams()
     const [rapportData, setRapportData] = useState({ RA_Content: 'Null', RA_Titre:'', RA_Genre:'', RA_Sujet:'',  RA_Date: Today.toISOString().split('T')[0], RA_State: 'S'  })
     const [diagnostiqueValue, setDiagnistiqueValue] = useState(EditorState.createEmpty());
-    const [gettedOrFID, setOrId] = useState(0)
+     
     const [saveBtnState, setSaveBtnState] = useState(false)
     const [loaderState, setLS] = useState(false)
     const [articleNow, setArticleNow] = useState([])
@@ -98,7 +98,7 @@ function AjouterFacture() {
                                             <br />
                                             <div className='row mb-2'>
                                                 <div className='col-12'>
-                                                    <Button  className='rounded-pill bg-system-btn' disabled={saveBtnState} fluid onClick={SaveRapport}><Icon name='save' /> Enregistrer <Loader inverted active={loaderState} inline size='tiny' className='ms-2'/></Button>
+                                                    <Button  className='rounded-pill bg-system-btn' disabled={saveBtnState} fluid onClick={SaveRapport}><Icon name='save' /> Modifier <Loader inverted active={loaderState} inline size='tiny' className='ms-2'/></Button>
                                                 </div>
                                             </div>
                                             <div className='row mb-2'>
@@ -163,19 +163,20 @@ function AjouterFacture() {
             if (!rapportData.RA_Content ) {toast.error("Diagnostique est Invalide !", GConf.TostErrorGonf)}
             else if (!rapportData.RA_Titre) {toast.error("Patient De est Invalide !", GConf.TostErrorGonf)}
             else if (!rapportData.RA_Sujet) {toast.error("RA_Sujet  est Invalide !", GConf.TostErrorGonf)}
-            else if (!rapportData.RA_Date) {toast.error("Dnager   est Invalide !", GConf.TostErrorGonf)}
-            else if (!rapportData.RA_State) {toast.error("Date est Invalide !", GConf.TostErrorGonf)}
+            else if (!rapportData.RA_Date) {toast.error("Date   est Invalide !", GConf.TostErrorGonf)}
+            else if (!rapportData.RA_Genre) {toast.error("Genre est Invalide !", GConf.TostErrorGonf)}
             else {
                 setLS(true)
-                axios.post(`${GConf.ApiLink}/rapport/ajouter`, {
+                axios.post(`${GConf.ApiLink}/rapport/modifier`, {
                     PID : GConf.PID,
+                    RA_ID : RPID,
                     rapportData: {RA_Titre: rapportData.RA_Titre,  RA_Content: GenerateDiagnostiqueHTml(), RA_Sujet:rapportData.RA_Sujet, Maladie:rapportData.Maladie,  RA_Date: Today.toISOString().split('T')[0] , RA_State: rapportData.RA_State,  RA_Genre: rapportData.RA_Genre,} ,
                 })
                 .then(function (response) {
                     if(response.status = 200) {
-                        setOrId(response.data.FID)
+                         
                         setSaveBtnState(true)
-                        toast.success("Rapport Enregistreé !", GConf.TostSuucessGonf)
+                        toast.success("Rapport Modifier !", GConf.TostSuucessGonf)
                         setLS(false)
                     }
                     else{
@@ -263,7 +264,7 @@ function AjouterFacture() {
         <BreadCrumb links={GConf.BreadCrumb.factureEdit} />
         <br />
         <Tab menu={{  secondary: true  }} panes={panes} />
-        <FrameForPrint frameId='printRapport' src={`/Pr/rapport/info/${gettedOrFID}`} />
+        <FrameForPrint frameId='printRapport' src={`/Pr/rapport/info/${RPID}`} />
     </> );
     }
 

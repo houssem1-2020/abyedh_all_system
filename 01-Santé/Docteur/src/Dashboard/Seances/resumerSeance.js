@@ -48,15 +48,15 @@ function ResumerFactures() {
         .then(function (response) {
             let factureListContainer = []
             response.data.map( (getData) => factureListContainer.push([
- 
+            _(<TableImage image='seance.png' />),
             //getData.S_ID,
             getData.PA_Name,
             getData.Maladie,
             _(<StateCard status={getData.State_Degre} />),
             new Date(getData.S_Date).toLocaleDateString('fr-FR').split( '/' ).reverse( ).join( '-' ),
             getData.S_Time,
-            _(CheckAnlyseOrdoCard(JSON.parse(getData.Analyses).length),'analyse'),
-            _(CheckAnlyseOrdoCard(getData.Ordonance, 'ordonance')),
+            // _(CheckAnlyseOrdoCard(JSON.parse(getData.Analyses).length),'analyse'),
+            // _(CheckAnlyseOrdoCard(getData.Ordonance, 'ordonance')),
             // _(<CheckAnlyseOrdoCard status={JSON.parse().lenght} />),
             _(<Button className='rounded-pill bg-system-btn' size='mini' onClick={ (e) => NavigateFunction(`/S/sa/info/${getData.S_ID}`)}><span className='d-none d-lg-inline'> Info </span><Icon  name='angle right' /></Button>)
             ],))
@@ -113,13 +113,13 @@ function ResumerFactures() {
         <BreadCrumb links={GConf.BreadCrumb.factureResumer} />
         <br />
         <div className='row'>
-            <div className='col-12 col-lg-4'>
+            <div className='col-12 col-lg-3'>
                 <div className="mb-4 sticky-top" style={{top:'70px'}}>
                     <InputDatCard PrintFunction={PrintFunction} targetDate={targetDate} setTargetDate={setTargetDate} FetchTargetFactures={FetchTargetFactures} loaderState={loaderState} />
                 </div>
             </div>
-            <div className='col-12 col-lg-8'>
-                <TableGrid tableData={factureList} columns={['Patient','Maldaie','Degreé','Jour','Temps','Analyse','Ordonance','Voir']} />                        
+            <div className='col-12 col-lg-9'>
+                <TableGrid tableData={factureList} columns={['*','Patient','Maldaie','Degreé','Jour','Temps','Voir']} />                        
             </div>
         </div>
         <FrameForPrint frameId='printResumer' src={`/Pr/Facture/resumer/${targetDate.start}/${targetDate.end}`} />

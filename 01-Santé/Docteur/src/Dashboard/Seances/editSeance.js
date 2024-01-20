@@ -20,6 +20,8 @@ import { _ } from 'gridjs-react';
 import { useNavigate} from 'react-router-dom';
 import { ContentState, convertFromHTML } from 'draft-js';
 import FrameForPrint from '../../AssetsM/Cards/frameForPrint'
+import TableImage from '../../AssetsM/Cards/tableImg';
+import { NavLink } from 'react-router-dom';
 
 const TerminerCard = ({seanceData, setSeanceData,allClientList,offresListe ,OnKeyPressFunc}) =>{
     const StateDegree = [
@@ -41,10 +43,10 @@ const TerminerCard = ({seanceData, setSeanceData,allClientList,offresListe ,OnKe
     ]
     return (<>
              
-                <h5>Date   </h5>
-                <Input icon='calendar alternate' type='date' size="small" iconPosition='left'   fluid className='mb-1' value={seanceData.S_Date} onChange={(e) => setSeanceData({...seanceData, S_Date: e.target.value })}/>
+                <h5 className='mb-1'><span className='bi bi-calendar-week'></span> Date   </h5>
+                <Input icon='calendar alternate' type='date' size="small" iconPosition='left'   fluid className='mb-1' value={new Date(seanceData.S_Date).toLocaleDateString('en-CA', { year: 'numeric', month: '2-digit', day: '2-digit' })} onChange={(e) => setSeanceData({...seanceData, S_Date: e.target.value })}/>
 
-                <h5 className='mt-1 '>Degreé de Danger  </h5>
+                <h5 className='mb-1'><span className='bi bi-thermometer-half'></span> Degreé de Danger  </h5>
                 <Dropdown
                     fluid
                     search
@@ -56,7 +58,8 @@ const TerminerCard = ({seanceData, setSeanceData,allClientList,offresListe ,OnKe
                     onChange={(e, { value }) => setSeanceData({...seanceData, State_Degre: value })}
                     value={seanceData.State_Degre}
                 />
-                <h5 className='mt-1 '>Genre de Seance  </h5>
+                <h5 className='mb-1'><span className='bi bi-ui-checks-grid'></span> Genre de Seance  </h5>
+                {offresListe.length == 0 ? <small> Pas des Genres Enregistreé , <NavLink to='/S/of'>Cliquer Ici</NavLink> Pour le faire </small> : ''} 
                 <Dropdown
                     fluid
                     search
@@ -75,11 +78,11 @@ const TerminerCard = ({seanceData, setSeanceData,allClientList,offresListe ,OnKe
 }
 const ResultCard = ({seanceData, setSeanceData,OnKeyPressFunc}) =>{
     return (<> 
-                <h5>Maladie   </h5>
-                <Input icon='calendar alternate' type='text' size="small" iconPosition='left'   fluid className='mb-1' value={seanceData.Maladie} onChange={(e) => setSeanceData({...seanceData, Maladie: e.target.value })}/>
-                <h5>Resultat : maladie </h5>
+                <h5 className='mb-1'><span className='bi bi-person-wheelchair'></span> Maladie   </h5>
+                <Input onKeyPress={event => OnKeyPressFunc(event)} icon='wheelchair' type='text' size="small" iconPosition='left'   fluid className='mb-1' value={seanceData.Maladie} onChange={(e) => setSeanceData({...seanceData, Maladie: e.target.value })}/>
+                <h5 className='mb-1'><span className='bi bi-chat-dots'></span> Resultat : maladie </h5>
                 <Form>
-                    <TextArea rows={10} placeholder='Maladie' onKeyPress={event => OnKeyPressFunc(event)} value={seanceData.Resultat} onChange={(e) => setSeanceData({...seanceData, Resultat : e.target.value })} />
+                    <TextArea   rows={10} placeholder='Maladie' onKeyPress={event => OnKeyPressFunc(event)} value={seanceData.Resultat} onChange={(e) => setSeanceData({...seanceData, Resultat : e.target.value })} />
                 </Form>
                 <br /> 
                 <br /> 
@@ -142,14 +145,14 @@ function EditFacture() {
                                             <br />
                                             <div className='row mb-2'>
                                                 <div className='col-12'>
-                                                    <Button  className='rounded-pill bg-system-btn' disabled={saveBtnState} fluid onClick={SaveSeance}><Icon name='save' /> Enregistrer <Loader inverted active={loaderState} inline size='tiny' className='ms-2'/></Button>
+                                                    <Button  className='rounded-pill bg-system-btn' disabled={saveBtnState} fluid onClick={EditSeance}><Icon name='save' /> Modifier <Loader inverted active={loaderState} inline size='tiny' className='ms-2'/></Button>
                                                 </div>
                                             </div>
-                                            <div className='row mb-2'>
+                                            {/* <div className='row mb-2'>
                                                 <div className='col-12'>
                                                     <Button  className='rounded-pill btn-imprimer' disabled={!saveBtnState} fluid onClick={(e) => PrintFunction('printOrdonance')}><Icon name='print' /> Imprimer Ordonance</Button>
                                                 </div>
-                                            </div>
+                                            </div> */}
                                             
                                     </div>
                                 </div>
@@ -160,15 +163,15 @@ function EditFacture() {
     const patientPanes = [
         {
             menuItem: { key: 'start',   content: 'Seances ' }, 
-            render: () =>  <TableGrid tableData={patientSeanceListe} columns={["ID ","Date","Temps","Info"]} /> ,
+            render: () =>  <TableGrid tableData={patientSeanceListe} columns={["","","ID ","Date","Temps","Info"]} /> ,
         },
         {
             menuItem: { key: 'anaslyse',  content:  'RendyVous' }, 
-            render: () =><TableGrid tableData={patientRDVListe} columns={["ID ","Date","Temps","Info"]} />,
+            render: () =><TableGrid tableData={patientRDVListe} columns={["","","ID ","Date","Temps","Info"]} />,
         },
         {
             menuItem: { key: 'clidsgent',   content:  'Ordonance' }, 
-            render: () =><TableGrid tableData={patientOrdonanceListe} columns={["ID ","Date","Temps","Info"]} />,
+            render: () =><TableGrid tableData={patientOrdonanceListe} columns={["","","ID ","Date","Temps","Info"]} />,
         },
  
         
@@ -283,7 +286,7 @@ function EditFacture() {
             toast.error('Article Indéfine ', GConf.TostSuucessGonf)
         }
     }
-    const SaveSeance = () =>{
+    const EditSeance = () =>{
             if (!seanceData.Diagnostic ) {toast.error("Diagnostique est Invalide !", GConf.TostErrorGonf)}
             else if (!seanceData.S_Patient) {toast.error("Patient De est Invalide !", GConf.TostErrorGonf)}
             // else if (!seanceData.Maladie) {toast.error("Maladie vers est Invalide !", GConf.TostErrorGonf)}
@@ -293,15 +296,16 @@ function EditFacture() {
             else if (!seanceData.ordonance  ) {toast.error("Ordonance list est Invalide !", GConf.TostErrorGonf)}
             else {
                 setLS(true)
-                axios.post(`${GConf.ApiLink}/seances/ajouter`, {
+                axios.post(`${GConf.ApiLink}/seances/modifier`, {
                     PID : GConf.PID,
+                    SID : FID,
                     seanceData: {S_Patient: seanceData.S_Patient, Forfait_ID: seanceData.Forfait_ID,  Diagnostic: GenerateDiagnostiqueHTml(), Resultat:seanceData.Resultat, Maladie:seanceData.Maladie,  S_Date: seanceData.S_Date , State_Degre: seanceData.State_Degre , ordonance:seanceData.ordonance, analyses:seanceData.analyses} ,
                 })
                 .then(function (response) {
                     if(response.status = 200) {
-                        setOrId(response.data.FID)
+                        // setOrId(response.data.FID)
                         setSaveBtnState(true)
-                        toast.success("Seance Enregistreé !", GConf.TostSuucessGonf)
+                        toast.success("Seance Modifieé !", GConf.TostSuucessGonf)
                         setLS(false)
                     }
                     else{
@@ -335,7 +339,10 @@ function EditFacture() {
             .then(function (response) {
                  
                 let seanceCont = []
-                response.data.Seances.map( (getData) => {seanceCont.push([
+                response.data.Seances.map( (getData, index) => {seanceCont.push([
+                    //_(<TableImage image='seance.png' />),
+                    index+1,
+                    _(<TableImage image='seance.png' />),
                     getData.S_ID,
                     new Date(getData.S_Date).toLocaleDateString('fr-FR').split( '/' ).reverse( ).join( '-' ),
                     getData.S_Time,
@@ -344,7 +351,9 @@ function EditFacture() {
                 setPatientSeanceListe(seanceCont)
 
                 let rdvCont = []
-                response.data.RDV.map( (getData) => {rdvCont.push([
+                response.data.RDV.map( (getData, index) => {rdvCont.push([
+                    index+1,
+                    _(<TableImage image='rendyvous.png' />),
                     getData.R_ID,
                     new Date(getData.RDV_Date).toLocaleDateString('fr-FR').split( '/' ).reverse( ).join( '-' ),
                     getData.RDV_Time,
@@ -353,7 +362,9 @@ function EditFacture() {
                 setPatientRDVListe(rdvCont)
 
                 let ordonanceCont = []
-                response.data.Ordonance.map( (getData) => {ordonanceCont.push([
+                response.data.Ordonance.map( (getData, index) => {ordonanceCont.push([
+                    index+1,
+                    _(<TableImage image='ordonance.png' />),
                     getData.OR_ID,
                     new Date(getData.OR_Date).toLocaleDateString('fr-FR').split( '/' ).reverse( ).join( '-' ),
                     getData.OR_Time,
@@ -437,7 +448,7 @@ function EditFacture() {
                             <option key={index} value={test.PK}>{test.Nom} : {test.Dosage} - {test.Forme} - {test.Presentation}  </option>
                             )}
                     </datalist>
-                    <Input icon='pin' list="articlesList" placeholder='Entre aarticle'  onBlur={ (e) => GetMedicammentData(e.target.value)} size="small" iconPosition='left'   fluid className='mb-1' /> 
+                    <Input onKeyPress={event => OnKeyPressFunc(event)} icon='pin' list="articlesList" placeholder='Entre Medicamment'  onBlur={ (e) => GetMedicammentData(e.target.value)} size="small" iconPosition='left'   fluid className='mb-1' /> 
                     <div className='m-2 mb-0 text-secondary'><b> <span className='bi bi-upc '></span> Code a barre : {articleNow.PK} </b></div>
                     <div className='m-2 mb-0 text-danger'><b><span className='bi bi-star-fill '></span> Nom : {articleNow.Nom} </b></div> 
                     <div className='m-2 mb-0 text-info'><b><span className='bi bi-star-fill '></span> Dosage : {articleNow.Dosage} </b></div> 
@@ -445,7 +456,7 @@ function EditFacture() {
                     <div className='m-2 mb-2 text-warning'><b><span className='bi bi-star-fill '></span> Presentation : {articleNow.Presentation} </b></div> 
                      
                     <div className='row'>
-                       <div className='col-12'>  <Input icon='dropbox' type='text' value={articleNow.Emploi_Mode} autoFocus={autofocusState} onChange={ (e) => {articleNow.Emploi_Mode = e.target.value}} size="small" iconPosition='left' placeholder='Quantite'  fluid className='mb-1' /> </div> 
+                       <div className='col-12'>  <Input onKeyPress={event => OnKeyPressFunc(event)} icon='dropbox' type='text' value={articleNow.Emploi_Mode} autoFocus={autofocusState} onChange={ (e) => {articleNow.Emploi_Mode = e.target.value}} size="small" iconPosition='left' placeholder={`Mode d'emploi`}  fluid className='mb-1' /> </div> 
                     </div>
                     
                     <br />
@@ -471,7 +482,7 @@ function EditFacture() {
     }
     const OrdonanceCard = () =>{
         return(<>
-                <div className='row'>
+                {/* <div className='row'>
                     <div className='col-12 col-lg-5'>
                         <div className="mb-4 sticky-top" style={{top:'70px'}}>
                             <AddArticles  />        
@@ -483,7 +494,25 @@ function EditFacture() {
                             <br />
                             
                     </div>
-                </div>
+                </div> */}
+                 
+                {/* <NavLink To={`/S/or/modifier/${seanceData.Ordonance}`}></NavLink> */}
+                {seanceData.Ordonance == '' ? 
+                <>Pad d'ordonnace </>
+                :
+                <>
+                Vous Pouvez Modifier L'ordonnace Ici :
+                <br />
+                <Button as='a' onClick={ (e) => NavigateFunction(`/S/or/modifier/${seanceData.Ordonance}`)}  animated   className='rounded-pill bg-system-btn'   >
+                    <Button.Content visible><Icon name='edit outline' /> Modifier </Button.Content>
+                    <Button.Content hidden>
+                        <Icon name='arrow right' />
+                    </Button.Content>
+                </Button>
+
+                </>
+                }
+                   
             </>)
     }
 
@@ -491,8 +520,8 @@ function EditFacture() {
         return (<>
                 <div className='card card-body shadow-sm mb-2 border-div'>
                     <h5>Ajouter Grandeur</h5> 
-                    <Input icon='pin'   placeholder='Grandeur'  value={analyseNow.Grandeur}  onChange={ (e) => {analyseNow.Grandeur = e.target.value}} size="small" iconPosition='left'   fluid className='mb-1' />                     
-                    <Input icon='dropbox' type='text' value={analyseNow.valeur} autoFocus={autofocusState}  onChange={ (e) => {analyseNow.Valeur = e.target.value}}  size="small" iconPosition='left' placeholder='Valeur'  fluid className='mb-1' />
+                    <Input onKeyPress={event => OnKeyPressFunc(event)} icon='pin'   placeholder='Grandeur'  value={analyseNow.Grandeur}  onChange={ (e) => {analyseNow.Grandeur = e.target.value}} size="small" iconPosition='left'   fluid className='mb-1' />                     
+                    <Input onKeyPress={event => OnKeyPressFunc(event)} icon='dropbox' type='text' value={analyseNow.valeur} autoFocus={autofocusState}  onChange={ (e) => {analyseNow.Valeur = e.target.value}}  size="small" iconPosition='left' placeholder='Valeur'  fluid className='mb-1' />
                     
                     <br />
                     <Button disabled={saveBtnState} className='rounded-pill bg-system-btn' onClick={AddAnalyseToListe}>  <Icon name='edit outline' /> Ajouter</Button>
@@ -594,7 +623,8 @@ function EditFacture() {
                     <div className='col-12 col-md-4'>
                         
                         <div className='card card-body md-3 shadow-sm border-div'>
-                            <Tab menu={{ secondary: true  }} panes={selectMainPanes} />
+                            {/* <Tab menu={{ secondary: true  }} panes={selectMainPanes} /> */}
+                            <SelectPatientCard />
                            
                         </div>
                     </div>
@@ -607,7 +637,7 @@ function EditFacture() {
     return (<>
         <BreadCrumb links={GConf.BreadCrumb.factureAjouter} />
         <br />
-        {loading ? <LoadingCard /> : <Tab menu={{  secondary: true  }} panes={panes} />}
+        {loading ? <LoadingCard /> : <Tab menu={{ widths: panes.length, secondary: true  }} panes={panes} />}
         
         
         <FrameForPrint frameId='printOrdonance' src={`/Pr/ordonance/info/${gettedOrFID}`} />

@@ -48,17 +48,17 @@ function ArticleInfo() {
 
     const panes = [
         {
-            menuItem: { key: 'resumer', icon: 'file excel', content: 'Abonneé' }, 
-            render: () => <> <TableGrid tableData={forfaitListe} columns={['ID','Mmebre','Depart','Saisson','Seances','Etat','Voir']} /> <br /></>,
+            menuItem: { key: 'resumer', icon: 'file excel', content: 'Seances' }, 
+            render: () => <> <TableGrid tableData={forfaitListe} columns={['ID','Mmebre','Date','Temp','Voir']} /> <br /></>,
         },
         {
             menuItem: { key: 'edit', icon: 'edit outline', content: 'Modifier' }, 
             render: () => <><Tab.Pane attached={false}><EditArticle forfaitD={forfaitD}  setFordaitD={setFordaitD} OnKeyPressFunc={OnKeyPressFunc}  EditArticleFunction={EditArticleFunction} loaderState={loaderState}   /></Tab.Pane><br /></>,
         },
-        {
-            menuItem: { key: 'delete', icon: 'trash alternate', content: 'Supprimer' }, 
-            render: () => <><Tab.Pane attached={false}><DeleteForfaitCard  /></Tab.Pane><br /></>,
-        },
+        // {
+        //     menuItem: { key: 'delete', icon: 'trash alternate', content: 'Supprimer' }, 
+        //     render: () => <><Tab.Pane attached={false}><DeleteForfaitCard  /></Tab.Pane><br /></>,
+        // },
     ]
 
    /*#########################[UseEffect]##################################*/
@@ -76,16 +76,16 @@ function ArticleInfo() {
             } else {
                 setFordaitD(response.data.Data)
                 let abonemmentContainer = []
-               response.data.Seances.map( (getData) => abonemmentContainer.push([
+                response.data.Seances.map( (getData) => abonemmentContainer.push([
  
-                getData.AB_ID,
-                getData.ME_Name,
+                getData.S_ID,
+                getData.PA_Name,
  
-                new Date(getData.AB_Depart_Date).toLocaleDateString('fr-FR').split( '/' ).reverse( ).join( '-' ),
-                getData.AB_Saisson,
-                getData.Tarif,
-                _(<StateCard status={CheckPaymmentOfMonth(getData.AB_Paymment)} />),
-                _(<Button className='rounded-pill bg-system-btn' size='mini' onClick={ (e) => NavigateFunction(`/S/ab/info/${getData.AB_ID}`)}><span className='d-none d-lg-inline'> </span><Icon  name='angle right' /></Button>)
+                new Date(getData.S_Date).toLocaleDateString('fr-FR').split( '/' ).reverse( ).join( '-' ),
+                getData.S_Time,
+                
+                 
+                _(<Button className='rounded-pill bg-system-btn' size='mini' onClick={ (e) => NavigateFunction(`/S/sa/info/${getData.S_ID}`)}><span className='d-none d-lg-inline'> </span><Icon  name='angle right' /></Button>)
                ],))
                setForfaitListe(abonemmentContainer)
 
@@ -102,7 +102,7 @@ function ArticleInfo() {
 
     }, [])
     const OnKeyPressFunc = (e) => {
-        if (!((e.charCode >= 65 && e.charCode <= 90) || (e.charCode >= 97 && e.charCode <= 122) || (e.charCode >= 48 && e.charCode <= 57) || e.charCode == 42 || e.charCode == 32 || e.charCode == 47 )) {
+        if (!((e.charCode >= 65 && e.charCode <= 90) || (e.charCode >= 97 && e.charCode <= 122) || (e.charCode >= 48 && e.charCode <= 57) || e.charCode == 42 || e.charCode == 32 || e.charCode == 47 ||   e.charCode == 46)) {
               e.preventDefault();
         }   
      }
@@ -113,7 +113,7 @@ function ArticleInfo() {
         axios.post(`${GConf.ApiLink}/forfait/modifier`, {
             PID :GConf.PID,
             F_ID :code,
-            forfaitData :forfaitD,
+            tarifData :forfaitD,
         }).then(function (response) {
             if(response.data.affectedRows) {
                 toast.success("Forfait Modifier !", GConf.TostSuucessGonf)

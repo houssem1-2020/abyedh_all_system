@@ -2,7 +2,7 @@ import axios from 'axios';
 import React, { useEffect, useState } from 'react';
 import { Bounce } from 'react-reveal';
 import { NavLink, useParams } from 'react-router-dom';
-import { Button,  Icon, Placeholder, Popup} from 'semantic-ui-react';
+import { Button,  Icon, Modal, Placeholder, Popup} from 'semantic-ui-react';
 import SKLT from '../../AssetsM/Cards/usedSlk';
 import GConf from '../../AssetsM/generalConf';
 import BreadCrumb from '../../AssetsM/Cards/breadCrumb'
@@ -23,7 +23,8 @@ function FactureInfo() {
     const [stockState , setStockState] = useState(false)
     const [toUpdatedList, setTUpList] = useState([])
     let Offline = JSON.parse(localStorage.getItem(`${GConf.PID}_Offline`));
-    
+    const [modalS, setModalS] = useState(false)
+
     /*#########################[UseEffect]##################################*/
     useEffect(() => {
         axios.post(`${GConf.ApiLink}/rapport/info`, {
@@ -60,17 +61,15 @@ function FactureInfo() {
     const NavigateFunction = (link) => { navigate(link) }
  
     const DeleteFacture = () =>{
-        axios.post(`${GConf.ApiLink}/facture/supprimer`, {
+        axios.post(`${GConf.ApiLink}/rapport/supprimer`, {
             PID : GConf.PID,
             RPID: RPID,
           })
           .then(function (response) {
             if (response.data.affectedRows != 0) {
-                toast.error('Facture Supprimer  !', GConf.TostSuucessGonf)
-                setTimeout(() => {  window.location.href = "/S/ft"; }, 500)
-                //setLS(false)
+                toast.error('Rapport Supprimer  !', GConf.TostSuucessGonf)
+                setTimeout(() => {  window.location.href = "/S/rp"; }, 500)
             } else {
-                //setLS(false)
             }
             console.log(response.data)
            
@@ -120,12 +119,9 @@ function FactureInfo() {
  
     const BtnsCard = () =>{
         return(<>
-                <div className='card card-body shadow-sm mb-2'>
+                <div className='card card-body border-div shadow-sm mb-2'>
                     <h5>Controle</h5>
                     <div className='row mb-2'>
-                        <div className='col-6 mb-3'>
-                            <Button  className='rounded-pill btn-imprimer'  fluid onClick={(e) => PrintFunction('printRapport')}><Icon name='print' /> Imprimer</Button>
-                        </div>
                         <div className='col-6'>
                                 <Button as='a' onClick={ (e) => NavigateFunction(`/S/rp/modifier/${RPID}`)} animated   className='rounded-pill bg-system-btn'  fluid>
                                     <Button.Content visible><Icon name='edit outline' /> Modifier </Button.Content>
@@ -134,8 +130,11 @@ function FactureInfo() {
                                     </Button.Content>
                                 </Button>
                         </div>
+                        <div className='col-6 mb-3'>
+                            <Button  className='rounded-pill btn-imprimer'  fluid onClick={(e) => PrintFunction('printRapport')}><Icon name='print' /> Imprimer</Button>
+                        </div>
                         <div className='col-12 '>
-                            <Button  className='rounded-pill bg-danger text-white'  fluid  onClick={DeleteFacture}><Icon name='trash' /> Supprimer</Button>
+                            <Button  className='rounded-pill bg-danger text-white'  fluid  onClick={() => setModalS(true)}><Icon name='trash' /> Supprimer</Button>
                         </div>
 
                     </div>
@@ -165,7 +164,7 @@ function FactureInfo() {
         <br />
         <div className="row">
             <div className="col-12 col-lg-8">
-                <h2 className='text-end'><StateSellCard status={factureData.OR_State} /></h2>
+                <h2 className='text-end'><span className={`badge bg-secondary`}> {factureData.RA_Genre} </span> </h2>
                 {loading ? 
                 <LoadingCard /> 
                 : 
@@ -180,13 +179,27 @@ function FactureInfo() {
             </div>
             <div className="col-12 col-lg-4">
             <Bounce bottom>
-                <div className="sticky-top" style={{top:'70px'}}>
+                <div className="sticky-top" style={{top:'70px' , zIndex: 14}}>
                     <BtnsCard />
                 </div>
             </Bounce>
             </div>
         </div>
         <FrameForPrint frameId='printRapport' src={`/Pr/rapport/info/${RPID}`} />
+        <Modal
+              size='tiny'
+              open={modalS}
+              closeIcon
+              onClose={() => setModalS(false)}
+              onOpen={() => setModalS(true)}
+          >
+               
+              <Modal.Content scrolling>
+                    <h5 className='text-secondary'>Voulez Vous Vraimment Supprimer Ce Rapoort</h5>
+                    <Button className='rounded-pill' negative onClick={ () => DeleteFacture()}> <span className='bi bi-treash' ></span> Supprimer</Button>
+              </Modal.Content>
+               
+        </Modal>
     </> );
 }
 

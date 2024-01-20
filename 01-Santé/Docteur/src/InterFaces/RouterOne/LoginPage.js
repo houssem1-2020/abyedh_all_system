@@ -1,5 +1,5 @@
 import React ,{useEffect, useState} from 'react';
-import { Button, Icon, Input, Loader, Segment } from 'semantic-ui-react';
+import { Button, Divider, Icon, Input, Loader, Segment } from 'semantic-ui-react';
 import GConf from '../../AssetsM/generalConf';
 import { toast } from 'react-toastify';
 import axios from 'axios';
@@ -9,6 +9,8 @@ function LoginPage() {
     /*#########################[Const]##################################*/
     const [loginD, setLoginD] = useState([])
     const [loaderState, setLS] = useState(false)
+    const [loginCheckValue, setLoginCheckValue] = useState('')
+    const [userLoggedCorrectely, setUserLoggedCorrectely] = useState(false)
     
 
     /*#########################[UseEffect]##################################*/
@@ -24,27 +26,38 @@ function LoginPage() {
             axios.post(`${GConf.ApiRouterOneLink}/LogIn`, {
                 LoginData : loginD,
             }).then(function (response) {
+                console.log(response.data)
+                if(response.data.userData != false ) {
+                        setUserLoggedCorrectely(true)
+                        toast.success("Membre Trouveé !", GConf.TostSuucessGonf)
+                }
+                else{
+                    toast.error('Compte Indéfine ! ', GConf.TostSuucessGonf)
+                }
+            }).catch((error) => {
+                if(error.request) {
+                  toast.error(<><div><h5>Probleme de Connextion</h5> Impossible de se connecter aux systeme </div></>, GConf.TostInternetGonf)   
+                  setLS(false)
+                }
+            });
+        } 
+    }
+    const CheckLogin = () =>{
+        if (!loginCheckValue) {toast.error("Entrer Le Smart ID !", GConf.TostErrorGonf)}
+        else if (!loginD.Log) {toast.error("Entrer Un identifiant !", GConf.TostErrorGonf)}
+        else if (!loginD.Pwd) {toast.error("Entrer Le mot DP  !", GConf.TostErrorGonf)}
+        else{
+            axios.post(`${GConf.ApiRouterOneLink}/LogIn/check`, {
+                LoginData : loginD,
+                loginCheckValue : loginCheckValue,
+            }).then(function (response) {
                 if(response.data.length != 0 ) {
                         toast.success("Connecteé !", GConf.TostSuucessGonf)
                         if (!OneGConf.oneOffline) {
                             localStorage.setItem(`${OneGConf.routerTagName}_Offline`, JSON.stringify(OneGConf.default_Offline));
                         }
                         localStorage.setItem(`${OneGConf.routerTagName}_LocalD`, JSON.stringify(response.data));
-                        indexedDB.databases().then((databases) => {
-                            const databaseExists = databases.some((database) => database.name === '${OneGConf.routerTagName}_DB');
-                            if (!databaseExists) {
-                                const request = indexedDB.open('${OneGConf.routerTagName}_DB');
-                                request.onupgradeneeded = function(event) {
-                                    var objectStore = event.target.result.createObjectStore('Stock', { keyPath: 'PK' });
-                                    var objectStore2 = event.target.result.createObjectStore('Factucre', { keyPath: 'PK' });
-                                    var objectStore2 = event.target.result.createObjectStore('Clients', { keyPath: 'PK' });
-                                };
-                                window.location.href = `/${OneGConf.routerName}`;
-                            }else{
-                                window.location.href = `/${OneGConf.routerName}`;
-                            }
-                        });
-
+                        window.location.href = `/${OneGConf.routerName}`;
                         
                 }
                 else{
@@ -67,6 +80,10 @@ function LoginPage() {
                             <h2 className='text-cente'><Icon name='linkify' /> Connexion :</h2>
                             <br />
                             <div className='mb-3'>
+                                <Input   icon='user' iconPosition='left' placeholder='PID' className='shadow-sm w-100' onChange={(e) => setLoginD({...loginD, PID: e.target.value })}/>
+                            </div>
+                            <Divider />
+                            <div className='mb-3'>
                                 <Input   icon='user' iconPosition='left' placeholder='Identification' className='shadow-sm w-100' onChange={(e) => setLoginD({...loginD, Log: e.target.value })}/>
                             </div>
                             <div className='mb-3'>
@@ -75,6 +92,18 @@ function LoginPage() {
                             <div className='mb-3'>
                                 <Button onClick={logInSystem}  style={{backgroundColor:GConf.themeColor, color:'white'}} className='shadow-sm w-100'>Connextion <Loader inverted active={loaderState} inline size='tiny' className='ms-2 text-danger'/></Button>
                             </div>
+                            {userLoggedCorrectely ? 
+                            <>
+                            <Divider />
+                            <div className='mb-3'>
+                                <Input  icon='key' iconPosition='left' placeholder='Entrer le smart ID ' type='text' className='shadow-sm w-100' onChange={(e) => setLoginCheckValue(e.target.value)}/>
+                            </div>
+                            <div className='mb-3'>
+                                <Button onClick={() => CheckLogin()}   className='shadow-sm w-100'>Valider La Connextion <Loader inverted active={loaderState} inline size='tiny' className='ms-2 text-danger'/></Button>
+                            </div>
+                            </>
+                            :
+                            <></>}
                 </Segment>
                 </div>
             </div>

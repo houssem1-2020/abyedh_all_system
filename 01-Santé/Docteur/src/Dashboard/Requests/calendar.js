@@ -8,11 +8,31 @@ import { toast } from 'react-toastify';
 import { Button, Icon, Input } from 'semantic-ui-react';
 import { useNavigate} from 'react-router-dom';
 
+const FetchOldEventCard = ({setFetchCalendar, fetchCalendar, SearchTargetEventFun}) =>{
+    return(<>
+    <div className='card card-body border-div mb-3 '>
+        <h5 className='mb-1' ><span className='bi bi-search'></span> Recherche ...</h5>
+        <div className='row'>
+  
+            <div className='col-5 align-self-center'>
+                <Input icon='calendar alternate' type='date' size="small" iconPosition='left'   fluid className='mb-1' value={fetchCalendar.De_Date} onChange={(e) => setFetchCalendar({...fetchCalendar, De_Date: e.target.value })}/>
+            </div>
+            <div className='col-5 align-self-center'>
+                <Input icon='calendar alternate' type='date' size="small" iconPosition='left'   fluid className='mb-1' value={fetchCalendar.Vers_Date} onChange={(e) => setFetchCalendar({...fetchCalendar, Vers_Date: e.target.value })}/>
+            </div>
+            <div className='col-2 align-self-center'>
+                <Button fluid className='rounded-pill text-secondary btn-imprimer' icon onClick={(e) => SearchTargetEventFun()}><Icon name='search' /> Recherche </Button>
+            </div>
+        </div>
+    </div>
+    </>)
+}
+
 function CalendarCommandes() {
     /*#########################[Const]##################################*/
     const [articleEvents , setArticleEvents] = useState([])
     const [todayListe , setTodayListe] = useState([])
-    const [fetchCalendar , setFetchCalendar] = useState({De_Date : '2023-05-09', Vers_Date :'2023-08-09'})
+    const [fetchCalendar , setFetchCalendar] = useState({De_Date : new Date().toLocaleDateString('fr-FR').split( '/' ).reverse( ).join( '-' ), Vers_Date : new Date().toLocaleDateString('fr-FR').split( '/' ).reverse( ).join( '-' )})
     const navigate = useNavigate();
 
     /*#########################[UseEffect]##################################*/
@@ -57,39 +77,21 @@ function CalendarCommandes() {
         return(<>
                 <div className='card p-2 border-div mb-2 bg-white shadow-sm'>
                     <div className='row'>
-                        <div className='col-5 align-self-center'>{props.data.Name}</div>
-                        <div className='col-4 align-self-center'>10:12</div>
-                        <div className='col-3'><Button  size='tiny' icon  onClick={ (e) => NavigateFunction(`/S/rq/rs/info/${props.data.R_ID}`)} className='rounded-pill bg-system-btn ' >  <Icon name='arrow right' /> </Button></div>
+                        <div className='col-6 align-self-center'>{props.data.Name}</div>
+                        <div className='col-3 align-self-center text-end'>{props.data.RDV_Time.slice(0,-3)}</div>
+                        <div className='col-3 text-end'><Button  size='tiny' icon  onClick={ (e) => NavigateFunction(`/S/rq/rs/info/${props.data.R_ID}`)} className='rounded-pill  ' >  <Icon name='arrow right' /> </Button></div>
                     </div> 
                 </div>
         </>)
     }
-    const FetchOldEventCard = () =>{
-        return(<>
-        <div className='card card-body border-div mb-3 '>
-            <h5 className='mb-1' >Recherche ...</h5>
-            <div className='row'>
-      
-                <div className='col-5 align-self-center'>
-                    <Input icon='calendar alternate' type='date' size="small" iconPosition='left'   fluid className='mb-1' value={fetchCalendar.De_Date} onChange={(e) => setFetchCalendar({...fetchCalendar, De_Date: e.target.value })}/>
-                </div>
-                <div className='col-5 align-self-center'>
-                    <Input icon='calendar alternate' type='date' size="small" iconPosition='left'   fluid className='mb-1' value={fetchCalendar.Vers_Date} onChange={(e) => setFetchCalendar({...fetchCalendar, Vers_Date: e.target.value })}/>
-                </div>
-                <div className='col-2 align-self-center'>
-                    <Button  className='rounded-pill text-secondary btn-imprimer' icon onClick={(e) => SearchTargetEventFun()}><Icon name='search' /> Recherche </Button>
-                </div>
-            </div>
-        </div>
-        </>)
-    }
+    
 
     return ( <>
         <BreadCrumb links={GConf.BreadCrumb.RequestCalendar} />
         <br />
         <div className='row'>
            <div className='col-12 col-lg-9'>  
-                <FetchOldEventCard />  
+                <FetchOldEventCard setFetchCalendar={setFetchCalendar} fetchCalendar={fetchCalendar} SearchTargetEventFun={SearchTargetEventFun} />  
                 <FullCalendar 
                     plugins={[ dayGridPlugin ]}
                     initialView="dayGridMonth"
@@ -103,7 +105,7 @@ function CalendarCommandes() {
             </div>
             <div className='col-12 col-lg-3'>
                 <div className="sticky-top" style={{top:'90px', zIndex:'999'}}>
-                    <h5>Rendy-vous D'aujourd'hui </h5>
+                    <h5><span className='bi bi-calendar-week'></span> Rendy-vous D'aujourd'hui </h5>
                     <div className='spesific-commp' style={{height: '70vh', overflow: 'scroll', overflowX:'hidden'}}>
                         {
                             todayListe.map((data,index) => <TodayListeCard key={index} data={data} /> )

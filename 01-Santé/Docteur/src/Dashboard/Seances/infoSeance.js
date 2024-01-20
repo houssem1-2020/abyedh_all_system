@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import BreadCrumb  from '../../AssetsM/Cards/breadCrumb';
 import GConf from '../../AssetsM/generalConf';
-import { Button, Dropdown, Icon, Input , Loader, Tab, Form, TextArea, Placeholder} from 'semantic-ui-react';
+import { Button, Dropdown, Icon, Input , Loader, Tab, Form, TextArea, Placeholder, Modal} from 'semantic-ui-react';
 import axios from 'axios';
 import { toast } from 'react-toastify';
 import useGetClients from '../../AssetsM/Hooks/fetchClient';
@@ -33,7 +33,7 @@ function FactureInfo() {
     const [clientList, allClientList] = useGetClients()
     const [autofocusState, setAutoFocus] = useState(false)
     const [loading, setLoading] = useState(true)
-    
+    const [modalS, setModalS] = useState(false)
  
     const panes = [
         {
@@ -234,16 +234,27 @@ function FactureInfo() {
 
     const FinishCard = () =>{
         return (<>
-                <div className='card card-body  mb-2 border-div'>
- 
-                        <h5 className='mt-1 mb-1 '><span className='bi bi-calendar'></span> Date & Heure  : {new Date(seanceData.S_Date).toLocaleDateString('fr-FR').split( '/' ).reverse( ).join( '-' )} | {seanceData.S_Time} </h5>
-                        <h5 className='mt-1 mb-1 '><span className='bi bi-bandaid'></span> Maladie : {seanceData.Maladie}</h5>
-                        <h5 className='mt-1 mb-1 '><span className='bi bi-list-nested'></span> Degre de La Maladie : <StateCard status={seanceData.State_Degre} /></h5>
-                        <p>
-                            <h5 className='mt-1 mb-1 '><span className='bi bi-chat-dots-fill'></span> Description de la maladie </h5>
-                            {seanceData.Resultat}
-                        </p>
-
+                <div className='card card-body    border-div'>
+                        <table className='table mt-2 table-striped table-bordered border-div'>
+                            <tbody>
+                                <tr>
+                                    <td><span className='bi bi-calendar'></span> Date & Heure  :</td>
+                                    <td>{new Date(seanceData.S_Date).toLocaleDateString('fr-FR').split( '/' ).reverse( ).join( '-' )} | {seanceData.S_Time}</td>
+                                </tr> 
+                                <tr>
+                                    <td><span className='bi bi-bandaid'></span> Maladie :</td>
+                                    <td>{seanceData.Maladie}</td>
+                                </tr>
+                                <tr>
+                                    <td><span className='bi bi-list-nested'></span> Degre de La Maladie :</td>
+                                    <td><StateCard status={seanceData.State_Degre} /></td>
+                                </tr>
+                                <tr>
+                                    <td><span className='bi bi-chat-dots-fill'></span> Description de la maladie :</td>
+                                    <td>{seanceData.Resultat}</td>
+                                </tr>
+                            </tbody>
+                        </table>
                 </div>
                 <br />
                 <br />
@@ -286,13 +297,9 @@ function FactureInfo() {
     }
     const BtnsCard = () =>{
         return(<>
-                <div className='card card-body shadow-sm mb-2'>
+                <div className='card card-body shadow-sm mb-2 border-div'>
                     <h5>Controle</h5>
                     <div className='row mb-2'>
-                    <div className='col-6'>
-                        <Button  className='rounded-pill btn-danger' onClick={ () => DeleteSeance()}  fluid><Icon name='edit outline' /> Supprimer</Button>
-                    </div>
-
                     <div className='col-6'>
                             <Button as='a' onClick={ (e) => NavigateFunction(`/S/sa/modifier/${FID}`)}  animated   className='rounded-pill bg-system-btn'  fluid>
                                 <Button.Content visible><Icon name='edit outline' /> Modifier </Button.Content>
@@ -301,14 +308,19 @@ function FactureInfo() {
                                 </Button.Content>
                             </Button>
                     </div>
+                    <div className='col-6'>
+                        <Button  className='rounded-pill bg-danger text-white' onClick={ () => setModalS(true)}  fluid><Icon name='trash' /> Supprimer</Button>
+                    </div>
+
+                    
                     </div>
                     <div className='row '> 
                         <div className='col-12  mb-2'>
-                            <Button  className='rounded-pill btn-imprimer' disabled={gettedOrFID == ''}  fluid onClick={(e) => PrintFunction('printOrdonance')}><Icon name='edit outline' /> Imprimer Ordonance </Button>
+                            <Button  className='rounded-pill btn-imprimer' disabled={seanceData.Ordonance == ''}  fluid onClick={(e) => PrintFunction('printOrdonance')}><Icon name='edit outline' /> Imprimer Ordonance </Button>
                         </div>
-                        <div className='col-12  mb-2'>
+                        {/* <div className='col-12  mb-2'>
                             <Button  className='rounded-pill btn-imprimer'  fluid onClick={(e) => PrintFunction('printFacture')}><Icon name='edit outline' /> Imprimer Un Rapport</Button>
-                        </div>
+                        </div> */}
                     </div>
                      
                 </div>
@@ -363,16 +375,29 @@ function FactureInfo() {
         <br />
         <div className='row'>
             <div className='col-12 col-lg-8'>
-                {loading ? <LoadingCard /> : <Tab menu={{  secondary: true  }} panes={panes} />}
+                {loading ? <LoadingCard /> : <Tab menu={{widths: panes.length,  secondary: true  }} panes={panes} />}
                 
             </div>
             <div className='col-12 col-lg-4'>
-                <div className="sticky-top" style={{top:'70px'}}>
+                
                     <BtnsCard />
-                </div> 
+                
             </div>
         </div>
-        
+        <Modal
+              size='tiny'
+              open={modalS}
+              closeIcon
+              onClose={() => setModalS(false)}
+              onOpen={() => setModalS(true)}
+          >
+               
+              <Modal.Content scrolling>
+                    <h5 className='text-secondary'>Voulez Vous Vraimment Supprimer Cette Seance</h5>
+                    <Button className='rounded-pill' negative onClick={ () => DeleteSeance(false)}> <span className='bi bi-treash' ></span> Supprimer</Button>
+              </Modal.Content>
+               
+        </Modal>
         <FrameForPrint frameId='printOrdonance' src={`/Pr/ordonance/info/${gettedOrFID}`} />
     </> );
     }

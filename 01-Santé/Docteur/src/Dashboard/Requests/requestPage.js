@@ -43,7 +43,7 @@ function RequestPage() {
       },
       {
         menuItem: { key: 'terminer',  content: <span className='text-danger'><b><span className='bi bi-x-square-fill'></span> Retardeé</b></span>, className:'rounded-pill' },
-        render: () => <TableGrid tableData={FetchByGenreReserv('F')} columns={GConf.TableHead.reservation} />,
+        render: () => <TableGrid tableData={FetchByGenreReserv('T')} columns={GConf.TableHead.reservation} />,
       },
       {
         menuItem: { key: 'retarde',  content: <span className='text-danger'><b><span className='bi bi-x-square-fill'></span> Redirecte</b></span>, className:'rounded-pill' },
@@ -118,7 +118,7 @@ function RequestPage() {
             case 'R': return <StateCard color='danger' text='Refuseé' />;
             case 'RT': return <StateCard color='retarder' text='Retardeé' />;
             case 'RD': return <StateCard color='rederecter' text='Redirecteé' />;
-            case 'F': return <StateCard color='secondary' text='Termineé' />;
+            case 'T': return <StateCard color='secondary' text='Termineé' />;
             default:  return <StateCard color='dark' text='Indefinie' />;    
           }
         }, [status]);

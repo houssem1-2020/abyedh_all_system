@@ -61,6 +61,30 @@ const EditTeamCard = ({teamData, setTeamData, OnKeyPressFunc, EditTeam,delegList
                     </div>
     </>)
 }
+const PasswordCard = ({teamData, setTeamData, OnKeyPressFunc, EditTeamPassword ,delegList, Postes, GetDelegList,loaderState}) =>{
+    return(<>
+            <div className='p-1'>
+                        <div className='p-1 mb-2'>
+                            <h5 className='mb-1'>Identifiant:</h5>
+                            <Input icon='user' iconPosition='left' onKeyPress={event => OnKeyPressFunc(event)} placeholder='Identifiant' className='w-100 border-0 shadow-sm rounded mb-1'   value={teamData.Identifiant}  onChange={(e) => setTeamData({...teamData, Identifiant: e.target.value })}/>
+                        </div>
+                        <div className='p-1  mb-2'>
+                            <h5 className='mb-1'>Mode de Passe :</h5>
+                            <Input icon='key' iconPosition='left' onKeyPress={event => OnKeyPressFunc(event)} placeholder='Mode de Passe ' className='w-100 border-0 shadow-sm rounded mb-1' value={teamData.Password} onChange={(e) => setTeamData({...teamData, Password: e.target.value })} />
+                        </div>
+                        <div className='p-1 mb-2'>
+                            <h5 className='mb-1'>Smart ID  : {teamData.Now_Login_ID}</h5>
+                            
+                        </div>
+                         
+                         
+                        <div className='text-end mb-5'>
+                            <Button  onClick={() => EditTeamPassword()}  className='text-end rounded-pill bg-system-btn ' positive>  <Icon name='save outline' /> Modifier <Loader inverted active={loaderState} inline size='tiny' className='ms-2 text-danger'/> </Button>
+                        </div>
+                    </div>
+    </>)
+}
+
 const FindInDirectory = ({inAbyedhSearch,saveBtnRUIState,teamData, setInAbyedhSearchUID,FindInDirectoryFunc, loaderState, OnKeyPressFunc,dataInAbyedh, RelateToUID}) =>{
 
     return(<>
@@ -160,9 +184,13 @@ function TeamInfo() {
                 render: () =><><TableGrid tableData={avances} columns={['*','Nom', 'Valeur','Jour','Voir']} /> </> ,
             },
             {
-            menuItem: { key: 'edit', icon: 'edit', content: 'Modifier' }, 
-            render: () => <><Tab.Pane className='border-div' attached={false}><EditTeamCard OnKeyPressFunc={OnKeyPressFunc} teamData={teamData} setTeamData={setTeamData} EditTeam={EditTeam} delegList={delegList} GetDelegList={GetDelegList} Postes={Postes}  loaderState={loaderState}/></Tab.Pane><br /></>,
+                menuItem: { key: 'edit', icon: 'edit', content: 'Modifier' }, 
+                render: () => <><Tab.Pane className='border-div' attached={false}><EditTeamCard OnKeyPressFunc={OnKeyPressFunc} teamData={teamData} setTeamData={setTeamData} EditTeam={EditTeam} delegList={delegList} GetDelegList={GetDelegList} Postes={Postes}  loaderState={loaderState}/></Tab.Pane><br /></>,
             },
+            {
+                menuItem: { key: 'caisse', icon: 'edit', content: 'Caisse PWD' }, 
+                render: () => <><Tab.Pane className='border-div' attached={false}><PasswordCard OnKeyPressFunc={OnKeyPressFunc} teamData={teamData} setTeamData={setTeamData} EditTeamPassword={EditTeamPassword} delegList={delegList} GetDelegList={GetDelegList} Postes={Postes}  loaderState={loaderState}/></Tab.Pane><br /></>,
+                },
             {
                 menuItem: { key: 'verif', icon: 'edit', content: 'Verification' }, 
                 render: () => <><Tab.Pane className='border-div' attached={false}><FindInDirectory teamData={teamData} RelateToUID={RelateToUID} saveBtnRUIState={saveBtnRUIState} inAbyedhSearch={inAbyedhSearch}  setInAbyedhSearchUID={setInAbyedhSearchUID} FindInDirectoryFunc={FindInDirectoryFunc} loaderState={loaderState} OnKeyPressFunc={OnKeyPressFunc} dataInAbyedh={dataInAbyedh}/></Tab.Pane><br /></>,
@@ -249,6 +277,33 @@ function TeamInfo() {
                 if(response.data.affectedRows) {
                     toast.success("Client Modifier !", GConf.TostSuucessGonf)
                     SaveNotification('clientEdit',GConf.PID, teamData)
+                    setLS(false)
+                }
+                else{
+                    toast.error('Erreur esseyez de nouveaux', GConf.TostSuucessGonf)
+                    setLS(false)
+                        }
+                }).catch((error) => {
+                    if(error.request) {
+                    toast.error(<><div><h5>Probleme de Connextion</h5> Impossible de modifier le client  </div></>, GConf.TostInternetGonf) 
+                    setLS(false)  
+                    }
+                });
+                    
+        }
+    }
+    const EditTeamPassword = () =>{
+        if (!teamData.Identifiant) {toast.error("Matricule Invalide !", GConf.TostErrorGonf)}
+        else if (!teamData.Password) {toast.error("Nom Invalide !", GConf.TostErrorGonf)}
+        else{
+            setLS(true)
+            axios.post(`${GConf.ApiLink}/team/pwd/modifier`, {
+                PID : GConf.PID,
+                teamData : teamData,
+            }).then(function (response) {
+                if(response.data.affectedRows) {
+                    toast.success("Mot de Passe  Modifier !", GConf.TostSuucessGonf)
+                     
                     setLS(false)
                 }
                 else{

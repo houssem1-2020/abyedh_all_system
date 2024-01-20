@@ -110,7 +110,7 @@ function FacturePage() {
             
             <div className='row'>
                 <div className='col-12 col-lg-8'><SubNav dataForNav={GConf.SubNavs.facture}/></div>
-                <div className='col-12 col-lg-4 text-end align-self-center'><MainSubNavCard text='Offres' link='of' icon='bounding-box-circles' />  </div>
+                <div className='col-12 col-lg-4 text-end align-self-center'><MainSubNavCard text='Tarif' link='of' icon='cash-coin' />  </div>
             </div>
             <br />
             <TableGrid tableData={facturesList} columns={GConf.TableHead.seance} />

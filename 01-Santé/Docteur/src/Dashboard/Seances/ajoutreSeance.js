@@ -14,10 +14,11 @@ import draftToHtml from 'draftjs-to-html'; // Updated import statement
 import 'react-draft-wysiwyg/dist/react-draft-wysiwyg.css';
 import TableGrid from '../../AssetsM/Cards/tableGrid';
 import { QrReader } from 'react-qr-reader';
-import { useLocation } from 'react-router-dom';
+import { NavLink, useLocation } from 'react-router-dom';
 import { _ } from 'gridjs-react';
 import { useNavigate} from 'react-router-dom';
 import FrameForPrint from '../../AssetsM/Cards/frameForPrint'
+import TableImage from '../../AssetsM/Cards/tableImg';
 
 const TerminerCard = ({seanceData, setSeanceData,allClientList,offresListe ,OnKeyPressFunc}) =>{
     const StateDegree = [
@@ -39,10 +40,10 @@ const TerminerCard = ({seanceData, setSeanceData,allClientList,offresListe ,OnKe
     ]
     return (<>
              
-                <h5>Date   </h5>
-                <Input icon='calendar alternate' type='date' size="small" iconPosition='left'   fluid className='mb-1' value={seanceData.S_Date} onChange={(e) => setSeanceData({...seanceData, S_Date: e.target.value })}/>
+                <h5 className='mb-1'><span className='bi bi-calendar-week'></span> Date   </h5>
+                <Input   icon='calendar alternate' type='date' size="small" iconPosition='left'   fluid className='mb-1' value={seanceData.S_Date} onChange={(e) => setSeanceData({...seanceData, S_Date: e.target.value })}/>
 
-                <h5 className='mt-1 '>Degreé de Danger  </h5>
+                <h5 className='mb-1'><span className='bi bi-thermometer-half'></span> Degreé de Danger  </h5>
                 <Dropdown
                     fluid
                     search
@@ -53,8 +54,10 @@ const TerminerCard = ({seanceData, setSeanceData,allClientList,offresListe ,OnKe
                     className='mb-1'
                     onChange={(e, { value }) => setSeanceData({...seanceData, State_Degre: value })}
                     value={seanceData.State_Degre}
+                    
                 />
-                <h5 className='mt-1 '>Genre de Seance  </h5>
+                <h5 className='mb-1'><span className='bi bi-ui-checks-grid'></span> Genre de Seance  </h5>
+                {offresListe.length == 0 ? <small> Pas des Genres Enregistreé , <NavLink to='/S/of'>Cliquer Ici</NavLink> Pour le faire </small> : ''} 
                 <Dropdown
                     fluid
                     search
@@ -73,14 +76,14 @@ const TerminerCard = ({seanceData, setSeanceData,allClientList,offresListe ,OnKe
 }
 const ResultCard = ({seanceData, setSeanceData,OnKeyPressFunc}) =>{
     return (<> 
-                <h5>Maladie   </h5>
-                <Input icon='calendar alternate' type='text' size="small" iconPosition='left'   fluid className='mb-1' value={seanceData.Maladie} onChange={(e) => setSeanceData({...seanceData, Maladie: e.target.value })}/>
-                <h5>Resultat : maladie </h5>
+                <h5 className='mb-1'><span className='bi bi-person-wheelchair'></span> Maladie   </h5>
+                <Input onKeyPress={event => OnKeyPressFunc(event)} icon='wheelchair' type='text' size="small" iconPosition='left'   fluid className='mb-1' value={seanceData.Maladie} onChange={(e) => setSeanceData({...seanceData, Maladie: e.target.value })}/>
+                <h5 className='mb-1'><span className='bi bi-chat-dots'></span> Resultat : maladie </h5>
                 <Form>
                     <TextArea rows={10} placeholder='Maladie' onKeyPress={event => OnKeyPressFunc(event)} value={seanceData.Resultat} onChange={(e) => setSeanceData({...seanceData, Resultat : e.target.value })} />
                 </Form>
                 <br /> 
-                <br /> 
+             
             
     </>)
 }
@@ -108,26 +111,26 @@ function AjouterFacture() {
 
     const [commandeData, setCommandeData] = useState(false);
     const [offresListe, setOffreListe] = useState([]);
-    
+    const [addUserWay, setAddUserWay] = useState('')
     const panes = [
         {
-            menuItem: { key: 'client', icon: 'user', content:  'Patient' }, 
+            menuItem: { key: 'client', icon: 'user', content:  'Selectionnez Patient' }, 
             render: () =><PatientCard />,
         },
         {
-            menuItem: { key: 'start', icon: 'add circle', content: 'Diagnostique ' }, 
+            menuItem: { key: 'start', icon: 'add circle', content: 'Entrez Diagnostique' }, 
             render: () => <DiagnostiqueCard />,
         },
         {
-            menuItem: { key: 'anaslyse', icon: 'chart bar', content:  'Analyses' }, 
+            menuItem: { key: 'anaslyse', icon: 'chart bar', content:  'Faire Analyses' }, 
             render: () =><AnalysesCard  />,
         },
         {
-            menuItem: { key: 'clidsgent', icon: 'list alternate outline', content:  'Ordonance' }, 
+            menuItem: { key: 'clidsgent', icon: 'list alternate outline', content:  'Ecrire Ordonance' }, 
             render: () =><OrdonanceCard  />,
         },
         {
-            menuItem: { key: 'articles', icon: 'save', content:  'Resultat' }, 
+            menuItem: { key: 'articles', icon: 'save', content:  'Terminer Le  Resultat' }, 
             render: () =><><div className='card card-body shadow-sm mb-2 border-div'>
                                 <div className='row'>
                                     <div className='col-12 col-lg-7'>
@@ -157,15 +160,15 @@ function AjouterFacture() {
     const patientPanes = [
         {
             menuItem: { key: 'start',   content: 'Seances ' }, 
-            render: () =>  <TableGrid tableData={patientSeanceListe} columns={["ID ","Date","Temps","Info"]} /> ,
+            render: () =>  <TableGrid tableData={patientSeanceListe} columns={["*","ID ","Date","Temps","Info"]} /> ,
         },
         {
             menuItem: { key: 'anaslyse',  content:  'RendyVous' }, 
-            render: () =><TableGrid tableData={patientRDVListe} columns={["ID ","Date","Temps","Info"]} />,
+            render: () =><TableGrid tableData={patientRDVListe} columns={["*","ID ","Date","Temps","Info"]} />,
         },
         {
             menuItem: { key: 'clidsgent',   content:  'Ordonance' }, 
-            render: () =><TableGrid tableData={patientOrdonanceListe} columns={["ID ","Date","Temps","Info"]} />,
+            render: () =><TableGrid tableData={patientOrdonanceListe} columns={["*","ID ","Date","Temps","Info"]} />,
         },
  
         
@@ -317,6 +320,7 @@ function AjouterFacture() {
                 console.log(response.data.Seances)
                 let seanceCont = []
                 response.data.Seances.map( (getData) => {seanceCont.push([
+                    _(<TableImage image='seance.png' />),
                     getData.S_ID,
                     new Date(getData.S_Date).toLocaleDateString('fr-FR').split( '/' ).reverse( ).join( '-' ),
                     getData.S_Time,
@@ -326,6 +330,7 @@ function AjouterFacture() {
 
                 let rdvCont = []
                 response.data.RDV.map( (getData) => {rdvCont.push([
+                    _(<TableImage image='rendyvous.png' />),
                     getData.R_ID,
                     new Date(getData.RDV_Date).toLocaleDateString('fr-FR').split( '/' ).reverse( ).join( '-' ),
                     getData.RDV_Time,
@@ -335,6 +340,7 @@ function AjouterFacture() {
 
                 let ordonanceCont = []
                 response.data.Ordonance.map( (getData) => {ordonanceCont.push([
+                    _(<TableImage image='ordonance.png' />),
                     getData.OR_ID,
                     new Date(getData.OR_Date).toLocaleDateString('fr-FR').split( '/' ).reverse( ).join( '-' ),
                     getData.OR_Time,
@@ -356,7 +362,7 @@ function AjouterFacture() {
     
         // Open the link in a new window with custom width and height
         window.open(url, '_blank', `width=${width}, height=${height}`);
-      };
+      }
 
    /*#########################[Card]##################################*/
     const DiagnostiqueCard = () =>{
@@ -418,7 +424,7 @@ function AjouterFacture() {
                             <option key={index} value={test.PK}>{test.Nom} : {test.Dosage} - {test.Forme} - {test.Presentation}  </option>
                             )}
                     </datalist>
-                    <Input icon='pin' list="articlesList" placeholder='Entre aarticle'  onBlur={ (e) => GetMedicammentData(e.target.value)} size="small" iconPosition='left'   fluid className='mb-1' /> 
+                    <Input icon='pin' list="articlesList" onKeyPress={event => OnKeyPressFunc(event)}  placeholder='Entre Medicamment'  onBlur={ (e) => GetMedicammentData(e.target.value)} size="small" iconPosition='left'   fluid className='mb-1' /> 
                     <div className='m-2 mb-0 text-secondary'><b> <span className='bi bi-upc '></span> Code a barre : {articleNow.PK} </b></div>
                     <div className='m-2 mb-0 text-danger'><b><span className='bi bi-star-fill '></span> Nom : {articleNow.Nom} </b></div> 
                     <div className='m-2 mb-0 text-info'><b><span className='bi bi-star-fill '></span> Dosage : {articleNow.Dosage} </b></div> 
@@ -426,7 +432,7 @@ function AjouterFacture() {
                     <div className='m-2 mb-2 text-warning'><b><span className='bi bi-star-fill '></span> Presentation : {articleNow.Presentation} </b></div> 
                      
                     <div className='row'>
-                       <div className='col-12'>  <Input icon='dropbox' type='text' value={articleNow.Emploi_Mode} autoFocus={autofocusState} onChange={ (e) => {articleNow.Emploi_Mode = e.target.value}} size="small" iconPosition='left' placeholder='Quantite'  fluid className='mb-1' /> </div> 
+                       <div className='col-12'>  <Input icon='dropbox' onKeyPress={event => OnKeyPressFunc(event)} type='text' value={articleNow.Emploi_Mode} autoFocus={autofocusState} onChange={ (e) => {articleNow.Emploi_Mode = e.target.value}} size="small" iconPosition='left' placeholder={`Mode d'emploi`}  fluid className='mb-1' /> </div> 
                     </div>
                     
                     <br />
@@ -472,8 +478,8 @@ function AjouterFacture() {
         return (<>
                 <div className='card card-body shadow-sm mb-2 border-div'>
                     <h5>Ajouter Grandeur</h5> 
-                    <Input icon='pin'   placeholder='Grandeur'  value={analyseNow.Grandeur}  onChange={ (e) => {analyseNow.Grandeur = e.target.value}} size="small" iconPosition='left'   fluid className='mb-1' />                     
-                    <Input icon='dropbox' type='text' value={analyseNow.valeur} autoFocus={autofocusState}  onChange={ (e) => {analyseNow.Valeur = e.target.value}}  size="small" iconPosition='left' placeholder='Valeur'  fluid className='mb-1' />
+                    <Input icon='pin' onKeyPress={event => OnKeyPressFunc(event)}  placeholder='Grandeur'  value={analyseNow.Grandeur}  onChange={ (e) => {analyseNow.Grandeur = e.target.value}} size="small" iconPosition='left'   fluid className='mb-1' />                     
+                    <Input icon='dropbox' onKeyPress={event => OnKeyPressFunc(event)} type='text' value={analyseNow.valeur} autoFocus={autofocusState}  onChange={ (e) => {analyseNow.Valeur = e.target.value}}  size="small" iconPosition='left' placeholder='Valeur'  fluid className='mb-1' />
                     
                     <br />
                     <Button disabled={saveBtnState} className='rounded-pill bg-system-btn' onClick={AddAnalyseToListe}>  <Icon name='edit outline' /> Ajouter</Button>
@@ -513,6 +519,24 @@ function AjouterFacture() {
                 </div>
             </>)
     }
+    const StateCard = ({ status }) => {
+        
+        const statusCard = React.useCallback(() => {
+          switch(status) {
+            case 'UID': return <SelectPatientBYQRCard />;  
+            case 'RID': return <SelectRDVCard />;  
+             
+            default:  return <></>;    
+          }
+        }, [status]);
+      
+        return (
+          <div className="container">
+            {statusCard()}
+          </div>
+        );
+    }
+
     const SelectPatientCard = () => {
         return(<>
             <h5>Patient </h5> 
@@ -522,17 +546,39 @@ function AjouterFacture() {
                     )}
             </datalist>
             <Input icon='add user' onKeyPress={event => OnKeyPressFunc(event)} list="clientList" placeholder={seanceData.S_Patient}   onBlur={ (e) => SelectClientFunction(e.target.value) } size="small" iconPosition='left'   fluid className='mb-1' />
+            <div className='row mt-2'>
+                <div className='col-6'><Button fluid onClick={() => setAddUserWay('UID')}><span className='bi bi-qr-code-scan'></span> Patient UID</Button></div>
+                <div className='col-6'><Button fluid onClick={() => setAddUserWay('RID')}><span className='bi bi-qr-code'></span> Rendy-Vous </Button></div>
+                <div className='col-12'>
+                    <StateCard status={addUserWay} />
+                </div>
+            </div>
             <h4 className='mb-1'>Nom: {selectedClient.PA_Name  ? selectedClient.PA_Name  : ''}</h4>
+            <h4 className='mb-1 mt-1'>Phone: {selectedClient.Phone  ? selectedClient.Phone  : ''}</h4>
             <h4 className='mt-1 mb-1'>Adresse : {selectedClient.Adress  ? selectedClient.Adress  : ''} </h4>
             <h4 className='mt-1 mb-1'>Nombre de Seance  : {patientSeanceListe.length} </h4>
-            <h4 className='mt-1 mb-1'>Etat Sanitaires : {patientSeanceListe.length != 0 ? patientSeanceListe[patientSeanceListe.length - 1][0] : ''}</h4>
+             
             
         </>)
     }
     const SelectPatientBYQRCard = () => {
         return(<>
-            {scanResultSeance ? 
-            (
+            <h5 className='mt-2 mb-0 text-center text-secondary'>Scannez Le UID du Patient</h5>
+            <QrReader
+                constraints={{  facingMode: 'environment' }}
+                scanDelay={500}
+                onResult={(result, error) => {
+                if (!!result) {  SelectClientFunction(result.text); setScanResultSeance(false) }
+                if (!!error) { console.log(error);  }
+                }}
+                style={{  width: "150px",height: "150px" }}
+            />
+
+        </>)
+    }
+    const SelectRDVCard = () => {
+        return(<>
+            <h5 className='mt-2 mb-0 text-center text-secondary' >Scannez Le Code du Rendy-Vous</h5>
             <QrReader
                     constraints={{  facingMode: 'environment' }}
                     scanDelay={500}
@@ -542,43 +588,6 @@ function AjouterFacture() {
                     }}
                     style={{  width: "150px",height: "150px" }}
             />
-            ) : (
-                <div className='text-center mt-2'>
-                    <div className='bi bi-qr-code mb-4 bi-lg' style={{color: GConf.themeColor, fontSize:'150px'}}></div>
-                    <Button onClick={() => setScanResultSeance(true)}>Cliquer Pour Scanner Un Patient</Button>
-                </div>
-            )}
-        </>)
-    }
-    const SelectRDVCard = () => {
-        return(<>
-            { isRendyVous ? 
-            <>
-                <div>Nom : {commandeData.Name ? commandeData.Name : ''}</div>   
-                <div>Patient ?: {commandeData.Releted_UID ? <span className='badge bg-success p-2'>Déja Enregistreé</span> : <span className='badge bg-danger badge-lg'>Nouveaux Membre</span>}</div>   
-                <div>Comentaire : {commandeData.Comment ? commandeData.Comment : ''}</div>   
-            </> 
-            : 
-            <>
-                {scanResultSeance ? 
-                (
-                <QrReader
-                        constraints={{  facingMode: 'environment' }}
-                        scanDelay={500}
-                        onResult={(result, error) => {
-                        if (!!result) {  SelectClientFunction(result.text); setScanResultSeance(false) }
-                        if (!!error) { console.log(error);  }
-                        }}
-                        style={{  width: "150px",height: "150px" }}
-                />
-                ) : (
-                    <div className='text-center mt-2'>
-                        <div className='bi bi-qr-code mb-4 bi-lg' style={{color: GConf.themeColor, fontSize:'150px'}}></div>
-                        <Button onClick={() => setScanResultSeance(true)}>Cliquer Pour Scanner Un RendyVous</Button>   
-                    </div>
-                )}
-            </> 
-            }
                 
         </>)
     }
@@ -589,8 +598,8 @@ function AjouterFacture() {
                     <div className='col-12 col-md-4'>
                         
                         <div className='card card-body md-3 shadow-sm border-div'>
-                            <Tab menu={{ secondary: true  }} panes={selectMainPanes} />
-                           
+                            <SelectPatientCard />
+                            
                         </div>
                     </div>
                     <div className='col-12 col-md-8'>  
@@ -603,7 +612,7 @@ function AjouterFacture() {
         <BreadCrumb links={GConf.BreadCrumb.factureAjouter} />
         <br />
  
-        <Tab menu={{  secondary: true  }} panes={panes} />
+        <Tab menu={{widths: panes.length,  secondary: true  }} panes={panes} />
         
         <FrameForPrint frameId='printOrdonance' src={`/Pr/ordonance/info/${gettedOrFID}`} />
     </> );

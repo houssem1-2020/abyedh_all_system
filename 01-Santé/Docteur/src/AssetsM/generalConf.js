@@ -17,7 +17,7 @@ const GConf = {
     // main variables
     PID: GetPID(),
     ApiLink : 'https://api.system.abyedh.tn/apiSystemAbyedh/docteur', //https://api.system.abyedh.tn/apiSystemAbyedh/System 
-    ApiRouterOneLink : 'https://api.system.abyedh.tn/apiSystemAbyedh/docteur-caisse', //https://api.system.abyedh.tn/apiSystemAbyedh/System 
+    ApiRouterOneLink : 'https://api.system.abyedh.tn/apiSystemAbyedh/docteur-rdv', //https://api.system.abyedh.tn/apiSystemAbyedh/System 
     ApiRouterTwoLink : 'https://api.system.abyedh.tn/apiSystemAbyedh/docteur-serveur', //https://api.system.abyedh.tn/apiSystemAbyedh/System 
     ApiRouterThreeLink : 'https://api.system.abyedh.tn/apiSystemAbyedh/docteur-chef', //https://api.system.abyedh.tn/apiSystemAbyedh/System 
     DefaultTva: 0,
@@ -272,7 +272,7 @@ const GConf = {
             {id:2, name:'Info', linkable:false}
         ],
         RequestCalendar: [
-            {id:1, name:'Commandes', linkable:true, link:"/S/rq"},
+            {id:1, name:'Rendy-Vous', linkable:true, link:"/S/rq"},
             {id:2, name:'Calendrier', linkable:false}
         ],
         RequestCompte: [
@@ -378,7 +378,7 @@ const GConf = {
         ordonance:['*','ID','Patient','Date','Temps','Seance ?','Etat','Voir'],
         seances:['*','ID','Caisse','Client','Jour','Temps','Etat','Voir'],
         request:['*','ID','Client', 'Date','Table','Etat','X','Voir'],
-        reservation:['*','ID','Client', 'Passé le','Volu le','Temps','Etat','Enreg.?','Voir'],
+        reservation:['*','ID','Patient', 'Passé le','Volu le','Temps','Etat','Enreg.?','Voir'],
         menu:['*','Code', 'Nom', 'Genre','Cout','P.vente','X','Voir'],
         stock:['*','Code', 'Nom', 'Genre','Tarif','Voir'],
         camion:['*','Camion','Matricule', 'Chauffeur','Fond','Recette','X','Voir'],

@@ -151,7 +151,7 @@ function AjouterFacture() {
                 })
                 .then(function (response) {
                     if(response.status = 200) {
-                        setOrId(response.data.FID)
+                        setOrId(response.data.RID)
                         setSaveBtnState(true)
                         toast.success("Rapport Enregistreé !", GConf.TostSuucessGonf)
                         setLS(false)

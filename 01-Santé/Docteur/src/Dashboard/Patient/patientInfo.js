@@ -76,11 +76,14 @@ const FindInDirectory = ({inAbyedhSearch,saveBtnRUIState,clientD, setInAbyedhSea
                     </div>  
                 </div>
                 <div className='col-6'>
+                    <div className='text-center'>
+                           {dataInAbyedh.PictureID ? <img src={`https://cdn.abyedh.tn/images/p_pic/${dataInAbyedh.PictureID}.gif`} className='rounded-circle' width='40px'  height='40px' /> : <img src={`https://cdn.abyedh.tn/images/p_pic/00.gif`} className='rounded-circle' width='40px'  height='40px' />}  
+                    </div> 
                     <h5 className='text-secondary mt-1 mb-0'>Nom: {dataInAbyedh.Name}</h5>
                     <h5 className='text-secondary mt-1 mb-0'>Phone: {dataInAbyedh.PhoneNum}</h5>
                     <h5 className='text-secondary mt-1 mb-0'>Gouv: {dataInAbyedh.BirthGouv}</h5>
                     <h5 className='text-secondary mt-1 mb-0'>Deleg: {dataInAbyedh.BirthDeleg}</h5>
-                    <h5 className='text-secondary mt-1 mb-0'> Photo: {dataInAbyedh.Name}</h5>
+                    {/* <h5 className='text-secondary mt-1 mb-0'> Photo: {dataInAbyedh.Name}</h5> */}
                 </div>
                 <div className='col-12 text-end'>
                     <Button disabled={saveBtnRUIState} className='bg-success text-white rounded-pill' onClick={() => RelateToUID()}>   <Icon name='check' /> Verifieé <Loader inverted active={loaderState} inline size='tiny' className='ms-2'/></Button>
@@ -121,7 +124,7 @@ function ClientInfo() {
             render: () => <><TableGrid tableData={factures} columns={['ID','Client','Jour','Temps', 'Voir']} /><br /></>,
         },
         {
-            menuItem: { key: 'Reservation', icon: 'calendar alternate', content: 'RendyVous' }, 
+            menuItem: { key: 'Reservation', icon: 'calendar alternate', content: 'RDV' }, 
             render: () =><TableGrid tableData={reservationListe} columns={['ID','Client','Jour','Temps','Totale','Voir']} />,
         },
         {
@@ -133,7 +136,7 @@ function ClientInfo() {
             render: () => <><Tab.Pane className='border-div' attached={false}><FindInDirectory clientD={clientD} RelateToUID={RelateToUID} saveBtnRUIState={saveBtnRUIState} inAbyedhSearch={inAbyedhSearch}  setInAbyedhSearchUID={setInAbyedhSearchUID} FindInDirectoryFunc={FindInDirectoryFunc} loaderState={loaderState} OnKeyPressFunc={OnKeyPressFunc} dataInAbyedh={dataInAbyedh}/></Tab.Pane><br /></>,
         },
         {
-            menuItem: { key: 'delete', icon: 'trash alternate', content: 'Supprimer' }, 
+            menuItem: { key: 'delete', icon: 'trash alternate', content: 'Supp..' }, 
             render: () => <><Tab.Pane className='border-div' attached={false}><DeleteClient /></Tab.Pane><br /></>,
         },
     ]
@@ -224,7 +227,7 @@ function ClientInfo() {
                 clientD : clientD,
             }).then(function (response) {
                 if(response.data.affectedRows) {
-                    toast.success("Client Modifier !", GConf.TostSuucessGonf)
+                    toast.success("Patient Modifier !", GConf.TostSuucessGonf)
                     //SaveNotification('clientEdit',GConf.PID, clientD)
                     setLS(false)
                 }
@@ -242,26 +245,27 @@ function ClientInfo() {
         }
     }
     const DeleteClientFunc = () =>{
-            setLS(true)
-            axios.post(`${GConf.ApiLink}/patient/supprimer`, {
-                PID : GConf.PID,
-                clientId : CLID,
-            }).then(function (response) {
-                if(response.data.affectedRows) {
-                    toast.success("Client Supprimer !", GConf.TostSuucessGonf)
-                    setLS(false)
-                    setTimeout(() => {  window.location.href = "/S/cl"; }, 500)
-                }
-                else{
-                    toast.error('Erreur esseyez de nouveaux', GConf.TostSuucessGonf)
-                    setLS(false)
-                        }
-                }).catch((error) => {
-                    if(error.request) {
-                      toast.error(<><div><h5>Probleme de Connextion</h5> Impossible de supprimer le client  </div></>, GConf.TostInternetGonf) 
-                      setLS(false)  
-                    }
-                });
+            // setLS(true)
+            // axios.post(`${GConf.ApiLink}/patient/supprimer`, {
+            //     PID : GConf.PID,
+            //     clientId : CLID,
+            // }).then(function (response) {
+            //     if(response.data.affectedRows) {
+            //         toast.success("Client Supprimer !", GConf.TostSuucessGonf)
+            //         setLS(false)
+            //         setTimeout(() => {  window.location.href = "/S/cl"; }, 500)
+            //     }
+            //     else{
+            //         toast.error('Erreur esseyez de nouveaux', GConf.TostSuucessGonf)
+            //         setLS(false)
+            //             }
+            //     }).catch((error) => {
+            //         if(error.request) {
+            //           toast.error(<><div><h5>Probleme de Connextion</h5> Impossible de supprimer le client  </div></>, GConf.TostInternetGonf) 
+            //           setLS(false)  
+            //         }
+            //     });
+            toast.error('Impossible de supprimer un patient ', GConf.TostSuucessGonf)
     }
     const FindInDirectoryFunc = () =>{
         if (!inAbyedhSearch) {toast.error("Entrer Un Code A Barre  !", GConf.TostErrorGonf)}

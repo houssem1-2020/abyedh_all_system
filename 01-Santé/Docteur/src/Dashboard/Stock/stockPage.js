@@ -37,7 +37,7 @@ function FournisseurPage() {
     ]
     const  [fsList, setFSList] = useState([]); 
     const [modalS, setModalS] = useState(false)
-    const [fournisseurData, setFSData] = useState([])
+    const [fournisseurData, setFSData] = useState({Date_AMM : new Date().toISOString().split('T')[0] })
     const [inDirArticle, setInDirA] = useState();
     const [saveBtnState, setSaveBtnState] = useState(false)
     const [loaderState, setLS] = useState(false)
@@ -220,7 +220,7 @@ function FournisseurPage() {
                                 </div>
                                 <div className='col-12 col-lg-6 p-1 mb-2'>
                                     <h5 className='mb-1'>Forme :</h5>
-                                    <Select placeholder='Choisir Une Region' options={tableaux}  className='w-100 shadow-sm rounded mb-3' onChange={(e, data) => setFSData({...fournisseurData, Forme: data.value })} />
+                                    <Select placeholder='Choisir Forme' options={tableaux}  className='w-100 shadow-sm rounded mb-3' onChange={(e, data) => setFSData({...fournisseurData, Forme: data.value })} />
                                 </div>
 
                                 <div className='col-12 col-lg-6 p-1 mb-2'>
@@ -251,7 +251,7 @@ function FournisseurPage() {
 
                                 <div className='col-12 col-lg-6 p-1 mb-2'>
                                     <h5 className='mb-1'>Date_AMM:</h5>
-                                    <Input icon='medkit' type='date' iconPosition='left'   className='w-100 border-0 shadow-sm rounded mb-1' value={fournisseurData.Date_AMM}   onChange={(e) => setFSData({...fournisseurData, Date_AMM: e.target.value })}/>
+                                    <Input icon='medkit' type='date' iconPosition='left'   className='w-100 border-0 shadow-sm rounded mb-1'   value={fournisseurData.Date_AMM}   onChange={(e) => setFSData({...fournisseurData, Date_AMM: e.target.value })}/>
                                 </div>
                                 <div className='col-12 col-lg-6 p-1 mb-2'>
                                     <h5 className='mb-1'>Conditionnement_primaire :</h5>
@@ -268,7 +268,7 @@ function FournisseurPage() {
 
                                 <div className='col-12 col-lg-6 p-1 mb-2'>
                                     <h5 className='mb-1'>Tableau:</h5>
-                                    <Select placeholder='Choisir Une Region' options={tableaux}  className='w-100 shadow-sm rounded mb-3' onChange={(e, data) => setFSData({...fournisseurData, Tableau: data.value })} />  
+                                    <Select placeholder='Choisir Tableau' options={tableaux}  className='w-100 shadow-sm rounded mb-3' onChange={(e, data) => setFSData({...fournisseurData, Tableau: data.value })} />  
                                 </div>
                                 <div className='col-12 col-lg-6 p-1 mb-2'>
                                     <h5 className='mb-1'>Duree_de_conservation :</h5>
@@ -283,11 +283,11 @@ function FournisseurPage() {
 
                                 <div className='col-12 col-lg-6 p-1 mb-2'>
                                     <h5 className='mb-1'>G_P_B:</h5>
-                                    <Select placeholder='Choisir Une Region' options={gpb}  className='w-100 shadow-sm rounded mb-3' onChange={(e, data) => setFSData({...fournisseurData, G_P_B: data.value })} />
+                                    <Select placeholder='Choisir G_P_B' options={gpb}  className='w-100 shadow-sm rounded mb-3' onChange={(e, data) => setFSData({...fournisseurData, G_P_B: data.value })} />
                                 </div>
                                 <div className='col-12 col-lg-6 p-1 mb-2'>
                                     <h5 className='mb-1'>VEIC :</h5>
-                                    <Select placeholder='Choisir Une Region' options={VEIC}  className='w-100 shadow-sm rounded mb-3' onChange={(e, data) => setFSData({...fournisseurData, VEIC: data.value })} />
+                                    <Select placeholder='Choisir VEIC' options={VEIC}  className='w-100 shadow-sm rounded mb-3' onChange={(e, data) => setFSData({...fournisseurData, VEIC: data.value })} />
                                 </div>
                             </div>
                             <div className='text-end mb-2'>
