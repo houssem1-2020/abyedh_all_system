@@ -1,5 +1,5 @@
 import React, { useEffect, useRef, useState } from 'react';
-import { Link, NavLink } from 'react-router-dom';
+import { Link, NavLink, json } from 'react-router-dom';
 import Typed from 'react-typed';
 import { Grid, Pagination } from "swiper";
 import { Swiper, SwiperSlide } from "swiper/react";
@@ -135,8 +135,27 @@ function MainLandingPage() {
     const [selectedListeTag, setSelectedListeTag] = useState([])
 
     /* ############### UseEffect #################*/
-    console.log(isRTL)
+     
+    /* Used Func */
+    const PrintFunction = () =>{
+        let objectTwo = {}
+        for (const key in GConf.ADIL) {
+            // Check if the current key is a property of the object (not inherited)
+            if (Object.prototype.hasOwnProperty.call(GConf.ADIL, key)) {
+              // Add the 'a' value to objectTwo with the same key
+                let itemToAdd = {};
+                for (const item of GConf.ADIL[key].subCateg) {
+                    itemToAdd[(item.imgSrc)] = item.name;
+                }
+
+              objectTwo[key] = itemToAdd;
+            }
+          }
+          console.log(objectTwo)
+    }
     /* ############### Functions #################*/
+    
+
     const SearchFunction = (key) =>{
         if (!searchKey) { } 
         else {
@@ -459,10 +478,11 @@ function MainLandingPage() {
 
             <br />
             <br />
-            {isRTL}
+             
             <div className='container' dir={isRTL ? 'rtl' : 'ltr'}>
                 <IntroducingCard />
                 <br />
+                <pre>{JSON.stringify(PrintFunction(), null, 4)}</pre>
                 <div className='row'>
                     <div className='col-12 col-lg-6 d-none d-lg-inline'>
                         <DisplayedCard smallDisplay={false} slectedTag={'sante'} data={GConf.Items.sante} />

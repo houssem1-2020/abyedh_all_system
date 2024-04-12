@@ -306,19 +306,19 @@ const AbyedhADIL = {
         ],
         subCatagSmall: [
             [
-                { id: 1, name: 'مُمَرِّضْ عَامْ ', value: 'ANATOMIE_PATHOLOGIE', imgSrc: 'infirmier_generale' },
-                { id: 2, name: 'مُمَرِّضْ خَاصْ ', value: 'ANALYSES DE BIOLOGIE', imgSrc: 'infirmier_speciale' },
+                { id: 1, name: 'مُمَرِّضْ عَامْ ', value: 'Inf_Generale', imgSrc: 'infirmier_generale' },
+                { id: 2, name: 'مُمَرِّضْ خَاصْ ', value: 'Inf_Speciale', imgSrc: 'infirmier_speciale' },
             ] 
         ],
         subCatagLarge:[
             [
-                { id: 1, name: 'مُمَرِّضْ عَامْ ', value: 'ANATOMIE_PATHOLOGIE', imgSrc: 'infirmier_generale' },
-                { id: 2, name: 'مُمَرِّضْ خَاصْ ', value: 'ANALYSES DE BIOLOGIE', imgSrc: 'infirmier_speciale' },
+                { id: 1, name: 'مُمَرِّضْ عَامْ ', value: 'Inf_Generale', imgSrc: 'infirmier_generale' },
+                { id: 2, name: 'مُمَرِّضْ خَاصْ ', value: 'Inf_Speciale', imgSrc: 'infirmier_speciale' },
             ]
         ],
         subCateg: [
-            { id: 1, name: 'مُمَرِّضْ عَامْ ', value: 'ANATOMIE_PATHOLOGIE', imgSrc: 'infirmier_generale' },
-            { id: 2, name: 'مُمَرِّضْ خَاصْ ', value: 'ANALYSES DE BIOLOGIE', imgSrc: 'infirmier_speciale' },
+            { id: 1, name: 'مُمَرِّضْ عَامْ ', value: 'Inf_Generale', imgSrc: 'infirmier_generale' },
+            { id: 2, name: 'مُمَرِّضْ خَاصْ ', value: 'Inf_Speciale', imgSrc: 'infirmier_speciale' },
         ],
         profileImg:'',
         cardProfile:[
@@ -568,8 +568,8 @@ const AbyedhADIL = {
                 {id:1, name:' الطاقم التربوي ', resultTag:'' , icon:'star-half'},
         ],
         profileBtns:[
-            {id:1, name:' تَسْجِيلْ  ' , icon:'edit outline' , link:'Action', bgColor:''},
-            {id:1, name:'  تَرْسِيمْ    ' , icon:'clipboard check' , link:'Action', bgColor:''},
+            {id:1, name:' تَسْجِيلْ  ' , icon:'edit outline' , link:'inscription', bgColor:''},
+            {id:1, name:' تَرْسِيمْ    ' , icon:'clipboard check' , link:'souscription', bgColor:''},
             {id:2, name:'مُتَابَعَة ' , icon:'eye' , link:'Suivie', bgColor:''},
         ],
         profileTarif:true,
@@ -1213,11 +1213,11 @@ const AbyedhADIL = {
             [
                 { id: 1, name: 'أَدَابْ وَلُغَاتْ', value: 'dentiste', imgSrc: 'admin_e_universite' },
                 { id: 2, name: 'عُلُومْ إِنْسَانِيَّة', value: 'dentiste', imgSrc: 'admin_e_universite' },
-                { id: 3, name: ' عُلُومْ طَبِيعِيَّة', value: 'dentiste', imgSrc: 'admin_e_universite' },
+                { id: 3, name: 'عُلُومْ طَبِيعِيَّة', value: 'dentiste', imgSrc: 'admin_e_universite' },
                 { id: 4, name: 'حُقُوقْ وَ قَانُونْ', value: 'dentiste', imgSrc: 'admin_e_universite' },
             ],[
                 { id: 5, name: 'إِقْتِصَادْ وَ تَصَرُّفْ', value: 'dentiste', imgSrc: 'admin_e_universite' },
-                { id: 6, name: ' صَيْدَلَة', value: 'dentiste', imgSrc: 'admin_e_universite' },
+                { id: 6, name: 'صَيْدَلَة', value: 'dentiste', imgSrc: 'admin_e_universite' },
                 { id: 7, name: 'طِبْ', value: 'dentiste', imgSrc: 'admin_e_universite' },
             ]   
         ],
@@ -1341,18 +1341,18 @@ const AbyedhADIL = {
         ],
         subCatagSmall: [
             [
-                { id: 1, name: 'agence', value: 'dentiste', imgSrc: 'tr-agence' },
+                { id: 1, name: 'agence', value: 'dentiste', imgSrc: 'tr_agence' },
                 { id: 2, name: 'Transporteur', value: 'dentiste', imgSrc: 'transporteur' },
             ]   
         ],
         subCatagLarge:[
             [
-                { id: 1, name: 'agence', value: 'dentiste', imgSrc: 'tr-agence' },
+                { id: 1, name: 'agence', value: 'dentiste', imgSrc: 'tr_agence' },
                 { id: 2, name: 'Transporteur', value: 'dentiste', imgSrc: 'transporteur' },
             ]
         ],
         subCateg: [
-                { id: 1, name: 'agence', value: 'dentiste', imgSrc: 'tr-agence' },
+                { id: 1, name: 'agence', value: 'dentiste', imgSrc: 'tr_agence' },
                 { id: 2, name: 'Transporteur', value: 'dentiste', imgSrc: 'transporteur' },
         ],
         profileImg:'',

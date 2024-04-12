@@ -193,89 +193,89 @@ const FrancaisTrans = {
         },
         landingPage: {
             selectText:{
-                docteur : 'Selctionez une specialiteé',
-                infirmier :'مَمَرٍّضْ',
-                pharmacie :'صَيْدَلِية',
-                labo :'مَخْبَرْ تَحَالِيلْ',
-                clinique :'مِصَحَّة',
-                centreMD :'مَرْكَزْ عِلاَجْ',
-                admin_s_hospital :'مٌسْتَشْفَي',
-                admin_s_csb :'مٌسْتَشْفَي',
-                garderie :'مَرْكِزْ صِحَّة',
-                ecole :'مَرْكِزْ صِحَّة',
-                lycee :'مَرْكِزْ صِحَّة',
-                universite :'مَرْكِزْ صِحَّة',
-                formation :'مَرْكِزْ صِحَّة',
-                librairie :'مَرْكِزْ صِحَّة',
-                admin_e_centre :'مَرْكِزْ صِحَّة',
-                admin_e_biblio :'مَرْكِزْ صِحَّة',
-                admin_e_ecole :'مَرْكِزْ صِحَّة',
-                admin_e_lycee :'مَرْكِزْ صِحَّة',
-                admin_e_universite :'مَرْكِزْ صِحَّة',
-                admin_e_ss :'مَرْكِزْ صِحَّة',
-                transporteur :'مَرْكِزْ صِحَّة',
-                autoecole :'مَرْكِزْ صِحَّة',
-                location :'مَرْكِزْ صِحَّة',
-                qiosque :'مَرْكِزْ صِحَّة',
-                parking :'مَرْكِزْ صِحَّة',
-                mecanicien :'مَرْكِزْ صِحَّة',
-                Taxi :'مَرْكِزْ صِحَّة',
-                Louage :'مَرْكِزْ صِحَّة',
-                magazin :'مَرْكِزْ صِحَّة',
-                boulengerie :'مَرْكِزْ صِحَّة',
-                fruiterie :'مَرْكِزْ صِحَّة',
-                patesserie :'مَرْكِزْ صِحَّة',
-                epicerie :'مَرْكِزْ صِحَّة',
-                electromenager :'مَرْكِزْ صِحَّة',
-                meublerie :'مَرْكِزْ صِحَّة',
-                boutique :'مَرْكِزْ صِحَّة',
-                bijouterie :'مَرْكِزْ صِحَّة',
-                quincaillerie :'مَرْكِزْ صِحَّة',
-                depot :'مَرْكِزْ صِحَّة',
-                boucherie :'مَرْكِزْ صِحَّة',
-                cafe :'مَرْكِزْ صِحَّة',
-                restaurant :'مَرْكِزْ صِحَّة',
-                hotels :'مَرْكِزْ صِحَّة',
-                vg_agence :'مَرْكِزْ صِحَّة',
-                coiffure :'مَرْكِزْ صِحَّة',
-                salle_marriage :'مَرْكِزْ صِحَّة',
-                fourniture_marriage :'مَرْكِزْ صِحَّة',
-                orchestre :'مَرْكِزْ صِحَّة',
-                chef :'مَرْكِزْ صِحَّة',
-                photographe :'مَرْكِزْ صِحَّة',
-                forgeron :'مَرْكِزْ صِحَّة',
-                menuisier :'مَرْكِزْ صِحَّة',
-                peinture :'مَرْكِزْ صِحَّة',
-                electricien :'مَرْكِزْ صِحَّة',
-                plombier :'مَرْكِزْ صِحَّة',
-                cristalerie :'مَرْكِزْ صِحَّة',
-                marbrerie :'مَرْكِزْ صِحَّة',
-                courtier :'مَرْكِزْ صِحَّة',
-                contracteur :'مَرْكِزْ صِحَّة',
-                architecture :'مَرْكِزْ صِحَّة',
-                gym :'مَرْكِزْ صِحَّة',
-                pyscine :'مَرْكِزْ صِحَّة',
-                stade :'مَرْكِزْ صِحَّة',
-                cinema :'مَرْكِزْ صِحَّة',
-                theatre :'مَرْكِزْ صِحَّة',
-                musee :'مَرْكِزْ صِحَّة',
-                admin_c_mj :'مَرْكِزْ صِحَّة',
-                admin_c_mc :'مَرْكِزْ صِحَّة',
-                admin_c_me :'مَرْكِزْ صِحَّة',
-                comptable :'مَرْكِزْ صِحَّة',
-                bank :'مَرْكِزْ صِحَّة',
-                admin_f_poste :'مَرْكِزْ صِحَّة',
-                admin_f_rf :'مَرْكِزْ صِحَّة',
-                avocat :'مَرْكِزْ صِحَّة',
-                admin_a_mu :'مَرْكِزْ صِحَّة',
-                admin_a_police :'مَرْكِزْ صِحَّة',
-                admin_a_ar :'مَرْكِزْ صِحَّة',
-                admin_a_court :'مَرْكِزْ صِحَّة',
-                admin_a_mosq :'مَرْكِزْ صِحَّة',
-                ambassade :'مَرْكِزْ صِحَّة',
-                fourragerie :'مَرْكِزْ صِحَّة',
-                veterinaire :'مَرْكِزْ صِحَّة',
-                agritools :'مَرْكِزْ صِحَّة',
+                docteur: "Choisissez la spécialité requise",
+                infirmier: "Infirmier",
+                pharmacie: "Choisissez le type de pharmacie",
+                labo: "Choisir genre de service",
+                clinique: "Choisir genre de service",
+                centreMD: "Choisir genre de service",
+                admin_s_hospital: "Choisir genre de service",
+                admin_s_csb: "Choisir genre de service",
+                garderie: "Choisir genre de service",
+                ecole: "Choisir genre de service",
+                lycee: "Choisir genre de service",
+                universite: "Choisir genre de service",
+                formation: "Choisir genre de service",
+                librairie: "Choisir genre de service",
+                admin_e_centre: "Choisir genre de service",
+                admin_e_biblio: "Choisir genre de service",
+                admin_e_ecole: "Choisir genre de service",
+                admin_e_lycee: "Choisir genre de service",
+                admin_e_universite: "Choisir genre de service",
+                admin_e_ss: "Choisir genre de service",
+                transporteur: "Choisir genre de service",
+                autoecole: "Choisir genre de service",
+                location: "Choisir genre de service",
+                qiosque: "Choisir genre de service",
+                parking: "Choisir genre de service",
+                mecanicien: "Choisir genre de service",
+                Taxi: "Choisir genre de service",
+                Louage: "Choisir genre de service",
+                magazin: "Choisir genre de service",
+                boulengerie: "Choisir genre de service",
+                fruiterie: "Choisir genre de service",
+                patesserie: "Choisir genre de service",
+                epicerie: "Choisir genre de service",
+                electromenager: "Choisir genre de service",
+                meublerie: "Choisir genre de service",
+                boutique: "Choisir genre de service",
+                bijouterie: "Choisir genre de service",
+                quincaillerie: "Choisir genre de service",
+                depot: "Choisir genre de service",
+                boucherie: "Choisir genre de service",
+                cafe: "Choisir genre de service",
+                restaurant: "Choisir genre de service",
+                hotels: "Choisir genre de service",
+                vg_agence: "Choisir genre de service",
+                coiffure: "Choisir genre de service",
+                salle_marriage: "Choisir genre de service",
+                fourniture_marriage: "Choisir genre de service",
+                orchestre: "Choisir genre de service",
+                chef: "Choisir genre de service",
+                photographe: "Choisir genre de service",
+                forgeron: "Choisir genre de service",
+                menuisier: "Choisir genre de service",
+                peinture: "Choisir genre de service",
+                electricien: "Choisir genre de service",
+                plombier: "Choisir genre de service",
+                cristalerie: "Choisir genre de service",
+                marbrerie: "Choisir genre de service",
+                courtier: "Choisir genre de service",
+                contracteur: "Choisir genre de service",
+                architecture: "Choisir genre de service",
+                gym: "Choisir genre de service",
+                pyscine: "Choisir genre de service",
+                stade: "Choisir genre de service",
+                cinema: "Choisir genre de service",
+                theatre: "Choisir genre de service",
+                musee: "Choisir genre de service",
+                admin_c_mj: "Choisir genre de service",
+                admin_c_mc: "Choisir genre de service",
+                admin_c_me: "Choisir genre de service",
+                comptable: "Choisir genre de service",
+                bank: "Choisir genre de service",
+                admin_f_poste: "Choisir genre de service",
+                admin_f_rf: "Choisir genre de service",
+                avocat: "Choisir genre de service",
+                admin_a_mu: "Choisir genre de service",
+                admin_a_police: "Choisir genre de service",
+                admin_a_ar: "Choisir genre de service",
+                admin_a_court: "Choisir genre de service",
+                admin_a_mosq: "Choisir genre de service",
+                ambassade: "Choisir genre de service",
+                fourragerie: "Choisir genre de service",
+                veterinaire: "Choisir genre de service",
+                agritools: "Choisir genre de service"
                 
             },
             itemsToSelect : {
@@ -296,416 +296,373 @@ const FrancaisTrans = {
                     PSYCHIATRIE: 'Psychiatrie',
                     NUTRITION: 'Nutrition',
                 },
-                infirmier :{
-                    one:'',
-                    two:'',
-                    three:'',
+                infirmier: {
+                    infirmier_generale: "Infirmier général",
+                    infirmier_speciale: "Infirmier spécialisé"
                 },
-                pharmacie :{
-                    one:'',
-                    two:'',
-                    three:'',
+                pharmacie: {
+                    jour: "Jour",
+                    nuit: "Nuit"
                 },
-                labo :{
-                    one:'',
-                    two:'',
-                    three:'',
+                labo: {
+                    dna: "Analyse génétique cellulaire",
+                    blod: "Analyse biologique médicale",
+                    cellule: "Anatomie et biologie cellulaire"
                 },
-                clinique :{
-                    one:'',
-                    two:'',
-                    three:'',
+                clinique: {
+                    female: "Clinique gynécologique",
+                    mentale: "Clinique psychiatrique",
+                    logo: "Clinique thérapeutique",
+                    generale: "Clinique générale"
                 },
-                centreMD :{
-                    one:'',
-                    two:'',
-                    three:'',
+                centreMD: {
+                    radio: "Radiologie",
+                    dialyse: "Dialyse rénale",
+                    sea: "Soins intensifs"
                 },
-                admin_s_hospital :{
-                    one:'',
-                    two:'',
-                    three:'',
+                admin_s_hospital: {
+                    admin_s_hospital: "Administration hospitalière régionale",
+                    admin_s_hospital: "Administration hospitalière universitaire",
+                    admin_s_hospital: "Administration hospitalière militaire"
                 },
-                admin_s_csb :{
-                    one:'',
-                    two:'',
-                    three:'',
+                admin_s_csb: {
+                    admin_s_csb: "Administration du centre de santé",
+                    admin_s_csb: "Centre de santé de base"
                 },
-                garderie :{
-                    one:'',
-                    two:'',
-                    three:'',
+                garderie: {
+                    nursery: "École maternelle",
+                    nurserya: "Crèche"
                 },
-                ecole :{
-                    one:'',
-                    two:'',
-                    three:'',
+                ecole: {
+                    ecole_arab: "École de langue arabe",
+                    ecole_frensh: "École de langue française"
                 },
-                lycee :{
-                    one:'',
-                    two:'',
-                    three:'',
+                lycee: {
+                    college: "Collège",
+                    lycee: "Lycée"
                 },
-                universite :{
-                    one:'',
-                    two:'',
-                    three:'',
+                universite: {
+                    univ_language: "Linguistique et littérature",
+                    univ_hs: "Sciences humaines",
+                    univ_sn: "Sciences naturelles",
+                    univ_droit: "Droit",
+                    univ_economy: "Économie",
+                    univ_pharmacie: "Pharmacie",
+                    univ_engeneering: "Ingénierie",
+                    univ_medcine: "Médecine"
                 },
-                formation :{
-                    one:'',
-                    two:'',
-                    three:'',
+                formation: {
+                    formation_construction: "Construction",
+                    formation_industrie: "Industrie",
+                    formation_teck: "Technologie",
+                    formation_agricole: "Agriculture et pêche",
+                    formation_commerce: "Commerce et marketing",
+                    formation_sante: "Santé",
+                    formation_tourisme: "Tourisme et hôtellerie",
+                    formation_art: "Arts",
+                    formation_education:'Éducation et formation',
                 },
-                librairie :{
-                    one:'',
-                    two:'',
-                    three:'',
+                librairie: {
+                    biblio_bug: "Livres",
+                    biblio_tools: "Outils pédagogiques"
                 },
-                admin_e_centre :{
-                    one:'',
-                    two:'',
-                    three:'',
+
+                admin_e_centre: {
+                    admin_e_centre: "Technologie",
+                    admin_e_centre: "Métiers"
                 },
-                admin_e_biblio :{
-                    one:'',
-                    two:'',
-                    three:'',
+                admin_e_biblio: {
+                    admin_e_biblio: "Bibliothèque publique",
+                    admin_e_biblio: "Bibliothèque nationale"
                 },
-                admin_e_ecole :{
-                    one:'',
-                    two:'',
-                    three:'',
+                admin_e_ecole: {
+                    admin_e_ecole: "École primaire",
+                    admin_e_ecole: "École secondaire"
                 },
-                admin_e_lycee :{
-                    one:'',
-                    two:'',
-                    three:'',
+                admin_e_lycee: {
+                    admin_e_lycee: "Collège",
+                    admin_e_lycee: "Lycée"
                 },
-                admin_e_universite :{
-                    one:'',
-                    two:'',
-                    three:'',
+                admin_e_universite: {
+                    admin_e_universite: "Lettres et langues",
+                    admin_e_universite: "Sciences humaines",
+                    admin_e_universite: "Sciences naturelles",
+                    admin_e_universite: "Droit",
+                    admin_e_universite: "Économie et gestion",
+                    admin_e_universite: "Pharmacie",
+                    admin_e_universite: "Médecine",
+                    admin_e_universite: "Ingénierie"
                 },
-                admin_e_ss :{
-                    one:'',
-                    two:'',
-                    three:'',
+                admin_e_ss: {
+                    admin_e_ss: "Études secondaires",
+                    admin_e_ss: "Études supérieures"
                 },
                 transporteur :{
-                    one:'',
-                    two:'',
-                    three:'',
+                    tr_agence:'agence',
+                    transporteur:'Transporteur',
                 },
-                autoecole :{
-                    one:'',
-                    two:'',
-                    three:'',
-                },
-                location :{
-                    one:'',
-                    two:'',
-                    three:'',
-                },
-                qiosque :{
-                    one:'',
-                    two:'',
-                    three:'',
-                },
-                parking :{
-                    one:'',
-                    two:'',
-                    three:'',
-                },
-                mecanicien :{
-                    one:'',
-                    two:'',
-                    three:'',
-                },
-                Taxi :{
-                    one:'',
-                    two:'',
-                    three:'',
-                },
-                Louage :{
-                    one:'',
-                    two:'',
-                    three:'',
-                },
-                magazin :{
-                    one:'',
-                    two:'',
-                    three:'',
-                },
-                boulengerie :{
-                    one:'',
-                    two:'',
-                    three:'',
-                },
-                fruiterie :{
-                    one:'',
-                    two:'',
-                    three:'',
-                },
-                patesserie :{
-                    one:'',
-                    two:'',
-                    three:'',
-                },
-                epicerie :{
-                    one:'',
-                    two:'',
-                    three:'',
-                },
-                electromenager :{
-                    one:'',
-                    two:'',
-                    three:'',
-                },
-                meublerie :{
-                    one:'',
-                    two:'',
-                    three:'',
-                },
-                boutique :{
-                    one:'',
-                    two:'',
-                    three:'',
-                },
-                bijouterie :{
-                    one:'',
-                    two:'',
-                    three:'',
-                },
-                quincaillerie :{
-                    one:'',
-                    two:'',
-                    three:'',
-                },
-                depot :{
-                    one:'',
-                    two:'',
-                    three:'',
-                },
-                boucherie :{
-                    one:'',
-                    two:'',
-                    three:'',
-                },
-                cafe :{
-                    one:'',
-                    two:'',
-                    three:'',
-                },
-                restaurant :{
-                    one:'',
-                    two:'',
-                    three:'',
-                },
-                hotels :{
-                    one:'',
-                    two:'',
-                    three:'',
-                },
-                vg_agence :{
-                    one:'',
-                    two:'',
-                    three:'',
-                },
-                coiffure :{
-                    one:'',
-                    two:'',
-                    three:'',
-                },
-                salle_marriage :{
-                    one:'',
-                    two:'',
-                    three:'',
-                },
-                fourniture_marriage :{
-                    one:'',
-                    two:'',
-                    three:'',
-                },
-                orchestre :{
-                    one:'',
-                    two:'',
-                    three:'',
-                },
-                chef :{
-                    one:'',
-                    two:'',
-                    three:'',
-                },
-                photographe :{
-                    one:'',
-                    two:'',
-                    three:'',
-                },
-                forgeron :{
-                    one:'',
-                    two:'',
-                    three:'',
-                },
-                menuisier :{
-                    one:'',
-                    two:'',
-                    three:'',
-                },
-                peinture :{
-                    one:'',
-                    two:'',
-                    three:'',
-                },
-                electricien :{
-                    one:'',
-                    two:'',
-                    three:'',
-                },
-                plombier :{
-                    one:'',
-                    two:'',
-                    three:'',
-                },
-                cristalerie :{
-                    one:'',
-                    two:'',
-                    three:'',
-                },
-                marbrerie :{
-                    one:'',
-                    two:'',
-                    three:'',
-                },
-                courtier :{
-                    one:'',
-                    two:'',
-                    three:'',
-                },
-                contracteur :{
-                    one:'',
-                    two:'',
-                    three:'',
-                },
-                architecture :{
-                    one:'',
-                    two:'',
-                    three:'',
-                },
-                gym :{
-                    one:'',
-                    two:'',
-                    three:'',
-                },
-                pyscine :{
-                    one:'',
-                    two:'',
-                    three:'',
-                },
-                stade :{
-                    one:'',
-                    two:'',
-                    three:'',
-                },
-                cinema :{
-                    one:'',
-                    two:'',
-                    three:'',
-                },
-                theatre :{
-                    one:'',
-                    two:'',
-                    three:'',
-                },
-                musee :{
-                    one:'',
-                    two:'',
-                    three:'',
-                },
-                admin_c_mj :{
-                    one:'',
-                    two:'',
-                    three:'',
-                },
-                admin_c_mc :{
-                    one:'',
-                    two:'',
-                    three:'',
-                },
-                admin_c_me :{
-                    one:'',
-                    two:'',
-                    three:'',
-                },
-                comptable :{
-                    one:'',
-                    two:'',
-                    three:'',
-                },
-                bank :{
-                    one:'',
-                    two:'',
-                    three:'',
-                },
-                admin_f_poste :{
-                    one:'',
-                    two:'',
-                    three:'',
-                },
-                admin_f_rf :{
-                    one:'',
-                    two:'',
-                    three:'',
-                },
-                avocat :{
-                    one:'',
-                    two:'',
-                    three:'',
-                },
-                admin_a_mu :{
-                    one:'',
-                    two:'',
-                    three:'',
-                },
-                admin_a_police :{
-                    one:'',
-                    two:'',
-                    three:'',
-                },
-                admin_a_ar :{
-                    one:'',
-                    two:'',
-                    three:'',
-                },
-                admin_a_court :{
-                    one:'',
-                    two:'',
-                    three:'',
-                },
-                admin_a_mosq :{
-                    one:'',
-                    two:'',
-                    three:'',
-                },
-                ambassade :{
-                    one:'',
-                    two:'',
-                    three:'',
-                },
-                fourragerie :{
-                    one:'',
-                    two:'',
-                    three:'',
-                },
-                veterinaire :{
-                    one:'',
-                    two:'',
-                    three:'',
-                },
-                agritools :{
-                    one:'',
-                    two:'',
-                    three:'',
-                },
+                autoecole: {
+                    tourism: "Cat. B",
+                    car: "Voiture",
+                    taxi: "Taxi & Transp.",
+                    poid: "Poids lourd"
+                  },
+                  cafe: {
+                    populaire: "Café",
+                    mixte: "Resto Familial",
+                    tea: "Salon Thé"
+                  },
+                  restaurant: {
+                    kaftaji: "5 étoiles",
+                    resto1: "Plat léger",
+                    mlawi: "Mlawi",
+                    pizza: "Pizza"
+                  },
+                  magazin: {
+                    magazin: "Magasin",
+                    suppertte: "Supérette",
+                    small_shop: "Épicerie"
+                  },
+                  boulengerie: {
+                    tabouna: "Tabouna",
+                    Baguette: "Baguette",
+                    pain_arabe: "Pain arabe"
+                  },
+                  boucherie: {
+                    viande_rouge: "Viande rouge",
+                    viande_escaloppe: "Escalope",
+                    viande_mazeraa: "Fermier",
+                    viande_fish: "Poisson",
+                    viande_chahia: "Savoureux"
+                  },
+                  fruiterie: {
+                    fruit_tomate: "Légumes",
+                    fruit_bananas: "Fruits"
+                  },
+                  patesserie: {
+                    patiss_croissant: "Croissant",
+                    patiss_gateux: "Gâteaux"
+                  },
+                  epicerie: {
+                    epic_cigare: "Cigarettes",
+                    epic_beans: "Légumineuses",
+                    epic_nuts: "Fruits secs"
+                  },
+                  electromenager: {
+                    electro_fridge: "Électroménager",
+                    electro_phone: "Tél. & Ordinateurs"
+                  },
+                  meublerie: {
+                    meuble_maison: "Mobilier Dom.",
+                    meuble_bureaux: "Mobilier Bureau"
+                  },
+                  location: {
+                    location_voiture: "Location Voit.",
+                    location_camion: "Location Cam.",
+                    location_moto: "Location Moto"
+                  },
+                  parking: {
+                    parking_publique: "Park. Public",
+                    parking_privee: "Park. Privé"
+                  },
+                  qiosque: {
+                    qiosque: "Kiosque",
+                    qiosque_lavage: "Lavage Auto"
+                  },
+                  mecanicien: {
+                    mec_voiture: "Mécan. Auto",
+                    mec_bike: "Mécan. Vélo"
+                  },
+                  courtier: {
+                    courtier_looking: "Location",
+                    courtier_buying: "Achat"
+                  },
+                  contracteur: {
+                    moukawel: "Entrepreneur"
+                  },
+                  architecture: {
+                    architect: "Bureau Archi."
+                  },
+                  quincaillerie: {
+                    quinc_tools: "Pièces",
+                    quinc_quinc: "Quincaillerie"
+                  },
+                  forgeron: {
+                    forgeron_personne: "Forgeron",
+                    forgeron_socite: "Atelier Forge"
+                  },
+                  menuisier: {
+                    menuisier_socite: "Menuisier",
+                    menuisier_atelier: "At. Menuiserie"
+                  },
+                  peinture: {
+                    peinture_personne: "Peintre",
+                    peinture_socite: "Peinture Co."
+                  },
+                  electricien: {
+                    electricien_personne: "Électricien",
+                    electricien_socite: "Élec. Co."
+                  },
+                  plombier: {
+                    plombier_personne: "Plombier",
+                    plombier_socite: "Plomb. Co."
+                  },
+                  cristalerie: {
+                    cristalerie_personne: "Verrerie",
+                    cristalerie_socite: "Verr. Co."
+                  },
+                  marbrerie: {
+                    marbrerie_personne: "Marbrier",
+                    marbrerie_socite: "Marbr. Co."
+                  },
+                  coiffure: {
+                    coiffure_man: "Hommes",
+                    coiffure_woumen: "Femmes"
+                  },
+                  boutique: {
+                    boutique_man: "Hommes",
+                    boutique_woumen: "Femmes",
+                    boutique_child: "Enfants",
+                    boutique_shoes: "Chaussures"
+                  },
+                  salle_marriage: {
+                    sallon_covert: "S. Mariage C.",
+                    sallon_ouvert: "S. Mariage O."
+                  },
+                  orchestre: {
+                    orqustre_populaire: "Orch. Populaire",
+                    orqustre_artiste: "Artiste",
+                    orqustre_band: "Orchestre"
+                  },
+                  chef: {
+                    chef_externe: "Cuisine Étrangère",
+                    chef_interne: "Cuisine Tunisienne"
+                  },
+                  photographe: {
+                    photographe_marriage: "Photo Mariage",
+                    photographe_photo: "Photographe"
+                  },
+                  fourniture_marriage: {
+                    fourniture_autres: "Fourn. Diverses",
+                    fourniture_robes: "Robes"
+                  },
+                  bijouterie: {
+                    bijoux_pret: "Bijoux Prêts",
+                    bijoux_fabriquant: "Bij. Fabricant"
+                  },
+                  gym: {
+                    gym: "Salle Sport",
+                    karate: "Arts Martiaux",
+                    kickboking: "Kickboxing"
+                  },
+                  pyscine: {
+                    closed: "Couvert",
+                    open: "Découvert",
+                    childpool: "Enfants"
+                  },
+                  stade: {
+                    foot: "Football",
+                    basquette: "Basket",
+                    voley: "Volley",
+                    tenis: "Tennis",
+                    regby: "Rugby",
+                    golf: "Golf"
+                  },
+                  cinema: {
+                    cinema_salle: "S. Projection",
+                    cinema_cinema: "Cinéma"
+                  },
+                  theatre: {
+                    theatre_open: "Théâtre O.",
+                    theatre_close: "Théâtre F."
+                  },
+                  musee: {
+                    Musee_place: "Site Hist.",
+                    Musee_musee: "Musée"
+                  },
+                  admin_c_mj: {
+                    admin_c_mj: "Maison Jeunes"
+                  },
+                  admin_c_mc: {
+                    admin_c_mc: "Maison Culture"
+                  },
+                  admin_c_me: {
+                    admin_c_me: "Club Enfants"
+                  },
+                  avocat: {
+                    avocat: "Avocat"
+                  },
+                  depot: {
+                    storage_nutrition : "Stock Alim.",
+                    depot_constraction: "Mat. Construc.",
+                    depot_medicale: "Mat. Médical",
+                    depot_clothes: "Vêtements",
+                    depot_boissons: "Boissons",
+                    depot_fruit: "Fruits & Lég."
+                  },
+                  comptable: {
+                    compt_bureaux: "Audit Comp.",
+                    compt_comptable: "Comptable"
+                  },
+                  socite: {
+                    bank: "Banques",
+                    alimentaire: "Indus. Alim.",
+                    construc: "Construc.",
+                    textile: "Textile",
+                    transp: "Transp.",
+                    teck: "Techno."
+                  },
+                  bank: {
+                    bank_gouv: "Bank Gov.",
+                    bank_privee: "Bank Priv."
+                  },
+                  admin_f_poste: {
+                    Poste: "Bureau Poste"
+                  },
+                  admin_f_rf: {
+                    admin_f_rf: "Trésorerie"
+                  },
+                  veterinaire: {
+                    veterinaire_generale: "Vét. Gén.",
+                    veterinaire_speciale: "Vét. Spé."
+                  },
+                  fourragerie: {
+                    fourragerie_vache: "Vaches",
+                    fourragerie_moton: "Moutons",
+                    fourragerie_poulet: "Poulets",
+                    fourragerie_chien: "Chiens & Chats"
+                  },
+                  agritools: {
+                    agrit_harvseter: "Moiss.",
+                    agrit_tracteur: "Tracteur",
+                    agrit_fertilizer: "Épand. Engr.",
+                    agrit_plow: "Charrue",
+                    agrit_baler : "Presse Balles",
+                    remorque: "Remorque"
+                  },
+                  hotels: {
+                    hotel_hotel: "Hôtel",
+                    hotel_maison: "Maison Hôte"
+                  },
+                  vg_agence: {
+                    agence_bureaux: "Agence Voy.",
+                    agence_agence: "Agence Voyages"
+                  },
+                  admin_a_mu: {
+                    admin_a_mu: "Gouvernorat"
+                  },
+                  admin_a_police: {
+                    admin_a_police: "Police"
+                  },
+                  admin_a_ar: {
+                    admin_a_ar: "Délégation Rég."
+                  },
+                  admin_a_court: {
+                    admin_a_court: "Trib. Prem. Inst."
+                  },
+                  admin_a_mosq: {
+                    admin_a_mosq: "Mosquée"
+                  }
                 
             },
             movingAdsText : {
@@ -1044,14 +1001,16 @@ const FrancaisTrans = {
                 
             },
             fastSearchText:'Prét de ' ,
-            pleaseSelectGouvText:' Ou Bine Chercher Dans' ,
+            pleaseSelectGouvText:' Ou bien chercher dans' ,
             pleaseSelectGouvTextSecondary:'Selctionez la place de recherche ' ,
             selectGouvText:'Selectionner Region' ,
             selectDelegText:'Selectionner Departemment' ,
             rechercheBtnText:'Recherche' ,
 
-            titleSystemAds:'' ,
-            textSystemAds:'' ,
+            titleSystemAds1: "Êtes-vous",
+            titleSystemAds2: "et souhaitez-vous vous inscrire sur la plateforme ?",
+            textSystemAds1: "Découvrez la version miniature de",
+            textSystemAds2: "qui vous aide à vous présenter et à recevoir des demandes de vos clients.",
             systemNames : {
                 docteur : 'طبيب',
                 infirmier :'مَمَرٍّضْ',
@@ -1138,9 +1097,10 @@ const FrancaisTrans = {
                 agritools :'مَرْكِزْ صِحَّة',
                 
             },
-            goToSystemBtnText:'' ,
-            SubscribeBtnText:'' ,
-            suggestionAndFavText:'' ,
+            goToSystemBtnText: "Accéder au système",
+            SubscribeBtnText: "S'inscrire  ",
+            suggestionAndFavText:'Favoris et suggestions' ,
+            bottomAbyedhText:'abyedh.com: France',
             toastText:{
                 failOne:'',
                 failTwo:'',
@@ -1233,6 +1193,13 @@ const FrancaisTrans = {
                 agritools :'مَرْكِزْ صِحَّة',
                 
             },
+            pasDeResultat: {
+                desoleText: "Désolé, il n'y a actuellement aucun résultat pour l'une des raisons suivantes :",
+                reasonOne: "Il n'y a vraiment aucun résultat",
+                reasonTwo: "Nous n'avons pas pu trouver de résultats",
+                searchNext: "Vous pouvez revenir en arrière et rechercher dans d'autres endroits près de vous, assurez-vous que vous trouverez ce que vous cherchez"
+            },
+            bottomAbyedhText:'abyedh.com: France',
             toastText:{
                 failOne:'',
                 failTwo:'',
@@ -1240,16 +1207,26 @@ const FrancaisTrans = {
         },
         profilePage: {
             generalData :{
-                generalDataText: '',
-                horaireText: '',
-                photoesText: '',
-                mapText: '',
-                avisText: '',
-                commentText: '',
-                addCommentText: '',
-                voirCommentText: '',
-                inputCommentPlaceholderText: '',
-                saveCommentBtnText: '',
+                generalDataText: "Informations générales",
+                horaireText: "Horaires d'ouverture",
+                weekDayes : {
+                    lundi: "Lundi",
+                    mardi: "Mardi",
+                    mercredi: "Mercredi",
+                    jeudi: "Jeudi",
+                    vendredi: "Vendredi",
+                    samedi: "Samedi",
+                    dimanche: "Dimanche",
+                },
+                photoesText: "Photos",
+                mapText: "Emplacement géographique",
+                avisText: "Avis",
+                commentText: "Commentaires",
+                addCommentText: "Ajouter  ",
+                voirCommentText: "Liste",
+                inputCommentPlaceholderText: "Vos remarques ici",
+                saveCommentBtnText: "Enregistrer le commentaire",
+
             },
             SpesificData : {
                 docteur : {
@@ -1587,339 +1564,342 @@ const FrancaisTrans = {
                 
             },
             ActionTabData : {
-                docteur : {
-                    one:'',
-                    two:'',
+                notRegistredText: "Ce client n'est pas inscrit sur la plateforme. L'équipe d'Abyedh essaiera de le contacter pour l'informer de votre demande.",
+                ActionListeData : {
+                    docteur : {
+                        one:'',
+                        two:'',
+                    },
+                    infirmier :{
+                        one:'',
+                        two:'',
+                    },
+                    pharmacie :{
+                        one:'',
+                        two:'',
+                    },
+                    labo :{
+                        one:'',
+                        two:'',
+                    },
+                    clinique :{
+                        one:'',
+                        two:'',
+                    },
+                    centreMD :{
+                        one:'',
+                        two:'',
+                    },
+                    admin_s_hospital :{
+                        one:'',
+                        two:'',
+                    },
+                    admin_s_csb :{
+                        one:'',
+                        two:'',
+                    },
+                    garderie :{
+                        one:'',
+                        two:'',
+                    },
+                    ecole :{
+                        one:'',
+                        two:'',
+                    },
+                    lycee :{
+                        one:'',
+                        two:'',
+                    },
+                    universite :{
+                        one:'',
+                        two:'',
+                    },
+                    formation :{
+                        one:'',
+                        two:'',
+                    },
+                    librairie :{
+                        one:'',
+                        two:'',
+                    },
+                    admin_e_centre :{
+                        one:'',
+                        two:'',
+                    },
+                    admin_e_biblio :{
+                        one:'',
+                        two:'',
+                    },
+                    admin_e_ecole :{
+                        one:'',
+                        two:'',
+                    },
+                    admin_e_lycee :{
+                        one:'',
+                        two:'',
+                    },
+                    admin_e_universite :{
+                        one:'',
+                        two:'',
+                    },
+                    admin_e_ss :{
+                        one:'',
+                        two:'',
+                    },
+                    transporteur :{
+                        one:'',
+                        two:'',
+                    },
+                    autoecole :{
+                        one:'',
+                        two:'',
+                    },
+                    location :{
+                        one:'',
+                        two:'',
+                    },
+                    qiosque :{
+                        one:'',
+                        two:'',
+                    },
+                    parking :{
+                        one:'',
+                        two:'',
+                    },
+                    mecanicien :{
+                        one:'',
+                        two:'',
+                    },
+                    Taxi :{
+                        one:'',
+                        two:'',
+                    },
+                    Louage :{
+                        one:'',
+                        two:'',
+                    },
+                    magazin :{
+                        one:'',
+                        two:'',
+                    },
+                    boulengerie :{
+                        one:'',
+                        two:'',
+                    },
+                    fruiterie :{
+                        one:'',
+                        two:'',
+                    },
+                    patesserie :{
+                        one:'',
+                        two:'',
+                    },
+                    epicerie :{
+                        one:'',
+                        two:'',
+                    },
+                    electromenager :{
+                        one:'',
+                        two:'',
+                    },
+                    meublerie :{
+                        one:'',
+                        two:'',
+                    },
+                    boutique :{
+                        one:'',
+                        two:'',
+                    },
+                    bijouterie :{
+                        one:'',
+                        two:'',
+                    },
+                    quincaillerie :{
+                        one:'',
+                        two:'',
+                    },
+                    depot :{
+                        one:'',
+                        two:'',
+                    },
+                    boucherie :{
+                        one:'',
+                        two:'',
+                    },
+                    cafe :{
+                        one:'',
+                        two:'',
+                    },
+                    restaurant :{
+                        one:'',
+                        two:'',
+                    },
+                    hotels :{
+                        one:'',
+                        two:'',
+                    },
+                    vg_agence :{
+                        one:'',
+                        two:'',
+                    },
+                    coiffure :{
+                        one:'',
+                        two:'',
+                    },
+                    salle_marriage :{
+                        one:'',
+                        two:'',
+                    },
+                    fourniture_marriage :{
+                        one:'',
+                        two:'',
+                    },
+                    orchestre :{
+                        one:'',
+                        two:'',
+                    },
+                    chef :{
+                        one:'',
+                        two:'',
+                    },
+                    photographe :{
+                        one:'',
+                        two:'',
+                    },
+                    forgeron :{
+                        one:'',
+                        two:'',
+                    },
+                    menuisier :{
+                        one:'',
+                        two:'',
+                    },
+                    peinture :{
+                        one:'',
+                        two:'',
+                    },
+                    electricien :{
+                        one:'',
+                        two:'',
+                    },
+                    plombier :{
+                        one:'',
+                        two:'',
+                    },
+                    cristalerie :{
+                        one:'',
+                        two:'',
+                    },
+                    marbrerie :{
+                        one:'',
+                        two:'',
+                    },
+                    courtier :{
+                        one:'',
+                        two:'',
+                    },
+                    contracteur :{
+                        one:'',
+                        two:'',
+                    },
+                    architecture :{
+                        one:'',
+                        two:'',
+                    },
+                    gym :{
+                        one:'',
+                        two:'',
+                    },
+                    pyscine :{
+                        one:'',
+                        two:'',
+                    },
+                    stade :{
+                        one:'',
+                        two:'',
+                    },
+                    cinema :{
+                        one:'',
+                        two:'',
+                    },
+                    theatre :{
+                        one:'',
+                        two:'',
+                    },
+                    musee :{
+                        one:'',
+                        two:'',
+                    },
+                    admin_c_mj :{
+                        one:'',
+                        two:'',
+                    },
+                    admin_c_mc :{
+                        one:'',
+                        two:'',
+                    },
+                    admin_c_me :{
+                        one:'',
+                        two:'',
+                    },
+                    comptable :{
+                        one:'',
+                        two:'',
+                    },
+                    bank :{
+                        one:'',
+                        two:'',
+                    },
+                    admin_f_poste :{
+                        one:'',
+                        two:'',
+                    },
+                    admin_f_rf :{
+                        one:'',
+                        two:'',
+                    },
+                    avocat :{
+                        one:'',
+                        two:'',
+                    },
+                    admin_a_mu :{
+                        one:'',
+                        two:'',
+                    },
+                    admin_a_police :{
+                        one:'',
+                        two:'',
+                    },
+                    admin_a_ar :{
+                        one:'',
+                        two:'',
+                    },
+                    admin_a_court :{
+                        one:'',
+                        two:'',
+                    },
+                    admin_a_mosq :{
+                        one:'',
+                        two:'',
+                    },
+                    ambassade :{
+                        one:'',
+                        two:'',
+                    },
+                    fourragerie :{
+                        one:'',
+                        two:'',
+                    },
+                    veterinaire :{
+                        one:'',
+                        two:'',
+                    },
+                    agritools :{
+                        one:'',
+                        two:'',
+                    },
+                    
                 },
-                infirmier :{
-                    one:'',
-                    two:'',
-                },
-                pharmacie :{
-                    one:'',
-                    two:'',
-                },
-                labo :{
-                    one:'',
-                    two:'',
-                },
-                clinique :{
-                    one:'',
-                    two:'',
-                },
-                centreMD :{
-                    one:'',
-                    two:'',
-                },
-                admin_s_hospital :{
-                    one:'',
-                    two:'',
-                },
-                admin_s_csb :{
-                    one:'',
-                    two:'',
-                },
-                garderie :{
-                    one:'',
-                    two:'',
-                },
-                ecole :{
-                    one:'',
-                    two:'',
-                },
-                lycee :{
-                    one:'',
-                    two:'',
-                },
-                universite :{
-                    one:'',
-                    two:'',
-                },
-                formation :{
-                    one:'',
-                    two:'',
-                },
-                librairie :{
-                    one:'',
-                    two:'',
-                },
-                admin_e_centre :{
-                    one:'',
-                    two:'',
-                },
-                admin_e_biblio :{
-                    one:'',
-                    two:'',
-                },
-                admin_e_ecole :{
-                    one:'',
-                    two:'',
-                },
-                admin_e_lycee :{
-                    one:'',
-                    two:'',
-                },
-                admin_e_universite :{
-                    one:'',
-                    two:'',
-                },
-                admin_e_ss :{
-                    one:'',
-                    two:'',
-                },
-                transporteur :{
-                    one:'',
-                    two:'',
-                },
-                autoecole :{
-                    one:'',
-                    two:'',
-                },
-                location :{
-                    one:'',
-                    two:'',
-                },
-                qiosque :{
-                    one:'',
-                    two:'',
-                },
-                parking :{
-                    one:'',
-                    two:'',
-                },
-                mecanicien :{
-                    one:'',
-                    two:'',
-                },
-                Taxi :{
-                    one:'',
-                    two:'',
-                },
-                Louage :{
-                    one:'',
-                    two:'',
-                },
-                magazin :{
-                    one:'',
-                    two:'',
-                },
-                boulengerie :{
-                    one:'',
-                    two:'',
-                },
-                fruiterie :{
-                    one:'',
-                    two:'',
-                },
-                patesserie :{
-                    one:'',
-                    two:'',
-                },
-                epicerie :{
-                    one:'',
-                    two:'',
-                },
-                electromenager :{
-                    one:'',
-                    two:'',
-                },
-                meublerie :{
-                    one:'',
-                    two:'',
-                },
-                boutique :{
-                    one:'',
-                    two:'',
-                },
-                bijouterie :{
-                    one:'',
-                    two:'',
-                },
-                quincaillerie :{
-                    one:'',
-                    two:'',
-                },
-                depot :{
-                    one:'',
-                    two:'',
-                },
-                boucherie :{
-                    one:'',
-                    two:'',
-                },
-                cafe :{
-                    one:'',
-                    two:'',
-                },
-                restaurant :{
-                    one:'',
-                    two:'',
-                },
-                hotels :{
-                    one:'',
-                    two:'',
-                },
-                vg_agence :{
-                    one:'',
-                    two:'',
-                },
-                coiffure :{
-                    one:'',
-                    two:'',
-                },
-                salle_marriage :{
-                    one:'',
-                    two:'',
-                },
-                fourniture_marriage :{
-                    one:'',
-                    two:'',
-                },
-                orchestre :{
-                    one:'',
-                    two:'',
-                },
-                chef :{
-                    one:'',
-                    two:'',
-                },
-                photographe :{
-                    one:'',
-                    two:'',
-                },
-                forgeron :{
-                    one:'',
-                    two:'',
-                },
-                menuisier :{
-                    one:'',
-                    two:'',
-                },
-                peinture :{
-                    one:'',
-                    two:'',
-                },
-                electricien :{
-                    one:'',
-                    two:'',
-                },
-                plombier :{
-                    one:'',
-                    two:'',
-                },
-                cristalerie :{
-                    one:'',
-                    two:'',
-                },
-                marbrerie :{
-                    one:'',
-                    two:'',
-                },
-                courtier :{
-                    one:'',
-                    two:'',
-                },
-                contracteur :{
-                    one:'',
-                    two:'',
-                },
-                architecture :{
-                    one:'',
-                    two:'',
-                },
-                gym :{
-                    one:'',
-                    two:'',
-                },
-                pyscine :{
-                    one:'',
-                    two:'',
-                },
-                stade :{
-                    one:'',
-                    two:'',
-                },
-                cinema :{
-                    one:'',
-                    two:'',
-                },
-                theatre :{
-                    one:'',
-                    two:'',
-                },
-                musee :{
-                    one:'',
-                    two:'',
-                },
-                admin_c_mj :{
-                    one:'',
-                    two:'',
-                },
-                admin_c_mc :{
-                    one:'',
-                    two:'',
-                },
-                admin_c_me :{
-                    one:'',
-                    two:'',
-                },
-                comptable :{
-                    one:'',
-                    two:'',
-                },
-                bank :{
-                    one:'',
-                    two:'',
-                },
-                admin_f_poste :{
-                    one:'',
-                    two:'',
-                },
-                admin_f_rf :{
-                    one:'',
-                    two:'',
-                },
-                avocat :{
-                    one:'',
-                    two:'',
-                },
-                admin_a_mu :{
-                    one:'',
-                    two:'',
-                },
-                admin_a_police :{
-                    one:'',
-                    two:'',
-                },
-                admin_a_ar :{
-                    one:'',
-                    two:'',
-                },
-                admin_a_court :{
-                    one:'',
-                    two:'',
-                },
-                admin_a_mosq :{
-                    one:'',
-                    two:'',
-                },
-                ambassade :{
-                    one:'',
-                    two:'',
-                },
-                fourragerie :{
-                    one:'',
-                    two:'',
-                },
-                veterinaire :{
-                    one:'',
-                    two:'',
-                },
-                agritools :{
-                    one:'',
-                    two:'',
-                },
-                
             },
             FollowTabData : {
                 docteur : {
@@ -2257,7 +2237,7 @@ const FrancaisTrans = {
                 
             },
             PostsTabs :{
-                noPostToShow: '',
+                noPostToShow: "Ce client n'a aucun poste à afficher",
                 textText: '',
                 photoText: '',
                 videoText: '',

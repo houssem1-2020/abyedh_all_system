@@ -184,11 +184,12 @@ function SearchLandingPage() {
             
         </>)
     }
+ 
     const ButtomCard = () =>{
         return(<>
-            <div className='card-body rounded-bottom-card d-lg-none' style={{backgroundColor:GConf.ADIL[tag].themeColor}}>
-                <div className='text-end text-white me-5'>
-                    <b>منصة أبيض التونسية </b>
+            <div className='card-body rounded-bottom-card footer-abyedh' style={{backgroundColor:GConf.ADIL[tag].themeColor}}>
+                <div className={`${isRTL ? 'text-end' : 'text-start'} text-white ${isRTL ? 'me-5' : 'ms-5'}`}>
+                    <b>{t('landingPage.bottomAbyedhText')}</b>
                 </div>
             </div>
         </>)
@@ -197,9 +198,9 @@ function SearchLandingPage() {
         return (
                 <Ripples className='shadow-sm  m-1 border-div d-block'>
                 <div className={`card p-2 ps-3 border-div ${selected ? 'border-selected' : ''}`}  selected={selected} onClick={onChange} style={{cursor:'pointer'}}>
-                    <div className='row'>
-                        <div className='col-4 text-center m-0 p-0'><img src={`https://cdn.abyedh.tn/images/Search/Land_icons/${option.imgSrc}.gif`} className='img-responsive' width='40px' height='40px' alt='*' /></div>
-                        <div className='col-8 text-center m-0 p-0  align-self-center'><b>{t(`landingPage.itemsToSelect.${tag}.${option.imgSrc}`)} </b></div> {/* ${option.value} */}
+                    <div className='row '>
+                        <div className='col-4  text-center m-0 p-0'><img src={`https://cdn.abyedh.tn/images/Search/Land_icons/${option.imgSrc}.gif`} className='img-responsive' width='40px' height='40px' alt='*' /></div>
+                        <div className={`col-8  ${isRTL ? 'text-end' : 'text-start'}  m-0 p-0  align-self-center`}><b>{t(`landingPage.itemsToSelect.${tag}.${option.imgSrc}`)} </b></div> {/* ${option.value} */}
                     </div>
                 </div>
                 </Ripples>
@@ -294,22 +295,22 @@ function SearchLandingPage() {
     const SystemLinkCard = () =>{
         return(<>
             <div className='card p-2 shadow-sm mb-2 border-div d-md-none'>
-                <h5 className='text-end text-secondary mb-1 mt-2' dir='rtl'> هَلْ أَنْتَ  {GConf.ADIL[tag].businesOwner} و تريد التسجيل في المنصة   ؟ </h5>
+                <h5 className={` ${isRTL ? 'text-end' : 'text-start'} text-secondary mb-1 mt-2`}  dir={isRTL ? 'rtl' : 'ltr'}>{t('landingPage.titleSystemAds1')} {GConf.ADIL[tag].businesOwner} {t('landingPage.titleSystemAds2')}</h5>
                 {/* <a href={`/S/I/add/${tag}`} className=' text-secondary ' ></a> */}
                 <div className='row mt-0 pt-0 '>
                     <div className='col-3 align-self-center text-center'>
                         <img src={`https://cdn.abyedh.tn/images/ads/${tag}.svg`} className=' mt-3 img-responsive mb-1 ms-2' width='100%'  height='auto' alt='abyedh.tn' />
                     </div>
                     <div className='col-9 align-self-center text-center'>
-                        <p> إِكْتَشِفْ النسخة  المصغرة لـ {GConf.ADIL[tag].systemName} التي تسَاعِدُكَ علي التَعْرِيفْ بنَفْسِكْ و إستقبال طلبات عملائك    </p>
+                        <p> {t('landingPage.textSystemAds1')} {GConf.ADIL[tag].systemName} {t('landingPage.textSystemAds2')}   </p>
                         {/* <p >   <b style={{color:GConf.ADIL[tag].themeColor}}>{GConf.ADIL[tag].systemName}</b> يعُاوْنِكْ  بَاشْ تَعَرِّفْ بنَفْسِكْ و تَعَرِّفْ بخَدِمْتِكْ  </p> */}
                         {/* {localStorage.getItem('AddToDirectory') ? <Button className='rounded-pill text-secondary' style={{backgroundColor:'white'}} size='tiny' onClick={() => navigate(`/S/I/user/${tag}`)}> متابعة عملية التسجيل </Button>  : <></>}  */}
                     </div>
                 </div>
                 <div className='mt-3'>
                     <div className='row'>
-                        <div className='col-6 align-self-center text-start'><Button className='rounded-pill mb-2' style={{backgroundColor:'#f0f0f0', color : GConf.ADIL[tag].themeColor}} size='tiny' onClick={() => navigate(`/S/I/add/${tag}`)}> التسجيل في النظام </Button></div>
-                        <div className='col-6 align-self-center text-end'><Button className='rounded-pill text-white mb-2' style={{backgroundColor:GConf.ADIL[tag].themeColor}} size='tiny' onClick={() => navigate(`/App/L/${tag}`)}>  الدخول للنظام </Button></div>
+                        <div className='col-6 align-self-center text-start'><Button className='rounded-pill mb-2' style={{backgroundColor:'#f0f0f0', color : GConf.ADIL[tag].themeColor}} size='tiny' onClick={() => navigate(`/S/I/add/${tag}`)}> {t('landingPage.SubscribeBtnText')} </Button></div>
+                        <div className='col-6 align-self-center text-end'><Button className='rounded-pill text-white mb-2' style={{backgroundColor:GConf.ADIL[tag].themeColor}} size='tiny' onClick={() => navigate(`/App/L/${tag}`)}> {t('landingPage.goToSystemBtnText')} </Button></div>
                     </div>
                 </div>
                  
@@ -565,7 +566,7 @@ function SearchLandingPage() {
                 {GConf.ADIL[tag].systemActive ? <SystemLinkCard /> : <AdminSoon /> }
                
                 <br />
-                <h5 className='text-end me-3 mt-0 mb-2' style={{color : GConf.ADIL[tag].themeColor}}> المفظلة و الإقتراحات <span className='bi bi-star-half'></span> </h5> 
+                <h5 className={` ${isRTL ? 'text-end' : 'text-start'} me-3 mt-0 mb-2`} style={{color : GConf.ADIL[tag].themeColor}} dir={isRTL ? 'rtl' : 'ltr'}> <span className='bi bi-star-half'></span>  {t('landingPage.suggestionAndFavText')} </h5> 
                 <FvaoriteOrSuggestionCard />
             </div> 
             

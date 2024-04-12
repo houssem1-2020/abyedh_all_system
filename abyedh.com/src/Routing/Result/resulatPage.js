@@ -155,8 +155,8 @@ function ResultPage() {
     const ButtomCard = () =>{
         return(<>
             <div className='card-body rounded-bottom-card footer-abyedh' style={{backgroundColor:GConf.ADIL[tag].themeColor}}>
-                <div className='text-end text-white me-5'>
-                    <b>منصة أبيض التونسية </b>
+                <div className={`${isRTL ? 'text-end' : 'text-start'} text-white ${isRTL ? 'me-5' : 'ms-5'}`}>
+                    <b>{t('resultPage.bottomAbyedhText')}</b>
                 </div>
             </div>
         </>)
@@ -366,12 +366,12 @@ function ResultPage() {
                     <img src='https://cdn.abyedh.tn/Images/Errors/error-page.png' className='img-gray d-lg-none' width='100%'  height='300px' />
                     <img src='https://cdn.abyedh.tn/Images/Errors/error-page.png' className='img-gray d-none d-lg-inline' width='60%'  height='300px' />
                 </div>
-                <h3>عذرا , لا توجد نتائج حاليا لأحد الأسباب التالية :</h3> 
+                <h3>{t('resultPage.pasDeResultat.desoleText')}</h3> 
                 <ul >
-                    <li>لا توجد نتائج فعليا</li>
-                    <li> لم نتمكن من إيجاد نتائج </li>
+                    <li>{t('resultPage.pasDeResultat.reasonOne')}</li>
+                    <li> {t('resultPage.pasDeResultat.reasonTwo')}</li>
                 </ul> 
-                <h5>يمكنك العودة و البحث في اماكن أخري قريبة منك , تأكد أنك ستجد ما تبحث عنه= </h5>
+                <h5> {t('resultPage.pasDeResultat.searchNext')}</h5>
             </div>
         </>)
     }

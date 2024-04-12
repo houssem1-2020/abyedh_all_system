@@ -174,7 +174,7 @@ function DocteurSpecific() {
               </div>
             </div>
             <div className="col-4 col-lg-2 mb-3 text-center">
-                <div   onClick={() => SelectCountry('ja','JA')}>
+                <div   onClick={() => SelectCountry('ja','JP')}>
                 <img src="https://flagpedia.net/data/flags/w580/jp.webp" className="img-responsive rounded-circle border" width="70px" height="70px" />
                 <div className="text-center mt-2">日本</div>
                 </div>

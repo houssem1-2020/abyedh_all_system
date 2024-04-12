@@ -109,7 +109,7 @@ function ToolsLandingPage() {
     const InlineLinkCard = (props) =>{
         return(<>
             <NavLink exact='true' to={`/Tools/${props.link}`} >
-                <div className='card p-0 shadow-sm mb-3 text-center border-div  ms-3'>
+                <div className={`card p-0 shadow-sm mb-3 text-center border-div  ${isRTL ? 'ms-3' : 'me-3'}`}>
                    <div className='mb-2'><img src={`https://cdn.abyedh.tn/images/Tools/${props.img}`} className='img-responsive ' width='60px' height='60px' /></div>    
                 </div>
                 <div className='mb-2 text-center text-secondary'><h6><b>{props.name}</b></h6></div> 

@@ -236,16 +236,18 @@ const FourragerieSuivie = React.lazy(() => import('./Suivie/fourragerie'));
 
 
 const AddComment = ({rateValue,setRateValue,SaveRating}) =>{
+    const { t, i18n } = useTranslation();
+    const isRTL = detectRTL.isRtlLang(i18n.language);
     return(<>
             <div className='text-center mb-4'>
                 <Rating icon='star' onRate={(e,{ rating}) => setRateValue({ ...rateValue, rating: rating})} defaultRating={0} maxRating={5} size='huge' />
                 <br />
                 <br />
                 <Form>
-                    <TextArea placeholder='الملاحضات هنا ' className='font-droid' style={{ minHeight: 60, width:'85%' }} value={rateValue.comment} onChange={(e) => setRateValue({ ...rateValue, comment: e.target.value})} />
+                    <TextArea placeholder={t('profilePage.generalData.inputCommentPlaceholderText')} className='font-droid' style={{ minHeight: 60, width:'85%' }} value={rateValue.comment} onChange={(e) => setRateValue({ ...rateValue, comment: e.target.value})} />
                 </Form>
                 <br />
-                <Button style={{width:'85%' }} className='rounded-pill ' size='mini' content='تسجيل تعليق ' onClick={() => SaveRating()} />
+                <Button style={{width:'85%' }} className='rounded-pill ' size='mini' content={t('profilePage.generalData.saveCommentBtnText')} onClick={() => SaveRating()} />
             </div>
     </>)
 }
@@ -317,8 +319,8 @@ const CommentsCard = ({tag, profileData,rateValue,setRateValue,SaveRating }) =>{
             <div className='card card-body shadow-sm mb-2 h-100 border-div'>
                 
                 <div className='row mb-4'>
-                    <div className={`col-5 ${isRTL ? 'order-1 ':'order-2 text-end'} `}> <small className='  p-1 ps-2 pe-2 border-div'  onClick={() => setCommeningIsActive(!commeningIsActive)}> {commeningIsActive ?  <span dir={isRTL ? 'rtl' : 'ltr'}>   <span className='bi bi-chat-left-dots-fill  '> </span> <b>  التعليقات</b> </span> : <span dir={isRTL ? 'rtl' : 'ltr'}>  <span className='bi bi-pencil-square  '> </span> <b> أضف تعليق </b> </span> } </small> </div>
-                    <div className={`col-7 ${isRTL ? 'order-2 ':'order-1'} `}><h5 className={`${isRTL ? 'text-end':'text-start'} `} style={{color: GConf.ADIL[tag].themeColor}}> تعليقات </h5></div>
+                    <div className={`col-5 ${isRTL ? 'order-1 ':'order-2 text-end'} `}> <small className='  p-1 ps-2 pe-2 border-div'  onClick={() => setCommeningIsActive(!commeningIsActive)}> {commeningIsActive ?  <span dir={isRTL ? 'rtl' : 'ltr'}>   <span className='bi bi-chat-left-dots-fill  '> </span> <b>  {t('profilePage.generalData.voirCommentText')} </b> </span> : <span dir={isRTL ? 'rtl' : 'ltr'}>  <span className='bi bi-pencil-square  '> </span> <b> {t('profilePage.generalData.addCommentText')} </b> </span> } </small> </div>
+                    <div className={`col-7 ${isRTL ? 'order-2 ':'order-1'} `}><h5 className={`${isRTL ? 'text-end':'text-start'} `} style={{color: GConf.ADIL[tag].themeColor}}> {t('profilePage.generalData.commentText')} </h5></div>
                 </div>
 
                 <div style={{height:'230px', overflowX:'auto', overflowX:'hidden'}} dir='rtl'>
@@ -639,9 +641,9 @@ function ProfilePage() {
         }
         const ButtomCard = () =>{
             return(<>
-                <div className='card-body rounded-bottom-card' style={{backgroundColor:GConf.ADIL[tag].themeColor}}>
-                    <div className='text-end text-white me-5'>
-                        <b>منصة أبيض التونسية </b>
+                <div className='card-body rounded-bottom-card footer-abyedh' style={{backgroundColor:GConf.ADIL[tag].themeColor}}>
+                    <div className={`${isRTL ? 'text-end' : 'text-start'} text-white ${isRTL ? 'me-5' : 'ms-5'}`}>
+                        <b>{t('resultPage.bottomAbyedhText')}</b>
                     </div>
                 </div>
             </>)
@@ -722,7 +724,7 @@ function ProfilePage() {
                     <div className='card card-body shadow-sm mb-2 h-100 border-div'>
                         <div className='row mb-2'>
                             <div className={`col-3 ${isRTL ? 'order-1 ':'order-2'} `}> { (profileData.genrale[0].Activated == 'true' ||  profileData.genrale[0].Activated == 'autoSaved') ?  <span className='bi bi-patch-check-fill  ' style={{color: '#1d9bf0'}}></span> : ''} </div>
-                            <div className={`col-9 ${isRTL ? 'order-2 ':'order-1'} `}> <h5 className={`${isRTL ? 'text-end':'text-start'} `} style={{color: GConf.ADIL[tag].themeColor}}>معلومات عامة</h5></div>
+                            <div className={`col-9 ${isRTL ? 'order-2 ':'order-1'} `}> <h5 className={`${isRTL ? 'text-end':'text-start'} `} style={{color: GConf.ADIL[tag].themeColor}}>{t('profilePage.generalData.generalDataText')}</h5></div>
                         </div>
 
                        
@@ -780,37 +782,37 @@ function ProfilePage() {
                     <table className="table table-borderless" dir={isRTL ? 'rtl' : 'ltr'}>
                         <tbody>
                             <tr style={{color: CheckToday('Sun') ? 'white' : GConf.ADIL[tag].themeColor , backgroundColor : CheckToday('Sun') ? ConverColorToHsl(GConf.ADIL[tag].themeColor) : ''}}>
-                                <th scope="row" >الأحد</th>
+                                <th scope="row" >{t('profilePage.generalData.weekDayes.lundi')}</th>
                                 <td className='text-center'>08:00 - 12:00 </td>
                                 <td className='text-center'>14:00 - 18:00 </td>
                             </tr>
                             <tr style={{color: CheckToday('Mon') ? 'white' : GConf.ADIL[tag].themeColor , backgroundColor : CheckToday('Mon') ? ConverColorToHsl(GConf.ADIL[tag].themeColor) : ''}}>
-                                <th scope="row">الأثنين</th>
+                                <th scope="row">{t('profilePage.generalData.weekDayes.mardi')}</th>
                                 <td className='text-center'>08:00 - 12:00 </td>
                                 <td className='text-center'>14:00 - 18:00 </td>
                             </tr>
                             <tr style={{color: CheckToday('Tue') ? 'white' : GConf.ADIL[tag].themeColor , backgroundColor : CheckToday('Tue') ? ConverColorToHsl(GConf.ADIL[tag].themeColor) : ''}}>
-                                <th scope="row">الثلاثاء</th>
+                                <th scope="row">{t('profilePage.generalData.weekDayes.mercredi')}</th>
                                 <td className='text-center'>08:00 - 12:00 </td>
                                 <td className='text-center'>14:00 - 18:00 </td>
                             </tr>
                             <tr style={{color: CheckToday('Wed') ? 'white' : GConf.ADIL[tag].themeColor , backgroundColor : CheckToday('Wed') ? ConverColorToHsl(GConf.ADIL[tag].themeColor) : ''}}>
-                                <th scope="row">الإربعاء</th>
+                                <th scope="row">{t('profilePage.generalData.weekDayes.jeudi')}</th>
                                 <td className='text-center'>08:00 - 12:00 </td>
                                 <td className='text-center'>14:00 - 18:00 </td>
                             </tr>
                             <tr style={{color: CheckToday('Thu') ? 'white' : GConf.ADIL[tag].themeColor , backgroundColor : CheckToday('Thu') ? ConverColorToHsl(GConf.ADIL[tag].themeColor) : ''}}>
-                                <th scope="row">الخميس</th>
+                                <th scope="row">{t('profilePage.generalData.weekDayes.vendredi')}</th>
                                 <td className='text-center'>08:00 - 12:00 </td>
                                 <td className='text-center'>14:00 - 18:00 </td>
                             </tr>
                             <tr style={{color: CheckToday('Fri') ? 'white' : GConf.ADIL[tag].themeColor , backgroundColor : CheckToday('Fri') ? ConverColorToHsl(GConf.ADIL[tag].themeColor) : ''}}>
-                                <th scope="row">الجمعة</th>
+                                <th scope="row">{t('profilePage.generalData.weekDayes.samedi')}</th>
                                 <td className='text-center'>08:00 - 12:00 </td>
                                 <td className='text-center'>14:00 - 18:00 </td>
                             </tr>
                             <tr style={{color: CheckToday('Sat') ? 'white' : GConf.ADIL[tag].themeColor , backgroundColor : CheckToday('Sat') ? ConverColorToHsl(GConf.ADIL[tag].themeColor) : ''}}>
-                                <th scope="row">السبت</th>
+                                <th scope="row">{t('profilePage.generalData.weekDayes.dimanche')}</th>
                                 <td className='text-center'>08:00 - 12:00 </td>
                                 <td className='text-center'>14:00 - 18:00 </td>
                             </tr>
@@ -822,7 +824,7 @@ function ProfilePage() {
                     <div className='card card-body shadow-sm mb-2 h-100 border-div'>
                         <div className='row mb-2'>
                             <div className={`col-3 align-self-center ${isRTL ? 'order-1':'order-2 text-end'} `}> <Button  icon  className='rounded-circle mb-0' style={{backgroundColor:'white'}} onClick={() => setCalendarActive(!calendarActive)}> <Icon color={calendarActive ? 'orange' : 'grey'} name='calendar alternate' /> </Button> </div>
-                            <div className={`col-9 align-self-center ${isRTL ? 'order-2':'order-1'} `}><h5 className={`${isRTL ? 'text-end ':'text-start'} `} style={{color: GConf.ADIL[tag].themeColor}}>أوقات العمل  </h5></div>
+                            <div className={`col-9 align-self-center ${isRTL ? 'order-2':'order-1'} `}><h5 className={`${isRTL ? 'text-end ':'text-start'} `} style={{color: GConf.ADIL[tag].themeColor}}>{t('profilePage.generalData.horaireText')} </h5></div>
                         </div>
                         {calendarActive ? 
                             <FullCalendar 
@@ -861,7 +863,7 @@ function ProfilePage() {
                     <div className='card card-body shadow-sm mb-2 h-100 border-div'>
                         <div className='row mb-4'>
                             <div className={`col-3 ${isRTL ? 'order-1' : 'order-2 text-end'} `}> <a href='https://maps.google.com/' target='c_blank'><span className='bi bi-geo-alt-fill bi-sm'></span></a></div>
-                            <div className={`col-9 ${isRTL ? 'order-2' : 'order-1'} `}><h5 className={`${isRTL ? 'text-end':'text-start'} `} style={{color: GConf.ADIL[tag].themeColor}}>الموقع الجعرافي  </h5></div>
+                            <div className={`col-9 ${isRTL ? 'order-2' : 'order-1'} `}><h5 className={`${isRTL ? 'text-end':'text-start'} `} style={{color: GConf.ADIL[tag].themeColor}}> {t('profilePage.generalData.mapText')} </h5></div>
                         </div>
                         
                         <MapContainer center={GetPosition()} zoom={15} scrollWheelZoom={false} className="map-height"  style={{zIndex: 50}}>
@@ -905,7 +907,7 @@ function ProfilePage() {
             }
             return(<>
                     <div className='card card-body shadow-sm mb-2 h-100 border-div'>
-                        <h5 className={` ${isRTL ? 'text-end':'text-start'} `} style={{color: GConf.ADIL[tag].themeColor}}> الصور</h5>
+                        <h5 className={` ${isRTL ? 'text-end':'text-start'} `} style={{color: GConf.ADIL[tag].themeColor}}> {t('profilePage.generalData.photoesText')}</h5>
                         
                             {profileData.photoes.length == 0 ?
                             <Slider {...settings} >
@@ -961,7 +963,7 @@ function ProfilePage() {
 
             return(<>
                     <div className='card card-body shadow-sm mb-2 h-100 border-div'>
-                        <h5 className={` ${isRTL ? 'text-end':'text-start'} `} style={{color: GConf.ADIL[tag].themeColor}}> تقييم </h5>
+                        <h5 className={` ${isRTL ? 'text-end':'text-start'} `} style={{color: GConf.ADIL[tag].themeColor}}> {t('profilePage.generalData.avisText')} </h5>
                         <div className='row'>
                             <div className='col-12 align-self-center text-center'>
                                 <h1 className='text-warning'>{profileData.rating ? <> {CalculateRating(profileData.rating)} </> : 0 }</h1>
@@ -1193,8 +1195,8 @@ function ProfilePage() {
         }
         const AlertCard = () =>{
             return(<>
-                <div className='card-body bg-danger text-white mb-4 border-div text-center ' dir='rtl'>
-                    <span className='bi bi-exclamation-circle-fill ms-2'></span>       <small className='text-white mb-1'>هذا العميل غير مشترك في المنصة .  سيتولي فريق أبيض محاولة الاتصال به لإعلامه بطلبكم</small> 
+                <div className='card-body bg-danger text-white mb-4 border-div text-center ' dir={isRTL ? 'rtl' : 'ltr'}>
+                    <span className={`bi bi-exclamation-circle-fill ${isRTL ? 'ms-2' : 'me-2'} `}></span>       <small className='text-white mb-1'> {t('profilePage.ActionTabData.notRegistredText')} </small> 
                 </div>
             </>)
         }

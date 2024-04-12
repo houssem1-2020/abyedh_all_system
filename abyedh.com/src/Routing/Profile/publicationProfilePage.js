@@ -3,6 +3,8 @@ import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import GConf from '../../AssetsM/generalConf';
 import { Button, Icon } from 'semantic-ui-react';
+import { useTranslation, Trans } from 'react-i18next';
+import detectRTL from 'rtl-detect';
 
 
 function PublicationProfilePage(props) {
@@ -10,6 +12,8 @@ function PublicationProfilePage(props) {
         let {tag,PID} = useParams()
         let [loading,setLoading] = useState(true)
         let [postsListe,setPostsListe] = useState([])
+        const { t, i18n } = useTranslation();
+        const isRTL = detectRTL.isRtlLang(i18n.language);
 
     /* ############### UseEffect #################*/
      useEffect(() => {
@@ -23,10 +27,10 @@ function PublicationProfilePage(props) {
         
         }, [])
     /* ############### Functions #################*/
-    const isRTL = (text) => {
-        const rtlChars = /[\u0591-\u07FF\uFB1D-\uFDFD\uFE70-\uFEFC]/;
-        return rtlChars.test(text);
-      };
+    // const isRTL = (text) => {
+    //     const rtlChars = /[\u0591-\u07FF\uFB1D-\uFDFD\uFE70-\uFEFC]/;
+    //     return rtlChars.test(text);
+    //   };
 
     /* ############### Card #################*/
     const PublicationEmtyCard = () =>{
@@ -38,7 +42,7 @@ function PublicationProfilePage(props) {
             <br />
             <div className='card-body'>
                 <div className='text-center'> <img src={`https://cdn.abyedh.tn/images/Search/blog-post.svg`} className='mb-2' width='100px' height='100px' /> </div>
-                <div className='text-center'>   هذا العميل ليس لديه منشورات  </div>
+                <div className='text-center'>   {t('profilePage.PostsTabs.noPostToShow')}  </div>
             </div>
             <br />
             <br />
