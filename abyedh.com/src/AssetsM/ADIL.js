@@ -100,8 +100,8 @@ const AbyedhADIL = {
                 {id:7, name:' الخبرة ', resultTag:'' , icon:'star-half'},
         ],
         profileBtns:[
-                {id:1, name:' حَجْزْ مَوْعِدْ   ' , icon:'calendar' , link:'Action', bgColor:''},
-                {id:2, name:'مُتَابَعَة مَوْعِدْ ' , icon:'eye' , link:'Suivie', bgColor:''},
+                {id:1, name:' حَجْزْ مَوْعِدْ   ' , icon:'calendar' , link:'docteur_rdv', bgColor:''},
+                {id:2, name:'مُتَابَعَة مَوْعِدْ ' , icon:'eye' , link:'docteur_suivie', bgColor:''},
         ],
         profileTarif:true,
 
@@ -154,8 +154,8 @@ const AbyedhADIL = {
                 {id:7, name:' فريق العمل ', resultTag:'' , icon:'star-half'},
         ],
         profileBtns:[
-                {id:1, name:' شِرَاءْ دَواءْ   ' , icon:'shop' , link:'Action', bgColor:''},
-                {id:1, name:' طَلَبْ مَوْعِدْ   ' , icon:'calendar' , link:'Action', bgColor:''},
+                {id:1, name:' شِرَاءْ دَواءْ   ' , icon:'shop' , link:'pharmacie_shop', bgColor:''},
+                {id:1, name:' طَلَبْ مَوْعِدْ   ' , icon:'calendar' , link:'pharmacie_rdv', bgColor:''},
                 {id:2, name:'مُتَابَعَة  ' , icon:'eye' , link:'Suivie', bgColor:''},
         ],
         profileTarif:true,
@@ -215,8 +215,8 @@ const AbyedhADIL = {
 
         ],
         profileBtns:[
-                {id:1, name:'  تَسْجِيلْ حَجْزْ  ' , icon:'check' , link:'Action', bgColor:''},
-                {id:2, name:'مُتَابَعَة ' , icon:'eye' , link:'Suivie', bgColor:''},
+                {id:1, name:'  تَسْجِيلْ حَجْزْ  ' , icon:'check' , link:'clinique_reservation', bgColor:''},
+                {id:2, name:'مُتَابَعَة ' , icon:'eye' , link:'clinique_suivie', bgColor:''},
 
         ],
         profileTarif:true,
@@ -276,7 +276,7 @@ const AbyedhADIL = {
 
         ],
         profileBtns:[
-                {id:1, name:'  تَسْجِيلْ مَوْعِدْ  ' , icon:'check circle' , link:'Action', bgColor:''},
+                {id:1, name:'تَسْجِيلْ مَوْعِدْ  ' , icon:'check circle' , link:'labo_demmande', bgColor:''},
                 {id:2, name:'مُتَابَعَة ' , icon:'eye' , link:'Suivie', bgColor:''},
 
         ],
@@ -332,8 +332,8 @@ const AbyedhADIL = {
 
         ],
         profileBtns:[
-                {id:1, name:'  تَسْجِيلْ مَوْعِدْ  ' , icon:'check circle' , link:'Action', bgColor:''},
-                {id:2, name:'مُتَابَعَة ' , icon:'eye' , link:'Suivie', bgColor:''},
+                {id:1, name:'  تَسْجِيلْ مَوْعِدْ  ' , icon:'check circle' , link:'infirmier_rdv', bgColor:''},
+                {id:2, name:'مُتَابَعَة ' , icon:'eye' , link:'infirmier_suivie', bgColor:''},
 
         ],
         profileTarif:true,
@@ -393,8 +393,8 @@ const AbyedhADIL = {
 
         ],
         profileBtns:[
-                {id:1, name:'  تَسْجِيلْ حَجْزْ  ' , icon:'check circle' , link:'Action', bgColor:''},
-                {id:2, name:'مُتَابَعَة ' , icon:'eye' , link:'Suivie', bgColor:''},
+                {id:1, name:'  تَسْجِيلْ حَجْزْ  ' , icon:'check circle' , link:'centreMD_reservation', bgColor:''},
+                {id:2, name:'مُتَابَعَة ' , icon:'eye' , link:'centreMD_suivie', bgColor:''},
 
         ],
         profileTarif:true,
@@ -568,9 +568,9 @@ const AbyedhADIL = {
                 {id:1, name:' الطاقم التربوي ', resultTag:'' , icon:'star-half'},
         ],
         profileBtns:[
-            {id:1, name:' تَسْجِيلْ  ' , icon:'edit outline' , link:'inscription', bgColor:''},
-            {id:1, name:' تَرْسِيمْ    ' , icon:'clipboard check' , link:'souscription', bgColor:''},
-            {id:2, name:'مُتَابَعَة ' , icon:'eye' , link:'Suivie', bgColor:''},
+            {id:1, name:' تَسْجِيلْ  ' , icon:'edit outline' , link:'garderie_inscription', bgColor:''},
+            {id:1, name:' تَرْسِيمْ    ' , icon:'clipboard check' , link:'garderie_souscription', bgColor:''},
+            {id:2, name:'مُتَابَعَة ' , icon:'eye' , link:'garderie_suivie', bgColor:''},
         ],
         profileTarif:true,
 
@@ -624,8 +624,8 @@ const AbyedhADIL = {
 
         ],
         profileBtns:[
-            {id:1, name:' تَسْجِيلْ  ' , icon:'edit outline' , link:'Action', bgColor:''},
-            {id:1, name:'  تَرْسِيمْ    ' , icon:'clipboard check' , link:'Action', bgColor:''},
+            {id:1, name:' تَسْجِيلْ  ' , icon:'edit outline' , link:'ecole_inscription', bgColor:''},
+            {id:1, name:'  تَرْسِيمْ    ' , icon:'clipboard check' , link:'ecole_souscription', bgColor:''},
             {id:2, name:'مُتَابَعَة ' , icon:'eye' , link:'Suivie', bgColor:''},
 
         ],
@@ -681,8 +681,8 @@ const AbyedhADIL = {
 
         ],
         profileBtns:[
-            {id:1, name:' تَسْجِيلْ  ' , icon:'edit outline' , link:'Action', bgColor:''},
-            {id:1, name:'  تَرْسِيمْ    ' , icon:'clipboard check' , link:'Action', bgColor:''},
+            {id:1, name:' تَسْجِيلْ  ' , icon:'edit outline' , link:'lycee_inscription', bgColor:''},
+            {id:1, name:'  تَرْسِيمْ    ' , icon:'clipboard check' , link:'lycee_souscription', bgColor:''},
             {id:2, name:'مُتَابَعَة ' , icon:'eye' , link:'Suivie', bgColor:''},
 
         ],
@@ -757,8 +757,8 @@ const AbyedhADIL = {
 
         ],
         profileBtns:[
-            {id:1, name:' تَسْجِيلْ  ' , icon:'edit outline' , link:'Action', bgColor:''},
-            {id:1, name:'  تَرْسِيمْ    ' , icon:'clipboard check' , link:'Action', bgColor:''},
+            {id:1, name:' تَسْجِيلْ  ' , icon:'edit outline' , link:'universite_inscription', bgColor:''},
+            {id:1, name:'  تَرْسِيمْ    ' , icon:'clipboard check' , link:'universite_souscription', bgColor:''},
             {id:2, name:'مُتَابَعَة ' , icon:'eye' , link:'Suivie', bgColor:''},
 
         ],
@@ -843,8 +843,8 @@ const AbyedhADIL = {
 
         ],
         profileBtns:[
-            {id:1, name:' تَسْجِيلْ  ' , icon:'edit outline' , link:'Action', bgColor:''},
-            {id:1, name:'  تَرْسِيمْ    ' , icon:'clipboard check' , link:'Action', bgColor:''},
+            {id:1, name:' تَسْجِيلْ  ' , icon:'edit outline' , link:'formation_inscription', bgColor:''},
+            {id:1, name:'  تَرْسِيمْ    ' , icon:'clipboard check' , link:'formation_souscription', bgColor:''},
             {id:2, name:'مُتَابَعَة ' , icon:'eye' , link:'Suivie', bgColor:''},
 
         ],
@@ -900,9 +900,9 @@ const AbyedhADIL = {
 
         ],
         profileBtns:[
-                {id:1, name:' طِبَاعَةْ وَثَائِقْ   ' , icon:'print' , link:'Action', bgColor:''},
-                {id:1, name:' طَلَبْ خِدْمَة   ' , icon:'clipboard check' , link:'Action', bgColor:''},
-                {id:2, name:'مُتَابَعَة ' , icon:'eye' , link:'Suivie', bgColor:''},
+                {id:1, name:' طِبَاعَةْ وَثَائِقْ   ' , icon:'print' , link:'impremerie_demmande', bgColor:''},
+                {id:1, name:' طَلَبْ خِدْمَة   ' , icon:'clipboard check' , link:'impremerie_service', bgColor:''},
+                {id:2, name:'مُتَابَعَة ' , icon:'eye' , link:'impremerie_suivie', bgColor:''},
 
         ],
         profileTarif:true,
@@ -957,8 +957,8 @@ const AbyedhADIL = {
 
         ],
         profileBtns:[
-                {id:1, name:'  شِرَاءْ أَدَوَاتْ مَدْرَسِيّة' , icon:'calendar' , link:'Action', bgColor:''},
-                {id:2, name:'مُتَابَعَة ' , icon:'eye' , link:'Suivie', bgColor:''},
+                {id:1, name:'  شِرَاءْ أَدَوَاتْ مَدْرَسِيّة' , icon:'calendar' , link:'librairie_shop', bgColor:''},
+                {id:2, name:'مُتَابَعَة ' , icon:'eye' , link:'librairie_suivie', bgColor:''},
 
         ],
         profileTarif:true,
@@ -1367,8 +1367,8 @@ const AbyedhADIL = {
 
         ],
         profileBtns:[
-                {id:1, name:'طَلَبْ نَقْلْ بَظَائِعْ  ' , icon:'truck' , link:'Action', bgColor:''},
-                {id:2, name:'مُتَابَعَة ' , icon:'eye' , link:'Suivie', bgColor:''},
+                {id:1, name:'طَلَبْ نَقْلْ بَظَائِعْ  ' , icon:'truck' , link:'transporteur_demande', bgColor:''},
+                {id:2, name:'مُتَابَعَة ' , icon:'eye' , link:'transporteur_suivie', bgColor:''},
 
         ],
         profileTarif:true,
@@ -1429,8 +1429,8 @@ const AbyedhADIL = {
 
         ],
         profileBtns:[
-                {id:1, name:' تَسْجِيلْ لِلْحٌصٌولْ عَلَي رُخْصِةْ قِيَادَة' , icon:'taxi' , link:'Action', bgColor:''},
-                {id:2, name:'مُتَابَعَة ' , icon:'eye' , link:'Suivie', bgColor:''},
+                {id:1, name:' تَسْجِيلْ لِلْحٌصٌولْ عَلَي رُخْصِةْ قِيَادَة' , icon:'taxi' , link:'autoecole_inscription', bgColor:''},
+                {id:2, name:'مُتَابَعَة ' , icon:'eye' , link:'autoecole_suivie', bgColor:''},
 
         ],
         profileTarif:true,
@@ -1492,8 +1492,8 @@ const AbyedhADIL = {
 
         ],
         profileBtns:[
-                {id:1, name:' طَلَبْ مَشْرُوبْ ' , icon:'coffee' , link:'Action', bgColor:''},
-                {id:2, name:'مُتَابَعَة ' , icon:'eye' , link:'Suivie', bgColor:''},
+                {id:1, name:' طَلَبْ مَشْرُوبْ ' , icon:'coffee' , link:'cafe_demande', bgColor:''},
+                {id:2, name:'مُتَابَعَة ' , icon:'eye' , link:'cafe_suivie', bgColor:''},
 
         ],
         profileTarif:true,
@@ -1554,9 +1554,9 @@ const AbyedhADIL = {
 
         ],
         profileBtns:[
-                {id:1, name:' طَلَبْ طًبَقْ' , icon:'egg-fried' , link:'Action', bgColor:''},
-                {id:1, name:' حَجْزْ طَاوْلَة' , icon:'calendar' , link:'Action', bgColor:''},
-                {id:2, name:'مُتَابَعَة ' , icon:'eye' , link:'Suivie', bgColor:''},
+                {id:1, name:' طَلَبْ طًبَقْ' , icon:'egg-fried' , link:'restaurant_demmande', bgColor:''},
+                {id:1, name:' حَجْزْ طَاوْلَة' , icon:'calendar' , link:'restaurant_reservation', bgColor:''},
+                {id:2, name:'مُتَابَعَة ' , icon:'eye' , link:'restaurant_suivie', bgColor:''},
 
         ],
         profileTarif:true,
@@ -1615,8 +1615,8 @@ const AbyedhADIL = {
 
         ],
         profileBtns:[
-                {id:1, name:'  شِرَاءْ مَوَادْ غِذَائِيّة ' , icon:'shop' , link:'Action', bgColor:''},
-                {id:2, name:'مُتَابَعَة ' , icon:'eye' , link:'Suivie', bgColor:''},
+                {id:1, name:'  شِرَاءْ مَوَادْ غِذَائِيّة ' , icon:'shop' , link:'magazin_shop', bgColor:''},
+                {id:2, name:'مُتَابَعَة ' , icon:'eye' , link:'magazin_suivie', bgColor:''},
 
         ],
         profileTarif:true,
@@ -1675,8 +1675,8 @@ const AbyedhADIL = {
 
         ],
         profileBtns:[
-                {id:1, name:' شِرَاءْ خُبْزْ  ' , icon:'shop' , link:'Action', bgColor:''},
-                {id:2, name:'مُتَابَعَة ' , icon:'eye' , link:'Suivie', bgColor:''},
+                {id:1, name:' شِرَاءْ خُبْزْ  ' , icon:'shop' , link:'boulengerie_shop', bgColor:''},
+                {id:2, name:'مُتَابَعَة ' , icon:'eye' , link:'boulengerie_suivie', bgColor:''},
 
         ],
         profileTarif:true,
@@ -1744,8 +1744,8 @@ const AbyedhADIL = {
 
         ],
         profileBtns:[
-                {id:1, name:' شِرَاءْ لُحُومْ  ' , icon:'shop' , link:'Action', bgColor:''},
-                {id:2, name:'مُتَابَعَة ' , icon:'eye' , link:'Suivie', bgColor:''},
+                {id:1, name:' شِرَاءْ لُحُومْ  ' , icon:'shop' , link:'boucherie_shop', bgColor:''},
+                {id:2, name:'مُتَابَعَة ' , icon:'eye' , link:'boucherie_suivie', bgColor:''},
 
         ],
         profileTarif:true,
@@ -1800,8 +1800,8 @@ const AbyedhADIL = {
 
         ],
         profileBtns:[
-                {id:1, name:' شِرَاءْ خُضَرْ وَ غِلاَلْ  ' , icon:'shop'  , link:'Action', bgColor:''},
-                {id:2, name:'مُتَابَعَة ' , icon:'eye' , link:'Suivie', bgColor:''},
+                {id:1, name:' شِرَاءْ خُضَرْ وَ غِلاَلْ  ' , icon:'shop'  , link:'fruiterie_shop', bgColor:''},
+                {id:2, name:'مُتَابَعَة ' , icon:'eye' , link:'fruiterie_suivie', bgColor:''},
 
         ],
         profileTarif:true,
@@ -1856,8 +1856,8 @@ const AbyedhADIL = {
 
         ],
         profileBtns:[
-                {id:1, name:' شِرَاءْ مُرَطَبَاتْ  ' , icon:'shop'  , link:'Action', bgColor:''},
-                {id:2, name:'مُتَابَعَة ' , icon:'eye' , link:'Suivie', bgColor:''},
+                {id:1, name:' شِرَاءْ مُرَطَبَاتْ  ' , icon:'shop'  , link:'patesserie_shop', bgColor:''},
+                {id:2, name:'مُتَابَعَة ' , icon:'eye' , link:'patesserie_suivie', bgColor:''},
 
         ],
         profileTarif:true,
@@ -1916,8 +1916,8 @@ const AbyedhADIL = {
 
         ],
         profileBtns:[
-                {id:1, name:'  طَلَبْ شِرَاءْ' , icon:'shop'  , link:'Action', bgColor:''},
-                {id:2, name:'مُتَابَعَة ' , icon:'eye' , link:'Suivie', bgColor:''},
+                {id:1, name:'  طَلَبْ شِرَاءْ' , icon:'shop'  , link:'epicerie_shop', bgColor:''},
+                {id:2, name:'مُتَابَعَة ' , icon:'eye' , link:'epicerie_suivie', bgColor:''},
 
         ],
         profileTarif:true,
@@ -1975,8 +1975,8 @@ const AbyedhADIL = {
 
         ],
         profileBtns:[
-                {id:1, name:' شِرَاءْ آَلاَتْ كَهْرُومَنْزِلِيّة  ' , icon:'shop'  , link:'Action', bgColor:''},
-                {id:2, name:'مُتَابَعَة ' , icon:'eye' , link:'Suivie', bgColor:''},
+                {id:1, name:' شِرَاءْ آَلاَتْ كَهْرُومَنْزِلِيّة  ' , icon:'shop'  , link:'electromenager_shop', bgColor:''},
+                {id:2, name:'مُتَابَعَة ' , icon:'eye' , link:'electromenager_suivie', bgColor:''},
 
         ],
         profileTarif:true,
@@ -2031,8 +2031,8 @@ const AbyedhADIL = {
 
         ],
         profileBtns:[
-                {id:1, name:' شِرَاءْ أَثَاثْ  ' , icon:'shop'  , link:'Action', bgColor:''},
-                {id:2, name:'مُتَابَعَة ' , icon:'eye' , link:'Suivie', bgColor:''},
+                {id:1, name:' شِرَاءْ أَثَاثْ  ' , icon:'shop'  , link:'meublerie_shop', bgColor:''},
+                {id:2, name:'مُتَابَعَة ' , icon:'eye' , link:'meublerie_suivie', bgColor:''},
 
         ],
         profileTarif:true,
@@ -2092,8 +2092,8 @@ const AbyedhADIL = {
 
         ],
         profileBtns:[
-                {id:1, name:' كِرَاءْ سَيّارَة ' , icon:'taxi'  , link:'Action', bgColor:''},
-                {id:2, name:'مُتَابَعَة ' , icon:'eye' , link:'Suivie', bgColor:''},
+                {id:1, name:' كِرَاءْ سَيّارَة ' , icon:'taxi'  , link:'location_demmande', bgColor:''},
+                {id:2, name:'مُتَابَعَة ' , icon:'eye' , link:'location_suivie', bgColor:''},
 
         ],
         profileTarif:true,
@@ -2148,8 +2148,8 @@ const AbyedhADIL = {
 
         ],
         profileBtns:[
-                {id:1, name:' حَجْزْ مَكُانْ   ' , icon:'calendar' , link:'Action', bgColor:''},
-                {id:2, name:'مُتَابَعَة ' , icon:'eye' , link:'Suivie', bgColor:''},
+                {id:1, name:' حَجْزْ مَكُانْ   ' , icon:'calendar' , link:'parking_reservation', bgColor:''},
+                {id:2, name:'مُتَابَعَة ' , icon:'eye' , link:'parking_suivie', bgColor:''},
 
         ],
         profileTarif:true,
@@ -2204,8 +2204,8 @@ const AbyedhADIL = {
 
         ],
         profileBtns:[
-                {id:1, name:' شِرَاءْ وَقُودْ  ' , icon:'shop'  , link:'Action', bgColor:''},
-                {id:2, name:'مُتَابَعَة ' , icon:'eye' , link:'Suivie', bgColor:''},
+                {id:1, name:' شِرَاءْ وَقُودْ  ' , icon:'shop'  , link:'qiosque_shop', bgColor:''},
+                {id:2, name:'مُتَابَعَة ' , icon:'eye' , link:'qiosque_uivie', bgColor:''},
 
         ],
         profileTarif:true,
@@ -2260,8 +2260,8 @@ const AbyedhADIL = {
 
         ],
         profileBtns:[
-                {id:1, name:' حجز موعد   ' , icon:'calendar' , link:'Action', bgColor:''},
-                {id:2, name:'مُتَابَعَة ' , icon:'eye' , link:'Suivie', bgColor:''},
+                {id:1, name:' حجز موعد   ' , icon:'calendar' , link:'qiosque_demmande', bgColor:''},
+                {id:2, name:'مُتَابَعَة ' , icon:'eye' , link:'qiosque_suivie', bgColor:''},
 
         ],
         profileTarif:true,
@@ -2319,9 +2319,9 @@ const AbyedhADIL = {
 
         ],
         profileBtns:[
-                {id:1, name:' كِرَاءْ شٌقّة' , icon:'home' , link:'Action', bgColor:''},
-                {id:1, name:' شِرَاءْ مَنْزِلْ' , icon:'warehouse' , link:'Action', bgColor:''},
-                {id:2, name:'مُتَابَعَة ' , icon:'eye' , link:'Suivie', bgColor:''},
+                {id:1, name:' كِرَاءْ شٌقّة' , icon:'home' , link:'courtier_shop', bgColor:''},
+                {id:1, name:' شِرَاءْ مَنْزِلْ' , icon:'warehouse' , link:'courtier_louer', bgColor:''},
+                {id:2, name:'مُتَابَعَة ' , icon:'eye' , link:'courtier_uivie', bgColor:''},
 
         ],
         profileTarif:true,
@@ -2376,8 +2376,8 @@ const AbyedhADIL = {
 
         ],
         profileBtns:[
-                {id:1, name:' طَلَبْ بِنَاءْ عَقّارْ ' , icon:'check' , link:'Action', bgColor:''},
-                {id:2, name:'مُتَابَعَة ' , icon:'eye' , link:'Suivie', bgColor:''},
+                {id:1, name:' طَلَبْ بِنَاءْ عَقّارْ ' , icon:'check' , link:'contracteur_demmande', bgColor:''},
+                {id:2, name:'مُتَابَعَة ' , icon:'eye' , link:'contracteur_suivie', bgColor:''},
 
         ],
         profileTarif:true,
@@ -2432,8 +2432,8 @@ const AbyedhADIL = {
 
         ],
         profileBtns:[
-                {id:1, name:' طَلَبْ تَصْمِيمْ عَقّارْ ' , icon:'check' , link:'Action', bgColor:''},
-                {id:2, name:'مُتَابَعَة ' , icon:'eye' , link:'Suivie', bgColor:''},
+                {id:1, name:' طَلَبْ تَصْمِيمْ عَقّارْ ' , icon:'check' , link:'architecture_demmande', bgColor:''},
+                {id:2, name:'مُتَابَعَة ' , icon:'eye' , link:'architecture_suivie', bgColor:''},
         ],
         profileTarif:true,
 
@@ -2487,8 +2487,8 @@ const AbyedhADIL = {
 
         ],
         profileBtns:[
-                {id:1, name:' شِرَاءْ مُعِدّاتْ  ' , icon:'shop'  , link:'Action', bgColor:''},
-                {id:2, name:'مُتَابَعَة ' , icon:'eye' , link:'Suivie', bgColor:''},
+                {id:1, name:' شِرَاءْ مُعِدّاتْ  ' , icon:'shop'  , link:'quincaillerie_shop', bgColor:''},
+                {id:2, name:'مُتَابَعَة ' , icon:'eye' , link:'quincaillerie_suivie', bgColor:''},
 
         ],
         profileTarif:true,
@@ -2543,8 +2543,8 @@ const AbyedhADIL = {
 
         ],
         profileBtns:[
-                {id:1, name:' تَسْجِيلْ طَلَبْ  ' , icon:'calendar' , link:'Action', bgColor:''},
-                {id:2, name:'مُتَابَعَة ' , icon:'eye' , link:'Suivie', bgColor:''},
+                {id:1, name:' تَسْجِيلْ طَلَبْ  ' , icon:'calendar' , link:'forgeron_demmande', bgColor:''},
+                {id:2, name:'مُتَابَعَة ' , icon:'eye' , link:'forgeron_suivie', bgColor:''},
 
         ],
         profileTarif:true,
@@ -2599,8 +2599,8 @@ const AbyedhADIL = {
 
         ],
         profileBtns:[
-                {id:1, name:' تَسْجِيلْ طَلَبْ  ' , icon:'calendar' , link:'Action', bgColor:''},
-                {id:2, name:'مُتَابَعَة ' , icon:'eye' , link:'Suivie', bgColor:''},
+                {id:1, name:' تَسْجِيلْ طَلَبْ  ' , icon:'calendar' , link:'menuisier_demmande', bgColor:''},
+                {id:2, name:'مُتَابَعَة ' , icon:'eye' , link:'menuisier_suivie', bgColor:''},
 
         ],
         profileTarif:true,
@@ -2655,8 +2655,8 @@ const AbyedhADIL = {
 
         ],
         profileBtns:[
-                {id:1, name:' تَسْجِيلْ طَلَبْ  ' , icon:'calendar' , link:'Action', bgColor:''},
-                {id:2, name:'مُتَابَعَة ' , icon:'eye' , link:'Suivie', bgColor:''},
+                {id:1, name:' تَسْجِيلْ طَلَبْ  ' , icon:'calendar' , link:'peinture_demmande', bgColor:''},
+                {id:2, name:'مُتَابَعَة ' , icon:'eye' , link:'peinture_suivie', bgColor:''},
 
         ],
         profileTarif:true,
@@ -2711,8 +2711,8 @@ const AbyedhADIL = {
 
         ],
         profileBtns:[
-                {id:1, name:' تَسْجِيلْ طَلَبْ  ' , icon:'calendar' , link:'Action', bgColor:''},
-                {id:2, name:'مُتَابَعَة ' , icon:'eye' , link:'Suivie', bgColor:''},
+                {id:1, name:' تَسْجِيلْ طَلَبْ  ' , icon:'calendar' , link:'electricien_demmande', bgColor:''},
+                {id:2, name:'مُتَابَعَة ' , icon:'eye' , link:'electricien_suivie', bgColor:''},
 
         ],
         profileTarif:true,
@@ -2767,8 +2767,8 @@ const AbyedhADIL = {
 
         ],
         profileBtns:[
-                {id:1, name:' تَسْجِيلْ طَلَبْ  ' , icon:'calendar' , link:'Action', bgColor:''},
-                {id:2, name:'مُتَابَعَة ' , icon:'eye' , link:'Suivie', bgColor:''},
+                {id:1, name:' تَسْجِيلْ طَلَبْ  ' , icon:'calendar' , link:'plombier_demmande', bgColor:''},
+                {id:2, name:'مُتَابَعَة ' , icon:'eye' , link:'plombier_suivie', bgColor:''},
 
         ],
         profileTarif:true,
@@ -2823,8 +2823,8 @@ const AbyedhADIL = {
 
         ],
         profileBtns:[
-                {id:1, name:' تَسْجِيلْ طَلَبْ  ' , icon:'calendar' , link:'Action', bgColor:''},
-                {id:2, name:'مُتَابَعَة ' , icon:'eye' , link:'Suivie', bgColor:''},
+                {id:1, name:' تَسْجِيلْ طَلَبْ  ' , icon:'calendar' , link:'cristalerie_demmande', bgColor:''},
+                {id:2, name:'مُتَابَعَة ' , icon:'eye' , link:'cristalerie_suivie', bgColor:''},
 
         ],
         profileTarif:true,
@@ -2879,8 +2879,8 @@ const AbyedhADIL = {
 
         ],
         profileBtns:[
-                {id:1, name:' تَسْجِيلْ طَلَبْ  ' , icon:'calendar' , link:'Action', bgColor:''},
-                {id:2, name:'مُتَابَعَة ' , icon:'eye' , link:'Suivie', bgColor:''},
+                {id:1, name:' تَسْجِيلْ طَلَبْ  ' , icon:'calendar' , link:'marbrerie_demmande', bgColor:''},
+                {id:2, name:'مُتَابَعَة ' , icon:'eye' , link:'marbrerie_suivie', bgColor:''},
 
         ],
         profileTarif:true,
@@ -2937,8 +2937,8 @@ const AbyedhADIL = {
 
         ],
         profileBtns:[
-                {id:1, name:' حَجْزْ مَوْعِدْ للْحِلَاقَة   ' , icon:'calendar' , link:'Action', bgColor:''},
-                {id:2, name:'مُتَابَعَة ' , icon:'eye' , link:'Suivie', bgColor:''},
+                {id:1, name:' حَجْزْ مَوْعِدْ للْحِلَاقَة   ' , icon:'calendar' , link:'coiffure_reservation', bgColor:''},
+                {id:2, name:'مُتَابَعَة ' , icon:'eye' , link:'coiffure_suivie', bgColor:''},
 
         ],
         profileTarif:true,
@@ -2999,8 +2999,8 @@ const AbyedhADIL = {
 
         ],
         profileBtns:[
-                {id:1, name:' شِرَاءْ مَلابِسْ  ' , icon:'shop'  , link:'Action', bgColor:''},
-                {id:2, name:'مُتَابَعَة ' , icon:'eye' , link:'Suivie', bgColor:''},
+                {id:1, name:' شِرَاءْ مَلابِسْ  ' , icon:'shop'  , link:'boutique_shop', bgColor:''},
+                {id:2, name:'مُتَابَعَة ' , icon:'eye' , link:'boutique_suivie', bgColor:''},
 
         ],
         profileTarif:true,
@@ -3055,8 +3055,8 @@ const AbyedhADIL = {
 
         ],
         profileBtns:[
-                {id:1, name:' حَجْزْ تَارِيخْ   ' , icon:'calendar' , link:'Action', bgColor:''},
-                {id:2, name:'مُتَابَعَة ' , icon:'eye' , link:'Suivie', bgColor:''},
+                {id:1, name:' حَجْزْ تَارِيخْ   ' , icon:'calendar' , link:'salle_marriage_reservation', bgColor:''},
+                {id:2, name:'مُتَابَعَة ' , icon:'eye' , link:'salle_marriage_suivie', bgColor:''},
 
         ],
         profileTarif:true,
@@ -3116,8 +3116,8 @@ const AbyedhADIL = {
 
         ],
         profileBtns:[
-                {id:1, name:' حَجْزْ تَارِيخْ   ' , icon:'calendar' , link:'Action', bgColor:''},
-                {id:2, name:'مُتَابَعَة ' , icon:'eye' , link:'Suivie', bgColor:''},
+                {id:1, name:' حَجْزْ تَارِيخْ   ' , icon:'calendar' , link:'orchestre_reservation', bgColor:''},
+                {id:2, name:'مُتَابَعَة ' , icon:'eye' , link:'orchestre_suivie', bgColor:''},
 
         ],
         profileTarif:true,
@@ -3172,8 +3172,8 @@ const AbyedhADIL = {
 
         ],
         profileBtns:[
-                {id:1, name:' حَجْزْ تَارِيخْ   ' , icon:'calendar' , link:'Action', bgColor:''},
-                {id:2, name:'مُتَابَعَة ' , icon:'eye' , link:'Suivie', bgColor:''},
+                {id:1, name:' حَجْزْ تَارِيخْ   ' , icon:'calendar' , link:'chef_reservation', bgColor:''},
+                {id:2, name:'مُتَابَعَة ' , icon:'eye' , link:'chef_suivie', bgColor:''},
 
         ],
         profileTarif:true,
@@ -3228,8 +3228,8 @@ const AbyedhADIL = {
 
         ],
         profileBtns:[
-                {id:1, name:' حَجْزْ تَارِيخْ   ' , icon:'calendar' , link:'Action', bgColor:''},
-                {id:2, name:'مُتَابَعَة ' , icon:'eye' , link:'Suivie', bgColor:''},
+                {id:1, name:' حَجْزْ تَارِيخْ   ' , icon:'calendar' , link:'photographe_reservation', bgColor:''},
+                {id:2, name:'مُتَابَعَة ' , icon:'eye' , link:'photographe_suivie', bgColor:''},
 
         ],
         profileTarif:true,
@@ -3284,8 +3284,8 @@ const AbyedhADIL = {
 
         ],
         profileBtns:[
-                {id:1, name:' حجز موعد   ' , icon:'calendar' , link:'Action', bgColor:''},
-                {id:2, name:'مُتَابَعَة ' , icon:'eye' , link:'Suivie', bgColor:''},
+                {id:1, name:' حجز موعد   ' , icon:'calendar' , link:'fourniture_marriage_shop', bgColor:''},
+                {id:2, name:'مُتَابَعَة ' , icon:'eye' , link:'fourniture_marriage_suivie', bgColor:''},
 
         ],
         profileTarif:true,
@@ -3340,8 +3340,8 @@ const AbyedhADIL = {
 
         ],
         profileBtns:[
-                {id:1, name:' شِرَاءْ مُجَوْهَرَاتْ  ' , icon:'shop'  , link:'Action', bgColor:''},
-                {id:2, name:'مُتَابَعَة ' , icon:'eye' , link:'Suivie', bgColor:''},
+                {id:1, name:' شِرَاءْ مُجَوْهَرَاتْ  ' , icon:'shop'  , link:'bijouterie_shop', bgColor:''},
+                {id:2, name:'مُتَابَعَة ' , icon:'eye' , link:'bijouterie_suivie', bgColor:''},
 
         ],
         profileTarif:true,
@@ -3402,8 +3402,8 @@ const AbyedhADIL = {
 
         ],
         profileBtns:[
-                {id:1, name:' تَسْجِيلْ إِشْتِرَاكْ' , icon:'address card outline' , link:'Action', bgColor:''},
-                {id:2, name:'مُتَابَعَة ' , icon:'eye' , link:'Suivie', bgColor:''},
+                {id:1, name:' تَسْجِيلْ إِشْتِرَاكْ' , icon:'address card outline' , link:'gym_souscription', bgColor:''},
+                {id:2, name:'مُتَابَعَة ' , icon:'eye' , link:'gym_suivie', bgColor:''},
 
         ],
         profileTarif:true,
@@ -3462,8 +3462,8 @@ const AbyedhADIL = {
 
         ],
         profileBtns:[
-                {id:1, name:' تَسْجِيلْ حَجْزْ' , icon:'time' , link:'Action', bgColor:''},
-                {id:2, name:'مُتَابَعَة ' , icon:'eye' , link:'Suivie', bgColor:''},
+                {id:1, name:' تَسْجِيلْ حَجْزْ' , icon:'time' , link:'pyscine_souscription', bgColor:''},
+                {id:2, name:'مُتَابَعَة ' , icon:'eye' , link:'pyscine_suivie', bgColor:''},
 
         ],
         profileTarif:true,
@@ -3531,8 +3531,8 @@ const AbyedhADIL = {
 
         ],
         profileBtns:[
-                {id:1, name:' تَسْجِيلْ حَجْزْ' , icon:'time' , link:'Action', bgColor:''},
-                {id:2, name:'مُتَابَعَة ' , icon:'eye' , link:'Suivie', bgColor:''},
+                {id:1, name:' تَسْجِيلْ حَجْزْ' , icon:'time' , link:'stade_souscription', bgColor:''},
+                {id:2, name:'مُتَابَعَة ' , icon:'eye' , link:'stade_suivie', bgColor:''},
 
         ],
         profileTarif:true,
@@ -3587,8 +3587,8 @@ const AbyedhADIL = {
 
         ],
         profileBtns:[
-                {id:1, name:'حَجْزْ مَقْعِدْ' , icon:'film' , link:'Action', bgColor:''},
-                {id:2, name:'مُتَابَعَة ' , icon:'eye' , link:'Suivie', bgColor:''},
+                {id:1, name:'حَجْزْ مَقْعِدْ' , icon:'film' , link:'cinema_reservation', bgColor:''},
+                {id:2, name:'مُتَابَعَة ' , icon:'eye' , link:'cinema_suivie', bgColor:''},
 
         ],
         profileTarif:true,
@@ -3643,8 +3643,8 @@ const AbyedhADIL = {
 
         ],
         profileBtns:[
-                {id:1, name: 'حَجْزْ مَقْعِدْ' , icon:'male' , link:'Action', bgColor:''},
-                {id:2, name:'مُتَابَعَة ' , icon:'eye' , link:'Suivie', bgColor:''},
+                {id:1, name: 'حَجْزْ مَقْعِدْ' , icon:'male' , link:'theatre_reservation', bgColor:''},
+                {id:2, name:'مُتَابَعَة ' , icon:'eye' , link:'theatre_suivie', bgColor:''},
 
         ],
         profileTarif:true,
@@ -3699,8 +3699,8 @@ const AbyedhADIL = {
 
         ],
         profileBtns:[
-                {id:1, name:'حَجْزْ تَذْكِرة' , icon:'tag' , link:'Action', bgColor:''},
-                {id:2, name:'مُتَابَعَة ' , icon:'eye' , link:'Suivie', bgColor:''},
+                {id:1, name:'حَجْزْ تَذْكِرة' , icon:'tag' , link:'musee_reservation', bgColor:''},
+                {id:2, name:'مُتَابَعَة ' , icon:'eye' , link:'musee_suivie', bgColor:''},
 
         ],
         profileTarif:true,
@@ -3930,8 +3930,8 @@ const AbyedhADIL = {
 
         ],
         profileBtns:[
-                {id:1, name:' تَسْجِيلْ قَضِيّة' , icon:'file pdf outline' , link:'Action', bgColor:''},
-                {id:2, name:'مُتَابَعَة ' , icon:'eye' , link:'Suivie', bgColor:''},
+                {id:1, name:' تَسْجِيلْ قَضِيّة' , icon:'file pdf outline' , link:'avocat_demmande', bgColor:''},
+                {id:2, name:'مُتَابَعَة ' , icon:'eye' , link:'avocat_suivie', bgColor:''},
 
         ],
         profileTarif:true,
@@ -4002,8 +4002,8 @@ const AbyedhADIL = {
 
         ],
         profileBtns:[
-                {id:1, name:' طَلَبْ شِرَاءْ   ' , icon:'shop'  , link:'Action', bgColor:''},
-                {id:2, name:'مُتَابَعَة ' , icon:'eye' , link:'Suivie', bgColor:''},
+                {id:1, name:' طَلَبْ شِرَاءْ   ' , icon:'shop'  , link:'depot_shop', bgColor:''},
+                {id:2, name:'مُتَابَعَة ' , icon:'eye' , link:'depot_suivie', bgColor:''},
 
         ],
         profileTarif:true,
@@ -4058,8 +4058,8 @@ const AbyedhADIL = {
 
         ],
         profileBtns:[
-                {id:1, name:' طَلَبْ تَدْقِيقْ حِسَابَاتْ' , icon:'file pdf outline' , link:'Action', bgColor:''},
-                {id:2, name:'مُتَابَعَة ' , icon:'eye' , link:'Suivie', bgColor:''},
+                {id:1, name:' طَلَبْ تَدْقِيقْ حِسَابَاتْ' , icon:'file pdf outline' , link:'comptable_demmande', bgColor:''},
+                {id:2, name:'مُتَابَعَة ' , icon:'eye' , link:'comptable_suivie', bgColor:''},
 
         ],
         profileTarif:true,
@@ -4128,8 +4128,8 @@ const AbyedhADIL = {
 
         ],
         profileBtns:[
-                {id:1, name:' حجز موعد   ' , icon:'calendar' , link:'Action', bgColor:''},
-                {id:2, name:'مُتَابَعَة ' , icon:'eye' , link:'Suivie', bgColor:''},
+                {id:1, name:' حجز موعد   ' , icon:'calendar' , link:'socite_demmande', bgColor:''},
+                {id:2, name:'مُتَابَعَة ' , icon:'eye' , link:'socite_suivie', bgColor:''},
 
         ],
         profileTarif:true,
@@ -4184,8 +4184,8 @@ const AbyedhADIL = {
 
         ],
         profileBtns:[
-                {id:1, name:' طَلَبْ فَتْحْ حِسَابْ' , icon:'address card outline' , link:'Action', bgColor:''},
-                {id:2, name:'مُتَابَعَة ' , icon:'eye' , link:'Suivie', bgColor:''},
+                {id:1, name:' طَلَبْ فَتْحْ حِسَابْ' , icon:'address card outline' , link:'bank_ouvrir', bgColor:''},
+                {id:2, name:'مُتَابَعَة ' , icon:'eye' , link:'bank_suivie', bgColor:''},
 
         ],
         profileTarif:true,
@@ -4354,8 +4354,8 @@ const AbyedhADIL = {
 
         ],
         profileBtns:[
-                {id:1, name:' حجز موعد   ' , icon:'calendar' , link:'Action', bgColor:''},
-                {id:2, name:'مُتَابَعَة ' , icon:'eye' , link:'Suivie', bgColor:''},
+                {id:1, name:' حجز موعد   ' , icon:'calendar' , link:'veterinaire_rdv', bgColor:''},
+                {id:2, name:'مُتَابَعَة ' , icon:'eye' , link:'veterinaire_suivie', bgColor:''},
 
         ],
         profileTarif:true,
@@ -4417,8 +4417,8 @@ const AbyedhADIL = {
 
         ],
         profileBtns:[
-            {id:1, name:'  شِرَاءْ  أَعْلافْ ' , icon:'shop' , link:'Action', bgColor:''},
-            {id:2, name:'مُتَابَعَة ' , icon:'eye' , link:'Suivie', bgColor:''},
+            {id:1, name:'  شِرَاءْ  أَعْلافْ ' , icon:'shop' , link:'fourragerie_shop', bgColor:''},
+            {id:2, name:'مُتَابَعَة ' , icon:'eye' , link:'fourragerie_suivie', bgColor:''},
 
         ],
         profileTarif:true,
@@ -4489,8 +4489,8 @@ const AbyedhADIL = {
 
         ],
         profileBtns:[
-            {id:1, name:'  شِرَاءْ  أَدَاةْ فِلاحِيّة ' , icon:'shop' , link:'Action', bgColor:''},
-            {id:2, name:'مُتَابَعَة ' , icon:'eye' , link:'Suivie', bgColor:''},
+            {id:1, name:'  شِرَاءْ  أَدَاةْ فِلاحِيّة ' , icon:'shop' , link:'agritools_shop', bgColor:''},
+            {id:2, name:'مُتَابَعَة ' , icon:'eye' , link:'agritools_suivie', bgColor:''},
 
         ],
         profileTarif:true,
@@ -4548,8 +4548,8 @@ const AbyedhADIL = {
 
         ],
         profileBtns:[
-                {id:1, name:' حَجْزْ غٌرْفَة ' , icon:'moon' , link:'Action', bgColor:''},
-                {id:2, name:'مُتَابَعَة ' , icon:'eye' , link:'Suivie', bgColor:''},
+                {id:1, name:' حَجْزْ غٌرْفَة ' , icon:'moon' , link:'hotels_reservation', bgColor:''},
+                {id:2, name:'مُتَابَعَة ' , icon:'eye' , link:'hotels_suivie', bgColor:''},
 
         ],
         profileTarif:true,
@@ -4604,8 +4604,8 @@ const AbyedhADIL = {
 
         ],
         profileBtns:[
-                {id:1, name:' تَسْجِيلْ طَلَبْ سَفَرْ' , icon:'plane' , link:'Action', bgColor:''},
-                {id:2, name:'مُتَابَعَة ' , icon:'eye' , link:'Suivie', bgColor:''},
+                {id:1, name:' تَسْجِيلْ طَلَبْ سَفَرْ' , icon:'plane' , link:'vg_agence_demmande', bgColor:''},
+                {id:2, name:'مُتَابَعَة ' , icon:'eye' , link:'vg_agence_suivie', bgColor:''},
 
         ],
         profileTarif:true,

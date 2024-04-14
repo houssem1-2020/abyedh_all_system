@@ -100,8 +100,8 @@ function MainPage() {
         return(<>
             <div className='card p-2 shadow-sm mb-3 border-div ' style={{position: 'relative !important'}} >
                 <div className=' row'>
-                    <div className={`col-10 ${isRTL ? 'order-1' : 'order-2'} `}>
-                        <div className={` d-flex align-items-center ${isRTL ? '' : 'flex-row-reverse'}`}>
+                    <div className={`col-10 ${isRTL ? ' ' : 'order-1'} `}>
+                        <div className={` d-flex align-items-center ${isRTL ? '' : ''}`}>
                             <div className="flex-shrink-0">
                                    <img src={`https://cdn.abyedh.tn/images/Search/CIcons/${props.data.P_Genre}.gif`} alt="..."  width='50px' height='50px'/>
                             </div>
@@ -117,7 +117,7 @@ function MainPage() {
                             </div>
                         </div>
                     </div>
-                    <div className={`col-2  align-self-center ${isRTL ? 'order-2' : 'order-1'} `}>
+                    <div className={`col-2  align-self-center ${isRTL ? ' ' : 'order-2'} `}>
                         <span className={`bi ${NotifGenres[props.data.Notif_Name].icon} bi-md text-success`}></span>
                     </div>
                 </div>

@@ -25,7 +25,8 @@ const  NotifGenres  = {
         GenTextFunction : function(requestData,pidData){
             const { t, i18n } = useTranslation();
             return (<>
-                   <div dir='ltr'> {t('userProfile.notificationPage.docteur_rdv_saved.one')} {pidData.Name}  {t('userProfile.notificationPage.docteur_rdv_saved.two')} {new Date(requestData.RDV_Date).toLocaleDateString('fr-FR').split( '/' ).reverse( ).join( '-' )}</div>  
+                   <div  >{ t('userProfile.notificationPage.docteur_rdv_saved', {  one: pidData.Name , two: new Date(requestData.RDV_Date).toLocaleDateString('fr-FR').split('/').reverse().join('-') })}</div>  
+                   {/* <div dir='ltr'> {t('userProfile.notificationPage.docteur_rdv_saved.one')} {pidData.Name}  {t('userProfile.notificationPage.docteur_rdv_saved.two')} {new Date(requestData.RDV_Date).toLocaleDateString('fr-FR').split( '/' ).reverse( ).join( '-' )}</div>   */}
                    {/* <div>تم تسجيل طلب موعد مع الطبيب {pidData.Name}  بنجاح  و ذلك بتاريخ {new Date(requestData.RDV_Date).toLocaleDateString('fr-FR').split( '/' ).reverse( ).join( '-' )}</div>   */}
                 </> )
         }
@@ -41,8 +42,10 @@ const  NotifGenres  = {
         icon:'bi-calendar-x text-danger',
         titleIcon:'bi-receipt-cutoff',
         GenTextFunction : function(requestData,pidData){
+            const { t, i18n } = useTranslation();
             return (<>
-                   <div>تم رفض طلب الموعد مع الطبيب {pidData.Name} <br /> <small>"{requestData.Refuser_Cause}"</small></div>  
+                   <div>{t('userProfile.notificationPage.docteur_rdv_accepted.one', { pidData: { Name: 'John Doe' }, requestData: { Refuser_Cause: 'Reason for rejection' } })}</div>  
+                   {/* <div>تم رفض طلب الموعد مع الطبيب {pidData.Name} <br /> <small>"{requestData.Refuser_Cause}"</small></div>   */}
                 </> )
         }
     },
@@ -57,8 +60,10 @@ const  NotifGenres  = {
         icon:'bi-arrow-90deg-right text-secondary',
         titleIcon:'bi-receipt-cutoff',
         GenTextFunction : function(requestData,pidData){
+            const { t, i18n } = useTranslation();
             return (<>
-                   <div>تم توجيه طلب موعد مع الطبيب {pidData.Name}   إلي الطبيب {JSON.parse(requestData.Redirected_To).Name}  ( الهاتف :  {JSON.parse(requestData.Redirected_To).Phone} , العنوان : {JSON.parse(requestData.Redirected_To).Adresse} ) </div>  
+                   <div>{ t('userProfile.notificationPage.docteur_rdv_redirected', {  one: pidData.Name , two:  JSON.parse(requestData.Redirected_To).Name, three : JSON.parse(requestData.Redirected_To).Phone, four :  JSON.parse(requestData.Redirected_To).Adresse})} </div>  
+                   {/* <div>تم توجيه طلب موعد مع الطبيب {pidData.Name}   إلي الطبيب {JSON.parse(requestData.Redirected_To).Name}  ( الهاتف :  {JSON.parse(requestData.Redirected_To).Phone} , العنوان : {JSON.parse(requestData.Redirected_To).Adresse} ) </div>   */}
                 </> )
         }
     },
@@ -67,6 +72,7 @@ const  NotifGenres  = {
         icon:'bi-calendar2-plus text-warning',
         titleIcon:'bi-receipt-cutoff',
         GenTextFunction : function(requestData,pidData){
+            const { t, i18n } = useTranslation();
             return (<>
                    <div>تم تسجيل طلب موعد مع الطبيب {pidData.Name}  بنجاح  و ذلك بتاريخ {new Date(requestData.RDV_Date).toLocaleDateString('fr-FR').split( '/' ).reverse( ).join( '-' )}</div>  
                 </> )
@@ -83,6 +89,7 @@ const  NotifGenres  = {
         icon:'bi-calendar-x text-danger',
         titleIcon:'bi-receipt-cutoff',
         GenTextFunction : function(requestData,pidData){
+            const { t, i18n } = useTranslation();
             return (<>
                    <div>تم رفض طلب الموعد مع الطبيب {pidData.Name} <br /> <small>"{requestData.Refuser_Cause}"</small></div>  
                 </> )
@@ -99,6 +106,7 @@ const  NotifGenres  = {
         icon:'bi-arrow-90deg-right text-secondary',
         titleIcon:'bi-receipt-cutoff',
         GenTextFunction : function(requestData,pidData){
+            const { t, i18n } = useTranslation();
             return (<>
                    <div>تم توجيه طلب موعد مع الطبيب {pidData.Name}   إلي الطبيب {JSON.parse(requestData.Redirected_To).Name}  ( الهاتف :  {JSON.parse(requestData.Redirected_To).Phone} , العنوان : {JSON.parse(requestData.Redirected_To).Adresse} ) </div>  
                 </> )
@@ -109,6 +117,7 @@ const  NotifGenres  = {
         icon:'bi-cart-check text-warning',
         titleIcon:'bi-receipt-cutoff',
         GenTextFunction : function(requestData,pidData){
+            const { t, i18n } = useTranslation();
             return (<>
                    <div>تم تسجيل طلب شراء أدوية ({JSON.parse(requestData.Articles).length} منتجات) من صيدلية  {pidData.Name} </div>  
                 </> )
@@ -125,6 +134,7 @@ const  NotifGenres  = {
         icon:'bi-calendar-x text-danger',
         titleIcon:'bi-receipt-cutoff',
         GenTextFunction : function(requestData,pidData){
+            const { t, i18n } = useTranslation();
             return (<>
                    <div>تم رفض طلب   طلب شراء الأدوية من صيدلية      {pidData.Name} <br /> <small>"{requestData.Refuser_Cause}"</small></div>  
                 </> )
@@ -134,6 +144,7 @@ const  NotifGenres  = {
         icon:'bi-truck text-info',
         titleIcon:'bi-receipt-cutoff',
         GenTextFunction : function(requestData,pidData){
+            const { t, i18n } = useTranslation();
             return (<>
                 <div>تم إرسال الطلب من صيدلية  {pidData.Name} <br /> <small> سيضلك الطلب يوم {JSON.parse(requestData.Livre_At).Date} مع الساعة {JSON.parse(requestData.Livre_At).Temps}</small></div>  
              </> )
@@ -143,6 +154,7 @@ const  NotifGenres  = {
         icon:'bi-pencil-square text-secondary',
         titleIcon:'bi-receipt-cutoff',
         GenTextFunction : function(requestData,pidData){
+            const { t, i18n } = useTranslation();
             return (<>
                    <div>تم  تعديل طلب الشراء من الصيدلة  {pidData.Name}    </div>  
                 </> )
@@ -153,6 +165,7 @@ const  NotifGenres  = {
         icon:'bi-calendar-check text-warning',
         titleIcon:'bi-receipt-cutoff',
         GenTextFunction : function(requestData,pidData){
+            const { t, i18n } = useTranslation();
             return (<>
                    <div>تم تسجيل طلب موعد مع صيدلية {pidData.Name}   من أجل : {requestData.RDV_Cause} بنجاح  و ذلك بتاريخ {new Date(requestData.RDV_Date).toLocaleDateString('fr-FR').split( '/' ).reverse( ).join( '-' )}</div>  
                 </> )
@@ -169,6 +182,7 @@ const  NotifGenres  = {
         icon:'bi-calendar-x text-danger',
         titleIcon:'bi-receipt-cutoff',
         GenTextFunction : function(requestData,pidData){
+            const { t, i18n } = useTranslation();
             return (<>
                    <div>تم رفض طلب   طلب شراء الأدوية من صيدلية      {pidData.Name} <br /> <small>"{requestData.Refuser_Cause}"</small></div>  
                 </> )
@@ -178,6 +192,7 @@ const  NotifGenres  = {
         icon:'bi-arrow-clockwise text-info',
         titleIcon:'bi-receipt-cutoff',
         GenTextFunction : function(requestData,pidData){
+            const { t, i18n } = useTranslation();
             return (<>
                 return <DoctorReatartedRdv requestData={requestData} pidData={pidData} />
              </> )
@@ -188,6 +203,7 @@ const  NotifGenres  = {
         icon:'bi-calendar-week text-warning',
         titleIcon:'bi-receipt-cutoff',
         GenTextFunction : function(requestData,pidData){
+            const { t, i18n } = useTranslation();
             return (<>
                     <div>تم تسجيل طلب حجز في مصحة {pidData.Name}   من أجل : {requestData.RES_Cause} بنجاح  و ذلك بين {new Date(requestData.RES_From_Date).toLocaleDateString('fr-FR').split( '/' ).reverse( ).join( '-' )} و {new Date(requestData.RES_To_Date).toLocaleDateString('fr-FR').split( '/' ).reverse( ).join( '-' )}</div>  
                 </> )
@@ -198,6 +214,7 @@ const  NotifGenres  = {
         icon:'bi-calendar-week text-warning',
         titleIcon:'bi-receipt-cutoff',
         GenTextFunction : function(requestData,pidData){
+            const { t, i18n } = useTranslation();
             return (<>
                    <div>تم تسجيل طلب حجز في مركز {pidData.Name}   من أجل : {requestData.RES_Cause}  و ذلك بين {new Date(requestData.RES_From_Date).toLocaleDateString('fr-FR').split( '/' ).reverse( ).join( '-' )} و {new Date(requestData.RES_To_Date).toLocaleDateString('fr-FR').split( '/' ).reverse( ).join( '-' )}</div>  
                 </> )
@@ -208,6 +225,7 @@ const  NotifGenres  = {
         icon:'bi-calendar2-plus text-warning',
         titleIcon:'bi-receipt-cutoff',
         GenTextFunction : function(requestData,pidData){
+            const { t, i18n } = useTranslation();
             return (<>
                     <div>تم تسجيل طلب موعد مع مخبر {pidData.Name}   من أجل : {requestData.RDV_Cause} بنجاح  و ذلك بتاريخ {new Date(requestData.RDV_Date).toLocaleDateString('fr-FR').split( '/' ).reverse( ).join( '-' )}</div>  
                 </> )
@@ -224,6 +242,7 @@ const  NotifGenres  = {
         icon:'bi-calendar-x text-danger',
         titleIcon:'bi-receipt-cutoff',
         GenTextFunction : function(requestData,pidData){
+            const { t, i18n } = useTranslation();
             return (<>
                    <div>تم رفض طلب الموعد مع الطبيب {pidData.Name} <br /> <small>"{requestData.Refuser_Cause}"</small></div>  
                 </> )
@@ -240,6 +259,7 @@ const  NotifGenres  = {
         icon:'bi-arrow-90deg-right text-secondary',
         titleIcon:'bi-receipt-cutoff',
         GenTextFunction : function(requestData,pidData){
+            const { t, i18n } = useTranslation();
             return (<>
                    <div> نتيجة التحليل في مخبر  {pidData.Name} جاهزة :   </div>  
                 </> )
@@ -252,6 +272,7 @@ const  NotifGenres  = {
         icon:'bi-check-circle text-warning',
         titleIcon:'bi-receipt-cutoff',
         GenTextFunction : function(requestData,pidData){
+            const { t, i18n } = useTranslation();
             return (<>
                    <div>تم تسجيل صغيرك {requestData.EL_Name} في روضة :   {pidData.Name}  بنجاح  </div>  
                 </> )
@@ -268,6 +289,7 @@ const  NotifGenres  = {
         icon:'bi-calendar-x text-danger',
         titleIcon:'bi-receipt-cutoff',
         GenTextFunction : function(requestData,pidData){
+            const { t, i18n } = useTranslation();
             return (<>
                    <div>تم رفض طلب   طلب شراء الأدوية من صيدلية      {pidData.Name} <br /> <small>"{requestData.Refuser_Cause}"</small></div>  
                 </> )
@@ -278,6 +300,7 @@ const  NotifGenres  = {
         icon:'bi-check-circle text-success',
         titleIcon:'bi-receipt-cutoff',
         GenTextFunction : function(requestData,pidData){
+            const { t, i18n } = useTranslation();
             return (<>
                    <div>تم تسجيل صغيرك {requestData.EL_Name} في روضة  {pidData.Name}  بنجاح  و ذلك بتاريخ {new Date(requestData.R_Date).toLocaleDateString('fr-FR').split( '/' ).reverse( ).join( '-' )}</div>  
                 </> )
@@ -294,6 +317,7 @@ const  NotifGenres  = {
         icon:'bi-calendar-x text-danger',
         titleIcon:'bi-receipt-cutoff',
         GenTextFunction : function(requestData,pidData){
+            const { t, i18n } = useTranslation();
             return (<>
                    <div>تم رفض طلب   طلب شراء الأدوية من صيدلية      {pidData.Name} <br /> <small>"{requestData.Refuser_Cause}"</small></div>  
                 </> )
@@ -304,6 +328,7 @@ const  NotifGenres  = {
         icon:'bi-check-circle text-warning',
         titleIcon:'bi-receipt-cutoff',
         GenTextFunction : function(requestData,pidData){
+            const { t, i18n } = useTranslation();
             return (<>
                    <div>تم تسجيل صغيرك {requestData.EL_Name} في روضة :   {pidData.Name}  بنجاح  </div>  
                 </> )
@@ -320,6 +345,7 @@ const  NotifGenres  = {
         icon:'bi-calendar-x text-danger',
         titleIcon:'bi-receipt-cutoff',
         GenTextFunction : function(requestData,pidData){
+            const { t, i18n } = useTranslation();
             return (<>
                    <div>تم رفض طلب   طلب شراء الأدوية من صيدلية      {pidData.Name} <br /> <small>"{requestData.Refuser_Cause}"</small></div>  
                 </> )
@@ -330,6 +356,7 @@ const  NotifGenres  = {
         icon:'bi-check-circle text-warning',
         titleIcon:'bi-receipt-cutoff',
         GenTextFunction : function(requestData,pidData){
+            const { t, i18n } = useTranslation();
             return (<>
                    <div>تم تسجيل صغيرك {requestData.EL_Name} في المدرسة الخاصة  {pidData.Name}  بنجاح  و ذلك بتاريخ {new Date(requestData.R_Date).toLocaleDateString('fr-FR').split( '/' ).reverse( ).join( '-' )}</div>  
                 </> )
@@ -346,6 +373,7 @@ const  NotifGenres  = {
         icon:'bi-calendar-x text-danger',
         titleIcon:'bi-receipt-cutoff',
         GenTextFunction : function(requestData,pidData){
+            const { t, i18n } = useTranslation();
             return (<>
                    <div>تم رفض طلب   طلب شراء الأدوية من صيدلية      {pidData.Name} <br /> <small>"{requestData.Refuser_Cause}"</small></div>  
                 </> )
@@ -356,6 +384,7 @@ const  NotifGenres  = {
         icon:'bi-check-circle text-warning',
         titleIcon:'bi-receipt-cutoff',
         GenTextFunction : function(requestData,pidData){
+            const { t, i18n } = useTranslation();
             return (<>
                    <div>تم تسجيل طلب الترسيم في مركز التكوين الخاص  {pidData.Name}  بنجاح  </div>  
                 </> )
@@ -372,6 +401,7 @@ const  NotifGenres  = {
         icon:'bi-calendar-x text-danger',
         titleIcon:'bi-receipt-cutoff',
         GenTextFunction : function(requestData,pidData){
+            const { t, i18n } = useTranslation();
             return (<>
                    <div>تم رفض طلب   طلب شراء الأدوية من صيدلية      {pidData.Name} <br /> <small>"{requestData.Refuser_Cause}"</small></div>  
                 </> )
@@ -382,6 +412,7 @@ const  NotifGenres  = {
         icon:'bi-check-circle text-warning',
         titleIcon:'bi-receipt-cutoff',
         GenTextFunction : function(requestData,pidData){
+            const { t, i18n } = useTranslation();
             return (<>
                    <div>تم تسجيل صغيرك {requestData.EL_Name} في روضة  {pidData.Name}  بنجاح  و ذلك بتاريخ {new Date(requestData.R_Date).toLocaleDateString('fr-FR').split( '/' ).reverse( ).join( '-' )}</div>  
                 </> )
@@ -398,6 +429,7 @@ const  NotifGenres  = {
         icon:'bi-calendar-x text-danger',
         titleIcon:'bi-receipt-cutoff',
         GenTextFunction : function(requestData,pidData){
+            const { t, i18n } = useTranslation();
             return (<>
                    <div>تم رفض طلب   طلب شراء الأدوية من صيدلية      {pidData.Name} <br /> <small>"{requestData.Refuser_Cause}"</small></div>  
                 </> )
@@ -408,6 +440,7 @@ const  NotifGenres  = {
         icon:'bi-check-circle text-warning',
         titleIcon:'bi-receipt-cutoff',
         GenTextFunction : function(requestData,pidData){
+            const { t, i18n } = useTranslation();
             return (<>
                    <div>تم تسجيل طلب الترسيم في مركز الجامعة الخاصة  {pidData.Name}  بنجاح  </div>  
                 </> )
@@ -424,6 +457,7 @@ const  NotifGenres  = {
         icon:'bi-calendar-x text-danger',
         titleIcon:'bi-receipt-cutoff',
         GenTextFunction : function(requestData,pidData){
+            const { t, i18n } = useTranslation();
             return (<>
                    <div>تم رفض طلب   طلب شراء الأدوية من صيدلية      {pidData.Name} <br /> <small>"{requestData.Refuser_Cause}"</small></div>  
                 </> )
@@ -434,6 +468,7 @@ const  NotifGenres  = {
         icon:'bi-check-circle text-success',
         titleIcon:'bi-receipt-cutoff',
         GenTextFunction : function(requestData,pidData){
+            const { t, i18n } = useTranslation();
             return (<>
                    <div>تم تسجيل صغيرك {requestData.EL_Name} في روضة  {pidData.Name}  بنجاح  و ذلك بتاريخ {new Date(requestData.R_Date).toLocaleDateString('fr-FR').split( '/' ).reverse( ).join( '-' )}</div>  
                 </> )
@@ -450,6 +485,7 @@ const  NotifGenres  = {
         icon:'bi-calendar-x text-danger',
         titleIcon:'bi-receipt-cutoff',
         GenTextFunction : function(requestData,pidData){
+            const { t, i18n } = useTranslation();
             return (<>
                    <div>تم رفض طلب   طلب شراء الأدوية من صيدلية      {pidData.Name} <br /> <small>"{requestData.Refuser_Cause}"</small></div>  
                 </> )
@@ -460,6 +496,7 @@ const  NotifGenres  = {
         icon:'bi-check-circle text-warning',
         titleIcon:'bi-receipt-cutoff',
         GenTextFunction : function(requestData,pidData){
+            const { t, i18n } = useTranslation();
             return (<>
                    <div>تم تسجيل طلب الترسيم في مركز التكوين الخاص  {pidData.Name}  بنجاح  </div>  
                 </> )
@@ -476,6 +513,7 @@ const  NotifGenres  = {
         icon:'bi-calendar-x text-danger',
         titleIcon:'bi-receipt-cutoff',
         GenTextFunction : function(requestData,pidData){
+            const { t, i18n } = useTranslation();
             return (<>
                    <div>تم رفض طلب   طلب شراء الأدوية من صيدلية      {pidData.Name} <br /> <small>"{requestData.Refuser_Cause}"</small></div>  
                 </> )
@@ -486,6 +524,7 @@ const  NotifGenres  = {
         icon:'bi-check-circle text-warning',
         titleIcon:'bi-receipt-cutoff',
         GenTextFunction : function(requestData,pidData){
+            const { t, i18n } = useTranslation();
             return (<>
                    <div>تم تسجيل صغيرك {requestData.EL_Name} في روضة  {pidData.Name}  بنجاح  و ذلك بتاريخ {new Date(requestData.R_Date).toLocaleDateString('fr-FR').split( '/' ).reverse( ).join( '-' )}</div>  
                 </> )
@@ -502,6 +541,7 @@ const  NotifGenres  = {
         icon:'bi-calendar-x text-danger',
         titleIcon:'bi-receipt-cutoff',
         GenTextFunction : function(requestData,pidData){
+            const { t, i18n } = useTranslation();
             return (<>
                    <div>تم رفض طلب   طلب شراء الأدوية من صيدلية      {pidData.Name} <br /> <small>"{requestData.Refuser_Cause}"</small></div>  
                 </> )
@@ -514,8 +554,10 @@ const  NotifGenres  = {
         icon:'bi-clipboard-check text-warning',
         titleIcon:'bi-receipt-cutoff',
         GenTextFunction : function(requestData,pidData){
+            const { t, i18n } = useTranslation();
             return (<>
-                   <div>تم تسجيل طلب نقل البضائع ({JSON.parse(requestData.Articles).length} منتجات ) مع وكالة النقل  {pidData.Name}  من : {JSON.parse(requestData.De).Gouv} إلي : {JSON.parse(requestData.Vers).Gouv} </div>  
+                   <div>{ t('userProfile.notificationPage.transporteur_request_saved', {  one: JSON.parse(requestData.Articles).length , two: pidData.Name , three: JSON.parse(requestData.De).Gouv , four: JSON.parse(requestData.Vers).Gouv })} </div>  
+                   {/* <div>تم تسجيل طلب نقل البضائع ({JSON.parse(requestData.Articles).length} منتجات ) مع وكالة النقل  {pidData.Name}  من : {JSON.parse(requestData.De).Gouv} إلي : {JSON.parse(requestData.Vers).Gouv} </div>   */}
                 </> )
         }
     },
@@ -530,6 +572,7 @@ const  NotifGenres  = {
         icon:'bi-calendar-x text-danger',
         titleIcon:'bi-receipt-cutoff',
         GenTextFunction : function(requestData,pidData){
+            const { t, i18n } = useTranslation();
             return (<>
                    <div>تم رفض طلب الموعد مع الطبيب {pidData.Name} <br /> <small>"{requestData.Refuser_Cause}"</small></div>  
                 </> )
@@ -546,6 +589,7 @@ const  NotifGenres  = {
         icon:'bi-arrow-90deg-right text-secondary',
         titleIcon:'bi-receipt-cutoff',
         GenTextFunction : function(requestData,pidData){
+            const { t, i18n } = useTranslation();
             return (<>
                    <div> نتيجة التحليل في مخبر  {pidData.Name} جاهزة :   </div>  
                 </> )
@@ -556,6 +600,7 @@ const  NotifGenres  = {
         icon:'bi-card-heading text-warning',
         titleIcon:'bi-receipt-cutoff',
         GenTextFunction : function(requestData,pidData){
+            const { t, i18n } = useTranslation();
             return (<>
                    <div>تم السجيل في مدرسة تعليم السياقة   :  {pidData.Name} للحصول علي رخصة قيادة من صنف {requestData.Genre}  </div>  
                 </> )
@@ -572,6 +617,7 @@ const  NotifGenres  = {
         icon:'bi-calendar-x text-danger',
         titleIcon:'bi-receipt-cutoff',
         GenTextFunction : function(requestData,pidData){
+            const { t, i18n } = useTranslation();
             return (<>
                    <div>تم رفض طلب الموعد مع الطبيب {pidData.Name} <br /> <small>"{requestData.Refuser_Cause}"</small></div>  
                 </> )
@@ -581,6 +627,7 @@ const  NotifGenres  = {
         icon:'bi-arrow-90deg-right text-secondary',
         titleIcon:'bi-receipt-cutoff',
         GenTextFunction : function(requestData,pidData){
+            const { t, i18n } = useTranslation();
             return (<>
                    <div>تم توجيه طلب موعد مع الطبيب {pidData.Name}   إلي الطبيب {JSON.parse(requestData.Redirected_To).Name}  ( الهاتف :  {JSON.parse(requestData.Redirected_To).Phone} , العنوان : {JSON.parse(requestData.Redirected_To).Adresse} ) </div>  
                 </> )
@@ -591,6 +638,7 @@ const  NotifGenres  = {
         icon:'bi-car-front text-warning',
         titleIcon:'bi-receipt-cutoff',
         GenTextFunction : function(requestData,pidData){
+            const { t, i18n } = useTranslation();
             return (<>
                    <div>تم تسجيل طلب تاكسي   </div>  
                 </> )
@@ -600,6 +648,7 @@ const  NotifGenres  = {
         icon:'bi-calendar2-check text-warning',
         titleIcon:'bi-receipt-cutoff',
         GenTextFunction : function(requestData,pidData){
+            const { t, i18n } = useTranslation();
             return (<>
                    <div>تم تسجيل طلب موعد مع تاكسي يوم {new Date(requestData.RDV_Date).toLocaleDateString('fr-FR').split( '/' ).reverse( ).join( '-' )} علي الساعة {requestData.RDV_Time}    </div>  
                 </> )
@@ -610,6 +659,7 @@ const  NotifGenres  = {
         icon:'bi-clipboard-check text-warning',
         titleIcon:'bi-receipt-cutoff',
         GenTextFunction : function(requestData,pidData){
+            const { t, i18n } = useTranslation();
             return (<>
                    <div>تم طلب  كراء وسيلة نقل  من وكالة كراء السيارات  {pidData.Name}  من {new Date(requestData.Depart_Date).toLocaleDateString('fr-FR').split( '/' ).reverse( ).join( '-' )} إلي  {new Date(requestData.Finish_Date).toLocaleDateString('fr-FR').split( '/' ).reverse( ).join( '-' )} </div>  
                 </> )
@@ -626,6 +676,7 @@ const  NotifGenres  = {
         icon:'bi-calendar-x text-danger',
         titleIcon:'bi-receipt-cutoff',
         GenTextFunction : function(requestData,pidData){
+            const { t, i18n } = useTranslation();
             return (<>
                    <div>تم رفض طلب الموعد مع الطبيب {pidData.Name} <br /> <small>"{requestData.Refuser_Cause}"</small></div>  
                 </> )
@@ -635,6 +686,7 @@ const  NotifGenres  = {
         icon:'bi-pencil-square text-secondary',
         titleIcon:'bi-receipt-cutoff',
         GenTextFunction : function(requestData,pidData){
+            const { t, i18n } = useTranslation();
             return (<>
                    <div>تم  تعديل طلب الشراء من الصيدلة  {pidData.Name}    </div>  
                 </> )
@@ -645,6 +697,7 @@ const  NotifGenres  = {
         icon:'bi-stopwatch text-warning',
         titleIcon:'bi-receipt-cutoff',
         GenTextFunction : function(requestData,pidData){
+            const { t, i18n } = useTranslation();
             return (<>
                    <div>تم  تسجيل  حجز في موقف :  {pidData.Name} من {requestData.Depart_Time} إلي {requestData.Finish_Time} للشاحنة  ({requestData.Car_Matricule}) : {requestData.Car_Name} </div>  
                 </> )
@@ -654,6 +707,7 @@ const  NotifGenres  = {
         icon:'bi-card-heading text-warning',
         titleIcon:'bi-receipt-cutoff',
         GenTextFunction : function(requestData,pidData){
+            const { t, i18n } = useTranslation();
             return (<>
                    <div>تم  تسجيل  الأشتراك في موقف :  {pidData.Name} من {new Date(requestData.Depart_Date).toLocaleDateString('fr-FR').split( '/' ).reverse( ).join( '-' )} إلي {new Date(requestData.Finish_Date).toLocaleDateString('fr-FR').split( '/' ).reverse( ).join( '-' )}  للشاحنة  ({requestData.Car_Matricule}) : {requestData.Car_Name}</div>  
                 </> )
@@ -664,6 +718,7 @@ const  NotifGenres  = {
         icon:'bi-cart-check text-warning',
         titleIcon:'bi-receipt-cutoff',
         GenTextFunction : function(requestData,pidData){
+            const { t, i18n } = useTranslation();
             return (<>
                    <div>تم  تسجيل طلب شراء وقود  من محطة       :  {pidData.Name}  . تم تسجيل موعد الحضور مع الساعة : {requestData.Wanted_Time} </div>  
                 </> )
@@ -673,6 +728,7 @@ const  NotifGenres  = {
         icon:'bi-calendar-event text-success',
         titleIcon:'bi-receipt-cutoff',
         GenTextFunction : function(requestData,pidData){
+            const { t, i18n } = useTranslation();
             return (<>
                    <div>تم  تسجيل طلب موعد {requestData.Wash_Genre} من  {pidData.Name} يوم {new Date(requestData.Wanted_Day).toLocaleDateString('fr-FR').split( '/' ).reverse( ).join( '-' )} علي الساعة {requestData.Wanted_Time}</div>  
                 </> )
@@ -685,6 +741,7 @@ const  NotifGenres  = {
         icon:'bi-scissors text-warning',
         titleIcon:'bi-receipt-cutoff',
         GenTextFunction : function(requestData,pidData){
+            const { t, i18n } = useTranslation();
             return (<>
                    <div>تم  تسجيل    طلب حجز في قاعة الحلاقة   {pidData.Name} يوم {new Date(requestData.Wanted_Day).toLocaleDateString('fr-FR').split( '/' ).reverse( ).join( '-' )} علي الساعة {requestData.Wanted_Time}</div>  
                 </> )
@@ -701,6 +758,7 @@ const  NotifGenres  = {
         icon:'bi-calendar-x text-danger',
         titleIcon:'bi-receipt-cutoff',
         GenTextFunction : function(requestData,pidData){
+            const { t, i18n } = useTranslation();
             return (<>
                    <div>تم رفض طلب الموعد مع الطبيب {pidData.Name} <br /> <small>"{requestData.Refuser_Cause}"</small></div>  
                 </> )
@@ -718,6 +776,7 @@ const  NotifGenres  = {
         icon:'bi-calendar2-date text-warning',
         titleIcon:'bi-receipt-cutoff',
         GenTextFunction : function(requestData,pidData){
+            const { t, i18n } = useTranslation();
             return (<>
                    <div>تم  تسجيل    طلب حجز في قاعة الأفراح   {pidData.Name} بسبب  {requestData.Res_Genre} بنجاح </div>  
                 </> )
@@ -728,6 +787,7 @@ const  NotifGenres  = {
         icon:'bi-calendar2-date text-warning',
         titleIcon:'bi-receipt-cutoff',
         GenTextFunction : function(requestData,pidData){
+            const { t, i18n } = useTranslation();
             return (<>
                    <div>تم  تسجيل    طلب حجز موعد مع الطباخ    {pidData.Name} بنجاح </div>  
                 </> )
@@ -738,6 +798,7 @@ const  NotifGenres  = {
         icon:'bi-calendar2-date text-warning',
         titleIcon:'bi-receipt-cutoff',
         GenTextFunction : function(requestData,pidData){
+            const { t, i18n } = useTranslation();
             return (<>
                    <div>تم  تسجيل    طلب حجز موعد مع الفرقة الموسيقية    {pidData.Name} بنجاح </div>  
                 </> )
@@ -748,6 +809,7 @@ const  NotifGenres  = {
         icon:'bi-calendar2-date text-warning',
         titleIcon:'bi-receipt-cutoff',
         GenTextFunction : function(requestData,pidData){
+            const { t, i18n } = useTranslation();
             return (<>
                    <div>تم  تسجيل    طلب حجز موعد مع المصور    {pidData.Name} بنجاح </div>  
                 </> )
@@ -758,6 +820,7 @@ const  NotifGenres  = {
         icon:'bi-calendar2-date text-warning',
         titleIcon:'bi-receipt-cutoff',
         GenTextFunction : function(requestData,pidData){
+            const { t, i18n } = useTranslation();
             return (<>
                    <div>تم  تسجيل    طلب كراء مستلزمات أفراح من    {pidData.Name}  بنجاح</div>  
                 </> )
@@ -770,6 +833,7 @@ const  NotifGenres  = {
         icon:'bi-cart4 text-warning',
         titleIcon:'receipt-cutoff',
         GenTextFunction : function(requestData,pidData){
+            const { t, i18n } = useTranslation();
             return (<>
                 <div>تم تسجيل طلب  شراء مواد غذائية  من  متجر   {pidData.Name} </div>  
              </> )
@@ -781,6 +845,7 @@ const  NotifGenres  = {
         icon:'bi-cart4 text-warning',
         titleIcon:'receipt-cutoff',
         GenTextFunction : function(requestData,pidData){
+            const { t, i18n } = useTranslation();
             return (<>
                 <div>تم تسجيل طلب  شراء خبز  من  مخبزة   {pidData.Name} </div>  
              </> )
@@ -792,6 +857,7 @@ const  NotifGenres  = {
         icon:'bi-cart4 text-warning',
         titleIcon:'receipt-cutoff',
         GenTextFunction : function(requestData,pidData){
+            const { t, i18n } = useTranslation();
             return (<>
                 <div>تم تسجيل طلب  شراء لحوم  من  مجزرة   {pidData.Name} </div>  
              </> )
@@ -803,6 +869,7 @@ const  NotifGenres  = {
         icon:'bi-cart4 text-warning',
         titleIcon:'receipt-cutoff',
         GenTextFunction : function(requestData,pidData){
+            const { t, i18n } = useTranslation();
             return (<>
                 <div>تم تسجيل طلب  شراء خضر وغلال   من  متجر   {pidData.Name} </div>  
              </> )
@@ -814,6 +881,7 @@ const  NotifGenres  = {
         icon:'bi-cart4 text-warning',
         titleIcon:'receipt-cutoff',
         GenTextFunction : function(requestData,pidData){
+            const { t, i18n } = useTranslation();
             return (<>
                 <div>تم تسجيل طلب  شراء مرطبات   من  نقطة بيع المرطبات   {pidData.Name} </div>  
              </> )
@@ -825,6 +893,7 @@ const  NotifGenres  = {
         icon:'bi-cart4 text-warning',
         titleIcon:'receipt-cutoff',
         GenTextFunction : function(requestData,pidData){
+            const { t, i18n } = useTranslation();
             return (<>
                 <div>تم تسجيل طلب  شراء  من  بقالة   {pidData.Name} </div>  
              </> )
@@ -836,6 +905,7 @@ const  NotifGenres  = {
         icon:'bi-wrench text-warning',
         titleIcon:'receipt-cutoff',
         GenTextFunction : function(requestData,pidData){
+            const { t, i18n } = useTranslation();
             return (<>
                 <div>تم تسجيل طلب  شراء أدوات  من  محل المعدات    {pidData.Name} </div>  
              </> )
@@ -847,6 +917,7 @@ const  NotifGenres  = {
         icon:'bi-bag-heart text-warning',
         titleIcon:'receipt-cutoff',
         GenTextFunction : function(requestData,pidData){
+            const { t, i18n } = useTranslation();
             return (<>
                 <div>تم تسجيل طلب  شراء ملابس   من  متجر   {pidData.Name} </div>  
              </> )
@@ -858,6 +929,7 @@ const  NotifGenres  = {
         icon:'bi-gem text-warning',
         titleIcon:'receipt-cutoff',
         GenTextFunction : function(requestData,pidData){
+            const { t, i18n } = useTranslation();
             return (<>
                 <div>تم تسجيل طلب  شراء مجوهرات  من  متجر   {pidData.Name} </div>  
              </> )
@@ -869,6 +941,7 @@ const  NotifGenres  = {
         icon:'bi-basket text-warning',
         titleIcon:'bi-receipt-cutoff',
         GenTextFunction : function(requestData,pidData){
+            const { t, i18n } = useTranslation();
             return (<>
                    <div>تم تسجيل طلب  شراء أدوات مدرسية من مكتبة  {pidData.Name} </div>  
                 </> )
@@ -879,6 +952,7 @@ const  NotifGenres  = {
         icon:'bi-cart4 text-warning',
         titleIcon:'bi-receipt-cutoff',
         GenTextFunction : function(requestData,pidData){
+            const { t, i18n } = useTranslation();
             return (<>
                    <div>تم تسجيل طلب  شراء آلات كهرومنزلية   من  متجر   {pidData.Name} </div>  
                 </> )
@@ -889,6 +963,7 @@ const  NotifGenres  = {
         icon:'bi-cart4 text-warning',
         titleIcon:'bi-receipt-cutoff',
         GenTextFunction : function(requestData,pidData){
+            const { t, i18n } = useTranslation();
             return (<>
                    <div>تم تسجيل طلب  شراء أثاث   من  متجر   {pidData.Name} </div>  
                 </> )
@@ -899,6 +974,7 @@ const  NotifGenres  = {
         icon:'bi-cart4 text-warning',
         titleIcon:'receipt-cutoff',
         GenTextFunction : function(requestData,pidData){
+            const { t, i18n } = useTranslation();
             return (<>
                 <div>تم تسجيل طلب  شراء من  متجر   {pidData.Name} </div>  
              </> )
@@ -912,6 +988,7 @@ const  NotifGenres  = {
         icon:'bi-pencil-square text-info',
         titleIcon:'receipt-cutoff',
         GenTextFunction : function(requestData,pidData){
+            const { t, i18n } = useTranslation();
             return (<>
                 <div>تم تسجيل طلب موعد مع المحامي {pidData.Name}  بنجاح  و ذلك بتاريخ {new Date(requestData.RDV_Date).toLocaleDateString('fr-FR').split( '/' ).reverse( ).join( '-' )}</div>  
              </> )
@@ -929,6 +1006,7 @@ const  NotifGenres  = {
         icon:'bi-calendar-x text-danger',
         titleIcon:'bi-receipt-cutoff',
         GenTextFunction : function(requestData,pidData){
+            const { t, i18n } = useTranslation();
             return (<>
                    <div>تم رفض طلب الموعد مع الطبيب {pidData.Name} <br /> <small>"{requestData.Refuser_Cause}"</small></div>  
                 </> )
@@ -945,6 +1023,7 @@ const  NotifGenres  = {
         icon:'bi-arrow-90deg-right text-secondary',
         titleIcon:'bi-receipt-cutoff',
         GenTextFunction : function(requestData,pidData){
+            const { t, i18n } = useTranslation();
             return (<>
                    <div>تم توجيه طلب موعد مع الطبيب {pidData.Name}   إلي الطبيب {JSON.parse(requestData.Redirected_To).Name}  ( الهاتف :  {JSON.parse(requestData.Redirected_To).Phone} , العنوان : {JSON.parse(requestData.Redirected_To).Adresse} ) </div>  
                 </> )
@@ -954,6 +1033,7 @@ const  NotifGenres  = {
         icon:'bi-calendar-x text-danger',
         titleIcon:'bi-receipt-cutoff',
         GenTextFunction : function(requestData,pidData){
+            const { t, i18n } = useTranslation();
             return (<>
                    <div>تم رفض طلب الموعد مع الطبيب {pidData.Name} <br /> <small>"{requestData.Refuser_Cause}"</small></div>  
                 </> )
@@ -964,6 +1044,7 @@ const  NotifGenres  = {
         icon:'bi-folder-check text-warning',
         titleIcon:'receipt-cutoff',
         GenTextFunction : function(requestData,pidData){
+            const { t, i18n } = useTranslation();
             return (<>
                 <div>تم تسجيل طلب موعد مع المحامي {pidData.Name}  بنجاح  و ذلك بتاريخ {new Date(requestData.RDV_Date).toLocaleDateString('fr-FR').split( '/' ).reverse( ).join( '-' )}</div>  
              </> )
@@ -974,6 +1055,7 @@ const  NotifGenres  = {
         icon:'bi-calendar-check text-success',
         titleIcon:'bi-receipt-cutoff',
         GenTextFunction : function(requestData,pidData){
+            const { t, i18n } = useTranslation();
             return (<>
                    <div>تم تسجيل طلب موعد مع المحامي {pidData.Name}  بنجاح  و ذلك بتاريخ {new Date(requestData.RDV_Date).toLocaleDateString('fr-FR').split( '/' ).reverse( ).join( '-' )}</div>  
                 </> )
@@ -986,8 +1068,10 @@ const  NotifGenres  = {
         icon:'bi-person-vcard text-warning',
         titleIcon:'receipt-cutoff',
         GenTextFunction : function(requestData,pidData){
+            const { t, i18n } = useTranslation();
             return (<>
-                <div>تم تسجيل طلب الإشتراك  ({requestData.Ab_Genre}) في قاعة الرياضة   {pidData.Name}  بنجاح  .   </div>  
+                <div>{ t('userProfile.notificationPage.gym_souscription_saved', {  one: requestData.Ab_Genre , two: pidData.Name })}</div>
+                {/* <div>تم تسجيل طلب الإشتراك  ({requestData.Ab_Genre}) في قاعة الرياضة   {pidData.Name}  بنجاح  .   </div>   */}
              </> )}
 
     },
@@ -1002,6 +1086,7 @@ const  NotifGenres  = {
         icon:'bi-calendar-x text-danger',
         titleIcon:'bi-receipt-cutoff',
         GenTextFunction : function(requestData,pidData){
+            const { t, i18n } = useTranslation();
             return (<>
                    <div>تم رفض طلب الموعد مع الطبيب {pidData.Name} <br /> <small>"{requestData.Refuser_Cause}"</small></div>  
                 </> )
@@ -1012,6 +1097,7 @@ const  NotifGenres  = {
         icon:'bi-stopwatch text-warning',
         titleIcon:'receipt-cutoff',
         GenTextFunction : function(requestData,pidData){
+            const { t, i18n } = useTranslation();
             return (<>
                 <div>تم تسجيل طلب الحجز  في المسبح   {pidData.Name} يوم {new Date(requestData.RES_Date).toLocaleDateString('fr-FR').split( '/' ).reverse( ).join( '-' )}   من {requestData.RES_From_Time} إلي {requestData.RES_To_Time} بنجاح  .   </div>  
              </> )}
@@ -1021,6 +1107,7 @@ const  NotifGenres  = {
         icon:'bi-person-vcard text-warning',
         titleIcon:'receipt-cutoff',
         GenTextFunction : function(requestData,pidData){
+            const { t, i18n } = useTranslation();
             return (<>
                 <div>تم تسجيل طلب الإشتراك  ({requestData.Ab_Genre}) في الملعب الرياضي   {pidData.Name}  بنجاح  .   </div>  
              </> )}
@@ -1031,6 +1118,7 @@ const  NotifGenres  = {
         icon:'bi-stopwatch text-warning',
         titleIcon:'receipt-cutoff',
         GenTextFunction : function(requestData,pidData){
+            const { t, i18n } = useTranslation();
             return (<>
                 <div>تم تسجيل طلب الحجز  في الملعب الرياضي   {pidData.Name} يوم {new Date(requestData.RES_Date).toLocaleDateString('fr-FR').split( '/' ).reverse( ).join( '-' )}   من {requestData.RES_From_Time} إلي {requestData.RES_To_Time} بنجاح  .   </div>  
              </> )}
@@ -1040,6 +1128,7 @@ const  NotifGenres  = {
         icon:'bi-person-vcard text-warning',
         titleIcon:'receipt-cutoff',
         GenTextFunction : function(requestData,pidData){
+            const { t, i18n } = useTranslation();
             return (<>
                 <div>تم تسجيل طلب الإشتراك  ({requestData.Ab_Genre}) في الملعب الرياضي   {pidData.Name}  بنجاح  .    </div>  
              </> )}
@@ -1050,6 +1139,7 @@ const  NotifGenres  = {
         icon:'bi-calendar-week text-warning',
         titleIcon:'receipt-cutoff',
         GenTextFunction : function(requestData,pidData){
+            const { t, i18n } = useTranslation();
             return (<>
                 <div>تم تسجيل طلب حجز  في قاعة السنما  {pidData.Name} لمشاهدة فلم {requestData.Movie_Name}  بنجاح  .  </div>  
              </> )}
@@ -1060,6 +1150,7 @@ const  NotifGenres  = {
         icon:'bi-calendar-week text-warning',
         titleIcon:'receipt-cutoff',
         GenTextFunction : function(requestData,pidData){
+            const { t, i18n } = useTranslation();
             return (<>
                 <div>تم تسجيل طلب حجز  في مسرح  {pidData.Name} لمشاهدة مسرحية {requestData.Movie_Name}  بنجاح  .  </div> 
              </> )}
@@ -1070,6 +1161,7 @@ const  NotifGenres  = {
         icon:'bi-card-checklist text-success',
         titleIcon:'receipt-cutoff',
         GenTextFunction : function(requestData,pidData){
+            const { t, i18n } = useTranslation();
             return (<>
                 <div>تم تسجيل طلب الإشتراك  {requestData.Ab_Genre} في قاعة الرياضة   {pidData.Name}  بنجاح  . تم تسجيل الإنطلاق ليوم  {new Date(requestData.Start_At).toLocaleDateString('fr-FR').split( '/' ).reverse( ).join( '-' )}  </div>  
              </> )}
@@ -1080,6 +1172,7 @@ const  NotifGenres  = {
         icon:'bi-ticket-detailed text-warning',
         titleIcon:'receipt-cutoff',
         GenTextFunction : function(requestData,pidData){
+            const { t, i18n } = useTranslation();
             return (<>
                 <div>تم تسجيل طلب الحجز  في متحف   {pidData.Name} يوم {new Date(requestData.Wanted_Date).toLocaleDateString('fr-FR').split( '/' ).reverse( ).join( '-' )}   من {requestData.Wanted_Time_From} إلي {requestData.Wanted_Time_To} بنجاح  .   </div>  
              </> )}
@@ -1092,6 +1185,7 @@ const  NotifGenres  = {
         icon:'bi-card-checklist text-warning',
         titleIcon:'receipt-cutoff',
         GenTextFunction : function(requestData,pidData){
+            const { t, i18n } = useTranslation();
             return (<>
                  <div>تم تسجيل طلب حجز  {requestData.Ab_Genre}  في نزل  {pidData.Name} للفترة بين { new Date(requestData.From_Date).toLocaleDateString('fr-FR').split( '/' ).reverse( ).join( '-' ) } و { new Date(requestData.To_Date).toLocaleDateString('fr-FR').split( '/' ).reverse( ).join( '-' )} بنجاح  .   </div>  
              </> )}
@@ -1108,6 +1202,7 @@ const  NotifGenres  = {
         icon:'bi-calendar-x text-danger',
         titleIcon:'bi-receipt-cutoff',
         GenTextFunction : function(requestData,pidData){
+            const { t, i18n } = useTranslation();
             return (<>
                    <div>تم رفض طلب الموعد مع الطبيب {pidData.Name} <br /> <small>"{requestData.Refuser_Cause}"</small></div>  
                 </> )
@@ -1118,6 +1213,7 @@ const  NotifGenres  = {
         icon:'bi-card-checklist text-warning',
         titleIcon:'receipt-cutoff',
         GenTextFunction : function(requestData,pidData){
+            const { t, i18n } = useTranslation();
             return (<>
                 <div>تم تسجيل طلب الحجز في نزل  {requestData.Ab_Genre} في قاعة الرياضة   {pidData.Name}  بنجاح  . تم تسجيل الإنطلاق ليوم  {new Date(requestData.Start_At).toLocaleDateString('fr-FR').split( '/' ).reverse( ).join( '-' )}  </div>  
              </> )}
@@ -1134,6 +1230,7 @@ const  NotifGenres  = {
         icon:'bi-calendar-x text-danger',
         titleIcon:'bi-receipt-cutoff',
         GenTextFunction : function(requestData,pidData){
+            const { t, i18n } = useTranslation();
             return (<>
                    <div>تم رفض طلب الموعد مع الطبيب {pidData.Name} <br /> <small>"{requestData.Refuser_Cause}"</small></div>  
                 </> )
@@ -1144,6 +1241,7 @@ const  NotifGenres  = {
         icon:'bi-card-checklist text-warning',
         titleIcon:'receipt-cutoff',
         GenTextFunction : function(requestData,pidData){
+            const { t, i18n } = useTranslation();
             return (<>
                  <div>تم تسجيل طلب سفر إلي   {requestData.Coutry} مع وكالة الاسفار   {pidData.Name}  بنجاح  .  </div>  
              </> )}
@@ -1154,6 +1252,7 @@ const  NotifGenres  = {
         icon:'bi-check-circle text-warning',
         titleIcon:'bi-receipt-cutoff',
         GenTextFunction : function(requestData,pidData){
+            const { t, i18n } = useTranslation();
             return (<>
                    <div> تم تسجيل طلب طبق من مطعم {pidData.Name}   {requestData.Table_Num == 0 ? '' : `في الطاولة عدد ${requestData.Table_Num}`}    بنجاح </div>  
                 </> )
@@ -1170,6 +1269,7 @@ const  NotifGenres  = {
         icon:'bi-calendar-x text-danger',
         titleIcon:'bi-receipt-cutoff',
         GenTextFunction : function(requestData,pidData){
+            const { t, i18n } = useTranslation();
             return (<>
                    <div>تم رفض طلب الموعد مع الطبيب {pidData.Name} <br /> <small>"{requestData.Refuser_Cause}"</small></div>  
                 </> )
@@ -1180,6 +1280,7 @@ const  NotifGenres  = {
         icon:'bi-check-circle text-warning',
         titleIcon:'bi-receipt-cutoff',
         GenTextFunction : function(requestData,pidData){
+            const { t, i18n } = useTranslation();
             return (<>
                    <div>تم تسجيل طلب  الحجز في مطعم    {pidData.Name}  بنجاح  و ذلك بتاريخ {new Date(requestData.Wanted_Date).toLocaleDateString('fr-FR').split( '/' ).reverse( ).join( '-' )}</div>  
                 </> )
@@ -1196,6 +1297,7 @@ const  NotifGenres  = {
         icon:'bi-calendar-x text-danger',
         titleIcon:'bi-receipt-cutoff',
         GenTextFunction : function(requestData,pidData){
+            const { t, i18n } = useTranslation();
             return (<>
                    <div>تم رفض طلب الموعد مع الطبيب {pidData.Name} <br /> <small>"{requestData.Refuser_Cause}"</small></div>  
                 </> )
@@ -1205,6 +1307,7 @@ const  NotifGenres  = {
         icon:'bi-pencil-square text-secondary',
         titleIcon:'bi-receipt-cutoff',
         GenTextFunction : function(requestData,pidData){
+            const { t, i18n } = useTranslation();
             return (<>
                    <div>تم  تعديل طلب الشراء من الصيدلة  {pidData.Name}    </div>  
                 </> )
@@ -1215,6 +1318,7 @@ const  NotifGenres  = {
         icon:'bi-check-circle text-warning',
         titleIcon:'bi-receipt-cutoff',
         GenTextFunction : function(requestData,pidData){
+            const { t, i18n } = useTranslation();
             return (<>
                    <div> تم تسجيل طلب مشروب من مقهي {pidData.Name}   {requestData.Table_Num == 0 ? '' : `في الطاولة عدد ${requestData.Table_Num}`}    بنجاح </div>  
                 </> )
@@ -1224,6 +1328,7 @@ const  NotifGenres  = {
         icon:'bi-check-circle text-warning',
         titleIcon:'bi-receipt-cutoff',
         GenTextFunction : function(requestData,pidData){
+            const { t, i18n } = useTranslation();
             return (<>
                    <div>تم تسجيل طلب  الحجز في مقهي    {pidData.Name}  بنجاح  و ذلك بتاريخ {new Date(requestData.Wanted_Date).toLocaleDateString('fr-FR').split( '/' ).reverse( ).join( '-' )}</div>  
                 </> )
@@ -1235,6 +1340,7 @@ const  NotifGenres  = {
         icon:'bi-house-heart text-warning',
         titleIcon:'bi-receipt-cutoff',
         GenTextFunction : function(requestData,pidData){
+            const { t, i18n } = useTranslation();
             return (<>
                    <div>تم تسجيل طلب {requestData.Req_Genre} {requestData.Immob_Genre} من الوسيط     {pidData.Name}  </div>  
                 </> )
@@ -1244,6 +1350,7 @@ const  NotifGenres  = {
         icon:'bi-house-heart text-warning',
         titleIcon:'bi-receipt-cutoff',
         GenTextFunction : function(requestData,pidData){
+            const { t, i18n } = useTranslation();
             return (<>
                    <div>تم تسجيل    {requestData.Immob_Genre} {requestData.Req_Genre} مع الوسيط     {pidData.Name}  </div>  
                 </> )
@@ -1254,6 +1361,7 @@ const  NotifGenres  = {
         icon:'bi-cone-striped text-warning',
         titleIcon:'bi-receipt-cutoff',
         GenTextFunction : function(requestData,pidData){
+            const { t, i18n } = useTranslation();
             return (<>
                    <div>تم تسجيل طلب بناء     {requestData.Immob_Genre}  من المقاول     {pidData.Name} بنجاح </div>  
                 </> )
@@ -1264,6 +1372,7 @@ const  NotifGenres  = {
         icon:'bi-map text-warning',
         titleIcon:'bi-receipt-cutoff',
         GenTextFunction : function(requestData,pidData){
+            const { t, i18n } = useTranslation();
             return (<>
                    <div>تم تسجيل طلب تصميم     {requestData.Immob_Genre}  من المهندس المعماري     {pidData.Name} بنجاح </div>  
                 </> )
@@ -1275,6 +1384,7 @@ const  NotifGenres  = {
         icon:'bi-clipboard-data text-warning',
         titleIcon:'receipt-cutoff',
         GenTextFunction : function(requestData,pidData){
+            const { t, i18n } = useTranslation();
             return (<>
                 <div>تم تسجيل طلب {requestData.Request_Cause}   للفترة ما بين  {new Date(requestData.From_Date).toLocaleDateString('fr-FR').split( '/' ).reverse( ).join( '-' )} و {new Date(requestData.To_Date).toLocaleDateString('fr-FR').split( '/' ).reverse( ).join( '-' )} من المحاسب  {pidData.Name} بنجاح</div>  
              </> )
@@ -1287,6 +1397,7 @@ const  NotifGenres  = {
         icon:'bi-calendar2-plus text-warning',
         titleIcon:'bi-receipt-cutoff',
         GenTextFunction : function(requestData,pidData){
+            const { t, i18n } = useTranslation();
             return (<>
                    <div>تم تسجيل طلب موعد مع البيطري {pidData.Name}  بنجاح  و ذلك بتاريخ {new Date(requestData.RDV_Date).toLocaleDateString('fr-FR').split( '/' ).reverse( ).join( '-' )}</div>  
                 </> )
@@ -1303,6 +1414,7 @@ const  NotifGenres  = {
         icon:'bi-calendar-x text-danger',
         titleIcon:'bi-receipt-cutoff',
         GenTextFunction : function(requestData,pidData){
+            const { t, i18n } = useTranslation();
             return (<>
                    <div>تم رفض طلب الموعد مع الطبيب {pidData.Name} <br /> <small>"{requestData.Refuser_Cause}"</small></div>  
                 </> )
@@ -1319,6 +1431,7 @@ const  NotifGenres  = {
         icon:'bi-arrow-90deg-right text-secondary',
         titleIcon:'bi-receipt-cutoff',
         GenTextFunction : function(requestData,pidData){
+            const { t, i18n } = useTranslation();
             return (<>
                    <div>تم توجيه طلب موعد مع الطبيب {pidData.Name}   إلي الطبيب {JSON.parse(requestData.Redirected_To).Name}  ( الهاتف :  {JSON.parse(requestData.Redirected_To).Phone} , العنوان : {JSON.parse(requestData.Redirected_To).Adresse} ) </div>  
                 </> )
@@ -1329,6 +1442,7 @@ const  NotifGenres  = {
         icon:'bi-wrench text-success',
         titleIcon:'receipt-cutoff',
         GenTextFunction : function(requestData,pidData){
+            const { t, i18n } = useTranslation();
             return (<>
                 <div>تم تسجيل طلب  شراء أدوات  من  محل   {pidData.Name} </div>  
              </> )

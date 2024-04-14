@@ -6,9 +6,13 @@ import { Button, Icon } from 'semantic-ui-react';
 import { Select } from 'semantic-ui-react'
 import { Bounce } from 'react-reveal';
 import { NavLink } from 'react-router-dom';
+import { useTranslation, Trans } from 'react-i18next';
+import detectRTL from 'rtl-detect';
 
 
 function DocummentPage() {
+    const { t, i18n } = useTranslation();
+    const isRTL = detectRTL.isRtlLang(i18n.language);
     
     const folderGenres = [
         {id:0, name:'ملفات صحية', link:'sante', icon:'heart-pulse-fill', color:'#3048d1'},
@@ -34,7 +38,7 @@ function DocummentPage() {
                             <div className='col-4 align-self-center text-center'>
                                     <span className={`bi bi-${props.data.icon} bi-md`} style={{color:props.data.color}}></span>
                             </div>
-                            <div className='col-8 align-self-center text-end '>
+                            <div className={`col-8 align-self-center  ${isRTL ? 'text-end' : 'text-start'}`} >
                                     {props.data.name}
                             </div>
                         </div>

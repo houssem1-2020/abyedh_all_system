@@ -18,6 +18,8 @@ import SuivieRequestData from './suivieRequestData'
 import { VerticalTimeline, VerticalTimelineElement }  from 'react-vertical-timeline-component';
 import 'react-vertical-timeline-component/style.min.css';
 import { useNavigate} from 'react-router-dom';
+import { useTranslation, Trans } from 'react-i18next';
+import detectRTL from 'rtl-detect';
 
 function SuiviePage() {
     /* ###########################[const]############################ */
@@ -27,6 +29,8 @@ function SuiviePage() {
    let [suivieData, setSuivieData] = useState([])
    const [openD, setOpenD] = useState(false)
    const [selectedForModal, setSelectedForModal] = useState('docteur_rdv')
+   const { t, i18n } = useTranslation();
+   const isRTL = detectRTL.isRtlLang(i18n.language);
 
    /*#########################[UseEffect]###########################*/
    useEffect(() => {
@@ -119,7 +123,7 @@ function SuiviePage() {
                                         <img src={`https://cdn.abyedh.tn/images/Search/CIcons/${props.data.P_Genre}.gif`} alt="..."  width='50px' height='50px'/>
                                     </div>
                                     <div className="flex-grow-1 ms-3">
-                                        <h4 className='mb-0 text-secondary'><NavLink exact='true' to={`/Profile/L/sv/${props.data.RequestData.R_ID}`}>{SuivieRequestData[props.data.Notif_Name].title}</NavLink></h4>
+                                        <h4 className='mb-0 text-secondary'><NavLink exact='true' to={`/Profile/L/sv/${props.data.RequestData.R_ID}`}>{t(`userProfile.suivieTitlePage.${props.data.Notif_Name}`)}  </NavLink></h4>
                                         <div ><b className='text-secondary' dir='ltr'>  {new Date(props.data.Notif_Date).toLocaleDateString('fr-FR').split( '/' ).reverse( ).join( '-' )} | {props.data.PidData.Name}</b></div>
                                     </div>
                                 </div>

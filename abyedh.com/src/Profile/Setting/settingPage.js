@@ -8,6 +8,9 @@ import { Bounce } from 'react-reveal';
 import { NavLink } from 'react-router-dom';
 import QRCode from 'react-qr-code';
 import { toast } from 'react-toastify';
+import { useTranslation, Trans } from 'react-i18next';
+import detectRTL from 'rtl-detect';
+
 
 const EditGeneralSettingCard = ({delegList,GetDelegList, GConf, setGeneralData, generalData, SaveGeneralDFunc}) =>{
     const options = [
@@ -122,6 +125,9 @@ function SettingPage() {
         // {id:1, name:'المفضلة', imgSrc:'02', iconTitle:'balloon-heart-fill'},
         // {id:2, name:'الارشيف و الوثائق', imgSrc:'04', iconTitle:'file-zip-fill'},
     ]
+
+    const { t, i18n } = useTranslation();
+    const isRTL = detectRTL.isRtlLang(i18n.language);
 
     /* ########################[UseEffect]###################### */
     useEffect(() => {
@@ -240,8 +246,8 @@ function SettingPage() {
                 className='card shadow-sm border-div mb-1'
             >
                     <div className='row p-2'>
-                        <div className='col-6 align-self-center pe-3 text-end' style={{color:'#4287f5'}}><h4 dir='ltr'>{props.data.name} <span className={`bi bi-${props.data.iconTitle}`}></span></h4></div>
-                        <div className='col-6 align-self-center ps-3 text-start'><img src={`https://cdn.abyedh.tn/Images/Profile/setting/${props.data.imgSrc}.gif`} width='30px' height='30px' /></div>
+                        <div className={`col-6 align-self-center pe-3   ${isRTL ? 'text-end' : 'text-start'}`} style={{color:'#4287f5'}}><h4 dir={isRTL ? 'rtl' : 'ltr'} >{props.data.name} <span className={`bi bi-${props.data.iconTitle}`}></span></h4></div>
+                        <div className={`col-6 align-self-center ps-3  ${isRTL ? 'text-start' : 'text-end'}`}><img src={`https://cdn.abyedh.tn/Images/Profile/setting/${props.data.imgSrc}.gif`} width='30px' height='30px' /></div>
                     </div>
             </Accordion.Title>
             <Accordion.Content active={activeIndex === props.data.id} className='card mt-2 mb-2 shadow-sm border-div ' >
@@ -272,43 +278,43 @@ function SettingPage() {
        
         return(<>
             <div className='row mb-2'> 
-                <div className='col-6 align-self-center text-end'> <b><span className='bi bi-qr-code-scan bi-sm text-secondary ms-2'></span>  المعرف الوحيد</b>  </div>
-                <div className='col-6  align-self-center text-end'> {generalData ? <b className='text-danger' onClick={ (e) => OpenModalFunction('qrcode')}>{generalData.UID}</b>  : ''} </div>
+                <div className={`col-6 align-self-center ${isRTL ? 'text-end' : 'text-start'}`}> <b><span className='bi bi-qr-code-scan bi-sm text-secondary ms-2'></span>  المعرف الوحيد</b>  </div>
+                <div className={`col-6 align-self-center ${isRTL ? 'text-end' : 'text-start'}`}> {generalData ? <b className='text-danger' onClick={ (e) => OpenModalFunction('qrcode')}>{generalData.UID}</b>  : ''} </div>
             </div>
             <hr /> 
             <div className='row mb-2'> 
-                <div className='col-6 align-self-center text-end'> <b><span className='bi bi-person-fill bi-sm text-secondary ms-2'></span> الاسم و اللقب</b>  </div>
-                <div className='col-6  align-self-center text-end'> {generalData ?  generalData.Name : ''} </div>
+                <div className={`col-6 align-self-center ${isRTL ? 'text-end' : 'text-start'}`}> <b><span className='bi bi-person-fill bi-sm text-secondary ms-2'></span> الاسم و اللقب</b>  </div>
+                <div className={`col-6 align-self-center ${isRTL ? 'text-end' : 'text-start'}`}> {generalData ?  generalData.Name : ''} </div>
             </div>
             <hr /> 
             <div className='row mb-2'> 
-                <div className='col-6 align-self-center text-end'> <b><span className='bi bi-calendar-heart-fill bi-sm text-secondary ms-2'></span>  تاريخ الميلاد </b>  </div>
-                <div className='col-6  align-self-center text-end'> {generalData ?  new Date(generalData.BirthDay).toLocaleDateString('fr-FR').split( '/' ).reverse( ).join( '-' ) : ''} </div>
+                <div className={`col-6 align-self-center ${isRTL ? 'text-end' : 'text-start'}`}> <b><span className='bi bi-calendar-heart-fill bi-sm text-secondary ms-2'></span>  تاريخ الميلاد </b>  </div>
+                <div className={`col-6 align-self-center ${isRTL ? 'text-end' : 'text-start'}`}> {generalData ?  new Date(generalData.BirthDay).toLocaleDateString('fr-FR').split( '/' ).reverse( ).join( '-' ) : ''} </div>
             </div>
             <hr /> 
             <div className='row mb-2'> 
-                <div className='col-6 align-self-center text-end'> <b><span className='bi bi-telephone-x-fill bi-sm text-secondary ms-2'></span>  رقم الهاتف </b>  </div>
-                <div className='col-6  align-self-center text-end'> {generalData ?  generalData.PhoneNum : ''} </div>
+                <div className={`col-6 align-self-center ${isRTL ? 'text-end' : 'text-start'}`}> <b><span className='bi bi-telephone-x-fill bi-sm text-secondary ms-2'></span>  رقم الهاتف </b>  </div>
+                <div className={`col-6 align-self-center ${isRTL ? 'text-end' : 'text-start'}`}> {generalData ?  generalData.PhoneNum : ''} </div>
             </div>
             <hr /> 
             <div className='row mb-2'> 
-                <div className='col-6 align-self-center text-end'> <b><span className='bi bi-gender-ambiguous bi-sm text-secondary ms-2'></span>   الجنس </b>  </div>
-                <div className='col-6  align-self-center text-end'> {generalData ?  generalData.Sex : ''} </div>
+                <div className={`col-6 align-self-center ${isRTL ? 'text-end' : 'text-start'}`}> <b><span className='bi bi-gender-ambiguous bi-sm text-secondary ms-2'></span>   الجنس </b>  </div>
+                <div className={`col-6 align-self-center ${isRTL ? 'text-end' : 'text-start'}`}> {generalData ?  generalData.Sex : ''} </div>
             </div>
             <hr /> 
             <div className='row mb-2'> 
-                <div className='col-6 align-self-center text-end'> <b><span className='bi bi-geo-alt-fill bi-sm text-secondary ms-2'></span>  الولاية  </b>  </div>
-                <div className='col-6  align-self-center text-end'> {generalData ?  generalData.BirthGouv : ''} </div>
+                <div className={`col-6 align-self-center ${isRTL ? 'text-end' : 'text-start'}`}> <b><span className='bi bi-geo-alt-fill bi-sm text-secondary ms-2'></span>  الولاية  </b>  </div>
+                <div className={`col-6 align-self-center ${isRTL ? 'text-end' : 'text-start'}`}> {generalData ?  generalData.BirthGouv : ''} </div>
             </div>
             <hr /> 
             <div className='row mb-2'> 
-                <div className='col-6 align-self-center text-end'> <b><span className='bi bi-pin-map-fill bi-sm text-secondary ms-2'></span>  المدينة  </b>  </div>
-                <div className='col-6  align-self-center text-end'> {generalData ?  generalData.BirthDeleg : ''} </div>
+                <div className={`col-6 align-self-center ${isRTL ? 'text-end' : 'text-start'}`}> <b><span className='bi bi-pin-map-fill bi-sm text-secondary ms-2'></span>  المدينة  </b>  </div>
+                <div className={`col-6 align-self-center ${isRTL ? 'text-end' : 'text-start'}`}> {generalData ?  generalData.BirthDeleg : ''} </div>
             </div>
             <hr /> 
             <div className='row mb-2'> 
-                <div className='col-6 align-self-center text-end'> <b><span className='bi bi-person-circle bi-sm text-secondary ms-2'></span>  صورة الحساب  </b>  </div>
-                <div className='col-6  align-self-center text-end'> {generalData ?  <img src={`https://cdn.abyedh.tn/images/p_pic/${generalData.PictureId}.gif`} className='rounded-circle' width='30px' height='30px'  /> : ''} </div>
+                <div className={`col-6 align-self-center ${isRTL ? 'text-end' : 'text-start'}`}> <b><span className='bi bi-person-circle bi-sm text-secondary ms-2'></span>  صورة الحساب  </b>  </div>
+                <div className={`col-6 align-self-center ${isRTL ? 'text-end' : 'text-start'}`}> {generalData ?  <img src={`https://cdn.abyedh.tn/images/p_pic/${generalData.PictureId}.gif`} className='rounded-circle' width='30px' height='30px'  /> : ''} </div>
             </div>
             {/* <br />
             <div className='text-start'>
@@ -319,13 +325,13 @@ function SettingPage() {
     const PWDSettingCard = () =>{
         return(<>
             <div className='row mb-2'> 
-                <div className='col-6 align-self-center text-end'> <b><span className='bi bi-person-badge-fill bi-sm text-secondary ms-2'></span> المعرف</b>  </div>
-                <div className='col-6  align-self-center text-start'> {passwordData.PhoneNum} </div>
+                <div className={`col-6 align-self-center ${isRTL ? 'text-end' : 'text-start'}`}> <b><span className='bi bi-person-badge-fill bi-sm text-secondary ms-2'></span> المعرف</b>  </div>
+                <div className={`col-6 align-self-center ${isRTL ? 'text-end' : 'text-start'}`}> {passwordData.PhoneNum} </div>
             </div>
             <hr />
             <div className='row mb-2'> 
-                <div className='col-7 align-self-center text-end'> <b><span className='bi bi-key-fill bi-sm text-secondary ms-2'></span>  كلمة المرور</b>  </div>
-                <div className='col-5  align-self-center text-start'> {passwordData.PasswordHash} </div>
+                <div className={`col-6 align-self-center ${isRTL ? 'text-end' : 'text-start'}`}> <b><span className='bi bi-key-fill bi-sm text-secondary ms-2'></span>  كلمة المرور</b>  </div>
+                <div className={`col-6 align-self-center ${isRTL ? 'text-end' : 'text-start'}`}> {passwordData.PasswordHash} </div>
             </div>
             {/* <br />
             <div className='text-start'>
@@ -337,12 +343,12 @@ function SettingPage() {
         return(<>
             <h5>مكان البحث الإفتراضي</h5> 
             <div className='row mb-2'> 
-                <div className='col-6 align-self-center text-end'> <b><span className='bi bi-calendar-heart-fill bi-sm text-secondary ms-2'></span> الولاية </b>  </div>
+                <div className={`col-6 align-self-center ${isRTL ? 'text-end' : 'text-start'}`}> <b><span className='bi bi-calendar-heart-fill bi-sm text-secondary ms-2'></span> الولاية </b>  </div>
                 <div className='col-6  align-self-center text-start'> {generalData.BirthGouv} </div>
             </div>
             <hr />
             <div className='row mb-2'> 
-                <div className='col-6 align-self-center text-end'> <b><span className='bi bi-calendar-heart-fill bi-sm text-secondary ms-2'></span> المدينة  </b>  </div>
+                <div className={`col-6 align-self-center ${isRTL ? 'text-end' : 'text-start'}`}> <b><span className='bi bi-calendar-heart-fill bi-sm text-secondary ms-2'></span> المدينة  </b>  </div>
                 <div className='col-6  align-self-center text-start'> {generalData.BirthDeleg} </div>
             </div>
             {/* <hr />
@@ -398,7 +404,7 @@ function SettingPage() {
     const DataSettinfCard = () =>{
         return(<>
             <div className='row mb-2'> 
-                <div className='col-6 align-self-center text-end'> <b><span className='bi bi-calendar-heart-fill bi-sm text-secondary ms-2'></span>  تاريخ الميلاد </b>  </div>
+                <div className={`col-6 align-self-center ${isRTL ? 'text-end' : 'text-start'}`}> <b><span className='bi bi-calendar-heart-fill bi-sm text-secondary ms-2'></span>  تاريخ الميلاد </b>  </div>
                 <div className='col-6  align-self-center text-start'> {generalData ?  new Date(generalData.BirthDay).toLocaleDateString('fr-FR').split( '/' ).reverse( ).join( '-' ) : ''} </div>
             </div>
             <hr />
@@ -415,7 +421,7 @@ function SettingPage() {
                     <Modal.Header><h4 className='text-end'>معلومات عامة </h4></Modal.Header>
                     <Modal.Content dir='rtl'>
                             <div className='row mb-2'> 
-                                <div className='col-6 align-self-center text-end'> <b><span className='bi bi-person-fill bi-sm text-secondary ms-2'></span> الاسم و اللقب</b>  </div>
+                                <div className={`col-6 align-self-center ${isRTL ? 'text-end' : 'text-start'}`}> <b><span className='bi bi-person-fill bi-sm text-secondary ms-2'></span> الاسم و اللقب</b>  </div>
                                 <div className='col-6  align-self-center text-start'> {generalData ?  generalData.Name : ''} </div>
                             </div>
                             <hr /> 
@@ -432,7 +438,7 @@ function SettingPage() {
     const FavoriteSettingCard = () =>{
         return(<>
             <div className='row mb-2'> 
-                <div className='col-6 align-self-center text-end'> <b><span className='bi bi-hourglass-top bi-sm text-secondary ms-2'></span> العدد الأقصي </b>  </div>
+                <div className={`col-6 align-self-center ${isRTL ? 'text-end' : 'text-start'}`}> <b><span className='bi bi-hourglass-top bi-sm text-secondary ms-2'></span> العدد الأقصي </b>  </div>
                 <div className='col-6  align-self-center text-start'> {settingData.Setting ?  JSON.parse(settingData.Setting.Favorite)[0].f_max : ''} </div>
             </div>
             <hr />
@@ -442,12 +448,12 @@ function SettingPage() {
             </div>
             <hr />
             <div className='row mb-2'> 
-                <div className='col-6 align-self-center text-end'> <b><span className='bi bi-robot bi-sm text-secondary ms-2'></span>  إضافة آلية</b>  </div>
+                <div className={`col-6 align-self-center ${isRTL ? 'text-end' : 'text-start'}`}> <b><span className='bi bi-robot bi-sm text-secondary ms-2'></span>  إضافة آلية</b>  </div>
                 <div className='col-6  align-self-center text-start'> {settingData.Setting ?  JSON.parse(settingData.Setting.Favorite)[0].f_autoSave : ''} </div>
             </div>
             <hr />
             <div className='row mb-2'> 
-                <div className='col-6 align-self-center text-end'> <b><span className='bi bi-card-checklist bi-sm text-secondary ms-2'></span>   الإفتراضية</b>  </div>
+                <div className={`col-6 align-self-center ${isRTL ? 'text-end' : 'text-start'}`}> <b><span className='bi bi-card-checklist bi-sm text-secondary ms-2'></span>   الإفتراضية</b>  </div>
                 <div className='col-6  align-self-center text-start'> {settingData.Setting ?  JSON.parse(settingData.Setting.Favorite)[0].f_auto : ''} </div>
             </div>
             <br />
@@ -464,7 +470,7 @@ function SettingPage() {
                     <Modal.Header><h4 className='text-end'>معلومات عامة </h4></Modal.Header>
                     <Modal.Content dir='rtl'>
                             <div className='row mb-2'> 
-                                <div className='col-6 align-self-center text-end'> <b><span className='bi bi-person-fill bi-sm text-secondary ms-2'></span> الاسم و اللقب</b>  </div>
+                                <div className={`col-6 align-self-center ${isRTL ? 'text-end' : 'text-start'}`}> <b><span className='bi bi-person-fill bi-sm text-secondary ms-2'></span> الاسم و اللقب</b>  </div>
                                 <div className='col-6  align-self-center text-start'> {generalData ?  generalData.Name : ''} </div>
                             </div>
                             <hr /> 
@@ -481,7 +487,7 @@ function SettingPage() {
     const CalendarSettingCard = () =>{
         return(<>
             <div className='row mb-2'> 
-                <div className='col-6 align-self-center text-end'> <b><span className='bi bi-calendar-heart-fill bi-sm text-secondary ms-2'></span>  تاريخ الميلاد </b>  </div>
+                <div className={`col-6 align-self-center ${isRTL ? 'text-end' : 'text-start'}`}> <b><span className='bi bi-calendar-heart-fill bi-sm text-secondary ms-2'></span>  تاريخ الميلاد </b>  </div>
                 <div className='col-6  align-self-center text-start'> {generalData ?  new Date(generalData.BirthDay).toLocaleDateString('fr-FR').split( '/' ).reverse( ).join( '-' ) : ''} </div>
             </div>
             <hr />
@@ -498,7 +504,7 @@ function SettingPage() {
                     <Modal.Header><h4 className='text-end'>معلومات عامة </h4></Modal.Header>
                     <Modal.Content dir='rtl'>
                             <div className='row mb-2'> 
-                                <div className='col-6 align-self-center text-end'> <b><span className='bi bi-person-fill bi-sm text-secondary ms-2'></span> الاسم و اللقب</b>  </div>
+                                <div className={`col-6 align-self-center ${isRTL ? 'text-end' : 'text-start'}`}> <b><span className='bi bi-person-fill bi-sm text-secondary ms-2'></span> الاسم و اللقب</b>  </div>
                                 <div className='col-6  align-self-center text-start'> {generalData ?  generalData.Name : ''} </div>
                             </div>
                             <hr /> 
@@ -529,8 +535,8 @@ function SettingPage() {
                             className='card shadow-sm border-div mb-1'
                         >
                                 <div className='row p-2'>
-                                    <div className='col-6 align-self-center pe-3 text-end' style={{color:'#4287f5'}}><h4 dir='ltr'>عام <span className={`bi bi-arrows-move`}></span></h4></div>
-                                    <div className='col-6 align-self-center ps-3 text-start'><img src={`https://cdn.abyedh.tn/Images/Profile/setting/01.gif`} width='30px' height='30px' /></div>
+                                    <div className={`col-6 align-self-center pe-3   ${isRTL ? 'text-end' : 'text-start'}`} style={{color:'#4287f5'}}><h4 dir={isRTL ? 'rtl' : 'ltr'}><span className={`bi bi-arrows-move`}></span>  عام  </h4></div>
+                                    <div className={`col-6 align-self-center ps-3  ${isRTL ? 'text-start' : 'text-end'}`}><img src={`https://cdn.abyedh.tn/Images/Profile/setting/01.gif`} width='30px' height='30px' /></div>
                                 </div>
                         </Accordion.Title>
                         <Accordion.Content active={activeIndex === 0} className='card mt-2 mb-2 shadow-sm border-div ' >
@@ -556,8 +562,8 @@ function SettingPage() {
                             className='card shadow-sm border-div mb-1'
                         >
                                 <div className='row p-2'>
-                                    <div className='col-6 align-self-center pe-3 text-end' style={{color:'#4287f5'}}><h4 dir='ltr'>كملة المرور <span className={`bi bi-key-fill`}></span></h4></div>
-                                    <div className='col-6 align-self-center ps-3 text-start'><img src={`https://cdn.abyedh.tn/Images/Profile/setting/05.gif`} width='30px' height='30px' /></div>
+                                    <div className={`col-6 align-self-center pe-3   ${isRTL ? 'text-end' : 'text-start'}`} style={{color:'#4287f5'}}><h4 dir={isRTL ? 'rtl' : 'ltr'} ><span className={`bi bi-key-fill`}></span> كملة المرور </h4></div>
+                                    <div className={`col-6 align-self-center ps-3  ${isRTL ? 'text-start' : 'text-end'}`}><img src={`https://cdn.abyedh.tn/Images/Profile/setting/05.gif`} width='30px' height='30px' /></div>
                                 </div>
                         </Accordion.Title>
                         <Accordion.Content active={activeIndex === 1} className='card mt-2 mb-2 shadow-sm border-div ' >
@@ -583,8 +589,8 @@ function SettingPage() {
                             className='card shadow-sm border-div mb-1'
                         >
                                 <div className='row p-2'>
-                                    <div className='col-6 align-self-center pe-3 text-end' style={{color:'#4287f5'}}><h4 dir='ltr'>محرك البحث <span className={`bi bi-search-heart`}></span></h4></div>
-                                    <div className='col-6 align-self-center ps-3 text-start'><img src={`https://cdn.abyedh.tn/Images/Profile/setting/03.gif`} width='30px' height='30px' /></div>
+                                    <div className={`col-6 align-self-center pe-3   ${isRTL ? 'text-end' : 'text-start'}`} style={{color:'#4287f5'}}><h4 dir={isRTL ? 'rtl' : 'ltr'} > <span className={`bi bi-search-heart`}></span> محرك البحث </h4></div>
+                                    <div className={`col-6 align-self-center ps-3  ${isRTL ? 'text-start' : 'text-end'}`}><img src={`https://cdn.abyedh.tn/Images/Profile/setting/03.gif`} width='30px' height='30px' /></div>
                                 </div>
                         </Accordion.Title>
                         <Accordion.Content active={activeIndex === 2} className='card mt-2 mb-2 shadow-sm border-div ' >

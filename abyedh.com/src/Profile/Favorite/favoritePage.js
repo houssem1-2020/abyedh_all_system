@@ -7,8 +7,13 @@ import { Select } from 'semantic-ui-react'
 import { Bounce } from 'react-reveal';
 import { NavLink } from 'react-router-dom';
 import { Tab } from 'semantic-ui-react'
+import { useTranslation, Trans } from 'react-i18next';
+import detectRTL from 'rtl-detect';
 
 const CustomTabs = ({activeIndex, setActiveIndex , panes}) => {
+    const { t, i18n } = useTranslation();
+   const isRTL = detectRTL.isRtlLang(i18n.language);
+
     return(<>
 
            <div className="mt-1 p-1 mb-4"   style={{width:'100%', overflowX: 'auto', overflowY : 'hidden', whiteSpace:'nowrap'}}> 
@@ -16,70 +21,70 @@ const CustomTabs = ({activeIndex, setActiveIndex , panes}) => {
                     <Menu.Item key={0} active={activeIndex == 0} className='rounded-pill' onClick={ () => setActiveIndex(0)}>
                         <span style={{color: '#0275c5'}}>
                             <b>
-                            <Icon name={`building`} />  إدارة
+                            <Icon name={`building`} /> {t(`userProfile.favoiteItemList.admin`)}  
                             </b>
                         </span>
                     </Menu.Item>
                     <Menu.Item key={1} active={activeIndex == 1} className='rounded-pill' onClick={ () => setActiveIndex(1)}>
                         <span style={{color: '#8bc24a'}}>
                             <b>
-                            <Icon name={`shopping cart`} />  نقطة بيع 
+                            <Icon name={`shopping cart`} />  {t(`userProfile.favoiteItemList.commerce`)}  
                             </b>
                         </span>
                     </Menu.Item>
                     <Menu.Item key={2} active={activeIndex == 2} className='rounded-pill' onClick={ () => setActiveIndex(2)}>
                         <span style={{color: '#009788'}}>
                             <b>
-                            <Icon name={`heart`} />  صحة
+                            <Icon name={`heart`} />  {t(`userProfile.favoiteItemList.sante`)}   
                             </b>
                         </span>
                     </Menu.Item>
                     <Menu.Item key={3} active={activeIndex == 3} className='rounded-pill' onClick={ () => setActiveIndex(3)}>
                         <span style={{color: '#00bcd5'}}>
                             <b>
-                            <Icon name={`book`} /> تعليم
+                            <Icon name={`book`} />  {t(`userProfile.favoiteItemList.education`)}  
                             </b>
                         </span>
                     </Menu.Item>
                     <Menu.Item key={4} active={activeIndex == 4} className='rounded-pill' onClick={ () => setActiveIndex(4)}>
                         <span style={{color: '#f44236'}}>
                             <b>
-                            <Icon name={`truck`} />  نقل و سيارة 
+                            <Icon name={`truck`} /> {t(`userProfile.favoiteItemList.transport`)}   
                             </b>
                         </span>
                     </Menu.Item>
                     <Menu.Item key={5} active={activeIndex == 5} className='rounded-pill' onClick={ () => setActiveIndex(5)}>
                         <span style={{color: '#fb1e6b'}}>
                             <b>
-                            <Icon name={`leaf`} />  حياة و ترفيه 
+                            <Icon name={`leaf`} /> {t(`userProfile.favoiteItemList.life`)}  
                             </b>
                         </span>
                     </Menu.Item>
                     <Menu.Item key={6} active={activeIndex == 6} className='rounded-pill' onClick={ () => setActiveIndex(6)}>
                         <span style={{color: '#47ccd1'}}>
                             <b>
-                            <Icon name={`bicycle`} />   رياضة و ثقافة
+                            <Icon name={`bicycle`} /> {t(`userProfile.favoiteItemList.sport`)}   
                             </b>
                         </span>
                     </Menu.Item>
                     <Menu.Item key={7} active={activeIndex == 7} className='rounded-pill' onClick={ () => setActiveIndex(7)}>
                         <span style={{color: '#ff9700'}}>
                             <b>
-                            <Icon name={`bitcoin`} />  مالية و اعمال 
+                            <Icon name={`bitcoin`} /> {t(`userProfile.favoiteItemList.finance`)}  
                             </b>
                         </span>
                     </Menu.Item>
                     <Menu.Item key={8} active={activeIndex == 8} className='rounded-pill' onClick={ () => setActiveIndex(8)}>
                         <span style={{color: '#565d61'}}>
                             <b>
-                            <Icon name={`factory`} />   خدمات عقارية
+                            <Icon name={`factory`} />  {t(`userProfile.favoiteItemList.construction`)}   
                             </b>
                         </span>
                     </Menu.Item>
                     <Menu.Item key={9} active={activeIndex == 9} className='rounded-pill' onClick={ () => setActiveIndex(9)}>
                         <span style={{color: '#673bb7'}}>
                             <b>
-                            <Icon name={`wizard`} />  خدمات اخري
+                            <Icon name={`wizard`} /> {t(`userProfile.favoiteItemList.autre`)}   
                             </b>
                         </span>
                     </Menu.Item>

@@ -186,7 +186,7 @@ function ResultPage() {
     const ActionsBtnCard = (props) =>{
         return(<>
         <Button className='bg-white  border mb-2 ' dir={isRTL ? 'rtl' : 'ltr'}  style={{borderRadius:'18px', width:'auto', color: GConf.ADIL[tag].themeColor}}     > 
-                    <Icon name={props.data.icon} className={isRTL ? 'ms-1' : 'me-1'} />  {props.data.name}
+                    <Icon name={props.data.icon} className={isRTL ? 'ms-1' : 'me-1'} /> {t(`resultPage.actionTextName.${tag}.${props.data.link}`)}  
         </Button>
  
             {/* <NavLink exact='true' to={`/S/P/${props.data.link}/${tag}/${PID}`}> 

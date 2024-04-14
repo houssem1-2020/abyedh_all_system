@@ -5,7 +5,8 @@ import { Button, Icon, Loader } from 'semantic-ui-react';
 import axios from 'axios';
 import { toast } from 'react-toastify';
 import APPConf from '../../AssetsM/APPConf';
-
+import { useTranslation, Trans } from 'react-i18next';
+import detectRTL from 'rtl-detect';
 
 
 function RequestPage() {
@@ -15,6 +16,8 @@ function RequestPage() {
     let [loaderState, setLoading] = useState(false)
     let [savedBtn, setSavedBtn] = useState(false)
     let [loading, setLoad] = useState(true)
+    const { t, i18n } = useTranslation();
+    const isRTL = detectRTL.isRtlLang(i18n.language);
 
     /*#########################[UseEfeect]##############################*/
     useEffect(() => {
@@ -148,7 +151,7 @@ function RequestPage() {
         </>)
     }
     return (<>
-             <div className=' ' dir='rtl'>
+             <div className=' ' dir={isRTL ? 'rtl':'lrt'}>
                 {
                     loading ? 
                     <div className="loader-container">
@@ -164,7 +167,7 @@ function RequestPage() {
                         <br />
                         <div className='text-secondary me-2 '>
                             {GConf.landing[GConf.systemTag].systemPos.map((data,index) => 
-                            <div key={index} className='mb-3'><h5 className='mb-0'><span className={`bi bi-asterisk bi-xsm`}></span> {data.posName}</h5></div> 
+                            <div key={index} className='mb-3'><h5 className='mb-0'><span className={`bi bi-asterisk bi-xsm`}></span> {t(`appPages.systemInscriptionPage.systemsPlusData.${GConf.systemTag}.${data.id}`)} </h5></div> 
                             )}
                         </div>
                         <br />

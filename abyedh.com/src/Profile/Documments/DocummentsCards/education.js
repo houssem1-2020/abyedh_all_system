@@ -9,7 +9,9 @@ import { toast } from 'react-toastify';
 import TableGrid from '../../../AssetsM/tableGrid';
 import QRCode from "react-qr-code";
 import { useEffect } from 'react';
- 
+import { useTranslation, Trans } from 'react-i18next';
+import detectRTL from 'rtl-detect';
+
 
 function SanteDocumment() {
     /* ############### Const #################*/
@@ -41,6 +43,8 @@ function SanteDocumment() {
           render: () => <><AnalyseListeCard /></>,
        },
     ]
+    const { t, i18n } = useTranslation();
+    const isRTL = detectRTL.isRtlLang(i18n.language);
 
     /* ############### UseEffect #################*/
     useEffect(() => {
@@ -250,7 +254,7 @@ function SanteDocumment() {
     }
     
     return ( <>
-            <div className=' d-flex pb-4' dir='rtl' style ={{overflowX : 'auto', overflowY : 'hidden', paddingBottom:'5px'} }>
+            <div className=' d-flex pb-4' dir={isRTL ? 'rtl' : 'ltr'} style ={{overflowX : 'auto', overflowY : 'hidden', paddingBottom:'5px'} }>
                     <div className='col-4 col-lg-3 ms-2'><ActivePaneCard text='Bulletin' icon='bulletin.jpg' activeI={0} /> </div>
                     <div className='col-4 col-lg-3 ms-2'><ActivePaneCard text='شهادة ترسيم' icon='inscription.png' activeI={1} /> </div>
                     <div className='col-4 col-lg-3 ms-2'><ActivePaneCard text='شهادة' icon='certificat.png' activeI={2} /> </div>                

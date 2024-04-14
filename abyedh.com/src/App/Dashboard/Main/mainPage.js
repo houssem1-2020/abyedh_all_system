@@ -8,12 +8,16 @@ import { toast } from 'react-toastify';
 import CountUp from 'react-countup';
 //import { io } from "socket.io-client"
 import GConf from '../../../AssetsM/generalConf';
+import { useTranslation, Trans } from 'react-i18next';
+import detectRTL from 'rtl-detect';
 
 function RequestPage() {
     /*#########################[Const]##################################*/
     let [reservationList, setReservationList] = useState([SKLT.TableSlt]); 
     let [requestListe, setRequestListe] = useState([]); 
-    
+    const { t, i18n } = useTranslation();
+    const isRTL = detectRTL.isRtlLang(i18n.language);
+
     //SOket-io : it works cool in localhost but the problem with domaine name 
     // let [userView, setUserVew] = useState(0); 
     // const socket = io(GConf.SoketLink, {query: { userId: `${APPConf.systemTag}-${APPConf.PID}`, }, });
@@ -180,7 +184,7 @@ function RequestPage() {
                     <NavLink exact='true' to={`/App/S/${props.data.link}`} className="stretched-link"></NavLink>
                     <div className='row'>
                         <div className='col-3 align-self-center '> <span className={`bi bi-${props.data.icon} bi-lg ` } style={{color : APPConf.landing[APPConf.systemTag].colorTheme}}></span> </div>
-                        <div className='col-9 align-self-center'><h3 className='mt-0 mb-1'>{props.data.itemName}</h3> <small>Gestion des {props.data.itemName}   {`>>`}</small></div>
+                        <div className='col-9 align-self-center'><h3 className='mt-0 mb-1'>{t(`appPages.mainPage.requestTabs.${APPConf.systemTag}.${props.data.link.replace(/\/?rq\/?/g, "")}`)}  </h3> <small>Gestion des  {t(`appPages.mainPage.requestTabs.${APPConf.systemTag}.${props.data.link.replace(/\/?rq\/?/g, "")}`)}   {`>>`}</small></div>
                     </div>
                 </div> 
             </div>
@@ -192,7 +196,7 @@ function RequestPage() {
                 <div className='card card-body shadow-sm  border-div text-center mb-3' style={{color: APPConf.themeColor}}>
                     <NavLink exact='true' to={`/App/S/System`} className="stretched-link"></NavLink>
                         <div className='text-center align-self-center '> <span className={`bi bi-${props.data.icon} bi-lg ` } style={{color : APPConf.landing[APPConf.systemTag].colorTheme}}></span> </div>
-                        <div className='text-center align-self-center'><h5 className='mt-1 mb-0'>{props.data.name} <span className='bi bi-gem text-info' style={{fontSize:'10px'}}></span></h5> </div>
+                        <div className='text-center align-self-center'><h5 className='mt-1 mb-0'> {t(`appPages.mainPage.spesificTabs.${APPConf.systemTag}.${props.data.link}`)}   <span className='bi bi-gem text-info' style={{fontSize:'10px'}}></span></h5> </div>
                 </div> 
             </div>
         </>)

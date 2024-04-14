@@ -136,7 +136,7 @@ function ProfileLandingPage() {
             <MainTopCard />
             <br />                
             <br />  
-            <div className='container' >
+            <div className='container' dir={isRTL ? 'rtl' : 'ltr'}>
                 <div className='row justify-content-center'>
                     <div className='col-12 col-lg-8'>
                     <Outlet />

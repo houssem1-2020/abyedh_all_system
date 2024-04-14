@@ -15,6 +15,9 @@ import { Suspense } from 'react';
 import { Helmet } from 'react-helmet';
 import { useTranslation, Trans } from 'react-i18next';
 import detectRTL from 'rtl-detect';
+import APPItem from '../App/AssetsM/APPITEM';
+import NotifGenres from '../Profile/Main/notifGenres';
+import SuivieRequestData from '../Profile/Suivie/suivieRequestData';
 
 const ToolsModal = React.lazy(() => import('./MainPageAssets/toolsModal'));
 const QrCodeModal = React.lazy(() => import('./MainPageAssets/qrCodeModal'));
@@ -139,19 +142,57 @@ function MainLandingPage() {
     /* Used Func */
     const PrintFunction = () =>{
         let objectTwo = {}
-        for (const key in GConf.ADIL) {
+        for (const key in SuivieRequestData) {
             // Check if the current key is a property of the object (not inherited)
-            if (Object.prototype.hasOwnProperty.call(GConf.ADIL, key)) {
+            if (Object.prototype.hasOwnProperty.call(SuivieRequestData, key)) {
               // Add the 'a' value to objectTwo with the same key
                 let itemToAdd = {};
-                for (const item of GConf.ADIL[key].subCateg) {
-                    itemToAdd[(item.imgSrc)] = item.name;
-                }
+                // for (const item of SuivieRequestData[key].systemItemsList) {
+                //     //itemToAdd[(item.id)] = item.posName;
+                // }
 
-              objectTwo[key] = itemToAdd;
+                objectTwo[key] = SuivieRequestData[key].title //itemToAdd;
+                //objectTwo[key] = GConf.ADIL[key].systemName;
             }
           }
-          console.log(objectTwo)
+
+        // for (const key in APPItem) {
+        //     // Check if the current key is a property of the object (not inherited)
+        //     if (Object.prototype.hasOwnProperty.call(APPItem, key)) {
+        //       // Add the 'a' value to objectTwo with the same key
+        //         let itemToAdd = {};
+        //         // for (const item of APPItem[key].systemItemsList) {
+        //         //     //itemToAdd[(item.id)] = item.posName;
+        //         // }
+
+        //         objectTwo[key] = APPItem[key].navItemList2 //itemToAdd;
+        //         //objectTwo[key] = GConf.ADIL[key].systemName;
+        //     }
+        //   }
+        // for (const key in APPItem) {
+        //     if (Object.prototype.hasOwnProperty.call(APPItem, key)) {
+        //         const navItemList2 = APPItem[key].navItemList2;
+        //         if (navItemList2 && typeof navItemList2 === 'object') {
+        //             let itemToAdd = {};
+        //             for (const navIndexName in navItemList2) {
+        //                 if (Object.prototype.hasOwnProperty.call(navItemList2, navIndexName)) {
+        //                     let houssemToAdd = {};
+        //                     //console.log(navItemList2[navIndexName])
+                            
+        //                     for (const itemHS of navItemList2[navIndexName]) {
+        //                         houssemToAdd[(itemHS.navIndexName)] = itemHS.navName;
+        //                     }
+
+        //                     itemToAdd[navIndexName] = houssemToAdd //navItemList2[navIndexName][0].navName;
+        //                 }
+        //             }
+        //             objectTwo[key] = itemToAdd;
+        //         } else {
+        //             console.error(`navItemList2 is not an object for key: ${key}`);
+        //         }
+        //     }
+        // }
+        console.log(objectTwo)
     }
     /* ############### Functions #################*/
     
@@ -482,7 +523,7 @@ function MainLandingPage() {
             <div className='container' dir={isRTL ? 'rtl' : 'ltr'}>
                 <IntroducingCard />
                 <br />
-                <pre>{JSON.stringify(PrintFunction(), null, 4)}</pre>
+                {/* <pre>{JSON.stringify(PrintFunction(), null, 4)}</pre> */}
                 <div className='row'>
                     <div className='col-12 col-lg-6 d-none d-lg-inline'>
                         <DisplayedCard smallDisplay={false} slectedTag={'sante'} data={GConf.Items.sante} />

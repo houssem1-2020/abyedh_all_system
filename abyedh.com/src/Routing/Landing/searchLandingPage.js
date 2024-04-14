@@ -295,14 +295,14 @@ function SearchLandingPage() {
     const SystemLinkCard = () =>{
         return(<>
             <div className='card p-2 shadow-sm mb-2 border-div d-md-none'>
-                <h5 className={` ${isRTL ? 'text-end' : 'text-start'} text-secondary mb-1 mt-2`}  dir={isRTL ? 'rtl' : 'ltr'}>{t('landingPage.titleSystemAds1')} {GConf.ADIL[tag].businesOwner} {t('landingPage.titleSystemAds2')}</h5>
+                <h5 className={` ${isRTL ? 'text-end' : 'text-start'} text-secondary mb-1 mt-2`}  dir={isRTL ? 'rtl' : 'ltr'}>{t('landingPage.titleSystemAds1')} {t(`landingPage.systemOwnersNames.${tag}`)}  {t('landingPage.titleSystemAds2')}</h5>
                 {/* <a href={`/S/I/add/${tag}`} className=' text-secondary ' ></a> */}
                 <div className='row mt-0 pt-0 '>
                     <div className='col-3 align-self-center text-center'>
                         <img src={`https://cdn.abyedh.tn/images/ads/${tag}.svg`} className=' mt-3 img-responsive mb-1 ms-2' width='100%'  height='auto' alt='abyedh.tn' />
                     </div>
                     <div className='col-9 align-self-center text-center'>
-                        <p> {t('landingPage.textSystemAds1')} {GConf.ADIL[tag].systemName} {t('landingPage.textSystemAds2')}   </p>
+                        <p> {t('landingPage.textSystemAds1')}  {t(`landingPage.systemNames.${tag}`)} {t('landingPage.textSystemAds2')}   </p>
                         {/* <p >   <b style={{color:GConf.ADIL[tag].themeColor}}>{GConf.ADIL[tag].systemName}</b> يعُاوْنِكْ  بَاشْ تَعَرِّفْ بنَفْسِكْ و تَعَرِّفْ بخَدِمْتِكْ  </p> */}
                         {/* {localStorage.getItem('AddToDirectory') ? <Button className='rounded-pill text-secondary' style={{backgroundColor:'white'}} size='tiny' onClick={() => navigate(`/S/I/user/${tag}`)}> متابعة عملية التسجيل </Button>  : <></>}  */}
                     </div>
