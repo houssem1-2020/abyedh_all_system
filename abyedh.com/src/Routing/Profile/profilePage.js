@@ -1358,14 +1358,18 @@ function ProfilePage() {
                 return(<>
                         <div className="list-group-item list-group-item-action" onClick={() => setActiveIndex(2)}>
                              
-                            <div className="row p-2">
-                                <div className="col-1 align-self-center"><span className="bi bi-arrow-left-short bi-md"></span></div>
-                                <div className="col-9 align-self-center text-end">
-                                    <b style={{color : GConf.ADIL[tag].themeColor}}>{props.data.name}</b>
+                            <div className="row p-2" dir={isRTL ? 'rtl' : 'ltr'}>
+                                
+                                
+                                <div className={`col-2 align-self-center ${isRTL ? 'text-end' : 'text-start'}`}>
+                                    {/* <b style={{color : GConf.ADIL[tag].themeColor}}> */}
+                                    <Icon name={props.data.icon}  style={{color : GConf.ADIL[tag].themeColor}}/>
+                                    {/* <span className={`bi bi-${props.data.icon}`}></span></b> */}
                                 </div>
-                                <div className="col-2 align-self-center text-end">
-                                    <b style={{color : GConf.ADIL[tag].themeColor}}><span className={`bi bi-${props.data.icon}`}></span></b>
+                                <div className={`col-9 align-self-center ${isRTL ? 'text-end' : 'text-start'}`}>
+                                    <b style={{color : GConf.ADIL[tag].themeColor}}>  {t(`resultPage.actionTextName.${tag}.${props.data.link}`)} </b>
                                 </div>
+                                <div className="col-1 align-self-center"><span className={`bi bi-${isRTL ? 'arrow-left-short' : 'arrow-right-short'} bi-md`} ></span></div>
                             </div>
                         </div>
                 </>)

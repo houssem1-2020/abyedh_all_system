@@ -121,16 +121,16 @@ function RequestPage() {
                 </div>
                 
                 <div className='row'>
-                    <div className='col-4 align-self-center'><img className="rounded-circle mb-3" src={`https://cdn.abyedh.tn/images/ads/${APPConf.systemTag}.svg`} width="90px" height="90px"/></div>
-                    <div className='col-8 align-self-center text-secondary' dir='rtl'>
-                        <span className='text-secondary'> أنت تستخدم النسخة المجانية ,  هل تريد أن تنتقل   <b className='text-danger '>للنسخة الكاملة </b> من  {APPConf.landing[APPConf.systemTag].systemTitle}  ؟  </span>
+                    <div className={`col-4 align-self-center ${isRTL ? '' : 'order-2'}`} ><img className="rounded-circle mb-3" src={`https://cdn.abyedh.tn/images/ads/${APPConf.systemTag}.svg`} width="90px" height="90px"/></div>
+                    <div className={`col-8 align-self-center text-secondary ${isRTL ? '' : 'order-1'}`} dir={isRTL ? 'rtl' : 'ltr'}>
+                        <span className='text-secondary'>  {t('appPages.mainPage.adsData.adsContentTextOne')}  <b className="text-danger ">  {t('appPages.mainPage.adsData.adsContentTextTwo')} </b> {t('appPages.mainPage.adsData.adsContentTextThree')}  {t(`landingPage.systemNames.${APPConf.systemTag}`)}  ؟   </span>
                         <br />
                         <br />
                         {/* <ul>
                             {APPConf.landing[APPConf.systemTag].systemPos.map((data,index) =>  <li key={index}> {data.posName} </li>)} 
                         </ul> */}
                         <NavLink exact='true' to='/App/S/System'  >
-                            <Button fluid className='rounded-pill font-Expo-book' size='mini'> إكتشف   {APPConf.landing[APPConf.systemTag].systemTitle} </Button>
+                            <Button fluid className='rounded-pill font-Expo-book' size='mini'> {t('appPages.mainPage.adsData.buttonNavText')} </Button>
                         </NavLink>
                         
                     </div>
@@ -184,7 +184,7 @@ function RequestPage() {
                     <NavLink exact='true' to={`/App/S/${props.data.link}`} className="stretched-link"></NavLink>
                     <div className='row'>
                         <div className='col-3 align-self-center '> <span className={`bi bi-${props.data.icon} bi-lg ` } style={{color : APPConf.landing[APPConf.systemTag].colorTheme}}></span> </div>
-                        <div className='col-9 align-self-center'><h3 className='mt-0 mb-1'>{t(`appPages.mainPage.requestTabs.${APPConf.systemTag}.${props.data.link.replace(/\/?rq\/?/g, "")}`)}  </h3> <small>Gestion des  {t(`appPages.mainPage.requestTabs.${APPConf.systemTag}.${props.data.link.replace(/\/?rq\/?/g, "")}`)}   {`>>`}</small></div>
+                        <div className='col-9 align-self-center'><h3 className='mt-0 mb-1'>{t(`appPages.mainPage.requestTabs.${APPConf.systemTag}.${props.data.link.replace(/\/?rq\/?/g, "")}`)}  </h3> <small> {t(`appPages.mainPage.requestTabs.gestionDe`)}  {t(`appPages.mainPage.requestTabs.${APPConf.systemTag}.${props.data.link.replace(/\/?rq\/?/g, "")}`)}   {`>>`}</small></div>
                     </div>
                 </div> 
             </div>
@@ -203,25 +203,25 @@ function RequestPage() {
     }
     return (<>
             {localStorage.getItem('removedCard') != new Date().toLocaleDateString('fr-FR') ? <AdsCard data={APPConf.systemTag} /> : ''}
-            {/* {APPConf.landing[APPConf.systemTag].systemReady && localStorage.getItem('removedCard') != new Date().toLocaleDateString('fr-FR') ? <AdsCard data={APPConf.systemTag} /> : ''} */}
+           
              
             <div className='row mt-5'>
               <div className='col-12 mb-4'>
                   <div className='rows d-flex' style={{width:'100%', overflowX: 'auto', overflowY : 'hidden', whiteSpace:'nowrap'}}>
                       <span className='col-4 col-lg-3 mb-4 text-center border-end'>
-                          <StatCard title='En Attent' value={GetRequestValue('W')} color='yellow' />
+                          <StatCard title={t('appPages.mainPage.statData.attente')} value={GetRequestValue('W')} color='yellow' />
                       </span>
                       <span className='col-4 col-lg-3 mb-4 text-center border-end'>
-                          <StatCard title='Vu' value={GetRequestValue('S')} color='blue' />
+                          <StatCard title={t('appPages.mainPage.statData.vueText')} value={GetRequestValue('S')} color='blue' />
                       </span>
                       <span className='col-4 col-lg-3 mb-4 text-center border-end'>
-                          <StatCard title='Accepteé' value={GetRequestValue('A')} color='teal'/>
+                          <StatCard title={t('appPages.mainPage.statData.accepter')} value={GetRequestValue('A')} color='teal'/>
                       </span>
                       <span className='col-4 col-lg-3 mb-4 text-center border-end'>
-                          <StatCard title='Refuseé' value={GetRequestValue('R')} color='red' />
+                          <StatCard title={t('appPages.mainPage.statData.refusee')} value={GetRequestValue('R')} color='red' />
                       </span>
                       <span className='col-4 col-lg-3 mb-4 text-center'>
-                          <StatCard title='Termineé' value={GetRequestValue('T')} color='brown' />
+                          <StatCard title={t('appPages.mainPage.statData.terminer')} value={GetRequestValue('T')} color='brown' />
                       </span>
                   </div>
               </div>

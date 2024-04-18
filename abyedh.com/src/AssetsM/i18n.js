@@ -7,7 +7,7 @@ import { initReactI18next } from 'react-i18next'; // Correct import
 import TunisieTrans from "./Translations/tunisieTrans"
 import HindiTrans from './Translations/hindiTrans';
 import ChinaTrans from './Translations/chinaTrans';
-import USTrans from './Translations/unitesStateTrans';
+import USTrans from './Translations/englishTrans';
 import UKTrans from './Translations/unitedKindomTrans';
 import SATrans from './Translations/saudiArabiaTrans';
 import RussiaTrans from './Translations/russiaTrans';
@@ -31,7 +31,7 @@ i18n
     saveMissing : true, 
     
     resources : {
-      ar : TunisieTrans,
+       ar : TunisieTrans,
       'ar_TN' : TunisieTrans ,
       'ar_MA' : MarrocTrans ,
       'ar_EG' : EgyptTrans ,
@@ -48,6 +48,24 @@ i18n
       ja : JapanTrans ,
       hi : HindiTrans ,
       'zh_CN' : ChinaTrans ,
+
+      // ar : TunisieTrans,
+      // 'ar_TN' : TunisieTrans ,
+      // 'ar_MA' : TunisieTrans, //MarrocTrans ,
+      // 'ar_EG' : TunisieTrans, //EgyptTrans ,
+      // 'ar_QA' : TunisieTrans, //QatarTrans ,
+      // 'ar_SA' : TunisieTrans, //SATrans ,
+      // 'ar_AE' : TunisieTrans, //EATrans ,
+      // 'en_US' : FrancaisTrans, //USTrans ,
+      // 'en_CA' : FrancaisTrans, //CanadaTrans ,
+      // 'en_GB' : FrancaisTrans, //UKTrans ,
+      // 'fr_FR' : FrancaisTrans ,
+      // 'it_IT' : FrancaisTrans, //ItaliaTrans ,
+      // 'de_DE' : FrancaisTrans, //GermanyTrans ,
+      // ru : FrancaisTrans, //RussiaTrans ,
+      // ja : FrancaisTrans, //JapanTrans ,
+      // hi : FrancaisTrans, //HindiTrans ,
+      // 'zh_CN' : FrancaisTrans, //ChinaTrans ,
     },
 
     // backend : {

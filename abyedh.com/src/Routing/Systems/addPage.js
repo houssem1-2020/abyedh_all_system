@@ -10,8 +10,12 @@ import L from 'leaflet';
 import 'leaflet/dist/leaflet.css';
 import { MapContainer, Marker, Popup, TileLayer, useMapEvents  } from 'react-leaflet';
 import { useNavigate} from 'react-router-dom';
+import { useTranslation, Trans } from 'react-i18next';
+import detectRTL from 'rtl-detect';
 import ReactGA from 'react-ga';
+import WorldMap from '../../AssetsM/wordMap';
 ReactGA.initialize('G-JHPD6D9RGH');
+
 
 const MapEventsHandler = ({ onLocationSelected }) => {
     useMapEvents({
@@ -58,49 +62,74 @@ const GeneralUserData = ({userData, setUserData, UDL, GouvChanged, targetSystem}
     </div>
     </>)
 }
-const GeneralProfileData = ({inscData, setInscData, PDL, tag, GConf, GouvChanged, targetSystem, OnKeyPressFunc}) =>{
+const GeneralProfileData = ({inscData, setInscData, PDL, tag, GConf, GouvChanged, gouvList ,setGouvListe, targetSystem, OnKeyPressFunc}) =>{
+    const { t, i18n } = useTranslation();
+    const isRTL = detectRTL.isRtlLang(i18n.language);
+    //const [gouvList ,setGouvListe] = useState([])
+
     const GenerateGenreListe = () =>  {
        return GConf.ADIL[tag].subCateg.map(item => ({
             key: item.id.toString(),
-            value: item.name,
-            text: item.name,
+            value: t(`landingPage.itemsToSelect.${tag}.${item.imgSrc}`),
+            text: t(`landingPage.itemsToSelect.${tag}.${item.imgSrc}`),
             image: { src: `https://cdn.abyedh.tn/images/Search/Land_icons/${item.imgSrc}.gif`, avatar: true }
         }));
     }
+    useEffect(() => {
+        GGLFunction()
+    }, [])
+
+    const GGLFunction = ()=> {
+        let lastList = []
+        WorldMap.states.filter(state => state.country === GConf.Country).map((data,index) => {
+            lastList.push({id:index, value:data.name , text:data.name})
+        })
+        setGouvListe(lastList)
+    }
+
     return(<>
         {/* <div className='card card-body shadow-sm border-div mb-3'> */}
-                <h5 className='text-end text-secondary ' dir='rtl'> <span className='bi bi-house-heart-fill'></span>  معلومات عامة عن {targetSystem.businesName}  </h5>
+                <h5 className={`${isRTL ? 'text-end' : 'text-start'} text-secondary `} dir={isRTL ? 'rtl' : 'ltr'}> <span className='bi bi-house-heart-fill'></span>  { t('subscribeToSystems.infoGeneraleText', {  one: t(`landingPage.systemOwnersNames.${tag}`) })}   </h5>
                 <div className='row'>
                     <div className='col-12 col-lg-6 '> 
                         <div className='mb-2'>
-                            <small> إسم {targetSystem.businesName} </small>
-                            <Input onKeyPress={event => OnKeyPressFunc(event)} fluid icon='users' className='w-100 text-end font-droid' placeholder={`${targetSystem.businesName}`} value={inscData.name} onChange={(e) => setInscData({...inscData, name: e.target.value })}   />
+                            <small> { t('subscribeToSystems.infoGeneraleData.nomEtPrenon', {  one: t(`landingPage.systemOwnersNames.${tag}`) })}   </small>
+                            <Input onKeyPress={event => OnKeyPressFunc(event)} fluid icon='users' className='w-100 text-end font-droid' placeholder={t(`landingPage.systemOwnersNames.${tag}`)} value={inscData.name} onChange={(e) => setInscData({...inscData, name: e.target.value })}   />
                         </div>
-                        <small>نوع {targetSystem.businesName} </small>
+                        <small> { t('subscribeToSystems.infoGeneraleData.genreText', {  one: t(`landingPage.systemOwnersNames.${tag}`) })} </small>
                         <Dropdown
                             search
                             selection
                             fluid
                             wrapSelection={false}
                             options={GenerateGenreListe()}
-                            placeholder={` تحديد نوع ${targetSystem.businesName}   `}
+                            placeholder={ t('subscribeToSystems.infoGeneraleData.genreTextPlaceholder', {  one: t(`landingPage.systemOwnersNames.${tag}`) })}
                             className='mb-1'
                             onChange={(e, { value }) => setInscData({...inscData, Genre: value })}
                             value={setInscData.Genre}
                         />
                         <div className='mb-2'>
-                            <small> رقم الهاتف  </small>
-                            <Input onKeyPress={event => OnKeyPressFunc(event)} fluid icon='phone' className='w-100 '  placeholder={` رقم هاتف ${targetSystem.businesName}`}   value={inscData.phone} onChange={(e) => setInscData({...inscData, phone: e.target.value })}  />
+                            <small> {t('subscribeToSystems.infoGeneraleData.PhoneText', {  one: t(`landingPage.systemOwnersNames.${tag}`) })} </small>
+                            <Input onKeyPress={event => OnKeyPressFunc(event)} fluid icon='phone' className='w-100 '  placeholder={t('subscribeToSystems.infoGeneraleData.PhoneTextPlaceholder', {  one: t(`landingPage.systemOwnersNames.${tag}`) })}   value={inscData.phone} onChange={(e) => setInscData({...inscData, phone: e.target.value })}  />
                         </div>
                         <div className='mb-2'>
-                            <small>  الموقع الجغرافي</small>
-                            <Select placeholder='إختر ولاية' fluid className='mb-2' options={GConf.abyedhMap.Gouv} value={inscData.gouv} onChange={(e, { value }) => GouvChanged('profile', value)} />
-                            <Select placeholder='إختر منطقة' fluid options={PDL} value={inscData.deleg} onChange={(e, data) => setInscData({...inscData, deleg: data.value })} />
+                            <small> {t('subscribeToSystems.infoGeneraleData.positionGeoText', {  one: t(`landingPage.systemOwnersNames.${tag}`) })} </small>
+                            <Select placeholder={t('subscribeToSystems.infoGeneraleData.GouvDelegText')} fluid className='mb-2' options={gouvList} value={inscData.gouv} onChange={(e, { value }) => GouvChanged('profile', value)} />
+                            <Dropdown
+                                fluid
+                                search
+                                selection
+                                placeholder = {t('subscribeToSystems.infoGeneraleData.GouvDelegTextPlaceholder')}
+                                options={PDL}
+                                value={inscData.deleg} 
+                                onChange={(e, data) => setInscData({...inscData, deleg: data.value })}
+                            />
+                            {/* <Select placeholder={t('subscribeToSystems.infoGeneraleData.GouvDelegTextPlaceholder')} fluid options={PDL} value={inscData.deleg} onChange={(e, data) => setInscData({...inscData, deleg: data.value })} /> */}
                         </div>
                         <div className='mb-2'>
-                            <small>  عنوان {targetSystem.businesName} </small>
+                            <small>  {t('subscribeToSystems.infoGeneraleData.AdesssText', {  one: t(`landingPage.systemOwnersNames.${tag}`) })}</small>
                             <Form>
-                                <TextArea onKeyPress={event => OnKeyPressFunc(event)} className='font-droid' placeholder='العنوان'  value={inscData.adresse} onChange={(e) => setInscData({...inscData, adresse: e.target.value })} />
+                                <TextArea onKeyPress={event => OnKeyPressFunc(event)} className='font-droid' placeholder={t('subscribeToSystems.infoGeneraleData.AdesssText', {  one: t(`landingPage.systemOwnersNames.${tag}`) })}  value={inscData.adresse} onChange={(e) => setInscData({...inscData, adresse: e.target.value })} />
                             </Form>
                         </div>
                     </div>
@@ -111,16 +140,19 @@ const GeneralProfileData = ({inscData, setInscData, PDL, tag, GConf, GouvChanged
     </>)
 }
 const Horaire = ({alwaysState, setAlwaysState, timming, setTimming, setPauseDay , SetTimmingData,UpdateTimmingData, setSelectedUpdateDay, selectedUpdateDay}) =>{
+    const { t, i18n } = useTranslation();
+    const isRTL = detectRTL.isRtlLang(i18n.language);
+
     let [addInput, setAddInput] = useState(false)
     let [dateDataToChange, setDateDataToChange] = useState({pauseDay: false, matinStart:'08:00', matinFinsh:'12:00', soirStart:'14:00', soirFinsh:'18:00'})
     const weekDays = [
-        { key: 'af', value: 'Lun', text: 'الانثنين' },
-        { key: 'ax', value: 'Mar', text: 'الثلاثاء' },
-        { key: 'al', value: 'Mer', text: 'الاربعاء' },
-        { key: 'dz', value: 'Jeu', text: 'الخميس' },
-        { key: 'as', value: 'Vend', text: 'الجمعة' },
-        { key: 'ad', value: 'Sam', text: 'السبت' },
-        { key: 'ao', value: 'Dim', text: 'الاحد' },
+        { key: 'af', value: 'Lun', text: t('subscribeToSystems.HoraireData.weekDayes.lundi') },
+        { key: 'ax', value: 'Mar', text: t('subscribeToSystems.HoraireData.weekDayes.mardi') },
+        { key: 'al', value: 'Mer', text: t('subscribeToSystems.HoraireData.weekDayes.mercredi')},
+        { key: 'dz', value: 'Jeu', text: t('subscribeToSystems.HoraireData.weekDayes.jeudi') },
+        { key: 'as', value: 'Vend', text: t('subscribeToSystems.HoraireData.weekDayes.vendredi') },
+        { key: 'ad', value: 'Sam', text: t('subscribeToSystems.HoraireData.weekDayes.samedi') },
+        { key: 'ao', value: 'Dim', text: t('subscribeToSystems.HoraireData.weekDayes.dimanche') },
     ]
     const ArabificationDate = (dateName) =>{
         switch (dateName) {
@@ -147,7 +179,7 @@ const Horaire = ({alwaysState, setAlwaysState, timming, setTimming, setPauseDay 
         return(<>
                 <div className={`row  mb-1 ${props.data.dayOff ? 'text-danger':''}`}>
                     <div  className='col-3 col-lg-3 m-0 p-1'>
-                        <b>{ArabificationDate(props.data.day)}</b>
+                        <b>{weekDays.find(day => day.value === props.data.day)?.text }</b>
                     </div>
                     <div  className='col-4 col-lg-4  m-0 p-1'>
                         <small>{props.data.matin.start} - {props.data.matin.end}</small>
@@ -176,14 +208,14 @@ const Horaire = ({alwaysState, setAlwaysState, timming, setTimming, setPauseDay 
     return(<>
         <br />
         <div className=' '>
-            <h5 className='text-end text-secondary ' dir='rtl'> <span className='bi bi-calendar-week-fill'></span>   أوقات العمل  </h5>
+            <h5 className={`${isRTL ? 'text-end' : 'text-start'} text-secondary`} dir={isRTL ? 'rtl' : 'ltr'}> <span className='bi bi-calendar-week-fill'></span>  {t('subscribeToSystems.HoraireText')} </h5>
             <div className='row'>
                 <div className='col-12 col-lg-7'>
                     <div className=' '>
                         <div className='row'>
                             <div className='col-10 col-lg-9 align-self-center'> 
-                                <h5 className='mb-0 text-success'>مفتوح دائما</h5>  
-                                <small>عند تفعيل هذه الخاصية ستضهر في حالة مفتوح دائما </small>
+                                <h5 className='mb-0 text-success'> {t('subscribeToSystems.HoraireData.alwaysOpenOne')} </h5>  
+                                <small> {t('subscribeToSystems.HoraireData.alwaysOpenTwo')} </small>
                             </div>
                             <div className='col-2 col-lg-3  align-self-center '> 
                                 <div className="form-check form-switch">
@@ -211,9 +243,9 @@ const Horaire = ({alwaysState, setAlwaysState, timming, setTimming, setPauseDay 
                         :
                                 <>
                                     <div className='row text-secondary mb-2'>
-                                        <div  className='col-4 col-lg-4'> <b>اليوم</b> </div>
-                                        <div  className='col-4 col-lg-4'> <small>صباح</small> </div>
-                                        <div  className='col-4 col-lg-4'> <small>مساء</small> </div>
+                                        <div  className='col-4 col-lg-4'> <b>{t('subscribeToSystems.HoraireData.dayText')}</b> </div>
+                                        <div  className='col-4 col-lg-4'> <small>{t('subscribeToSystems.HoraireData.matinText')}</small> </div>
+                                        <div  className='col-4 col-lg-4'> <small>{t('subscribeToSystems.HoraireData.soirText')}</small> </div>
                                     </div>
                                     
                                     {
@@ -254,16 +286,19 @@ const Horaire = ({alwaysState, setAlwaysState, timming, setTimming, setPauseDay 
     </>)
 }
 const Location = ({position,handleLocationSelected,GetMyLocation}) =>{
+    const { t, i18n } = useTranslation();
+    const isRTL = detectRTL.isRtlLang(i18n.language);
+
     return(<>
         <br />
         <div className='  mb-3'>
                 <div className='row'>
-                        <div className='col-6 align-self-center text-end'><h5 className='text-end text-secondary ' dir='rtl'> <span className='bi bi-geo-alt-fill'></span>   الموقع الجغرافي </h5></div>
-                        <div className='col-6 align-self-center text-start'><Button icon='map pin' className='rounded-circle' onClick={() => GetMyLocation()}></Button></div>
+                        <div className={`col-6 align-self-center ${isRTL ? 'text-end' : 'text-start'}`}><h5 className='  text-secondary ' dir={isRTL ? 'rtl' : 'ltr'}> <span className='bi bi-geo-alt-fill'></span>  {t('subscribeToSystems.PositionGpsText')}</h5></div>
+                        <div className={`col-6 align-self-center ${isRTL ? 'text-start' : 'text-end'}`}><Button icon='map pin' className='rounded-circle' onClick={() => GetMyLocation()}></Button></div>
                 </div> 
                 
-                <small className='mb-3'> قم بالنقر علي الزر لتحديد مكانك الحاليا إفتراضيا  </small>
-                <MapContainer center={[position.Lat,position.Lng]} zoom={6} scrollWheelZoom={false} className="map-height  border-div">
+                <small className='mb-3' dir={isRTL ? 'rtl' : 'ltr'}> {t('subscribeToSystems.PositionGpsClickHereText')} </small>
+                <MapContainer center={[position.Lat,position.Lng]} zoom={5} scrollWheelZoom={false} className="map-height  border-div">
                     <TileLayer
                     attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
                     url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
@@ -304,18 +339,26 @@ function ProfileAction() {
     
     let [loaderState, setLS] = useState(false)
     let [saveBtnState, setSaveBtnState] = useState(false)
-
-    let [position, setPosition] = useState({Lat: 36.83040, Lng: 10.13280})
+    
+    let [gouvList ,setGouvListe] = useState([])
+    const defPosition = WorldMap.worldCountries.filter(state => state.value === GConf.Country)
+    let [position, setPosition] = useState({Lat: defPosition[0].lat, Lng: defPosition[0].lng})
     let [openModal,setOpenMoadal] = useState(false)
 
     const navigate = useNavigate();
-    
+
+    const { t, i18n } = useTranslation();
+    const isRTL = detectRTL.isRtlLang(i18n.language);
+
     /* ############### UseEffect #################*/
         useEffect(() => {
             window.scrollTo(0, 0);
             if (GConf.UserData.Logged) {
                 setUserData({name :GConf.UserData.UData.Name , phone:GConf.UserData.UData.PhoneNum , Sex :GConf.UserData.UData.Sex , birthday: GConf.UserData.UData.BirthDay , gouv: GConf.UserData.UData.BirthGouv ,deleg: GConf.UserData.UData.BirthDeleg}) 
             }
+            const defPosition = WorldMap.worldCountries.filter(state => state.value === GConf.Country)
+             
+            setPosition({Lat: defPosition[0].lat, Lng: defPosition[0].lng})
             // axios.post(`${GConf.ApiLink}/systems/fromfcb`,{
             //     PID :GConf.PID,
             //     isFromFcb: localStorage.getItem('userEnter') ? localStorage.getItem('userEnter')  : Math.floor(Math.random() * (999999 - 111111 + 1)) + 111111,
@@ -355,14 +398,27 @@ function ProfileAction() {
     const GouvChanged = (genre,value) =>{
         if (genre == 'user') {
             setUserData({...userData, gouv: value })
-            const found = GConf.abyedhMap.Deleg.filter(element => element.key === value)
-            setUDL(found)
+            //const found = GConf.abyedhMap.Deleg.filter(element => element.key === value)
+            const found = WorldMap[GConf.Country].filter(element => element.Gouv === value)
+            let lastList1 = []
+            found.map((data,index) => {
+                lastList1.push({id:index, value:data.name , text:data.name})
+            })
+            setUDL(lastList1)
+
+           
         } else {
             setInscData({...inscData, gouv: value })
-            const found = GConf.abyedhMap.Deleg.filter(element => element.tag === value)
-            setPDL(found)
-            const gouvCord = GConf.abyedhMap.GouvData.filter(element => element.name === value)
-            setPosition({Lat: gouvCord[0].lan, Lng: gouvCord[0].lng})
+            //const found = GConf.abyedhMap.Deleg.filter(element => element.tag === value)
+            const found = WorldMap[GConf.Country].filter(element => element.Gouv === value)
+            let lastList1 = []
+            found.map((data,index) => {
+                lastList1.push({id:index, value:data.name , text:data.name})
+            })
+            setPDL(lastList1)
+            const gouvCord = WorldMap.states.filter(state => state.country === GConf.Country).filter(element => element.name === value)
+             
+            setPosition({Lat: gouvCord[0].lat, Lng: gouvCord[0].lng})
         }
     }
     const SetTimmingData = (day,time,genre,value) => {
@@ -539,29 +595,30 @@ function ProfileAction() {
         return(<>
             
             <div className='  card-body   mb-3 border-div'>
-            <h5 className='text-end text-secondary ' dir='rtl'> <span className='bi bi-save'></span>  تسجيل  </h5>
+            <h5 className={` ${isRTL ? 'text-end' : 'text-start'} text-secondary `} dir={isRTL ? 'rtl' : 'ltr'}> <span className='bi bi-save'></span> {t('subscribeToSystems.InscriptionLastText')} </h5>
                 <div className='row'>
                     <div className='col-12 col-lg-8'>
                         <div className='text-secondary'>
                             <ul>
-                                <li>  عملية استكمال التسجيل قد تستغرق 15 ساعة علي الكثير للتحقق من المعلومات المدرجة . يمكنك التأكد من العملية من صفحة المتابعة </li>
-                                <li>   يتمتع كل مشترك بنسخة مصغرة و مجانية من  النظام  لإستقبال الطلبات و التواصل مع العملاء  </li>
-                                <li> <span className='bi bi-exclamation-triangle-fill text-danger'></span> أي طلب تسجيل يحتوي علي معلومات خاطئة أو مضللة سيلغي آليا </li>
+                                <li>  {t('subscribeToSystems.InscriptionLast.firstCondition')} </li>
+                                <li>   {t('subscribeToSystems.InscriptionLast.secondCondition')} </li>
+                                <li> <span className='bi bi-exclamation-triangle-fill text-danger'></span> {t('subscribeToSystems.InscriptionLast.thirdCondition')} </li>
                             </ul>
                         </div>
                     </div>
                     <div className='col-12 col-lg-4 align-self-center'>
                             <div className='row mb-3'>
-                                <div className='col-2 text-end'>
+                            <div className={`col-8  ${isRTL ? 'order-1 text-end' : '  text-start'}`}> {t('subscribeToSystems.InscriptionLast.okayCondition')} </div>
+                            <div className={`col-2  ${isRTL ? 'order-2 text-end' : '  text-start'}`}>
                                     <Checkbox
                                         onChange={(e, data) => setOkayForCondition(data.checked)}
                                         checked={okayForCondition}
                                     />
                                 </div>
-                                <div className='col-8 text-end'>موافق </div>
+                               
                             </div>   
                             
-                            <Button   disabled={saveBtnState} icon className='rounded-pill  text-white font-droid' onClick={Inscription} fluid style={{backgroundColor:GConf.ADIL[tag].themeColor}}>   <Icon name='world' /> تسجيل <Loader inverted active={loaderState} inline size='tiny' className='ms-2 text-danger'/></Button>
+                            <Button   disabled={saveBtnState} icon className='rounded-pill  text-white font-droid' onClick={Inscription} fluid style={{backgroundColor:GConf.ADIL[tag].themeColor}}>   <Icon name='world' /> {t('subscribeToSystems.InscriptionLast.InscriptionButtonText')} <Loader inverted active={loaderState} inline size='tiny' className='ms-2 text-danger'/></Button>
                     </div>
                 </div>
             </div>
@@ -593,9 +650,9 @@ function ProfileAction() {
         return(<>
             <NavLink exact='true' to={`/S/I/user/${tag}`}  >
                 <div className='card card-body border-div shadow-sm'>
-                    <div className='row'>
+                    <div className='row' dir='rtl'>
                         <div className='col-2 align-self-center text-secondary'><span className='bi bi-arrow-right'></span></div>
-                        <div className='col-8 align-self-center text-secondary'><b>  تسجيل بإسم : {GConf.UserData.UData.Name}</b></div>
+                        <div className='col-8 align-self-center text-secondary' dir={isRTL ? 'rtl' : 'ltr'}><b> {t('subscribeToSystems.inscriptionUserWith')}  : {GConf.UserData.UData.Name}</b></div>
                         <div className='col-2'><img  className="rounded-circle p-0 m-0 me-1" src={`https://cdn.abyedh.tn/images/p_pic/${GConf.UserData.UData.PictureId}.gif`}   alt="Logo" style={{width:'30px', height:'30px'}} /></div>
                     </div>
                 </div>
@@ -608,11 +665,11 @@ function ProfileAction() {
         <br />
         <br />
         <br />
-        <div className='container container-lg font-droid' dir='rtl'>
+        <div className='container container-lg font-droid' dir={isRTL ? 'rtl' : 'ltr'}>
             {GConf.UserData.Logged ? 
                 <>
                  {/* {localStorage.getItem('AddToDirectory') ? <BottomCard />  : <></>} */}
-                 <h3 className='text-center ' style={{color:targetSystem.themeColor}}>  تَسْجِيلْ     {findElementByLink(tag)}   فِي مِنَصّةْ أَبْيَضْ </h3>
+                 <h3 className='text-center ' style={{color:targetSystem.themeColor}}> { t('subscribeToSystems.mainTitle', {  one: t(`landingPage.systemOwnersNames.${tag}`) })}   </h3>
                  <br /><UserCard /> <br />
                  {/* <h4 className='text-secondary'>1- منصة أبيض هي محرك بحث شامل تنجم تلقي فيه العديد من أصحاب الخدمات و نقاط البيع  و تنجم تتواصل معاهم باش تتمتع بخدماتهم و منتجاتهم  </h4>
                  <h4 className='text-secondary'>2- في المقابل توفر المنصة لأصحاب الخدمات و نقاط البيع هاذم أنظمة لإدارة الأعمال متاعهم و تساعدهم كذلك في التعريف بأنفسهم و بأعمالهم من أجل الوصل أكثر لعملائهم  ...</h4>
@@ -623,7 +680,7 @@ function ProfileAction() {
                  
                   
                  <div className='  card-body   border-div mb-3'>
-                    <GeneralProfileData OnKeyPressFunc={OnKeyPressFunc} tag={tag} GConf={GConf} inscData={inscData} setInscData={setInscData} PDL={PDL}  targetSystem={targetSystem}  GouvChanged={GouvChanged}   />
+                    <GeneralProfileData OnKeyPressFunc={OnKeyPressFunc} tag={tag} GConf={GConf} inscData={inscData} setInscData={setInscData} PDL={PDL}  targetSystem={targetSystem}  GouvChanged={GouvChanged}  gouvList={gouvList} setGouvListe={setGouvListe}  />
                     <Location position={position} handleLocationSelected={handleLocationSelected} GetMyLocation={GetMyLocation} />
                     <Horaire alwaysState={alwaysState} setAlwaysState={setAlwaysState} timming={timming} setTimming={setTimming} setPauseDay={setPauseDay} SetTimmingData={SetTimmingData} setSelectedUpdateDay={setSelectedUpdateDay} selectedUpdateDay={selectedUpdateDay} UpdateTimmingData={UpdateTimmingData} />
                  </div>
@@ -634,9 +691,9 @@ function ProfileAction() {
                     <div className='row'>
                         <div className='col-12 col-lg-4 align-self-center text-center'><img src='https://cdn.abyedh.tn/Images/required/log-in.png' className='img-responsive mb-4'  width='100%' height='auto' /></div> 
                         <div className='col-12 col-lg-8 align-self-center text-center'>
-                            <h3 className='text-danger'> عليك أولا أن تمتلك حساب في منصة أبيض  </h3> 
-                            <h5> لتتمكن من التسجيل في {GConf.ADIL[tag].systemName} عليك أولا أن تقوم بإمتلاك حساب مجاني في منصة أبيض , قم بالتسجيل في المنصة أولا ثم عليك العودة إلي هذه الصفحة لتكمل الإشتراك في النظام </h5> 
-                            <h5  className="btn  w-100 p-3 rounded-pill border shadow-sm text-danger"><NavLink exact='true' to='/Profile/signUp'> <span className='bi bi-arrow-right-circle-fill text-danger ms-3'></span><b className='text-danger'> تسجيل حساب في منصة أبيض  </b></NavLink></h5>
+                            <h3 className='text-danger'> {t('subscribeToSystems.shouldLogInData.shouldText')} </h3> 
+                            <h5> { t('subscribeToSystems.shouldLogInData.detailText', {  one: t(`landingPage.systemNames.${tag}`) })} </h5> 
+                            <h5  className="btn  w-100 p-3 rounded-pill border shadow-sm text-danger"><NavLink exact='true' to='/Profile/signUp' dir={isRTL ? 'rtl' : 'ltr'}>  <b className='text-danger'> {t('subscribeToSystems.shouldLogInData.clicLink')} </b> <span className='bi bi-arrow-right-circle-fill text-danger ms-3'></span> </NavLink></h5>
                         </div> 
                     </div>      
                 </div>
@@ -651,9 +708,9 @@ function ProfileAction() {
                 >
                 <Modal.Content  >
                         <h1 className='text-center bi bi-clipboard-check-fill bi-lg text-success'></h1>
-                        <h4 className='text-center text-success'> لقد تمت عملية التسجيل بنجاح </h4>
-                        <h4 className='text-center text-سثؤخىيضقغ'> إضغط ليتم تمريرك لصفحة متابعة عملية القبول</h4>
-                        <Button fluid className='rounded-pill' onClick={() => navigate(`/S/I/user/${tag}`)}> صفحة المتابعة  </Button>
+                        <h4 className='text-center text-success'> {t('subscribeToSystems.successModalData.operationR')} </h4>
+                        <h4 className='text-center text-سثؤخىيضقغ'> {t('subscribeToSystems.successModalData.cliquerPourPasser')} </h4>
+                        <Button fluid className='rounded-pill' onClick={() => navigate(`/S/I/user/${tag}`)}> {t('subscribeToSystems.successModalData.followPage')} </Button>
                 </Modal.Content>
         </Modal>
         <br />

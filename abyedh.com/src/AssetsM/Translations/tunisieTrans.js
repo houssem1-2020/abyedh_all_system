@@ -2841,37 +2841,41 @@ const TunisieTrans = {
             },
         },
         subscribeToSystems : {
-            mainTitle:'',
-            inscriptionUserWith :'',
-            infoGeneraleText: '',
+            mainTitle:' تَسْجِيلْ   {{ one }}  فِي مِنَصّةْ أَبْيَضْ ',
+            inscriptionUserWith :'تسجيل بإسم ',
+            infoGeneraleText: 'معلومات عامة عن  {{one }}',
             infoGeneraleData : {
-                nomEtPrenon : '',
+                nomEtPrenon : 'إسم  {{ one }} ',
                 nomEtPreninPlaceholder : '',
-                genreText:'',
-                genreTextPlaceholder:'',
-                PhoneText:'',
-                PhoneTextPlaceholder:'',
-                AdesssText:'',
+                genreText:'نوع {{one}}',
+                genreTextPlaceholder:'تحديد نوع {{one}}',
+                PhoneText:'رقم الهاتف {{one}}',
+                PhoneTextPlaceholder:'رقم هاتف  {{one}}',
+                positionGeoText: "Emplacement géographique de {{one }}",
+                positionGeoTextPlaceholder: "",
+                GouvDelegText:'إختر ولاية',
+                GouvDelegTextPlaceholder:'إختر منطقة',
+                AdesssText:'عنوان {{one }}',
                 AdesssTextPlaceholder:'',
-                GouvDelegText:'',
-                GouvDelegTextPlaceholder:'',
             },
-            PositionGpsText: '',
-            PositionGpsClickHereText: '',
-            HoraireText: '',
+            PositionGpsText: ' الموقع الجغرافي ',
+            PositionGpsClickHereText: 'قم بالنقر علي الزر لتحديد مكانك الحاليا إفتراضيا ',
+            HoraireText: 'أوقات العمل ',
             HoraireData : {
+                alwaysOpenOne:'مفتوح دائما',
+                alwaysOpenTwo:'عند تفعيل هذه الخاصية ستضهر في حالة مفتوح دائما ',
                 weekDayes : {
-                    lundi : '',
-                    mardi : '',
-                    mercredi : '',
-                    jeudie : '',
-                    vendredie : '',
-                    samedie : '',
-                    dimanche : '',
+                  lundi : 'الأثنين',
+                  mardi : 'الثلاثاء',
+                  mercredi : 'الإربعاء',
+                  jeudi : 'الخميس',
+                  vendredi : 'الجمعة',
+                  samedi : 'السبت',
+                  dimanche : 'الأثنين',
                 },
-                dayText : '',
-                matinText:'',
-                soirText:'',
+                dayText : 'اليوم',
+                matinText:'صباح',
+                soirText:'مساء',
                 editData : {
                     isDayOff : '',
                     ouiText : '',
@@ -2880,14 +2884,24 @@ const TunisieTrans = {
                      
                 },
             },
-            InscriptionLastText: '',
+            InscriptionLastText: ' تسجيل ',
             InscriptionLast : {
-                firstCondition : '',
-                secondCondition:'',
-                thirdCondition:'',
-                okayCondition :'',
-                InscriptionButtonText: '',
+                firstCondition : 'عملية استكمال التسجيل قد تستغرق 15 ساعة علي الكثير للتحقق من المعلومات المدرجة . يمكنك التأكد من العملية من صفحة المتابعة ',
+                secondCondition:'يتمتع كل مشترك بنسخة مصغرة و مجانية من  النظام  لإستقبال الطلبات و التواصل مع العملاء s',
+                thirdCondition:'أي طلب تسجيل يحتوي علي معلومات خاطئة أو مضللة سيلغي آليا ',
+                okayCondition :'موافق',
+                InscriptionButtonText: 'تسجيل',
             },
+            successModalData:{
+              operationR:'لقد تمت عملية التسجيل بنجاح ',
+              cliquerPourPasser:'إضغط ليتم تمريرك لصفحة متابعة عملية القبول',
+              followPage:'صفحة المتابعة '
+            },
+            shouldLogInData:{
+              shouldText:'عليك أولا أن تمتلك حساب في منصة أبيض ',
+              detailText:'لتتمكن من التسجيل في {{one}} عليك أولا أن تقوم بإمتلاك حساب مجاني في منصة أبيض , قم بالتسجيل في المنصة أولا ثم عليك العودة إلي هذه الصفحة لتكمل الإشتراك في النظام ',
+              clicLink:' تسجيل حساب في منصة أبيض '
+            }
         },
         appPages : {
             loginPage : {
@@ -2905,15 +2919,17 @@ const TunisieTrans = {
             },
             mainPage : {
                 adsData:{
-                    adsContentText:'',
-                    buttonNavText:'',
+                    adsContentTextOne:'أنت تستخدم النسخة المجانية ,  هل تريد أن تنتقل ',
+                    adsContentTextTwo:' للنسخة الكاملة ',
+                    adsContentTextThree:' من ',
+                    buttonNavText:' إكتشف النظام ',
                 },
                 statData:{
-                    accepter:'',
-                    vueText:'',
-                    refusee:'',
-                    ennAttent:'',
-                    terminer:''
+                    attente:'En Attent',
+                    accepter:'Accepteé',
+                    vueText:'Vu',
+                    refusee:'Refuseé',
+                    terminer:'Termineé'
                 },
                 stepsBySystem : {
                     docteur: {
@@ -3692,6 +3708,7 @@ const TunisieTrans = {
                     }
                 },
                 requestTabs : {
+                    gestionDe:'Gestion des',
                     docteur: {
                       docteur_rdv: "Rendy-Vous",
                       Spesific: "Tarifs & Autres"

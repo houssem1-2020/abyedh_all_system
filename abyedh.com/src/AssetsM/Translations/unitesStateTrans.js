@@ -1,49 +1,7 @@
 const USTrans = {
     translation : {
-        loginPage : {
-            inputIdentifiantText : '',
-            inputPasswordText : '',
-            btnLogInText : '',
-            inscrireLinkText : '',
-            inscrireisFreeText : '',
-            pleaseInscrireOneText : '',
-            pleaseInscrireTwoText : '',
-            toastText:{
-                failOne:'',
-                failTwo:'',
-            },
-        },
-        signUpPage : {
-            infoGenerale :{
-                nomEtPrenomText : '',
-                naissanceText : '',
-                selectGenreText : '',
-                maleGenreText : '',
-                femaleGenreText : '',
-                phoneText : '',
-            },
-            locationGeo :{
-                positionGeoText : '',
-                selectGouvText : '',
-                selectDelegText : '', 
-            },
-            selectPhoto :{
-                selectPhotoText : '',
-            },
-            inputPasssword :{
-                inputPassswordText : '',
-                inputIdentifText : '',
-                inputPWDText : '', 
-                repeatPWDText : '', 
-                repeatPWDPlaceholderText : '', 
-            },
-            nextBtnText:'',
-            finishBtnText:'',
-            toastText:{
-                failOne:'',
-                failTwo:'',
-            },
-        },
+         
+        
         mainPage: {
             mainTitle : 'abyedh.com' , 
             logInText : 'Inscrer-Vous', 

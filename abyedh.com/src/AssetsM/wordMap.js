@@ -17,8 +17,10 @@ import EmaratesMpa from './WorldMap/Cities/emarates'
 import JapanMpa from './WorldMap/Cities/japan'
 import IndiaMpa from './WorldMap/Cities/india'
 import ChinaMpa from './WorldMap/Cities/china'
+import WorldMapList from './WorldMap/countryData'
 
 const WorldMap = {
+    worldCountries : WorldMapList,
     states : StateData,
     //cities :  CitiesData,
     TN : TunisiaMpa,

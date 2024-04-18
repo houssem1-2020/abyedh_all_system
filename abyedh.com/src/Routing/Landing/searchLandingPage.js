@@ -85,7 +85,7 @@ function SearchLandingPage() {
         const found = WorldMap[GConf.Country].filter(element => element.Gouv === value)
         setDelegList(found)
         setFirstLettersDeleg(getFirstLettersDeleg(WorldMap[GConf.Country], value));
-        console.log(getFirstLettersDeleg(WorldMap[GConf.Country], value));
+         
         setOpen(false)
 
       }

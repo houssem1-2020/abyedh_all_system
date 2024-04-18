@@ -1,5 +1,5 @@
 import React ,{useEffect, useState} from 'react';
-import { Button, Dimmer, Icon, Input, Loader, Select } from 'semantic-ui-react';
+import { Button, Dimmer, Dropdown, Icon, Input, Loader, Select } from 'semantic-ui-react';
 import GConf from '../AssetsM/generalConf';
 import { toast } from 'react-toastify';
 import axios from 'axios';
@@ -16,6 +16,7 @@ import L, { Map } from 'leaflet';
 import { Helmet } from 'react-helmet';
 import { useTranslation, Trans } from 'react-i18next';
 import detectRTL from 'rtl-detect';
+import WorldMap from '../AssetsM/wordMap';
 
 const Percentage = (props) =>{
     return(<>
@@ -90,24 +91,48 @@ const GeneralData = (props) =>{
 const Geolocalization = (props) =>{
     const { t, i18n } = useTranslation();
     const isRTL = detectRTL.isRtlLang(i18n.language);
+    const [gouvList ,setGouvListe] = useState([])
 
     const percentage = ((props.totalSteps - ( props.totalSteps - props.currentStep)) / props.totalSteps ) * 100 
     const Next = props.nextStep 
     const Previous = props.previousStep 
     const position = [51.505, -0.09];
+
+    useEffect(() => {
+        GGLFunction()
+    }, [])
+
+    const GGLFunction = ()=> {
+        let lastList = []
+        WorldMap.states.filter(state => state.country === GConf.Country).map((data,index) => {
+            lastList.push({id:index, value:data.name , text:data.name})
+        })
+        setGouvListe(lastList)
+    }
+
     return (<>
             <Percentage percentage={percentage} />
             <br />
             <div className='card card-body shadow-sm mb-4 border-div'>
-                   <h3 className='text-end text-secondary'>الموقع الجغرافي  <span className='bi bi-pin-map-fill bi-sm'></span> </h3>
+                   <h3 className={`text-secondary ${isRTL ? 'text-end' : 'text-start'}`} dir={isRTL ? 'rtl' : 'ltr'} > <span className='bi bi-pin-map-fill bi-sm'></span> {t('signUpPage.locationGeoTitle')}  </h3>
                    <div dir={isRTL ? 'rtl' : 'ltr'}>
-                    <h5 className='text-end text-secondary'>إختر ولاية </h5>
+                    <h5 className={`text-secondary ${isRTL ? 'text-end' : 'text-start'}`} >{t('signUpPage.locationGeo.positionGeoText')}</h5>
                     <div className='row'>
                         <div className='col-12 col-md-6'>
-                            <Select placeholder='إختر ولاية' fluid className='mb-2' options={GConf.abyedhMap.Gouv} value={props.gouv} onChange={(e, { value }) => props.GetDelegList(value)} />
+                            <Select placeholder={t('signUpPage.locationGeo.selectGouvText')} fluid className='mb-2' options={gouvList} value={props.gouv} onChange={(e, { value }) => props.GetDelegList(value)} />
                         </div>
                         <div className='col-12 col-md-6'>
-                            <Select placeholder='إختر منطقة' fluid value={props.deleg} options={props.delegList} onChange={(e, { value }) => props.setDeleg(value)} />
+                            <Dropdown
+                                fluid
+                                search
+                                selection
+                                placeholder = {t('signUpPage.locationGeo.selectDelegText')}
+                                options={props.delegList}
+                                value={props.deleg} 
+                                onChange={(e, { value }) => props.setDeleg(value)}
+                            />
+
+                            {/* <Select placeholder={t('signUpPage.locationGeo.selectDelegText')} fluid value={props.deleg} options={props.delegList} onChange={(e, { value }) => props.setDeleg(value)} /> */}
                         </div>
                     </div> 
                     
@@ -153,7 +178,7 @@ const SelectPhoto = (props) =>{
             <Percentage percentage={percentage} />
             <br />
             <div className='card card-body shadow-sm mb-4 border-div'>
-                <h3 className='text-end text-secondary'> تحديد صورة الحساب <span className='bi bi-person-video2 bi-sm'></span> </h3>
+                <h3 className={`text-secondary ${isRTL ? 'text-end' : 'text-start'}`} dir={isRTL ? 'rtl' : 'ltr'}> <span className='bi bi-person-video2 bi-sm'></span> {t('signUpPage.selectPhotoTitle')} </h3>
                 <div dir={isRTL ? 'rtl' : 'ltr'}>
                         <div className='d-none d-lg-flex '>
                                 <Swiper
@@ -241,16 +266,17 @@ const Password = (props) =>{
             <Percentage percentage={percentage} />
             <br />
             <div className='card card-body shadow-sm mb-4 border-div'>
-                <h3 className='text-end text-secondary'> كلمة المرور <span className='bi bi-key-fill bi-sm'></span> </h3>
+                <h3 className={`text-secondary ${isRTL ? 'text-end' : 'text-start'}`} dir={isRTL ? 'rtl' : 'ltr'}>  <span className='bi bi-key-fill bi-sm'></span> {t('signUpPage.inputPassswordTitle')} </h3>
+                 
                     <div className='row'>
                         <div className='col-12 col-lg-8 order-2'>
-                            <h5 className='text-end text-danger mb-1'> كلمة المرور </h5>
+                            <h5 className={`text-danger mb-1 ${isRTL ? 'text-end' : 'text-start'}`} > {t('signUpPage.inputPasssword.inputPassswordText')} </h5>
                             <div className='mb-1'>
-                                <Input onKeyPress={event => OnKeyPressFunc(event)} type='password'  icon='key' placeholder='كلمة المرور'  className='shadow-sm w-100' value={props.password.Pvalue} onChange={(e) => props.setPassword({...props.password, Pvalue: e.target.value })}/>
+                                <Input iconPosition={isRTL ? 'rigth' : 'left'} onKeyPress={event => OnKeyPressFunc(event)} type='password'  icon='key' placeholder={t('signUpPage.inputPasssword.inputIdentifText')}  className='shadow-sm w-100' value={props.password.Pvalue} onChange={(e) => props.setPassword({...props.password, Pvalue: e.target.value })}/>
                             </div>
-                            <h5 className='text-end text-danger mb-1 mt-3'> أعد كلمة المرور </h5>
+                            <h5 className={`text-danger mb-1 mt-3 ${isRTL ? 'text-end' : 'text-start'}`} > {t('signUpPage.inputPasssword.repeatPWDText')}</h5>
                             <div className='mb-2'>
-                                <Input onKeyPress={event => OnKeyPressFunc(event)} type='password'  icon='eye' placeholder='إعادة كلمة المرور'  className='shadow-sm w-100' value={props.password.repeated} onChange={(e) => props.setPassword({...props.password, repeated: e.target.value })}/>
+                                <Input iconPosition={isRTL ? 'rigth' : 'left'}  onKeyPress={event => OnKeyPressFunc(event)} type='password'  icon='eye' placeholder={t('signUpPage.inputPasssword.inputPWDText')}  className='shadow-sm w-100' value={props.password.repeated} onChange={(e) => props.setPassword({...props.password, repeated: e.target.value })}/>
                             </div>
                         </div>
                         <div className='col-12 col-lg-4 mb-4 align-self-center text-center'>
@@ -377,8 +403,12 @@ function SignUpPage() {
     }
     const GetDelegList = (value) =>{
         setGouv(value)
-        const found = GConf.abyedhMap.Deleg.filter(element => element.tag === value)
-        setDelegList(found)
+        const found = WorldMap[GConf.Country].filter(element => element.Gouv === value)
+        let lastList1 = []
+        found.map((data,index) => {
+            lastList1.push({id:index, value:data.name , text:data.name})
+        })
+        setDelegList(lastList1)
     }
     const GetPositionNow = () =>{
         //get position 
@@ -474,12 +504,12 @@ function SignUpPage() {
     
 
     return ( <>
-            <Helmet>
+            {/* <Helmet>
                 <title>  التسجيل في منصة أبيض</title>
-            </Helmet>
+            </Helmet> */}
             <TopNavBar  />
             <Dimmer active={loaderState} page inverted style={{minHeight:'100% !important'}}>
-                <Loader inverted> تسجيل حساب جديد </Loader>
+                <Loader inverted> {t('signUpPage.mainLoderText')} </Loader>
             </Dimmer>
              <div className='container d-flex align-items-center justify-content-center' style={{paddingTop:'100px'}}>
                 <div className='col-12 col-lg-7' style={{whiteSpace: 'nowrap'}}>

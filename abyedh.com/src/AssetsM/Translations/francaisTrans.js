@@ -7,59 +7,58 @@ const FrancaisTrans = {
             inscrireLinkText : 'Inscrire Vous' ,
             inscrireisFreeText : 'Inscription Gratuit ',
             pleaseInscrireOneText : 'Abyad est une plateforme tunisienne créée en 2018, cherchant à créer un environnement numérique complet',
-            pleaseInscrireTwoText : 'L’inscription à abyedh est gratuite et le sera toujours. Le compte peut vous aider à trouver ce que vous recherchez pour effectuer vos activités quotidiennes.',
+            pleaseInscrireTwoText : 'L\'inscription à abyedh est gratuite et le sera toujours. Le compte peut vous aider à trouver ce que vous recherchez pour effectuer vos activités quotidiennes.',
             toastText:{
-                enterLog:'أدخل رقم الهاتف ',
-                enterPWD:'أدخل كلمة المرور ',
-                saved:'تم التسجيل بنجاح !',
-                notSaved:'هذا الحساب غير موجود ',
+                enterLog: 'Entrez votre numéro de téléphone',
+                enterPWD: 'Entrez votre mot de passe',
+                saved: 'Enregistré avec succès !',
+                notSaved: "Ce compte n'existe pas",
             },
         },
-
-        signUpPage : {
-            mainLoderText : 'Nouveaux Compte',
-            infoGeneraleTitle : ' Info Génerale',
-            locationGeoTitle : 'Positions',
-            selectPhotoTitle : 'Photo de Profile',
-            inputPassswordTitle : 'Mot de Passe',
-            infoGenerale :{
-                nomEtPrenomText : 'Nom & prenon',
-                naissanceText : 'Date de Naissance',
-                selectGenreText : 'Sex',
-                maleGenreText : 'Male',
-                femaleGenreText : 'Female',
-                phoneText : 'Num Telephone',
-            },
-            locationGeo :{
-                positionGeoText : 'Selecionnez Position',
-                selectGouvText : 'Selecionnez Region',
-                selectDelegText : 'Selecionnez Departemment', 
-            },
-            selectPhoto :{
-                selectPhotoText : '',
-            },
-            inputPasssword :{
-                inputPassswordText : 'mot de passe',
-                inputIdentifText : 'repeter mot de passe',
-                inputPWDText : 'mot de passe', 
-                repeatPWDText : 'repeter mot de passe', 
-                repeatPWDPlaceholderText : '', 
-            },
-            nextBtnText:'Suivant',
-            finishBtnText:'Terminer',
-            toastText:{
-                failOne:'',
-                failTwo:'',
-            },
+        signUpPage: {
+          mainLoderText: "Inscription d'un nouveau compte",
+          infoGeneraleTitle: "Informations générales",
+          locationGeoTitle: "Emplacement géographique",
+          selectPhotoTitle: "Sélectionner une photo de profil",
+          inputPassswordTitle: "Mot de passe",
+          infoGenerale: {
+              nomEtPrenomText: "Nom et prénom",
+              naissanceText: "Date de naissance",
+              selectGenreText: "Genre",
+              maleGenreText: "Masculin",
+              femaleGenreText: "Féminin",
+              phoneText: "Numéro de téléphone",
+              phoneTextPlaceholder: "Numéro de téléphone requis"
+          },
+          locationGeo: {
+              positionGeoText: "Sélectionnez une wilaya",
+              selectGouvText: "Sélectionnez une wilaya",
+              selectDelegText: "Sélectionnez une délégation"
+          },
+          selectPhoto: {
+              selectPhotoText: ""
+          },
+          inputPasssword: {
+              inputPassswordText: "Mot de passe",
+              inputIdentifText: "Confirmer le mot de passe",
+              inputPWDText: "Mot de passe",
+              repeatPWDText: "Répéter le mot de passe",
+              repeatPWDPlaceholderText: ""
+          },
+          nextBtnText: "Suivant",
+          finishBtnText: "Terminer",
+          toastText: {
+              failOne: "",
+              failTwo: ""
+          }
         },
-
         mainPage: {
             mainTitle : 'Platforme Abyedh' , 
             mainsubads : 'plusieur application dans un seul app',
             logInText : 'Inscrer-Vous', 
             mainlogInText : 'Log In',
             mainsearchInput : 'Recherche ... ',
-            qrCodeScan : ' ... بَحْثْ',
+            qrCodeScan : 'Recherche ... ',
             dropDownProfile : {
                 profile : '',
                 systemLogIn : '',
@@ -193,7 +192,6 @@ const FrancaisTrans = {
                 failTwo:'',
             },
         },
-
         landingPage: {
             selectText:{
                 docteur: "Choisissez la spécialité requise",
@@ -1015,88 +1013,88 @@ const FrancaisTrans = {
             textSystemAds1: "Découvrez la version miniature de",
             textSystemAds2: "qui vous aide à vous présenter et à recevoir des demandes de vos clients.",
             systemNames : {
-                docteur: "Gestion Cliniques",
-                pharmacie: "Gestion Pharmacies",
-                clinique: "Gestion Cliniques Privées",
-                labo: "Gestion Laboratoires Médicaux",
-                infirmier: "Gestion Cabinets Infirmiers",
-                centreMD: "Gestion Centres Médicaux",
-                admin_s_hospital: "Gestion Hôpitaux",
-                admin_s_csb: "Gestion Centres de Santé",
-                garderie: "Gestion Garderies",
-                ecole: "Gestion Écoles Privées",
-                lycee: "Gestion Lycées Privés",
-                universite: "Gestion Universités Privées",
-                formation: "Gestion Centres de Formation",
-                impremerie: "Gestion Imprimeries",
-                librairie: "Gestion Librairies",
-                admin_e_centre: "Gestion Centres de Formation",
-                admin_e_biblio: "Gestion Bibliothèques Publiques",
-                admin_e_ecole: "Gestion Écoles Publiques",
-                admin_e_lycee: "Gestion Lycées Publiques",
-                admin_e_universite: "Gestion Universités Publiques",
-                admin_e_ss: "Gestion Services Publics",
-                transporteur: "Gestion Agences Transport",
-                autoecole: "Gestion Auto-Écoles",
-                cafe: "Gestion Cafés",
-                restaurant: "Gestion Restaurants",
-                magazin: "Gestion Magasins",
-                boulengerie: "Gestion Boulangeries",
-                boucherie: "Gestion Boucheries",
-                fruiterie: "Gestion Fruiteries",
-                patesserie: "Gestion Pâtisseries",
-                epicerie: "Gestion Épiceries",
-                electromenager: "Gestion Électroménagers",
-                meublerie: "Gestion Meubles",
-                location: "Gestion Locations Voitures",
-                parking: "Gestion Parkings",
-                qiosque: "Gestion Kiosques",
-                mecanicien: "Gestion Ateliers Mécanique",
-                courtier: "Gestion Agences Immobilier",
-                contracteur: "Gestion Entrepreneurs",
-                architecture: "Gestion Cabinets Architecture",
-                quincaillerie: "Gestion Quincailleries",
-                forgeron: "Gestion Forgerons",
-                menuisier: "Gestion Menuiseries",
-                peinture: "Gestion Peintres",
-                electricien: "Gestion Électriciens",
-                plombier: "Gestion Plombiers",
-                cristalerie: "Gestion Verreries",
-                marbrerie: "Gestion Marbreries",
-                coiffure: "Gestion Salons Coiffure",
-                boutique: "Gestion Boutiques",
-                salle_marriage: "Gestion Salles Mariage",
-                orchestre: "Gestion Orchestres",
-                chef: "Gestion Emplois Cuisiniers",
-                photographe: "Gestion Studios Photo",
-                fourniture_marriage: "Gestion Location Mariage",
-                bijouterie: "Gestion Bijouteries",
-                gym: "Gestion Salles Sport",
-                pyscine: "Gestion Piscines",
-                stade: "Gestion Stades",
-                cinema: "Gestion Cinémas",
-                theatre: "Gestion Théâtres",
-                musee: "Gestion Musées",
-                admin_c_mj: "Gestion Maisons Jeunes",
-                admin_c_mc: "Gestion Maisons Culture",
-                admin_c_me: "Gestion Clubs Enfants",
-                avocat: "Gestion Cabinets Avocats",
-                depot: "Gestion Dépôts",
-                comptable: "Gestion Cabinets Comptables",
-                socite: "Gestion Sociétés",
-                bank: "Gestion Banques",
-                admin_f_poste: "Gestion Bureaux Poste",
-                admin_f_rf: "Gestion Trésoreries",
-                veterinaire: "Gestion Cliniques Vétérinaires",
-                fourragerie: "Gestion Ventes Aliments Animaux",
-                agritools: "Gestion Ventes Outils Agricoles",
-                hotels: "Gestion Hôtels",
-                vg_agence: "Gestion Agences Voyages",
-                admin_a_mu: "Gestion Cliniques",
-                admin_a_police: "Gestion Cliniques",
-                admin_a_ar: "Gestion Cliniques",
-                admin_a_court: "Gestion Tribunaux",
-                admin_a_mosq: "Gestion Cliniques"
+                docteur: "System de Gestion des Cliniques",
+                pharmacie: "System de Gestion des Pharmacies",
+                clinique: "System de Gestion des Cliniques Privées",
+                labo: "System de Gestion des Laboratoires Médicaux",
+                infirmier: "System de Gestion des Cabinets Infirmiers",
+                centreMD: "System de Gestion des Centres Médicaux",
+                admin_s_hospital: "System de Gestion des Hôpitaux",
+                admin_s_csb: "System de Gestion des Centres de Santé",
+                garderie: "System de Gestion des Garderies",
+                ecole: "System de Gestion des Écoles Privées",
+                lycee: "System de Gestion des Lycées Privés",
+                universite: "System de Gestion des Universités Privées",
+                formation: "System de Gestion des Centres de Formation",
+                impremerie: "System de Gestion des Imprimeries",
+                librairie: "System de Gestion des Librairies",
+                admin_e_centre: "System de Gestion des Centres de Formation",
+                admin_e_biblio: "System de Gestion des Bibliothèques Publiques",
+                admin_e_ecole: "System de Gestion des Écoles Publiques",
+                admin_e_lycee: "System de Gestion des Lycées Publiques",
+                admin_e_universite: "System de Gestion des Universités Publiques",
+                admin_e_ss: "System de Gestion des Services Publics",
+                transporteur: "System de Gestion des Agences Transport",
+                autoecole: "System de Gestion des Auto-Écoles",
+                cafe: "System de Gestion des Cafés",
+                restaurant: "System de Gestion des Restaurants",
+                magazin: "System de Gestion des Magasins",
+                boulengerie: "System de Gestion des Boulangeries",
+                boucherie: "System de Gestion des Boucheries",
+                fruiterie: "System de Gestion des Fruiteries",
+                patesserie: "System de Gestion des Pâtisseries",
+                epicerie: "System de Gestion des Épiceries",
+                electromenager: "System de Gestion des Électroménagers",
+                meublerie: "System de Gestion des Meubles",
+                location: "System de Gestion des Locations Voitures",
+                parking: "System de Gestion des Parkings",
+                qiosque: "System de Gestion des Kiosques",
+                mecanicien: "System de Gestion des Ateliers Mécanique",
+                courtier: "System de Gestion des Agences Immobilier",
+                contracteur: "System de Gestion des Entrepreneurs",
+                architecture: "System de Gestion des Cabinets Architecture",
+                quincaillerie: "System de Gestion des Quincailleries",
+                forgeron: "System de Gestion des Forgerons",
+                menuisier: "System de Gestion des Menuiseries",
+                peinture: "System de Gestion des Peintres",
+                electricien: "System de Gestion des Électriciens",
+                plombier: "System de Gestion des Plombiers",
+                cristalerie: "System de Gestion des Verreries",
+                marbrerie: "System de Gestion des Marbreries",
+                coiffure: "System de Gestion des Salons Coiffure",
+                boutique: "System de Gestion des Boutiques",
+                salle_marriage: "System de Gestion des Salles Mariage",
+                orchestre: "System de Gestion des Orchestres",
+                chef: "System de Gestion des Emplois Cuisiniers",
+                photographe: "System de Gestion des Studios Photo",
+                fourniture_marriage: "System de Gestion des Location Mariage",
+                bijouterie: "System de Gestion des Bijouteries",
+                gym: "System de Gestion des Salles Sport",
+                pyscine: "System de Gestion des Piscines",
+                stade: "System de Gestion des Stades",
+                cinema: "System de Gestion des Cinémas",
+                theatre: "System de Gestion des Théâtres",
+                musee: "System de Gestion des Musées",
+                admin_c_mj: "System de Gestion des Maisons Jeunes",
+                admin_c_mc: "System de Gestion des Maisons Culture",
+                admin_c_me: "System de Gestion des Clubs Enfants",
+                avocat: "System de Gestion des Cabinets Avocats",
+                depot: "System de Gestion des Dépôts",
+                comptable: "System de Gestion des Cabinets Comptables",
+                socite: "System de Gestion des Sociétés",
+                bank: "System de Gestion des Banques",
+                admin_f_poste: "System de Gestion des Bureaux Poste",
+                admin_f_rf: "System de Gestion des Trésoreries",
+                veterinaire: "System de Gestion des Cliniques Vétérinaires",
+                fourragerie: "System de Gestion des Ventes Aliments Animaux",
+                agritools: "System de Gestion des Ventes Outils Agricoles",
+                hotels: "System de Gestion des Hôtels",
+                vg_agence: "System de Gestion des Agences Voyages",
+                admin_a_mu: "System de Gestion des Cliniques",
+                admin_a_police: "System de Gestion des Cliniques",
+                admin_a_ar: "System de Gestion des Cliniques",
+                admin_a_court: "System de Gestion des Tribunaux",
+                admin_a_mosq: "System de Gestion des Cliniques"
                 
             },
             systemOwnersNames : {
@@ -1185,7 +1183,7 @@ const FrancaisTrans = {
                 agriToolsOld: "Docteur"
                 
             },
-            goToSystemBtnText: "Accéder au système",
+            goToSystemBtnText: "Accéder",
             SubscribeBtnText: "S'inscrire  ",
             suggestionAndFavText:'Favoris et suggestions' ,
             bottomAbyedhText:'abyedh.com: France',
@@ -1194,7 +1192,6 @@ const FrancaisTrans = {
                 failTwo:'',
             },
         },
-
         resultPage : {
             actionTextName : {
                 docteur: {
@@ -1554,7 +1551,6 @@ const FrancaisTrans = {
                 failTwo:'',
             },
         },
-
         profilePage: {
             generalData :{
                 generalDataText: "Informations générales",
@@ -2597,15 +2593,8 @@ const FrancaisTrans = {
                 failTwo:'',
             },
         },
-
         userProfile: {
             notificationPage : {
-                // docteur_rdv_saved : {
-                //     one:'Une demande de rendez-vous avec un médecin ',
-                //     two:'a été enregistrée Avec succès et à date',
-                //     three:'',
-                // },
-                //docteur_rdv_saved: 'La demande de rendez-vous avec le médecin {{one}} a été enregistrée  avec succès à la date de {{two}}.',
                 docteur_rdv_saved: 'La demande de rendez-vous avec le médecin {{one}} a été enregistrée avec succès à la date de {{one}}.',
                 docteur_rdv_accepted: 'Carte d\'acceptation du rendez-vous avec le médecin',
                 docteur_rdv_rejected: 'La demande de rendez-vous avec le médecin {{one}} a été rejetée <br /> <small>""</small>',
@@ -2845,11 +2834,69 @@ const FrancaisTrans = {
                 failTwo:'',
             },
         },
-
         subscribeToSystems : {
-
+          mainTitle:'Inscription de {{ one }} sur  Abyedh.',
+          inscriptionUserWith :'Propriétaire ',
+          infoGeneraleText: 'Info Génerale sur  {{one }}',
+          infoGeneraleData : {
+              nomEtPrenon : 'Nom de {{ one }} ',
+              nomEtPreninPlaceholder : '',
+              genreText:'genre de {{one}}',
+              genreTextPlaceholder:'selectioner le genre de {{one}}',
+              PhoneText: "Numéro de téléphone {{one}}",
+              PhoneTextPlaceholder: "Numéro de téléphone {{one}}",
+              positionGeoText: "Emplacement géographique de {{one }}",
+              positionGeoTextPlaceholder: "",
+              GouvDelegText: "Sélectionnez un region",
+              GouvDelegTextPlaceholder: "Sélectionnez un  departemment ",
+              AdesssText: " Adresse de {{one }}",
+              AdesssTextPlaceholder: "",
+          },
+          PositionGpsText: 'Position GPS',
+          PositionGpsClickHereText: 'Cliquez ici pour définir votre emplacement actuel par défaut',
+          HoraireText: 'Horaires de travail',
+          HoraireData : {
+            alwaysOpenOne: 'Ouvert en permanence',
+            alwaysOpenTwo: 'Lorsque cette fonctionnalité est activée, elle s\'affiche en permanence.',
+              weekDayes : {
+                lundi: "Lundi",
+                mardi: "Mardi",
+                mercredi: "Mercredi",
+                jeudi: "Jeudi",
+                vendredi: "Vendredi",
+                samedi: "Samedi",
+                dimanche: "Dimanche",
+              },
+              dayText : 'Jour',
+              matinText:'Matin',
+              soirText:'Soir',
+              editData : {
+                  isDayOff : '',
+                  ouiText : '',
+                  nonText : '',
+                  editButtonText : '',
+                   
+              },
+          },
+          InscriptionLastText: 'Inscription',
+          InscriptionLast : {
+            firstCondition : 'Le processus d\'inscription peut prendre jusqu\'à 15 heures pour vérifier les informations fournies. Vous pouvez suivre le processus depuis la page de suivi.',
+            secondCondition:'Chaque abonné bénéficie d\'une version miniature et gratuite du système pour recevoir des demandes et communiquer avec les clients.',
+            thirdCondition:'Toute inscription contenant des informations erronées ou trompeuses sera automatiquement annulée.',
+            okayCondition :'D\'accord',
+            InscriptionButtonText: 'Inscription',
+          },
+          successModalData:{
+            operationR:'L\'inscription a été effectuée avec succès',
+            cliquerPourPasser:'Cliquez pour être redirigé vers la page de suivi de l\'acceptation',
+            followPage:'Page de suivi'
+          },
+          shouldLogInData:{
+            shouldText:'Vous devez d\'abord posséder un compte sur la plateforme Abyedh',
+            detailText:'Pour vous inscrire à {{one}}, vous devez d\'abord avoir un compte gratuit sur la plateforme Abyedh. Inscrivez-vous d\'abord sur la plateforme, puis revenez sur cette page pour terminer l\'inscription au système.',
+            clicLink:'Créer un compte'
+          }
         },
-
         appPages : {
             loginPage : {
                 nomDuSytemList : {
@@ -2866,15 +2913,18 @@ const FrancaisTrans = {
             },
             mainPage : {
                 adsData:{
-                    adsContentText:'',
-                    buttonNavText:'',
+                    adsContentTextOne: "Vous utilisez la version gratuite, souhaitez-vous passer",
+                    adsContentTextTwo: " à la version complète",
+                    adsContentTextThree: " de syseme de ",
+                    buttonNavText: "Découvrir le système",
+ 
                 },
                 statData:{
-                    accepter:'',
-                    vueText:'',
-                    refusee:'',
-                    ennAttent:'',
-                    terminer:''
+                  attente:'En Attent',
+                  accepter:'Accepteé',
+                  vueText:'Vu',
+                  refusee:'Refuseé',
+                  terminer:'Termineé'
                 },
                 stepsBySystem : {
                     docteur: {
@@ -3653,6 +3703,7 @@ const FrancaisTrans = {
                     }
                 },
                 requestTabs : {
+                    gestionDe:'Gestion des',
                     docteur: {
                       docteur_rdv: "Rendy-Vous",
                       Spesific: "Tarifs & Autres"
@@ -4956,7 +5007,6 @@ const FrancaisTrans = {
             },
             
         },
-
         toolsApps : {
             toolsPage:{
                 mainTitle:'Découvrez la gamme d\'outils créatifs Abiyad qui vous dispensent de nombreux autres outils.',
@@ -4986,7 +5036,7 @@ const FrancaisTrans = {
                     sportApp : 'Sports',
                     cultureApp : 'Culture',
                     tourizmeApp : 'Découvrir la France',
-                     
+                      
                 }
             },
             taxiApp:{
@@ -5010,7 +5060,6 @@ const FrancaisTrans = {
 
             },
         },
-
         aboutPage:{
             mainTitle : 'Plateforme Abyedh',
             subtitle : 'Une application pour tout faire',
@@ -5042,7 +5091,6 @@ const FrancaisTrans = {
                 buttonText:'Découvrir'
             },
         },
-
 
     },
     
