@@ -1,0 +1,42 @@
+{
+  "expo": {
+    "name": "Abyedh",
+    "slug": "Abyedh",
+    "version": "1.0.0",
+    "orientation": "portrait",
+    "icon": "./assets/icon.png",
+    "userInterfaceStyle": "light",
+    "splash": {
+      "image": "./assets/splash.png",
+      "resizeMode": "contain",
+      "backgroundColor": "#ffffff"
+    },
+    "assetBundlePatterns": [
+      "**/*"
+    ],
+    "ios": {
+      "supportsTablet": true
+    },
+    "android": {
+      "adaptiveIcon": {
+        "foregroundImage": "./assets/adaptive-icon.png",
+        "backgroundColor": "#ffffff"
+      },
+      "package": "abyedh.tn"
+    },
+    "web": {
+      "favicon": "./assets/favicon.png",
+      "bundler": "metro"
+    },
+    "extra": {
+      "eas": {
+        "projectId": "567d1d4f-1a2b-4010-aa74-1f1ede1431f5"
+      }
+    },
+    "owner": "khelifihoussem",
+    "scheme": "your-app-scheme",
+    "plugins": [
+      "expo-router"
+    ]
+  }
+}
