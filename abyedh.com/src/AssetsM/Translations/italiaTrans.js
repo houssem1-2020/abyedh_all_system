@@ -45,20 +45,20 @@ const ItaliaTrans = {
             },
         },
         mainPage: {
-            mainTitle : 'La piattaforma Abyedh italiana' , 
-            mainsubads : 'Informazioni utili nel mondo degli affari',
-            logInText : 'Inscrer-Vous', 
-            mainlogInText : 'Log In',
-            mainsearchInput : 'Ricerca ... ',
-            qrCodeScan : ' ... بَحْثْ',
-            dropDownProfile : {
-                profile : '',
-                systemLogIn : '',
-                systemSuivie : '',
-                parametres : '',
-                logOut : '',
+            mainTitle: 'Piattaforma Abyedh',
+            mainsubads: 'Molte applicazioni in un\'unica app',
+            mainlogInText: 'Accedi',
+            mainsearchInput: '... Ricerca',
+            qrCodeScan: '... Scansione',
+            dropDownProfile: {
+                profile: 'Profilo',
+                systemLogIn: 'Accesso al sistema',
+                systemSuivie: 'Seguimento della registrazione',
+                parametres: 'Cambia lingua',
+                logOut: 'Esci',
             },
-            mainadsCard : ' abyedh ti aiuterà a trovare : ',
+            mainadsCard: 'La Piattaforma Abyedh ti aiuta in diversi settori a trovare: ',
+
             mainTagsName: {
                 sante: 'Salute',
                 education: 'Educazione',
@@ -173,7 +173,7 @@ const ItaliaTrans = {
             toolsBSText1: 'Abyedh offre una serie di strumenti per creare un ambiente informativo che aiuti tutti gli utenti nelle loro attività quotidiane',
             toolsBSText2: 'Scopri gli strumenti Abyedh qui',
             footerVision: 'La visione di Abyedh',
-            footerHow: 'Come utilizzare Abyedh',
+            footerHow: 'Cambia il paese',
             footerWho: 'Chi siamo?',
             googlePlayAds1: '',
             googlePlayAds2: '',
@@ -1127,6 +1127,7 @@ const ItaliaTrans = {
                 agritools :'مَرْكِزْ صِحَّة',
                 
             },
+            bottomAbyedhText: "abyedh.com",
             toastText:{
                 failOne:'',
                 failTwo:'',
@@ -3194,7 +3195,15 @@ const ItaliaTrans = {
 
         },
         appPages : {
-            
+            publicationText: 'Pubblicazioni',
+            horaireText: 'Orari',
+            imagesText: 'Immagini',
+            ratingText: 'Recensioni',
+            tarifText: '',
+            shareText: 'Condividi',
+            messageText: '',
+            parametreText: 'Impostazioni del profilo',
+            voirProfileText: 'Vedi Profilo'
         },
         toolsApps : {
             toolsPage:{

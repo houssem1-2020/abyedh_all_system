@@ -18,7 +18,7 @@ function LogInPage() {
     /*#########################[UseEffect]##################################*/
     useEffect(() => {
         const UIDisSet = localStorage.getItem('UID');
-        if (UIDisSet) {window.location.href = "/Profile/L";}
+        if (UIDisSet) {window.location.href = "/Profile/L/ma";}
         
     });
 
@@ -32,12 +32,19 @@ function LogInPage() {
                 tag : GConf.SystemTag,
                 LoginData : loginD,
             }).then(function (response) {
+                console.log(response.data)
                 if(response.data.Exist == true) {
                         toast.success(t('loginPage.toastText.saved'), GConf.TostSuucessGonf)
                         setLS(false)
                         localStorage.setItem('UserData', JSON.stringify(response.data.UserD));
                         localStorage.setItem('UID', response.data.UserD.UID);
-                        window.location.href = "/Profile";
+                        if(response.data.SystemD) {
+                            //localStorage.setItem('UserData', JSON.stringify(response.data.SystemD)); 
+                            localStorage.setItem('PID', response.data.SystemD.PID);
+                            localStorage.setItem('APP_TAG', response.data.SystemD.TAG);   
+                        }
+                        window.location.href = "/Profile"; 
+
                 }
                 else{
                     toast.error(t('loginPage.toastText.notSaved'), GConf.TostSuucessGonf)
@@ -53,7 +60,7 @@ function LogInPage() {
                     <div className='row m-0'>
                         <div className='col-6 text-start align-self-center'>
                             <NavLink exact='true' to='/' className="m-0 p-0 ms-3">
-                                <img  className="border-div-s" src="https://cdn.abyedh.tn/images/logo/mlogo.gif"   alt="Logo" style={{width:'20px', height:'40px', borderRadius: '10px 20px 10px 50px'}} />
+                                <img  className="border-div-s" src="https://cdn.abyedh.com/images/logo/mlogo.gif"   alt="Logo" style={{width:'20px', height:'40px', borderRadius: '10px 20px 10px 50px'}} />
                             </NavLink>
                         </div>
                         

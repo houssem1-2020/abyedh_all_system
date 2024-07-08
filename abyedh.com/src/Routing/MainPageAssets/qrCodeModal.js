@@ -44,7 +44,7 @@ function QrCodeModal({ setQRCodeValue, qrCodeValue, GoToQrCodeFunction, }) {
         />
             
         {qrCodeValue == null ? 
-            <div className='col-12 col-lg-6'>  <img src='https://cdn.abyedh.tn/Images/required/preview.gif' width='100%'  height='200px' /> 
+            <div className='col-12 col-lg-6'>  <img src='https://cdn.abyedh.com/Images/required/preview.gif' width='100%'  height='200px' /> 
                 <h3 className='text-center mt-0'>قم بمسح المعرف </h3> 
                 </div> 
             : 

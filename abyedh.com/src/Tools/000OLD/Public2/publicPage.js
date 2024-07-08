@@ -25,7 +25,7 @@ function PublicPage() {
         const UserCard = () =>{
             return(<>
                 <NavLink exact='true' to='/Profile' className="navbar-brand border-div m-0 p-0 ms-3">
-                    <img  className="rounded-circle p-0 m-0 me-1" src="https://cdn.abyedh.tn/images/p_pic/15.gif"   alt="Logo" style={{width:'30px', height:'30px'}} />
+                    <img  className="rounded-circle p-0 m-0 me-1" src="https://cdn.abyedh.com/images/p_pic/15.gif"   alt="Logo" style={{width:'30px', height:'30px'}} />
                 </NavLink>
             </>)
         }
@@ -34,7 +34,7 @@ function PublicPage() {
                     <div className='row m-0'>
                         <div className='col-6 text-start align-self-center'>
                             <NavLink exact='true' to='/Tools' className="m-0 p-0 ms-3">
-                                <img  className="border-div" src="https://cdn.abyedh.tn/images/logo/mlogo.gif"   alt="Logo" style={{width:'20px', height:'40px'}} />
+                                <img  className="border-div" src="https://cdn.abyedh.com/images/logo/mlogo.gif"   alt="Logo" style={{width:'20px', height:'40px'}} />
                             </NavLink>
                         </div>
                         <div className='col-6 text-end align-self-center'>
@@ -52,7 +52,7 @@ function PublicPage() {
                        <h3  dir='rtl' style={{color:GConf.Tools.public.themeColor}}> {GConf.Tools.public.textAds} </h3>
                 </div>
                 <div className='col-4 align-self-end text-center d-none d-lg-block'>
-                    <img src='https://cdn.abyedh.tn/images/Tools/public.svg' className='img-responsive' width='40%' height='40%'  />
+                    <img src='https://cdn.abyedh.com/images/Tools/public.svg' className='img-responsive' width='40%' height='40%'  />
                 </div>
             </div> 
         </div>

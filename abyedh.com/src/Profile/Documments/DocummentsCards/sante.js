@@ -73,7 +73,7 @@ function SanteDocumment() {
     const ActivePaneCard = (props) =>{
         return(<>
             <div className={`card p-2 btn-cursor mb-1  text-center    border-div ${ activeIndex == props.activeI ? 'border-2 border-danger ': '' }`} onClick={ () => setActiveIndex(props.activeI)}>
-                    <h2 className='text-center mb-0'  ><img src={`https://cdn.abyedh.tn/images/Profile/documments/sante/${props.icon}`} width='40px'  height='40px' /></h2> 
+                    <h2 className='text-center mb-0'  ><img src={`https://cdn.abyedh.com/images/Profile/documments/sante/${props.icon}`} width='40px'  height='40px' /></h2> 
                     <h5 className='mt-2'>{props.text}</h5>
             </div>
         </>)
@@ -246,7 +246,7 @@ function SanteDocumment() {
     const EmptyCard = () =>{
         return(<>
             <div className='card-body text-center'>
-                <img src='https://cdn.abyedh.tn/images/profile/doc-empty.svg' width='80%'  height='220px' />
+                <img src='https://cdn.abyedh.com/images/profile/doc-empty.svg' width='80%'  height='220px' />
                 <h5>ليس لديك اي عنصر في المفضلة . قم بإكتشاف محرك البحث في الصفحة الرئسية</h5> 
             </div>
         </>)

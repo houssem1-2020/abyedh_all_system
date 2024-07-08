@@ -7,27 +7,26 @@ import GConf from '../../App/AssetsM/APPConf';
 import NavBar from '../../App/Dashboard/navBar'
 import LeftSideCard from '../../App/Dashboard/leftSide';
 
-// import MainPage from '../../App/Dashboard/Main/mainPage';
-// import SystemPage from '../../App/Dashboard/System/systemPage';
-// import SpesificPage from '../../App/Dashboard/Spesific/spesificPage';
-// import RequestPage from '../../App/Dashboard/Requests/requestPage';
-// import RequestInfo from "../../App/Dashboard/Requests/requestInfo"; 
-// import MessagesPages from '../../App/Dashboard/Messages/messagesPage'
-// import ProfilePage from '../../App/Dashboard/Profile/profilePage'
-// import LogIn from '../../App/LogIn/logIn';
-// import AuthPage from '../../App/LogIn/authPage';
-import ProfilePID from '../../App/Dashboard/Profile/profilePID';
+ 
+import ProfilePID from '../../App/Dashboard/Used/Profile/profilePID';
 
-const MainPage = React.lazy(() => import('../../App/Dashboard/Main/mainPage'));
-const SystemPage = React.lazy(() => import('../../App/Dashboard/System/systemPage'));
-const SpesificPage = React.lazy(() => import('../../App/Dashboard/Spesific/spesificPage'));
-const PublicationPage = React.lazy(() => import('../../App/Dashboard/Publication/publicationPage'));
-const RequestPage = React.lazy(() => import('../../App/Dashboard/Requests/requestPage'));
-const RequestInfo = React.lazy(() => import('../../App/Dashboard/Requests/requestInfo'));
-const MessagesPages = React.lazy(() => import('../../App/Dashboard/Messages/messagesPage'));
-const ProfilePage = React.lazy(() => import('../../App/Dashboard/Profile/profilePage'));
 const LogIn = React.lazy(() => import('../../App/LogIn/logIn'));
 const AuthPage = React.lazy(() => import('../../App/LogIn/authPage'));
+
+const MainPage = React.lazy(() => import('../../App/Dashboard/Main/mainPage'));
+const SpesificPage = React.lazy(() => import('../../App/Dashboard/Spesific/spesificPage'));
+const RequestPage = React.lazy(() => import('../../App/Dashboard/Requests/requestPage'));
+const RequestInfo = React.lazy(() => import('../../App/Dashboard/Requests/requestInfo'));
+
+const SystemPage = React.lazy(() => import('../../App/Dashboard/System/systemPage'));
+const PublicationPage = React.lazy(() => import('../../App/Dashboard/Used/Publication/publicationPage'));
+const MessagesPages = React.lazy(() => import('../../App/Dashboard/Used/Messages/messagesPage'));
+const ImagesPages = React.lazy(() => import('../../App/Dashboard/Used/Images/messagesPage'));
+const SharePages = React.lazy(() => import('../../App/Dashboard/Used/Share/messagesPage'));
+const AvisPages = React.lazy(() => import('../../App/Dashboard/Used/Avis/messagesPage'));
+const HorairePages = React.lazy(() => import('../../App/Dashboard/Used/Horaire/messagesPage'));
+const ProfilePage = React.lazy(() => import('../../App/Dashboard/Used/Profile/profilePage'));
+
 // const ProfilePID = React.lazy(() => import('../../App/Dashboard/Profile/profilePID'));
 
 
@@ -90,13 +89,18 @@ const UserRouter = () => (
                     <Route path="" exact element={<Suspense fallback={<ForLazyLoadingLoader />}><MainPage /></Suspense>} />
                     <Route path="System" exact element={<Suspense fallback={<ForLazyLoadingLoader />}><SystemPage /></Suspense>} />
                     <Route path="Spesific" exact element={<Suspense fallback={<ForLazyLoadingLoader />}><SpesificPage /></Suspense>} />
-                    <Route path="Publication" exact element={<Suspense fallback={<ForLazyLoadingLoader />}><PublicationPage /></Suspense>} />
+                    
                     <Route path="rq" exact element={<Outlet />} >
                         <Route path=":TAG" exact element={<Suspense fallback={<ForLazyLoadingLoader />}><RequestPage /></Suspense>} />
                         <Route path="info/:TAG/:CID" exact element={<Suspense fallback={<ForLazyLoadingLoader />}><RequestInfo /></Suspense>} />
                     </Route>
                     <Route path="Profile" exact element={<Suspense fallback={<ForLazyLoadingLoader />}><ProfilePage /></Suspense>} />
                     <Route path="Message" exact element={<Suspense fallback={<ForLazyLoadingLoader />}><MessagesPages /></Suspense>} />
+                    <Route path="Images" exact element={<Suspense fallback={<ForLazyLoadingLoader />}><ImagesPages /></Suspense>} />
+                    <Route path="Horaire" exact element={<Suspense fallback={<ForLazyLoadingLoader />}><HorairePages /></Suspense>} />
+                    <Route path="Avis" exact element={<Suspense fallback={<ForLazyLoadingLoader />}><AvisPages /></Suspense>} />
+                    <Route path="Publication" exact element={<Suspense fallback={<ForLazyLoadingLoader />}><PublicationPage /></Suspense>} />
+                    <Route path="Share" exact element={<Suspense fallback={<ForLazyLoadingLoader />}><SharePages /></Suspense>} />
             </Route>
             <Route path="Profile/ProfilePrint" exact element={<ProfilePID />} /> 
     </Route>

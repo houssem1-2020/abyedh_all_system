@@ -14,6 +14,7 @@ import { Helmet } from 'react-helmet';
 import WorldMap from '../../AssetsM/wordMap';
 import { useTranslation, Trans } from 'react-i18next';
 import detectRTL from 'rtl-detect';
+import { useNavigate} from 'react-router-dom';
 
 const ScrollDelegCard = ({localiteList, tag, setFilterLoading}) =>{
     const { t, i18n } = useTranslation();
@@ -38,6 +39,7 @@ function ResultPage() {
     L.Icon.Default.mergeOptions(GConf.LeafleftIcon);
     const { t, i18n } = useTranslation();
     const isRTL = detectRTL.isRtlLang(i18n.language);
+    const navigate = useNavigate();
 
     /* ############### UseEffect #################*/
     useEffect(() => {
@@ -132,7 +134,7 @@ function ResultPage() {
         const UserCard = () =>{
             return(<>
                 <NavLink exact='true' to='/Profile' className="navbar-brand border-div m-0 p-0 ms-3">
-                    <img  className="rounded-circle p-0 m-0 me-1" src={`https://cdn.abyedh.tn/images/p_pic/${GConf.UserData.UData.PictureId}.gif`}   alt="Logo" style={{width:'30px', height:'30px'}} />
+                    <img  className="rounded-circle p-0 m-0 me-1" src={`https://cdn.abyedh.com/images/p_pic/${GConf.UserData.UData.PictureId}.gif`}   alt="Logo" style={{width:'30px', height:'30px'}} />
                 </NavLink>
             </>)
         }
@@ -141,7 +143,7 @@ function ResultPage() {
                     <div className='row'>
                         <div className='col-6 text-start align-self-center'>
                             <NavLink exact='true' to={`/S/L/${tag}`} className="m-0 p-0 ms-3">
-                                <img  className="border-div-s d-none d-lg-inline" src="https://cdn.abyedh.tn/images/logo/mlogo.gif"   alt="Logo" style={{width:'20px', height:'40px',borderRadius: '10px 20px 10px 50px'}} />
+                                <img  className="border-div-s d-none d-lg-inline" src="https://cdn.abyedh.com/images/logo/mlogo.gif"   alt="Logo" style={{width:'20px', height:'40px',borderRadius: '10px 20px 10px 50px'}} />
                                 <div  className="d-lg-none d-inline-block text-white p-1"  > <span className='bi bi-arrow-left-short bi-md ' ></span> </div>
                             </NavLink>
                         </div>
@@ -185,29 +187,13 @@ function ResultPage() {
     }
     const ActionsBtnCard = (props) =>{
         return(<>
-        <Button className='bg-white  border mb-2 ' dir={isRTL ? 'rtl' : 'ltr'}  style={{borderRadius:'18px', width:'auto', color: GConf.ADIL[tag].themeColor}}     > 
-                    <Icon name={props.data.icon} className={isRTL ? 'ms-1' : 'me-1'} /> {t(`resultPage.actionTextName.${tag}.${props.data.link}`)}  
-        </Button>
- 
-            {/* <NavLink exact='true' to={`/S/P/${props.data.link}/${tag}/${PID}`}> 
-                <Button  animated size={props.fluid ? 'large' : 'small'}  className='bg-white   border mb-2 '  fluid={props.fluid}    icon style={{borderRadius:'18px'}}>
-                    <Button.Content visible style={{color: GConf.ADIL[tag].themeColor}}>
-                        <div className='row'>
-                            <div className='col-3 align-self-center'><Icon name={props.data.icon} /> </div>
-                            <div className='col-9 align-self-center'>{props.data.name}  </div>
-                        </div>
-                    </Button.Content>
-                    <Button.Content hidden style={{color: GConf.ADIL[tag].themeColor}}>
-                        <Icon name={props.data.icon} />
-                    </Button.Content> 
-        
-                </Button>*/}
-            {/* </NavLink> */}
-            
+                <Button className='bg-white  border p-2 ps-3 pe-3 mb-2 ' dir={isRTL ? 'rtl' : 'ltr'}  style={{borderRadius:'18px', width:'auto', color: GConf.ADIL[tag].themeColor}}   onClick={() => navigate(`/S/P/${tag}/${props.PID}/?action=true`)}  > 
+                            <Icon name={props.data.icon} className={isRTL ? 'ms-1' : 'me-1'} /> {t(`resultPage.actionTextName.${tag}.${props.data.link}`)}  
+                </Button>
             </>)
     }
 
-    const ResultCard = (props) => {
+    const ResultCardOld = (props) => {
         const HalfStarRating = ({ rating }) => {
             const wholeStars = Math.floor(rating);
             const hasHalfStar = rating - wholeStars !== 0;
@@ -232,7 +218,7 @@ function ResultPage() {
                     <div className='card shadow-sm h-100 border-div' style={{position:'relative'}}>
                         <NavLink exact='true' to={`/S/P/${tag}/${props.data.PID}`} className='stretched-link'></NavLink>
                         {/* <div className="card-header  " style={{marginBottom:'50px', height:'90px',  borderRadius:'0', background: `linear-gradient(to bottom, ${ConverColorToHsl(GConf.ADIL[tag].themeColor)},  #ffffff` , border: '0px solid' ,}}>  */}
-                        <div className="card-header  " style={{marginBottom:'50px', height:'90px',  borderRadius:'0', backgroundImage: `url(https://cdn.abyedh.tn/images/ads/${tag}.svg)` , backgroundSize: 'auto', backgroundPosition: 'center' , border: '0px solid' ,}}> 
+                        <div className="card-header  " style={{marginBottom:'50px', height:'90px',  borderRadius:'0', backgroundImage: `url(https://cdn.abyedh.com/images/ads/${tag}.svg)` , backgroundSize: 'auto', backgroundPosition: 'center' , border: '0px solid' ,}}> 
                             <div style={{ content: '',  background: 'rgba(255, 255, 255, 0.6)',  position: 'absolute', top: 0, left: 0, width: '100%', height: '100px', }}></div>
                             
                             <span
@@ -243,7 +229,7 @@ function ResultPage() {
                                 }}
                                 className="card-img bg-white shadow border-0"
                             >
-                                <img src={`https://cdn.abyedh.tn/Images/Search/CIcons/${tag}.gif`} className='img-responsive rounded-circle bg-white p-3' width='100px'  height='100px' />
+                                <img src={`https://cdn.abyedh.com/Images/Search/CIcons/${tag}.gif`} className='img-responsive rounded-circle bg-white p-3' width='100px'  height='100px' />
                             </span>
                             
                         </div>
@@ -279,6 +265,105 @@ function ResultPage() {
                         </div> */}
                     </div>
                     
+                </div>
+                </>);
+    }
+    const ResultCard = (props) => {
+        const HalfStarRating = ({ rating }) => {
+            const wholeStars = Math.floor(rating);
+            const hasHalfStar = rating - wholeStars !== 0;
+
+            return (
+                <span className="five-star-rating">
+                {[...Array(wholeStars)].map((_, index) => (
+                    <Icon key={index} name="star" size='small' color="yellow" />
+                ))}
+                {hasHalfStar && (
+                    <Icon name="star half" size='small' color="yellow" />
+                )}
+                {[...Array(5 - Math.ceil(rating))].map((_, index) => (
+                    <Icon key={index} size='small' name="star outline" color="grey" />
+                ))}
+                </span>
+            );
+        };
+
+        return (<>
+                <div className='col-12 col-lg-4 mb-3 '>
+                    <div className='card shadow-sm h-100 border-div d-none' style={{position:'relative'}}>
+                        <NavLink exact='true' to={`/S/P/${tag}/${props.data.PID}`} className='stretched-link'></NavLink>
+                        {/* <div className="card-header  " style={{marginBottom:'50px', height:'90px',  borderRadius:'0', background: `linear-gradient(to bottom, ${ConverColorToHsl(GConf.ADIL[tag].themeColor)},  #ffffff` , border: '0px solid' ,}}>  */}
+                        <div className="card-header  " style={{marginBottom:'50px', height:'90px',  borderRadius:'0', backgroundImage: `url(https://cdn.abyedh.com/images/ads/${tag}.svg)` , backgroundSize: 'auto', backgroundPosition: 'center' , border: '0px solid' ,}}> 
+                            <div style={{ content: '',  background: 'rgba(255, 255, 255, 0.6)',  position: 'absolute', top: 0, left: 0, width: '100%', height: '100px', }}></div>
+                            
+                            <span
+                                style={{
+                                width: '100px',
+                                height: '100px',
+                                borderRadius: '50%',
+                                }}
+                                className="card-img bg-white shadow border-0"
+                            >
+                                <img src={`https://cdn.abyedh.com/Images/Search/CIcons/${tag}.gif`} className='img-responsive rounded-circle bg-white p-3' width='100px'  height='100px' />
+                            </span>
+                            
+                        </div>
+                        <div className='floating-card-result-card'>
+                            <span className=" m-2 text-dark"> {Math.min(Math.max(parseFloat(`${Math.abs(props.data.PID)}`[0] + '.' + `${Math.abs(props.data.PID)}`.slice(-1)), 1), 5)} <HalfStarRating rating={Math.min(Math.max(parseFloat(`${Math.abs(props.data.PID)}`[0] + '.' + `${Math.abs(props.data.PID)}`.slice(-1)), 1), 5)} icon='star' disabled size='small' />  </span>
+                            <span className=" m-2 text-dark">| <span className='bi bi-hand-thumbs-up-fill'></span> {props.data.Likes_Num} </span>
+                            <span className=" m-2 text-dark">| <span className='bi bi-eye-fill'></span> {props.data.Views_Num >= 1000 ? (parseInt(props.data.Views_Num.toString().substring(0, 4)) / 1000).toFixed(1) + 'K' :  props.data.Views_Num}</span>
+                        </div>
+                        
+                        <div className='text-center '> <h5 style={{ color: GConf.ADIL[tag].themeColor}}>{props.data.Name} { (props.data.Activated == 'true' ||  props.data.Activated == 'autoSaved') ?  <span className='bi bi-patch-check-fill  ' style={{color: '#1d9bf0'}}></span> : ''}</h5></div>
+                        <div className='card-body text-secondary ' >
+                            <div className='text-end  pb-2' dir='ltr'>
+                                {props.data.Genre != '' ?  <><div className={`${isRTL ? 'text-end' : 'text-start'}`} style={{marginRight:'20px'}} dir={isRTL ? 'rtl' : 'ltr'}> <span className='bi bi-bookmark-heart-fill' style={{color: GConf.ADIL[tag].themeColor}}></span> : {props.data.Genre}</div> </> : <></> }
+                                {props.data.Gouv != '' ?  <><div className={`${isRTL ? 'text-end' : 'text-start'}`} style={{marginRight:'20px'}} dir={isRTL ? 'rtl' : 'ltr'}> <span className='bi bi-geo-alt-fill' style={{color: GConf.ADIL[tag].themeColor}}></span> : {props.data.Gouv}</div> </> : <></> }
+                                {props.data.Deleg != '' ?  <><div className={`${isRTL ? 'text-end' : 'text-start'}`} style={{marginRight:'20px'}} dir={isRTL ? 'rtl' : 'ltr'}> <span className='bi bi-geo-alt' style={{color: GConf.ADIL[tag].themeColor}}></span> : {props.data.Deleg}</div> </> : <></> }
+                                {props.data.Adress != '' ?  <><div className={`${isRTL ? 'text-end' : 'text-start'}`} style={{marginRight:'20px'}} dir={isRTL ? 'rtl' : 'ltr'}> <span className='bi bi-pin-map-fill' style={{color: GConf.ADIL[tag].themeColor}}></span> : {props.data.Adress}</div> </> : <></> }
+                            </div>
+                            {/* <div className='d-flex '>
+                                <span className='ms-2 bi bi-award-fill bi-sm'></span>
+                                <span className='ms-2 bi bi-wifi bi-sm'></span>
+                                <span className='ms-2 bi bi-hourglass-split bi-sm'></span>
+                                <span className='ms-2 bi bi-x-diamond-fill bi-sm'></span>
+                            </div> */}
+                        </div>
+                        
+                        <div className='col-12 d-flex pt-0  p-2' dir={isRTL ? 'rtl' : 'rtl'}  >
+                            { GConf.ADIL[tag].systemActive ?  GConf.ADIL[tag].profileBtns.map( (data,index) => <ActionsBtnCard key={index} data={data} indexKey={index} /> ).slice(0, GConf.ADIL[tag].profileBtns.length - 1) : <></> }                        
+                        </div>
+                        {/* <div className="mt-0 p-1" dir={isRTL ? 'rtl' : 'ltr'} style={{width:'100%', overflowX: 'auto', overflowY : 'hidden', whiteSpace:'nowrap'}}>
+                            <div className="d-flex"  >
+                                    { GConf.ADIL[tag].systemActive ?  GConf.ADIL[tag].profileBtns.map( (data,index) => <ActionsBtnCard key={index} data={data} indexKey={index} /> ) : <></> }
+                            </div>
+                        </div> */}
+                    </div>
+                    <div className='card shadow-sm h-100   border-div'>
+                        <div className='row m-2' dir={isRTL ? 'rtl' : 'ltr'}> 
+                            <div className='col-4 align-self-center' onClick={() => navigate(`/S/P/${tag}/${props.data.PID}`)}>
+                                    <div><img src={`https://cdn.abyedh.com/Images/Search/CIcons/${tag}.gif`} className='img-responsive rounded-circle bg-white  ' width='80px'  height='80px' /></div>
+                                    <HalfStarRating size='small' rating={Math.min(Math.max(parseFloat(`${Math.abs(props.data.PID)}`[0] + '.' + `${Math.abs(props.data.PID)}`.slice(-1)), 1), 5)} icon='star' disabled   />
+                                    <div>
+                                        <span className="text-dark">  <span className='bi bi-hand-thumbs-up-fill'></span> {props.data.Likes_Num} </span>
+                                        <span className="text-dark">| <span className='bi bi-eye-fill'></span> {props.data.Views_Num >= 1000 ? (parseInt(props.data.Views_Num.toString().substring(0, 4)) / 1000).toFixed(1) + 'K' :  props.data.Views_Num}</span>
+                                    </div>
+                            </div>
+                            <div className='col-8 align-self-center'>
+                                <div className='text-end ms-2 me-2 text-truncate' onClick={() => navigate(`/S/P/${tag}/${props.data.PID}`)}> <h4 style={{ color: GConf.ADIL[tag].themeColor, maxWidth:'90%'}}>{props.data.Name} { (props.data.Activated == 'true' ||  props.data.Activated == 'autoSaved') ?  <span className='bi bi-patch-check-fill  ' style={{color: '#1d9bf0'}}></span> : ''}</h4></div>
+                                <div className='text-start  pb-2'  >
+                                    {props.data.Genre != '' ?  <><div className={`${isRTL ? 'text-end' : 'text-start'}`} style={{marginRight:'20px'}} dir={isRTL ? 'rtl' : 'ltr'}> <span className='bi bi-bookmark-heart-fill' style={{color: GConf.ADIL[tag].themeColor}}></span> : {props.data.Genre}</div> </> : <></> }
+                                    {props.data.Gouv != '' ?  <><div className={`${isRTL ? 'text-end' : 'text-start'}`} style={{marginRight:'20px'}} dir={isRTL ? 'rtl' : 'ltr'}> <span className='bi bi-geo-alt-fill' style={{color: GConf.ADIL[tag].themeColor}}></span> : {props.data.Gouv}</div> </> : <></> }
+                                    {props.data.Deleg != '' ?  <><div className={`${isRTL ? 'text-end' : 'text-start'}`} style={{marginRight:'20px'}} dir={isRTL ? 'rtl' : 'ltr'}> <span className='bi bi-geo-alt' style={{color: GConf.ADIL[tag].themeColor}}></span> : {props.data.Deleg}</div> </> : <></> }
+                                    {props.data.Adress != '' ?  <><div className={`text-truncate ${isRTL ? 'text-end' : 'text-start'}`} style={{marginRight:'20px', maxWidth:'280px'}} dir={isRTL ? 'rtl' : 'ltr'}> <span className='bi bi-pin-map-fill' style={{color: GConf.ADIL[tag].themeColor}}></span> : {props.data.Adress}</div> </> : <></> }
+                                </div>
+                                <div className='  d-flex pt-0  p-2'  dir={isRTL ? 'rtl' : 'rtl'} style={{width:'100%', overflowX: 'auto', overflowY : 'hidden', whiteSpace:'nowrap'}} >
+                                    { GConf.ADIL[tag].systemActive ?  GConf.ADIL[tag].profileBtns.map( (data,index) => <ActionsBtnCard key={index} PID ={props.data.PID} data={data} indexKey={index} /> ).slice(0, GConf.ADIL[tag].profileBtns.length - 1) : <></> }                        
+                                </div>
+                            </div>
+                            
+                        </div>
+                    </div>
                 </div>
                 </>);
     }
@@ -363,8 +448,8 @@ function ResultPage() {
         return(<>
             <div className='card-body mb-4 ' dir={isRTL ? 'rtl' : 'ltr'}>
                 <div className='text-center'>
-                    <img src='https://cdn.abyedh.tn/Images/Errors/error-page.png' className='img-gray d-lg-none' width='100%'  height='300px' />
-                    <img src='https://cdn.abyedh.tn/Images/Errors/error-page.png' className='img-gray d-none d-lg-inline' width='60%'  height='300px' />
+                    <img src='https://cdn.abyedh.com/Images/Errors/error-page.png' className='img-gray d-lg-none' width='100%'  height='300px' />
+                    <img src='https://cdn.abyedh.com/Images/Errors/error-page.png' className='img-gray d-none d-lg-inline' width='60%'  height='300px' />
                 </div>
                 <h3>{t('resultPage.pasDeResultat.desoleText')}</h3> 
                 <ul >

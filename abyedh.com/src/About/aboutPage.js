@@ -37,7 +37,7 @@ function AboutPage() {
             <div className='row p-0 m-0 ' style={{height:'250px'}}>
                 <div className='col-12 col-lg-4 text-center align-self-center'>
                     <NavLink exact='true' to='/' >
-                        <img src='https://cdn.abyedh.tn/images/logo/mlogo.gif' className='img-responsive   border border-danger bg-danger' width='70px' height='120px' style={{borderRadius: '10px 20px 10px 50px'}} /> 
+                        <img src='https://cdn.abyedh.com/images/logo/mlogo.gif' className='img-responsive   border border-danger bg-danger' width='70px' height='120px' style={{borderRadius: '10px 20px 10px 50px'}} /> 
                     </NavLink> 
                 </div>
                 <div className='col-12 col-lg-8     text-center align-self-center'>
@@ -80,7 +80,7 @@ function AboutPage() {
             
             <div className="row" style={{marginBottom:'70px'}}>
                 <div className={`col-12 col-lg-4 align-self-center text-center order-sm-1   ${props.data.genre === 'LI' ? 'order-lg-2 text-lg-end': 'order-lg-1 text-lg-start'}`}>
-                    <img src={`https://cdn.abyedh.tn/images/About/${props.data.adsUrl}`} className="img-responsive mb-4" width="60%" height='60%'/>
+                    <img src={`https://cdn.abyedh.com/images/About/${props.data.adsUrl}`} className="img-responsive mb-4" width="60%" height='60%'/>
                 </div>
                 <div className={`col-12 col-lg-8 align-self-center ${props.data.genre === 'LI' ? 'order-lg-1 ': 'order-lg-2'}`}>
                     
@@ -152,7 +152,7 @@ function AboutPage() {
                         <div className='mb-1'><NavLink exact='true' to='/#' className='text-white'> من نحن ؟  -  <span className='bi bi-people-fill' ></span> </NavLink></div>
                     </div>
                     <div className='col-5 col-lg-4 align-self-center text-center'>
-                        <img  className="rounded-pill-abyedh" src="https://cdn.abyedh.tn/images/logo/mlogo.gif" alt="Logo" style={{width:'40px', height:'90px'}} />
+                        <img  className="rounded-pill-abyedh" src="https://cdn.abyedh.com/images/logo/mlogo.gif" alt="Logo" style={{width:'40px', height:'90px'}} />
                     </div>
                 </div>
             </div>

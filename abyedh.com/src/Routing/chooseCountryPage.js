@@ -62,7 +62,7 @@ function DocteurSpecific() {
   
       <div className="d-none d-lg-block"><br /><br /></div>
       <div className="container-fluid"> 
-          <h1 className="text-center text-secondary display-4 mb-4">Abyedh IS the First Super-app in the Globe </h1> 
+          {/* <h1 className="text-center text-secondary display-4 mb-4">Abyedh IS the First Super-app in the Globe </h1>  */}
       </div>
       <div className="container">
           

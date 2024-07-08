@@ -28,7 +28,7 @@ function BlogPage() {
         const UserCard = () =>{
             return(<>
                 <NavLink exact='true' to='/Profile' className="navbar-brand border-div m-0 p-0 ms-3">
-                    <img  className="rounded-circle p-0 m-0 me-1" src={`https://cdn.abyedh.tn/images/p_pic/${GConf.UserData.UData.PictureId}.gif`}   alt="Logo" style={{width:'30px', height:'30px'}} />
+                    <img  className="rounded-circle p-0 m-0 me-1" src={`https://cdn.abyedh.com/images/p_pic/${GConf.UserData.UData.PictureId}.gif`}   alt="Logo" style={{width:'30px', height:'30px'}} />
                 </NavLink>
             </>)
         }
@@ -37,7 +37,7 @@ function BlogPage() {
                     <div className='row'>
                         <div className='col-6 text-start align-self-center'>
                             <NavLink exact='true' to='/Tools' className="m-0 p-0 ms-3">
-                                <img  className="border-div-s d-none d-lg-inline border bg-danger" src="https://cdn.abyedh.tn/images/logo/mlogo.gif"   alt="Logo" style={{width:'20px', height:'40px', borderRadius: '10px 20px 10px 50px'}} />
+                                <img  className="border-div-s d-none d-lg-inline border bg-danger" src="https://cdn.abyedh.com/images/logo/mlogo.gif"   alt="Logo" style={{width:'20px', height:'40px', borderRadius: '10px 20px 10px 50px'}} />
                                 <div  className="d-lg-none d-inline-block text-secondary p-1"  > <span className='bi bi-arrow-left-short bi-md ' ></span> </div>
                             </NavLink>
                         </div>
@@ -57,7 +57,7 @@ function BlogPage() {
                        <h3  dir='rtl' style={{color:GConf.Tools.blog.themeColor}}> {GConf.Tools.blog.textAds} </h3>
                 </div>
                 <div className='col-4 align-self-end text-center d-none d-lg-block'>
-                    <img src='https://cdn.abyedh.tn/images/Tools/blog.svg' className='img-responsive' width='40%' height='40%'  />
+                    <img src='https://cdn.abyedh.com/images/Tools/blog.svg' className='img-responsive' width='40%' height='40%'  />
                 </div>
             </div> 
         </div>

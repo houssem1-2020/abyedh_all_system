@@ -94,7 +94,7 @@ function ProfileAction() {
         const UserCard = () =>{
             return(<>
                 <NavLink exact='true' to='/Profile' className="navbar-brand border-div m-0 p-0 ms-3">
-                    <img  className="rounded-circle p-0 m-0 me-1" src={`https://cdn.abyedh.tn/images/p_pic/${GConf.UserData.UData.PictureId}.gif`}   alt="Logo" style={{width:'30px', height:'30px'}} />
+                    <img  className="rounded-circle p-0 m-0 me-1" src={`https://cdn.abyedh.com/images/p_pic/${GConf.UserData.UData.PictureId}.gif`}   alt="Logo" style={{width:'30px', height:'30px'}} />
                 </NavLink>
             </>)
         }
@@ -103,7 +103,7 @@ function ProfileAction() {
                     <div className='row'>
                         <div className='col-6 text-start align-self-center'>
                             <NavLink exact='true' to={`/S/L/${tag}`} className="m-0 p-0 ms-3">
-                                <img  className="border-div d-none d-lg-inline" src="https://cdn.abyedh.tn/images/logo/mlogo.gif"   alt="Logo" style={{width:'20px', height:'40px'}} />
+                                <img  className="border-div d-none d-lg-inline" src="https://cdn.abyedh.com/images/logo/mlogo.gif"   alt="Logo" style={{width:'20px', height:'40px'}} />
                                 <div  className="d-lg-none d-inline-block text-white p-1"  > <span className='bi bi-arrow-left-short bi-md ' ></span> </div>
                             </NavLink>
                         </div>
@@ -210,7 +210,7 @@ function ProfileAction() {
                         <StateCard status={tag} />
                     </div>
                     <div className='col-12 col-md-4 mb-4 order-1 order-lg-2 text-center align-self-center'>
-                        <img src={`https://cdn.abyedh.tn/images/ads/${tag}.svg`} width='60%' heigth='60%' className='img-responsive' />
+                        <img src={`https://cdn.abyedh.com/images/ads/${tag}.svg`} width='60%' heigth='60%' className='img-responsive' />
                     </div>
                 </div>
             </div>

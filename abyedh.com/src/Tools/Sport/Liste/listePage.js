@@ -43,7 +43,7 @@ function BlogProfilePage() {
             const UserCard = () =>{
                 return(<>
                     <NavLink exact='true' to='/Profile' className="navbar-brand border-div m-0 p-0 ms-3">
-                        <img  className="rounded-circle p-0 m-0 me-1" src={`https://cdn.abyedh.tn/images/p_pic/${GConf.UserData.UData.PictureId}.gif`}   alt="Logo" style={{width:'30px', height:'30px'}} />
+                        <img  className="rounded-circle p-0 m-0 me-1" src={`https://cdn.abyedh.com/images/p_pic/${GConf.UserData.UData.PictureId}.gif`}   alt="Logo" style={{width:'30px', height:'30px'}} />
                     </NavLink>
                 </>)
             }
@@ -52,7 +52,7 @@ function BlogProfilePage() {
                         <div className='row'>
                             <div className='col-6 text-start align-self-center'>
                                 <NavLink exact='true' to='../' className="m-0 p-0 ms-3">
-                                    <img  className="border-div-s d-none d-lg-inline border bg-danger" src="https://cdn.abyedh.tn/images/logo/mlogo.gif"   alt="Logo" style={{width:'20px', height:'40px', borderRadius: '10px 20px 10px 50px'}} />
+                                    <img  className="border-div-s d-none d-lg-inline border bg-danger" src="https://cdn.abyedh.com/images/logo/mlogo.gif"   alt="Logo" style={{width:'20px', height:'40px', borderRadius: '10px 20px 10px 50px'}} />
                                     <div  className="d-lg-none d-inline-block text-secondary p-1"  > <span className='bi bi-arrow-left-short bi-md ' ></span> </div>
                                 </NavLink>
                             </div>
@@ -68,7 +68,7 @@ function BlogProfilePage() {
                 <div className='col-6 col-lg-2 mb-3 '>
                     <NavLink exact='true' to={`/tools/Products/profile/${genre}/${tag}/${props.data.PK}`} className="   ">
                         <div className='card card-body shadow-sm  border-div text-center h-100'>
-                            <div className='text-center'><img src={`https://cdn.abyedh.tn/images/Tools/${SubCat[genre].subCategories.find(item => item.name === tag).image}`} className='text-center' width={'50px'} height={'50px'} /></div> 
+                            <div className='text-center'><img src={`https://cdn.abyedh.com/images/Tools/${SubCat[genre].subCategories.find(item => item.name === tag).image}`} className='text-center' width={'50px'} height={'50px'} /></div> 
                             <h5 className='d-inline'>{props.data.Nom}</h5>
                         </div>   
                     </NavLink>

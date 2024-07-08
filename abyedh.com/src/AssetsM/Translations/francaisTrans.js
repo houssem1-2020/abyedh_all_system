@@ -53,20 +53,20 @@ const FrancaisTrans = {
           }
         },
         mainPage: {
-            mainTitle : 'Platforme Abyedh' , 
-            mainsubads : 'plusieur application dans un seul app',
-            logInText : 'Inscrer-Vous', 
-            mainlogInText : 'Log In',
-            mainsearchInput : 'Recherche ... ',
-            qrCodeScan : 'Recherche ... ',
+            mainTitle : 'Abyedh' , 
+            mainsubads : 'Plusieurs applications en une seule application',
+            mainlogInText : 'Se connecter',
+            mainsearchInput : '... Rechercher',
+            qrCodeScan : 'Scanner le code QR',
             dropDownProfile : {
-                profile : '',
-                systemLogIn : '',
-                systemSuivie : '',
-                parametres : '',
-                logOut : '',
+                profile : 'Profil',
+                systemLogIn : 'Système',
+                systemSuivie : 'Suivi',
+                parametres : 'langue',
+                logOut : 'Se déconnecter',
             },
-            mainadsCard : ' abyedh vous aidera à trouver : ',
+            mainadsCard : 'Abyedh vous aide  pour trouver : ',
+          
             mainTagsName: {
                 sante: 'Santé',
                 education: 'Éducation',
@@ -1913,9 +1913,18 @@ const FrancaisTrans = {
                 notRegistredText: "Ce client n'est pas inscrit sur la plateforme. L'équipe d'Abyedh essaiera de le contacter pour l'informer de votre demande.",
                 ActionListeData : {
                     docteur : {
-                        one:'',
-                        two:'',
-                    },
+                      fastDiagnostic : 'Diagnostic rapide',
+                      goodDiagnostic : 'Un diagnostic précis de votre état de santé peut aider votre médecin à fournir le traitement le plus approprié et le plus efficace',
+                      dateWanted : 'Date du rendez-vous',
+                      dateDesc : 'Quand voulez-vous prendre rendez-vous ?',
+                      saveBtn : 'Enregistrer le rendez-vous',
+                      toest : {
+                        one : 'Entrer le diagnostic',
+                        two : 'Entrer la date',
+                        three : 'Entrer l\'heure',
+                        four : 'Le rendez-vous a été enregistré avec succès'
+                      }
+                    },                  
                     infirmier :{
                         one:'',
                         two:'',

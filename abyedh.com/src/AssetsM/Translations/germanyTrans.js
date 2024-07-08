@@ -53,20 +53,20 @@ const GermanyTrans = {
             }
         },
         mainPage: {
-            mainTitle : 'Die deutsche Abyedh-Plattform' , 
-            logInText : 'Inscrer-Vous', 
-            mainsubads : 'Viele Anwendungen in einer einzigen App',
-            mainlogInText : 'Log In',
-            mainsearchInput : 'Forschung ... ',
-            qrCodeScan : ' ... بَحْثْ',
-            dropDownProfile : {
-                profile : '',
-                systemLogIn : '',
-                systemSuivie : '',
-                parametres : '',
-                logOut : '',
+            mainTitle: 'Abyedh-Plattform',
+            mainsubads: 'Viele Anwendungen in einer App',
+            mainlogInText: 'Anmelden',
+            mainsearchInput: '... Suche',
+            qrCodeScan: '... Scannen',
+            dropDownProfile: {
+                profile: 'Profil',
+                systemLogIn: 'Systemanmeldung',
+                systemSuivie: 'Nachverfolgen',
+                parametres: 'Sprache ändern',
+                logOut: 'Abmelden',
             },
-            mainadsCard : ' abyedh wird Ihnen bei der Suche helfen : ',
+            mainadsCard: 'Abyedh hilft Ihnen in mehreren Bereichen, zu finden: ',
+
             mainTagsName: {
                 sante: 'Gesundheit',
                 education: 'Bildung',
@@ -82,7 +82,7 @@ const GermanyTrans = {
                 tourism: 'Tourismus',
                 generale: 'Allgemeine Dienstleistungen',
                 commerceSmall: 'Einzelhandel',
-                transportationSmall: 'Transport',
+                trasnportationSmall: 'Transport',
                 lifeSmall: 'Leben & Schönheit',
                 restaurationSmall: 'Gastgewerbe & Reisen',
                 constructionSmall: 'Bauwesen',
@@ -181,7 +181,7 @@ const GermanyTrans = {
             toolsBSText1: "Abyedh bietet eine Reihe von Werkzeugen, die darauf abzielen, eine informative Umgebung zu schaffen, um allen Benutzern bei ihren täglichen Aktivitäten zu helfen",
             toolsBSText2: "Entdecken Sie hier Abyedh-Werkzeuge",
             footerVision: "Die Vision von Abyedh",
-            footerHow: "Wie man Abyedh benutzt",
+            footerHow: "Land ändern",
             footerWho: "Wer wir sind?",
             googlePlayAds1: "",
             googlePlayAds2: "",
@@ -193,7 +193,92 @@ const GermanyTrans = {
             },
         },
         landingPage: {
-            selectText:'',
+            selectText:{
+                docteur: "Wählen Sie die erforderliche Fachrichtung",
+                infirmier: "Krankenschwester",
+                pharmacie: "Wählen Sie den Apothekentyp",
+                labo: "Wählen Sie den Servicetyp",
+                clinique: "Wählen Sie den Servicetyp",
+                centreMD: "Wählen Sie den Servicetyp",
+                admin_s_hospital: "Wählen Sie den Servicetyp",
+                admin_s_csb: "Wählen Sie den Servicetyp",
+                garderie: "Wählen Sie den Servicetyp",
+                ecole: "Wählen Sie den Servicetyp",
+                lycee: "Wählen Sie den Servicetyp",
+                universite: "Wählen Sie den Servicetyp",
+                formation: "Wählen Sie den Servicetyp",
+                librairie: "Wählen Sie den Servicetyp",
+                admin_e_centre: "Wählen Sie den Servicetyp",
+                admin_e_biblio: "Wählen Sie den Servicetyp",
+                admin_e_ecole: "Wählen Sie den Servicetyp",
+                admin_e_lycee: "Wählen Sie den Servicetyp",
+                admin_e_universite: "Wählen Sie den Servicetyp",
+                admin_e_ss: "Wählen Sie den Servicetyp",
+                transporteur: "Wählen Sie den Servicetyp",
+                autoecole: "Wählen Sie den Servicetyp",
+                location: "Wählen Sie den Servicetyp",
+                qiosque: "Wählen Sie den Servicetyp",
+                parking: "Wählen Sie den Servicetyp",
+                mecanicien: "Wählen Sie den Servicetyp",
+                Taxi: "Wählen Sie den Servicetyp",
+                Louage: "Wählen Sie den Servicetyp",
+                magazin: "Wählen Sie den Servicetyp",
+                boulengerie: "Wählen Sie den Servicetyp",
+                fruiterie: "Wählen Sie den Servicetyp",
+                patesserie: "Wählen Sie den Servicetyp",
+                epicerie: "Wählen Sie den Servicetyp",
+                electromenager: "Wählen Sie den Servicetyp",
+                meublerie: "Wählen Sie den Servicetyp",
+                boutique: "Wählen Sie den Servicetyp",
+                bijouterie: "Wählen Sie den Servicetyp",
+                quincaillerie: "Wählen Sie den Servicetyp",
+                depot: "Wählen Sie den Servicetyp",
+                boucherie: "Wählen Sie den Servicetyp",
+                cafe: "Wählen Sie den Servicetyp",
+                restaurant: "Wählen Sie den Servicetyp",
+                hotels: "Wählen Sie den Servicetyp",
+                vg_agence: "Wählen Sie den Servicetyp",
+                coiffure: "Wählen Sie den Servicetyp",
+                salle_marriage: "Wählen Sie den Servicetyp",
+                fourniture_marriage: "Wählen Sie den Servicetyp",
+                orchestre: "Wählen Sie den Servicetyp",
+                chef: "Wählen Sie den Servicetyp",
+                photographe: "Wählen Sie den Servicetyp",
+                forgeron: "Wählen Sie den Servicetyp",
+                menuisier: "Wählen Sie den Servicetyp",
+                peinture: "Wählen Sie den Servicetyp",
+                electricien: "Wählen Sie den Servicetyp",
+                plombier: "Wählen Sie den Servicetyp",
+                cristalerie: "Wählen Sie den Servicetyp",
+                marbrerie: "Wählen Sie den Servicetyp",
+                courtier: "Wählen Sie den Servicetyp",
+                contracteur: "Wählen Sie den Servicetyp",
+                architecture: "Wählen Sie den Servicetyp",
+                gym: "Wählen Sie den Servicetyp",
+                pyscine: "Wählen Sie den Servicetyp",
+                stade: "Wählen Sie den Servicetyp",
+                cinema: "Wählen Sie den Servicetyp",
+                theatre: "Wählen Sie den Servicetyp",
+                musee: "Wählen Sie den Servicetyp",
+                admin_c_mj: "Wählen Sie den Servicetyp",
+                admin_c_mc: "Wählen Sie den Servicetyp",
+                admin_c_me: "Wählen Sie den Servicetyp",
+                comptable: "Wählen Sie den Servicetyp",
+                bank: "Wählen Sie den Servicetyp",
+                admin_f_poste: "Wählen Sie den Servicetyp",
+                admin_f_rf: "Wählen Sie den Servicetyp",
+                avocat: "Wählen Sie den Servicetyp",
+                admin_a_mu: "Wählen Sie den Servicetyp",
+                admin_a_police: "Wählen Sie den Servicetyp",
+                admin_a_ar: "Wählen Sie den Servicetyp",
+                admin_a_court: "Wählen Sie den Servicetyp",
+                admin_a_mosq: "Wählen Sie den Servicetyp",
+                ambassade: "Wählen Sie den Servicetyp",
+                fourragerie: "Wählen Sie den Servicetyp",
+                veterinaire: "Wählen Sie den Servicetyp",
+                agritools: "Wählen Sie den Servicetyp"
+                
+            },
             itemsToSelect : {
                 docteur : {
                     one:'',
@@ -1229,6 +1314,7 @@ const GermanyTrans = {
                 reasonTwo: "Wir konnten keine Ergebnisse finden",
                 searchNext: "Sie können zurückgehen und an anderen Orten in Ihrer Nähe suchen, stellen Sie sicher, dass Sie finden, wonach Sie suchen"
             },
+            bottomAbyedhText: "abyedh.com",
             toastText:{
                 failOne:'',
                 failTwo:'',
@@ -2274,1022 +2360,233 @@ const GermanyTrans = {
             },
         },
         userProfile: {
-            generalData :{
-                generalDataText: '',
-                horaireText: '',
-                photoesText: '',
-                mapText: '',
-                avisText: '',
-                commentText: '',
-                addCommentText: '',
-                voirCommentText: '',
-                inputCommentPlaceholderText: '',
-                saveCommentBtnText: '',
+            notificationPage : {
+                docteur_rdv_saved: 'La demande de rendez-vous avec le médecin {{one}} a été enregistrée avec succès à la date de {{one}}.',
+                docteur_rdv_accepted: 'Carte d\'acceptation du rendez-vous avec le médecin',
+                docteur_rdv_rejected: 'La demande de rendez-vous avec le médecin {{one}} a été rejetée <br /> <small>""</small>',
+                docteur_rdv_retarted: 'Carte de retard du médecin',
+                docteur_rdv_redirected: 'La demande de rendez-vous avec le médecin {{one}} a été redirigée vers le médecin {{one}} (téléphone : {{one}}, adresse : {{one}})',
+                infirmier_rdv_saved: 'La demande de rendez-vous avec le médecin {{one}} a été enregistrée avec succès à la date de {{one}}.',
+                infirmier_rdv_accepted: 'Carte d\'acceptation du rendez-vous avec le médecin',
+                infirmier_rdv_rejected: 'La demande de rendez-vous avec le médecin {{one}} a été rejetée <br /> <small>""</small>',
+                infirmier_rdv_retarted: 'Carte de retard du médecin',
+                infirmier_rdv_redirected: 'La demande de rendez-vous avec le médecin {{one}} a été redirigée vers le médecin {{one}} (téléphone : {{one}}, adresse : {{one}})',
+                pharmacie_shop_saved: 'La demande d\'achat de médicaments ({{one}} produits) auprès de la pharmacie {{one}} a été enregistrée.',
+                pharmacie_shop_accepted: 'Carte d\'acceptation de la commande de pharmacie',
+                pharmacie_shop_rejected: 'La demande d\'achat de médicaments auprès de la pharmacie {{one}} a été rejetée <br /> <small>""</small>',
+                pharmacie_shop_livred: 'La commande a été expédiée depuis la pharmacie {{one}} <br /> <small> Vous recevrez votre commande le {{one}} à {{one}}</small>',
+                pharmacie_shop_edited: 'La commande d\'achat à la pharmacie {{one}} a été modifiée.',
+                pharmacie_rdv_saved: 'La demande de rendez-vous avec la pharmacie {{one}} pour {{one}} a été enregistrée avec succès à la date de {{one}}.',
+                pharmacie_rdv_accepted: 'Carte d\'acceptation du rendez-vous avec la pharmacie',
+                pharmacie_rdv_rejected: 'La demande de rendez-vous avec la pharmacie {{one}} a été rejetée <br /> <small>""</small>',
+                pharmacie_rdv_retarted: 'Carte de retard du médecin',
+                clinique_reserver_saved: 'La demande de réservation à la clinique {{one}} pour {{one}} a été enregistrée avec succès entre {{one}} et {{one}}.',
+                centre_reserver_saved: 'La demande de réservation au centre {{one}} pour {{one}} a été enregistrée avec succès entre {{one}} et {{one}}.',
+                labo_rdv_saved: 'La demande de rendez-vous avec le laboratoire {{one}} pour {{one}} a été enregistrée avec succès à la date de {{one}}.',
+                labo_rdv_accepted: 'Carte d\'acceptation du rendez-vous avec le laboratoire',
+                labo_rdv_rejected: 'La demande de rendez-vous avec le laboratoire {{one}} a été rejetée <br /> <small>""</small>',
+                labo_rdv_retarted: 'Carte de retard du médecin',
+                labo_rdv_pret: 'Les résultats de l\'analyse sont prêts au laboratoire {{one}}:',
+                garderie_inscription_saved: 'Votre enfant {{one}} a été inscrit à la garderie : {{one}} avec succès.',
+                garderie_inscription_accepted: 'Carte d\'acceptation de la garderie',
+                garderie_inscription_rejected: 'La demande d\'inscription à la garderie {{one}} a été rejetée <br /> <small>""</small>',
+                garderie_souscription_saved: 'Votre enfant {{one}} a été inscrit à la garderie {{one}} avec succès à la date de {{one}}.',
+                garderie_souscription_accepted: 'Carte d\'acceptation de la garderie',
+                garderie_souscription_rejected: 'La demande d\'inscription à la garderie {{one}} a été rejetée <br /> <small>""</small>',
+                ecole_inscription_saved: 'Votre enfant {{one}} a été inscrit à la maternelle : {{one}} avec succès.',
+                ecole_inscription_accepted: 'Carte d\'acceptation de l\'inscription à l\'école',
+                ecole_inscription_rejected: 'La demande d\'achat de médicaments auprès de la pharmacie {{one}} a été rejetée <br /> <small>""</small>',
+                ecole_souscription_saved: 'Votre enfant {{one}} a été inscrit à l\'école privée {{one}} avec succès à la date de {{one}}.',
+                ecole_souscription_accepted: 'Carte d\'acceptation de l\'inscription à l\'école',
+                ecole_souscription_rejected: 'La demande d\'achat de médicaments auprès de la pharmacie {{one}} a été rejetée <br /> <small>""</small>',
+                lycee_inscription_saved: 'La demande d\'inscription à l\'établissement de formation privé {{one}} a été enregistrée avec succès.',
+                lycee_inscription_accepted: 'Carte d\'acceptation de l\'inscription au lycée',
+                lycee_inscription_rejected: 'La demande d\'achat de médicaments auprès de la pharmacie {{one}} a été rejetée <br /> <small>""</small>',
+                lycee_souscription_saved: 'Votre enfant {{one}} a été inscrit à la maternelle {{one}} avec succès à la date de {{one}}.',
+                lycee_souscription_accepted: 'Carte d\'acceptation de l\'inscription au lycée',
+                lycee_souscription_rejected: 'La demande d\'achat de médicaments auprès de la pharmacie {{one}} a été rejetée <br /> <small>""</small>',
+                universite_inscription_saved: 'La demande d\'inscription à l\'université privée {{one}} a été enregistrée avec succès.',
+                universite_inscription_accepted: 'Carte d\'acceptation de l\'inscription à l\'université',
+                universite_inscription_rejected: 'La demande d\'achat de médicaments auprès de la pharmacie {{one}} a été rejetée <br /> <small>""</small>',
+                universite_souscription_saved: 'Votre enfant {{one}} a été inscrit à la maternelle {{one}} avec succès à la date de {{one}}.',
+                universite_souscription_accepted: 'Carte d\'acceptation de l\'inscription à l\'université',
+                universite_souscription_rejected: 'La demande d\'achat de médicaments auprès de la pharmacie {{one}} a été rejetée <br /> <small>""</small>',
+                formation_inscription_saved: 'La demande d\'inscription à l\'établissement de formation privé {{one}} a été enregistrée avec succès.',
+                formation_inscription_accepted: 'Carte d\'acceptation de l\'inscription à la formation',
+                formation_inscription_rejected: 'La demande d\'achat de médicaments auprès de la pharmacie {{one}} a été rejetée <br /> <small>""</small>',
+                formation_souscription_saved: 'Votre enfant {{one}} a été inscrit à la maternelle {{one}} avec succès à la date de {{one}}.',
+                formation_souscription_accepted: 'Carte d\'acceptation de l\'inscription à la formation',
+                formation_souscription_rejected: 'La demande d\'achat de médicaments auprès de la pharmacie {{one}} a été rejetée <br /> <small>""</small>',
+                transporteur_request_saved: 'La demande de transport de marchandises ({{one}} produits) avec l\'agence de transport {{two}} de : {{three}} à : {{four}} a été enregistrée.',
+                transporteur_request_accepted: 'Carte d\'acceptation du rendez-vous chez le médecin',
+                transporteur_request_rejected: 'La demande de rendez-vous avec le médecin {{one}} a été rejetée <br /> <small>""</small>',
+                transporteur_request_retarted: 'Carte de retard du médecin',
+                transporteur_request_livree: 'Les résultats de l\'analyse sont prêts au laboratoire {{one}}:',
+                autoecole_inscrie_saved: 'L\'inscription à l\'auto-école : {{one}} pour obtenir un permis de conduire de la catégorie {{one}} a été enregistrée avec succès.',
+                autoecole_inscrie_accepted: 'Carte d\'acceptation du rendez-vous chez le médecin',
+                autoecole_inscrie_rejected: 'La demande de rendez-vous avec le médecin {{one}} a été rejetée <br /> <small>""</small>',
+                autoecole_inscrie_redirected: 'La demande de rendez-vous avec le médecin {{one}} a été redirigée vers le médecin {{one}} (téléphone : {{one}}, adresse : {{one}})',
+                taxi_request_saved: 'La demande de réservation de taxi a été enregistrée.',
+                taxi_rdv_saved: 'La demande de rendez-vous avec un taxi le {{one}} à {{one}} a été enregistrée.',
+                location_request_saved: 'La demande de location de véhicule chez l\'agence de location de voitures {{one}} de {{one}} à {{one}} a été enregistrée.',
+                location_request_accepted: 'Carte d\'acceptation du rendez-vous chez le médecin',
+                location_request_rejected: 'La demande de rendez-vous avec le médecin {{one}} a été rejetée <br /> <small>""</small>',
+                location_request_edited: 'La demande d\'achat à la pharmacie {{one}} a été modifiée.',
+                parking_reserver_saved: 'La réservation d\'une place de parking : {{one}} de {{one}} à {{one}} pour le camion ({{one}}) : {{one}} a été enregistrée.',
+                parking_souscrire_saved: 'L\'abonnement au parking : {{one}} de {{one}} à {{one}} pour le camion ({{one}}) : {{one}} a été enregistré.',
+                qiosque_request_saved: 'La demande d\'achat de carburant à la station-service : {{one}}. Le rendez-vous a été enregistré pour l\'heure : {{one}}.',
+                qiosque_lavage_saved: 'La demande de rendez-vous pour le lavage de {{one}} chez {{one}} le {{one}} à {{one}} a été enregistrée.',
+                coiffure_reserver_saved: 'La demande de réservation dans le salon de coiffure {{one}} le {{one}} à {{one}} a été enregistrée.',
+                coiffure_reserver_accepted: 'Carte d\'acceptation du rendez-vous chez le médecin',
+                coiffure_reserver_rejected: 'La demande de rendez-vous avec le médecin {{one}} a été rejetée <br /> <small>""</small>',
+                coiffure_reserver_retarted: 'Carte de retard du médecin',
+                salon_marriage_reserver_saved: 'La demande de réservation dans la salle de mariage {{one}} pour l\'événement {{one}} a été enregistrée avec succès.',
+                chef_reserver_saved: 'La demande de réservation d\'un rendez-vous avec le cuisinier {{one}} a été enregistrée avec succès.',
+                orchestre_reserver_saved: 'La demande de réservation d\'un rendez-vous avec l\'orchestre {{one}} a été enregistrée avec succès.',
+                photographe_reserver_saved: 'La demande de réservation d\'un rendez-vous avec le photographe {{one}} a été enregistrée avec succès.',
+                fourniture_marriage_location_saved: 'La demande de location de fournitures de mariage chez {{one}} a été enregistrée avec succès.',
+                magazin_commande_saved: 'La commande d\'achat de produits alimentaires auprès du magasin {{one}} a été enregistrée.',
+                boulangerie_shop_saved: 'La commande d\'achat de pain chez le boulanger {{one}} a été enregistrée.',
+                boucheries_shop_saved: 'La commande d\'achat de viande à la boucherie {{one}} a été enregistrée.',
+                fruiterie_shop_saved: 'La commande d\'achat de fruits et légumes au magasin {{one}} a été enregistrée.',
+                patisserie_shop_saved: 'La commande d\'achat de pâtisseries à la pâtisserie {{one}} a été enregistrée.',
+                epicerie_shop_saved: 'La commande d\'achat à l\'épicerie {{one}} a été enregistrée.',
+                quincaillerie_shop_saved: 'La commande d\'achat d\'outils chez le quincailler {{one}} a été enregistrée.',
+                boutique_shop_saved: 'La commande d\'achat de vêtements au magasin {{one}} a été enregistrée.',
+                bijouterie_shop_saved: 'La commande d\'achat de bijoux au magasin {{one}} a été enregistrée.',
+                librairie_shop_saved: 'La commande d\'achat de fournitures scolaires à la librairie {{one}} a été enregistrée.',
+                electromenager_shop_saved: 'La commande d\'achat d\'appareils électroménagers au magasin {{one}} a été enregistrée.',
+                meubles_shop_saved: 'La commande d\'achat de meubles au magasin {{one}} a été enregistrée.',
+                depot_commande_saved: 'La commande d\'achat au magasin {{one}} a été enregistrée.',
+                avocat_souscrire_saved: 'La demande de rendez-vous avec l\'avocat {{one}} a été enregistrée avec succès à la date de {{one}}.',
+                avocat_souscrire_accepted: 'Carte d\'acceptation du rendez-vous chez le médecin',
+                avocat_souscrire_rejected: 'La demande de rendez-vous avec le médecin {{one}} a été rejetée <br /> <small>""</small>',
+                avocat_souscrire_retarted: 'Carte de retard du médecin',
+                avocat_souscrire_redirected: 'La demande de rendez-vous avec le médecin {{one}} a été redirigée vers le médecin {{one}} (téléphone : {{one}}, adresse : {{one}})',
+                avocat_souscrire_informer: 'La demande de rendez-vous avec le médecin {{one}} a été rejetée <br /> <small>""</small>',
+                avocat_rdv_saved: 'La demande de rendez-vous avec l\'avocat {{one}} a été enregistrée avec succès à la date de {{one}}.',
+                avocat_rdv_saved_2: 'La demande de rendez-vous avec l\'avocat {{one}} a été enregistrée avec succès à la date de {{one}}.',
+                gym_souscription_saved: 'La demande d\'inscription ({{one}}) à la salle de sport {{two}} a été enregistrée avec succès. ',
+                gym_souscription_accepted: 'Carte d\'acceptation du rendez-vous chez le médecin',
+                gym_souscription_rejected: 'La demande de rendez-vous avec le médecin {{one}} a été rejetée <br /> <small>""</small>',
+                pyscine_reserver_saved: 'La demande de réservation à la piscine {{one}} le {{one}} de {{one}} à {{one}} a été enregistrée avec succès.',
+                pyscine_souscrire_saved: 'La demande d\'inscription ({{one}}) au stade de sport {{one}} a été enregistrée avec succès.',
+                stade_reserver_saved: 'La demande de réservation au stade de sport {{one}} le {{one}} de {{one}} à {{one}} a été enregistrée avec succès.',
+                stade_souscrire_saved: 'La demande d\'inscription ({{one}}) au stade de sport {{one}} a été enregistrée avec succès.',
+                cinema_reserver_saved: 'La demande de réservation dans la salle de cinéma {{one}} pour regarder le film {{one}} a été enregistrée avec succès.',
+                theatre_reserver_saved: 'La demande de réservation au théâtre {{one}} pour regarder la pièce de théâtre {{one}} a été enregistrée avec succès.',
+                art_avis_saved: 'La demande d\'inscription {{one}} à la salle de sport {{one}} a été enregistrée avec succès. Le départ est prévu pour le {{one}}',
+                musee_reserver_saved: 'La demande de réservation au musée {{one}} le {{one}} de {{one}} à {{one}} a été enregistrée avec succès.',
+                securite_reserver_saved: 'La demande de réservation pour le service de sécurité ({{one}}) a été enregistrée avec succès pour l\'événement ({{one}})',
+                decoration_location_saved: 'La demande de location de décorations pour l\'événement ({{one}}) a été enregistrée avec succès.',
+                traiteur_reserver_saved: 'La demande de réservation de service traiteur pour l\'événement ({{one}}) a été enregistrée avec succès.',
+                fleuriste_reserver_saved: 'La demande de réservation chez le fleuriste pour l\'événement ({{one}}) a été enregistrée avec succès.',
+                editeur_reserver_saved: 'La demande de réservation chez l\'éditeur ({{one}}) pour l\'impression de l\'ouvrage ({{one}}) a été enregistrée avec succès.',
+                hotels_reserver_saved: 'La demande de réservation {{one}} à l\'hôtel {{one}} pour la période entre {{one}} et {{one}} a été enregistrée avec succès.',
+                hotels_reserver_accepted: 'Carte d\'acceptation du rendez-vous chez le médecin',
+                hotels_reserver_rejected: 'La demande de rendez-vous avec le médecin {{one}} a été refusée <br /> <small>"{{one}}"</small>',
+                hotels_service_saved: 'La demande de réservation à l\'hôtel {{one}} pour la salle de sport {{one}} a été enregistrée avec succès. La date de début a été enregistrée pour le {{one}}.',
+                hotels_service_accepted: 'Carte d\'acceptation du rendez-vous chez le médecin',
+                hotels_service_rejected: 'La demande de rendez-vous avec le médecin {{one}} a été refusée <br /> <small>"{{one}}"</small>',
+                agence_service_saved: 'La demande de voyage vers {{one}} avec l\'agence de voyage {{one}} a été enregistrée avec succès.',
+                restaurant_commande_saved: 'La commande d\'un plat du restaurant {{one}} a été enregistrée avec succès',
+                restaurant_commande_accepted: 'Carte d\'acceptation du rendez-vous chez le médecin',
+                restaurant_commande_rejected: 'La demande de rendez-vous avec le médecin {{one}} a été refusée <br /> <small>"{{one}}"</small>',
+                restaurant_reservation_saved: 'La demande de réservation au restaurant {{one}} a été enregistrée avec succès pour la date {{one}}.',
+                restaurant_reservation_accepted: 'Carte d\'acceptation du rendez-vous chez le médecin',
+                restaurant_reservation_rejected: 'La demande de rendez-vous avec le médecin {{one}} a été refusée <br /> <small>"{{one}}"</small>',
+                restaurant_reservation_edited: 'La demande de modification de la commande de la pharmacie {{one}} a été effectuée',
+                cafe_commande_saved: 'La commande d\'une boisson du café {{one}} a été enregistrée avec succès',
+                cafe_reservation_saved: 'La demande de réservation au café {{one}} a été enregistrée avec succès pour la date {{one}}.',
+                courtier_request_saved: 'La demande {{one}} {{one}} du courtier {{one}} a été enregistrée',
+                courtier_torent_saved: 'La {{one}} {{one}} avec le courtier {{one}} a été enregistrée',
+                contracteur_service_saved: 'La demande de construction {{one}} par l\'entrepreneur {{one}} a été enregistrée avec succès',
+                architecture_service_saved: 'La demande de conception {{one}} par l\'architecte {{one}} a été enregistrée avec succès',
+                comptable_service_saved: 'La demande de {{one}} pour la période entre {{one}} et {{one}} par le comptable {{one}} a été enregistrée avec succès',
+                veterinaire_rdv_saved: 'La demande de rendez-vous avec le vétérinaire {{one}} a été enregistrée avec succès pour la date {{one}}',
+                veterinaire_rdv_accepted: 'Carte d\'acceptation du rendez-vous chez le médecin',
+                veterinaire_rdv_rejected: 'La demande de rendez-vous avec le médecin {{one}} a été refusée <br /> <small>"{{one}}"</small>',
+                veterinaire_rdv_retarted: 'Le rendez-vous chez le médecin a été retardé',
+                veterinaire_rdv_redirected: 'La demande de rendez-vous avec le médecin {{one}} a été redirigée vers le médecin {{one}} (téléphone : {{one}}, adresse : {{one}})',
+                fourragerie_shop_saved: 'La demande d\'achat d\'outils auprès du magasin {{one}} a été enregistrée',
+
             },
-            SpesificData : {
-                docteur : {
-                    one:'',
-                    two:'',
-                },
-                infirmier :{
-                    one:'',
-                    two:'',
-                },
-                pharmacie :{
-                    one:'',
-                    two:'',
-                },
-                labo :{
-                    one:'',
-                    two:'',
-                },
-                clinique :{
-                    one:'',
-                    two:'',
-                },
-                centreMD :{
-                    one:'',
-                    two:'',
-                },
-                admin_s_hospital :{
-                    one:'',
-                    two:'',
-                },
-                admin_s_csb :{
-                    one:'',
-                    two:'',
-                },
-                garderie :{
-                    one:'',
-                    two:'',
-                },
-                ecole :{
-                    one:'',
-                    two:'',
-                },
-                lycee :{
-                    one:'',
-                    two:'',
-                },
-                universite :{
-                    one:'',
-                    two:'',
-                },
-                formation :{
-                    one:'',
-                    two:'',
-                },
-                librairie :{
-                    one:'',
-                    two:'',
-                },
-                admin_e_centre :{
-                    one:'',
-                    two:'',
-                },
-                admin_e_biblio :{
-                    one:'',
-                    two:'',
-                },
-                admin_e_ecole :{
-                    one:'',
-                    two:'',
-                },
-                admin_e_lycee :{
-                    one:'',
-                    two:'',
-                },
-                admin_e_universite :{
-                    one:'',
-                    two:'',
-                },
-                admin_e_ss :{
-                    one:'',
-                    two:'',
-                },
-                transporteur :{
-                    one:'',
-                    two:'',
-                },
-                autoecole :{
-                    one:'',
-                    two:'',
-                },
-                location :{
-                    one:'',
-                    two:'',
-                },
-                qiosque :{
-                    one:'',
-                    two:'',
-                },
-                parking :{
-                    one:'',
-                    two:'',
-                },
-                mecanicien :{
-                    one:'',
-                    two:'',
-                },
-                Taxi :{
-                    one:'',
-                    two:'',
-                },
-                Louage :{
-                    one:'',
-                    two:'',
-                },
-                magazin :{
-                    one:'',
-                    two:'',
-                },
-                boulengerie :{
-                    one:'',
-                    two:'',
-                },
-                fruiterie :{
-                    one:'',
-                    two:'',
-                },
-                patesserie :{
-                    one:'',
-                    two:'',
-                },
-                epicerie :{
-                    one:'',
-                    two:'',
-                },
-                electromenager :{
-                    one:'',
-                    two:'',
-                },
-                meublerie :{
-                    one:'',
-                    two:'',
-                },
-                boutique :{
-                    one:'',
-                    two:'',
-                },
-                bijouterie :{
-                    one:'',
-                    two:'',
-                },
-                quincaillerie :{
-                    one:'',
-                    two:'',
-                },
-                depot :{
-                    one:'',
-                    two:'',
-                },
-                boucherie :{
-                    one:'',
-                    two:'',
-                },
-                cafe :{
-                    one:'',
-                    two:'',
-                },
-                restaurant :{
-                    one:'',
-                    two:'',
-                },
-                hotels :{
-                    one:'',
-                    two:'',
-                },
-                vg_agence :{
-                    one:'',
-                    two:'',
-                },
-                coiffure :{
-                    one:'',
-                    two:'',
-                },
-                salle_marriage :{
-                    one:'',
-                    two:'',
-                },
-                fourniture_marriage :{
-                    one:'',
-                    two:'',
-                },
-                orchestre :{
-                    one:'',
-                    two:'',
-                },
-                chef :{
-                    one:'',
-                    two:'',
-                },
-                photographe :{
-                    one:'',
-                    two:'',
-                },
-                forgeron :{
-                    one:'',
-                    two:'',
-                },
-                menuisier :{
-                    one:'',
-                    two:'',
-                },
-                peinture :{
-                    one:'',
-                    two:'',
-                },
-                electricien :{
-                    one:'',
-                    two:'',
-                },
-                plombier :{
-                    one:'',
-                    two:'',
-                },
-                cristalerie :{
-                    one:'',
-                    two:'',
-                },
-                marbrerie :{
-                    one:'',
-                    two:'',
-                },
-                courtier :{
-                    one:'',
-                    two:'',
-                },
-                contracteur :{
-                    one:'',
-                    two:'',
-                },
-                architecture :{
-                    one:'',
-                    two:'',
-                },
-                gym :{
-                    one:'',
-                    two:'',
-                },
-                pyscine :{
-                    one:'',
-                    two:'',
-                },
-                stade :{
-                    one:'',
-                    two:'',
-                },
-                cinema :{
-                    one:'',
-                    two:'',
-                },
-                theatre :{
-                    one:'',
-                    two:'',
-                },
-                musee :{
-                    one:'',
-                    two:'',
-                },
-                admin_c_mj :{
-                    one:'',
-                    two:'',
-                },
-                admin_c_mc :{
-                    one:'',
-                    two:'',
-                },
-                admin_c_me :{
-                    one:'',
-                    two:'',
-                },
-                comptable :{
-                    one:'',
-                    two:'',
-                },
-                bank :{
-                    one:'',
-                    two:'',
-                },
-                admin_f_poste :{
-                    one:'',
-                    two:'',
-                },
-                admin_f_rf :{
-                    one:'',
-                    two:'',
-                },
-                avocat :{
-                    one:'',
-                    two:'',
-                },
-                admin_a_mu :{
-                    one:'',
-                    two:'',
-                },
-                admin_a_police :{
-                    one:'',
-                    two:'',
-                },
-                admin_a_ar :{
-                    one:'',
-                    two:'',
-                },
-                admin_a_court :{
-                    one:'',
-                    two:'',
-                },
-                admin_a_mosq :{
-                    one:'',
-                    two:'',
-                },
-                ambassade :{
-                    one:'',
-                    two:'',
-                },
-                fourragerie :{
-                    one:'',
-                    two:'',
-                },
-                veterinaire :{
-                    one:'',
-                    two:'',
-                },
-                agritools :{
-                    one:'',
-                    two:'',
-                },
-                
+            suivieTitlePage: {
+                docteur_rdv: 'Arzttermin',
+                infirmier_rdv: 'Termin beim Krankenpfleger',
+                pharmacie_shop: 'Medikamentenkauf',
+                pharmacie_rdv: 'Apothekentermin',
+                clinique_reserver: 'Klinikreservierung',
+                centre_reserver: 'Reservierung im medizinischen Zentrum',
+                labo_rdv: 'Laboranalyseanfrage',
+                garderie_inscription: 'Kita-Anmeldung',
+                formation_inscription: 'Anmeldung im Schulungszentrum',
+                ecole_inscription: 'Schulanmeldung',
+                lycee_inscription: 'Anmeldung an einer Privatschule',
+                universite_inscription: 'Anmeldung an einer privaten Universität',
+                transporteur_request: 'Warenlieferung',
+                autoecole_inscrie: 'Führerscheinanmeldung',
+                location_request: 'Autovermietung',
+                parking_reserver: 'Parkplatzreservierung',
+                parking_souscrire: 'Parkabonnement',
+                qiosque_request: 'Kraftstoffanfrage',
+                qiosque_lavage: 'Autowaschanfrage',
+                magazin_commande: 'Lebensmittelbestellung',
+                boulangerie_shop: 'Brotkauf',
+                boucheries_shop: 'Fleischkauf',
+                fruiterie_shop: 'Obst- und Gemüsekauf',
+                patisserie_shop: 'Kauf von Gebäck',
+                epicerie_shop: 'Einkauf im Lebensmittelgeschäft',
+                quincaillerie_shop: 'Werkzeugkauf',
+                electromenager_shop: 'Haushaltsgerätekauf',
+                meubles_shop: 'Möbelkauf',
+                boutique_shop: 'Kleidungskauf',
+                bijouterie_shop: 'Schmuckkauf',
+                librairie_shop: 'Schulbedarf kaufen',
+                depot_commande: 'Lebensmittelbestellung',
+                coiffure_reserver: 'Friseurtermin',
+                salon_marriage_reserver: 'Reservierung einer Hochzeitslocation',
+                chef_reserver: 'Reservierung eines Kochs',
+                orchestre_reserver: 'Reservierung eines Orchesters',
+                photographe_reserver: 'Reservierung eines Fotografen',
+                fourniture_marriage_location: 'Verleih von Hochzeitsausrüstung',
+                avocat_souscrire: 'Engagement eines Anwalts',
+                avocat_rdv: 'Termin beim Anwalt',
+                gym_souscription: 'Fitnessstudio-Mitgliedschaft',
+                pyscine_souscrire: 'Schwimmbad-Mitgliedschaft',
+                pyscine_reserver: 'Schwimmbadreservierung',
+                stade_souscrire: 'Stadion-Mitgliedschaft',
+                stade_reserver: 'Stadionreservierung',
+                cinema_reserver: 'Kinobesuch reservieren',
+                theatre_reserver: 'Theaterbesuch reservieren',
+                art_avis: 'Abonnement in einem Kunstzentrum',
+                musee_reserver: 'Museumsbesuch reservieren',
+                restaurant_commande: 'Restaurantgericht bestellen',
+                restaurant_reservation: 'Restaurantreservierung',
+                cafe_commande: 'Getränke im Café bestellen',
+                cafe_reservation: 'Caféreservierung',
+                hotels_reserver: 'Hotelreservierung',
+                hotels_service: 'Hotel-Serviceanfrage',
+                agence_service: 'Reisebüro-Anmeldung',
+                comptable_service: 'Steuerberater-Serviceanfrage',
+                courtier_request: 'Immobilienmakler-Serviceanfrage',
+                courtier_torent: 'Immobilienmakler-Serviceanfrage',
+                contracteur_service: 'Bauunternehmer-Serviceanfrage',
+                architecture_service: 'Architektonische Design-Serviceanfrage',
+                veterinaire_rdv: 'Tierarzttermin',
+                fourragerie_shop: 'Futterkauf'
             },
-            ActionTabData : {
-                docteur : {
-                    one:'',
-                    two:'',
-                },
-                infirmier :{
-                    one:'',
-                    two:'',
-                },
-                pharmacie :{
-                    one:'',
-                    two:'',
-                },
-                labo :{
-                    one:'',
-                    two:'',
-                },
-                clinique :{
-                    one:'',
-                    two:'',
-                },
-                centreMD :{
-                    one:'',
-                    two:'',
-                },
-                admin_s_hospital :{
-                    one:'',
-                    two:'',
-                },
-                admin_s_csb :{
-                    one:'',
-                    two:'',
-                },
-                garderie :{
-                    one:'',
-                    two:'',
-                },
-                ecole :{
-                    one:'',
-                    two:'',
-                },
-                lycee :{
-                    one:'',
-                    two:'',
-                },
-                universite :{
-                    one:'',
-                    two:'',
-                },
-                formation :{
-                    one:'',
-                    two:'',
-                },
-                librairie :{
-                    one:'',
-                    two:'',
-                },
-                admin_e_centre :{
-                    one:'',
-                    two:'',
-                },
-                admin_e_biblio :{
-                    one:'',
-                    two:'',
-                },
-                admin_e_ecole :{
-                    one:'',
-                    two:'',
-                },
-                admin_e_lycee :{
-                    one:'',
-                    two:'',
-                },
-                admin_e_universite :{
-                    one:'',
-                    two:'',
-                },
-                admin_e_ss :{
-                    one:'',
-                    two:'',
-                },
-                transporteur :{
-                    one:'',
-                    two:'',
-                },
-                autoecole :{
-                    one:'',
-                    two:'',
-                },
-                location :{
-                    one:'',
-                    two:'',
-                },
-                qiosque :{
-                    one:'',
-                    two:'',
-                },
-                parking :{
-                    one:'',
-                    two:'',
-                },
-                mecanicien :{
-                    one:'',
-                    two:'',
-                },
-                Taxi :{
-                    one:'',
-                    two:'',
-                },
-                Louage :{
-                    one:'',
-                    two:'',
-                },
-                magazin :{
-                    one:'',
-                    two:'',
-                },
-                boulengerie :{
-                    one:'',
-                    two:'',
-                },
-                fruiterie :{
-                    one:'',
-                    two:'',
-                },
-                patesserie :{
-                    one:'',
-                    two:'',
-                },
-                epicerie :{
-                    one:'',
-                    two:'',
-                },
-                electromenager :{
-                    one:'',
-                    two:'',
-                },
-                meublerie :{
-                    one:'',
-                    two:'',
-                },
-                boutique :{
-                    one:'',
-                    two:'',
-                },
-                bijouterie :{
-                    one:'',
-                    two:'',
-                },
-                quincaillerie :{
-                    one:'',
-                    two:'',
-                },
-                depot :{
-                    one:'',
-                    two:'',
-                },
-                boucherie :{
-                    one:'',
-                    two:'',
-                },
-                cafe :{
-                    one:'',
-                    two:'',
-                },
-                restaurant :{
-                    one:'',
-                    two:'',
-                },
-                hotels :{
-                    one:'',
-                    two:'',
-                },
-                vg_agence :{
-                    one:'',
-                    two:'',
-                },
-                coiffure :{
-                    one:'',
-                    two:'',
-                },
-                salle_marriage :{
-                    one:'',
-                    two:'',
-                },
-                fourniture_marriage :{
-                    one:'',
-                    two:'',
-                },
-                orchestre :{
-                    one:'',
-                    two:'',
-                },
-                chef :{
-                    one:'',
-                    two:'',
-                },
-                photographe :{
-                    one:'',
-                    two:'',
-                },
-                forgeron :{
-                    one:'',
-                    two:'',
-                },
-                menuisier :{
-                    one:'',
-                    two:'',
-                },
-                peinture :{
-                    one:'',
-                    two:'',
-                },
-                electricien :{
-                    one:'',
-                    two:'',
-                },
-                plombier :{
-                    one:'',
-                    two:'',
-                },
-                cristalerie :{
-                    one:'',
-                    two:'',
-                },
-                marbrerie :{
-                    one:'',
-                    two:'',
-                },
-                courtier :{
-                    one:'',
-                    two:'',
-                },
-                contracteur :{
-                    one:'',
-                    two:'',
-                },
-                architecture :{
-                    one:'',
-                    two:'',
-                },
-                gym :{
-                    one:'',
-                    two:'',
-                },
-                pyscine :{
-                    one:'',
-                    two:'',
-                },
-                stade :{
-                    one:'',
-                    two:'',
-                },
-                cinema :{
-                    one:'',
-                    two:'',
-                },
-                theatre :{
-                    one:'',
-                    two:'',
-                },
-                musee :{
-                    one:'',
-                    two:'',
-                },
-                admin_c_mj :{
-                    one:'',
-                    two:'',
-                },
-                admin_c_mc :{
-                    one:'',
-                    two:'',
-                },
-                admin_c_me :{
-                    one:'',
-                    two:'',
-                },
-                comptable :{
-                    one:'',
-                    two:'',
-                },
-                bank :{
-                    one:'',
-                    two:'',
-                },
-                admin_f_poste :{
-                    one:'',
-                    two:'',
-                },
-                admin_f_rf :{
-                    one:'',
-                    two:'',
-                },
-                avocat :{
-                    one:'',
-                    two:'',
-                },
-                admin_a_mu :{
-                    one:'',
-                    two:'',
-                },
-                admin_a_police :{
-                    one:'',
-                    two:'',
-                },
-                admin_a_ar :{
-                    one:'',
-                    two:'',
-                },
-                admin_a_court :{
-                    one:'',
-                    two:'',
-                },
-                admin_a_mosq :{
-                    one:'',
-                    two:'',
-                },
-                ambassade :{
-                    one:'',
-                    two:'',
-                },
-                fourragerie :{
-                    one:'',
-                    two:'',
-                },
-                veterinaire :{
-                    one:'',
-                    two:'',
-                },
-                agritools :{
-                    one:'',
-                    two:'',
-                },
-                
-            },
-            FollowTabData : {
-                docteur : {
-                    one:'',
-                    two:'',
-                },
-                infirmier :{
-                    one:'',
-                    two:'',
-                },
-                pharmacie :{
-                    one:'',
-                    two:'',
-                },
-                labo :{
-                    one:'',
-                    two:'',
-                },
-                clinique :{
-                    one:'',
-                    two:'',
-                },
-                centreMD :{
-                    one:'',
-                    two:'',
-                },
-                admin_s_hospital :{
-                    one:'',
-                    two:'',
-                },
-                admin_s_csb :{
-                    one:'',
-                    two:'',
-                },
-                garderie :{
-                    one:'',
-                    two:'',
-                },
-                ecole :{
-                    one:'',
-                    two:'',
-                },
-                lycee :{
-                    one:'',
-                    two:'',
-                },
-                universite :{
-                    one:'',
-                    two:'',
-                },
-                formation :{
-                    one:'',
-                    two:'',
-                },
-                librairie :{
-                    one:'',
-                    two:'',
-                },
-                admin_e_centre :{
-                    one:'',
-                    two:'',
-                },
-                admin_e_biblio :{
-                    one:'',
-                    two:'',
-                },
-                admin_e_ecole :{
-                    one:'',
-                    two:'',
-                },
-                admin_e_lycee :{
-                    one:'',
-                    two:'',
-                },
-                admin_e_universite :{
-                    one:'',
-                    two:'',
-                },
-                admin_e_ss :{
-                    one:'',
-                    two:'',
-                },
-                transporteur :{
-                    one:'',
-                    two:'',
-                },
-                autoecole :{
-                    one:'',
-                    two:'',
-                },
-                location :{
-                    one:'',
-                    two:'',
-                },
-                qiosque :{
-                    one:'',
-                    two:'',
-                },
-                parking :{
-                    one:'',
-                    two:'',
-                },
-                mecanicien :{
-                    one:'',
-                    two:'',
-                },
-                Taxi :{
-                    one:'',
-                    two:'',
-                },
-                Louage :{
-                    one:'',
-                    two:'',
-                },
-                magazin :{
-                    one:'',
-                    two:'',
-                },
-                boulengerie :{
-                    one:'',
-                    two:'',
-                },
-                fruiterie :{
-                    one:'',
-                    two:'',
-                },
-                patesserie :{
-                    one:'',
-                    two:'',
-                },
-                epicerie :{
-                    one:'',
-                    two:'',
-                },
-                electromenager :{
-                    one:'',
-                    two:'',
-                },
-                meublerie :{
-                    one:'',
-                    two:'',
-                },
-                boutique :{
-                    one:'',
-                    two:'',
-                },
-                bijouterie :{
-                    one:'',
-                    two:'',
-                },
-                quincaillerie :{
-                    one:'',
-                    two:'',
-                },
-                depot :{
-                    one:'',
-                    two:'',
-                },
-                boucherie :{
-                    one:'',
-                    two:'',
-                },
-                cafe :{
-                    one:'',
-                    two:'',
-                },
-                restaurant :{
-                    one:'',
-                    two:'',
-                },
-                hotels :{
-                    one:'',
-                    two:'',
-                },
-                vg_agence :{
-                    one:'',
-                    two:'',
-                },
-                coiffure :{
-                    one:'',
-                    two:'',
-                },
-                salle_marriage :{
-                    one:'',
-                    two:'',
-                },
-                fourniture_marriage :{
-                    one:'',
-                    two:'',
-                },
-                orchestre :{
-                    one:'',
-                    two:'',
-                },
-                chef :{
-                    one:'',
-                    two:'',
-                },
-                photographe :{
-                    one:'',
-                    two:'',
-                },
-                forgeron :{
-                    one:'',
-                    two:'',
-                },
-                menuisier :{
-                    one:'',
-                    two:'',
-                },
-                peinture :{
-                    one:'',
-                    two:'',
-                },
-                electricien :{
-                    one:'',
-                    two:'',
-                },
-                plombier :{
-                    one:'',
-                    two:'',
-                },
-                cristalerie :{
-                    one:'',
-                    two:'',
-                },
-                marbrerie :{
-                    one:'',
-                    two:'',
-                },
-                courtier :{
-                    one:'',
-                    two:'',
-                },
-                contracteur :{
-                    one:'',
-                    two:'',
-                },
-                architecture :{
-                    one:'',
-                    two:'',
-                },
-                gym :{
-                    one:'',
-                    two:'',
-                },
-                pyscine :{
-                    one:'',
-                    two:'',
-                },
-                stade :{
-                    one:'',
-                    two:'',
-                },
-                cinema :{
-                    one:'',
-                    two:'',
-                },
-                theatre :{
-                    one:'',
-                    two:'',
-                },
-                musee :{
-                    one:'',
-                    two:'',
-                },
-                admin_c_mj :{
-                    one:'',
-                    two:'',
-                },
-                admin_c_mc :{
-                    one:'',
-                    two:'',
-                },
-                admin_c_me :{
-                    one:'',
-                    two:'',
-                },
-                comptable :{
-                    one:'',
-                    two:'',
-                },
-                bank :{
-                    one:'',
-                    two:'',
-                },
-                admin_f_poste :{
-                    one:'',
-                    two:'',
-                },
-                admin_f_rf :{
-                    one:'',
-                    two:'',
-                },
-                avocat :{
-                    one:'',
-                    two:'',
-                },
-                admin_a_mu :{
-                    one:'',
-                    two:'',
-                },
-                admin_a_police :{
-                    one:'',
-                    two:'',
-                },
-                admin_a_ar :{
-                    one:'',
-                    two:'',
-                },
-                admin_a_court :{
-                    one:'',
-                    two:'',
-                },
-                admin_a_mosq :{
-                    one:'',
-                    two:'',
-                },
-                ambassade :{
-                    one:'',
-                    two:'',
-                },
-                fourragerie :{
-                    one:'',
-                    two:'',
-                },
-                veterinaire :{
-                    one:'',
-                    two:'',
-                },
-                agritools :{
-                    one:'',
-                    two:'',
-                },
-                
+            favoiteItemList: {
+                admin: 'Verwaltung',
+                sante: 'Gesundheit',
+                education: 'Bildung',
+                commerce: 'Handel',
+                transport: 'Transport',
+                life: 'Freizeit',
+                sport: 'Sport',
+                finance: 'Finanzen',
+                construction: 'Bauwesen',
+                autre: 'Sonstiges'
             },
             PostsTabs :{
                 noPostToShow: '',
@@ -4973,9 +4270,15 @@ const GermanyTrans = {
                     
                     
                 },
-                publicationText:'',
-                messageText:'',
-                parametreText:'',
+                publicationText: 'Veröffentlichungen',
+                horaireText: 'Öffnungszeiten',
+                imagesText: 'Bilder',
+                ratingText: 'Bewertungen',
+                tarifText: '',
+                shareText: 'Teilen',
+                messageText: '',
+                parametreText: 'Profileinstellungen',
+                voirProfileText: 'Profil anzeigen'
             },
             requestPage : {
 

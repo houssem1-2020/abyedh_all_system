@@ -289,7 +289,7 @@ const CommentsCard = ({tag, profileData,rateValue,setRateValue,SaveRating }) =>{
         return (<>
                 <div className="d-flex mb-4">
                     <div className="flex-shrink-0">
-                        <img src={`https://cdn.abyedh.tn/images/p_pic/${props.data.PictureId}.gif`} className='rounded-circle' width='40px' alt="..." />
+                        <img src={`https://cdn.abyedh.com/images/p_pic/${props.data.PictureId}.gif`} className='rounded-circle' width='40px' alt="..." />
                     </div>
                     <div className="flex-grow-1 ms-3 w-100">
                         <div className='text-left mb-0'><span> {props.data.Name} </span>  <span> <small className='text-secondary'> {new Date (props.data.R_Date).toLocaleDateString()}</small> </span> </div>
@@ -309,7 +309,7 @@ const CommentsCard = ({tag, profileData,rateValue,setRateValue,SaveRating }) =>{
     const NoDataCard = (props) =>{
         return(<>
                 <div className='card-body'>
-                    <div className='text-center'> <img src={`https://cdn.abyedh.tn/images/Search/comments.svg`} className='mb-2' width='150px' height='100px' /> </div>
+                    <div className='text-center'> <img src={`https://cdn.abyedh.com/images/Search/comments.svg`} className='mb-2' width='150px' height='100px' /> </div>
                     <div className='text-center'>  لا توجد تعليقات  </div>
                 </div>
         </>)
@@ -439,7 +439,7 @@ function ProfilePage() {
                                     <ActionStateCard status={tag} />
                                     </div>
                                     <div className='col-12 col-md-4 mb-4 order-1 order-lg-2 text-center align-self-center'>
-                                        <img src={`https://cdn.abyedh.tn/images/ads/${tag}.svg`} width='60%' heigth='60%' className='img-responsive' />
+                                        <img src={`https://cdn.abyedh.com/images/ads/${tag}.svg`} width='60%' heigth='60%' className='img-responsive' />
                                     </div>
                                 </div>
                             </>
@@ -619,7 +619,7 @@ function ProfilePage() {
             const UserCard = () =>{
                 return(<>
                     <NavLink exact='true' to='/Profile' className="navbar-brand border-div m-0 p-0 ms-3">
-                        <img  className="rounded-circle p-0 m-0 me-1" src={`https://cdn.abyedh.tn/images/p_pic/${GConf.UserData.UData.PictureId}.gif`}   alt="Logo" style={{width:'30px', height:'30px'}} />
+                        <img  className="rounded-circle p-0 m-0 me-1" src={`https://cdn.abyedh.com/images/p_pic/${GConf.UserData.UData.PictureId}.gif`}   alt="Logo" style={{width:'30px', height:'30px'}} />
                     </NavLink>
                 </>)
             }
@@ -628,7 +628,7 @@ function ProfilePage() {
                         <div className='row'>
                             <div className='col-6 text-start align-self-center'>
                                 <NavLink exact='true' to={`/S/L/${tag}`} className="m-0 p-0 ms-3">
-                                    <img  className="border-div-s d-none d-lg-inline" src="https://cdn.abyedh.tn/images/logo/mlogo.gif"   alt="Logo" style={{width:'20px', height:'40px',borderRadius: '10px 20px 10px 50px'}} />
+                                    <img  className="border-div-s d-none d-lg-inline" src="https://cdn.abyedh.com/images/logo/mlogo.gif"   alt="Logo" style={{width:'20px', height:'40px',borderRadius: '10px 20px 10px 50px'}} />
                                     <div  className="d-lg-none d-inline-block text-white p-1"  > <span className='bi bi-arrow-left-short bi-md ' ></span> </div>
                                 </NavLink>
                             </div>
@@ -674,7 +674,7 @@ function ProfilePage() {
                 {/* <div className="card-header  border-div" style={{marginBottom:'50px', marginTop:'30px', backgroundColor: ConverColorToHsl(GConf.ADIL[tag].themeColor) , color: "black"}}> */}
                 {/* <div className="card-header   rounded-0" style={{marginBottom:'35px', marginTop:'30px', background: `linear-gradient(to top, ${ConverColorToHsl(GConf.ADIL[tag].themeColor)},  #ffffff` , border: '0px solid' , color: "black"}}> */}
                 <div style={{ position:'relative'}}>
-                    <div className="card-header-for-profile  border rounded-0 " style={{marginBottom:'35px', marginTop:'30px',  backgroundImage: `url(https://cdn.abyedh.tn/images/ads/${tag}.svg)` , backgroundSize: 'auto', backgroundPosition: 'center', backgroundColor: 'rgba(255, 255, 255, 0.1)',  border: '0px solid' , color: "black"}}>
+                    <div className="card-header-for-profile  border rounded-0 " style={{marginBottom:'35px', marginTop:'30px',  backgroundImage: `url(https://cdn.abyedh.com/images/ads/${tag}.svg)` , backgroundSize: 'auto', backgroundPosition: 'center', backgroundColor: 'rgba(255, 255, 255, 0.1)',  border: '0px solid' , color: "black"}}>
                         <div style={{ content: '',  background: 'rgba(255, 255, 255, 0.7)',  position: 'absolute', top: 0, left: 0, width: '100%', height: '120px', }}></div>
                         
                         <div 
@@ -683,7 +683,7 @@ function ProfilePage() {
                         >
                             <div className='col-10 col-lg-12 align-self-center text-lg-center text-center'>
                                 <div className='row'>
-                                    <div className='col-4 col-lg-12'><img src={`https://cdn.abyedh.tn/Images/Search/CIcons/${tag}.gif`} className='img-responsive rounded-circle bg-white border-white p-3 shadow-sm' width='100px'  height='100px' /></div>
+                                    <div className='col-4 col-lg-12'><img src={`https://cdn.abyedh.com/Images/Search/CIcons/${tag}.gif`} className='img-responsive rounded-circle bg-white border-white p-3 shadow-sm' width='100px'  height='100px' /></div>
                                     <div className='col-8 pt-2 align-self-center d-lg-none'> 
                                     {loading ? 
                                             <div className='row'>
@@ -894,11 +894,11 @@ function ProfilePage() {
             //prevArrow: <span className='bi bi-arrow-left-circle-fill ' />
             };
             const DefaultImages = [
-                {src:'https://cdn.abyedh.tn/images/required/profile-img1.gif'},
-                {src:'https://cdn.abyedh.tn/images/required/profile-img2.gif'},
-                {src:'https://cdn.abyedh.tn/images/required/profile-img3.gif'},
-                {src:'https://cdn.abyedh.tn/images/required/profile-img4.gif'},
-                {src:'https://cdn.abyedh.tn/images/required/profile-img5.gif'},
+                {src:'https://cdn.abyedh.com/images/required/profile-img1.gif'},
+                {src:'https://cdn.abyedh.com/images/required/profile-img2.gif'},
+                {src:'https://cdn.abyedh.com/images/required/profile-img3.gif'},
+                {src:'https://cdn.abyedh.com/images/required/profile-img4.gif'},
+                {src:'https://cdn.abyedh.com/images/required/profile-img5.gif'},
             ]
             const OpenModalToShowImage = (image) =>{
                 setSelectedImage(image)
@@ -921,7 +921,7 @@ function ProfilePage() {
                             <Slider {...settings} >
                                 {profileData.photoes.map((data,index) => 
                                     <div key={index} className='max-height-image' onClick={() => OpenModalToShowImage(data.ImageLink)}>
-                                        <img src={`https://cdn.abyedh.tn/images/Directory/${data.ImageLink}`} className='d-block' width="100%" height="auto"/>
+                                        <img src={`https://cdn.abyedh.com/images/Directory/${data.ImageLink}`} className='d-block' width="100%" height="auto"/>
                                     </div>
                                 )}
                             </Slider>
@@ -937,7 +937,7 @@ function ProfilePage() {
                         className='fullscreen-profile-modal-5'
                     >
                         <Modal.Content  >
-                            <img src={`https://cdn.abyedh.tn/images/Directory/${selectedImage}`} className='d-block border-div' width="100%" height="auto"/>                  
+                            <img src={`https://cdn.abyedh.com/images/Directory/${selectedImage}`} className='d-block border-div' width="100%" height="auto"/>                  
                         </Modal.Content>
                         <Modal.Actions>
                                     <Button className='rounded-pill' negative onClick={ () => setOIM(false)}>   غلق</Button>
@@ -1342,7 +1342,7 @@ function ProfilePage() {
                 case 'veterinaire': return <Suspense fallback={<ForLazyLoading />}><VeterinaireSuivie TAG={tag} PID={PID} UID={UID} /></Suspense>  ;
                 case 'fourragerie': return <Suspense fallback={<ForLazyLoading />}><FourragerieSuivie TAG={tag} PID={PID} UID={UID} /></Suspense>  ;
                 default:  return <><div className='col-12 col-md-4 mb-4 order-1 order-lg-2 text-center align-self-center'>
-                            <img src={`https://cdn.abyedh.tn/images/ads/${tag}.svg`} width='60%' heigth='60%' className='img-responsive' />
+                            <img src={`https://cdn.abyedh.com/images/ads/${tag}.svg`} width='60%' heigth='60%' className='img-responsive' />
                             </div><IndefinieCard /></>;    
               }
             }, [status]);
@@ -1384,7 +1384,7 @@ function ProfilePage() {
         const PublicationCard = () =>{
             return(<>
                 <div className='card-body'>
-                    <div className='text-center'> <img src={`https://cdn.abyedh.tn/images/Search/blog-post.svg`} className='mb-2' width='100px' height='100px' /> </div>
+                    <div className='text-center'> <img src={`https://cdn.abyedh.com/images/Search/blog-post.svg`} className='mb-2' width='100px' height='100px' /> </div>
                     <div className='text-center'>   هذا العميل ليس لديه منشورات  </div>
                 </div>
                 <br />
@@ -1405,7 +1405,7 @@ function ProfilePage() {
                 <meta name="description" content={GConf.SeoTags[tag].tags} />
                 <meta property="og:title" content={loading ? '' : profileData.genrale[0].Name} />
                 <meta property="og:description" content={loading ? '' : profileData.genrale[0].Name} />
-                <meta property="og:image" content={`https://cdn.abyedh.tn/images/ads/${tag}.svg`} />
+                <meta property="og:image" content={`https://cdn.abyedh.com/images/ads/${tag}.svg`} />
                 <meta property="og:url" content={`https://abyedh.tn/S/P/${tag}/${PID}`} />
             </Helmet>
             <TopNavBar /> 

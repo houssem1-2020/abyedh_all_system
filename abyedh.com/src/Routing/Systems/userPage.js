@@ -63,7 +63,7 @@ function ProfileFollow() {
             return(<>
                 <NavLink exact='true' to='/Profile' className="navbar-brand border-div m-0 p-0 ms-3">
                     {/* <span className='bi bi-person-circle bi-md text-white'></span> */}
-                    <img  className="rounded-circle p-0 m-0 me-1" src={`https://cdn.abyedh.tn/images/p_pic/${GConf.UserData.UData.PictureId}.gif`}   alt="Logo" style={{width:'30px', height:'30px'}} />
+                    <img  className="rounded-circle p-0 m-0 me-1" src={`https://cdn.abyedh.com/images/p_pic/${GConf.UserData.UData.PictureId}.gif`}   alt="Logo" style={{width:'30px', height:'30px'}} />
                 </NavLink>
             </>)
         }
@@ -93,7 +93,7 @@ function ProfileFollow() {
             return(<>
                     <div className='card card-body border-div shadow-sm mb-3'>
                         <div className='row' dir='rtl'>
-                            <div className='col-2'><img  className="rounded-circle p-0 m-0 me-1" src={`https://cdn.abyedh.tn/images/p_pic/${GConf.UserData.UData.PictureId}.gif`}   alt="Logo" style={{width:'30px', height:'30px'}} /></div>
+                            <div className='col-2'><img  className="rounded-circle p-0 m-0 me-1" src={`https://cdn.abyedh.com/images/p_pic/${GConf.UserData.UData.PictureId}.gif`}   alt="Logo" style={{width:'30px', height:'30px'}} /></div>
                             <div className='col-10 align-self-center text-secondary'><b>تم التسجيل بإسم : {GConf.UserData.UData.Name}</b></div>
                         </div>
                     </div>

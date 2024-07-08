@@ -165,6 +165,23 @@ function RequestPage() {
             return(commandeContainer)
     }
 
+    const onShare = async () => {
+      if (navigator.share) {
+      try {
+          const result = await navigator.share({
+          title: 'profileData.general[0].Name ',
+          text: '${profileData.general[0].Name} - abyedh.com' ,
+          url: `http://abyedh.com/S/P/${localStorage.getItem('APP_TAG')}/${localStorage.getItem('PID')}`,
+          });
+          console.log('Successfully shared', result);
+      } catch (error) {
+          console.error('Error sharing:', error);
+      }
+      } else {
+      alert('Sharing is not supported in this browser.');
+      }
+  };
+
  
     /*#########################[Card]##################################*/
     const StateCard = ({ status }) => {
@@ -189,7 +206,7 @@ function RequestPage() {
             }, [status]);
           
             return (
-              <div className="container">
+              <div className="p-1">
                 {statusCard()}
               </div>
             );
@@ -200,32 +217,81 @@ function RequestPage() {
    
     const ShareYourselfCard = () =>{
       return(<>
-          <br />
-          <br />
-          <br />
-          <div className='card card-body border-div mb-4' >
+ 
+          <div className=' card-body border-div mb-4' >
               <h5 dir='rtl' className='text-danger'> <span className='bi bi-exclamation-octagon-fill'></span> إذا لم تستقبل أي طلبيات يمكن أن تستعمل إحدي الطرق التالية للتعريف بملفك الخاص : </h5>
               <div dir='rtl'>
-                1- قم بمشاركة ملفك علي شبكة الفايسبوك من خلال الزر التالي <br /> 
-                <Button size='mini' className='mt-2 rounded-pill' fluid  primary target="_blank" href={`https://www.facebook.com/sharer/sharer.php?u=https://abyedh.tn/S/P/${APPConf.systemTag}/${APPConf.PID}&picture=https://en.wikipedia.org/wiki/QR_code#/media/File:QR_code_for_mobile_English_Wikipedia.svg`} >  <Icon name='facebook f' /> إعلان علي الفايسبوك  </Button>
+                1- قم بمشاركة ملفك علي شبكات التواصل الإجتماعي من خلال الزر التالي <br /> 
+                {/* <Button size='mini' className='mt-2 rounded-pill' fluid  primary target="_blank" href={`https://www.facebook.com/sharer/sharer.php?u=https://abyedh.tn/S/P/${APPConf.systemTag}/${APPConf.PID}&picture=https://en.wikipedia.org/wiki/QR_code#/media/File:QR_code_for_mobile_English_Wikipedia.svg`} >  <Icon name='facebook f' /> إعلان علي الفايسبوك  </Button> */}
+                <Button className='mt-2 rounded-pill' fluid     onClick={() => onShare()}  >  <Icon name='share alternate' />  نشر الملف </Button>
               </div>
               <div dir='rtl' className='mt-4'>
                 2- قم  بطباعة هذا المنشور و إلصاقة علي مكتب أو محل العمل من أجل تسهيل وصول العملاء لملفك عن طريق مسح الكود الخاص بك بهواتفهم   <br />
-                <Button size='mini' className='mt-2 rounded-pill' fluid positive onClick={(e) => PrintFunction('printPID')}> <Icon name='print'  />  طباعة المنشور</Button>
+                <Button className='mt-2 rounded-pill' fluid positive onClick={(e) => PrintFunction('printPID')}> <Icon name='print'  />  طباعة المنشور</Button>
               </div>
           </div>
         </>)
     }
- 
+    
+    const RequesInfoCard = (props) => {
+      return(<>
+         <div className='card card-body sharow-sm mb-3 border-div '>
+          <div className='row'>
+            <div className='col-2 align-self-center'> <TableImage forUser image={props.data.PictureId} /></div>
+            <div className='col-7 align-self-center text-start'>
+              <h5 className='text-secondary mb-1'>{props.data.Name}</h5>
+              <small>{new Date(props.data.R_Date).toLocaleDateString('fr-FR').split('/').reverse().join('-')} | {props.data.R_Time}</small>
+            </div>
+            <div className='col-3   align-self-center text-start'> <StateCard status={props.data.State} /> </div>
+          </div>
+          <div className='card-body'> 
+            
+            { APPConf.landing[APPConf.systemTag].tableItemList[TAG].map((data,index) => {
+                switch (data.genre) {
+                    case 'text': return <div> {APPConf.landing[APPConf.systemTag].tableHeader[TAG][index+4]} {props.data[data.value]} </div>
+                        break;
+                    case 'date': return <div> {APPConf.landing[APPConf.systemTag].tableHeader[TAG][index+4]} : { RenderDateFun(props.data[data.value]) } </div>
+                        break;
+                    case 'lengthFunc': return <div> {APPConf.landing[APPConf.systemTag].tableHeader[TAG][index+4]} : { LengthFunction(props.data[data.value]) } </div>
+                        break;
+                    case 'PropFunction': return <div> {APPConf.landing[APPConf.systemTag].tableHeader[TAG][index+4]} : { PropFunction(props.data[data.value[0]], data.value[1]) } </div>
+                      break;
+                    default:
+                        break;
+            }
+                
+              })
+            }
+            </div>
+           
+           <Button className='rounded-pill text-white' style={{backgroundColor : APPConf.landing[APPConf.systemTag].colorTheme}} size='mini' onClick={e => NavigateFunction(`/App/S/rq/info/${TAG}/${props.data.R_ID}`)}  > <span  > Info </span> <Icon name='angle right' /> </Button>
+        </div> 
+      </>)
+    }
     return (<>
  
-            <Fade>
+            {/* <Fade>
                   <CustomTabs  activeIndex={activeIndex} setActiveIndex={setActiveIndex} TAG={TAG} />
                   <Tab menu={{ secondary: true }} activeIndex={activeIndex} panes={panesRes}  className='no-menu-tabs mt-2' />
-            </Fade>
+            </Fade> 
             
             {(FetchByGenreReserv('W').length == 0 && !loading) ? <ShareYourselfCard /> : ''}
-            <FrameForPrint frameId='printPID' src={`/App/Profile/ProfilePrint`} />
+            */}
+            {
+              loading ? <span>...</span>
+              :
+              <>
+                {
+                  reservationList.length == 0 ? <ShareYourselfCard />
+                  :
+                  <>
+                    {reservationList.map((data,index) => <RequesInfoCard key={index} data={data}  />)} 
+                  </>
+                }
+              </>
+            }
+
+           <FrameForPrint frameId='printPID' src={`/App/Profile/ProfilePrint`} />
     </>);
 }
 

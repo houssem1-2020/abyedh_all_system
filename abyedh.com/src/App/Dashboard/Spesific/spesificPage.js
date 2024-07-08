@@ -2,6 +2,8 @@ import React, {useEffect,useState}  from 'react';
 import GConf from '../../AssetsM/APPConf';
 
 
+import ShopStore from './spesificPage/shop_store'; 
+
 import DocteurSpecific from './spesificPage/docteur'; 
 import InfirmierSpecific from './spesificPage/infirmier'; 
 import PharmacieSpecific from './spesificPage/pharmacie';
@@ -166,8 +168,9 @@ function RequestPage() {
     }
  
     return (<>
-            <SpecificCard status={GConf.systemTag} />
-
+            {/* <SpecificCard status={GConf.systemTag} /> */}
+            ARTICLES ET FAMLILLES OU TARIFS DES SERVICES 
+            <ShopStore TAG={GConf.systemTag} PID={GConf.systemTag} />
     </>);
 }
 

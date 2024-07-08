@@ -165,7 +165,7 @@ function FavoritePage() {
             return(<>
                 <div className='mb-3 text-center'>
                     <NavLink exact='trur' to={`/S/P/${props.data.Genre}/${props.data.PID}`}>
-                        <div className='mb-0'><img src={`https://cdn.abyedh.tn/Images/Search/CIcons/${props.data.Genre}.gif`} className='img-responsive rounded-circle mb-0'  width='60px' height='60px' /></div>
+                        <div className='mb-0'><img src={`https://cdn.abyedh.com/Images/Search/CIcons/${props.data.Genre}.gif`} className='img-responsive rounded-circle mb-0'  width='60px' height='60px' /></div>
                         <h6 className='mt-1 small'>{props.data.Name}</h6>
                     </NavLink>
                 </div>
@@ -217,7 +217,7 @@ function FavoritePage() {
     const EmptyCard = () =>{
         return(<>
             <div className='card-body text-center'>
-                <img src='https://cdn.abyedh.tn/images/profile/empty-fvrt.png' width='80%'  height='220px' />
+                <img src='https://cdn.abyedh.com/images/profile/empty-fvrt.png' width='80%'  height='220px' />
                 <h5>ليس لديك اي عنصر في المفضلة . قم بإكتشاف محرك البحث في الصفحة الرئسية</h5> 
             </div>
         </>)

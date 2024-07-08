@@ -22,7 +22,7 @@ function SearchPage() {
             setLoading(false)
           }).catch((error) => {
             if(error.request) {
-              toast.error(<><div><h5>مشل في الإتصال </h5> </div></>, GConf.TostInternetGonf) 
+              toast.error(<><div><h5>  Connexion   </h5> </div></>, GConf.TostInternetGonf) 
               setResultList([])
               setLoading(false)
               }
@@ -82,7 +82,7 @@ function SearchPage() {
         const UserCard = () =>{
             return(<>
                 <NavLink exact='true' to='/Profile' className="navbar-brand border-div m-0 p-0 ms-3">
-                    <img  className="rounded-circle p-0 m-0 me-1" src={`https://cdn.abyedh.tn/images/p_pic/${GConf.UserData.UData.PictureId}.gif`}   alt="Logo" style={{width:'30px', height:'30px'}} />
+                    <img  className="rounded-circle p-0 m-0 me-1" src={`https://cdn.abyedh.com/images/p_pic/${GConf.UserData.UData.PictureId}.gif`}   alt="Logo" style={{width:'30px', height:'30px'}} />
                 </NavLink>
             </>)
         }
@@ -91,7 +91,7 @@ function SearchPage() {
                     <div className='row m-0'>
                         <div className='col-6 text-start align-self-center'>
                             <NavLink exact='true' to='/' className="m-0 p-0 ms-3">
-                                <img  className="border-div" src="https://cdn.abyedh.tn/images/logo/mlogo.gif"   alt="Logo" style={{width:'20px', height:'40px'}} />
+                                <img  className="border-div" src="https://cdn.abyedh.com/images/logo/mlogo.gif"   alt="Logo" style={{width:'20px', height:'40px'}} />
                             </NavLink>
                         </div>
                         <div className='col-6 text-end align-self-center'>
@@ -131,7 +131,7 @@ function SearchPage() {
                                 }}
                                 className="card-img bg-white"
                             >
-                                <img src={`https://cdn.abyedh.tn/Images/Search/Icons/${props.data.Tag}.gif`} className='img-responsive rounded-circle bg-white' width='100px'  height='100px' />
+                                <img src={`https://cdn.abyedh.com/Images/Search/CIcons/${props.data.Tag}.gif`} className='img-responsive rounded-circle bg-white' width='100px'  height='100px' />
                             </span>
                             
                         </div>
@@ -158,8 +158,8 @@ function SearchPage() {
         return(<>
             <div className='card-body mb-4 ' dir='rtl'>
                 <div className='text-center'>
-                    <img src='https://cdn.abyedh.tn/Images/Errors/error-page.png' className='img-gray d-lg-none' width='100%'  height='300px' />
-                    <img src='https://cdn.abyedh.tn/Images/Errors/error-page.png' className='img-gray d-none d-lg-inline' width='60%'  height='300px' />
+                    <img src='https://cdn.abyedh.com/Images/Errors/error-page.png' className='img-gray d-lg-none' width='100%'  height='300px' />
+                    <img src='https://cdn.abyedh.com/Images/Errors/error-page.png' className='img-gray d-none d-lg-inline' width='60%'  height='300px' />
                 </div>
                 <h3>عذرا , لا توجد نتائج حاليا لأحد الأسباب التالية :</h3> 
                 <ul >
@@ -188,12 +188,14 @@ function SearchPage() {
                         {
                             !loading ? 
                             <>
-                            {
-                                resultList.map( (data,index) => <ResultCard key={index} data={data} />)
-                            }
+                                {
+                                    resultList.map( (data,index) => <ResultCard key={index} data={data} />)
+                                }
                             </>
                             :
-                            <></>
+                            <>
+                                loading
+                            </>
                         }
                     </div>
                 </div>

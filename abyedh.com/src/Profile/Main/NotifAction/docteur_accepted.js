@@ -5,10 +5,13 @@ import GConf from '../../../AssetsM/generalConf';
 import { Form, TextArea, Input , Button, Icon, Loader} from 'semantic-ui-react'
 import axios from 'axios';
 import { toast } from 'react-toastify';
+import { useTranslation, Trans } from 'react-i18next';
+
 
 function DocteurActions(props) {
 
     /* ############### Const #################*/
+    const { t, i18n } = useTranslation();
     const [rendyVousD, setRdvData] = useState({date:new Date().toISOString().split('T')[0] , time: new Date().toLocaleTimeString('fr-FR')})
     const [loaderState, setLS] = useState(false)
     const [disabledSaveBtn, setDisabledBtn] = useState(false)
@@ -48,8 +51,7 @@ function DocteurActions(props) {
 
     return ( <>
         <div className='m-0'>
-                <p>تم قبول الموعد مع الطبيب {props.pidData.Name} </p>
-                    
+                <p>{ t('userProfile.notificationPage.gym_souscription_saved', {  one: props.pidData.Name })} </p>                    
                 <div className='row'>
                     <div className='col-12'>
                         <Button className='rounded-pill text-success'  size='tiny' onClick={saveFunction} disabled={disabledSaveBtn}  icon   > <Icon name='check' />    تأكيد </Button>

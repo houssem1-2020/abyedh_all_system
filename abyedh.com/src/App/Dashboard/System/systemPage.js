@@ -133,7 +133,7 @@ function RequestPage() {
         <div className='col-12 col-lg-12  mb-4 mt-4 font-Expo-book'>
             <div className='card  p-4 shadow-sm  border-div '>
                 <div className='row'>
-                    <div className='col-2 align-self-center text-center'><img className="rounded-circle  " src={`https://cdn.abyedh.tn/images/ads/${APPConf.systemTag}.svg`} width="50px" height="50px"/></div>
+                    <div className='col-2 align-self-center text-center'><img className="rounded-circle  " src={`https://cdn.abyedh.com/images/ads/${APPConf.systemTag}.svg`} width="50px" height="50px"/></div>
                     <div className='col-10 align-self-center text-secondary pe-4' dir='rtl'>
                         <div>النسخة الكاملة لـ {APPConf.landing[APPConf.systemTag].systemTitle} <span className='text-danger'>ستكون متوفرة قريبا ... </span> قم بتسجيل طلب الإشتراك  و سنعلمك حين تكون متوفرة </div>
                         

@@ -41,7 +41,7 @@ function PublicationProfilePage(props) {
             <br />
             <br />
             <div className='card-body'>
-                <div className='text-center'> <img src={`https://cdn.abyedh.tn/images/Search/blog-post.svg`} className='mb-2' width='100px' height='100px' /> </div>
+                <div className='text-center'> <img src={`https://cdn.abyedh.com/images/Search/blog-post.svg`} className='mb-2' width='100px' height='100px' /> </div>
                 <div className='text-center'>   {t('profilePage.PostsTabs.noPostToShow')}  </div>
             </div>
             <br />
@@ -83,7 +83,7 @@ function PublicationProfilePage(props) {
                     <div className='col-10'>
                         <div className="d-flex align-items-center">
                             <div className="flex-shrink-0">
-                                <img src={`https://cdn.abyedh.tn/images/Search/CIcons/${tag}.gif`}   width='50px' height='50px'/>     
+                                <img src={`https://cdn.abyedh.com/images/Search/CIcons/${tag}.gif`}   width='50px' height='50px'/>     
                             </div>
                             <div className="flex-grow-1 ms-3">
                                 {/* {props.data.PidData.Name}  */}
@@ -118,7 +118,7 @@ function PublicationProfilePage(props) {
                     <div className='col-10'>
                         <div className="d-flex align-items-center">
                             <div className="flex-shrink-0">
-                                <img src={`https://cdn.abyedh.tn/images/Search/CIcons/${tag}.gif`}   width='50px' height='50px'/>     
+                                <img src={`https://cdn.abyedh.com/images/Search/CIcons/${tag}.gif`}   width='50px' height='50px'/>     
                             </div>
                             <div className="flex-grow-1 ms-3">
                                 {/* {props.data.PidData.Name}  */}
@@ -153,7 +153,7 @@ function PublicationProfilePage(props) {
                     <div className='col-10'>
                         <div className="d-flex align-items-center">
                             <div className="flex-shrink-0">
-                                <img src={`https://cdn.abyedh.tn/images/Search/CIcons/${tag}.gif`}   width='50px' height='50px'/>     
+                                <img src={`https://cdn.abyedh.com/images/Search/CIcons/${tag}.gif`}   width='50px' height='50px'/>     
                             </div>
                             <div className="flex-grow-1 ms-3">
                                 {/* {props.data.PidData.Name}  */}
@@ -188,7 +188,7 @@ function PublicationProfilePage(props) {
                     <div className='col-10'>
                         <div className="d-flex align-items-center">
                             <div className="flex-shrink-0">
-                                <img src={`https://cdn.abyedh.tn/images/Search/CIcons/${tag}.gif`}   width='50px' height='50px'/>     
+                                <img src={`https://cdn.abyedh.com/images/Search/CIcons/${tag}.gif`}   width='50px' height='50px'/>     
                             </div>
                             <div className="flex-grow-1 ms-3">
                                 {/* {props.data.PidData.Name}  */}

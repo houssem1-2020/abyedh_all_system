@@ -103,7 +103,7 @@ function MainPage() {
                     <div className={`col-10 ${isRTL ? ' ' : 'order-1'} `}>
                         <div className={` d-flex align-items-center ${isRTL ? '' : ''}`}>
                             <div className="flex-shrink-0">
-                                   <img src={`https://cdn.abyedh.tn/images/Search/CIcons/${props.data.P_Genre}.gif`} alt="..."  width='50px' height='50px'/>
+                                   <img src={`https://cdn.abyedh.com/images/Search/CIcons/${props.data.P_Genre}.gif`} alt="..."  width='50px' height='50px'/>
                             </div>
                             <div className={` flex-grow-2  ${isRTL ? 'me-1': 'text-start ms-1'}`}>
                                 {
@@ -169,7 +169,7 @@ function MainPage() {
                         <div className='col-10'>
                             <div className="d-flex align-items-center">
                                 <div className="flex-shrink-0">
-                                    <img src={`https://cdn.abyedh.tn/images/Search/CIcons/${props.data.Owner_Genre}.gif`}   width='50px' height='50px'/>     
+                                    <img src={`https://cdn.abyedh.com/images/Search/CIcons/${props.data.Owner_Genre}.gif`}   width='50px' height='50px'/>     
                                 </div>
                                 <div className="flex-grow-1 ms-3">
                                     {/* {props.data.PidData.Name}  */}
@@ -204,7 +204,7 @@ function MainPage() {
                         <div className='col-10'>
                             <div className="d-flex align-items-center">
                                 <div className="flex-shrink-0">
-                                    <img src={`https://cdn.abyedh.tn/images/Search/CIcons/${props.data.Owner_Genre}.gif`}   width='50px' height='50px'/>     
+                                    <img src={`https://cdn.abyedh.com/images/Search/CIcons/${props.data.Owner_Genre}.gif`}   width='50px' height='50px'/>     
                                 </div>
                                 <div className="flex-grow-1 ms-3">
                                     {/* {props.data.PidData.Name}  */}
@@ -239,7 +239,7 @@ function MainPage() {
                         <div className='col-10'>
                             <div className="d-flex align-items-center">
                                 <div className="flex-shrink-0">
-                                    <img src={`https://cdn.abyedh.tn/images/Search/CIcons/${props.data.Owner_Genre}.gif`}   width='50px' height='50px'/>     
+                                    <img src={`https://cdn.abyedh.com/images/Search/CIcons/${props.data.Owner_Genre}.gif`}   width='50px' height='50px'/>     
                                 </div>
                                 <div className="flex-grow-1 ms-3">
                                     {/* {props.data.PidData.Name}  */}
@@ -274,7 +274,7 @@ function MainPage() {
                         <div className='col-10'>
                             <div className="d-flex align-items-center">
                                 <div className="flex-shrink-0">
-                                    <img src={`https://cdn.abyedh.tn/images/Search/CIcons/${props.data.Owner_Genre}.gif`}   width='50px' height='50px'/>     
+                                    <img src={`https://cdn.abyedh.com/images/Search/CIcons/${props.data.Owner_Genre}.gif`}   width='50px' height='50px'/>     
                                 </div>
                                 <div className="flex-grow-1 ms-3">
                                     {/* {props.data.PidData.Name}  */}
@@ -320,9 +320,9 @@ function MainPage() {
                             <div className="flex-shrink-0"> */}
                                 {/* {
                                    props.data.PID == 0 ?
-                                   <img  className="border-div-s bg-danger border border-danger ms-3" src="https://cdn.abyedh.tn/images/logo/mlogo.gif"   alt="Logo" style={{width:'20px', height:'40px', borderRadius: '10px 20px 10px 50px'}} />
+                                   <img  className="border-div-s bg-danger border border-danger ms-3" src="https://cdn.abyedh.com/images/logo/mlogo.gif"   alt="Logo" style={{width:'20px', height:'40px', borderRadius: '10px 20px 10px 50px'}} />
                                    :
-                                   <img src={`https://cdn.abyedh.tn/images/Search/CIcons/${props.data.P_Genre}.gif`} alt="..."  width='50px' height='50px'/>
+                                   <img src={`https://cdn.abyedh.com/images/Search/CIcons/${props.data.P_Genre}.gif`} alt="..."  width='50px' height='50px'/>
                                 } */}
 
                                 
@@ -365,7 +365,7 @@ function MainPage() {
                     <div className='col-10  '>
                         <div className="d-flex align-items-center">
                             <div className="flex-shrink-0">
-                                <img src={`https://cdn.abyedh.tn/images/Search/CIcons/${props.data.P_Genre}.gif`} alt="..."  width='50px' height='50px'/>
+                                <img src={`https://cdn.abyedh.com/images/Search/CIcons/${props.data.P_Genre}.gif`} alt="..."  width='50px' height='50px'/>
                             </div>
                             <div className="flex-grow-1 ms-3">
                                 <h4 className='mb-0 text-secondary'>{props.data.P_Genre}</h4>
@@ -400,7 +400,7 @@ function MainPage() {
                     <div className='col-10  '>
                         <div className="d-flex align-items-center">
                             <div className="flex-shrink-0">
-                                    <img  className="border-div-s bg-danger border border-danger ms-3" src="https://cdn.abyedh.tn/images/logo/mlogo.gif"   alt="Logo" style={{width:'20px', height:'40px', borderRadius: '10px 20px 10px 50px'}} />
+                                    <img  className="border-div-s bg-danger border border-danger ms-3" src="https://cdn.abyedh.com/images/logo/mlogo.gif"   alt="Logo" style={{width:'20px', height:'40px', borderRadius: '10px 20px 10px 50px'}} />
                             </div>
                             <div className="flex-grow-1 ms-3">
                                 <h4 className='mb-0 text-secondary'>أخبار منصة أبيض</h4>
@@ -434,7 +434,7 @@ function MainPage() {
                     <div className='col-10  '>
                         <div className="d-flex align-items-center">
                             <div className="flex-shrink-0">
-                                    <img  className="border-div-s bg-danger border border-danger ms-3" src="https://cdn.abyedh.tn/images/logo/mlogo.gif"   alt="Logo" style={{width:'20px', height:'40px', borderRadius: '10px 20px 10px 50px'}} />
+                                    <img  className="border-div-s bg-danger border border-danger ms-3" src="https://cdn.abyedh.com/images/logo/mlogo.gif"   alt="Logo" style={{width:'20px', height:'40px', borderRadius: '10px 20px 10px 50px'}} />
                             </div>
                             <div className="flex-grow-1 ms-3">
                                 <h4 className='mb-0 text-secondary'>إدارة منصة أبيض</h4>
@@ -479,7 +479,7 @@ function MainPage() {
     const EmptyCard = () =>{
         return(<>
             <div className='card-body text-center'>
-                <img src='https://cdn.abyedh.tn/images/profile/suivie-empty.png' width='80%'  height='290px' />
+                <img src='https://cdn.abyedh.com/images/profile/suivie-empty.png' width='80%'  height='290px' />
                 <h5>لا توجد نتائج . قم بإكتشاف محرك البحث في الصفحة الرئسية</h5> 
             </div>
         </>)

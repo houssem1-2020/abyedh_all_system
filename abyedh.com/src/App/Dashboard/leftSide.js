@@ -66,8 +66,8 @@ function LeftSideCard() {
     };
 
     return (  <>
-        <div className='col-12 col-lg-2  text-center d-none d-lg-block fixed-top border-end bg-white' style={{backgroundColor: 'transparent', height:'100vh', zIndex: 999, top:'60px' }}>
-        <h1 className='text-white mt-0'><img src={`https://cdn.abyedh.tn/images/ads/${GConf.systemTag}.svg`} alt="." className="p-0" width="120px" height="120px"/></h1>
+        <div className='col-12 col-lg-2  text-center d-none d-lg-block fixed-top border-end bg-white' style={{backgroundColor: 'transparent', height:'100vh', zIndex: 1, top:'60px' }}>
+        <h1 className='text-white mt-0'><img src={`https://cdn.abyedh.com/images/ads/${GConf.systemTag}.svg`} alt="." className="p-0" width="120px" height="120px"/></h1>
             
             <div  className='pt-2' style={{height:'55%', overflowX:'auto', overflowX:'hidden'}}>
                 {/* <StateCard status = {GetPathName(location.pathname)} />              */}

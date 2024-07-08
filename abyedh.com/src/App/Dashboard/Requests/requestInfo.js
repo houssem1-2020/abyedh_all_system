@@ -1,7 +1,10 @@
-import React, { useEffect} from 'react';
+import React, { useEffect, useState} from 'react';
 import { useParams } from 'react-router-dom';
 import GConf from '../../AssetsM/APPConf';
- 
+import BreadCrumb from '../../AssetsM/Cards/breadCrumb'
+import { Button, Dropdown, Form, Icon, Input, List, Menu, Modal, Select, Tab, TextArea } from 'semantic-ui-react';
+import APPItem from '../../AssetsM/APPITEM';
+import APPConf from '../../AssetsM/APPConf';
 
 import Docteur from './infoPage/docteur'; 
 import Infirmier from './infoPage/infirmier'; 
@@ -86,15 +89,176 @@ import Bijouterie from './infoPage/bijouterie_shop';
 import Chef from './infoPage/chef_reserver';
 import SallonMariage from './infoPage/salon_marriage_reserver';
 import Veterinaire from './infoPage/veterinaire'; 
- 
+import axios from 'axios';
+import { toast } from 'react-toastify';
+import { useTranslation, Trans } from 'react-i18next';
 
+const SendBox = ({SendMessage, setMesgC,msgContent}) =>{
+  const { t, i18n } = useTranslation();
+  return(<>
+           <div className='row '>
+              <div className='col-10 align-self-center'>
+              <Form>
+                  <TextArea placeholder='Ajouter Notes ici' value={msgContent} className="mb-2 rounded-pill" rows='1' onChange={ (e) => setMesgC(e.target.value)}></TextArea>
+              </Form>
+              </div>
+              <div className='col-2 align-self-center text-end'><Button  icon='send'  className='rounded-circle mb-2' onClick={SendMessage}></Button></div>
+          </div>
+      </>)
+}
 
 function RequestInfo() {
     /*#########################[Const]##################################*/
-    const {TAG} = useParams()
-    
-    /*#########################[useEffect]#############################*/ 
+     
+    const {TAG,CID} = useParams()
+    const [activeIndex, setActiveIndex] = useState(0)
+    const [reqState, setReqState] = useState('')
+    const [loading , setLoading] = useState(false)
+    const [requestData, setRequestData] = useState([])
+    const [messagesListe, setMessageListe] = useState([])
+    const [msgContent, setMesgC] = useState('')
+    const [updateS, setUpdateS] = useState()
+    const panesInfo = [
+      {
+          menuItem: { key: 'articles', icon: 'file alternate', content: `${ findElementByLink(`rq/${TAG}`) } Info` }, 
+          render: () => <><h5>Info du { findElementByLink(`rq/${TAG}`) }  <SpecificCard status={TAG} /> </h5> </>,
+      },            
+      {
+          menuItem: { key: 'start', icon: 'user', content: 'Info Client ' }, 
+          render: () => <UserCard />,
+      }
+      
+  ]
+  
+  
+    /*#########################[useEffect]##################################*/ 
+    useEffect(() => {
+        axios.post(`${GConf.ApiLink}/request/info`, {
+            PID : GConf.PID,
+            CID: CID,
+            SystemTag : TAG
+          })
+          .then(function (response) {
+                 
+                if (!response.data.PID) {
+                    toast.error('Demmande Introuvable !', GConf.TostSuucessGonf)
+                    setTimeout(() => {  window.location.href = "/App/S"; }, 2000)
+                } else {
+                    setRequestData(response.data)
+                    setLoading(true)
+                    setReqState(response.data.State)  
+                    if (response.data.State == 'W') { UpdateRequestState('S',false,false,false,false)} 
+                }  
+          }).catch((error) => {
+            if(error.request) {
+              toast.error(<><div><h5>Probleme de Connextion</h5> Impossible de charger la commande   </div></>, GConf.TostInternetGonf)   
+              setRequestData([])
+              setLoading(true)
+            }
+          });
+
+          axios.post(`${GConf.ApiLink}/request/info/messages`, {
+            PID : GConf.PID,
+            CID: CID,
+            SystemTag : TAG
+          })
+          .then(function (response) {
+            setMessageListe(response.data) 
+          }).catch((error) => {
+            if(error.request) {
+              toast.error(<><div><h5>Probleme de Connextion</h5> Impossible de charger la commande   </div></>, GConf.TostInternetGonf)   
+            }
+          });
+
+    }, [])
+
     /*#########################[Functions]#############################*/
+      const OnKeyPressFunc = (e) => {
+          if (!((e.charCode >= 65 && e.charCode <= 90) || (e.charCode >= 97 && e.charCode <= 122) || (e.charCode >= 48 && e.charCode <= 57) || e.charCode == 42 || e.charCode == 32 || e.charCode == 47 )) {
+              e.preventDefault();
+          }   
+      }
+      function findElementByLink(link) {
+          for (const category in APPItem) {
+            if (APPItem[category] && APPItem[category].itemsList) {
+              for (const slide of APPItem[category].itemsList) {
+                if (Array.isArray(slide)) {
+                  for (const subSlide of slide) {
+                    if (subSlide.link === link) {
+                      return subSlide.itemName
+                    }
+                  }
+                } else if (slide.link === link) {
+                  return slide.itemName
+                }
+              }
+            }
+          }
+          return null;
+      }
+      const FindBtnState = (reqState) =>{
+          switch(reqState) {
+              case 'W': return {seenState: true, acceptState: false, refuseState: false, reterderState: false, redirectState:false , terminerState:true};  
+              case 'S': return {seenState: false, acceptState: false, refuseState: false, reterderState: false, redirectState:false , terminerState:true};    
+              case 'A': return {seenState: true, acceptState: true, refuseState: true, reterderState: true, redirectState:true , terminerState:false};  
+              case 'R': return {seenState: true, acceptState: true, refuseState: true, reterderState: true, redirectState:true , terminerState:true};  
+              case 'RT': return {seenState: true, acceptState: false, refuseState: false, reterderState: false, redirectState:true , terminerState:true};  
+              case 'RD': return {seenState: true, acceptState: false, refuseState: false, reterderState: true, redirectState:false , terminerState:false};  
+              case 'T': return {seenState: true, acceptState: true, refuseState: true, reterderState: true, redirectState:true , terminerState:true};  
+              default:  return {seenState: true, acceptState: true, refuseState: true, reterderState: true, redirectState:true , terminerState:true};      
+            }
+      }
+
+      const UpdateRequestState = (stateBtn,dataGenre,selectedData,saveNotif,actionName) =>{
+          axios.post(`${GConf.ApiLink}/request/controle`, {
+              PID : GConf.PID,
+              UID : requestData.UID,
+              TAG : APPConf.systemTag,
+              RID: CID,
+              genreTag : TAG,
+              state: stateBtn,
+              data: selectedData,
+              dataGenre: dataGenre,
+              saveNotif : false,
+              actionName : `${TAG}_${actionName}`,
+            })
+            .then(function (response) { 
+              setReqState(stateBtn)
+              if (stateBtn == 'S') { console.log('Vu') } else { toast.success(<><div> C'est Fait   </div></>, GConf.TostInternetGonf)   }
+            }).catch((error) => {
+              if(error.request) {
+                toast.error(<><div><h5>Probleme de Connextion</h5> Impossible de modifier L'etat du commande  </div></>, GConf.TostInternetGonf)   
+                
+              }
+            });
+      }
+
+      const SendMessage = () =>{
+        if (!msgContent) {toast.error("Message Vide !", GConf.TostErrorGonf)}
+        else{
+            axios.post(`${GConf.ApiLink}/request/info/messages/ajouter`, { 
+                msgC: msgContent,
+                PID : GConf.PID,
+                RID : CID,
+                SystemTag : TAG
+            })
+            .then(function (response) {
+                if(response.data.affectedRows) {
+                    //setUpdateS(Math.random() * 10);
+                    setMesgC('')
+                    toast.success("Envoyer", GConf.TostSuucessGonf)
+                   
+                    
+                }
+                else{
+                    toast.error('Erreur', GConf.TostSuucessGonf)
+                     
+                }
+            })
+
+        }
+    }
+
     /*#########################[Card]##################################*/
     const IndefinieCard = (props) =>{
         return(<>
@@ -195,8 +359,114 @@ function RequestInfo() {
       );
     }
     
+    const UserCard = () =>{
+      return(<>
+
+                  <h5>Info Client</h5>
+                  <div className='row mb-2'>
+                      <div className='text-center mb-3'> 
+                          <img src={`https://cdn.abyedh.com/images/p_pic/${requestData.PictureId}.gif`} className='rounded-circle' width='60px'/>
+                      </div>
+                      <div className='col-12 col-lg-6 mb-2'><span className='bi bi-person-fill'></span> Nom :  {loading ? requestData.Name : ''}</div> 
+                      <div className='col-12 mb-2'><span className='bi bi-calendar-fill'></span> Age : {loading ? new Date().getFullYear() -  new Date(requestData.BirthDay).getFullYear()   : ''}</div>
+                      <div className='col-12 col-lg-6 mb-2'><span className='bi bi-phone-fill'></span> Phone : {loading ? requestData.PhoneNum : ''}</div> 
+                      <div className='col-12 col-lg-6 mb-2'><span className='bi bi-geo-alt-fill'></span> Gouv : {loading ? requestData.BirthGouv : ''} </div> 
+                      <div className='col-12 col-lg-6 mb-2'><span className='bi bi-map-fill'></span> Deleg : {loading ? requestData.BirthDeleg : ''}</div> 
+                  </div> 
+                  <div className='text-end'>
+                      <Button  className='rounded-pill text-secondary btn-imprimer' size='mini'     onClick={(e) => alert('Impossible d\'enregister le client, Car vous etes sur la version alfa du system ')}><Icon name='edit outline' /> Enregistrer Client</Button>
+                  </div>  
+      </>)
+    }
+    const StateCard = ({ status }) => {
+        const StateCard = (props) =>{ return <span className={`badge bg-${props.color}`}> {props.text} </span>}
+        const statusCard = React.useCallback(() => {
+          switch(reqState) {
+            case 'W': return <StateCard color='warning' text='En Attent' />;  
+            case 'S': return <StateCard color='info' text='Vu' />;  
+            case 'A': return <StateCard color='success' text='Acepteé' /> ;
+            case 'R': return <StateCard color='danger' text='Refuseé' />;
+            case 'RT': return <StateCard color='retarder' text='Retardeé' />;
+            case 'RD': return <StateCard color='redirecter' text='Redirecteé' />;
+            case 'T': return <StateCard color='secondary' text='Termineé' />;
+            default:  return <StateCard color='dark' text='Indefinie' />;    
+          }
+        }, [status]);
+      
+        return (
+          <div className="container">
+            {statusCard()}
+          </div>
+        );
+    };
+
+    const ReqInfoCard = () => {
+      return(<>{TAG}</>)
+    }
     return ( <> 
-        <SpecificCard status={TAG} />
+        {/* <SpecificCard status={TAG} /> */}
+
+        <BreadCrumb links={[ {id:1, name:'Communication', linkable:true, link:"/App/S"}, {id:2, name:'Info', linkable:false} ]} />
+        <br />
+        <div className="row">
+            <div className="col-12 col-lg-8">
+                <div className='row'>
+                    <div className='col-5'><h3 className='text-center mb-4'> { findElementByLink(`rq/${TAG}`) } </h3></div>
+                    <div className='col-7'><h3 className='text-end'><StateCard status={requestData.State} /></h3></div>
+                </div> 
+                <div className='card card-body bg-transparent border-div mb-3 mt-2'>
+                    <Tab menu={{widths: panesInfo.length , secondary: true, pointing: true  }} panes={panesInfo} />      
+                </div>
+                <br />
+                <div className='d-lg-none' style={{width:'100%', overflowX: 'auto', overflowY : 'hidden', whiteSpace:'nowrap'}}>
+                      {APPConf.landing[APPConf.systemTag].navItemList2[TAG].slice(2).map((data,index) =>
+                            <Button className='mb-3 rounded-pill'   style={{backgroundColor: data.color}} onClick={ () => UpdateRequestState(data.navIndexName,'false', false,true,'false')}>
+                                <span className='text-white'>
+                                    <b>
+                                    <span className={`bi bi-${data.icon}`}></span> {data.navName}
+                                    </b>
+                                </span>
+                            </Button>
+                        )}
+                      <Button disabled={FindBtnState(reqState).seenState} className='rounded-pill mb-3 bg-info text-white'    onClick={ () => UpdateRequestState('W',false,false,false,false)}><Icon name='eye' /> Marquer non Vu </Button>
+                  </div>
+
+                <div className='card-body '>
+                      
+
+                    <h5 className='text-secondary'>Les Reponses </h5>
+                    <ul>
+                    {
+                      messagesListe.map((data,index) => <li key={index}>{data.Content}</li>)
+                    }
+                    </ul>
+                    <SendBox SendMessage={SendMessage} setMesgC={setMesgC} msgContent={msgContent}/>
+                </div>
+            </div>
+            <br />
+            <div className="col-12 col-lg-4 d-none d-lg-block">
+                    <div className="sticky-top" style={{top:'70px', zIndex:'999'}}>
+                      <h5 className='text-secondary'> Action </h5>
+                        
+                          {APPConf.landing[APPConf.systemTag].navItemList2[TAG].slice(2).map((data,index) =>
+                                <Button className='mb-3 rounded-pill'   style={{backgroundColor: data.color}} onClick={ () => UpdateRequestState(data.navIndexName,'false', false,true,'false')}>
+                                    <span className='text-white'>
+                                        <b>
+                                        <span className={`bi bi-${data.icon}`}></span> {data.navName}
+                                        </b>
+                                    </span>
+                                </Button>
+                            )}
+                          <Button disabled={FindBtnState(reqState).seenState} className='rounded-pill mb-3 bg-info text-white'    onClick={ () => UpdateRequestState('W',false,false,false,false)}><Icon name='eye' /> Marquer non Vu </Button>
+                       
+                        
+                     
+                     {/* <CustomTabs  activeIndex={activeIndex} setActiveIndex={setActiveIndex} TAG={TAG}  /> */}
+                        {/* <Tab menu={{ secondary: true }} activeIndex={activeIndex} panes={panesRigth}  className='no-menu-tabs mt-2' />  */}
+                    </div>
+            </div>
+        </div>
+
     </> );
 }
 

@@ -120,7 +120,7 @@ function SearchLandingPage() {
         const UserCard = () =>{
             return(<>
                 <NavLink exact='true' to='/Profile' className="navbar-brand border-div m-0 p-0 ms-3">
-                    <img  className="rounded-circle p-0 m-0 me-1" src={`https://cdn.abyedh.tn/images/p_pic/${GConf.UserData.UData.PictureId}.gif`}   alt="Logo" style={{width:'30px', height:'30px'}} />
+                    <img  className="rounded-circle p-0 m-0 me-1" src={`https://cdn.abyedh.com/images/p_pic/${GConf.UserData.UData.PictureId}.gif`}   alt="Logo" style={{width:'30px', height:'30px'}} />
                 </NavLink>
             </>)
         }
@@ -129,7 +129,7 @@ function SearchLandingPage() {
                     <div className='row'>
                         <div className='col-6 text-start align-self-center'>
                             <NavLink exact='true' to='/' className="m-0 p-0 ms-3">
-                                <img  className="border-div-s d-none d-lg-inline" src="https://cdn.abyedh.tn/images/logo/mlogo.gif"   alt="Logo" style={{width:'20px', height:'40px', borderRadius: '10px 20px 10px 50px'}} />
+                                <img  className="border-div-s d-none d-lg-inline" src="https://cdn.abyedh.com/images/logo/mlogo.gif"   alt="Logo" style={{width:'20px', height:'40px', borderRadius: '10px 20px 10px 50px'}} />
                                 <div  className="d-lg-none d-inline-block text-white p-1"  > <span className='bi bi-arrow-left-short bi-md ' ></span> </div>
                             </NavLink>
                         </div>
@@ -199,7 +199,7 @@ function SearchLandingPage() {
                 <Ripples className='shadow-sm  m-1 border-div d-block'>
                 <div className={`card p-2 ps-3 border-div ${selected ? 'border-selected' : ''}`}  selected={selected} onClick={onChange} style={{cursor:'pointer'}}>
                     <div className='row '>
-                        <div className='col-4  text-center m-0 p-0'><img src={`https://cdn.abyedh.tn/images/Search/Land_icons/${option.imgSrc}.gif`} className='img-responsive' width='40px' height='40px' alt='*' /></div>
+                        <div className='col-4  text-center m-0 p-0'><img src={`https://cdn.abyedh.com/images/Search/Land_icons/${option.imgSrc}.gif`} className='img-responsive' width='40px' height='40px' alt='*' /></div>
                         <div className={`col-8  ${isRTL ? 'text-end' : 'text-start'}  m-0 p-0  align-self-center`}><b>{t(`landingPage.itemsToSelect.${tag}.${option.imgSrc}`)} </b></div> {/* ${option.value} */}
                     </div>
                 </div>
@@ -249,7 +249,7 @@ function SearchLandingPage() {
                 <NavLink exact='true' to={`/S/R/${tag}/${GConf.ADIL[tag].subCateg[isSelected].value}/${props.gouv}/${props.deleg}`} >
                             <div className='card p-3 mb-2 shadow-sm rounded-pill text-center'>
                                <div className='row' style={{color:GConf.ADIL[tag].themeColor}}>
-                                    <div className='col-2 align-text-center align-self-center'><img  className="rounded-circle " src={`https://cdn.abyedh.tn/images/p_pic/${GConf.UserData.UData.PictureId}.gif`}   alt="Logo" style={{width:'20px', height:'20px'}} /></div>
+                                    <div className='col-2 align-text-center align-self-center'><img  className="rounded-circle " src={`https://cdn.abyedh.com/images/p_pic/${GConf.UserData.UData.PictureId}.gif`}   alt="Logo" style={{width:'20px', height:'20px'}} /></div>
                                     <div className={`col-9 align-text-center text-truncate ${isRTL ? 'rtl' : 'ltr'}`}   style={{maxWidth:'280px'}} dir={!isRTL ? 'rtl' : 'ltr'}> <b><span>{t('landingPage.fastSearchText')}</span>  <span>{props.gouv}</span> , <span>{props.deleg}</span>   </b>    </div>
                                     <div className='col-1 align-text-center align-self-center'><b> <span className='bi bi-arrow-right-short'></span> </b></div>
                                </div>
@@ -299,7 +299,7 @@ function SearchLandingPage() {
                 {/* <a href={`/S/I/add/${tag}`} className=' text-secondary ' ></a> */}
                 <div className='row mt-0 pt-0 '>
                     <div className='col-3 align-self-center text-center'>
-                        <img src={`https://cdn.abyedh.tn/images/ads/${tag}.svg`} className=' mt-3 img-responsive mb-1 ms-2' width='100%'  height='auto' alt='abyedh.tn' />
+                        <img src={`https://cdn.abyedh.com/images/ads/${tag}.svg`} className=' mt-3 img-responsive mb-1 ms-2' width='100%'  height='auto' alt='abyedh.tn' />
                     </div>
                     <div className='col-9 align-self-center text-center'>
                         <p> {t('landingPage.textSystemAds1')}  {t(`landingPage.systemNames.${tag}`)} {t('landingPage.textSystemAds2')}   </p>
@@ -325,7 +325,7 @@ function SearchLandingPage() {
                 {/* <a href={`/S/I/add/${tag}`} className=' text-secondary ' ></a> */}
                 <div className='row mt-0 pt-0 '>
                     <div className='col-3 align-self-center text-center'>
-                        <img src={`https://cdn.abyedh.tn/images/ads/${tag}.svg`} className=' mt-3 img-responsive mb-1 ms-2' width='100%'  height='auto' alt='abyedh.tn' />
+                        <img src={`https://cdn.abyedh.com/images/ads/${tag}.svg`} className=' mt-3 img-responsive mb-1 ms-2' width='100%'  height='auto' alt='abyedh.tn' />
                     </div>
                     <div className='col-9 align-self-center text-end'>
                         <p className='mb-0'>   مِنَصّةْ الإِدَارَة الرَقْمِيَّة تَهْدِفُ لتبسيط العمليات الإدارية     </p>
@@ -368,7 +368,7 @@ function SearchLandingPage() {
             <NavLink exact='true' to={`/S/P/${tag}/${props.data.PID}`}>
                 <div className='card p-2 shadow-sm mb-2 border-div'>
                     <div className='row '>
-                        <div className='col-2 align-self-center'><img src={`https://cdn.abyedh.tn/Images/Search/CIcons/${tag}.gif`} className='img-responsive ' width='50px'  height='50px' />   </div>
+                        <div className='col-2 align-self-center'><img src={`https://cdn.abyedh.com/Images/Search/CIcons/${tag}.gif`} className='img-responsive ' width='50px'  height='50px' />   </div>
                         <div className='col align-self-center '>
                             <h5 className='mb-0   text-truncate' style={{maxWidth: '115px'}}><b className='mt-0 mb-0 text-secondary'>{props.data.Name} </b></h5>
                             <div className='mt-0 mb-0 text-secondary   text-truncate' style={{maxWidth: '115px'}}> {props.data.UID ? <span> المفظلة <span className='bi bi-star-fill text-warning'> </span></span>   : `${props.data.Gouv}, ${props.data.Deleg}`} </div>
@@ -485,7 +485,7 @@ function SearchLandingPage() {
                     <div className='col-12 col-lg-12 align-self-center  ' dir={isRTL ? 'rtl' : 'ltr'}>
                         <div className='row mb-2'>
                             <div className='col-4 col-lg-4  d-none d-lg-block '>
-                                <img src={`https://cdn.abyedh.tn/images/ads/${tag}.svg`} className='img-responsive  ' width='60%' height='auto' alt='abyedh.tn'  />
+                                <img src={`https://cdn.abyedh.com/images/ads/${tag}.svg`} className='img-responsive  ' width='60%' height='auto' alt='abyedh.tn'  />
                             </div>
                             <div className='col-12 col-lg-8 align-self-center text-center'>
                                 <h5 className={` mb-2 me-3 ${isRTL ? 'text-end' : 'text-start'}  text-secondary`}>{t(`landingPage.selectText.${tag}`)}</h5>

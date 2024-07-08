@@ -45,7 +45,7 @@ const RedirectingPage = () => {
     const UIDisSet = localStorage.getItem('UID');
     return (<>
         {
-            UIDisSet ? <Navigate to='/Profile/L'  /> : <Navigate to='/Profile/logIn'  />
+            UIDisSet ? <Navigate to='/Profile/L/ma'  /> : <Navigate to='/Profile/logIn'  />
         } 
 </>);}
 

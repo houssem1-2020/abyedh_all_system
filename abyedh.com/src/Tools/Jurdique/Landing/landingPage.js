@@ -41,7 +41,7 @@ function BlogLandingPage() {
         const UserCard = () =>{
             return(<>
                 <NavLink exact='true' to='/Profile' className="navbar-brand border-div m-0 p-0 ms-3">
-                    <img  className="rounded-circle p-0 m-0 me-1" src={`https://cdn.abyedh.tn/images/p_pic/${GConf.UserData.UData.PictureId}.gif`}   alt="Logo" style={{width:'30px', height:'30px'}} />
+                    <img  className="rounded-circle p-0 m-0 me-1" src={`https://cdn.abyedh.com/images/p_pic/${GConf.UserData.UData.PictureId}.gif`}   alt="Logo" style={{width:'30px', height:'30px'}} />
                 </NavLink>
             </>)
         }
@@ -50,7 +50,7 @@ function BlogLandingPage() {
                     <div className='row'>
                         <div className='col-6 text-start align-self-center'>
                             <NavLink exact='true' to='../' className="m-0 p-0 ms-3">
-                                <img  className="border-div-s d-none d-lg-inline border bg-danger" src="https://cdn.abyedh.tn/images/logo/mlogo.gif"   alt="Logo" style={{width:'20px', height:'40px', borderRadius: '10px 20px 10px 50px'}} />
+                                <img  className="border-div-s d-none d-lg-inline border bg-danger" src="https://cdn.abyedh.com/images/logo/mlogo.gif"   alt="Logo" style={{width:'20px', height:'40px', borderRadius: '10px 20px 10px 50px'}} />
                                 <div  className="d-lg-none d-inline-block text-secondary p-1"  > <span className='bi bi-arrow-left-short bi-md ' ></span> </div>
                             </NavLink>
                         </div>
@@ -91,7 +91,7 @@ function BlogLandingPage() {
                     <NavLink exact='true' to={`/tools/Blog/page/${props.data.Blog_ID}`} className="navbar-brand border-div m-0 p-0 ms-3">
                     <div className='card card-body shadow-sm mb-2 border-div text-start '>
                         <div className='small text-end'> منذ : 2023-12-04 </div>
-                        <div className='text-center'><img src={`https://cdn.abyedh.tn/images/Tools/Blog/${props.data.Img_Url}`} className='text-center' width={'70%'} height={'120'} /> </div>
+                        <div className='text-center'><img src={`https://cdn.abyedh.com/images/Tools/Blog/${props.data.Img_Url}`} className='text-center' width={'70%'} height={'120'} /> </div>
                         <h3 className='text-secondary text-truncate text-end ' style={{maxWidth: '100%'}} dir='rtl'>{props.data.Title} </h3>
                         <div className='row text-decoration-none' >
                             <div className='col-4 align-self-center text-center small text-secondary'><span className='bi bi-eye'></span> 1250 </div>

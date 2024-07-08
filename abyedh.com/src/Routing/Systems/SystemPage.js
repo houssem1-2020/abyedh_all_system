@@ -60,7 +60,7 @@ function ProfilePage() {
             const UserCard = () =>{
                 return(<>
                     <NavLink exact='true' to='/Profile' className="navbar-brand border-div m-0 p-0 ms-3">
-                        <img  className="rounded-circle p-0 m-0 me-1" src={`https://cdn.abyedh.tn/images/p_pic/${GConf.UserData.UData.PictureId}.gif`}   alt="Logo" style={{width:'30px', height:'30px'}} />
+                        <img  className="rounded-circle p-0 m-0 me-1" src={`https://cdn.abyedh.com/images/p_pic/${GConf.UserData.UData.PictureId}.gif`}   alt="Logo" style={{width:'30px', height:'30px'}} />
                     </NavLink>
                 </>)
             }
@@ -69,7 +69,7 @@ function ProfilePage() {
                         <div className='row'>
                             <div className='col-6 text-start align-self-center'>
                                 <NavLink exact='true' to={`/`} className="m-0 p-0 ms-3">
-                                    {/* <img  className="border-div d-none d-lg-inline" src="https://cdn.abyedh.tn/images/logo/mlogo.gif"   alt="Logo" style={{width:'20px', height:'40px'}} /> */}
+                                    {/* <img  className="border-div d-none d-lg-inline" src="https://cdn.abyedh.com/images/logo/mlogo.gif"   alt="Logo" style={{width:'20px', height:'40px'}} /> */}
                                     <div  className="  d-inline-block t p-1"  > <span className='bi bi-arrow-left-short bi-md ' ></span> </div>
                                 </NavLink>
                             </div>
@@ -97,7 +97,7 @@ function ProfilePage() {
                     <div className="row">
                         <div className="col-4 align-self-center text-center">
                             <div className="icon-system icon-system-shape shadow" style={{backgroundColor: props.link.color}}>
-                                <img src={`https://cdn.abyedh.tn/Images/Search/WIcons/${props.link.img_url}`} className="img-responsive" width="100%" />
+                                <img src={`https://cdn.abyedh.com/Images/Search/WIcons/${props.link.img_url}`} className="img-responsive" width="100%" />
                             </div>
                         </div>
                         <div className="col-8 align-self-center">
@@ -114,7 +114,7 @@ function ProfilePage() {
                 <div className="text-end text-info mb-3" dir="rtl"><h5><b><span className="fa fa-shopping-cart"></span> {props.data.title} :</b></h5></div>
                 <div className="row">
                     <div className={`col-12 col-lg-3 align-self-center ${props.data.genre === 'LI' ? 'order-2': ''}`}>
-                        <img src={`https://cdn.abyedh.tn/Images/img_ads/${props.data.adsUrl}`} className="img-responsive d-none d-lg-block" width="80%" />
+                        <img src={`https://cdn.abyedh.com/Images/img_ads/${props.data.adsUrl}`} className="img-responsive d-none d-lg-block" width="80%" />
                     </div>
                     <div className="col-12 col-lg-9 align-self-center">
                         <div className='row' dir='rtl'>
@@ -134,7 +134,7 @@ function ProfilePage() {
             <div className="text-end jumbtron  mb-4  border-div" dir="rtl">
                 <div className="row">
                     <div className="col-12 col-lg-4 align-self-center  text-center">
-                        <img src="https://cdn.abyedh.tn/images/required/input_ads.svg" className="img-responsive mb-1"  width='150px' height='150px' />
+                        <img src="https://cdn.abyedh.com/images/required/input_ads.svg" className="img-responsive mb-1"  width='150px' height='150px' />
                     </div>
                     <div className="col-12 col-lg-8 align-self-center text-secondary text-center"> 
                         <h3> <span style={{color:'#bd0d3f'}}>إختر مهنتك</span> و <span style={{color:'#100dbd'}}>  قم بإدخال المعلومات الضرورية</span> و  <span style={{color:'#06993c'}}>أحصل علي تطبيق إستقبال الطلبات</span></h3> 

@@ -115,7 +115,7 @@ function SuiviePage() {
                         <div className='col-10'> 
                             <div className="d-flex align-items-center">
                                 <div className="flex-shrink-0">
-                                    <img src={`https://cdn.abyedh.tn/images/Search/CIcons/${props.data.P_Genre}.gif`} alt="..."  width='50px' height='50px'/>
+                                    <img src={`https://cdn.abyedh.com/images/Search/CIcons/${props.data.P_Genre}.gif`} alt="..."  width='50px' height='50px'/>
                                 </div>
                                 <div className="flex-grow-1 ms-3">
                                     <h4 className='mb-0 text-secondary'><NavLink exact='true' to={`/S/P/${props.data.P_Genre}/${props.data.PID}`}>{props.data.PidData.Name}</NavLink></h4>
@@ -174,7 +174,7 @@ function SuiviePage() {
     const EmptyCard = () =>{
         return(<>
             <div className='card-body text-center'>
-                <img src='https://cdn.abyedh.tn/images/profile/suivie-empty.png' width='80%'  height='290px' />
+                <img src='https://cdn.abyedh.com/images/profile/suivie-empty.png' width='80%'  height='290px' />
                 <h5>لا توجد نتائج</h5> 
             </div>
         </>)

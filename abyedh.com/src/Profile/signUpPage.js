@@ -28,7 +28,7 @@ const Percentage = (props) =>{
 const ItmesList = ({ option, selected, onChange }) => {
     return (
             <div className={`card card-body shadow-sm text-center m-1 border-div ${selected ? 'border-selected' : ''}`}  selected={selected} onClick={onChange}>
-                <div className=' text-center'><img src={`https://cdn.abyedh.tn/images/p_pic/${option.imgSrc}.gif`} className='img-responsive rounded-circle' width='60px' height='60px' /></div>
+                <div className=' text-center'><img src={`https://cdn.abyedh.com/images/p_pic/${option.imgSrc}.gif`} className='img-responsive rounded-circle' width='60px' height='60px' /></div>
                 <div>{option.name}</div>
             </div>
     );
@@ -280,7 +280,7 @@ const Password = (props) =>{
                             </div>
                         </div>
                         <div className='col-12 col-lg-4 mb-4 align-self-center text-center'>
-                            <img src='https://cdn.abyedh.tn/Images/Profile/checking.svg' width='70%' height='auto' className='img-responsive' />
+                            <img src='https://cdn.abyedh.com/Images/Profile/checking.svg' width='70%' height='auto' className='img-responsive' />
                         </div>
                     </div>
                 <BottomNav nextStep={Next} previousStep={Previous} lastStep SaveFunction={props.SaveFunction} />
@@ -391,7 +391,7 @@ function SignUpPage() {
     useEffect(() => {
         GetPositionNow();
         const UIDisSet = localStorage.getItem('UID');
-        if (UIDisSet) {window.location.href = "/Profile/L";}
+        if (UIDisSet) {window.location.href = "/Profile/L/ma";}
         
     });
 
@@ -493,7 +493,7 @@ function SignUpPage() {
                     <div className='row m-0'>
                         <div className='col-6 text-start align-self-center'>
                             <NavLink exact='true' to='/' className="m-0 p-0 ms-3">
-                                <img  className="border-div-s" src="https://cdn.abyedh.tn/images/logo/mlogo.gif"   alt="Logo" style={{width:'20px', height:'40px', borderRadius: '10px 20px 10px 50px'}} />
+                                <img  className="border-div-s" src="https://cdn.abyedh.com/images/logo/mlogo.gif"   alt="Logo" style={{width:'20px', height:'40px', borderRadius: '10px 20px 10px 50px'}} />
                             </NavLink>
                         </div>
                         

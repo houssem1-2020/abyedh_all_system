@@ -49,33 +49,27 @@ function NavBar(props) {
     }
 
     return (<>
-        <div className="fixed-top">
+        <div className="fixed-top" style={{zIndex : 3}}>
             <div className="rounded-0 p-3 pb-0 bg-white border-bottom blur-bckg-st">
                 <div className="row">
-                    <div className="col-3 col-md-2 mb-3 align-self-center text-left">
+                    <div className="col-3 col-md-2 mb-3 align-self-center text-start">
                         <NavLink exact="true"  to={useLocation().pathname.split('/').pop() == 'S' ? '/' : '/App/S'}>  
-                            {useLocation().pathname.split('/').pop() == 'S' ? <img  className="  bg-danger border border-danger"   src="https://cdn.abyedh.tn/images/logo/mlogo.gif"   alt="Logo" style={{width:'17px', height:'35px', borderRadius: '10px 20px 10px 50px'}} /> : <div  className="p-0" style={{width:'17px', height:'35px',}} > <span className='bi bi-arrow-left-short bi-md' ></span> </div>} 
+                            {useLocation().pathname.split('/').pop() == 'S' ? <img  className="  bg-danger border border-danger"   src="https://cdn.abyedh.com/images/logo/mlogo.gif"   alt="Logo" style={{width:'17px', height:'35px', borderRadius: '10px 20px 10px 50px'}} /> : <div  className="p-0" style={{width:'17px', height:'35px',}} > <span className='bi bi-arrow-left-short bi-md' ></span> </div>} 
                         </NavLink> 
                     </div>
-                    <div className="col-6 col-md-8 pb-3 align-self-center text-left navsha">
-                        <h3 className='text-center mb-0' style={{color:APPConf.landing[APPConf.systemTag].colorTheme}}>{findElementByLink(APPConf.systemTag)}</h3> 
-                        <div className="text-left d-none d-lg-block">
-                            
-                            
-                        </div>
- 
-                       
+                    <div className="col-9 col-md-8 pb-3 align-self-center    ">
+                        <h3 className='text-end mb-0' style={{color:APPConf.landing[APPConf.systemTag].colorTheme}}>{findElementByLink(APPConf.systemTag)}</h3> 
                     </div>
-                    <div className="col-3 col-md-2 mb-3  align-self-center text-end">
-                    <NavLink onClick={Refresh} to='#' exact="true" className='ps-1 pe-3 mt-3'><span className="bi bi-arrow-clockwise fa-lg text-danger"></span></NavLink>
-                    <NavLink onClick={LogOut} to='#' exact="true" className='ps-1 pe-1'><span className="bi bi-box-arrow-left fa-lg"></span></NavLink>
-                        <div className="dropdown d-none">
+                    <div className="col-3 d-none col-md-2 mb-3  align-self-center text-end">
+                    {/* <NavLink onClick={Refresh} to='#' exact="true" className='ps-1 pe-3 mt-3'><span className="bi bi-arrow-clockwise fa-lg text-danger"></span></NavLink> */}
+                    {/* <NavLink onClick={LogOut} to='#' exact="true" className='ps-1 pe-1'><span className="bi bi-box-arrow-left fa-lg"></span></NavLink> */}
+                        {/* <div className="dropdown d-none">
                             <NavLink onClick={Refresh} to='#' exact="true" className='ps-1 pe-1'><span className="bi bi-arrow-clockwise fa-lg text-danger"></span></NavLink>
                             <NavLink to='nt' exact="true" className={({ isActive }) => isActive ? "ps-1 pe-1 abyedh-list-a-s" : "ps-1 pe-1 abyedh-list"}><i className="bi bi-bell fa-lg "></i></NavLink>
                             <NavLink to='up' exact="true" className={({ isActive }) => isActive ? "ps-1 pe-1 abyedh-list-a-s" : "ps-1 pe-1 abyedh-list"}><i className="bi bi-cloud-arrow-down fa-lg "></i></NavLink>
                             
                             <NavLink onClick={LogOut} to='#' exact="true" className='ps-1 pe-1'><span className="bi bi-box-arrow-left fa-lg"></span></NavLink>
-                        </div>
+                        </div> */}
                         
                         <Modal
                             closeIcon

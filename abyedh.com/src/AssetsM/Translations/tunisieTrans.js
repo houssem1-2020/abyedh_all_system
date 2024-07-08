@@ -33,7 +33,7 @@ const TunisieTrans = {
             locationGeo :{
                 positionGeoText : 'إختر ولاية',
                 selectGouvText : 'إختر ولاية',
-                selectDelegText : 'إختر منطقة', 
+                selectDelegText : 'إختر منطقة',
             },
             selectPhoto :{
                 selectPhotoText : '',
@@ -41,9 +41,9 @@ const TunisieTrans = {
             inputPasssword :{
                 inputPassswordText : 'كلمة المرور',
                 inputIdentifText : 'أعد كلمة المرور',
-                inputPWDText : 'كلمة المرور', 
-                repeatPWDText : 'إعادة كلمة المرور', 
-                repeatPWDPlaceholderText : '', 
+                inputPWDText : 'كلمة المرور',
+                repeatPWDText : 'إعادة كلمة المرور',
+                repeatPWDPlaceholderText : '',
             },
             nextBtnText:'التالي',
             finishBtnText:'إنهاء',
@@ -53,17 +53,17 @@ const TunisieTrans = {
             },
         },
         mainPage: {
-            mainTitle : 'مِنَصَّـة أَبْيَـضْ' , 
+            mainTitle : 'مِنَصَّـة أَبْيَـضْ' ,
             mainsubads : 'برشا تطبيقات في تطبيق واحد ',
             mainlogInText : 'تسجيل الدخول',
             mainsearchInput : ' ... بَحْثْ',
             qrCodeScan : ' ... بَحْثْ',
             dropDownProfile : {
-                profile : '',
-                systemLogIn : '',
-                systemSuivie : '',
-                parametres : '',
-                logOut : '',
+                profile : 'الملف الشخصي ',
+                systemLogIn : 'الدخول للنظام ',
+                systemSuivie : 'متابعة التسجيل ',
+                parametres : 'تغيير اللغة',
+                logOut : 'تسجيل الخروج',
             },
             mainadsCard : 'مِنَصّةْ أَبْيَضْ تعَاوْنِكْ فِي عِدّةْ مَجَالَاتْ بَاشْ تَلْقَي :  ',
             mainTagsName : {
@@ -87,7 +87,7 @@ const TunisieTrans = {
                 constructionSmall :'قطاع البناء  ',
                 artisanatSmall :'   خدمات حرفية',
                 financeSmall :' مال و أعمال',
-                
+
             },
             itemsNames : {
                 docteur : 'طبيب',
@@ -173,7 +173,7 @@ const TunisieTrans = {
                 fourragerie : 'بَيْعْ العَلَفْ',
                 veterinaire : 'بَيْطَرِي',
                 agritools : 'أَدَاةْ فِلاَحِيَّة',
-                
+
             },
             googlePlayAds:'حَمّلْ تَطْبِيقْ أَبْيَضْ الذِي  يَمْنَحُكَ تَجْرِبَة مُسْتَخْدِمْ أَفْضَلْ  ',
             googlePlayAdsAppVolume:'الحجم : 2.85 MB  | آخر تحديث  25/11/2023  ',
@@ -182,7 +182,7 @@ const TunisieTrans = {
             toolsBSText1:'تُوَفِّرْ أَبْيَضْ مَجْمُوعَة مِنَ الأَدَوَاتْ التِي تَسْعَي لِخَلْقْ بِيئَة إِرْشَادِيَة تُسَاعِدْ جَمِيعْ المُسْتَخِدِمِينْ عَلَي أَدَاءْ مُخْتَلَفْ أَنْشِطَتِهِمْ اليَوْمِيَّة  ',
             toolsBSText2:'إِكْتَشِفْ أَدَوَاتْ أَبْيَضَ مِنْ هُنَا ',
             footerVision:'ماهي  رؤية منصة أبيض ',
-            footerHow:'كيف استعمل المنصة ',
+            footerHow:'أختر دولتك',
             footerWho:'من نحن ؟ ',
             googlePlayAds1:'',
             googlePlayAds2:'',
@@ -278,8 +278,8 @@ const TunisieTrans = {
                 fourragerie: "حدد الإختيار",
                 veterinaire: "حدد الإختيار",
                 agritools: "حدد الإختيار"
-                  
-                
+
+
             },
             itemsToSelect : {
                 docteur : {
@@ -298,7 +298,7 @@ const TunisieTrans = {
                     CARDIOLOGIE:'القَلْبْ',
                     PSYCHIATRIE:'النَفْسْ',
                     NUTRITION:'التَغْذِيَة',
-                     
+
                 },
                 infirmier :{
                     infirmier_generale:'مُمَرِّضْ عَامْ ',
@@ -332,7 +332,7 @@ const TunisieTrans = {
                 admin_s_csb :{
                     admin_s_csb:'مُسْتَوْصَفْ',
                     admin_s_csb :'مَرْكَزْ صِحَّة',
- 
+
                 },
                 garderie :{
                     nursery:'تَحْضِيرِي',
@@ -366,7 +366,7 @@ const TunisieTrans = {
                     formation_tourisme:'السياحة والضيافة',
                     formation_art:'الفنون والحرف',
                     formation_education:'التعليم والتدريب',
-                    
+
                 },
                 librairie :{
                     biblio_bug:'كُتُبِيًّة',
@@ -676,7 +676,7 @@ const TunisieTrans = {
                     transp: "نقل",
                     teck: "تقنية"
                   }
-                
+
             },
             movingAdsText : {
                 docteur : {
@@ -1011,7 +1011,7 @@ const TunisieTrans = {
                     one:'',
                     two:'',
                 },
-                
+
             },
             fastSearchText:'بحث في ' ,
             pleaseSelectGouvText:'أو إبحث في ' ,
@@ -1108,7 +1108,7 @@ const TunisieTrans = {
                 admin_a_court: "نِظَامْ إِدَارًةْ المحاكم",
                 admin_a_mosq: "نِظَامْ إِدَارًةْ العيادات",
                 agriToolsOld: "نِظَامْ إِدَارًةْ الشَرِكَاتْ"
-                
+
             },
             systemOwnersNames : {
                 docteur: "طبيب",
@@ -1194,7 +1194,7 @@ const TunisieTrans = {
                 admin_a_court: "طبيب",
                 admin_a_mosq: "طبيب",
                 agriToolsOld: "طبيب"
-                
+
             },
             goToSystemBtnText:' الدخول للنظام ' ,
             SubscribeBtnText:'التسجيل في النظام ' ,
@@ -1548,7 +1548,7 @@ const TunisieTrans = {
                     Action: " حجز موعد   ",
                     Suivie: "مُتَابَعَة "
                   }
-                
+
             },
             pasDeResultat: {
                 desoleText:' عذرا , لا توجد نتائج حاليا لأحد الأسباب التالية :',
@@ -1917,14 +1917,24 @@ const TunisieTrans = {
                     one:'',
                     two:'',
                 },
-                
+
             },
             ActionTabData : {
                 notRegistredText:'هذا العميل غير مشترك في المنصة .  سيتولي فريق أبيض محاولة الاتصال به لإعلامه بطلبكم',
                 ActionListeData : {
                     docteur : {
-                        one:'',
-                        two:'',
+                      fastDiagnostic : ' تشخيص سريع',
+                      goodDiagnostic : 'التشخيص الدقيق لوضك الصحي قد سياعد طبيبك في تقديم العلاج المناسب و الأكثر فاعلية',
+                      dateWanted :' تاريخ الموعد',
+                      dateDesc:' متي تريد أن تحجز الموعد ؟' ,
+                      saveBtn: 'تسجيل موعد',
+                      toest:{
+                        one : 'أدخل التشخيص',
+                        two : 'ادخل الموعد',
+                        three : 'ادخل الوقت',
+                        four : ' تم تسجيل الموعد بنجاح ',
+                        four : ' تم تسجيل الموعد بنجاح ',
+                      }
                     },
                     infirmier :{
                         one:'',
@@ -2589,7 +2599,7 @@ const TunisieTrans = {
                     one:'',
                     two:'',
                 },
-                
+
             },
             PostsTabs :{
                 noPostToShow: 'هذا العميل ليس لديه منشورات ',
@@ -2828,7 +2838,7 @@ const TunisieTrans = {
                construction:'خدمات عقارية' ,
                autre:' خدمات اخري' ,
             },
-    
+
             PostsTabs :{
                 noPostToShow: '',
                 textText: '',
@@ -2881,7 +2891,7 @@ const TunisieTrans = {
                     ouiText : '',
                     nonText : '',
                     editButtonText : '',
-                     
+
                 },
             },
             InscriptionLastText: ' تسجيل ',
@@ -4509,18 +4519,24 @@ const TunisieTrans = {
                           rp: "Clients",
                           tm: "Equipe"
                         }
-                      
-                    
+
+
                 },
-                publicationText:'',
+                publicationText:'Publications',
+                horaireText:'Horaires',
+                imagesText:'Images',
+                ratingText:'Avis',
+                tarifText:'',
+                shareText:'Partager',
                 messageText:'',
-                parametreText:'',
+                parametreText:'Paramétre de Profile',
+                voirProfileText:'Voir Profile ',
             },
             requestPage : {
 
             },
             requestInfoPage : {
-                
+
             },
             profilePage : {
                 voirProfileBtn:'',
@@ -5010,7 +5026,7 @@ const TunisieTrans = {
                 }
 
             },
-            
+
         },
         toolsApps : {
             toolsPage:{
@@ -5041,7 +5057,7 @@ const TunisieTrans = {
                     sportApp : 'الرياضية',
                     cultureApp : 'عين علي الثقافة ',
                     tourizmeApp : 'إكتشف تونس ',
-                     
+
                 }
             },
             taxiApp:{

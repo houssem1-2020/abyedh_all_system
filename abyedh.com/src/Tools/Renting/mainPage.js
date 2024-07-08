@@ -82,7 +82,7 @@ function BlogPage() {
         const UserCard = () =>{
             return(<>
                 <NavLink exact='true' to='/Profile' className="navbar-brand border-div m-0 p-0 ms-3">
-                    <img  className="rounded-circle p-0 m-0 me-1" src={`https://cdn.abyedh.tn/images/p_pic/${GConf.UserData.UData.PictureId}.gif`}   alt="Logo" style={{width:'30px', height:'30px'}} />
+                    <img  className="rounded-circle p-0 m-0 me-1" src={`https://cdn.abyedh.com/images/p_pic/${GConf.UserData.UData.PictureId}.gif`}   alt="Logo" style={{width:'30px', height:'30px'}} />
                 </NavLink>
             </>)
         }
@@ -91,7 +91,7 @@ function BlogPage() {
                     <div className='row'>
                         <div className='col-6 text-start align-self-center'>
                             <NavLink exact='true' to='/Tools' className="m-0 p-0 ms-3">
-                                <img  className="border-div-s d-none d-lg-inline border bg-danger" src="https://cdn.abyedh.tn/images/logo/mlogo.gif"   alt="Logo" style={{width:'20px', height:'40px', borderRadius: '10px 20px 10px 50px'}} />
+                                <img  className="border-div-s d-none d-lg-inline border bg-danger" src="https://cdn.abyedh.com/images/logo/mlogo.gif"   alt="Logo" style={{width:'20px', height:'40px', borderRadius: '10px 20px 10px 50px'}} />
                                 <div  className="d-lg-none d-inline-block text-secondary p-1"  > <span className='bi bi-arrow-left-short bi-md ' ></span> </div>
                             </NavLink>
                         </div>
@@ -111,7 +111,7 @@ function BlogPage() {
                        <h3  dir='rtl' style={{color:GConf.Tools.Renting.themeColor}}> {GConf.Tools.Renting.textAds} </h3>
                 </div>
                 <div className='col-4 align-self-end text-center d-none d-lg-block'>
-                    <img src='https://cdn.abyedh.tn/images/Tools/rent_house.svg' className='img-responsive' width='40%' height='40%'  />
+                    <img src='https://cdn.abyedh.com/images/Tools/rent_house.svg' className='img-responsive' width='40%' height='40%'  />
                 </div>
             </div> 
         </div>
@@ -131,7 +131,7 @@ function BlogPage() {
                 <Ripples className='shadow-sm  m-1 border-div d-block'>
                 <div className={`card p-2 ps-3 border-div ${selected ? 'border-selected' : ''}`}  selected={selected} onClick={onChange} style={{cursor:'pointer'}}>
                     <div className='row'>
-                        <div className='col-4 text-center m-0 p-0'><img src={`https://cdn.abyedh.tn/images/Search/Land_icons/${option.imgSrc}.gif`} className='img-responsive' width='40px' height='40px' /></div>
+                        <div className='col-4 text-center m-0 p-0'><img src={`https://cdn.abyedh.com/images/Search/Land_icons/${option.imgSrc}.gif`} className='img-responsive' width='40px' height='40px' /></div>
                         <div className='col-8 text-center m-0 p-0  align-self-center'><b>{option.name}</b></div>
                     </div>
                 </div>
@@ -170,7 +170,7 @@ function BlogPage() {
                 <h5 className='text-end text-secondary mb-1 mt-2' dir='rtl'> هَلْ أَنْتَ  صاحب عقار و تريد كراءه  ؟ </h5>
                 <div className='row mt-0 pt-0 '>
                     <div className='col-3 align-self-center text-center'>
-                        <img src={`https://cdn.abyedh.tn/images/Tools/rent_house.svg`} className=' mt-3 img-responsive mb-1 ms-2' width='100%'  height='auto' alt='abyedh.tn' />
+                        <img src={`https://cdn.abyedh.com/images/Tools/rent_house.svg`} className=' mt-3 img-responsive mb-1 ms-2' width='100%'  height='auto' alt='abyedh.tn' />
                     </div>
                     <div className='col-9 align-self-center text-center'>
                         <p> إِكْتَشِفْ النسخة  المصغرة لـنظام إدارة عقارات للبيع و الكراء اللّي تعُاوْنِكْ  إِنّكْ تَعَرِّفْ بنَفْسِكْ و تستقبل طلبات عملائك    </p>

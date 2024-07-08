@@ -19,7 +19,7 @@ import { BrowserRouter as Router,Routes,Route, Navigate} from "react-router-dom"
 import appRouter  from './AssetsM/Router/appRouter';
 import profileRouter  from './AssetsM/Router/profileRouter';
 import toolsRouter from './AssetsM/Router/toolsRouter'
-import ProfileForFacbookPage from './App/Dashboard/Profile/profileForFacbookPage';
+import ProfileForFacbookPage from './App/Dashboard/Used/Profile/profileForFacbookPage';
 
 //Login 
 
@@ -69,7 +69,7 @@ function App() {
             <br />
             <br />
             <h1 className='mt-5'>هَذِهِ الصَفْحَة غَيْرْ مَوْجُودَة ! </h1>
-            <img src='https://cdn.abyedh.tn/images/system/404.svg' width='200px' className='img-responsive' alt='Logo' />
+            <img src='https://cdn.abyedh.com/images/system/404.svg' width='200px' className='img-responsive' alt='Logo' />
         </div>);
   }
   const ForLazyLoading = () =>{

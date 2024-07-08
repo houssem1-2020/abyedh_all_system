@@ -26,8 +26,6 @@ const  NotifGenres  = {
             const { t, i18n } = useTranslation();
             return (<>
                    <div  >{ t('userProfile.notificationPage.docteur_rdv_saved', {  one: pidData.Name , two: new Date(requestData.RDV_Date).toLocaleDateString('fr-FR').split('/').reverse().join('-') })}</div>  
-                   {/* <div dir='ltr'> {t('userProfile.notificationPage.docteur_rdv_saved.one')} {pidData.Name}  {t('userProfile.notificationPage.docteur_rdv_saved.two')} {new Date(requestData.RDV_Date).toLocaleDateString('fr-FR').split( '/' ).reverse( ).join( '-' )}</div>   */}
-                   {/* <div>تم تسجيل طلب موعد مع الطبيب {pidData.Name}  بنجاح  و ذلك بتاريخ {new Date(requestData.RDV_Date).toLocaleDateString('fr-FR').split( '/' ).reverse( ).join( '-' )}</div>   */}
                 </> )
         }
     },
@@ -45,7 +43,6 @@ const  NotifGenres  = {
             const { t, i18n } = useTranslation();
             return (<>
                    <div>{t('userProfile.notificationPage.docteur_rdv_accepted.one', { pidData: { Name: 'John Doe' }, requestData: { Refuser_Cause: 'Reason for rejection' } })}</div>  
-                   {/* <div>تم رفض طلب الموعد مع الطبيب {pidData.Name} <br /> <small>"{requestData.Refuser_Cause}"</small></div>   */}
                 </> )
         }
     },
@@ -63,7 +60,6 @@ const  NotifGenres  = {
             const { t, i18n } = useTranslation();
             return (<>
                    <div>{ t('userProfile.notificationPage.docteur_rdv_redirected', {  one: pidData.Name , two:  JSON.parse(requestData.Redirected_To).Name, three : JSON.parse(requestData.Redirected_To).Phone, four :  JSON.parse(requestData.Redirected_To).Adresse})} </div>  
-                   {/* <div>تم توجيه طلب موعد مع الطبيب {pidData.Name}   إلي الطبيب {JSON.parse(requestData.Redirected_To).Name}  ( الهاتف :  {JSON.parse(requestData.Redirected_To).Phone} , العنوان : {JSON.parse(requestData.Redirected_To).Adresse} ) </div>   */}
                 </> )
         }
     },
@@ -74,7 +70,7 @@ const  NotifGenres  = {
         GenTextFunction : function(requestData,pidData){
             const { t, i18n } = useTranslation();
             return (<>
-                   <div>تم تسجيل طلب موعد مع الطبيب {pidData.Name}  بنجاح  و ذلك بتاريخ {new Date(requestData.RDV_Date).toLocaleDateString('fr-FR').split( '/' ).reverse( ).join( '-' )}</div>  
+                    <div>{ t('userProfile.notificationPage.infirmier_rdv_saved', {  one: pidData.Name , two: new Date(requestData.RDV_Date).toLocaleDateString('fr-FR').split( '/' ).reverse( ).join( '-' ) })}</div>  
                 </> )
         }
     },
@@ -91,7 +87,7 @@ const  NotifGenres  = {
         GenTextFunction : function(requestData,pidData){
             const { t, i18n } = useTranslation();
             return (<>
-                   <div>تم رفض طلب الموعد مع الطبيب {pidData.Name} <br /> <small>"{requestData.Refuser_Cause}"</small></div>  
+                    <div>{ t('userProfile.notificationPage.infirmier_rdv_rejected', {  one: pidData.Name , two: requestData.Refuser_Cause })}</div> 
                 </> )
         }
     },
@@ -108,7 +104,7 @@ const  NotifGenres  = {
         GenTextFunction : function(requestData,pidData){
             const { t, i18n } = useTranslation();
             return (<>
-                   <div>تم توجيه طلب موعد مع الطبيب {pidData.Name}   إلي الطبيب {JSON.parse(requestData.Redirected_To).Name}  ( الهاتف :  {JSON.parse(requestData.Redirected_To).Phone} , العنوان : {JSON.parse(requestData.Redirected_To).Adresse} ) </div>  
+                   <div>{ t('userProfile.notificationPage.infirmier_rdv_redirected', {  one: pidData.Name , two: JSON.parse(requestData.Redirected_To).Name, three: JSON.parse(requestData.Redirected_To).Phone, four: JSON.parse(requestData.Redirected_To).Adresse })}</div>  
                 </> )
         }
     },
@@ -119,7 +115,7 @@ const  NotifGenres  = {
         GenTextFunction : function(requestData,pidData){
             const { t, i18n } = useTranslation();
             return (<>
-                   <div>تم تسجيل طلب شراء أدوية ({JSON.parse(requestData.Articles).length} منتجات) من صيدلية  {pidData.Name} </div>  
+                   <div>{ t('userProfile.notificationPage.pharmacie_shop_saved', {  one: JSON.parse(requestData.Articles).length , two: pidData.Name })}</div>
                 </> )
         }
     }, 
@@ -136,7 +132,7 @@ const  NotifGenres  = {
         GenTextFunction : function(requestData,pidData){
             const { t, i18n } = useTranslation();
             return (<>
-                   <div>تم رفض طلب   طلب شراء الأدوية من صيدلية      {pidData.Name} <br /> <small>"{requestData.Refuser_Cause}"</small></div>  
+                   <div>{ t('userProfile.notificationPage.pharmacie_shop_rejected', {  one: pidData.Name , two: requestData.Refuser_Cause })}</div>
                 </> )
         }
     },
@@ -146,7 +142,7 @@ const  NotifGenres  = {
         GenTextFunction : function(requestData,pidData){
             const { t, i18n } = useTranslation();
             return (<>
-                <div>تم إرسال الطلب من صيدلية  {pidData.Name} <br /> <small> سيضلك الطلب يوم {JSON.parse(requestData.Livre_At).Date} مع الساعة {JSON.parse(requestData.Livre_At).Temps}</small></div>  
+                <div>{ t('userProfile.notificationPage.pharmacie_shop_livred', {  one: pidData.Name , two: JSON.parse(requestData.Livre_At).Date, three: JSON.parse(requestData.Livre_At).Temps })}</div>  
              </> )
         }
     },  
@@ -156,7 +152,7 @@ const  NotifGenres  = {
         GenTextFunction : function(requestData,pidData){
             const { t, i18n } = useTranslation();
             return (<>
-                   <div>تم  تعديل طلب الشراء من الصيدلة  {pidData.Name}    </div>  
+                   <div>{ t('userProfile.notificationPage.pharmacie_shop_edited', {  one: pidData.Name })}</div> 
                 </> )
         }
     },
@@ -167,7 +163,7 @@ const  NotifGenres  = {
         GenTextFunction : function(requestData,pidData){
             const { t, i18n } = useTranslation();
             return (<>
-                   <div>تم تسجيل طلب موعد مع صيدلية {pidData.Name}   من أجل : {requestData.RDV_Cause} بنجاح  و ذلك بتاريخ {new Date(requestData.RDV_Date).toLocaleDateString('fr-FR').split( '/' ).reverse( ).join( '-' )}</div>  
+                   <div>{ t('userProfile.notificationPage.pharmacie_rdv_saved', {  one: pidData.Name , two: requestData.RDV_Cause, three: new Date(requestData.RDV_Date).toLocaleDateString('fr-FR').split( '/' ).reverse( ).join( '-' ) })}</div> 
                 </> )
         }
     },
@@ -184,7 +180,7 @@ const  NotifGenres  = {
         GenTextFunction : function(requestData,pidData){
             const { t, i18n } = useTranslation();
             return (<>
-                   <div>تم رفض طلب   طلب شراء الأدوية من صيدلية      {pidData.Name} <br /> <small>"{requestData.Refuser_Cause}"</small></div>  
+                   <div>{ t('userProfile.notificationPage.pharmacie_rdv_rejected', {  one: pidData.Name , two: requestData.Refuser_Cause })}</div>
                 </> )
         }
     },
@@ -205,7 +201,7 @@ const  NotifGenres  = {
         GenTextFunction : function(requestData,pidData){
             const { t, i18n } = useTranslation();
             return (<>
-                    <div>تم تسجيل طلب حجز في مصحة {pidData.Name}   من أجل : {requestData.RES_Cause} بنجاح  و ذلك بين {new Date(requestData.RES_From_Date).toLocaleDateString('fr-FR').split( '/' ).reverse( ).join( '-' )} و {new Date(requestData.RES_To_Date).toLocaleDateString('fr-FR').split( '/' ).reverse( ).join( '-' )}</div>  
+                    <div>{ t('userProfile.notificationPage.clinique_reserver_saved', {  one: pidData.Name , two: requestData.RES_Cause, three: new Date(requestData.RES_From_Date).toLocaleDateString('fr-FR').split( '/' ).reverse( ).join( '-' ) , four: new Date(requestData.RES_To_Date).toLocaleDateString('fr-FR').split( '/' ).reverse( ).join( '-' ) })}</div>
                 </> )
         }
     },
@@ -216,7 +212,7 @@ const  NotifGenres  = {
         GenTextFunction : function(requestData,pidData){
             const { t, i18n } = useTranslation();
             return (<>
-                   <div>تم تسجيل طلب حجز في مركز {pidData.Name}   من أجل : {requestData.RES_Cause}  و ذلك بين {new Date(requestData.RES_From_Date).toLocaleDateString('fr-FR').split( '/' ).reverse( ).join( '-' )} و {new Date(requestData.RES_To_Date).toLocaleDateString('fr-FR').split( '/' ).reverse( ).join( '-' )}</div>  
+                   <div>{ t('userProfile.notificationPage.centre_reserver_saved', {  one: pidData.Name , two: requestData.RES_Cause, three: new Date(requestData.RES_From_Date).toLocaleDateString('fr-FR').split( '/' ).reverse( ).join( '-' ) , four: new Date(requestData.RES_To_Date).toLocaleDateString('fr-FR').split( '/' ).reverse( ).join( '-' ) })}</div>
                 </> )
         }
     },
@@ -227,7 +223,7 @@ const  NotifGenres  = {
         GenTextFunction : function(requestData,pidData){
             const { t, i18n } = useTranslation();
             return (<>
-                    <div>تم تسجيل طلب موعد مع مخبر {pidData.Name}   من أجل : {requestData.RDV_Cause} بنجاح  و ذلك بتاريخ {new Date(requestData.RDV_Date).toLocaleDateString('fr-FR').split( '/' ).reverse( ).join( '-' )}</div>  
+                    <div>{ t('userProfile.notificationPage.labo_rdv_saved', {  one: pidData.Name , two: requestData.RDV_Cause, three : new Date(requestData.RDV_Date).toLocaleDateString('fr-FR').split( '/' ).reverse( ).join( '-' ) })}</div> 
                 </> )
         }
     },
@@ -244,7 +240,7 @@ const  NotifGenres  = {
         GenTextFunction : function(requestData,pidData){
             const { t, i18n } = useTranslation();
             return (<>
-                   <div>تم رفض طلب الموعد مع الطبيب {pidData.Name} <br /> <small>"{requestData.Refuser_Cause}"</small></div>  
+                   <div>{ t('userProfile.notificationPage.labo_rdv_rejected', {  one: pidData.Name , two: requestData.Refuser_Cause })}</div>
                 </> )
         }
     },
@@ -261,7 +257,7 @@ const  NotifGenres  = {
         GenTextFunction : function(requestData,pidData){
             const { t, i18n } = useTranslation();
             return (<>
-                   <div> نتيجة التحليل في مخبر  {pidData.Name} جاهزة :   </div>  
+                   <div>{ t('userProfile.notificationPage.labo_rdv_pret', {  one: pidData.Name })}</div>
                 </> )
         }
     },
@@ -274,7 +270,7 @@ const  NotifGenres  = {
         GenTextFunction : function(requestData,pidData){
             const { t, i18n } = useTranslation();
             return (<>
-                   <div>تم تسجيل صغيرك {requestData.EL_Name} في روضة :   {pidData.Name}  بنجاح  </div>  
+                   <div>{ t('userProfile.notificationPage.garderie_inscription_saved', {  one: requestData.EL_Name , two: pidData.Name })}</div>
                 </> )
         }
     }, 
@@ -291,7 +287,7 @@ const  NotifGenres  = {
         GenTextFunction : function(requestData,pidData){
             const { t, i18n } = useTranslation();
             return (<>
-                   <div>تم رفض طلب   طلب شراء الأدوية من صيدلية      {pidData.Name} <br /> <small>"{requestData.Refuser_Cause}"</small></div>  
+                   <div>{ t('userProfile.notificationPage.garderie_inscription_rejected', {  one: pidData.Name , two: requestData.Refuser_Cause })}</div>  
                 </> )
         }
     },
@@ -302,7 +298,7 @@ const  NotifGenres  = {
         GenTextFunction : function(requestData,pidData){
             const { t, i18n } = useTranslation();
             return (<>
-                   <div>تم تسجيل صغيرك {requestData.EL_Name} في روضة  {pidData.Name}  بنجاح  و ذلك بتاريخ {new Date(requestData.R_Date).toLocaleDateString('fr-FR').split( '/' ).reverse( ).join( '-' )}</div>  
+                   <div>{ t('userProfile.notificationPage.garderie_souscription_saved', {  one: requestData.EL_Name , two: pidData.Name, three: new Date(requestData.R_Date).toLocaleDateString('fr-FR').split( '/' ).reverse( ).join( '-' ) })}</div>
                 </> )
         }
     }, 
@@ -319,7 +315,7 @@ const  NotifGenres  = {
         GenTextFunction : function(requestData,pidData){
             const { t, i18n } = useTranslation();
             return (<>
-                   <div>تم رفض طلب   طلب شراء الأدوية من صيدلية      {pidData.Name} <br /> <small>"{requestData.Refuser_Cause}"</small></div>  
+                   <div>{ t('userProfile.notificationPage.garderie_souscription_rejected', {  one: pidData.Name , two: requestData.Refuser_Cause })}</div>
                 </> )
         }
     },
@@ -330,7 +326,7 @@ const  NotifGenres  = {
         GenTextFunction : function(requestData,pidData){
             const { t, i18n } = useTranslation();
             return (<>
-                   <div>تم تسجيل صغيرك {requestData.EL_Name} في روضة :   {pidData.Name}  بنجاح  </div>  
+                   <div>{ t('userProfile.notificationPage.ecole_inscription_saved', {  one: requestData.EL_Name , two: pidData.Name })}</div>
                 </> )
         }
     }, 
@@ -347,7 +343,7 @@ const  NotifGenres  = {
         GenTextFunction : function(requestData,pidData){
             const { t, i18n } = useTranslation();
             return (<>
-                   <div>تم رفض طلب   طلب شراء الأدوية من صيدلية      {pidData.Name} <br /> <small>"{requestData.Refuser_Cause}"</small></div>  
+                   <div>{ t('userProfile.notificationPage.ecole_inscription_rejected', {  one: pidData.Name , two: requestData.Refuser_Cause })}</div>
                 </> )
         }
     },
@@ -358,7 +354,7 @@ const  NotifGenres  = {
         GenTextFunction : function(requestData,pidData){
             const { t, i18n } = useTranslation();
             return (<>
-                   <div>تم تسجيل صغيرك {requestData.EL_Name} في المدرسة الخاصة  {pidData.Name}  بنجاح  و ذلك بتاريخ {new Date(requestData.R_Date).toLocaleDateString('fr-FR').split( '/' ).reverse( ).join( '-' )}</div>  
+                   <div>{ t('userProfile.notificationPage.ecole_souscription_saved', {  one: requestData.EL_Name , two: pidData.Name, three: new Date(requestData.R_Date).toLocaleDateString('fr-FR').split( '/' ).reverse( ).join( '-' ) })}</div>
                 </> )
         }
     }, 
@@ -375,7 +371,7 @@ const  NotifGenres  = {
         GenTextFunction : function(requestData,pidData){
             const { t, i18n } = useTranslation();
             return (<>
-                   <div>تم رفض طلب   طلب شراء الأدوية من صيدلية      {pidData.Name} <br /> <small>"{requestData.Refuser_Cause}"</small></div>  
+                   <div>{ t('userProfile.notificationPage.ecole_souscription_rejected', {  one: pidData.Name , two: requestData.Refuser_Cause })}</div> 
                 </> )
         }
     },
@@ -386,7 +382,7 @@ const  NotifGenres  = {
         GenTextFunction : function(requestData,pidData){
             const { t, i18n } = useTranslation();
             return (<>
-                   <div>تم تسجيل طلب الترسيم في مركز التكوين الخاص  {pidData.Name}  بنجاح  </div>  
+                   <div>{ t('userProfile.notificationPage.lycee_inscription_saved', {  one: pidData.Name })}</div> 
                 </> )
         }
     }, 
@@ -403,7 +399,7 @@ const  NotifGenres  = {
         GenTextFunction : function(requestData,pidData){
             const { t, i18n } = useTranslation();
             return (<>
-                   <div>تم رفض طلب   طلب شراء الأدوية من صيدلية      {pidData.Name} <br /> <small>"{requestData.Refuser_Cause}"</small></div>  
+                   <div>{ t('userProfile.notificationPage.lycee_inscription_rejected', {  one: pidData.Name , two: requestData.Refuser_Cause })}</div> 
                 </> )
         }
     },
@@ -414,7 +410,7 @@ const  NotifGenres  = {
         GenTextFunction : function(requestData,pidData){
             const { t, i18n } = useTranslation();
             return (<>
-                   <div>تم تسجيل صغيرك {requestData.EL_Name} في روضة  {pidData.Name}  بنجاح  و ذلك بتاريخ {new Date(requestData.R_Date).toLocaleDateString('fr-FR').split( '/' ).reverse( ).join( '-' )}</div>  
+                   <div>{ t('userProfile.notificationPage.lycee_souscription_saved', {  one: requestData.EL_Name , two: pidData.Name, three : new Date(requestData.R_Date).toLocaleDateString('fr-FR').split( '/' ).reverse( ).join( '-' ) })}</div>
                 </> )
         }
     }, 
@@ -431,7 +427,7 @@ const  NotifGenres  = {
         GenTextFunction : function(requestData,pidData){
             const { t, i18n } = useTranslation();
             return (<>
-                   <div>تم رفض طلب   طلب شراء الأدوية من صيدلية      {pidData.Name} <br /> <small>"{requestData.Refuser_Cause}"</small></div>  
+                   <div>{ t('userProfile.notificationPage.lycee_souscription_rejected', {  one: pidData.Name , two: requestData.Refuser_Cause })}</div> 
                 </> )
         }
     },
@@ -442,7 +438,7 @@ const  NotifGenres  = {
         GenTextFunction : function(requestData,pidData){
             const { t, i18n } = useTranslation();
             return (<>
-                   <div>تم تسجيل طلب الترسيم في مركز الجامعة الخاصة  {pidData.Name}  بنجاح  </div>  
+                   <div>{ t('userProfile.notificationPage.universite_inscription_saved', {  one: pidData.Name })}</div> 
                 </> )
         }
     }, 
@@ -459,7 +455,7 @@ const  NotifGenres  = {
         GenTextFunction : function(requestData,pidData){
             const { t, i18n } = useTranslation();
             return (<>
-                   <div>تم رفض طلب   طلب شراء الأدوية من صيدلية      {pidData.Name} <br /> <small>"{requestData.Refuser_Cause}"</small></div>  
+                   <div>{ t('userProfile.notificationPage.universite_inscription_rejected', {  one: pidData.Name , two: requestData.Refuser_Cause })}</div> 
                 </> )
         }
     },
@@ -470,7 +466,7 @@ const  NotifGenres  = {
         GenTextFunction : function(requestData,pidData){
             const { t, i18n } = useTranslation();
             return (<>
-                   <div>تم تسجيل صغيرك {requestData.EL_Name} في روضة  {pidData.Name}  بنجاح  و ذلك بتاريخ {new Date(requestData.R_Date).toLocaleDateString('fr-FR').split( '/' ).reverse( ).join( '-' )}</div>  
+                   <div>{ t('userProfile.notificationPage.universite_souscription_saved', {  one: requestData.EL_Name , two: pidData.Name, three : new Date(requestData.R_Date).toLocaleDateString('fr-FR').split( '/' ).reverse( ).join( '-' )  })}</div> 
                 </> )
         }
     }, 
@@ -487,7 +483,7 @@ const  NotifGenres  = {
         GenTextFunction : function(requestData,pidData){
             const { t, i18n } = useTranslation();
             return (<>
-                   <div>تم رفض طلب   طلب شراء الأدوية من صيدلية      {pidData.Name} <br /> <small>"{requestData.Refuser_Cause}"</small></div>  
+                   <div>{ t('userProfile.notificationPage.universite_souscription_rejected', {  one: pidData.Name , two: requestData.Refuser_Cause })}</div>
                 </> )
         }
     },
@@ -498,7 +494,7 @@ const  NotifGenres  = {
         GenTextFunction : function(requestData,pidData){
             const { t, i18n } = useTranslation();
             return (<>
-                   <div>تم تسجيل طلب الترسيم في مركز التكوين الخاص  {pidData.Name}  بنجاح  </div>  
+                   <div>{ t('userProfile.notificationPage.formation_inscription_saved', {  one: pidData.Name })}</div>
                 </> )
         }
     }, 
@@ -515,7 +511,7 @@ const  NotifGenres  = {
         GenTextFunction : function(requestData,pidData){
             const { t, i18n } = useTranslation();
             return (<>
-                   <div>تم رفض طلب   طلب شراء الأدوية من صيدلية      {pidData.Name} <br /> <small>"{requestData.Refuser_Cause}"</small></div>  
+                   <div>{ t('userProfile.notificationPage.formation_inscription_rejected', {  one: pidData.Name , two: requestData.Refuser_Cause })}</div>
                 </> )
         }
     },
@@ -526,7 +522,7 @@ const  NotifGenres  = {
         GenTextFunction : function(requestData,pidData){
             const { t, i18n } = useTranslation();
             return (<>
-                   <div>تم تسجيل صغيرك {requestData.EL_Name} في روضة  {pidData.Name}  بنجاح  و ذلك بتاريخ {new Date(requestData.R_Date).toLocaleDateString('fr-FR').split( '/' ).reverse( ).join( '-' )}</div>  
+                   <div>{ t('userProfile.notificationPage.formation_souscription_saved', {  one: requestData.EL_Name , two: pidData.Name, three : new Date(requestData.R_Date).toLocaleDateString('fr-FR').split( '/' ).reverse( ).join( '-' ) })}</div> 
                 </> )
         }
     }, 
@@ -543,7 +539,7 @@ const  NotifGenres  = {
         GenTextFunction : function(requestData,pidData){
             const { t, i18n } = useTranslation();
             return (<>
-                   <div>تم رفض طلب   طلب شراء الأدوية من صيدلية      {pidData.Name} <br /> <small>"{requestData.Refuser_Cause}"</small></div>  
+                   <div>{ t('userProfile.notificationPage.formation_souscription_rejected', {  one: pidData.Name , two: requestData.Refuser_Cause })}</div>
                 </> )
         }
     },
@@ -557,7 +553,6 @@ const  NotifGenres  = {
             const { t, i18n } = useTranslation();
             return (<>
                    <div>{ t('userProfile.notificationPage.transporteur_request_saved', {  one: JSON.parse(requestData.Articles).length , two: pidData.Name , three: JSON.parse(requestData.De).Gouv , four: JSON.parse(requestData.Vers).Gouv })} </div>  
-                   {/* <div>تم تسجيل طلب نقل البضائع ({JSON.parse(requestData.Articles).length} منتجات ) مع وكالة النقل  {pidData.Name}  من : {JSON.parse(requestData.De).Gouv} إلي : {JSON.parse(requestData.Vers).Gouv} </div>   */}
                 </> )
         }
     },
@@ -574,7 +569,7 @@ const  NotifGenres  = {
         GenTextFunction : function(requestData,pidData){
             const { t, i18n } = useTranslation();
             return (<>
-                   <div>تم رفض طلب الموعد مع الطبيب {pidData.Name} <br /> <small>"{requestData.Refuser_Cause}"</small></div>  
+                   <div>{ t('userProfile.notificationPage.transporteur_request_rejected', {  one: pidData.Name , two: requestData.Refuser_Cause })}</div> 
                 </> )
         }
     },
@@ -591,7 +586,7 @@ const  NotifGenres  = {
         GenTextFunction : function(requestData,pidData){
             const { t, i18n } = useTranslation();
             return (<>
-                   <div> نتيجة التحليل في مخبر  {pidData.Name} جاهزة :   </div>  
+                   <div>{ t('userProfile.notificationPage.transporteur_request_livree', {  one: pidData.Name })}</div>
                 </> )
         }
     },
@@ -602,7 +597,7 @@ const  NotifGenres  = {
         GenTextFunction : function(requestData,pidData){
             const { t, i18n } = useTranslation();
             return (<>
-                   <div>تم السجيل في مدرسة تعليم السياقة   :  {pidData.Name} للحصول علي رخصة قيادة من صنف {requestData.Genre}  </div>  
+                   <div>{ t('userProfile.notificationPage.autoecole_inscrie_saved', {  one: pidData.Name , two: requestData.Genre })}</div> 
                 </> )
         }
     },  
@@ -619,7 +614,7 @@ const  NotifGenres  = {
         GenTextFunction : function(requestData,pidData){
             const { t, i18n } = useTranslation();
             return (<>
-                   <div>تم رفض طلب الموعد مع الطبيب {pidData.Name} <br /> <small>"{requestData.Refuser_Cause}"</small></div>  
+                   <div>{ t('userProfile.notificationPage.autoecole_inscrie_rejected', {  one: pidData.Name , two: requestData.Refuser_Cause })}</div> 
                 </> )
         }
     },  
@@ -629,7 +624,7 @@ const  NotifGenres  = {
         GenTextFunction : function(requestData,pidData){
             const { t, i18n } = useTranslation();
             return (<>
-                   <div>تم توجيه طلب موعد مع الطبيب {pidData.Name}   إلي الطبيب {JSON.parse(requestData.Redirected_To).Name}  ( الهاتف :  {JSON.parse(requestData.Redirected_To).Phone} , العنوان : {JSON.parse(requestData.Redirected_To).Adresse} ) </div>  
+                   <div>{ t('userProfile.notificationPage.autoecole_inscrie_redirected', {  one: pidData.Name , two: requestData.Refuser_Cause })}</div>
                 </> )
         }
     },
@@ -640,7 +635,7 @@ const  NotifGenres  = {
         GenTextFunction : function(requestData,pidData){
             const { t, i18n } = useTranslation();
             return (<>
-                   <div>تم تسجيل طلب تاكسي   </div>  
+                   <div>{ t('userProfile.notificationPage.taxi_request_saved', {  one: pidData.Name })}</div>
                 </> )
         }
     },
@@ -650,7 +645,7 @@ const  NotifGenres  = {
         GenTextFunction : function(requestData,pidData){
             const { t, i18n } = useTranslation();
             return (<>
-                   <div>تم تسجيل طلب موعد مع تاكسي يوم {new Date(requestData.RDV_Date).toLocaleDateString('fr-FR').split( '/' ).reverse( ).join( '-' )} علي الساعة {requestData.RDV_Time}    </div>  
+                   <div>{ t('userProfile.notificationPage.taxi_rdv_saved', {  one: new Date(requestData.RDV_Date).toLocaleDateString('fr-FR').split( '/' ).reverse( ).join( '-' ) , two: requestData.RDV_Time })}</div>
                 </> )
         }
     },
@@ -661,7 +656,7 @@ const  NotifGenres  = {
         GenTextFunction : function(requestData,pidData){
             const { t, i18n } = useTranslation();
             return (<>
-                   <div>تم طلب  كراء وسيلة نقل  من وكالة كراء السيارات  {pidData.Name}  من {new Date(requestData.Depart_Date).toLocaleDateString('fr-FR').split( '/' ).reverse( ).join( '-' )} إلي  {new Date(requestData.Finish_Date).toLocaleDateString('fr-FR').split( '/' ).reverse( ).join( '-' )} </div>  
+                   <div>{ t('userProfile.notificationPage.location_request_saved', {  one: pidData.Name , two: new Date(requestData.Depart_Date).toLocaleDateString('fr-FR').split( '/' ).reverse( ).join( '-' ), three : new Date(requestData.Finish_Date).toLocaleDateString('fr-FR').split( '/' ).reverse( ).join( '-' ) })}</div>
                 </> )
         }
     },  
@@ -678,7 +673,7 @@ const  NotifGenres  = {
         GenTextFunction : function(requestData,pidData){
             const { t, i18n } = useTranslation();
             return (<>
-                   <div>تم رفض طلب الموعد مع الطبيب {pidData.Name} <br /> <small>"{requestData.Refuser_Cause}"</small></div>  
+                   <div>{ t('userProfile.notificationPage.location_request_rejected', {  one: pidData.Name , two: requestData.Refuser_Cause })}</div>
                 </> )
         }
     },
@@ -688,7 +683,7 @@ const  NotifGenres  = {
         GenTextFunction : function(requestData,pidData){
             const { t, i18n } = useTranslation();
             return (<>
-                   <div>تم  تعديل طلب الشراء من الصيدلة  {pidData.Name}    </div>  
+                  <div>{ t('userProfile.notificationPage.location_request_edited', {  one: pidData.Name })}</div>
                 </> )
         }
     },
@@ -699,7 +694,7 @@ const  NotifGenres  = {
         GenTextFunction : function(requestData,pidData){
             const { t, i18n } = useTranslation();
             return (<>
-                   <div>تم  تسجيل  حجز في موقف :  {pidData.Name} من {requestData.Depart_Time} إلي {requestData.Finish_Time} للشاحنة  ({requestData.Car_Matricule}) : {requestData.Car_Name} </div>  
+                   <div>{ t('userProfile.notificationPage.parking_reserver_saved', {  one: pidData.Name , two: requestData.Depart_Time, three: requestData.Finish_Time, four : requestData.Car_Matricule, five: requestData.Car_Name })}</div>
                 </> )
         }
     },
@@ -709,7 +704,7 @@ const  NotifGenres  = {
         GenTextFunction : function(requestData,pidData){
             const { t, i18n } = useTranslation();
             return (<>
-                   <div>تم  تسجيل  الأشتراك في موقف :  {pidData.Name} من {new Date(requestData.Depart_Date).toLocaleDateString('fr-FR').split( '/' ).reverse( ).join( '-' )} إلي {new Date(requestData.Finish_Date).toLocaleDateString('fr-FR').split( '/' ).reverse( ).join( '-' )}  للشاحنة  ({requestData.Car_Matricule}) : {requestData.Car_Name}</div>  
+                   <div>{ t('userProfile.notificationPage.parking_souscrire_saved', {  one: pidData.Name , two: new Date(requestData.Depart_Date).toLocaleDateString('fr-FR').split( '/' ).reverse( ).join( '-' ), three : new Date(requestData.Finish_Date).toLocaleDateString('fr-FR').split( '/' ).reverse( ).join( '-' ), four: requestData.Car_Matricule, five: requestData.Car_Name })}</div> 
                 </> )
         }
     },
@@ -720,7 +715,7 @@ const  NotifGenres  = {
         GenTextFunction : function(requestData,pidData){
             const { t, i18n } = useTranslation();
             return (<>
-                   <div>تم  تسجيل طلب شراء وقود  من محطة       :  {pidData.Name}  . تم تسجيل موعد الحضور مع الساعة : {requestData.Wanted_Time} </div>  
+                   <div>{ t('userProfile.notificationPage.qiosque_request_saved', {  one: pidData.Name , two: requestData.Wanted_Time })}</div>
                 </> )
         }
     },
@@ -730,7 +725,7 @@ const  NotifGenres  = {
         GenTextFunction : function(requestData,pidData){
             const { t, i18n } = useTranslation();
             return (<>
-                   <div>تم  تسجيل طلب موعد {requestData.Wash_Genre} من  {pidData.Name} يوم {new Date(requestData.Wanted_Day).toLocaleDateString('fr-FR').split( '/' ).reverse( ).join( '-' )} علي الساعة {requestData.Wanted_Time}</div>  
+                   <div>{ t('userProfile.notificationPage.qiosque_lavage_saved', { one: requestData.Wash_Genre,  two: pidData.Name , three: new Date(requestData.Wanted_Day).toLocaleDateString('fr-FR').split( '/' ).reverse( ).join( '-' ), four : requestData.Wanted_Time })}</div>
                 </> )
         }
     },
@@ -743,7 +738,7 @@ const  NotifGenres  = {
         GenTextFunction : function(requestData,pidData){
             const { t, i18n } = useTranslation();
             return (<>
-                   <div>تم  تسجيل    طلب حجز في قاعة الحلاقة   {pidData.Name} يوم {new Date(requestData.Wanted_Day).toLocaleDateString('fr-FR').split( '/' ).reverse( ).join( '-' )} علي الساعة {requestData.Wanted_Time}</div>  
+                  <div>{ t('userProfile.notificationPage.coiffure_reserver_saved', {  one: pidData.Name , two: new Date(requestData.Wanted_Day).toLocaleDateString('fr-FR').split( '/' ).reverse( ).join( '-' ), three : requestData.Wanted_Time })}</div> 
                 </> )
         }
     },
@@ -760,7 +755,7 @@ const  NotifGenres  = {
         GenTextFunction : function(requestData,pidData){
             const { t, i18n } = useTranslation();
             return (<>
-                   <div>تم رفض طلب الموعد مع الطبيب {pidData.Name} <br /> <small>"{requestData.Refuser_Cause}"</small></div>  
+                   <div>{ t('userProfile.notificationPage.coiffure_reserver_rejected', {  one: pidData.Name , two: requestData.Refuser_Cause })}</div>
                 </> )
         }
     },
@@ -778,7 +773,7 @@ const  NotifGenres  = {
         GenTextFunction : function(requestData,pidData){
             const { t, i18n } = useTranslation();
             return (<>
-                   <div>تم  تسجيل    طلب حجز في قاعة الأفراح   {pidData.Name} بسبب  {requestData.Res_Genre} بنجاح </div>  
+                   <div>{ t('userProfile.notificationPage.salon_marriage_reserver_saved', {  one: pidData.Name , two: requestData.Res_Genre })}</div>
                 </> )
         }
     },
@@ -789,6 +784,7 @@ const  NotifGenres  = {
         GenTextFunction : function(requestData,pidData){
             const { t, i18n } = useTranslation();
             return (<>
+                   <div>{ t('userProfile.notificationPage.infirmier_rdv_saved', {  one: pidData.Name , two: requestData.Refuser_Cause })}</div>
                    <div>تم  تسجيل    طلب حجز موعد مع الطباخ    {pidData.Name} بنجاح </div>  
                 </> )
         }
@@ -800,6 +796,7 @@ const  NotifGenres  = {
         GenTextFunction : function(requestData,pidData){
             const { t, i18n } = useTranslation();
             return (<>
+                   <div>{ t('userProfile.notificationPage.infirmier_rdv_saved', {  one: pidData.Name , two: requestData.Refuser_Cause })}</div>
                    <div>تم  تسجيل    طلب حجز موعد مع الفرقة الموسيقية    {pidData.Name} بنجاح </div>  
                 </> )
         }
@@ -811,6 +808,7 @@ const  NotifGenres  = {
         GenTextFunction : function(requestData,pidData){
             const { t, i18n } = useTranslation();
             return (<>
+                   <div>{ t('userProfile.notificationPage.infirmier_rdv_saved', {  one: pidData.Name , two: requestData.Refuser_Cause })}</div>
                    <div>تم  تسجيل    طلب حجز موعد مع المصور    {pidData.Name} بنجاح </div>  
                 </> )
         }
@@ -822,6 +820,7 @@ const  NotifGenres  = {
         GenTextFunction : function(requestData,pidData){
             const { t, i18n } = useTranslation();
             return (<>
+                   <div>{ t('userProfile.notificationPage.infirmier_rdv_saved', {  one: pidData.Name , two: requestData.Refuser_Cause })}</div>
                    <div>تم  تسجيل    طلب كراء مستلزمات أفراح من    {pidData.Name}  بنجاح</div>  
                 </> )
         }
@@ -835,6 +834,7 @@ const  NotifGenres  = {
         GenTextFunction : function(requestData,pidData){
             const { t, i18n } = useTranslation();
             return (<>
+                <div>{ t('userProfile.notificationPage.infirmier_rdv_saved', {  one: pidData.Name , two: requestData.Refuser_Cause })}</div>
                 <div>تم تسجيل طلب  شراء مواد غذائية  من  متجر   {pidData.Name} </div>  
              </> )
         }
@@ -847,6 +847,7 @@ const  NotifGenres  = {
         GenTextFunction : function(requestData,pidData){
             const { t, i18n } = useTranslation();
             return (<>
+                <div>{ t('userProfile.notificationPage.infirmier_rdv_saved', {  one: pidData.Name , two: requestData.Refuser_Cause })}</div>
                 <div>تم تسجيل طلب  شراء خبز  من  مخبزة   {pidData.Name} </div>  
              </> )
         }
@@ -859,6 +860,7 @@ const  NotifGenres  = {
         GenTextFunction : function(requestData,pidData){
             const { t, i18n } = useTranslation();
             return (<>
+                <div>{ t('userProfile.notificationPage.infirmier_rdv_saved', {  one: pidData.Name , two: requestData.Refuser_Cause })}</div>
                 <div>تم تسجيل طلب  شراء لحوم  من  مجزرة   {pidData.Name} </div>  
              </> )
         }
@@ -871,6 +873,7 @@ const  NotifGenres  = {
         GenTextFunction : function(requestData,pidData){
             const { t, i18n } = useTranslation();
             return (<>
+                <div>{ t('userProfile.notificationPage.infirmier_rdv_saved', {  one: pidData.Name , two: requestData.Refuser_Cause })}</div>
                 <div>تم تسجيل طلب  شراء خضر وغلال   من  متجر   {pidData.Name} </div>  
              </> )
         }
@@ -883,6 +886,7 @@ const  NotifGenres  = {
         GenTextFunction : function(requestData,pidData){
             const { t, i18n } = useTranslation();
             return (<>
+                <div>{ t('userProfile.notificationPage.infirmier_rdv_saved', {  one: pidData.Name , two: requestData.Refuser_Cause })}</div>
                 <div>تم تسجيل طلب  شراء مرطبات   من  نقطة بيع المرطبات   {pidData.Name} </div>  
              </> )
         }
@@ -895,6 +899,7 @@ const  NotifGenres  = {
         GenTextFunction : function(requestData,pidData){
             const { t, i18n } = useTranslation();
             return (<>
+                <div>{ t('userProfile.notificationPage.infirmier_rdv_saved', {  one: pidData.Name , two: requestData.Refuser_Cause })}</div>
                 <div>تم تسجيل طلب  شراء  من  بقالة   {pidData.Name} </div>  
              </> )
         }
@@ -907,6 +912,7 @@ const  NotifGenres  = {
         GenTextFunction : function(requestData,pidData){
             const { t, i18n } = useTranslation();
             return (<>
+                <div>{ t('userProfile.notificationPage.infirmier_rdv_saved', {  one: pidData.Name , two: requestData.Refuser_Cause })}</div>
                 <div>تم تسجيل طلب  شراء أدوات  من  محل المعدات    {pidData.Name} </div>  
              </> )
         }
@@ -919,6 +925,7 @@ const  NotifGenres  = {
         GenTextFunction : function(requestData,pidData){
             const { t, i18n } = useTranslation();
             return (<>
+                <div>{ t('userProfile.notificationPage.infirmier_rdv_saved', {  one: pidData.Name , two: requestData.Refuser_Cause })}</div>
                 <div>تم تسجيل طلب  شراء ملابس   من  متجر   {pidData.Name} </div>  
              </> )
         }
@@ -931,6 +938,7 @@ const  NotifGenres  = {
         GenTextFunction : function(requestData,pidData){
             const { t, i18n } = useTranslation();
             return (<>
+                <div>{ t('userProfile.notificationPage.infirmier_rdv_saved', {  one: pidData.Name , two: requestData.Refuser_Cause })}</div>
                 <div>تم تسجيل طلب  شراء مجوهرات  من  متجر   {pidData.Name} </div>  
              </> )
         }
@@ -943,6 +951,7 @@ const  NotifGenres  = {
         GenTextFunction : function(requestData,pidData){
             const { t, i18n } = useTranslation();
             return (<>
+                   <div>{ t('userProfile.notificationPage.infirmier_rdv_saved', {  one: pidData.Name , two: requestData.Refuser_Cause })}</div>
                    <div>تم تسجيل طلب  شراء أدوات مدرسية من مكتبة  {pidData.Name} </div>  
                 </> )
         }
@@ -954,6 +963,7 @@ const  NotifGenres  = {
         GenTextFunction : function(requestData,pidData){
             const { t, i18n } = useTranslation();
             return (<>
+                   <div>{ t('userProfile.notificationPage.infirmier_rdv_saved', {  one: pidData.Name , two: requestData.Refuser_Cause })}</div>
                    <div>تم تسجيل طلب  شراء آلات كهرومنزلية   من  متجر   {pidData.Name} </div>  
                 </> )
         }
@@ -965,6 +975,7 @@ const  NotifGenres  = {
         GenTextFunction : function(requestData,pidData){
             const { t, i18n } = useTranslation();
             return (<>
+                   <div>{ t('userProfile.notificationPage.infirmier_rdv_saved', {  one: pidData.Name , two: requestData.Refuser_Cause })}</div>
                    <div>تم تسجيل طلب  شراء أثاث   من  متجر   {pidData.Name} </div>  
                 </> )
         }
@@ -976,6 +987,7 @@ const  NotifGenres  = {
         GenTextFunction : function(requestData,pidData){
             const { t, i18n } = useTranslation();
             return (<>
+                <div>{ t('userProfile.notificationPage.infirmier_rdv_saved', {  one: pidData.Name , two: requestData.Refuser_Cause })}</div>
                 <div>تم تسجيل طلب  شراء من  متجر   {pidData.Name} </div>  
              </> )
         }
@@ -990,6 +1002,7 @@ const  NotifGenres  = {
         GenTextFunction : function(requestData,pidData){
             const { t, i18n } = useTranslation();
             return (<>
+                <div>{ t('userProfile.notificationPage.infirmier_rdv_saved', {  one: pidData.Name , two: requestData.Refuser_Cause })}</div>
                 <div>تم تسجيل طلب موعد مع المحامي {pidData.Name}  بنجاح  و ذلك بتاريخ {new Date(requestData.RDV_Date).toLocaleDateString('fr-FR').split( '/' ).reverse( ).join( '-' )}</div>  
              </> )
         }
@@ -1008,6 +1021,7 @@ const  NotifGenres  = {
         GenTextFunction : function(requestData,pidData){
             const { t, i18n } = useTranslation();
             return (<>
+                   <div>{ t('userProfile.notificationPage.infirmier_rdv_saved', {  one: pidData.Name , two: requestData.Refuser_Cause })}</div>
                    <div>تم رفض طلب الموعد مع الطبيب {pidData.Name} <br /> <small>"{requestData.Refuser_Cause}"</small></div>  
                 </> )
         }
@@ -1025,6 +1039,7 @@ const  NotifGenres  = {
         GenTextFunction : function(requestData,pidData){
             const { t, i18n } = useTranslation();
             return (<>
+                   <div>{ t('userProfile.notificationPage.infirmier_rdv_saved', {  one: pidData.Name , two: requestData.Refuser_Cause })}</div>
                    <div>تم توجيه طلب موعد مع الطبيب {pidData.Name}   إلي الطبيب {JSON.parse(requestData.Redirected_To).Name}  ( الهاتف :  {JSON.parse(requestData.Redirected_To).Phone} , العنوان : {JSON.parse(requestData.Redirected_To).Adresse} ) </div>  
                 </> )
         }
@@ -1035,6 +1050,7 @@ const  NotifGenres  = {
         GenTextFunction : function(requestData,pidData){
             const { t, i18n } = useTranslation();
             return (<>
+                   <div>{ t('userProfile.notificationPage.infirmier_rdv_saved', {  one: pidData.Name , two: requestData.Refuser_Cause })}</div>
                    <div>تم رفض طلب الموعد مع الطبيب {pidData.Name} <br /> <small>"{requestData.Refuser_Cause}"</small></div>  
                 </> )
         }
@@ -1046,6 +1062,7 @@ const  NotifGenres  = {
         GenTextFunction : function(requestData,pidData){
             const { t, i18n } = useTranslation();
             return (<>
+                <div>{ t('userProfile.notificationPage.infirmier_rdv_saved', {  one: pidData.Name , two: requestData.Refuser_Cause })}</div>
                 <div>تم تسجيل طلب موعد مع المحامي {pidData.Name}  بنجاح  و ذلك بتاريخ {new Date(requestData.RDV_Date).toLocaleDateString('fr-FR').split( '/' ).reverse( ).join( '-' )}</div>  
              </> )
         }
@@ -1057,6 +1074,7 @@ const  NotifGenres  = {
         GenTextFunction : function(requestData,pidData){
             const { t, i18n } = useTranslation();
             return (<>
+                   <div>{ t('userProfile.notificationPage.infirmier_rdv_saved', {  one: pidData.Name , two: requestData.Refuser_Cause })}</div>
                    <div>تم تسجيل طلب موعد مع المحامي {pidData.Name}  بنجاح  و ذلك بتاريخ {new Date(requestData.RDV_Date).toLocaleDateString('fr-FR').split( '/' ).reverse( ).join( '-' )}</div>  
                 </> )
         }
@@ -1071,7 +1089,6 @@ const  NotifGenres  = {
             const { t, i18n } = useTranslation();
             return (<>
                 <div>{ t('userProfile.notificationPage.gym_souscription_saved', {  one: requestData.Ab_Genre , two: pidData.Name })}</div>
-                {/* <div>تم تسجيل طلب الإشتراك  ({requestData.Ab_Genre}) في قاعة الرياضة   {pidData.Name}  بنجاح  .   </div>   */}
              </> )}
 
     },
@@ -1088,6 +1105,7 @@ const  NotifGenres  = {
         GenTextFunction : function(requestData,pidData){
             const { t, i18n } = useTranslation();
             return (<>
+                   <div>{ t('userProfile.notificationPage.infirmier_rdv_saved', {  one: pidData.Name , two: requestData.Refuser_Cause })}</div>
                    <div>تم رفض طلب الموعد مع الطبيب {pidData.Name} <br /> <small>"{requestData.Refuser_Cause}"</small></div>  
                 </> )
         }
@@ -1099,6 +1117,7 @@ const  NotifGenres  = {
         GenTextFunction : function(requestData,pidData){
             const { t, i18n } = useTranslation();
             return (<>
+                <div>{ t('userProfile.notificationPage.infirmier_rdv_saved', {  one: pidData.Name , two: requestData.Refuser_Cause })}</div>
                 <div>تم تسجيل طلب الحجز  في المسبح   {pidData.Name} يوم {new Date(requestData.RES_Date).toLocaleDateString('fr-FR').split( '/' ).reverse( ).join( '-' )}   من {requestData.RES_From_Time} إلي {requestData.RES_To_Time} بنجاح  .   </div>  
              </> )}
 
@@ -1109,6 +1128,7 @@ const  NotifGenres  = {
         GenTextFunction : function(requestData,pidData){
             const { t, i18n } = useTranslation();
             return (<>
+                <div>{ t('userProfile.notificationPage.infirmier_rdv_saved', {  one: pidData.Name , two: requestData.Refuser_Cause })}</div>
                 <div>تم تسجيل طلب الإشتراك  ({requestData.Ab_Genre}) في الملعب الرياضي   {pidData.Name}  بنجاح  .   </div>  
              </> )}
 
@@ -1120,6 +1140,7 @@ const  NotifGenres  = {
         GenTextFunction : function(requestData,pidData){
             const { t, i18n } = useTranslation();
             return (<>
+                <div>{ t('userProfile.notificationPage.infirmier_rdv_saved', {  one: pidData.Name , two: requestData.Refuser_Cause })}</div>
                 <div>تم تسجيل طلب الحجز  في الملعب الرياضي   {pidData.Name} يوم {new Date(requestData.RES_Date).toLocaleDateString('fr-FR').split( '/' ).reverse( ).join( '-' )}   من {requestData.RES_From_Time} إلي {requestData.RES_To_Time} بنجاح  .   </div>  
              </> )}
 
@@ -1130,6 +1151,7 @@ const  NotifGenres  = {
         GenTextFunction : function(requestData,pidData){
             const { t, i18n } = useTranslation();
             return (<>
+                <div>{ t('userProfile.notificationPage.infirmier_rdv_saved', {  one: pidData.Name , two: requestData.Refuser_Cause })}</div>
                 <div>تم تسجيل طلب الإشتراك  ({requestData.Ab_Genre}) في الملعب الرياضي   {pidData.Name}  بنجاح  .    </div>  
              </> )}
 
@@ -1141,6 +1163,7 @@ const  NotifGenres  = {
         GenTextFunction : function(requestData,pidData){
             const { t, i18n } = useTranslation();
             return (<>
+                <div>{ t('userProfile.notificationPage.infirmier_rdv_saved', {  one: pidData.Name , two: requestData.Refuser_Cause })}</div>
                 <div>تم تسجيل طلب حجز  في قاعة السنما  {pidData.Name} لمشاهدة فلم {requestData.Movie_Name}  بنجاح  .  </div>  
              </> )}
 
@@ -1152,6 +1175,7 @@ const  NotifGenres  = {
         GenTextFunction : function(requestData,pidData){
             const { t, i18n } = useTranslation();
             return (<>
+                <div>{ t('userProfile.notificationPage.infirmier_rdv_saved', {  one: pidData.Name , two: requestData.Refuser_Cause })}</div>
                 <div>تم تسجيل طلب حجز  في مسرح  {pidData.Name} لمشاهدة مسرحية {requestData.Movie_Name}  بنجاح  .  </div> 
              </> )}
 
@@ -1163,6 +1187,7 @@ const  NotifGenres  = {
         GenTextFunction : function(requestData,pidData){
             const { t, i18n } = useTranslation();
             return (<>
+                <div>{ t('userProfile.notificationPage.infirmier_rdv_saved', {  one: pidData.Name , two: requestData.Refuser_Cause })}</div>
                 <div>تم تسجيل طلب الإشتراك  {requestData.Ab_Genre} في قاعة الرياضة   {pidData.Name}  بنجاح  . تم تسجيل الإنطلاق ليوم  {new Date(requestData.Start_At).toLocaleDateString('fr-FR').split( '/' ).reverse( ).join( '-' )}  </div>  
              </> )}
 
@@ -1174,6 +1199,7 @@ const  NotifGenres  = {
         GenTextFunction : function(requestData,pidData){
             const { t, i18n } = useTranslation();
             return (<>
+                <div>{ t('userProfile.notificationPage.infirmier_rdv_saved', {  one: pidData.Name , two: requestData.Refuser_Cause })}</div>
                 <div>تم تسجيل طلب الحجز  في متحف   {pidData.Name} يوم {new Date(requestData.Wanted_Date).toLocaleDateString('fr-FR').split( '/' ).reverse( ).join( '-' )}   من {requestData.Wanted_Time_From} إلي {requestData.Wanted_Time_To} بنجاح  .   </div>  
              </> )}
 
@@ -1187,6 +1213,7 @@ const  NotifGenres  = {
         GenTextFunction : function(requestData,pidData){
             const { t, i18n } = useTranslation();
             return (<>
+                 <div>{ t('userProfile.notificationPage.infirmier_rdv_saved', {  one: pidData.Name , two: requestData.Refuser_Cause })}</div>
                  <div>تم تسجيل طلب حجز  {requestData.Ab_Genre}  في نزل  {pidData.Name} للفترة بين { new Date(requestData.From_Date).toLocaleDateString('fr-FR').split( '/' ).reverse( ).join( '-' ) } و { new Date(requestData.To_Date).toLocaleDateString('fr-FR').split( '/' ).reverse( ).join( '-' )} بنجاح  .   </div>  
              </> )}
 
@@ -1204,6 +1231,7 @@ const  NotifGenres  = {
         GenTextFunction : function(requestData,pidData){
             const { t, i18n } = useTranslation();
             return (<>
+                   <div>{ t('userProfile.notificationPage.infirmier_rdv_saved', {  one: pidData.Name , two: requestData.Refuser_Cause })}</div>
                    <div>تم رفض طلب الموعد مع الطبيب {pidData.Name} <br /> <small>"{requestData.Refuser_Cause}"</small></div>  
                 </> )
         }
@@ -1215,6 +1243,7 @@ const  NotifGenres  = {
         GenTextFunction : function(requestData,pidData){
             const { t, i18n } = useTranslation();
             return (<>
+                <div>{ t('userProfile.notificationPage.infirmier_rdv_saved', {  one: pidData.Name , two: requestData.Refuser_Cause })}</div>
                 <div>تم تسجيل طلب الحجز في نزل  {requestData.Ab_Genre} في قاعة الرياضة   {pidData.Name}  بنجاح  . تم تسجيل الإنطلاق ليوم  {new Date(requestData.Start_At).toLocaleDateString('fr-FR').split( '/' ).reverse( ).join( '-' )}  </div>  
              </> )}
 
@@ -1232,7 +1261,7 @@ const  NotifGenres  = {
         GenTextFunction : function(requestData,pidData){
             const { t, i18n } = useTranslation();
             return (<>
-                   <div>تم رفض طلب الموعد مع الطبيب {pidData.Name} <br /> <small>"{requestData.Refuser_Cause}"</small></div>  
+                   <div>{ t('userProfile.notificationPage.hotels_service_rejected', {  one: pidData.Name , two: requestData.Refuser_Cause })}</div> 
                 </> )
         }
     },
@@ -1243,7 +1272,7 @@ const  NotifGenres  = {
         GenTextFunction : function(requestData,pidData){
             const { t, i18n } = useTranslation();
             return (<>
-                 <div>تم تسجيل طلب سفر إلي   {requestData.Coutry} مع وكالة الاسفار   {pidData.Name}  بنجاح  .  </div>  
+                 <div>{ t('userProfile.notificationPage.agence_service_saved', {  one: requestData.Coutry , two: pidData.Name })}</div>
              </> )}
 
     },
@@ -1254,7 +1283,7 @@ const  NotifGenres  = {
         GenTextFunction : function(requestData,pidData){
             const { t, i18n } = useTranslation();
             return (<>
-                   <div> تم تسجيل طلب طبق من مطعم {pidData.Name}   {requestData.Table_Num == 0 ? '' : `في الطاولة عدد ${requestData.Table_Num}`}    بنجاح </div>  
+                   <div>{ t('userProfile.notificationPage.restaurant_commande_saved', {  one: pidData.Name , two: requestData.Table_Num == 0 ? '' : `في الطاولة عدد ${requestData.Table_Num}` })}</div> 
                 </> )
         }
     }, 
@@ -1271,7 +1300,7 @@ const  NotifGenres  = {
         GenTextFunction : function(requestData,pidData){
             const { t, i18n } = useTranslation();
             return (<>
-                   <div>تم رفض طلب الموعد مع الطبيب {pidData.Name} <br /> <small>"{requestData.Refuser_Cause}"</small></div>  
+                   <div>{ t('userProfile.notificationPage.restaurant_commande_rejected', {  one: pidData.Name , two: requestData.Refuser_Cause })}</div>
                 </> )
         }
     },
@@ -1282,7 +1311,7 @@ const  NotifGenres  = {
         GenTextFunction : function(requestData,pidData){
             const { t, i18n } = useTranslation();
             return (<>
-                   <div>تم تسجيل طلب  الحجز في مطعم    {pidData.Name}  بنجاح  و ذلك بتاريخ {new Date(requestData.Wanted_Date).toLocaleDateString('fr-FR').split( '/' ).reverse( ).join( '-' )}</div>  
+                   <div>{ t('userProfile.notificationPage.restaurant_reservation_saved', {  one: pidData.Name , two: new Date(requestData.Wanted_Date).toLocaleDateString('fr-FR').split( '/' ).reverse( ).join( '-' ) })}</div>
                 </> )
         }
     }, 
@@ -1299,7 +1328,7 @@ const  NotifGenres  = {
         GenTextFunction : function(requestData,pidData){
             const { t, i18n } = useTranslation();
             return (<>
-                   <div>تم رفض طلب الموعد مع الطبيب {pidData.Name} <br /> <small>"{requestData.Refuser_Cause}"</small></div>  
+                   <div>{ t('userProfile.notificationPage.restaurant_reservation_rejected', {  one: pidData.Name , two: requestData.Refuser_Cause })}</div>
                 </> )
         }
     },
@@ -1309,7 +1338,7 @@ const  NotifGenres  = {
         GenTextFunction : function(requestData,pidData){
             const { t, i18n } = useTranslation();
             return (<>
-                   <div>تم  تعديل طلب الشراء من الصيدلة  {pidData.Name}    </div>  
+                   <div>{ t('userProfile.notificationPage.restaurant_reservation_edited', {  one: pidData.Name })}</div> 
                 </> )
         }
     },
@@ -1320,7 +1349,7 @@ const  NotifGenres  = {
         GenTextFunction : function(requestData,pidData){
             const { t, i18n } = useTranslation();
             return (<>
-                   <div> تم تسجيل طلب مشروب من مقهي {pidData.Name}   {requestData.Table_Num == 0 ? '' : `في الطاولة عدد ${requestData.Table_Num}`}    بنجاح </div>  
+                   <div>{ t('userProfile.notificationPage.cafe_commande_saved', {  one: pidData.Name , two: requestData.Table_Num == 0 ? '' : `في الطاولة عدد ${requestData.Table_Num}` })}</div>
                 </> )
         }
     }, 
@@ -1330,7 +1359,7 @@ const  NotifGenres  = {
         GenTextFunction : function(requestData,pidData){
             const { t, i18n } = useTranslation();
             return (<>
-                   <div>تم تسجيل طلب  الحجز في مقهي    {pidData.Name}  بنجاح  و ذلك بتاريخ {new Date(requestData.Wanted_Date).toLocaleDateString('fr-FR').split( '/' ).reverse( ).join( '-' )}</div>  
+                   <div>{ t('userProfile.notificationPage.cafe_reservation_saved', {  one: pidData.Name , two: new Date(requestData.Wanted_Date).toLocaleDateString('fr-FR').split( '/' ).reverse( ).join( '-' ) })}</div>
                 </> )
         }
     }, 
@@ -1342,7 +1371,7 @@ const  NotifGenres  = {
         GenTextFunction : function(requestData,pidData){
             const { t, i18n } = useTranslation();
             return (<>
-                   <div>تم تسجيل طلب {requestData.Req_Genre} {requestData.Immob_Genre} من الوسيط     {pidData.Name}  </div>  
+                   <div>{ t('userProfile.notificationPage.courtier_request_saved', {  one: requestData.Req_Genre , two: requestData.Immob_Genre, three: pidData.Name })}</div>
                 </> )
         }
     },
@@ -1352,7 +1381,7 @@ const  NotifGenres  = {
         GenTextFunction : function(requestData,pidData){
             const { t, i18n } = useTranslation();
             return (<>
-                   <div>تم تسجيل    {requestData.Immob_Genre} {requestData.Req_Genre} مع الوسيط     {pidData.Name}  </div>  
+                   <div>{ t('userProfile.notificationPage.courtier_torent_saved', {  one: requestData.Immob_Genre.Name , two: requestData.Req_Genre, three: pidData.Name})}</div>
                 </> )
         }
     },
@@ -1363,7 +1392,7 @@ const  NotifGenres  = {
         GenTextFunction : function(requestData,pidData){
             const { t, i18n } = useTranslation();
             return (<>
-                   <div>تم تسجيل طلب بناء     {requestData.Immob_Genre}  من المقاول     {pidData.Name} بنجاح </div>  
+                   <div>{ t('userProfile.notificationPage.contracteur_service_saved', {  two: pidData.Name , one: requestData.Immob_Genre })}</div>  
                 </> )
         }
     },
@@ -1374,7 +1403,7 @@ const  NotifGenres  = {
         GenTextFunction : function(requestData,pidData){
             const { t, i18n } = useTranslation();
             return (<>
-                   <div>تم تسجيل طلب تصميم     {requestData.Immob_Genre}  من المهندس المعماري     {pidData.Name} بنجاح </div>  
+                   <div>{ t('userProfile.notificationPage.architecture_service_saved', {  one: requestData.Immob_Genre , two: pidData.Name })}</div>
                 </> )
         }
     },
@@ -1386,7 +1415,7 @@ const  NotifGenres  = {
         GenTextFunction : function(requestData,pidData){
             const { t, i18n } = useTranslation();
             return (<>
-                <div>تم تسجيل طلب {requestData.Request_Cause}   للفترة ما بين  {new Date(requestData.From_Date).toLocaleDateString('fr-FR').split( '/' ).reverse( ).join( '-' )} و {new Date(requestData.To_Date).toLocaleDateString('fr-FR').split( '/' ).reverse( ).join( '-' )} من المحاسب  {pidData.Name} بنجاح</div>  
+                <div>{ t('userProfile.notificationPage.comptable_service_saved', {  one: requestData.Request_Cause , two: new Date(requestData.From_Date).toLocaleDateString('fr-FR').split( '/' ).reverse( ).join( '-' ), three: new Date(requestData.To_Date).toLocaleDateString('fr-FR').split( '/' ).reverse( ).join( '-' ), four: pidData.Name})}</div> 
              </> )
         }
 
@@ -1399,7 +1428,7 @@ const  NotifGenres  = {
         GenTextFunction : function(requestData,pidData){
             const { t, i18n } = useTranslation();
             return (<>
-                   <div>تم تسجيل طلب موعد مع البيطري {pidData.Name}  بنجاح  و ذلك بتاريخ {new Date(requestData.RDV_Date).toLocaleDateString('fr-FR').split( '/' ).reverse( ).join( '-' )}</div>  
+                   <div>{ t('userProfile.notificationPage.veterinaire_rdv_saved', {  one: pidData.Name , two: new Date(requestData.RDV_Date).toLocaleDateString('fr-FR').split( '/' ).reverse( ).join( '-' ) })}</div>
                 </> )
         }
     },
@@ -1416,7 +1445,7 @@ const  NotifGenres  = {
         GenTextFunction : function(requestData,pidData){
             const { t, i18n } = useTranslation();
             return (<>
-                   <div>تم رفض طلب الموعد مع الطبيب {pidData.Name} <br /> <small>"{requestData.Refuser_Cause}"</small></div>  
+                   <div>{ t('userProfile.notificationPage.veterinaire_rdv_rejected', {  one: pidData.Name , two: requestData.Refuser_Cause })}</div>
                 </> )
         }
     },
@@ -1433,7 +1462,7 @@ const  NotifGenres  = {
         GenTextFunction : function(requestData,pidData){
             const { t, i18n } = useTranslation();
             return (<>
-                   <div>تم توجيه طلب موعد مع الطبيب {pidData.Name}   إلي الطبيب {JSON.parse(requestData.Redirected_To).Name}  ( الهاتف :  {JSON.parse(requestData.Redirected_To).Phone} , العنوان : {JSON.parse(requestData.Redirected_To).Adresse} ) </div>  
+                   <div>{ t('userProfile.notificationPage.veterinaire_rdv_redirected', {  one: pidData.Name , two: JSON.parse(requestData.Redirected_To).Name, three: JSON.parse(requestData.Redirected_To).Phone , four: JSON.parse(requestData.Redirected_To).Adresse})}</div>
                 </> )
         }
     },
@@ -1444,7 +1473,7 @@ const  NotifGenres  = {
         GenTextFunction : function(requestData,pidData){
             const { t, i18n } = useTranslation();
             return (<>
-                <div>تم تسجيل طلب  شراء أدوات  من  محل   {pidData.Name} </div>  
+                <div>{ t('userProfile.notificationPage.fourragerie_shop_saved', {  one: pidData.Name })}</div>     
              </> )
         }
 

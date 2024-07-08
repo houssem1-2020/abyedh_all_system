@@ -41,7 +41,7 @@ function BlogLandingPage() {
         const UserCard = () =>{
             return(<>
                 <NavLink exact='true' to='/Profile' className="navbar-brand border-div m-0 p-0 ms-3">
-                    <img  className="rounded-circle p-0 m-0 me-1" src={`https://cdn.abyedh.tn/images/p_pic/${GConf.UserData.UData.PictureId}.gif`}   alt="Logo" style={{width:'30px', height:'30px'}} />
+                    <img  className="rounded-circle p-0 m-0 me-1" src={`https://cdn.abyedh.com/images/p_pic/${GConf.UserData.UData.PictureId}.gif`}   alt="Logo" style={{width:'30px', height:'30px'}} />
                 </NavLink>
             </>)
         }
@@ -50,7 +50,7 @@ function BlogLandingPage() {
                     <div className='row'>
                         <div className='col-6 text-start align-self-center'>
                             <NavLink exact='true' to='/Tools/News' className="m-0 p-0 ms-3">
-                                <img  className="border-div d-none d-lg-inline" src="https://cdn.abyedh.tn/images/logo/mlogo.gif"   alt="Logo" style={{width:'20px', height:'40px'}} />
+                                <img  className="border-div d-none d-lg-inline" src="https://cdn.abyedh.com/images/logo/mlogo.gif"   alt="Logo" style={{width:'20px', height:'40px'}} />
                                 <div  className="d-lg-none d-inline-block text-white p-1"  > <span className='bi bi-arrow-left-short bi-md ' ></span> </div>
                             </NavLink>
                         </div>
@@ -89,7 +89,7 @@ function BlogLandingPage() {
         <div className='col-12 col-lg-4'>
                 <NavLink exact='true' to={`/tools/News/page/${props.data.Blog_ID}`} className="navbar-brand border-div m-0 p-0 ms-3">
                     <div className='card card-body shadow-sm mb-2 border-div text-center '>
-                        <img src={`https://cdn.abyedh.tn/images/Tools/News/${props.data.Img_Url}`} className='text-center' width={'70%'} height={'150px'} /> 
+                        <img src={`https://cdn.abyedh.com/images/Tools/News/${props.data.Img_Url}`} className='text-center' width={'70%'} height={'150px'} /> 
                         <h5>{props.data.Title}</h5>
                     </div>   
                 </NavLink>

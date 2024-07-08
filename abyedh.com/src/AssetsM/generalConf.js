@@ -29,10 +29,10 @@ const GConf = {
     abyedhMap : TunMap,
     Country : GetCountry(),
     UserData : GetUID(),
-    SoketLink : 'https://api.abyedh.tn/apiAbyedh', //https://api.abyedh.tn/apiAbyedh
-    ApiLink : 'https://api.abyedh.tn/apiAbyedh/Search', //https://api.abyedh.tn/apiAbyedh
-    ApiProfileLink : 'https://api.abyedh.tn/apiAbyedh/Profile', //https://api.abyedh.tn/apiAbyedh
-    ApiToolsLink : 'https://api.abyedh.tn/apiAbyedh/Tools', //https://api.abyedh.tn/apiAbyedh
+    SoketLink : 'https://api.abyedh.com/api/application', //https://api.abyedh.com/api/application
+    ApiLink : 'https://api.abyedh.com/api/application/Search', //https://api.abyedh.com/api/application
+    ApiProfileLink : 'https://api.abyedh.com/api/application/Profile', //https://api.abyedh.com/api/application
+    ApiToolsLink : 'https://api.abyedh.com/api/application/Tools', //https://api.abyedh.com/api/application
 
     themeColor : '#dc3545',
     TostErrorGonf : {
@@ -92,7 +92,7 @@ const GConf = {
 
     ProfileNavsData : [
         {id:1, name:"Acceuil", icon:"house", link:"ma"},
-        {id:2, name:"Suivie", icon:"repeat", link:"sv"},
+        {id:2, name:"Suivie", icon:"dpad", link:"sv"},
         {id:3, name:"Pannier", icon:"balloon-heart", link:"fv"},
         {id:4, name:"Documment", icon:"folder-symlink", link:"dc"},
         // {id:5, name:"Calendrier", icon:"calendar2-week", link:"cl"},

@@ -40,7 +40,7 @@ function BlogProfilePage() {
         const ArticleCard = (props)=>{
             return(<>
                 <div className='card card-body shadow-sm mb-4 border-div'>
-                        <div className='text-center mb-4'><img src={`https://cdn.abyedh.tn/images/Tools/${SubCat[genre].subCategories.find(item => item.name === tag).image}`} className='text-center' width={'50px'} height={'50px'} /></div> 
+                        <div className='text-center mb-4'><img src={`https://cdn.abyedh.com/images/Tools/${SubCat[genre].subCategories.find(item => item.name === tag).image}`} className='text-center' width={'50px'} height={'50px'} /></div> 
                         <h5 className='d-inline mt-0 mb-1'>Nom : {props.data.Nom}</h5>
                         <h5 className='d-inline mt-0 mb-1'>Classe : {props.data.Classe}</h5>
                         <h5 className='d-inline mt-0 mb-1'>AMM : {props.data.AMM}</h5>
