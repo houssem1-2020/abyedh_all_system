@@ -13,9 +13,12 @@ import TableImage from '../../../AssetsM/Cards/tableImg';
 import axios from 'axios';
 import { toast } from 'react-toastify';
 import GConf from '../../../../AssetsM/generalConf';
-
+import { useTranslation, Trans } from 'react-i18next';
+import detectRTL from 'rtl-detect';
 
 const CustomTabs = ({activeIndex, setActiveIndex}) => {
+    const { t, i18n } = useTranslation();
+    const isRTL = detectRTL.isRtlLang(i18n.language);
     return(<>
 
            <div className="mt-1 p-1 mb-4"   style={{width:'100%', overflowX: 'auto', overflowY : 'hidden', whiteSpace:'nowrap'}}> 
@@ -23,28 +26,22 @@ const CustomTabs = ({activeIndex, setActiveIndex}) => {
                     <Menu.Item key={0} active={activeIndex == 0} className='rounded-pill' onClick={ () => setActiveIndex(0)}>
                         <span style={{color: '#848a94'}}>
                             <b>
-                            <span className={`bi bi-blockquote-left`}></span> Texte
+                            <span className={`bi bi-blockquote-left`}></span> {t('appPages.publicationPage.tabsData.text')}
                             </b>
                         </span>
                     </Menu.Item>
-                    {/* <Menu.Item key={1} active={activeIndex == 1} className='rounded-pill' onClick={ () => setActiveIndex(1)}>
-                        <span style={{color: '#314770'}}>
-                            <b>
-                            <span className={`bi bi-list-columns-reverse`}></span> Article
-                            </b>
-                        </span>
-                    </Menu.Item> */}
+                    
                     <Menu.Item key={2} active={activeIndex == 2} className='rounded-pill' onClick={ () => setActiveIndex(2)}>
                         <span style={{color: '#216e55'}}>
                             <b>
-                            <span className={`bi bi-images`}></span> Image
+                            <span className={`bi bi-images`}></span> {t('appPages.publicationPage.tabsData.image')}
                             </b>
                         </span>
                     </Menu.Item>
                     <Menu.Item key={3} active={activeIndex == 3} className='rounded-pill' onClick={ () => setActiveIndex(3)}>
                         <span style={{color: '#b32525'}}>
                             <b>
-                            <span className={`bi bi-camera-reels`}></span> Video
+                            <span className={`bi bi-camera-reels`}></span> {t('appPages.publicationPage.tabsData.video')}
                             </b>
                         </span>
                     </Menu.Item>
@@ -69,13 +66,15 @@ const CustomTabs = ({activeIndex, setActiveIndex}) => {
 }
 
 const TextPubCard = ({publicationData, setPublicationData, SavePublicationFunc, disabledSaveBtn , OnKeyPressFunc, loaderState}) => {
+    const { t, i18n } = useTranslation();
+    const isRTL = detectRTL.isRtlLang(i18n.language);
     return(<>
             <div className='  card-body  mb-4 border-div'>
                 <Form className='mb-3 '>
-                    <TextArea placeholder='La taille maximale est de 300 caractères.' onKeyPress={event => OnKeyPressFunc(event)} maxLength={300} className='border-0 font-droid'  rows={5} value={publicationData.text} onChange={ (e,value) => setPublicationData({...publicationData, text:e.target.value})} />
+                    <TextArea placeholder={t('appPages.publicationPage.textDataPlch')} onKeyPress={event => OnKeyPressFunc(event)} maxLength={300} className='border-0 font-droid'  rows={5} value={publicationData.text} onChange={ (e,value) => setPublicationData({...publicationData, text:e.target.value})} />
                 </Form>
                 <div className='p-1'>
-                    <Button className='rounded-pill'  fluid onClick={() => SavePublicationFunc('text','text','text')} disabled={disabledSaveBtn} size='small' icon style={{backgroundColor:'#848a94', color:'white'}} >   تسجيل   <Icon name='save' />   <Loader inverted active={loaderState} inline size='tiny' className='ms-2 text-danger'/></Button>
+                    <Button className='rounded-pill'  fluid onClick={() => SavePublicationFunc('text','text','text')} disabled={disabledSaveBtn} size='small' icon style={{backgroundColor:'#848a94', color:'white'}} >   {t('appPages.publicationPage.communSaveBtn')}   <Icon name='save' />   <Loader inverted active={loaderState} inline size='tiny' className='ms-2 text-danger'/></Button>
                 </div>
             </div>
     </>)
@@ -94,7 +93,8 @@ const ArticlePubCard = ({publicationData, setPublicationData, SavePublicationFun
 }
 const ImagePubCard = ({publicationData, setPublicationData, SavePublicationFunc, disabledSaveBtn , OnKeyPressFunc, loaderState}) => {
     const [imageLink, setImageLink] = useState('')
-
+    const { t, i18n } = useTranslation();
+    const isRTL = detectRTL.isRtlLang(i18n.language);
     const GetImageFunction = (link) => {
         setPublicationData({...publicationData, imageUrl: link })
         checkImageURL(link, isValid => {
@@ -127,22 +127,24 @@ const ImagePubCard = ({publicationData, setPublicationData, SavePublicationFunc,
     return(<>
             <div className='  card-body  mb-4 border-div'>
                 <Form className='mb-3'>
-                    <TextArea placeholder='La taille maximale est de 180 caractères.' onKeyPress={event => OnKeyPressFunc(event)} maxLength={180} className='border-0 font-droid'  rows={2} value={publicationData.imageText} onChange={ (e,value) => setPublicationData({...publicationData, imageText:e.target.value})} />
+                    <TextArea placeholder={t('appPages.publicationPage.imagesData.textPlch')} onKeyPress={event => OnKeyPressFunc(event)} maxLength={180} className='border-0 font-droid'  rows={2} value={publicationData.imageText} onChange={ (e,value) => setPublicationData({...publicationData, imageText:e.target.value})} />
                 </Form>
-                <small>Entrez ici le lien de l'image ! veiullez entrer un lien utile </small>
-                <input className='text-start form-control'  fluid   placeholder={`Adresse de l'image`}   onBlur={(e) => GetImageFunction(e.target.value)} />
+                <small> {t('appPages.publicationPage.imagesData.smallDesc')} </small>
+                <input className='text-start form-control'  fluid   placeholder={t('appPages.publicationPage.imagesData.inputPlch')}   onBlur={(e) => GetImageFunction(e.target.value)} />
                 <br />
                 {imageLink == '' ? <></> : <img src={imageLink} width={'100%'} height='auto' />}
                 <br /> 
                 <br /> 
                 <div className='p-1'>
-                    <Button className='rounded-pill' fluid onClick={() => SavePublicationFunc('image','image','image')} disabled={disabledSaveBtn} size='small' icon style={{backgroundColor:'#216e55', color:'white'}} >   تسجيل   <Icon name='save' />   <Loader inverted active={loaderState} inline size='tiny' className='ms-2 text-danger'/></Button>
+                    <Button className='rounded-pill' fluid onClick={() => SavePublicationFunc('image','image','image')} disabled={disabledSaveBtn} size='small' icon style={{backgroundColor:'#216e55', color:'white'}} >   {t('appPages.publicationPage.communSaveBtn')}   <Icon name='save' />   <Loader inverted active={loaderState} inline size='tiny' className='ms-2 text-danger'/></Button>
                 </div>
             </div>
     </>)
 }
 const VideoPubCard = ({publicationData, setPublicationData, SavePublicationFunc, disabledSaveBtn , OnKeyPressFunc, loaderState}) => {
     const [videoLink, setVideoLink] = useState('')
+    const { t, i18n } = useTranslation();
+    const isRTL = detectRTL.isRtlLang(i18n.language);
 
     const GetImageFunction = (link) => {
         //checkVideoURL(link, isValid => {
@@ -176,10 +178,10 @@ const VideoPubCard = ({publicationData, setPublicationData, SavePublicationFunc,
     return(<>
             <div className='  card-body  mb-4 border-div'>
                 <Form className='mb-3'>
-                    <TextArea placeholder='La taille maximale est de 180 caractères.' onKeyPress={event => OnKeyPressFunc(event)} maxLength={180} className='border-0 font-droid' rows={2} value={publicationData.videoText} onChange={ (e,value) => setPublicationData({...publicationData, videoText:e.target.value})} />
+                    <TextArea placeholder={t('appPages.publicationPage.videoData.textPlch')} onKeyPress={event => OnKeyPressFunc(event)} maxLength={180} className='border-0 font-droid' rows={2} value={publicationData.videoText} onChange={ (e,value) => setPublicationData({...publicationData, videoText:e.target.value})} />
                 </Form>
-                <small>Entrez l'ID de video Youtube (example : jNQXAC9IVRw , on accepte que les video youtube !! ) </small>
-                <input className='text-start form-control'  fluid   placeholder='ID de video '  onBlur={(e) => GetImageFunction(e.target.value)} />
+                <small>{t('appPages.publicationPage.videoData.smallDesc')} </small>
+                <input className='text-start form-control'  fluid   placeholder={t('appPages.publicationPage.videoData.inputPlch')}  onBlur={(e) => GetImageFunction(e.target.value)} />
                 <br />
                 {videoLink == '' ? 
                     <></> 
@@ -196,7 +198,7 @@ const VideoPubCard = ({publicationData, setPublicationData, SavePublicationFunc,
                 <br /> 
                 <br /> 
                 <div className='p-1'>
-                    <Button className='rounded-pill' fluid onClick={() => SavePublicationFunc('video','video','video')} disabled={disabledSaveBtn} size='small' icon style={{backgroundColor: '#b32525' , color:'white'}} >   تسجيل   <Icon name='save' />   <Loader inverted active={loaderState} inline size='tiny' className='ms-2 text-danger'/></Button>
+                    <Button className='rounded-pill' fluid onClick={() => SavePublicationFunc('video','video','video')} disabled={disabledSaveBtn} size='small' icon style={{backgroundColor: '#b32525' , color:'white'}} >   {t('appPages.publicationPage.communSaveBtn')}   <Icon name='save' />   <Loader inverted active={loaderState} inline size='tiny' className='ms-2 text-danger'/></Button>
                 </div>
             </div>
     </>)
@@ -218,6 +220,8 @@ function PublicationPage() {
      const [activeIndex, setActiveIndex] = useState(0)
      const [loaderState, setLS] = useState(false)
      const [disabledSaveBtn, setDisabledBtn] = useState(false)
+    const { t, i18n } = useTranslation();
+    const isRTL = detectRTL.isRtlLang(i18n.language);
 
      const panesRes = [
         {
@@ -284,7 +288,7 @@ function PublicationPage() {
      /*#########################[Card]##################################*/
 
     return ( <> 
-                <h5 className='text-danger'>Partagez vos activités avec vos abonnés !!</h5>
+                <h5 className='text-danger'> {t('appPages.publicationPage.titleText')} </h5>
                 <CustomTabs  activeIndex={activeIndex} setActiveIndex={setActiveIndex}   />
                 <Tab menu={{ secondary: true }} activeIndex={activeIndex} panes={panesRes}  className='no-menu-tabs mt-2' />
         </> );

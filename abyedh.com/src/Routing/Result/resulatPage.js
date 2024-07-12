@@ -15,6 +15,9 @@ import WorldMap from '../../AssetsM/wordMap';
 import { useTranslation, Trans } from 'react-i18next';
 import detectRTL from 'rtl-detect';
 import { useNavigate} from 'react-router-dom';
+import { BottomSheet } from 'react-spring-bottom-sheet'
+import 'react-spring-bottom-sheet/dist/style.css'
+
 
 const ScrollDelegCard = ({localiteList, tag, setFilterLoading}) =>{
     const { t, i18n } = useTranslation();
@@ -357,7 +360,7 @@ function ResultPage() {
                                     {props.data.Deleg != '' ?  <><div className={`${isRTL ? 'text-end' : 'text-start'}`} style={{marginRight:'20px'}} dir={isRTL ? 'rtl' : 'ltr'}> <span className='bi bi-geo-alt' style={{color: GConf.ADIL[tag].themeColor}}></span> : {props.data.Deleg}</div> </> : <></> }
                                     {props.data.Adress != '' ?  <><div className={`text-truncate ${isRTL ? 'text-end' : 'text-start'}`} style={{marginRight:'20px', maxWidth:'280px'}} dir={isRTL ? 'rtl' : 'ltr'}> <span className='bi bi-pin-map-fill' style={{color: GConf.ADIL[tag].themeColor}}></span> : {props.data.Adress}</div> </> : <></> }
                                 </div>
-                                <div className='  d-flex pt-0  p-2'  dir={isRTL ? 'rtl' : 'rtl'} style={{width:'100%', overflowX: 'auto', overflowY : 'hidden', whiteSpace:'nowrap'}} >
+                                <div className='  d-flex pt-0  p-2'    style={{width:'100%', overflowX: 'auto', overflowY : 'hidden', whiteSpace:'nowrap'}} >
                                     { GConf.ADIL[tag].systemActive ?  GConf.ADIL[tag].profileBtns.map( (data,index) => <ActionsBtnCard key={index} PID ={props.data.PID} data={data} indexKey={index} /> ).slice(0, GConf.ADIL[tag].profileBtns.length - 1) : <></> }                        
                                 </div>
                             </div>
@@ -394,8 +397,8 @@ function ResultPage() {
                     />
                 </div>
                 <div className='col-2 align-self-center d-md-none' >
-                    
-                    <Modal
+                    <Button className='mb-2 me-1' onClick={() => setOpenMM(!openMapModal)} ><Icon name='map' /></Button>
+                    {/* <Modal
                         onClose={() => setOpenMM(false)}
                         onOpen={() => setOpenMM(true)}
                         open={openMapModal}
@@ -406,7 +409,7 @@ function ResultPage() {
                             <ResultMap />
                         </Modal.Content>
                          
-                    </Modal>
+                    </Modal> */}
                 </div>
                 <div className='col-lg-6 col-10 align-self-center ' >
                     <Input icon='search' placeholder={t('mainPage.mainsearchInput')} fluid className='mb-2 text-end rounded-pill-input ' style={{borderRadius: '100px', textAlign:'right'}}/>
@@ -479,7 +482,7 @@ function ResultPage() {
                             <Dimmer active={filterLoader} inverted>
                                 <Loader inverted>تحيين من قاعدة البيانات</Loader>
                             </Dimmer>
-                            <div className="sticky-top bg-white mb-4 " style={{top:'50px', zIndex:'+50'}}>
+                            <div className="sticky-top bg-white mb-4 " style={{top:'50px', zIndex:3}}>
                                 <FilterCard />
                             </div>
                             
@@ -508,6 +511,9 @@ function ResultPage() {
             <br />
             <br />
             <ButtomCard />
+            <BottomSheet expandOnContentDrag open={openMapModal}  onDismiss={() => setOpenMM(!openMapModal)}  >
+                <ResultMap />
+            </BottomSheet>
         </> );
 }
 

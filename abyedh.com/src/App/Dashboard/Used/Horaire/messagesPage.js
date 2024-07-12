@@ -12,9 +12,13 @@ import { BottomSheet } from 'react-spring-bottom-sheet'
 import 'react-spring-bottom-sheet/dist/style.css'
 import FullCalendar from '@fullcalendar/react' // must go before plugins
 import timeGridPlugin from '@fullcalendar/timegrid';
+import { useTranslation, Trans } from 'react-i18next';
+import detectRTL from 'rtl-detect';
 
 const Horaire = ({alwaysState, setAlwaysState, timming, addInput, setAddInput, setTimming, setPauseDay , SetTimmingData,UpdateTimmingData, setSelectedUpdateDay, selectedUpdateDay}) =>{
-     
+    const { t, i18n } = useTranslation();
+    const isRTL = detectRTL.isRtlLang(i18n.language);
+
     let [dateDataToChange, setDateDataToChange] = useState({pauseDay: false, matinStart:'08:00', matinFinsh:'12:00', soirStart:'14:00', soirFinsh:'18:00'})
     const weekDays = [
         { key: 'af', value: 'Lun', text: 'الانثنين' },
@@ -48,9 +52,9 @@ const Horaire = ({alwaysState, setAlwaysState, timming, addInput, setAddInput, s
     }
     const DayHoraire = (props) =>{
         return(<>
-                <div className={`row  mb-1 ${props.data.dayOff ? 'text-danger':''}`}>
+                <div className={`row  mb-1 ${props.data.dayOff ? 'text-danger':''}`} dir={isRTL ? 'rtl' : 'ltr'}>
                     <div  className='col-3 col-lg-3 m-0 p-1'>
-                        <b>{ArabificationDate(props.data.day)}</b>
+                        <b>{t(`appPages.horairePage.weekDayes.${props.data.day}`)}</b>
                     </div>
                     <div  className='col-4 col-lg-4  m-0 p-1'>
                         <small>{props.data.matin.start} - {props.data.matin.end}</small>
@@ -71,15 +75,15 @@ const Horaire = ({alwaysState, setAlwaysState, timming, addInput, setAddInput, s
     
     return(<>
         <br />
-        <div className=' ' dir='rtl'>
-            <h5 className='text-end text-secondary ' dir='rtl'> <span className='bi bi-calendar-week-fill'></span>   أوقات العمل  </h5>
+        <div className=' ' dir={isRTL ? 'rtl' : 'ltr'}>
+            <h5 className={`${isRTL ? 'text-end' : 'text-start'} text-secondary `} dir={isRTL ? 'rtl' : 'ltr'}> <span className='bi bi-calendar-week-fill'></span>  {t('appPages.horairePage.title')}  </h5>
             <div className='row'>
                 <div className='col-12 col-lg-12'>
                     <div className=' '>
                         <div className='row'>
                             <div className='col-10 col-lg-9 align-self-center'> 
-                                <h5 className='mb-0 text-success'>مفتوح دائما</h5>  
-                                <small>عند تفعيل هذه الخاصية ستضهر في حالة مفتوح دائما </small>
+                                <h5 className='mb-0 text-success'> {t('appPages.horairePage.alwaysOpenOne')} </h5>  
+                                <small>  {t('appPages.horairePage.alwaysOpenTwo')}  </small>
                             </div>
                             <div className='col-2 col-lg-3  align-self-center '> 
                                 <div className="form-check form-switch">
@@ -89,9 +93,9 @@ const Horaire = ({alwaysState, setAlwaysState, timming, addInput, setAddInput, s
                         </div>
                         <Divider />
                         <div className='row text-secondary mb-2'>
-                            <div  className='col-4 col-lg-4'> <b>اليوم</b> </div>
-                            <div  className='col-4 col-lg-4'> <small>صباح</small> </div>
-                            <div  className='col-4 col-lg-4'> <small>مساء</small> </div>
+                            <div  className='col-4 col-lg-4'> <b>{t('appPages.horairePage.seancesText.dayText')}</b> </div>
+                            <div  className='col-4 col-lg-4'> <small>{t('appPages.horairePage.seancesText.matinText')}</small> </div>
+                            <div  className='col-4 col-lg-4'> <small>{t('appPages.horairePage.seancesText.soirText')}</small> </div>
                         </div>
                         
                         {
@@ -100,30 +104,7 @@ const Horaire = ({alwaysState, setAlwaysState, timming, addInput, setAddInput, s
                         
                     </div>
                 </div>
-                {/* <div className='col-12 col-lg-5 d-none'>
-                    <div className='card card-body border-div'>
-                        <h5>قم باختيار يوم لتعديل الوقت </h5>
-                        <Select options={weekDays} onChange={(e, { value }) => setSelectedUpdateDay(value)} className='mb-3'/>
-                        <div className='row mb-3 '>
-                            <div className='col-6'><Input  type='time' size='mini'  value={timming.find(obj => obj.day === selectedUpdateDay).matin.start}  fluid className='mb-1 w-100'  onChange={(e) => SetTimmingData(selectedUpdateDay,'matin','start',e.target.value)} /></div>
-                            <div className='col-6'><Input  type='time' size="mini"  value={timming.find(obj => obj.day === selectedUpdateDay).matin.end} fluid className='mb-1 w-100'  onChange={(e) => SetTimmingData(selectedUpdateDay,'matin','end',e.target.value)}/></div>
-                        </div>
-                        <div className='row mb-3'>
-                            <div className='col-6'><Input  type='time' size='mini'  value={timming.find(obj => obj.day === selectedUpdateDay).soir.start}   fluid className='mb-1 w-100'  onChange={(e) => SetTimmingData(selectedUpdateDay,'soir','start',e.target.value)} /></div>
-                            <div className='col-6'><Input  type='time' size="mini"  value={timming.find(obj => obj.day === selectedUpdateDay).soir.end}  fluid className='mb-1 w-100'  onChange={(e) => SetTimmingData(selectedUpdateDay,'soir','end',e.target.value)}/></div>
-                        </div>
-                        <div className='row mb-3'>
-                            <div className='col-2 text-end'>
-                                <div className="form-check form-switch">
-                                    <input className="form-check-input form-check-input-lg" type="checkbox" checked={timming.find(obj => obj.day === selectedUpdateDay).dayOff}   onChange={() => setPauseDay(selectedUpdateDay,selectedUpdateDay.dayOff)}   />
-                                </div>
-                            </div>
-                            <div className='col-10'>يوم راحة ؟ </div>
-                        </div>
-                        
-                        <Button size='mini'     className='rounded-pill    font-droid' onClick={() => UpdateTimmingData()} fluid  >   <Icon name='time' /> تعديل  </Button>
-                    </div>
-                </div> */}
+                 
             </div>
             
         </div>
@@ -145,7 +126,9 @@ function MessagesPages() {
     let [test , setTest] = useState(10)
     let [addInput, setAddInput] = useState(false)
     let [dateDataToChange, setDateDataToChange] = useState({pauseDay: false, matinStart:'08:00', matinFinsh:'12:00', soirStart:'14:00', soirFinsh:'18:00'})
-     
+    const { t, i18n } = useTranslation();
+    const isRTL = detectRTL.isRtlLang(i18n.language);
+
     /*###############################[UseEffect]################################# */
     useEffect(() => {
         window.scrollTo(0, 0);
@@ -326,29 +309,26 @@ function MessagesPages() {
 
     return (<>
         
-            <h5><span className="bi bi-chat-left-text-fill"></span> Horaire  </h5>
+            <h5><span className="bi bi-chat-left-text-fill"></span> {t('appPages.horairePage.titleText')}  </h5>
             <br />
-            <div className="container">
+            <div className="container"  >
                     <Horaire alwaysState={alwaysState} addInput={addInput} setAddInput={setAddInput} setAlwaysState={setAlwaysState} timming={timming} setTimming={setTimming} setPauseDay={setPauseDay} SetTimmingData={SetTimmingData} setSelectedUpdateDay={setSelectedUpdateDay} selectedUpdateDay={selectedUpdateDay} UpdateTimmingData={UpdateTimmingData} />
             </div>
-            <BottomSheet expandOnContentDrag open={addInput}  onDismiss={() => setAddInput(!addInput)}  >
-                 
-                                        
-                                <div className='  card-body    '>
-                                    <div className='text-start'><span className='bi bi-x-circle-fill  text-danger text-secondary mb-2' onClick={() => setAddInput(!addInput)}></span></div>
-                                    <h5 className='mt-0'> هل يوم {ArabificationDate(selectedUpdateDay)} يوم راحة ؟  </h5>
-                                    <Select options={[ { key: 'af', value: false, text: 'لا' }, { key: 'ax', value: true, text: 'نعم' }]} onChange={(e, {value}) => setDateDataToChange({... dateDataToChange, pauseDay : value})} className='mb-3'/>
-                                    <div className='row mb-3 '>
-                                        <div className='col-6'><Input  type='time' size='mini'  value={dateDataToChange.matinStart}  fluid className='mb-1 w-100'  onChange={(e) => setDateDataToChange({... dateDataToChange, matinStart : e.target.value})} /></div>
-                                        <div className='col-6'><Input  type='time' size="mini"  value={dateDataToChange.matinFinsh} fluid className='mb-1 w-100'  onChange={(e) => setDateDataToChange({... dateDataToChange, matinFinsh : e.target.value})}/></div>
-                                    </div>
-                                    <div className='row mb-3'>
-                                        <div className='col-6'><Input  type='time' size='mini'  value={dateDataToChange.soirStart}   fluid className='mb-1 w-100'  onChange={(e) => setDateDataToChange({... dateDataToChange, soirStart : e.target.value})} /></div>
-                                        <div className='col-6'><Input  type='time' size="mini"  value={dateDataToChange.soirFinsh}  fluid className='mb-1 w-100'  onChange={(e) => setDateDataToChange({... dateDataToChange, soirFinsh : e.target.value})}/></div>
-                                    </div>
-                                    <Button size='mini'     className='rounded-pill    font-droid' onClick={() => UpdateTimingFunc()} fluid  >   <Icon name='time' /> تعديل وقت يوم  {ArabificationDate(selectedUpdateDay)}  </Button>
-                                </div>
-                 
+            <BottomSheet expandOnContentDrag open={addInput}  onDismiss={() => setAddInput(!addInput)}  >                
+                    <div className='card-body' dir={isRTL ? 'rtl' : 'ltr'}>
+                        <div className='text-start'><span className='bi bi-x-circle-fill  text-danger text-secondary mb-2' onClick={() => setAddInput(!addInput)}></span></div>
+                        <h5 className='mt-0'>  {t('appPages.horairePage.modalEditData.dayOffOne')}   {ArabificationDate(selectedUpdateDay)}  {t('appPages.horairePage.modalEditData.dayOffTwo')}  </h5>
+                        <Select  fluid options={[ { key: 'af', value: false, text: t('appPages.horairePage.modalEditData.options.no') }, { key: 'ax', value: true, text: t('appPages.horairePage.modalEditData.options.yes') }]} onChange={(e, {value}) => setDateDataToChange({... dateDataToChange, pauseDay : value})} className='mb-3'/>
+                        <div className='row mb-3 '>
+                            <div className='col-6'><Input  type='time' size='mini'  value={dateDataToChange.matinStart}  fluid className='mb-1 w-100'  onChange={(e) => setDateDataToChange({... dateDataToChange, matinStart : e.target.value})} /></div>
+                            <div className='col-6'><Input  type='time' size="mini"  value={dateDataToChange.matinFinsh} fluid className='mb-1 w-100'  onChange={(e) => setDateDataToChange({... dateDataToChange, matinFinsh : e.target.value})}/></div>
+                        </div>
+                        <div className='row mb-3'>
+                            <div className='col-6'><Input  type='time' size='mini'  value={dateDataToChange.soirStart}   fluid className='mb-1 w-100'  onChange={(e) => setDateDataToChange({... dateDataToChange, soirStart : e.target.value})} /></div>
+                            <div className='col-6'><Input  type='time' size="mini"  value={dateDataToChange.soirFinsh}  fluid className='mb-1 w-100'  onChange={(e) => setDateDataToChange({... dateDataToChange, soirFinsh : e.target.value})}/></div>
+                        </div>
+                        <Button size='mini'     className='rounded-pill    font-droid' onClick={() => UpdateTimingFunc()} fluid  >   <Icon name='time' /> {t('appPages.horairePage.modalEditData.saveBtn')} {t(`appPages.horairePage.weekDayes.${selectedUpdateDay}`)}   </Button>
+                    </div>
             </BottomSheet>
     </>);
 }

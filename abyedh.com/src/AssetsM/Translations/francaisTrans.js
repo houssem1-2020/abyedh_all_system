@@ -66,7 +66,7 @@ const FrancaisTrans = {
                 logOut : 'Se déconnecter',
             },
             mainadsCard : 'Abyedh vous aide  pour trouver : ',
-          
+            recent : 'Recent & populaire ',
             mainTagsName: {
                 sante: 'Santé',
                 education: 'Éducation',
@@ -1186,6 +1186,7 @@ const FrancaisTrans = {
             goToSystemBtnText: "Accéder",
             SubscribeBtnText: "S'inscrire  ",
             suggestionAndFavText:'Favoris et suggestions' ,
+            suivieText : 'Suivie',
             bottomAbyedhText:'abyedh.com: France',
             toastText:{
                 failOne:'',
@@ -1911,6 +1912,7 @@ const FrancaisTrans = {
             },
             ActionTabData : {
                 notRegistredText: "Ce client n'est pas inscrit sur la plateforme. L'équipe d'Abyedh essaiera de le contacter pour l'informer de votre demande.",
+                
                 ActionListeData : {
                     docteur : {
                       fastDiagnostic : 'Diagnostic rapide',
@@ -1924,39 +1926,149 @@ const FrancaisTrans = {
                         three : 'Entrer l\'heure',
                         four : 'Le rendez-vous a été enregistré avec succès'
                       }
-                    },                  
+                    },
                     infirmier :{
-                        one:'',
-                        two:'',
-                    },
-                    pharmacie :{
-                        one:'',
-                        two:'',
-                    },
-                    labo :{
-                        one:'',
-                        two:'',
-                    },
-                    clinique :{
-                        one:'',
-                        two:'',
-                    },
-                    centreMD :{
-                        one:'',
-                        two:'',
-                    },
-                    admin_s_hospital :{
-                        one:'',
-                        two:'',
-                    },
-                    admin_s_csb :{
-                        one:'',
-                        two:'',
-                    },
-                    garderie :{
-                        one:'',
-                        two:'',
-                    },
+                      fastDiagnostic : 'Diagnostic rapide',
+                      goodDiagnostic : 'Le diagnostic précis de votre état de santé peut aider votre médecin à fournir le traitement le plus approprié et le plus efficace',
+                      dateWanted :'Date du rendez-vous',
+                      dateDesc:'Quand souhaitez-vous prendre rendez-vous ?' ,
+                      saveBtn: 'Enregistrer le rendez-vous',
+                      toest:{
+                      one : 'Entrez le diagnostic',
+                      two : 'Entrez la date',
+                      three : 'Entrez l\'heure',
+                      four : 'Le rendez-vous a été enregistré avec succès',
+                      }
+                      },
+                      pharmacie :{
+                      tabsNames : {
+                      one:'Demander une facture',
+                      two:'Rendez-vous',
+                      },
+                      rendyVousCard:{
+                      causeText:'Motif du rendez-vous',
+                      causeSmallText:'Quel est le motif du rendez-vous ?',
+                      serviceOptions:{
+                      one:'Mesurer la tension artérielle',
+                      two:'Mesurer le taux de sucre',
+                      three:'Faire une injection'
+                      },
+                      dateRdv:'Date du rendez-vous',
+                      dateRdvDesc : 'Quand souhaitez-vous prendre rendez-vous ?',
+                      saveBtn : 'Enregistrer le rendez-vous '
+                      },
+                      commandeCard:{
+                      bigTitle : 'Entrez les produits',
+                      enterCard : {
+                      numberOfItem : 'Nombre de produits dans le panier',
+                      productName:'Nom du produit',
+                      qte : 'Quantité',
+                      addBtn : 'Ajouter',
+                      modaleData:{
+                      chooseProduc: 'Choisissez un produit',
+                      },
+                      toest:{
+                      one : 'Entrez le nom du produit',
+                      tryAgain : 'Essayez encore'
+                      }
+                      },
+                      confirmCard : {
+                      dontKnow : 'Nous ne savons pas si le service de livraison est disponible ou non',
+                      livrSte:'Société de livraison',
+                      livDate : 'Heure de livraison souhaitée',
+                      saveBtn: 'Enregistrer'
+                      }
+                      },
+                      toast:{
+                      one:'',
+                      two:''
+                      }
+                      },
+                      labo :{
+                      optionList: {
+                      one:'Analyse sanguine de routine',
+                      two:'Analyse sanguine pour diagnostic',
+                      three:'Tests de grossesse',
+                      four:'Analyse de santé générale',
+                      five:'Suivi d\'une maladie chronique',
+                      six:'Analyses préopératoires',
+                      },
+                      rdvCause : 'Quel est le motif du rendez-vous ?',
+                      chooseCause: 'Choisissez le motif',
+                      rdvDate : 'Jour du rendez-vous',
+                      comments: 'Commentaires',
+                      saveBtn : 'Enregistrer le rendez-vous'
+                      },
+                      clinique :{
+                      optionList: {
+                      one:'Réserver des analyses médicales',
+                      two:'Réserver une chirurgie',
+                      three:'Réserver un traitement médical',
+                      four:'Réserver des soins médicaux',
+                      five:'Réserver une chambre d\'hôpital',
+                      six:'Réserver des interventions esthétiques',
+                      },
+                      resCause : 'Quel est le motif de la réservation ?',
+                      chooseCause: 'Choisissez le motif',
+                      resDate : 'Durée de la réservation',
+                      de : 'De',
+                      vers : 'À',
+                      comments: 'Commentaires',
+                      saveBtn : 'Enregistrer la réservation'
+                      },
+                      centreMD :{
+                      optionList: {
+                      one:'Réserver des analyses médicales',
+                      two:'Réserver une chirurgie',
+                      three:'Réserver un traitement médical',
+                      four:'Réserver des soins médicaux',
+                      five:'Réserver une chambre d\'hôpital',
+                      six:'Réserver des interventions esthétiques',
+                      },
+                      resCause : 'Quel est le motif de la réservation ?',
+                      chooseCause: 'Choisissez le motif',
+                      resDate : 'Durée de la réservation',
+                      de : 'De',
+                      vers : 'À',
+                      comments: 'Commentaires',
+                      saveBtn : 'Enregistrer la réservation'
+                      },
+                      garderie :{
+                        tabsNames: {
+                          one:'Inscription',
+                          two:'Confirmation',
+                        },
+                        InscrieCard: {
+                          itemList: {
+                            one:'Garçon',
+                            two:'Fille'
+                          },
+                          name:'Nom et prénom',
+                          nameDesc: 'Nom et prénom de votre enfant',
+                          birthDay: 'Date de naissance',
+                          sexGenre: 'Sexe',
+                          gouv : 'Gouvernorat',
+                          gouvDesc : 'Gouvernorat de résidence',
+                          deleg : 'Délégation',
+                          delegDesc : 'Délégation de résidence' ,
+                          adresse : 'Adresse',
+                          fadherName : 'Nom et prénom du père',
+                          fadherPhone : 'Téléphone du père',
+                          motherName : 'Nom et prénom de la mère',
+                          motherPhone : 'Téléphone de la mère',
+                          comments : 'Autres commentaires',
+                          saveBtn : 'Inscrire',
+    
+                        },
+                        souscrirCard: {
+                          smallText:'La confirmation d\'inscription est réservée aux élèves déjà inscrits. En confirmant l\'inscription en entrant l\'identifiant que vous pouvez demander au directeur de la garderie, il en sera immédiatement informé.',
+                          idName:'Identifiant personnel',
+                          idDesc:'Entrez l\'identifiant personnel',
+                          saisson:'Année scolaire',
+                          saissonDesc: 'Sélectionnez l\'année scolaire souhaitée',
+                          saveBtn : 'Confirmer l\'inscription'
+                        }
+                    },    
                     ecole :{
                         one:'',
                         two:'',
@@ -1977,30 +2089,8 @@ const FrancaisTrans = {
                         one:'',
                         two:'',
                     },
-                    admin_e_centre :{
-                        one:'',
-                        two:'',
-                    },
-                    admin_e_biblio :{
-                        one:'',
-                        two:'',
-                    },
-                    admin_e_ecole :{
-                        one:'',
-                        two:'',
-                    },
-                    admin_e_lycee :{
-                        one:'',
-                        two:'',
-                    },
-                    admin_e_universite :{
-                        one:'',
-                        two:'',
-                    },
-                    admin_e_ss :{
-                        one:'',
-                        two:'',
-                    },
+
+
                     transporteur :{
                         one:'',
                         two:'',
@@ -2185,18 +2275,7 @@ const FrancaisTrans = {
                         one:'',
                         two:'',
                     },
-                    admin_c_mj :{
-                        one:'',
-                        two:'',
-                    },
-                    admin_c_mc :{
-                        one:'',
-                        two:'',
-                    },
-                    admin_c_me :{
-                        one:'',
-                        two:'',
-                    },
+
                     comptable :{
                         one:'',
                         two:'',
@@ -2205,42 +2284,12 @@ const FrancaisTrans = {
                         one:'',
                         two:'',
                     },
-                    admin_f_poste :{
-                        one:'',
-                        two:'',
-                    },
-                    admin_f_rf :{
-                        one:'',
-                        two:'',
-                    },
+
                     avocat :{
                         one:'',
                         two:'',
                     },
-                    admin_a_mu :{
-                        one:'',
-                        two:'',
-                    },
-                    admin_a_police :{
-                        one:'',
-                        two:'',
-                    },
-                    admin_a_ar :{
-                        one:'',
-                        two:'',
-                    },
-                    admin_a_court :{
-                        one:'',
-                        two:'',
-                    },
-                    admin_a_mosq :{
-                        one:'',
-                        two:'',
-                    },
-                    ambassade :{
-                        one:'',
-                        two:'',
-                    },
+
                     fourragerie :{
                         one:'',
                         two:'',
@@ -2253,8 +2302,8 @@ const FrancaisTrans = {
                         one:'',
                         two:'',
                     },
-                    
                 },
+  
             },
             FollowTabData : {
                 docteur : {
@@ -2832,12 +2881,27 @@ const FrancaisTrans = {
                 construction: 'Construction',
                 autre: 'Autres'
             },
-            PostsTabs :{
-                noPostToShow: '',
-                textText: '',
-                photoText: '',
-                videoText: '',
+            DocummentPage :{
+              noPostToShow: '',
+              textText: '',
+              photoText: '',
+              videoText: '',
+          },
+            SettingPage :{
+                itemsList: {
+                  basicInfo: 'Informations générales',
+                  securityInfo: 'Mot de passe',
+                  positionInfo: 'Position  ',
+                  darkTheme: 'Mode sombre',
+                  notification: 'Notifications',
+                  language: 'Langue',
+                  country: 'Pays',
+                  bug: 'Signaler une erreur',
+                  contact: 'Contactez-nous',
+                  invite: 'Inviter un ami',
+              },
             },
+            
             toastText:{
                 failOne:'',
                 failTwo:'',
@@ -4565,6 +4629,35 @@ const FrancaisTrans = {
                 imprimerData :{
 
                 }
+            },
+            horairePage :{
+              titleText : 'Horaires',
+              title: 'Horaires de travail',
+              alwaysOpenOne: 'Toujours ouvert',
+              alwaysOpenTwo: 'Lorsque cette fonctionnalité est activée, vous serez affiché comme toujours ouvert',
+              seancesText: {
+                dayText : 'Jour',
+                matinText:'Matin',
+                soirText:'Soir',
+              },
+              weekDayes : {
+                Lun : 'Lundi',
+                Mar : 'Mardi',
+                Mer : 'Mercredi',
+                Jeu : 'Jeudi',
+                Vend : 'Vendredi',
+                Sam : 'Samedi',
+                Dim : 'Dimanche',
+              },
+              modalEditData : {
+                dayOffOne : 'Est-ce que le ',
+                dayOffTwo : 'est un jour de repos ?',
+                options:{
+                  yes:'Oui',
+                  no:'Non',
+                },
+                saveBtn:'Modifier l\'horaire du '
+              }
             },
             systemInscriptionPage : {
                 mainFirstTitle:'',

@@ -93,11 +93,11 @@ function MainLandingPage() {
     const [openD, setOpenD] = useState(false)
     const [toolsModal, setToolsModal] = useState(false)
     const [selectedToolsModal, setSelectedToolsModal] = useState([])
+    const [recentList, setRecentList] = useState(['magazin', 'restaurant' , 'cafe', 'docteur', 'autoecole', 'gym'])
     const [searchKey, setSearchKey] = useState('')
     const [data, setData] = useState('');
     const { t, i18n } = useTranslation();
     const isRTL = detectRTL.isRtlLang(i18n.language);
-
     
     /* ############### Notofication System #################*/
     // const [unreadMessages, setUnreadMessages] = useState(0);
@@ -285,11 +285,32 @@ function MainLandingPage() {
             </>)
     }
     const IntroducingCard = () =>{
-        return(<>
-                <div className='card p-4 mb-3   border-div border-0' style={{backgroundColor: '#dedede', fontSize:'14px', color:'#14524f'}} >
-                     <b> {t('mainPage.mainadsCard')} </b>
-                     {/* <b>مِنَصّةْ أَبْيَضْ تعَاوْنِكْ فِي عِدّةْ مَجَالَاتْ بَاشْ تَلْقَي :   </b> */}
+        const RecentCard = (props) =>{
+            return(<>
+            <NavLink exact='true' to={`S/L/${props.data}`} >
+                <div className={`rounded-circle align-self-center p-2 col ${isRTL ? ' ms-5' :' me-5'}`}  style={{backgroundColor:GConf.ADIL[props.data].themeColor, width:'60px', height:'60px'}}>
+                    <img className='mb-0' src={`https://cdn.abyedh.com/Images/Search/WIcons/${props.data}.gif`}  width='45px' height='45px' />
                 </div>
+            </NavLink>
+            </>)
+        }
+        return(<>
+        {GConf.UserData.Logged  ? 
+            <>
+            <h5 className={`text-secondary ${isRTL ? 'text-end': 'text-start'}`}> {t('mainPage.recent')} </h5>
+            <div className="mt-1 p-1 mb-4 d-inline-flex"   style={{width:'100%', overflowX: 'auto', overflowY : 'hidden', whiteSpace:'nowrap'}}> 
+                {
+                    recentList.map((data,index) => <RecentCard key={index} data={data} />)
+                }
+            </div>
+            </>
+        :
+            <div className='card p-4 mb-3   border-div border-0' style={{backgroundColor: '#dedede', fontSize:'14px', color:'#14524f'}} >
+                <b> {t('mainPage.mainadsCard')} </b>
+            </div>
+        }
+                
+                
             </>)
     }
 
@@ -452,7 +473,7 @@ function MainLandingPage() {
                 <div className='  pb-0'>
                     <div className="mt-1 p-1 mb-4 d-inline-flex"   style={{width:'100%', overflowX: 'auto', overflowY : 'hidden', whiteSpace:'nowrap'}}> 
                         {props.data.slides.map((slides,index) => (
-                            <span className='col-5' key={index}>
+                            <span className={`col ${isRTL ? ' ms-5' :' me-5'}`} key={index}>
                                <ItemCard cardData={slides} floating={-50}/> 
                             </span>      
                             ))            
@@ -547,7 +568,7 @@ function MainLandingPage() {
             <div className='container' dir={isRTL ? 'rtl' : 'ltr'}>
                 <IntroducingCard />
                 <br />
-                {/* <pre>{JSON.stringify(PrintFunction(), null, 4)}</pre> */}
+                 
                 <div className='row'>
                     <div className='col-12 col-lg-6 d-none d-lg-inline'>
                         <DisplayedCardLarge smallDisplay={false} slectedTag={'sante'} data={GConf.Items.sante} />

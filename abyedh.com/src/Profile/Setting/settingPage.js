@@ -14,8 +14,56 @@ import { BottomSheet } from 'react-spring-bottom-sheet'
 import 'react-spring-bottom-sheet/dist/style.css'
 
 const ChangePhoto = () => {
+    const [isSelected, setisSelected] = useState('00');
+
+    const Photoes = [
+            {id: 1, name: '00', value: '00', imgSrc: '00'},
+            {id: 2, name: '01', value: '01', imgSrc: '01'},
+            {id: 3, name: '02', value: '02', imgSrc: '02'}, 
+            {id: 4, name: '03', value: '03', imgSrc: '03'},
+            {id: 5, name: '04', value: '04', imgSrc: '04'},
+            {id: 6, name: '05', value: '05', imgSrc: '05'},
+            {id: 7, name: '06', value: '06', imgSrc: '06'},
+            {id: 8, name: '07', value: '07', imgSrc: '07'}, 
+            {id: 9, name: '08', value: '08', imgSrc: '08'},
+            {id: 10, name: '09', value: '09', imgSrc: '09'}, 
+            {id: 11, name: '10', value: '10', imgSrc: '10'},
+            {id: 12, name: '11', value: '11', imgSrc: '11'},
+            {id: 13, name: '12', value: '12', imgSrc: '12'},
+            {id: 14, name: '13', value: '13', imgSrc: '13'}, 
+            {id: 15, name: '14', value: '14', imgSrc: '14'},
+            {id: 16, name: '15', value: '15', imgSrc: '15'},
+            {id: 17, name: '16', value: '16', imgSrc: '16'},
+            {id: 18, name: '17', value: '17', imgSrc: '17'}, 
+            {id: 19, name: '18', value: '18', imgSrc: '18'},
+            {id: 20, name: '19', value: '19', imgSrc: '19'},
+            {id: 21, name: '20', value: '20', imgSrc: '20'},
+            {id: 22, name: '21', value: '21', imgSrc: '21'}, 
+            {id: 23, name: '22', value: '22', imgSrc: '22'},
+            {id: 24, name: '23', value: '23', imgSrc: '23'},
+            {id: 25, name: '24', value: '24', imgSrc: '24'},
+            {id: 26, name: '25', value: '25', imgSrc: '25'}, 
+            {id: 27, name: '26', value: '26', imgSrc: '26'},
+            {id: 28, name: '27', value: '27', imgSrc: '27'},
+            {id: 29, name: '28', value: '28', imgSrc: '28'},
+            {id: 30, name: '29', value: '29', imgSrc: '29'}, 
+            {id: 31, name: '30', value: '30', imgSrc: '30'},
+            {id: 32, name: '31', value: '31', imgSrc: '31'},
+    ]
+    const ItmesList = ({ option, selected, onChange }) => {
+        return (
+                <div className='col-4'>
+                    <div className={`card card-body shadow-sm text-center m-1 border-div ${selected ? 'border-selected' : ''}`}  selected={selected} onClick={onChange}>
+                        <div className=' text-center'><img src={`https://cdn.abyedh.com/images/p_pic/${option.imgSrc}.gif`} className='img-responsive rounded-circle' width='60px' height='60px' /></div>
+                        {/* <div>{option.name}</div> */}
+                    </div>
+                </div>
+        );
+    }
     return<>
-    ChangePhoto 
+       <div className='row'>
+           {Photoes.map((data,index) => <ItmesList key={index} option={data} selected={isSelected === data.value} onChange={() =>  setisSelected(data.value)} />)}
+       </div> 
     </>
 }
 
@@ -62,10 +110,10 @@ const EditGeneralSettingCard = ({delegList,GetDelegList, GConf, setGeneralData, 
                 <Select placeholder='اختر مدينة ' fluid value={generalData.BirthDeleg} options={delegList} onChange={(e, { value }) => setGeneralData({...generalData, BirthDeleg: value })} />
             </div>
 
-            <h5 className='mb-1 text-end'> 
+            {/* <h5 className='mb-1 text-end'> 
                      <img src={`https://cdn.abyedh.com/images/p_pic/${generalData.PictureId}.gif`} className='rounded-circle' width='30px' height='30px'  />     صورة الحساب          
-            </h5>
-            <Select className='mb-3' fluid options={options} onChange={(e, { value }) => setGeneralData({...generalData, PictureId: value })} />
+            </h5> */}
+            {/* <Select className='mb-3' fluid options={options} onChange={(e, { value }) => setGeneralData({...generalData, PictureId: value })} /> */}
 
             <div className='text-end mt-4'>
                 <Button size='tiny' fluid onClick={ (e) => SaveGeneralDFunc()} className='rounded-pill bg-danger text-white' icon> <Icon name='edit' /> حفظ التعديلات </Button>    
@@ -105,15 +153,87 @@ const EditDirectorySettingCard = ({delegList,GetDelegList, GConf, generalData, s
     </>)
 }
 const ChangeCountry = () => {
-    return<>
-    Change Countrey 
-    </>
+    const { t, i18n } = useTranslation();
+
+    const SelectCountry = (country) => {
+        //i18n.changeLanguage(lan)
+        localStorage.setItem('country', country);
+      }
+    const ItemCard = (props) => {
+        return(<>
+            <div className='card p-2 shadow-sm border-div mb-2' onClick={() => SelectCountry(props.country)} >
+                    <div className='row'>
+                       <div className='col-2'> <img src={`https://flagpedia.net/data/flags/w580/${props.countryFlag}.webp`} className="img-responsive rounded-circle" width="30px" height="30px" /></div> 
+                       <div className='col-10 align-self-center'>{props.countryName}</div> 
+                    </div>
+            </div>
+        </>)
+    }
+    return(<>
+     
+        <div className='card-body'>
+            <h5>Slectioner un Payes</h5>
+            <ItemCard country='TN' countryFlag='tn' countryName='تونس' />
+            <ItemCard country='MA' countryFlag='ma' countryName='المغرب' />
+            <ItemCard country='EG' countryFlag='eg' countryName='مصر' />
+            <ItemCard country='FR' countryFlag='fr' countryName='France' />
+            <ItemCard country='IT' countryFlag='it' countryName='Italia' />
+            <ItemCard country='DE' countryFlag='de' countryName='Deutschland' />
+            <ItemCard country='RU' countryFlag='ru' countryName='россия' />
+            <ItemCard country='GB' countryFlag='gb' countryName='United Kongdom' />
+            <ItemCard country='CA' countryFlag='ca' countryName='Canada' />
+            <ItemCard country='US' countryFlag='us' countryName='United State' />
+            <ItemCard country='SA' countryFlag='sa' countryName='العربية السعودية' />
+            <ItemCard country='QA' countryFlag='qa' countryName='قطر' />
+            <ItemCard country='AE' countryFlag='ae' countryName='الأمارات المتحدة العربية' />
+            <ItemCard country='JP' countryFlag='jp' countryName='日本' />
+            <ItemCard country='IN' countryFlag='in' countryName='भारत ' />
+            <ItemCard country='CN' countryFlag='cn' countryName='中国' />
+        </div>
+     
+    </>)
 }
 const ChangeLanguage = () => {
-    return<>
-    Change Language 
-    </>
+    const { t, i18n } = useTranslation();
+
+    const SelectCountry = (lan) => {
+        i18n.changeLanguage(lan)
+      }
+    const ItemCard = (props) => {
+        return(<>
+            <div className='card p-2 shadow-sm border-div mb-2' onClick={() => SelectCountry(props.country)} >
+                    <div className='row'>
+                       <div className='col-2'> <img src={`https://flagpedia.net/data/flags/w580/${props.countryFlag}.webp`} className="img-responsive rounded-circle" width="30px" height="30px" /></div> 
+                       <div className='col-10 align-self-center'>{props.countryName}</div> 
+                    </div>
+            </div>
+        </>)
+    }
+    return(<>
+     
+        <div className='card-body'>
+            <h5>Slectioner un Payes</h5>
+            <ItemCard country='ar_TN' countryFlag='tn' countryName='  العربية تونس' />
+            <ItemCard country='ar_MA' countryFlag='ma' countryName='العربية المغرب' />
+            <ItemCard country='ar_EG' countryFlag='eg' countryName='العربية مصر' />
+            <ItemCard country='fr_FR' countryFlag='fr' countryName='France' />
+            <ItemCard country='it_IT' countryFlag='it' countryName='Italia' />
+            <ItemCard country='de_DE' countryFlag='de' countryName='Deutschland' />
+            <ItemCard country='ru' countryFlag='ru' countryName='россия' />
+            <ItemCard country='en_GB' countryFlag='gb' countryName='United Kongdom' />
+            <ItemCard country='en_CA' countryFlag='ca' countryName='Canada' />
+            <ItemCard country='en_US' countryFlag='us' countryName='United State' />
+            <ItemCard country='ar_SA' countryFlag='sa' countryName=' العربية العربية السعودية' />
+            <ItemCard country='ar_QA' countryFlag='qa' countryName=' العربية قطر ' />
+            <ItemCard country='ar_AE' countryFlag='ae' countryName='العربية الأمارات المتحدة العربية' />
+            <ItemCard country='ja' countryFlag='jp' countryName='日本' />
+            <ItemCard country='hi' countryFlag='in' countryName='भारत ' />
+            <ItemCard country='zh_CN' countryFlag='cn' countryName='中国' />
+        </div>
+    
+    </>)
 }
+
 const ReportBug = () => {
     return<>
     ReportBug
@@ -479,21 +599,21 @@ function SettingPage() {
                         <div className='p-3 border-bottom' >
                                 <div className='row'>
                                     <div className='col-1 align-self-center'><span className='bi bi-person-exclamation bi-sm'></span></div>
-                                    <div className='col-9 align-self-center'>Basic Info</div>
+                                    <div className='col-9 align-self-center'>{t(`userProfile.SettingPage.itemsList.basicInfo`)} </div>
                                     <div className='col-2 align-self-center' onClick={() => OpenBottomSheetFunction('general')}> <span className={`bi bi-${isRTL ? 'arrow-left' : 'arrow-right'}`}></span> </div>
                                 </div>
                         </div>
                         <div className='p-3 border-bottom' >
                                 <div className='row'>
                                     <div className='col-1 align-self-center'><span className='bi bi-shield-lock bi-sm'></span></div>
-                                    <div className='col-9 align-self-center'>Security</div>
+                                    <div className='col-9 align-self-center'>{t(`userProfile.SettingPage.itemsList.securityInfo`)}</div>
                                     <div className='col-2 align-self-center' onClick={() => OpenBottomSheetFunction('pwd')}> <span className={`bi bi-${isRTL ? 'arrow-left' : 'arrow-right'}`}></span> </div>
                                 </div>
                         </div>
                         <div className='p-3' >
                                 <div className='row'>
                                     <div className='col-1 align-self-center'><span className='bi bi-geo-alt bi-sm'></span></div>
-                                    <div className='col-4 align-self-center'> Location </div>
+                                    <div className='col-4 align-self-center'> {t(`userProfile.SettingPage.itemsList.positionInfo`)} </div>
                                     <div className='col-5 align-self-center text-start'> {GConf.UserData.UData.BirthGouv}, {GConf.UserData.UData.BirthDeleg} </div>
                                     <div className='col-2 align-self-center' onClick={() => OpenBottomSheetFunction('directory')}> <span className={`bi bi-${isRTL ? 'arrow-left' : 'arrow-right'}`}></span> </div>
                                 </div>
@@ -505,7 +625,7 @@ function SettingPage() {
                         <div className='p-3 border-bottom' >
                                 <div className='row'>
                                     <div className='col-1 align-self-center'><span className='bi bi-moon-stars bi-sm'></span></div>
-                                    <div className='col-9 align-self-center'>Dark Theme </div>
+                                    <div className='col-9 align-self-center'> {t(`userProfile.SettingPage.itemsList.darkTheme`)} </div>
                                     <div className='col-2 align-self-center'  >  
                                         <div className="form-check form-switch">
                                             <input className="form-check-input form-check-input-lg" type="checkbox" checked={checkedTT} onChange={ () => setChekedTT(!checkedTT)}  />
@@ -516,7 +636,7 @@ function SettingPage() {
                         <div className='p-3 border-bottom' >
                                 <div className='row'>
                                     <div className='col-1 align-self-center'><span className='bi bi-bell bi-sm'></span></div>
-                                    <div className='col-9 align-self-center'>Notfication</div>
+                                    <div className='col-9 align-self-center'>{t(`userProfile.SettingPage.itemsList.notification`)}</div>
                                     <div className='col-2 align-self-center'  > 
                                         <div className="form-check form-switch">
                                             <input className="form-check-input form-check-input-lg" type="checkbox" checked={checkedTN} onChange={ () => setChekedTN(!checkedTN)}  />
@@ -527,7 +647,7 @@ function SettingPage() {
                         <div className='p-3 border-bottom' >
                                 <div className='row'>
                                     <div className='col-1 align-self-center'><span className='bi bi-translate bi-sm'></span></div>
-                                    <div className='col-4 align-self-center'> language </div>
+                                    <div className='col-4 align-self-center'> {t(`userProfile.SettingPage.itemsList.language`)} </div>
                                     <div className='col-5 align-self-center text-start'> {localStorage.getItem('i18nextLng')} </div>
                                     <div className='col-2 align-self-center' onClick={() => OpenBottomSheetFunction('language')}> <span className={`bi bi-${isRTL ? 'arrow-left' : 'arrow-right'}`}></span> </div>
                                 </div>
@@ -535,7 +655,7 @@ function SettingPage() {
                         <div className='p-3' >
                                 <div className='row'>
                                     <div className='col-1 align-self-center'><span className='bi bi-globe-europe-africa bi-sm'></span></div>
-                                    <div className='col-4 align-self-center'> Country </div>
+                                    <div className='col-4 align-self-center'> {t(`userProfile.SettingPage.itemsList.country`)} </div>
                                     <div className='col-5 align-self-center text-start'> {GConf.Country} </div>
                                     <div className='col-2 align-self-center' onClick={() => OpenBottomSheetFunction('country')}> <span className={`bi bi-${isRTL ? 'arrow-left' : 'arrow-right'}`}></span> </div>
                                 </div>
@@ -547,21 +667,21 @@ function SettingPage() {
                         <div className='p-3 border-bottom' >
                                 <div className='row'>
                                     <div className='col-1 align-self-center'><span className='bi bi-bug bi-sm'></span></div>
-                                    <div className='col-9 align-self-center'>Report Bug</div>
+                                    <div className='col-9 align-self-center'> {t(`userProfile.SettingPage.itemsList.bug`)} </div>
                                     <div className='col-2 align-self-center' onClick={() => OpenBottomSheetFunction('bug')}> <span className={`bi bi-${isRTL ? 'arrow-left' : 'arrow-right'}`}></span> </div>
                                 </div>
                         </div>
                         <div className='p-3 border-bottom' >
                                 <div className='row'>
                                     <div className='col-1 align-self-center'><span className='bi bi-envelope-check bi-sm'></span></div>
-                                    <div className='col-9 align-self-center'>Contact Us</div>
+                                    <div className='col-9 align-self-center'> {t(`userProfile.SettingPage.itemsList.contact`)} </div>
                                     <div className='col-2 align-self-center' onClick={() => OpenBottomSheetFunction('contact')}> <span className={`bi bi-${isRTL ? 'arrow-left' : 'arrow-right'}`}></span> </div>
                                 </div>
                         </div>
                         <div className='p-3' >
                                 <div className='row' onClick={() => onShare()}>
                                     <div className='col-1 align-self-center'><span className='bi bi-share bi-sm'></span></div>
-                                    <div className='col-9 align-self-center'> Inviter Un ami </div>
+                                    <div className='col-9 align-self-center'> {t(`userProfile.SettingPage.itemsList.invite`)} </div>
                                     <div className='col-2 align-self-center' > <span className={`bi bi-${isRTL ? 'arrow-left' : 'arrow-right'}`}></span> </div>
                                 </div>
                         </div>

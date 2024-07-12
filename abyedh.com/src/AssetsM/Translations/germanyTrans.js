@@ -4281,10 +4281,62 @@ const GermanyTrans = {
                 voirProfileText: 'Profil anzeigen'
             },
             requestPage : {
-
+            stateText:{
+            default : 'Undefiniert',
+            W:'Ausstehend',
+            S:'Gesehen',
+            A:'Akzeptiert',
+            R:'Abgelehnt',
+            RT:'Verzögert',
+            RD:'Weitergeleitet',
+            LV:'Geliefert',
+            MD:'Geändert',
+            PR:'Bereit',
+            PI:'Mehr Info',
+            T:'Abgeschlossen',
+            },
+            ShareYourselfCard:{
+            titleText:'Wenn Sie keine Bestellungen erhalten haben, können Sie eine der folgenden Methoden verwenden, um Ihr Profil zu bewerben:',
+            textOne :'Teilen Sie Ihr Profil in sozialen Netzwerken über die folgende Schaltfläche',
+            textTwo : 'Drucken Sie dieses Poster aus und kleben Sie es in Ihrem Büro oder Arbeitsplatz auf, damit Kunden durch Scannen Ihres Codes mit ihren Handys auf Ihr Profil zugreifen können',
+            btnShare:'Profil teilen',
+            btnPrint:'Poster drucken',
+            }
             },
             requestInfoPage : {
-                
+            tabsCard: {
+            one:'Info',
+            two : 'Kundeninfo'
+            },
+            stateActionText:{
+            UNR : 'Als ungesehen markieren',
+            default : 'Undefiniert',
+            W:'Ausstehend',
+            S:'Gesehen',
+            A:'Akzeptiert',
+            R:'Abgelehnt',
+            RT:'Verzögert',
+            RD:'Weitergeleitet',
+            LV:'Geliefert',
+            MD:'Geändert',
+            PR:'Bereit',
+            PI:'Mehr Info',
+            T:'Abgeschlossen',
+            },
+            reponseText:'Antworten',
+            userCard: {
+            title : 'Kundeninfo',
+            nom:'Name',
+            age:'Alter',
+            Phone : 'Telefon',
+            Gouv : 'Provinz',
+            Deleg : 'Bezirk',
+            saveBtn : 'Kunde speichern',
+            cantSave : 'Der Kunde kann nicht gespeichert werden, da Sie die Alpha-Version des Systems verwenden'
+            },
+            sendBox: {
+            addResponse : 'Hier Antworten hinzufügen'
+            }
             },
             profilePage : {
                 voirProfileBtn:'',
@@ -4326,6 +4378,20 @@ const GermanyTrans = {
 
                 }
             },
+            imagesPage :{
+                title : 'Bilder',
+                dontHaveImage : 'Sie haben keine Bilder',
+                clicForThat : 'Klicken, um Bilder zu laden',
+                deleteBtn : 'Löschen',
+                saveBtn : 'Speichern',
+                toast : {
+                    one : '5 Bilder sind erforderlich!',
+                    two : 'Nur fünf Bilder sind erlaubt!',
+                    three : 'Bilder gespeichert!',
+                    four : 'Bild gelöscht!',
+                    five : '',
+                }
+            },            
             systemInscriptionPage : {
                 mainFirstTitle:'',
                 systemNamesData:'',

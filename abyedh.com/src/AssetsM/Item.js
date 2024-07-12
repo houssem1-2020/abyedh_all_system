@@ -334,9 +334,9 @@ const dirItem = {
                 { id: 4, image: 'cinema', name: 'قَاعَةْ سِنَمَا ', link: 'cinema' },
                 { id: 5, image: 'theatre', name: 'قَاعَةْ مَسْرَحْ', link: 'theatre' },
                 { id: 6, image: 'musee', name: 'مَتْحَفْ', link: 'musee' },
-                { id: 7, image: 'admin_c_mj', name: 'دَارْ شَبَابْ ', link: 'admin_c_mj' },
-                { id: 8, image: 'admin_c_mc', name: 'دَارْ تَقَافَة ', link: 'admin_c_mc' },
-                { id: 9, image: 'admin_c_ce', name: 'نَادِي أَطْفَالْ', link: 'admin_c_me' },
+                // { id: 7, image: 'admin_c_mj', name: 'دَارْ شَبَابْ ', link: 'admin_c_mj' },
+                // { id: 8, image: 'admin_c_mc', name: 'دَارْ تَقَافَة ', link: 'admin_c_mc' },
+                // { id: 9, image: 'admin_c_ce', name: 'نَادِي أَطْفَالْ', link: 'admin_c_me' },
         ],
         slidesGM: [
             [
@@ -479,13 +479,29 @@ const dirItem = {
         themeColor: '#0275c5',
         slider: true,
         slides: [
+                { id: 7, image: 'admin_s_hospital', name: 'مٌسْتَشْفَي', link: 'admin_s_hospital' },
+                // { id: 8, image: 'admin_e_biblio', name: 'مَكْتَبَة عٌمٌومِيًّة', link: 'admin_e_biblio' },
+                { id: 9, image: 'admin_e_ecole', name: 'مَدْرَسَة', link: 'admin_e_ecole' },
+                { id: 10, image: 'admin_e_lycee', name: 'مَعْهِدْ', link: 'admin_e_lycee' },
+                { id: 11, image: 'admin_e_universite', name: 'جَامِعَة', link: 'admin_e_universite' },
+                { id: 4, image: 'admin_f_poste', name: ' مَكْتَبْ بَرِيدْ', link: 'admin_f_poste' },
+                { id: 5, image: 'admin_f_rf', name: 'قَبَاضَة مَالِيَّة', link: 'admin_f_rf' },
+                { id: 9, image: 'admin_c_ce', name: 'نَادِي أَطْفَالْ', link: 'admin_c_me' },
                 { id: 1, image: 'admin_a_mu', name: 'بَلَدِيَّة', link: 'admin_a_mu' },
                 { id: 2, image: 'admin_a_police', name: ' مَرْكَزْ أَمْنْ', link: 'admin_a_police' },
                 { id: 3, image: 'admin_a_ar', name: ' إِدَارَةْ/مَنْدٌوبِيَّة', link: 'admin_a_ar' },
                 { id: 4, image: 'admin_a_court', name: ' مَحَكَمَة', link: 'admin_a_court' },
                 { id: 5, image: 'admin_a_mosq', name: 'جَامَعْ', link: 'admin_a_mosq' },
-                { id: 6, image: 'embassy', name: 'سَفَارَة', link: 'ambassade', Slink: 'Tools/ambassade', tools:true },
+                // { id: 6, image: 'embassy', name: 'سَفَارَة', link: 'ambassade', Slink: 'Tools/ambassade', tools:true },
         ],
+        slidesOld: [
+            { id: 1, image: 'admin_a_mu', name: 'بَلَدِيَّة', link: 'admin_a_mu' },
+            { id: 2, image: 'admin_a_police', name: ' مَرْكَزْ أَمْنْ', link: 'admin_a_police' },
+            { id: 3, image: 'admin_a_ar', name: ' إِدَارَةْ/مَنْدٌوبِيَّة', link: 'admin_a_ar' },
+            { id: 4, image: 'admin_a_court', name: ' مَحَكَمَة', link: 'admin_a_court' },
+            { id: 5, image: 'admin_a_mosq', name: 'جَامَعْ', link: 'admin_a_mosq' },
+            { id: 6, image: 'embassy', name: 'سَفَارَة', link: 'ambassade', Slink: 'Tools/ambassade', tools:true },
+    ],
         slidesGM: [
             [
                 { id: 1, image: 'admin_a_mu', name: 'بَلَدِيَّة', link: 'admin_a_mu' },

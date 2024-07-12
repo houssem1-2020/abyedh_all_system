@@ -4327,6 +4327,20 @@ const RussiaTrans = {
 
                 }
             },
+            imagesPage :{
+                title : 'Изображения',
+                dontHaveImage : 'У вас нет изображений',
+                clicForThat : 'Нажмите, чтобы загрузить изображения',
+                deleteBtn : 'Удалить',
+                saveBtn : 'Сохранить',
+                toast : {
+                    one : 'Требуется 5 изображений!',
+                    two : 'Разрешено только пять изображений!',
+                    three : 'Изображения сохранены!',
+                    four : 'Изображение удалено!',
+                    five : '',
+                }
+            },            
             systemInscriptionPage : {
                 mainFirstTitle:'',
                 systemNamesData:'',

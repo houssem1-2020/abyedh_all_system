@@ -14,9 +14,9 @@ import axios from 'axios';
 import { toast } from 'react-toastify';
 import FrameForPrint from '../../../AssetsM/Cards/frameForPrint';
 import usePrintFunction from '../../../AssetsM/Hooks/printFunction';
-
+import { useTranslation, Trans } from 'react-i18next';
+import detectRTL from 'rtl-detect';
  
-
 const CustomTabs = ({activeIndex, setActiveIndex, TAG}) => {
     return(<>
 
@@ -44,6 +44,8 @@ function RequestPage() {
     let [reservationList, setReservationList] = useState([SKLT.TableSlt]); 
     const navigate = useNavigate();
     const PrintFunction = (frameId) =>{usePrintFunction(frameId)}
+    const { t, i18n } = useTranslation();
+    const isRTL = detectRTL.isRtlLang(i18n.language);
     const panesRes = [
         {
           menuItem: { key: 'attent',  content: <span className='text-warning'><b><span className='bi bi-hourglass-split'></span> En Attent</b></span> , className:'rounded-pill'},
@@ -180,7 +182,7 @@ function RequestPage() {
       } else {
       alert('Sharing is not supported in this browser.');
       }
-  };
+    };
 
  
     /*#########################[Card]##################################*/
@@ -188,20 +190,20 @@ function RequestPage() {
             const StateCard = (props) =>{ return <span className={`badge bg-${props.color}`}> {props.text} </span>}
             const statusCard = React.useCallback(() => {
               switch(status) {
-                case 'W': return <StateCard color='warning' text='En Attent' />;  
-                case 'S': return <StateCard color='info' text='Vu' />;  
-                case 'A': return <StateCard color='success' text='Acepteé' /> ;
-                case 'R': return <StateCard color='danger' text='Refuseé' />;
+                case 'W': return <StateCard color='warning' text={t('appPages.requestPage.stateText.W')} />;  
+                case 'S': return <StateCard color='info' text={t('appPages.requestPage.stateText.S')} />;  
+                case 'A': return <StateCard color='success' text={t('appPages.requestPage.stateText.A')} /> ;
+                case 'R': return <StateCard color='danger' text={t('appPages.requestPage.stateText.R')} />;
 
-                case 'RT': return <StateCard color='retarder' text='Retardeé' />;
-                case 'RD': return <StateCard color='rederecter' text='Redirecteé' />;
-                case 'LV': return <StateCard color='retarder' text='Livreé' />;
-                case 'MD': return <StateCard color='redirecter' text='Modifieé' />;
-                case 'PR': return <StateCard color='redirecter' text='Pret' />;
-                case 'PI': return <StateCard color='retarder' text='Plus d info' />;
+                case 'RT': return <StateCard color='retarder' text={t('appPages.requestPage.stateText.RT')} />;
+                case 'RD': return <StateCard color='rederecter' text={t('appPages.requestPage.stateText.RD')} />;
+                case 'LV': return <StateCard color='retarder' text={t('appPages.requestPage.stateText.LV')} />;
+                case 'MD': return <StateCard color='redirecter' text={t('appPages.requestPage.stateText.MD')} />;
+                case 'PR': return <StateCard color='redirecter' text={t('appPages.requestPage.stateText.PR')} />;
+                case 'PI': return <StateCard color='retarder' text={t('appPages.requestPage.stateText.PI')} />;
 
-                case 'T': return <StateCard color='secondary' text='Termineé' />;
-                default:  return <StateCard color='dark' text='Indefinie' />;    
+                case 'T': return <StateCard color='secondary' text={t('appPages.requestPage.stateText.T')} />;
+                default:  return <StateCard color='dark' text={t('appPages.requestPage.stateText.default')} />;    
               }
             }, [status]);
           
@@ -219,15 +221,15 @@ function RequestPage() {
       return(<>
  
           <div className=' card-body border-div mb-4' >
-              <h5 dir='rtl' className='text-danger'> <span className='bi bi-exclamation-octagon-fill'></span> إذا لم تستقبل أي طلبيات يمكن أن تستعمل إحدي الطرق التالية للتعريف بملفك الخاص : </h5>
-              <div dir='rtl'>
-                1- قم بمشاركة ملفك علي شبكات التواصل الإجتماعي من خلال الزر التالي <br /> 
+              <h5 dir={isRTL ? 'rtl' : 'ltr'} className='text-danger'> <span className='bi bi-exclamation-octagon-fill'></span> {t('appPages.requestPage.ShareYourselfCard.titleText')} </h5>
+              <div dir={isRTL ? 'rtl' : 'ltr'}>
+                1- {t('appPages.requestPage.ShareYourselfCard.textOne')}  <br /> 
                 {/* <Button size='mini' className='mt-2 rounded-pill' fluid  primary target="_blank" href={`https://www.facebook.com/sharer/sharer.php?u=https://abyedh.tn/S/P/${APPConf.systemTag}/${APPConf.PID}&picture=https://en.wikipedia.org/wiki/QR_code#/media/File:QR_code_for_mobile_English_Wikipedia.svg`} >  <Icon name='facebook f' /> إعلان علي الفايسبوك  </Button> */}
-                <Button className='mt-2 rounded-pill' fluid     onClick={() => onShare()}  >  <Icon name='share alternate' />  نشر الملف </Button>
+                <Button className='mt-2 rounded-pill' fluid     onClick={() => onShare()}  >  <Icon name='share alternate' />  {t('appPages.requestPage.ShareYourselfCard.btnShare')}</Button>
               </div>
-              <div dir='rtl' className='mt-4'>
-                2- قم  بطباعة هذا المنشور و إلصاقة علي مكتب أو محل العمل من أجل تسهيل وصول العملاء لملفك عن طريق مسح الكود الخاص بك بهواتفهم   <br />
-                <Button className='mt-2 rounded-pill' fluid positive onClick={(e) => PrintFunction('printPID')}> <Icon name='print'  />  طباعة المنشور</Button>
+              <div dir={isRTL ? 'rtl' : 'ltr'} className='mt-4'>
+                2- {t('appPages.requestPage.ShareYourselfCard.textTwo')}  <br />
+                <Button className='mt-2 rounded-pill' fluid positive onClick={(e) => PrintFunction('printPID')}> <Icon name='print'  />  {t('appPages.requestPage.ShareYourselfCard.btnPrint')} </Button>
               </div>
           </div>
         </>)
@@ -269,14 +271,7 @@ function RequestPage() {
       </>)
     }
     return (<>
- 
-            {/* <Fade>
-                  <CustomTabs  activeIndex={activeIndex} setActiveIndex={setActiveIndex} TAG={TAG} />
-                  <Tab menu={{ secondary: true }} activeIndex={activeIndex} panes={panesRes}  className='no-menu-tabs mt-2' />
-            </Fade> 
-            
-            {(FetchByGenreReserv('W').length == 0 && !loading) ? <ShareYourselfCard /> : ''}
-            */}
+
             {
               loading ? <span>...</span>
               :

@@ -55,8 +55,9 @@ const UserRouter = () => (
             <Route path="logIn" exact element={<Suspense fallback={<ForLazyLoadingLoader />}><LogInPage /></Suspense>} />
             <Route path="signUp" exact element={<Suspense fallback={<ForLazyLoadingLoader />}><SignUpPage /></Suspense>} />
             <Route path="L" exact element={<Suspense fallback={<ForLazyLoadingLoader />}><ProfileLandingPage /></Suspense>} >
-                    <Route path="" exact element={<Suspense fallback={<ForLazyLoadingLoader />}><MainPage /></Suspense>} />
-                    <Route path="ma" exact element={<Suspense fallback={<ForLazyLoadingLoader />}><MainPage /></Suspense>} />
+                    <Route path="" exact element={<Suspense fallback={<ForLazyLoadingLoader />}><SuiviePage /></Suspense>} />
+                    <Route path="ma" exact element={<Suspense fallback={<ForLazyLoadingLoader />}><SuiviePage /></Suspense>} />
+                    {/* <Route path="ma" exact element={<Suspense fallback={<ForLazyLoadingLoader />}><MainPage /></Suspense>} /> */}
                     <Route path="sv" exact element={<Suspense fallback={<ForLazyLoadingLoader />}><SuiviePage /></Suspense>} />
                     <Route path="sv/:RID" exact element={<Suspense fallback={<ForLazyLoadingLoader />}><SuivieSelectPage /></Suspense>} />
                     <Route path="fv" exact element={<Suspense fallback={<ForLazyLoadingLoader />}><FavoritePage /></Suspense>} >

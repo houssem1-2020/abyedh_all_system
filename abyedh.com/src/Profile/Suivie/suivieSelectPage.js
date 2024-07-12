@@ -2,7 +2,7 @@ import axios from 'axios';
 import React, { useEffect, useState } from 'react';
 import GConf from '../../AssetsM/generalConf';
 import {Grid, _ } from "gridjs-react";
-import { Button, Icon, Modal, Placeholder } from 'semantic-ui-react';
+import { Button, Icon, Modal, Placeholder , Form, TextArea} from 'semantic-ui-react';
 import { Select } from 'semantic-ui-react'
 import { Bounce } from 'react-reveal';
 import { NavLink, useParams } from 'react-router-dom';
@@ -17,6 +17,22 @@ import { toast } from 'react-toastify';
 import SuivieRequestData from './suivieRequestData'
 import { VerticalTimeline, VerticalTimelineElement }  from 'react-vertical-timeline-component';
 import 'react-vertical-timeline-component/style.min.css';
+import { useTranslation, Trans } from 'react-i18next';
+import detectRTL from 'rtl-detect';
+
+const SendBox = ({SendMessage, setMesgC,msgContent}) =>{
+    const { t, i18n } = useTranslation();
+    return(<>
+             <div className='row '>
+                <div className='col-10 align-self-center'>
+                <Form>
+                    <TextArea placeholder={t('appPages.requestInfoPage.sendBox.addResponse')} value={msgContent} className="mb-2 rounded-pill" rows='1' onChange={ (e) => setMesgC(e.target.value)}></TextArea>
+                </Form>
+                </div>
+                <div className='col-2 align-self-center text-end'><Button  icon='send'  className='rounded-circle mb-2' onClick={SendMessage}></Button></div>
+            </div>
+        </>)
+  }
 
 function SuiviePage() {
     /* ###########################[const]############################ */
@@ -24,8 +40,12 @@ function SuiviePage() {
    let userData = JSON.parse(localStorage.getItem("UID"));
    let [loading, SetLoading] = useState(true)
    let [suivieData, setSuivieData] = useState([])
+   const [requestData, setRequestData] = useState([])
+    const [messagesListe, setMessageListe] = useState([])
+    const [msgContent, setMesgC] = useState('')
    const [openD, setOpenD] = useState(false)
    const [selectedForModal, setSelectedForModal] = useState('docteur_rdv')
+   const { t, i18n } = useTranslation();
 
    /*#########################[UseEffect]###########################*/
    useEffect(() => {
@@ -45,7 +65,22 @@ function SuiviePage() {
            }
          });
 
+         axios.post(`https://api.abyedh.com/api/systems/app/request/info/messages`, {
+            PID : 'GConf.PID',
+            CID: RID,
+            SystemTag : 'TAG'
+          })
+          .then(function (response) {
+            setMessageListe(response.data) 
+          }).catch((error) => {
+            if(error.request) {
+              toast.error(<><div><h5>Probleme de Connextion</h5> Impossible de charger la commande   </div></>, GConf.TostInternetGonf)   
+            }
+          });
+
    }, [])
+
+ 
 
    /* ###########################[Function]############################# */
     const OpenModalFunction = (genre) =>{
@@ -179,6 +214,33 @@ function SuiviePage() {
             </div>
         </>)
     }
+    const SendMessage = () =>{
+  
+        if (!msgContent) {toast.error("Message Vide !", GConf.TostErrorGonf)}
+        else{
+            axios.post(`${GConf.ApiLink}/request/info/messages/ajouter`, { 
+                msgC: msgContent,
+                PID : suivieData[0].PID,
+                RID : RID,
+                SystemTag : 'TAG'
+            })
+            .then(function (response) {
+                if(response.data.affectedRows) {
+                    //setUpdateS(Math.random() * 10);
+                    setMesgC('')
+                    toast.success("Envoyer", GConf.TostSuucessGonf)
+                   
+                    
+                }
+                else{
+                    toast.error('Erreur', GConf.TostSuucessGonf)
+                     
+                }
+            })
+
+        }
+    }
+
     return (  <>
         {
             loading ? 
@@ -191,6 +253,14 @@ function SuiviePage() {
                     :
                     <>
                        { suivieData.map((data,i) => <SuivieCard  key={i} data={data} />)}
+                       <h5 className='text-secondary'> {t('appPages.requestInfoPage.reponseText')}</h5>
+                        <ul>
+                        {
+                            messagesListe.map((data,index) => <li key={index}>{data.Content}</li>)
+                        }
+                        </ul>
+                        <SendBox SendMessage={SendMessage} setMesgC={setMesgC} msgContent={msgContent}/>
+
                     </>
                 }
             </>

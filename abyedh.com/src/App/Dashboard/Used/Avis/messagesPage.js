@@ -12,21 +12,24 @@ import { BottomSheet } from 'react-spring-bottom-sheet'
 import 'react-spring-bottom-sheet/dist/style.css'
 import { Rating } from 'semantic-ui-react'
 import AvatarGroup from '@atlaskit/avatar-group';
+import { useTranslation, Trans } from 'react-i18next';
+import detectRTL from 'rtl-detect';
 
 function MessagesPages() {
     const [loading , setLoading] = useState(false)
     const [loaderState, setLS] = useState(false)
     const [openD, setOpenD] = useState(false)
-    
+    const { t, i18n } = useTranslation();
+    const isRTL = detectRTL.isRtlLang(i18n.language);
     const [profileData, setProfileData] = useState([])
 
     const RatingPanes = [
         {
-          menuItem: { key: 'calendar', icon: 'star', content:  'Avis ', },  
+          menuItem: { key: 'calendar', icon: 'star', content:  t('appPages.evaluationPage.tabsTexts.one') , },  
           render: () => <RatingProfile />,
         },
         {
-            menuItem: { key: 'users', icon: 'comment', content: 'Commentaire ' }, 
+            menuItem: { key: 'users', icon: 'comment', content: t('appPages.evaluationPage.tabsTexts.two')}, 
             render: () => <CommentsProfile />,
           },
       ] 
@@ -109,7 +112,7 @@ function MessagesPages() {
         }
         return (<>
             {/* <div className='card card-body shadow-sm border-div mb-2 text-center'> */}
-                <h5 className='text-start'>Avis</h5>
+                <h5 className='text-start'>{t('appPages.evaluationPage.tabsTexts.one')}</h5>
                 <div className='row text-center'>
                     <div className='col-12 col-lg-4 align-self-center'>
                         <h1 className='text-warning'>{loading ? <> {CalculateRating(profileData.review)}</>: 0 }</h1>
@@ -125,7 +128,7 @@ function MessagesPages() {
                     </div>
                 </div> 
                 <hr />
-                <h5>J'aimes</h5>
+                <h5>{t('appPages.evaluationPage.jaimes')}</h5>
                 {/* <div style={{height:'200px', overflowX:'auto', overflowX:'hidden'}}> */}
                         {/* <h2 className='text-center'>{profileData.likes ? profileData.likes.length : '...'}</h2>  */}
                         <AvatarGroup className='text-center' size="large" maxCount={12} data={ReturnAvatarGroupList(profileData.likes)}   borderColor="#cfcecc" />
@@ -163,7 +166,7 @@ function MessagesPages() {
         
                 <div className='row '>
                     <div className='col-12 pe-1'>
-                            <h5>Commentaires</h5> 
+                            <h5>{t('appPages.evaluationPage.tabsTexts.two')}</h5> 
                             <div style={{height:'200px', overflowX:'auto', overflowX:'hidden'}}>
                                 { loading ?
                                     <Comment.Group>
@@ -179,7 +182,7 @@ function MessagesPages() {
 
     return (<>
         
-            <h5><span className="bi bi-chat-left-text-fill"></span> Review  </h5>
+            <h5><span className="bi bi-chat-left-text-fill"></span> {t('appPages.evaluationPage.titleText')}   </h5>
             <br />
             <div className="container">
                 { !loading ? <>...</> : <Tab menu={{ secondary: true, className: 'tab-right'}}  panes={RatingPanes} /> }

@@ -66,6 +66,7 @@ const TunisieTrans = {
                 logOut : 'تسجيل الخروج',
             },
             mainadsCard : 'مِنَصّةْ أَبْيَضْ تعَاوْنِكْ فِي عِدّةْ مَجَالَاتْ بَاشْ تَلْقَي :  ',
+            recent : 'الأحدث والأكثر زيارة',
             mainTagsName : {
                 sante : 'صحة',
                 education :'تعليم',
@@ -1199,6 +1200,7 @@ const TunisieTrans = {
             goToSystemBtnText:' الدخول للنظام ' ,
             SubscribeBtnText:'التسجيل في النظام ' ,
             suggestionAndFavText:'المفظلة و الإقتراحات ' ,
+            suivieText : 'متابعة',
             bottomAbyedhText:'منصة أبيض التونسية ',
             toastText:{
                 failOne:'',
@@ -1937,36 +1939,148 @@ const TunisieTrans = {
                       }
                     },
                     infirmier :{
-                        one:'',
-                        two:'',
+                      fastDiagnostic : ' تشخيص سريع',
+                      goodDiagnostic : 'التشخيص الدقيق لوضك الصحي قد سياعد طبيبك في تقديم العلاج المناسب و الأكثر فاعلية',
+                      dateWanted :' تاريخ الموعد',
+                      dateDesc:' متي تريد أن تحجز الموعد ؟' ,
+                      saveBtn: 'تسجيل موعد',
+                      toest:{
+                        one : 'أدخل التشخيص',
+                        two : 'ادخل الموعد',
+                        three : 'ادخل الوقت',
+                        four : ' تم تسجيل الموعد بنجاح ',
+                        four : ' تم تسجيل الموعد بنجاح ',
+                      }
                     },
                     pharmacie :{
-                        one:'',
-                        two:'',
+                        tabsNames : {
+                          one:'طلب فاتورة',
+                          two:' موعد',
+                        },
+                        rendyVousCard:{
+                          causeText:' سبب الموعد',
+                          causeSmallText:' ماهو سبب الموعد',
+                          serviceOptions:{
+                            one:'قياس ضغط الدم ',
+                            two:'قياس مستوي السكر',
+                            three:'أخذ حقنة'
+                          },
+                          dateRdv:'تاريخ الموعد',
+                          dateRdvDesc : ' متي تريد أن تحجز الموعد ؟',
+                          saveBtn : 'تسجيل موعد '
+                        },
+                        commandeCard:{
+                            bigTitle : ' قم بإدخال المنتجات ',
+                            enterCard : {
+                              numberOfItem : ' عدد المنتجات في السلة ',
+                              productName:'إسم المنتج',
+                              qte : 'الكمية',
+                              addBtn : 'أضف',
+                              modaleData:{
+                                chooseProduc: ' إختر منتج',
+                              },
+                              toest:{
+                              one : 'أدخل إسم المنتج',
+                              tryAgain : 'حاول مرة أخرة'
+                              }
+                            },
+                            confirmCard : {
+                              dontKnow : 'لا نعلم هل خدمة التوصيل متوفرة أم لا',
+                              livrSte:'شركة التوصيل ',
+                              livDate : 'وقت التوصيل المطلوب',
+                              saveBtn: 'تسجيل'
+                            }
+                        },
+                        toast:{
+                          one:'',
+                          two:''
+                        }
                     },
                     labo :{
-                        one:'',
-                        two:'',
+                        optionList: {
+                          one:'تحليل دم روتيني',
+                          two:'تحليل دم للتشخيص',
+                          three:'تحاليل الحمل',
+                          four:'تحليل الصحة العامة',
+                          five:'متابعة مرض مزمن',
+                          six:'تحاليل قبل الجراحة',
+                        },
+                        rdvCause : 'ماهو سبب الموعد ؟',
+                        chooseCause: ' إختر السبب',
+                        rdvDate : 'يوم الموعد  ',
+                        comments: 'ملاحضات',
+                        saveBtn : 'تسجيل موعد'
                     },
                     clinique :{
-                        one:'',
-                        two:'',
+                      optionList: {
+                        one:'حجز تحاليل طبية ',
+                        two:'حجز جراحة ',
+                        three:'حجز علاج طبي ',
+                        four:'حجز رعاية طبية',
+                        five:' حجز غرفة مستشفى',
+                        six:'حجز عمليات تجميل',
+                      },
+                      resCause : 'ماهو سبب الحجز  ?',
+                      chooseCause: ' إختر السبب',
+                      resDate :  ' مدة الحجز',
+                      de : 'من',
+                      vers : 'إلي',
+                      comments: 'ملاحضات',
+                      saveBtn : 'تسجيل الحجز'
                     },
                     centreMD :{
-                        one:'',
-                        two:'',
+                      optionList: {
+                        one:'حجز تحاليل طبية ',
+                        two:'حجز جراحة ',
+                        three:'حجز علاج طبي ',
+                        four:'حجز رعاية طبية',
+                        five:' حجز غرفة مستشفى',
+                        six:'حجز عمليات تجميل',
+                      },
+                      resCause : 'ماهو سبب الحجز  ?',
+                      chooseCause: ' إختر السبب',
+                      resDate :  ' مدة الحجز',
+                      de : 'من',
+                      vers : 'إلي',
+                      comments: 'ملاحضات',
+                      saveBtn : 'تسجيل الحجز'
                     },
-                    admin_s_hospital :{
-                        one:'',
-                        two:'',
-                    },
-                    admin_s_csb :{
-                        one:'',
-                        two:'',
-                    },
+
                     garderie :{
-                        one:'',
-                        two:'',
+                        tabsNames: {
+                          one:'تسجيل',
+                          two:'ترسيم',
+                        },
+                        InscrieCard: {
+                          itemList: {
+                            one:'ذكر',
+                            two:'أنثي'
+                          },
+                          name:'الإسم و اللقب',
+                          nameDesc: ' اسم و لقب صغيرك',
+                          birthDay: 'تاريخ الولادة',
+                          sexGenre: 'الجنس',
+                          gouv : 'الولاية',
+                          gouvDesc : 'ولاية الإقامة',
+                          deleg : ' المعتمدية',
+                          delegDesc : ' معتمدية الإقامة' ,
+                          adresse : 'العنوان',
+                          fadherName : ' اسم و لقب الاب',
+                          fadherPhone : ' هاتف الاب',
+                          motherName : ' اسم و لقب الام',
+                          motherPhone : ' هاتف الام',
+                          comments : ' ملاحضات اخري',
+                          saveBtn : 'تسجيل',
+
+                        },
+                        souscrirCard: {
+                          smallText:'  تأكيد الترسيم خاص فقط بالتلاميذ المسجلين من قبل , عند تأكيد الترسيم بإدخال المعرف الذي يمكن  أن تطلبة من مدير الروضة سيتم تنبيهه بذلك علي الفور',
+                          idName:'المعرف الخاص',
+                          idDesc:'أدخل المعرف الخا',
+                          saisson:'الموسم الدراسي',
+                          saissonDesc: 'حدد الموسم الدراسي المطلوب',
+                          saveBtn : 'تأكيد الترسي'
+                        }
                     },
                     ecole :{
                         one:'',
@@ -1988,30 +2102,8 @@ const TunisieTrans = {
                         one:'',
                         two:'',
                     },
-                    admin_e_centre :{
-                        one:'',
-                        two:'',
-                    },
-                    admin_e_biblio :{
-                        one:'',
-                        two:'',
-                    },
-                    admin_e_ecole :{
-                        one:'',
-                        two:'',
-                    },
-                    admin_e_lycee :{
-                        one:'',
-                        two:'',
-                    },
-                    admin_e_universite :{
-                        one:'',
-                        two:'',
-                    },
-                    admin_e_ss :{
-                        one:'',
-                        two:'',
-                    },
+
+
                     transporteur :{
                         one:'',
                         two:'',
@@ -2196,18 +2288,7 @@ const TunisieTrans = {
                         one:'',
                         two:'',
                     },
-                    admin_c_mj :{
-                        one:'',
-                        two:'',
-                    },
-                    admin_c_mc :{
-                        one:'',
-                        two:'',
-                    },
-                    admin_c_me :{
-                        one:'',
-                        two:'',
-                    },
+
                     comptable :{
                         one:'',
                         two:'',
@@ -2216,42 +2297,12 @@ const TunisieTrans = {
                         one:'',
                         two:'',
                     },
-                    admin_f_poste :{
-                        one:'',
-                        two:'',
-                    },
-                    admin_f_rf :{
-                        one:'',
-                        two:'',
-                    },
+
                     avocat :{
                         one:'',
                         two:'',
                     },
-                    admin_a_mu :{
-                        one:'',
-                        two:'',
-                    },
-                    admin_a_police :{
-                        one:'',
-                        two:'',
-                    },
-                    admin_a_ar :{
-                        one:'',
-                        two:'',
-                    },
-                    admin_a_court :{
-                        one:'',
-                        two:'',
-                    },
-                    admin_a_mosq :{
-                        one:'',
-                        two:'',
-                    },
-                    ambassade :{
-                        one:'',
-                        two:'',
-                    },
+
                     fourragerie :{
                         one:'',
                         two:'',
@@ -2839,12 +2890,33 @@ const TunisieTrans = {
                autre:' خدمات اخري' ,
             },
 
+            docummentPage :{
+                  noPostToShow: '',
+                  textText: '',
+                  photoText: '',
+                  videoText: '',
+              },
+            SettingPage :{
+              itemsList :{
+                  basicInfo: 'معلومات عامة',
+                  securityInfo: 'كلمة المرور',
+                  positionInfo: 'الموقع ',
+                  darkTheme:'الوضع المظلم',
+                  notification:'التنبيهات',
+                  language:'تغيير اللغة',
+                  country:'تغيير البلد',
+                  bug:'تبليغ عن خطا',
+                  contact:'تواصل معنا',
+                  invite:'دعوة صديق',
+              },
+            },
             PostsTabs :{
                 noPostToShow: '',
                 textText: '',
                 photoText: '',
                 videoText: '',
             },
+
             toastText:{
                 failOne:'',
                 failTwo:'',
@@ -4533,50 +4605,176 @@ const TunisieTrans = {
                 voirProfileText:'Voir Profile ',
             },
             requestPage : {
-
+                stateText:{
+                  default : 'Indefinie',
+                  W:'En Attent',
+                  S:'Vu',
+                  A:'Acepteé',
+                  R:'Refuseé',
+                  RT:'Retardeé',
+                  RD:'Redirecteé',
+                  LV:'Livreé',
+                  MD:'Modifieé',
+                  PR:'Pret',
+                  PI:'Plus d info',
+                  T:'Termineé',
+                },
+                ShareYourselfCard:{
+                  titleText:'إذا لم تستقبل أي طلبيات يمكن أن تستعمل إحدي الطرق التالية للتعريف بملفك الخاص :',
+                  textOne :'قم بمشاركة ملفك علي شبكات التواصل الإجتماعي من خلال الزر التالي ',
+                  textTwo : 'قم  بطباعة هذا المنشور و إلصاقة علي مكتب أو محل العمل من أجل تسهيل وصول العملاء لملفك عن طريق مسح الكود الخاص بك بهواتفهم ',
+                  btnShare:'نشر الملف ',
+                  btnPrint:'طباعة المنشور',
+                  
+                }, 
             },
             requestInfoPage : {
+                tabsCard: {
+                  one:'Info du',
+                  two : 'Info Client'
+                },
+                stateActionText:{
+                  UNR : 'Marquer non Vu',
+                  default : 'Indefinie',
+                  W:'En Attent',
+                  S:'Vu',
+                  A:'Acepteé',
+                  R:'Refuseé',
+                  RT:'Retardeé',
+                  RD:'Redirecteé',
+                  LV:'Livreé',
+                  MD:'Modifieé',
+                  PR:'Pret',
+                  PI:'Plus d info',
+                  T:'Termineé',
+                },
+                reponseText:'Les Reponses ',
+                userCard: {
+                  title : 'Info Client',
+                  nom:'Nom',
+                  age:'Age',
+                  Phone : 'Phone',
+                  Gouv : 'Gouv',
+                  Deleg : 'Deleg',
+                  saveBtn : 'Enregistrer Client',
+                  cantSave : 'Impossible d\'enregister le client, Car vous etes sur la version alfa du system '
+                },
+                sendBox: {
+                  addResponse : 'Ajouter Reponses ici'
+                }
+            },
+            tarifAndServicePage :{
 
             },
             profilePage : {
-                voirProfileBtn:'',
+                voirProfileBtn:'Voir Profile ',
+                deconnextionText:'Deconnecter de systeme ',
+                deconnextionBtn:'Deconnexion ',
                 menuTabsText: {
-                    modifier:'',
-                    password:'',
-                    horaire:'',
-                    position :'',
-                    images:'',
-                    evaluation:'',
-                    imprimer:''
-
+                    modifier:'Info Generale ',
+                    password:'Mot de Passe ',
+                    position :'Position',
                 },
                 modifierData :{
-                    title:'',
-                    nom:'',
-                    phone:'',
-                    location:'',
-                    adresse:'',
-                    genreListe:'',
-                    modifierBtn:''
+                    title:'Information Génerale',
+                    nom:'Nom',
+                    phone:'Telephone',
+                    location:'Geolocation',
+                    adresse:'Adresse',
+                    genreListe:'Genre',
+                    genrePLCH:'Selectionnez Genre',
+                    modifierBtn:'Modifier'
                 },
                 passwordData :{
-
-                },
-                horaireData :{
-
+                  title:'Modification de la mot de passe',
+                  identifiant:'Identifiant',
+                  pwd:'Mot de passe',
+                  modifierBtn:'Modifier'
                 },
                 positionData :{
-
+                  title:'Position Geographique',
+                  description:'Cliquez sur le bouton pour définir votre position actuelle par défaut.',
+                  modifierBtn:'Modifier Position'
                 },
-                imagesData :{
-
+            },
+            horairePage :{
+              titleText : 'Horaires',
+              title:'أوقات العمل ',
+              alwaysOpenOne:'مفتوح دائما',
+              alwaysOpenTwo:'عند تفعيل هذه الخاصية ستضهر في حالة مفتوح دائما ',
+              seancesText: {
+                dayText : 'اليوم',
+                matinText:'صباح',
+                soirText:'مساء',
+              },
+              weekDayes : {
+                Lun : 'الأثنين',
+                Mar : 'الثلاثاء',
+                Mer : 'الإربعاء',
+                Jeu : 'الخميس',
+                Vend : 'الجمعة',
+                Sam : 'السبت',
+                Dim : 'الأثنين',
+              },
+              modalEditData : {
+                dayOffOne : 'هل يوم ',
+                dayOffTwo : 'يوم راحة ؟ ',
+                options:{
+                  yes:'نعم',
+                  no:'لا',
                 },
-                evaluationData :{
-
+                saveBtn:'تعديل وقت يوم '
+              }
+            },     
+            imagesPage :{
+              title : 'Images', 
+              dontHaveImage : 'Vous n\'avait pas d\'images',
+              clicForThat : 'Cliquer Pour Charger des Imgaes',
+              deleteBtn : 'Supprimeé',
+              saveBtn : 'Enregistreé',
+              toast : {
+                one : 'Il Faut 5 Images !',
+                two : 'cinque Images Seulemment Sont autoriseé !',
+                three : 'Images Enregistreé !',
+                four : 'Image Supprimeé !',
+                five : '',
+              }
+            },
+            evaluationPage :{
+                titleText:'Review',
+                tabsTexts:{
+                  one:'Avis',
+                  two:'Commentaires'
                 },
-                imprimerData :{
-
-                }
+                jaimes : 'J\'aimes',
+            },
+            imprimerPage :{
+              titleText:' Partager Profile ',
+              textOne :'هذا المعرف سوف يميزك عن بقية المسجلين على المنصة. يمكن أن تكون هذه أيضًا طريقة قصيرة للإعلان لك',
+              textTwo : ' اطبع هذا الرابط الذي يمكن تعليقه على باب متجرك حتى يتمكن عملاؤك من الوصول إليك بسهولة، كما يمكن مشاركته مباشرة على وسائل التواصل الاجتماعي',
+              btnCopy:'نسخ  PID',
+              btnShare:'نشر الملف ',
+              btnPrint:'طباعة المنشور',
+            },
+            publicationPage :{
+                  titleText:'Partagez vos activités avec vos abonnés !!',
+                  tabsData : {
+                    text:'Texte',
+                    video:'Video',
+                    image:'Image',
+                  },
+                  communSaveBtn:'تسجيل',
+                  textDataPlch:'La taille maximale est de 300 caractères.',
+                  imagesData:{
+                    textPlch:'La taille maximale est de 180 caractères.',
+                    smallDesc:'Entrez ici le lien de l\'image ! veiullez entrer un lien utile',
+                    inputPlch:'Adresse URL de l\'image'
+                  },
+                  videoData:{
+                    textPlch:'La taille maximale est de 180 caractères.',
+                    smallDesc:'Entrez l\'ID de video Youtube (example : jNQXAC9IVRw , on accepte que les video youtube !!',
+                    inputPlch:'ID de video '
+                  },
             },
             systemInscriptionPage : {
                 mainFirstTitle:'',
@@ -5024,7 +5222,6 @@ const TunisieTrans = {
                 SuccessCard :{
 
                 }
-
             },
 
         },

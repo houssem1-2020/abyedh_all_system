@@ -3195,15 +3195,90 @@ const ItaliaTrans = {
 
         },
         appPages : {
-            publicationText: 'Pubblicazioni',
-            horaireText: 'Orari',
-            imagesText: 'Immagini',
-            ratingText: 'Recensioni',
-            tarifText: '',
-            shareText: 'Condividi',
-            messageText: '',
-            parametreText: 'Impostazioni del profilo',
-            voirProfileText: 'Vedi Profilo'
+            mainPage : {
+                publicationText: 'Pubblicazioni',
+                horaireText: 'Orari',
+                imagesText: 'Immagini',
+                ratingText: 'Recensioni',
+                tarifText: '',
+                shareText: 'Condividi',
+                messageText: '',
+                parametreText: 'Impostazioni del profilo',
+                voirProfileText: 'Vedi Profilo',
+            },
+            requestPage : {
+                stateText:{
+                default : 'Indefinito',
+                W:'In Attesa',
+                S:'Visto',
+                A:'Accettato',
+                R:'Rifiutato',
+                RT:'Ritardato',
+                RD:'Reindirizzato',
+                LV:'Consegnato',
+                MD:'Modificato',
+                PR:'Pronto',
+                PI:'Più Info',
+                T:'Completato',
+                },
+                ShareYourselfCard:{
+                titleText:'Se non hai ricevuto ordini, puoi utilizzare uno dei seguenti metodi per promuovere il tuo profilo:',
+                textOne :'Condividi il tuo profilo sui social media tramite il seguente pulsante',
+                textTwo : 'Stampa questo poster e attaccalo al tuo ufficio o luogo di lavoro per facilitare l\'accesso dei clienti al tuo profilo tramite la scansione del codice con i loro telefoni',
+                btnShare:'Condividi Profilo',
+                btnPrint:'Stampa Poster',
+                }
+            },
+            requestInfoPage : {
+                tabsCard: {
+                one:'Info',
+                two : 'Info Cliente'
+                },
+                stateActionText:{
+                UNR : 'Segna come non visto',
+                default : 'Indefinito',
+                W:'In Attesa',
+                S:'Visto',
+                A:'Accettato',
+                R:'Rifiutato',
+                RT:'Ritardato',
+                RD:'Reindirizzato',
+                LV:'Consegnato',
+                MD:'Modificato',
+                PR:'Pronto',
+                PI:'Più Info',
+                T:'Completato',
+                },
+                reponseText:'Risposte',
+                userCard: {
+                title : 'Info Cliente',
+                nom:'Nome',
+                age:'Età',
+                Phone : 'Telefono',
+                Gouv : 'Provincia',
+                Deleg : 'Distretto',
+                saveBtn : 'Salva Cliente',
+                cantSave : 'Impossibile salvare il cliente perché stai utilizzando la versione alfa del sistema'
+                },
+                sendBox: {
+                addResponse : 'Aggiungi Risposte Qui'
+                }
+            },
+            imagesPage :{
+                title : 'Immagini',
+                dontHaveImage : 'Non hai immagini',
+                clicForThat : 'Clicca per caricare le immagini',
+                deleteBtn : 'Elimina',
+                saveBtn : 'Salva',
+                toast : {
+                    one : 'Sono richieste 5 immagini!',
+                    two : 'Sono permesse solo cinque immagini!',
+                    three : 'Immagini salvate!',
+                    four : 'Immagine eliminata!',
+                    five : '',
+                }
+            }
+            
         },
         toolsApps : {
             toolsPage:{

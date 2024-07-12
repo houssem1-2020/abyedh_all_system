@@ -92,6 +92,7 @@ import Veterinaire from './infoPage/veterinaire';
 import axios from 'axios';
 import { toast } from 'react-toastify';
 import { useTranslation, Trans } from 'react-i18next';
+import detectRTL from 'rtl-detect';
 
 const SendBox = ({SendMessage, setMesgC,msgContent}) =>{
   const { t, i18n } = useTranslation();
@@ -99,7 +100,7 @@ const SendBox = ({SendMessage, setMesgC,msgContent}) =>{
            <div className='row '>
               <div className='col-10 align-self-center'>
               <Form>
-                  <TextArea placeholder='Ajouter Notes ici' value={msgContent} className="mb-2 rounded-pill" rows='1' onChange={ (e) => setMesgC(e.target.value)}></TextArea>
+                  <TextArea placeholder={t('appPages.requestInfoPage.sendBox.addResponse')} value={msgContent} className="mb-2 rounded-pill" rows='1' onChange={ (e) => setMesgC(e.target.value)}></TextArea>
               </Form>
               </div>
               <div className='col-2 align-self-center text-end'><Button  icon='send'  className='rounded-circle mb-2' onClick={SendMessage}></Button></div>
@@ -118,13 +119,15 @@ function RequestInfo() {
     const [messagesListe, setMessageListe] = useState([])
     const [msgContent, setMesgC] = useState('')
     const [updateS, setUpdateS] = useState()
+    const { t, i18n } = useTranslation();
+    const isRTL = detectRTL.isRtlLang(i18n.language);
     const panesInfo = [
       {
-          menuItem: { key: 'articles', icon: 'file alternate', content: `${ findElementByLink(`rq/${TAG}`) } Info` }, 
-          render: () => <><h5>Info du { findElementByLink(`rq/${TAG}`) }  <SpecificCard status={TAG} /> </h5> </>,
+          menuItem: { key: 'articles', icon: 'file alternate', content: `${ findElementByLink(`rq/${TAG}`) } ` }, 
+          render: () => <><h5> {t('appPages.requestInfoPage.tabsCard.one')} { findElementByLink(`rq/${TAG}`) }  <SpecificCard status={TAG} /> </h5> </>,
       },            
       {
-          menuItem: { key: 'start', icon: 'user', content: 'Info Client ' }, 
+          menuItem: { key: 'start', icon: 'user', content: t('appPages.requestInfoPage.tabsCard.two') }, 
           render: () => <UserCard />,
       }
       
@@ -362,19 +365,19 @@ function RequestInfo() {
     const UserCard = () =>{
       return(<>
 
-                  <h5>Info Client</h5>
+                  <h5> {t('appPages.requestInfoPage.userCard.title')} </h5>
                   <div className='row mb-2'>
                       <div className='text-center mb-3'> 
                           <img src={`https://cdn.abyedh.com/images/p_pic/${requestData.PictureId}.gif`} className='rounded-circle' width='60px'/>
                       </div>
-                      <div className='col-12 col-lg-6 mb-2'><span className='bi bi-person-fill'></span> Nom :  {loading ? requestData.Name : ''}</div> 
-                      <div className='col-12 mb-2'><span className='bi bi-calendar-fill'></span> Age : {loading ? new Date().getFullYear() -  new Date(requestData.BirthDay).getFullYear()   : ''}</div>
-                      <div className='col-12 col-lg-6 mb-2'><span className='bi bi-phone-fill'></span> Phone : {loading ? requestData.PhoneNum : ''}</div> 
-                      <div className='col-12 col-lg-6 mb-2'><span className='bi bi-geo-alt-fill'></span> Gouv : {loading ? requestData.BirthGouv : ''} </div> 
-                      <div className='col-12 col-lg-6 mb-2'><span className='bi bi-map-fill'></span> Deleg : {loading ? requestData.BirthDeleg : ''}</div> 
+                      <div className='col-12 col-lg-6 mb-2'><span className='bi bi-person-fill'></span> {t('appPages.requestInfoPage.userCard.nom')} :  {loading ? requestData.Name : ''}</div> 
+                      <div className='col-12 mb-2'><span className='bi bi-calendar-fill'></span> {t('appPages.requestInfoPage.userCard.age')} : {loading ? new Date().getFullYear() -  new Date(requestData.BirthDay).getFullYear()   : ''}</div>
+                      <div className='col-12 col-lg-6 mb-2'><span className='bi bi-phone-fill'></span> {t('appPages.requestInfoPage.userCard.Phone')} : {loading ? requestData.PhoneNum : ''}</div> 
+                      <div className='col-12 col-lg-6 mb-2'><span className='bi bi-geo-alt-fill'></span> {t('appPages.requestInfoPage.userCard.Gouv')} : {loading ? requestData.BirthGouv : ''} </div> 
+                      <div className='col-12 col-lg-6 mb-2'><span className='bi bi-map-fill'></span> {t('appPages.requestInfoPage.userCard.Deleg')} : {loading ? requestData.BirthDeleg : ''}</div> 
                   </div> 
                   <div className='text-end'>
-                      <Button  className='rounded-pill text-secondary btn-imprimer' size='mini'     onClick={(e) => alert('Impossible d\'enregister le client, Car vous etes sur la version alfa du system ')}><Icon name='edit outline' /> Enregistrer Client</Button>
+                      <Button  className='rounded-pill text-secondary btn-imprimer' size='mini'     onClick={(e) => alert(t('appPages.requestInfoPage.userCard.cantSave'))}><Icon name='edit outline' />  {t('appPages.requestInfoPage.userCard.saveBtn')} </Button>
                   </div>  
       </>)
     }
@@ -382,14 +385,20 @@ function RequestInfo() {
         const StateCard = (props) =>{ return <span className={`badge bg-${props.color}`}> {props.text} </span>}
         const statusCard = React.useCallback(() => {
           switch(reqState) {
-            case 'W': return <StateCard color='warning' text='En Attent' />;  
-            case 'S': return <StateCard color='info' text='Vu' />;  
-            case 'A': return <StateCard color='success' text='Acepteé' /> ;
-            case 'R': return <StateCard color='danger' text='Refuseé' />;
-            case 'RT': return <StateCard color='retarder' text='Retardeé' />;
-            case 'RD': return <StateCard color='redirecter' text='Redirecteé' />;
-            case 'T': return <StateCard color='secondary' text='Termineé' />;
-            default:  return <StateCard color='dark' text='Indefinie' />;    
+                case 'W': return <StateCard color='warning' text={t('appPages.requestPage.stateText.W')} />;  
+                case 'S': return <StateCard color='info' text={t('appPages.requestPage.stateText.S')} />;  
+                case 'A': return <StateCard color='success' text={t('appPages.requestPage.stateText.A')} /> ;
+                case 'R': return <StateCard color='danger' text={t('appPages.requestPage.stateText.R')} />;
+
+                case 'RT': return <StateCard color='retarder' text={t('appPages.requestPage.stateText.RT')} />;
+                case 'RD': return <StateCard color='rederecter' text={t('appPages.requestPage.stateText.RD')} />;
+                case 'LV': return <StateCard color='retarder' text={t('appPages.requestPage.stateText.LV')} />;
+                case 'MD': return <StateCard color='redirecter' text={t('appPages.requestPage.stateText.MD')} />;
+                case 'PR': return <StateCard color='redirecter' text={t('appPages.requestPage.stateText.PR')} />;
+                case 'PI': return <StateCard color='retarder' text={t('appPages.requestPage.stateText.PI')} />;
+
+                case 'T': return <StateCard color='secondary' text={t('appPages.requestPage.stateText.T')} />;
+                default:  return <StateCard color='dark' text={t('appPages.requestPage.stateText.default')} />;    
           }
         }, [status]);
       
@@ -400,9 +409,7 @@ function RequestInfo() {
         );
     };
 
-    const ReqInfoCard = () => {
-      return(<>{TAG}</>)
-    }
+     
     return ( <> 
         {/* <SpecificCard status={TAG} /> */}
 
@@ -423,22 +430,22 @@ function RequestInfo() {
                             <Button className='mb-3 rounded-pill'   style={{backgroundColor: data.color}} onClick={ () => UpdateRequestState(data.navIndexName,'false', false,true,'false')}>
                                 <span className='text-white'>
                                     <b>
-                                    <span className={`bi bi-${data.icon}`}></span> {data.navName}
-                                    </b>
+                                    <span className={`bi bi-${data.icon}`}></span> {t(`appPages.requestInfoPage.stateActionText.${data.navIndexName}`)}                                   
+                                   </b>
                                 </span>
                             </Button>
                         )}
-                      <Button disabled={FindBtnState(reqState).seenState} className='rounded-pill mb-3 bg-info text-white'    onClick={ () => UpdateRequestState('W',false,false,false,false)}><Icon name='eye' /> Marquer non Vu </Button>
-                  </div>
+                      <Button disabled={FindBtnState(reqState).seenState} className='rounded-pill mb-3 bg-info text-white'    onClick={ () => UpdateRequestState('W',false,false,false,false)}><Icon name='eye' /> {t(`appPages.requestInfoPage.stateActionText.UNR`)}  </Button>
+                </div>
 
                 <div className='card-body '>
                       
 
-                    <h5 className='text-secondary'>Les Reponses </h5>
+                    <h5 className='text-secondary'> {t('appPages.requestInfoPage.reponseText')}</h5>
                     <ul>
-                    {
-                      messagesListe.map((data,index) => <li key={index}>{data.Content}</li>)
-                    }
+                      {
+                        messagesListe.map((data,index) => <li key={index}>{data.Content}</li>)
+                      }
                     </ul>
                     <SendBox SendMessage={SendMessage} setMesgC={setMesgC} msgContent={msgContent}/>
                 </div>

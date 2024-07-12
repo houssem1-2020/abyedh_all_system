@@ -2809,6 +2809,20 @@ const EnglishTrans = {
                 construction: 'Construction',
                 autre: 'Others'
             },
+            SettingPage :{
+                itemsList: {
+                    basicInfo: 'General Information',
+                    securityInfo: 'Password',
+                    positionInfo: 'Location',
+                    darkTheme: 'Dark Mode',
+                    notification: 'Notifications',
+                    language: 'Language',
+                    country: 'Country',
+                    bug: 'Report a Bug',
+                    contact: 'Contact Us',
+                    invite: 'Invite a Friend',
+              },
+            },
             PostsTabs :{
                 noPostToShow: '',
                 textText: '',
@@ -4502,10 +4516,62 @@ const EnglishTrans = {
                 voirProfileText: 'View Profile'
             },
             requestPage : {
-
+            stateText:{
+            default : 'Undefined',
+            W:'Pending',
+            S:'Seen',
+            A:'Accepted',
+            R:'Rejected',
+            RT:'Delayed',
+            RD:'Redirected',
+            LV:'Delivered',
+            MD:'Modified',
+            PR:'Ready',
+            PI:'More Info',
+            T:'Completed',
+            },
+            ShareYourselfCard:{
+            titleText:'If you have not received any orders, you can use one of the following methods to promote your profile:',
+            textOne :'Share your profile on social media through the following button',
+            textTwo : 'Print this poster and stick it on your office or workplace to facilitate customer access to your profile by scanning your code with their phones',
+            btnShare:'Share Profile',
+            btnPrint:'Print Poster',
+            }
             },
             requestInfoPage : {
-                
+            tabsCard: {
+            one:'Info',
+            two : 'Client Info'
+            },
+            stateActionText:{
+            UNR : 'Mark as Unseen',
+            default : 'Undefined',
+            W:'Pending',
+            S:'Seen',
+            A:'Accepted',
+            R:'Rejected',
+            RT:'Delayed',
+            RD:'Redirected',
+            LV:'Delivered',
+            MD:'Modified',
+            PR:'Ready',
+            PI:'More Info',
+            T:'Completed',
+            },
+            reponseText:'Responses',
+            userCard: {
+            title : 'Client Info',
+            nom:'Name',
+            age:'Age',
+            Phone : 'Phone',
+            Gouv : 'Province',
+            Deleg : 'District',
+            saveBtn : 'Save Client',
+            cantSave : 'Unable to save client because you are using the alpha version of the system'
+            },
+            sendBox: {
+            addResponse : 'Add Responses Here'
+            }
             },
             profilePage : {
                 voirProfileBtn:'',
@@ -4547,6 +4613,20 @@ const EnglishTrans = {
 
                 }
             },
+            imagesPage :{
+                title : 'Images',
+                dontHaveImage : 'You do not have any images',
+                clicForThat : 'Click to Load Images',
+                deleteBtn : 'Delete',
+                saveBtn : 'Save',
+                toast : {
+                    one : '5 Images are required!',
+                    two : 'Only five images are allowed!',
+                    three : 'Images Saved!',
+                    four : 'Image Deleted!',
+                    five : '',
+                }
+            },            
             systemInscriptionPage : {
                 mainFirstTitle:'',
                 systemNamesData:'',

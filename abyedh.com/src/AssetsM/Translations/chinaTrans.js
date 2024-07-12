@@ -2803,6 +2803,20 @@ const ChinaTrans = {
                 construction: '建筑',
                 autre: '其他'
             },
+            SettingPage :{
+                itemsList: {
+                    basicInfo: '基本信息',
+                    securityInfo: '密码',
+                    positionInfo: '地理位置',
+                    darkTheme: '深色主题',
+                    notification: '通知',
+                    language: '更改语言',
+                    country: '更改国家',
+                    bug: '报告错误',
+                    contact: '联系我们',
+                    invite: '邀请朋友',
+              },
+            },
             PostsTabs :{
                 noPostToShow: '',
                 textText: '',
@@ -4494,10 +4508,62 @@ const ChinaTrans = {
                 voirProfileText: '查看个人资料'
             },
             requestPage : {
-
+                stateText:{
+                    default : '未定义',
+                    W:'等待中',
+                    S:'已查看',
+                    A:'已接受',
+                    R:'已拒绝',
+                    RT:'已延期',
+                    RD:'已转发',
+                    LV:'已送达',
+                    MD:'已修改',
+                    PR:'准备好',
+                    PI:'更多信息',
+                    T:'已完成',
+                },
+                ShareYourselfCard:{
+                    titleText:'如果你没有收到任何订单，你可以使用以下方法之一来宣传你的个人档案：',
+                    textOne :'通过以下按钮在社交媒体上分享你的个人档案',
+                    textTwo : '打印此海报并将其贴在办公室或工作场所，方便客户通过手机扫描你的二维码找到你的个人档案',
+                    btnShare:'分享个人档案',
+                    btnPrint:'打印海报',
+                }
             },
             requestInfoPage : {
-                
+                tabsCard: {
+                    one:'信息',
+                    two : '客户信息'
+                },
+                stateActionText:{
+                    UNR : '标记为未查看',
+                    default : '未定义',
+                    W:'等待中',
+                    S:'已查看',
+                    A:'已接受',
+                    R:'已拒绝',
+                    RT:'已延期',
+                    RD:'已转发',
+                    LV:'已送达',
+                    MD:'已修改',
+                    PR:'准备好',
+                    PI:'更多信息',
+                    T:'已完成',
+                },
+                reponseText:'回复',
+                userCard: {
+                    title : '客户信息',
+                    nom:'姓名',
+                    age:'年龄',
+                    Phone : '电话',
+                    Gouv : '省份',
+                    Deleg : '区',
+                    saveBtn : '保存客户信息',
+                    cantSave : '无法保存客户信息，因为您使用的是系统的测试版'
+                },
+                sendBox: {
+                    addResponse : '在此添加回复'
+                }
             },
             profilePage : {
                 voirProfileBtn:'',
@@ -4539,6 +4605,20 @@ const ChinaTrans = {
 
                 }
             },
+            imagesPage :{
+                title : '图片',
+                dontHaveImage : '您没有图片',
+                clicForThat : '点击加载图片',
+                deleteBtn : '删除',
+                saveBtn : '保存',
+                toast : {
+                    one : '需要5张图片！',
+                    two : '只允许五张图片！',
+                    three : '图片已保存！',
+                    four : '图片已删除！',
+                    five : '',
+                }
+            },            
             systemInscriptionPage : {
                 mainFirstTitle:'',
                 systemNamesData:'',

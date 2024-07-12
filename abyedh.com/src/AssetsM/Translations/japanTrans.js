@@ -2689,7 +2689,7 @@ const JapanTrans = {
                 docteur_rdv_accepted: '医師との予約受け入れカード',
                 docteur_rdv_rejected: '医師{{one}}との予約リクエストが拒否されました<br/><small></small>',
                 docteur_rdv_retarted: '医師の遅延カード',
-                docteur_rdv_redirected: '医師{{one}}との予約リクエストが医師{{one}}にリダイレクトされました（電話：{{one}}、住所：{{one}}）',
+                docteur_rdv_redirected: '医師{{one}}との予約リクエストが医師{{two}}にリダイレクトされました（電話：{{one}}、住所：{{one}}）',
                 infirmier_rdv_saved: '看護師{{one}}との予約リクエストが{{one}}の日付に正常に保存されました。',
                 infirmier_rdv_accepted: '看護師との予約受け入れカード',
                 infirmier_rdv_rejected: '看護師{{one}}との予約リクエストが拒否されました<br/><small></small>',
@@ -2819,6 +2819,20 @@ const JapanTrans = {
                 finance: '財務',
                 construction: '建設',
                 autre: 'その他'
+            },
+            SettingPage :{
+                itemsList: {
+                    basicInfo: '基本情報',
+                    securityInfo: 'パスワード',
+                    positionInfo: '地理位置',
+                    darkTheme: 'ダークテーマ',
+                    notification: '通知',
+                    language: '言語を変更',
+                    country: '国を変更',
+                    bug: 'バグを報告',
+                    contact: 'お問い合わせ',
+                    invite: '友達を招待',
+              },
             },
             PostsTabs :{
                 noPostToShow: '',
@@ -4513,10 +4527,62 @@ const JapanTrans = {
                 voirProfileText: 'プロフィールを見る'
             },
             requestPage : {
-
+            stateText:{
+            default : '未定義',
+            W:'保留中',
+            S:'確認済み',
+            A:'承認済み',
+            R:'拒否済み',
+            RT:'遅延',
+            RD:'リダイレクト',
+            LV:'配達済み',
+            MD:'修正済み',
+            PR:'準備完了',
+            PI:'詳細情報',
+            T:'完了',
+            },
+            ShareYourselfCard:{
+            titleText:'注文を受け取っていない場合は、次の方法のいずれかを使用してプロフィールを宣伝できます:',
+            textOne :'以下のボタンを使用して、ソーシャルメディアでプロフィールを共有します',
+            textTwo : 'このポスターを印刷し、オフィスや職場に貼り付けて、顧客が携帯電話でコードをスキャンしてプロフィールにアクセスできるようにします',
+            btnShare:'プロフィールを共有',
+            btnPrint:'ポスターを印刷',
+            }
             },
             requestInfoPage : {
-                
+            tabsCard: {
+            one:'情報',
+            two : 'クライアント情報'
+            },
+            stateActionText:{
+            UNR : '未確認としてマーク',
+            default : '未定義',
+            W:'保留中',
+            S:'確認済み',
+            A:'承認済み',
+            R:'拒否済み',
+            RT:'遅延',
+            RD:'リダイレクト',
+            LV:'配達済み',
+            MD:'修正済み',
+            PR:'準備完了',
+            PI:'詳細情報',
+            T:'完了',
+            },
+            reponseText:'回答',
+            userCard: {
+            title : 'クライアント情報',
+            nom:'名前',
+            age:'年齢',
+            Phone : '電話番号',
+            Gouv : '都道府県',
+            Deleg : '区',
+            saveBtn : 'クライアントを保存',
+            cantSave : 'システムのアルファ版を使用しているため、クライアントを保存できません'
+            },
+            sendBox: {
+            addResponse : 'ここに回答を追加'
+            }
             },
             profilePage : {
                 voirProfileBtn:'',
@@ -4558,6 +4624,20 @@ const JapanTrans = {
 
                 }
             },
+            imagesPage :{
+                title : '画像',
+                dontHaveImage : '画像がありません',
+                clicForThat : 'クリックして画像を読み込む',
+                deleteBtn : '削除',
+                saveBtn : '保存',
+                toast : {
+                    one : '5枚の画像が必要です！',
+                    two : '5枚までの画像のみ許可されています！',
+                    three : '画像が保存されました！',
+                    four : '画像が削除されました！',
+                    five : '',
+                }
+            },            
             systemInscriptionPage : {
                 mainFirstTitle:'',
                 systemNamesData:'',

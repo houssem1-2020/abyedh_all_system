@@ -13,14 +13,17 @@ import 'react-spring-bottom-sheet/dist/style.css'
 import FrameForPrint from '../../../../AssetsM/Cards/frameForPrint';
 import usePrintFunction from '../../../../AssetsM/Hooks/printFunction';
 import QRCode from "react-qr-code";
-
+import { useTranslation, Trans } from 'react-i18next';
+import detectRTL from 'rtl-detect';
 
 function MessagesPages() {
     const [loading , setLoading] = useState(false)
     const [loaderState, setLS] = useState(false)
     const [openD, setOpenD] = useState(false)
      
-     
+    const { t, i18n } = useTranslation();
+    const isRTL = detectRTL.isRtlLang(i18n.language);
+
     /*###############################[UseEffect]################################# */
     useEffect(() => {
         window.scrollTo(0, 0);
@@ -65,7 +68,7 @@ function MessagesPages() {
 
     return (<>
         
-            <h5><span className="bi bi-chat-left-text-fill"></span> Partager  </h5>
+            <h5><span className="bi bi-chat-left-text-fill"></span> {t('appPages.imprimerPage.titleText')}  </h5>
             <br />
             <div className="container">
             <div className="row">
@@ -75,39 +78,22 @@ function MessagesPages() {
                         <div className="col-12 col-lg-9" dir='rtl'>
 
                                 <h1 className='text-center text-secondary '> {GConf.PID} </h1>
-                                هذا المعرف سوف يميزك عن بقية المسجلين على المنصة. يمكن أن تكون هذه أيضًا طريقة قصيرة للإعلان لك
+                                        {t('appPages.imprimerPage.textOne')}
                                 <div>
-                                <Button size='mini' fluid className='rounded-pill' onClick={() => navigator.clipboard.writeText(localStorage.getItem('PID'))}><Icon name='copy'  />  نسخ  PID</Button>
+                                <Button size='mini' fluid className='rounded-pill' onClick={() => navigator.clipboard.writeText(localStorage.getItem('PID'))}><Icon name='copy'  />  {t('appPages.imprimerPage.btnCopy')} </Button>
                                 </div>
                                 <br /> 
-                                اطبع هذا الرابط الذي يمكن تعليقه على باب متجرك حتى يتمكن عملاؤك من الوصول إليك بسهولة، كما يمكن مشاركته مباشرة على وسائل التواصل الاجتماعي
+                                    {t('appPages.imprimerPage.textTwo')}
                                 <div className='mt-2'>
-                                    <Button  className='rounded-pill' fluid  positive onClick={(e) => PrintFunction('printPID')}> <Icon name='print'  />  طباعة </Button>
-                                    <Button className='mt-2 rounded-pill' fluid     onClick={() => onShare()}  >  <Icon name='share alternate' />  نشر الملف </Button>
-                                    {/* <Button size='mini' primary target="_blank" href={`https://www.facebook.com/sharer/sharer.php?u=https://abyedh.tn/S/P/${GConf.systemTag}/${GConf.PID}`} >  <Icon name='facebook f' /> إعلان علي الفايسبوك  </Button> */}
+                                    <Button  className='rounded-pill' fluid  positive onClick={(e) => PrintFunction('printPID')}> <Icon name='print'  /> {t('appPages.imprimerPage.btnPrint')}  </Button>
+                                    <Button className='mt-2 rounded-pill' fluid     onClick={() => onShare()}  >  <Icon name='share alternate' /> {t('appPages.imprimerPage.btnShare')} </Button>
+                                   
                                 </div>
-                                {/* <FacebookProvider appId="1323119021701572">
-                                    <ShareButton className='btn btn-primary ' href={`https://abyedh.tn/S/P/${GConf.systemTag}/${GConf.PID}`}>
-                                        Share
-                                    </ShareButton>
-                                </FacebookProvider> */}
+                                 
                                 
                         </div>
                     </div>
-                    {/* <Divider /> */}
-                    <div className="d-flex d-none">
-                        <div className="flex-shrink-0">
-                        {/* <QRCode value={`${GConf.systemTag}/${GConf.PID}`} size={130} /> */}
-                        </div>
-                        <div className="flex-grow-1 ms-3">
-                            Imprimez ce lien qui peut être accroché à la porte de votre magasin afin que vos clients puissent vous joindre facilement, et il peut également être partagé directement sur les réseaux sociaux
-                            <div className='mt-2'>
-                                <Button size='mini' positive onClick={(e) => PrintFunction('printPID')}> <Icon name='print'  />Imprimer</Button>
-                                <Button className='mt-2 rounded-pill' fluid     onClick={() => onShare()}  >  <Icon name='share alternate' />  نشر الملف </Button>
-                                {/* <Button size='mini' primary target="_blank" href={`https://www.facebook.com/sharer/sharer.php?u=https://abyedh.tn/S/P/${GConf.systemTag}/${GConf.PID}`} >  <Icon name='facebook f' /> Partager </Button> */}
-                            </div>
-                        </div>
-                    </div>
+                    
             </div>
             <BottomSheet expandOnContentDrag open={openD}  onDismiss={() => setOpenD(!openD)}  >
                 <div className='card-body'>

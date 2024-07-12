@@ -23,6 +23,8 @@ import { NavLink } from 'react-router-dom';
 import { FacebookProvider, ShareButton } from 'react-facebook';
 import { BottomSheet } from 'react-spring-bottom-sheet'
 import 'react-spring-bottom-sheet/dist/style.css'
+import { useTranslation, Trans } from 'react-i18next';
+import detectRTL from 'rtl-detect';
 
 
 const EditProfile = ({generalData, setGeneralData, UpdateGeneralDataFunc, delegList,GetDelegList,loaderState}) =>{
@@ -49,55 +51,56 @@ const EditProfile = ({generalData, setGeneralData, UpdateGeneralDataFunc, delegL
             image: { src: `https://cdn.abyedh.com/images/Search/Land_icons/${item.imgSrc}.gif`, avatar: true }
         }));
     }
-
+    const { t, i18n } = useTranslation();
+    const isRTL = detectRTL.isRtlLang(i18n.language);
     return ( <>
-        <h3>Information Génerale</h3> 
-        {/* <h5 className='mb-1'>Matricule Fiscale</h5> */}
-        {/* <Input icon='key' iconPosition='left' placeholder='Mtricule Fiscale' value={generalData.Matricule_F} onChange={(e) => setGeneralData({...generalData, Matricule_F: e.target.value })} fluid /> */}
+        <h3>{t('appPages.profilePage.modifierData.title')}</h3> 
+         
+        <h5 className='mb-1'>{t('appPages.profilePage.modifierData.nom')}  </h5>
+        <Input   icon='user' dir='ltr' className="left aligned" iconPosition='left' placeholder={t('appPages.profilePage.modifierData.nom')} value={generalData.Name} onChange={(e) => setGeneralData({...generalData, Name: e.target.value })} fluid />
         
-        <h5 className='mb-1'>Nom  </h5>
-        <Input icon='user' dir='ltr' className="left aligned" iconPosition='left' placeholder='Nom' value={generalData.Name} onChange={(e) => setGeneralData({...generalData, Name: e.target.value })} fluid />
-        
-        <h5 className='mb-1'>Telephone</h5>
-        <Input icon='phone'  iconPosition='left' placeholder='telephone' value={generalData.Phone} onChange={(e) => setGeneralData({...generalData, Phone: e.target.value })} fluid />
-        <h5 className='mb-1'>Geolocation</h5>
+        <h5 className='mb-1'>{t('appPages.profilePage.modifierData.phone')}</h5>
+        <Input icon='phone'  iconPosition='left' placeholder={t('appPages.profilePage.modifierData.phone')} value={generalData.Phone} onChange={(e) => setGeneralData({...generalData, Phone: e.target.value })} fluid />
+        <h5 className='mb-1'>{t('appPages.profilePage.modifierData.location')}</h5>
         <div className='mb-2'>
             <Select placeholder='Selectionnez Gouvernorat' fluid className='mb-2' options={TunMap.Gouv} value={generalData.Gouv} onChange={(e, { value }) => GetDelegList(value)} />
             <Select placeholder='Selectionnez Delegation ' fluid value={generalData.Deleg} options={delegList} onChange={(e, { value }) => setGeneralData({...generalData, Deleg: value })} />
         </div>
-        <h5 className='mb-1'>Adresse</h5>
+        <h5 className='mb-1'>{t('appPages.profilePage.modifierData.adresse')}</h5>
         <Form>
-             <TextArea  rows="3" placeholder='Adresse' className='w-100'  value={generalData.Adress} onChange={(e) => setGeneralData({...generalData, Adress: e.target.value })} />
+             <TextArea  rows="3" placeholder={t('appPages.profilePage.modifierData.adresse')} className='w-100'  value={generalData.Adress} onChange={(e) => setGeneralData({...generalData, Adress: e.target.value })} />
         </Form>
-        <h5 className='mb-1'>Genre</h5>
+        <h5 className='mb-1'>{t('appPages.profilePage.modifierData.genreListe')}</h5>
         <Dropdown
             search
             selection
             fluid
             wrapSelection={false}
             options={GenerateGenreListe()}
-            placeholder='Selectionnez Client'
+            placeholder={t('appPages.profilePage.modifierData.genrePLCH')}
             className='mb-1'
             onChange={(e, { value }) => setGeneralData({...generalData, Genre: value })}
             value={generalData.Genre}
         />
         <br />
         <div className='text-end'>
-            <Button  className='rounded-pill bg-system-btn' onClick={() => UpdateGeneralDataFunc()} ><Icon name='save' /> Modifier <Loader active={loaderState} inverted  inline size='tiny' className='ms-2'/></Button>
+            <Button  className='rounded-pill bg-system-btn' onClick={() => UpdateGeneralDataFunc()} ><Icon name='save' /> {t('appPages.profilePage.modifierData.modifierBtn')} <Loader active={loaderState} inverted  inline size='tiny' className='ms-2'/></Button>
         </div>
 
     </> );
 }
 const EditPassword = ({passwordData, setPasswordData, UpdatePasswordFunc,loaderState}) =>{
+    const { t, i18n } = useTranslation();
+    const isRTL = detectRTL.isRtlLang(i18n.language);
     return(<>
-        <h3>Modification de la mot de passe</h3>
-        <h5 className='mb-1'>Idenbtifiant</h5>
-        <Input icon='user' iconPosition='left' placeholder='Nom' value={passwordData.Identification} onChange={(e) => setPasswordData({...passwordData, Identification: e.target.value })}   fluid />
-        <h5 className='mb-1'>Mot de passe</h5>
-        <Input icon='eye' iconPosition='left' placeholder='telephone' value={passwordData.PasswordSalt} onChange={(e) => setPasswordData({...passwordData, PasswordSalt: e.target.value })}   fluid />
+        <h3>{t('appPages.profilePage.passwordData.title')} </h3>
+        <h5 className='mb-1'>{t('appPages.profilePage.passwordData.identifiant')}</h5>
+        <Input icon='user' iconPosition='left' placeholder={t('appPages.profilePage.passwordData.identifiant')} value={passwordData.Identification} onChange={(e) => setPasswordData({...passwordData, Identification: e.target.value })}   fluid />
+        <h5 className='mb-1'> {t('appPages.profilePage.passwordData.identifiant')} </h5>
+        <Input icon='eye' iconPosition='left' placeholder= {t('appPages.profilePage.passwordData.identifiant')} value={passwordData.PasswordSalt} onChange={(e) => setPasswordData({...passwordData, PasswordSalt: e.target.value })}   fluid />
         <br />
         <div className='text-end'>
-            <Button  className='rounded-pill bg-system-btn' onClick={() => UpdatePasswordFunc()} ><Icon name='save' /> Modifier <Loader active={loaderState} inverted  inline size='tiny' className='ms-2'/></Button>
+            <Button  className='rounded-pill bg-system-btn' onClick={() => UpdatePasswordFunc()} ><Icon name='save' /> {t('appPages.profilePage.passwordData.modifierBtn')} <Loader active={loaderState} inverted  inline size='tiny' className='ms-2'/></Button>
         </div>
     </>)
 }
@@ -254,16 +257,18 @@ const Horaire = ({alwaysState, setAlwaysState, timming, setTimming, setPauseDay 
         </div>
     </>)
 }
-const Location = ({position,handleLocationSelected,GetMyLocation}) =>{
+const Location = ({position,handleLocationSelected,GetMyLocation, loaderState}) =>{
+    const { t, i18n } = useTranslation();
+    const isRTL = detectRTL.isRtlLang(i18n.language);
     return(<>
         <br />
-        <div className='  mb-3' dir='rtl'>
+        <div className='  mb-3' >
                 <div className='row'>
-                        <div className='col-6 align-self-center text-end'><h5 className='text-end text-secondary ' dir='rtl'> <span className='bi bi-geo-alt-fill'></span>   الموقع الجغرافي </h5></div>
-                        <div className='col-6 align-self-center text-start'><Button icon='map pin' className='rounded-circle' onClick={() => GetMyLocation()}></Button></div>
+                        <div className='col-8 align-self-center text-start'><h5 className='text-start text-secondary '  > <span className='bi bi-geo-alt-fill'></span> {t('appPages.profilePage.positionData.title')}   </h5></div>
+                        <div className='col-4 align-self-center text-end'><Button icon='map pin' className='rounded-circle' onClick={() => GetMyLocation()}></Button></div>
                 </div> 
                 
-                <small className='mb-3'> قم بالنقر علي الزر لتحديد مكانك الحاليا إفتراضيا  </small>
+                <small className='mb-3'> {t('appPages.profilePage.positionData.description')}  </small>
                 <MapContainer center={[position.Lat,position.Lng]} zoom={6} scrollWheelZoom={false} className="map-height  border-div">
                     <TileLayer
                     attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
@@ -274,7 +279,9 @@ const Location = ({position,handleLocationSelected,GetMyLocation}) =>{
                         <Popup> </Popup>
                     </Marker>
                 </MapContainer> 
-                {/* <LocationPicker    />*/}
+                <div className='text-end mt-3'>
+                    <Button  className='rounded-pill bg-system-btn' onClick={() => alert('Modifier ')} ><Icon name='save' /> {t('appPages.profilePage.positionData.modifierBtn')} <Loader active={loaderState} inverted  inline size='tiny' className='ms-2'/></Button>
+                </div>
         </div>
     </>)
 }
@@ -313,6 +320,8 @@ function ProfilePage() {
     const [loaderState, setLS] = useState(false)
     const [activeIndex, setActiveIndex] = useState(0)
     const [openD, setOpenD] = useState(false)
+    const { t, i18n } = useTranslation();
+    const isRTL = detectRTL.isRtlLang(i18n.language);
 
     L.Icon.Default.mergeOptions(GConf.LeafleftIcon );
     const panes = [
@@ -795,7 +804,7 @@ function ProfilePage() {
 					<div className='  d-grid gap-2'>
 						<NavLink className='btn btn-danger btn btn-lg bnt-block rounded-pill text-white '   to={`/S/P/${GConf.systemTag}/${GConf.PID}`}>
 							<span className='bi bi-person-circle me-2'></span>    
-							 Voir Profile 
+                            {t('appPages.profilePage.voirProfileBtn')}
 						</NavLink>
 					</div>
 	            </div>
@@ -1205,102 +1214,37 @@ function ProfilePage() {
                     </div>
                     <div className="col-12 col-lg-8">
                         <div className="mt-0 p-1"   style={{width:'100%', overflowX: 'auto', overflowY : 'hidden', whiteSpace:'nowrap'}}>
-                            {/* <Menu secondary >
-                                <Menu.Item active={activeIndex == 0} className='rounded-pill p-2 m-1' size='tiny' onClick={ () => setActiveIndex(0)}>
-                                <span className='text-secondary'>
-                                    <span className='bi bi-person-circle'></span> Modifier
-                                </span>
-                                </Menu.Item>
-                                <Menu.Item active={activeIndex == 1} className='rounded-pill p-2 m-1' onClick={ () => setActiveIndex(1)}>
-                                <span className='text-secondary '>
-                                    <span className='bi bi-eye-fill'></span> MDP
-                                </span>
-                                </Menu.Item>
-                                <Menu.Item active={activeIndex == 2} className='rounded-pill p-2 m-1' onClick={ () => setActiveIndex(2)}>
-                                <span className='text-secondary'>
-                                    <span className='bi bi-clock-fill'></span> Horaire
-                                </span>
-                                </Menu.Item>
-                                <Menu.Item active={activeIndex == 3} className='rounded-pill p-2 m-1' onClick={ () => setActiveIndex(3)}>
-                                <span className='text-secondary'>
-                                    <span className='bi bi-geo-alt-fill'></span> Position
-                                </span>
-                                </Menu.Item>
-                                <Menu.Item active={activeIndex == 4} className='rounded-pill p-2 m-1' onClick={ () => setActiveIndex(4)}>
-                                <span className='text-secondary'>
-                                    <span className='bi bi-images'></span> Images
-                                </span>
-                                </Menu.Item>
-                                <Menu.Item active={activeIndex == 5} className='rounded-pill p-2 m-1' onClick={ () => setActiveIndex(5)}>
-                                <span className='text-secondary'>
-                                    <span className='bi bi-star-half'></span> Evaluation
-                                </span>
-                                </Menu.Item>
-                                <Menu.Item active={activeIndex == 6} className='rounded-pill p-2 m-1' onClick={ () => setActiveIndex(6)}>
-                                <span className='text-secondary'>
-                                    <span className='bi bi-printer-fill'></span> Imprimer
-                                </span>
-                                </Menu.Item>
-                            </Menu> 
-                            <Tab activeIndex={activeIndex} menu={{ secondary: true, pointing: true , }} panes={panes} className="no-menu-tabs" />*/}
-
+  
                             <div className='border' style={{borderRadius : '10px'}}>
                                 <div className='p-3 border-bottom' >
                                         <div className='row'>
                                             <div className='col-1 align-self-center'><span className='bi bi-person-exclamation bi-sm'></span></div>
-                                            <div className='col-9 align-self-center'> Info Generale </div>
+                                            <div className='col-9 align-self-center'> {t('appPages.profilePage.menuTabsText.modifier')} </div>
                                             <div className='col-2 align-self-center' onClick={() => OpenBottomSheetFunction('general')}> <span className='bi bi-arrow-right'></span> </div>
                                         </div>
                                 </div>
                                 <div className='p-3 border-bottom' >
                                         <div className='row'>
                                             <div className='col-1 align-self-center'><span className='bi bi-shield-lock bi-sm'></span></div>
-                                            <div className='col-9 align-self-center'>Mot de Passe </div>
+                                            <div className='col-9 align-self-center'> {t('appPages.profilePage.menuTabsText.password')} </div>
                                             <div className='col-2 align-self-center' onClick={() => OpenBottomSheetFunction('pwd')}> <span className='bi bi-arrow-right'></span> </div>
                                         </div>
                                 </div>
-                                <div className='p-3 border-bottom d-none' >
-                                        <div className='row'>
-                                            <div className='col-1 align-self-center'><span className='bi bi-clock bi-sm'></span></div>
-                                            <div className='col-9 align-self-center'>Horaire </div>
-                                            <div className='col-2 align-self-center' onClick={() => OpenBottomSheetFunction('horaire')}> <span className='bi bi-arrow-right'></span> </div>
-                                        </div>
-                                </div>
+ 
                                 <div className='p-3 border-bottom' >
                                         <div className='row'>
                                             <div className='col-1 align-self-center'><span className='bi bi-geo-alt bi-sm'></span></div>
-                                            <div className='col-9 align-self-center'>Positions</div>
+                                            <div className='col-9 align-self-center'> {t('appPages.profilePage.menuTabsText.position')} </div>
                                             <div className='col-2 align-self-center' onClick={() => OpenBottomSheetFunction('position')}> <span className='bi bi-arrow-right'></span> </div>
                                         </div>
                                 </div>
-                                <div className='p-3 border-bottom d-none' >
-                                        <div className='row'>
-                                            <div className='col-1 align-self-center'><span className='bi bi-images bi-sm'></span></div>
-                                            <div className='col-9 align-self-center'>Images</div>
-                                            <div className='col-2 align-self-center' onClick={() => OpenBottomSheetFunction('images')}> <span className='bi bi-arrow-right'></span> </div>
-                                        </div>
-                                </div>
-                                <div className='p-3 border-bottom d-none' >
-                                        <div className='row'>
-                                            <div className='col-1 align-self-center'><span className='bi bi-star-half bi-sm'></span></div>
-                                            <div className='col-9 align-self-center'>Avis & Rating </div>
-                                            <div className='col-2 align-self-center' onClick={() => OpenBottomSheetFunction('avis')}> <span className='bi bi-arrow-right'></span> </div>
-                                        </div>
-                                </div>
-                                <div className='p-3 d-none' >
-                                        <div className='row'>
-                                            <div className='col-1 align-self-center'><span className='bi bi-share bi-sm'></span></div>
-                                            <div className='col-4 align-self-center'> Partager Le Profile </div>
-                                            <div className='col-5 align-self-center text-start'>   </div>
-                                            <div className='col-2 align-self-center' onClick={() => OpenBottomSheetFunction('share')}> <span className='bi bi-arrow-right'></span> </div>
-                                        </div>
-                                </div>
+                                 
                             </div>
                             <br />
 
                             <div className='card card-body border-div shadow-sm mb-4'> 
-                                <h5>Deconnecter de systeme </h5>
-                                <Button fluid onClick={() => LogOut()}> Decennexion </Button>
+                                <h5> {t('appPages.profilePage.deconnextionText')} </h5>
+                                <Button fluid onClick={() => LogOut()}> {t('appPages.profilePage.deconnextionBtn')} </Button>
                             </div>
                         </div>
                         
@@ -1312,11 +1256,11 @@ function ProfilePage() {
                     {/* <SelectedItemToViewCard status={activeIndex} /> */}
                     { activeIndex =='general' ?   <EditProfile generalData={generalData} setGeneralData={setGeneralData} UpdateGeneralDataFunc={UpdateGeneralDataFunc} delegList={delegList} GetDelegList={GetDelegList} loaderState={loaderState} /> : <></> }  
                     { activeIndex == 'pwd' ?  <EditPassword passwordData={passwordData} setPasswordData={setPasswordData} UpdatePasswordFunc={UpdatePasswordFunc} loaderState={loaderState} /> : <></> }
-                    { activeIndex == 'horaire' ?  <Horaire alwaysState={alwaysState} setAlwaysState={setAlwaysState} timming={timming} setTimming={setTimming} setPauseDay={setPauseDay} SetTimmingData={SetTimmingData} setSelectedUpdateDay={setSelectedUpdateDay} selectedUpdateDay={selectedUpdateDay} UpdateTimmingData={UpdateTimmingData} /> : <></> }
-                    { activeIndex == 'position' ?  <Location position={position} handleLocationSelected={handleLocationSelected} GetMyLocation={GetMyLocation} /> : <></> }
-                    { activeIndex == 'images' ?  <ImageCard /> : <></> }
-                    { activeIndex == 'avis' ?  <Tab menu={{ secondary: true, className: 'tab-right'}}  panes={RatingPanes} />  : <></> }
-                    { activeIndex == 'share' ?  <PrintProfile /> : <></> }                    
+                    {/* { activeIndex == 'horaire' ?  <Horaire alwaysState={alwaysState} setAlwaysState={setAlwaysState} timming={timming} setTimming={setTimming} setPauseDay={setPauseDay} SetTimmingData={SetTimmingData} setSelectedUpdateDay={setSelectedUpdateDay} selectedUpdateDay={selectedUpdateDay} UpdateTimmingData={UpdateTimmingData} /> : <></> } */}
+                    { activeIndex == 'position' ?  <Location loaderState={loaderState} position={position} handleLocationSelected={handleLocationSelected} GetMyLocation={GetMyLocation} /> : <></> }
+                    {/* { activeIndex == 'images' ?  <ImageCard /> : <></> } */}
+                    {/* { activeIndex == 'avis' ?  <Tab menu={{ secondary: true, className: 'tab-right'}}  panes={RatingPanes} />  : <></> } */}
+                    {/* { activeIndex == 'share' ?  <PrintProfile /> : <></> }                     */}
                  
                  </div>
             </BottomSheet>

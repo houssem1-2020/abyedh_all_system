@@ -128,13 +128,19 @@ function SuiviePage() {
                                     </div>
                                 </div>
                             </div>
-                            <div className='col-2   align-self-center text-end   pe-0'> <CircularPourcentage value={SuivieRequestData[props.data.Notif_Name].stepsValues2[props.data.State].value} /> </div>
+                            <div className='col-2   align-self-center text-end   pe-0'> <span className={`bi bi-${SuivieRequestData[props.data.Notif_Name].stepsValues2[props.data.State].icon} bi-md text-success`}></span>   </div>
+                            {/* <div className='col-2   align-self-center text-end   pe-0'> <CircularPourcentage value={SuivieRequestData[props.data.Notif_Name].stepsValues2[props.data.State].value} /> </div> */}
                         </div>
                         <div className='p-1 '>
                             <Button.Group fluid>
                                 <Button className='bg-white' icon onClick={() => navigate(`/Profile/L/sv/${props.data.RequestData.R_ID}`)}> <Icon name='eye' /> متابعة</Button>
                                 <Button  className='bg-white' icon onClick={() => navigate(`/Profile/L/sv/${props.data.RequestData.R_ID}`)}> <Icon name='edit outline' /> تعديل </Button>
                             </Button.Group>
+                        </div>
+                        <div className={`p-1 ${isRTL ? 'text-start' : 'text-end'}`}>
+                            <NavLink to={`/Profile/L/sv/${props.data.RequestData.R_ID}`}>
+                                <Button className='rounded-circle bg-transparent border p-2' size='small' icon> <Icon name={`arrow ${isRTL ? 'left' : 'right'}`} /> </Button>
+                            </NavLink>
                         </div>
                     {/*<div className='card-body pb-0 d-none d-lg-block'>
                         <div className='row'>

@@ -1,7 +1,7 @@
 const USTrans = {
     translation : {
          
-        
+        /*
         mainPage: {
             mainTitle : 'abyedh.com' , 
             logInText : 'Inscrer-Vous', 
@@ -3151,7 +3151,64 @@ const USTrans = {
 
         },
         appPages : {
-            
+            requestPage : {
+            stateText:{
+            default : 'Undefined',
+            W:'Pending',
+            S:'Seen',
+            A:'Accepted',
+            R:'Rejected',
+            RT:'Delayed',
+            RD:'Redirected',
+            LV:'Delivered',
+            MD:'Modified',
+            PR:'Ready',
+            PI:'More Info',
+            T:'Completed',
+            },
+            ShareYourselfCard:{
+            titleText:'If you have not received any orders, you can use one of the following methods to promote your profile:',
+            textOne :'Share your profile on social media through the following button',
+            textTwo : 'Print this poster and stick it on your office or workplace to facilitate customer access to your profile by scanning your code with their phones',
+            btnShare:'Share Profile',
+            btnPrint:'Print Poster',
+            }
+            },
+            requestInfoPage : {
+            tabsCard: {
+            one:'Info',
+            two : 'Client Info'
+            },
+            stateActionText:{
+            UNR : 'Mark as Unseen',
+            default : 'Undefined',
+            W:'Pending',
+            S:'Seen',
+            A:'Accepted',
+            R:'Rejected',
+            RT:'Delayed',
+            RD:'Redirected',
+            LV:'Delivered',
+            MD:'Modified',
+            PR:'Ready',
+            PI:'More Info',
+            T:'Completed',
+            },
+            reponseText:'Responses',
+            userCard: {
+            title : 'Client Info',
+            nom:'Name',
+            age:'Age',
+            Phone : 'Phone',
+            Gouv : 'Province',
+            Deleg : 'District',
+            saveBtn : 'Save Client',
+            cantSave : 'Unable to save client because you are using the alpha version of the system'
+            },
+            sendBox: {
+            addResponse : 'Add Responses Here'
+            }
+            }
         },
         toolsApps : {
             toolsPage:{
@@ -3196,7 +3253,7 @@ const USTrans = {
             },
         },
 
-
+*/
     },
 }
 export default USTrans

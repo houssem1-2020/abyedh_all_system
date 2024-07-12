@@ -5,6 +5,8 @@ import GConf from '../../../AssetsM/generalConf';
 import { Form, TextArea, Input , Button, Icon, Loader} from 'semantic-ui-react'
 import axios from 'axios';
 import { toast } from 'react-toastify';
+import { useTranslation, Trans } from 'react-i18next';
+import detectRTL from 'rtl-detect';
 
 function CliniqueSpecific(props) {
 
@@ -12,13 +14,15 @@ function CliniqueSpecific(props) {
     const [rendyVousD, setRdvData] = useState({date:new Date().toISOString().split('T')[0] , time: new Date().toLocaleTimeString('fr-FR')})
     const [loaderState, setLS] = useState(false)
     const [disabledSaveBtn, setDisabledBtn] = useState(false)
+    const { t, i18n } = useTranslation();
+    const isRTL = detectRTL.isRtlLang(i18n.language);
     const raisonOptions = [
-        { key: '1', value: 'حجز تحاليل طبية', text: 'حجز تحاليل طبية '  },
-        { key: '2', value: 'حجز جراحة', text: 'حجز جراحة ' },
-        { key: '3', value: 'حجز علاج طبي', text: 'حجز علاج طبي ' },
-        { key: '4', value: 'حجز رعاية طبية', text: 'حجز رعاية طبية'  },
-        { key: '5', value: ' حجز غرفة مستشفى', text: ' حجز غرفة مستشفى' },
-        { key: '6', value: 'حجز عمليات تجميل', text: 'حجز عمليات تجميل' },
+      { key: '1', value: t('profilePage.ActionTabData.ActionListeData.clinique.optionList.one'), text: t('profilePage.ActionTabData.ActionListeData.clinique.optionList.one')  },
+      { key: '2', value: t('profilePage.ActionTabData.ActionListeData.clinique.optionList.two'), text: t('profilePage.ActionTabData.ActionListeData.clinique.optionList.two') },
+      { key: '3', value: t('profilePage.ActionTabData.ActionListeData.clinique.optionList.three'), text: t('profilePage.ActionTabData.ActionListeData.clinique.optionList.three') },
+      { key: '4', value: t('profilePage.ActionTabData.ActionListeData.clinique.optionList.four') , text: t('profilePage.ActionTabData.ActionListeData.clinique.optionList.four')  },
+      { key: '5', value: t('profilePage.ActionTabData.ActionListeData.clinique.optionList.five'), text: t('profilePage.ActionTabData.ActionListeData.clinique.optionList.five') },
+      { key: '6', value: t('profilePage.ActionTabData.ActionListeData.clinique.optionList.six') , text: t('profilePage.ActionTabData.ActionListeData.clinique.optionList.six') },
       ]
 
    /* ############### Functions #################*/
@@ -42,42 +46,42 @@ function CliniqueSpecific(props) {
                 setDisabledBtn(true)
             }).catch((error) => {
                 if(error.request) {
-                  toast.error(<><div><h5> لم يتم تسجيل الموعد</h5> حاول مرة أخري  </div></>, GConf.TostInternetGonf)   
+                  toast.error(<><div><h5> لم يتم تسجيل الموعد</h5> حاول مرة أخري  </div></>, GConf.TostInternetGonf)
                   setLS(false)
                 }
             });
-        } 
+        }
     }
-    
+
 
     return ( <>
         <div className='m-0'>
                 <div   dir='rtl' className='card card-body shadow-sm pt-4 border-div'>
-                       <h5 className='mb-1 ' style={{color: GConf.ADIL[props.TAG].themeColor}}> <span className='bi bi-person-x-fill'></span> ماهو سبب الحجز ؟ </h5>
-                       <Select options={raisonOptions} fluid placeholder=' إختر السبب ' className='mb-3' onChange={(e, data) => setRdvData({...rendyVousD, RES_Cause: data.value })}  />
+                       <h5 className='mb-1 ' style={{color: GConf.ADIL[props.TAG].themeColor}}> <span className='bi bi-person-x-fill'></span> {t('profilePage.ActionTabData.ActionListeData.clinique.rdvCause')}  </h5>
+                       <Select options={raisonOptions} fluid placeholder={t('profilePage.ActionTabData.ActionListeData.clinique.chooseCause')} className='mb-3' onChange={(e, data) => setRdvData({...rendyVousD, RES_Cause: data.value })}  />
 
-                        <h5 className='mb-0 mt-0' style={{color: GConf.ADIL[props.TAG].themeColor}}> <span className='bi bi-calendar2'></span>  مدة الحجز </h5>
-                        <small>من </small>
+                        <h5 className='mb-0 mt-0' style={{color: GConf.ADIL[props.TAG].themeColor}}> <span className='bi bi-calendar2'></span> {t('profilePage.ActionTabData.ActionListeData.clinique.rdvCause')}   </h5>
+                        <small> {t('profilePage.ActionTabData.ActionListeData.clinique.de')} </small>
                         <div className='row'>
-                            <div className='col-6'><Input className='mb-3' type='date' fluid alue={rendyVousD.RES_From_Date}  defaultValue={new Date().toISOString().split('T')[0]} onChange={(e) => setRdvData({...rendyVousD, RES_From_Date: e.target.value })}  /></div> 
-                            <div className='col-6'><Input className='mb-3' type='time' fluid alue={rendyVousD.RES_From_Time}  defaultValue={new Date().toLocaleTimeString('fr-FR')} onChange={(e) => setRdvData({...rendyVousD, RES_From_Time: e.target.value })}  /></div> 
+                            <div className='col-6'><Input className='mb-3' type='date' fluid alue={rendyVousD.RES_From_Date}  defaultValue={new Date().toISOString().split('T')[0]} onChange={(e) => setRdvData({...rendyVousD, RES_From_Date: e.target.value })}  /></div>
+                            <div className='col-6'><Input className='mb-3' type='time' fluid alue={rendyVousD.RES_From_Time}  defaultValue={new Date().toLocaleTimeString('fr-FR')} onChange={(e) => setRdvData({...rendyVousD, RES_From_Time: e.target.value })}  /></div>
                         </div>
-                        <small> إلي </small>
+                        <small> {t('profilePage.ActionTabData.ActionListeData.clinique.vers')}  </small>
                         <div className='row'>
-                            <div className='col-6'><Input className='mb-3' type='date' fluid alue={rendyVousD.RES_To_Date}  defaultValue={new Date().toISOString().split('T')[0]} onChange={(e) => setRdvData({...rendyVousD, RES_To_Date: e.target.value })}  /></div> 
-                            <div className='col-6'><Input className='mb-3' type='time' fluid alue={rendyVousD.RES_To_Time}  defaultValue={new Date().toLocaleTimeString('fr-FR')} onChange={(e) => setRdvData({...rendyVousD, RES_To_Time: e.target.value })}  /></div> 
+                            <div className='col-6'><Input className='mb-3' type='date' fluid alue={rendyVousD.RES_To_Date}  defaultValue={new Date().toISOString().split('T')[0]} onChange={(e) => setRdvData({...rendyVousD, RES_To_Date: e.target.value })}  /></div>
+                            <div className='col-6'><Input className='mb-3' type='time' fluid alue={rendyVousD.RES_To_Time}  defaultValue={new Date().toLocaleTimeString('fr-FR')} onChange={(e) => setRdvData({...rendyVousD, RES_To_Time: e.target.value })}  /></div>
                         </div>
-                        
-                        <h5 className='mb-0 mt-1' style={{color: GConf.ADIL[props.TAG].themeColor}}> <span className='bi bi-person-x-fill'></span>  ملاحضات   </h5>
+
+                        <h5 className='mb-0 mt-1' style={{color: GConf.ADIL[props.TAG].themeColor}}> <span className='bi bi-person-x-fill'></span>  {t('profilePage.ActionTabData.ActionListeData.clinique.comments')}   </h5>
                         <Form className='mb-3'>
-                            <TextArea placeholder='ملاحضات' className='font-droid'  rows={2} value={rendyVousD.Comment} onChange={ (e,value) => setRdvData({...rendyVousD, Comment:e.target.value})} />
+                            <TextArea placeholder={t('profilePage.ActionTabData.ActionListeData.clinique.comments')} className='font-droid'  rows={2} value={rendyVousD.Comment} onChange={ (e,value) => setRdvData({...rendyVousD, Comment:e.target.value})} />
                         </Form>
 
                         <div className='text-end'>
-                            <Button className='rounded-pill' onClick={saveFunction} disabled={disabledSaveBtn} size='small' icon style={{backgroundColor:GConf.ADIL[props.TAG].themeColor, color:'white'}} > <Icon name='save' />  تسجيل الحجز  <Loader inverted active={loaderState} inline size='tiny' className='ms-2 text-danger'/></Button>
+                            <Button className='rounded-pill' onClick={saveFunction} disabled={disabledSaveBtn} size='small' icon style={{backgroundColor:GConf.ADIL[props.TAG].themeColor, color:'white'}} > <Icon name='save' />  {t('profilePage.ActionTabData.ActionListeData.clinique.saveBtn')}  <Loader inverted active={loaderState} inline size='tiny' className='ms-2 text-danger'/></Button>
                         </div>
                 </div>
-        </div>      
+        </div>
     </> );
 }
 

@@ -33,6 +33,7 @@ function SearchLandingPage() {
     const navigate = useNavigate();
     const [suggestionListe , setSuggestionListe] = useState([])
     const [pageLoading, setPageLoading] = useState(true)
+    let [suivieData, setSuivieData] = useState([])
     const { t, i18n } = useTranslation();
     const isRTL = detectRTL.isRtlLang(i18n.language);
 
@@ -64,6 +65,8 @@ function SearchLandingPage() {
             return uniqueLetters;
         }
         setFirstLetters(getFirstLetters(WorldMap.states));
+
+        if (GConf.UserData.Logged) { GetUserSuivie() }
     }, [])
 
     /* ############### Functions #################*/
@@ -114,6 +117,22 @@ function SearchLandingPage() {
             navigate(`/S/R/${tag}/${GConf.ADIL[tag].subCateg[isSelected].value}/${gouv}/${deleg}`)
         }
            
+      }
+      const GetUserSuivie = () => {
+        
+        axios.post(`${GConf.ApiLink}/Search/suivie`, {
+            UID : GConf.UserData.UData.UID,
+            TAG : tag,
+          })
+          .then(function (response) {
+                setSuivieData(response.data)
+                console.log(response.data)
+          }).catch((error) => {
+            if(error.request) {
+              
+              setSuivieData([])
+            }
+          });
       }
     /* ############### Card #################*/
     const TopNavBar = () =>{
@@ -461,7 +480,26 @@ function SearchLandingPage() {
                 </Swiper>
                 )
     }*/
-    
+    const SuivieCard = (props) =>{
+        return(<>
+            <div className='card card-body border-div shadow-sm mb-2'>
+                    <div className='row mt-2 mb-0' dir={isRTL ? 'rtl' : 'ltr'}>
+                        <div className='col-12'> 
+                            <div className="d-flex align-items-center">
+                                <div className="flex-shrink-0">
+                                    <img src={`https://cdn.abyedh.com/images/Search/CIcons/${props.data.P_Genre}.gif`} alt="..."  width='50px' height='50px'/>
+                                </div>
+                                <div className="flex-grow-1 ms-3">
+                                    <h4 className='mb-0 text-secondary'><NavLink exact='true' to={`/Profile/L/sv/${props.data.RequestData.R_ID}`}>{props.data.PidData.Name}   </NavLink></h4>
+                                    <div ><b className='text-secondary' dir='ltr'>  {new Date(props.data.Notif_Date).toLocaleDateString('fr-FR').split( '/' ).reverse( ).join( '-' )} | {t(`userProfile.suivieTitlePage.${props.data.Notif_Name}`)}  </b></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+            </div>
+        </>)
+    }
+
     return ( <>
             <Helmet>
                 <title>{GConf.ADIL[tag].ItemNameSEO}</title>
@@ -568,6 +606,11 @@ function SearchLandingPage() {
                 <br />
                 <h5 className={` ${isRTL ? 'text-end' : 'text-start'} me-3 mt-0 mb-2`} style={{color : GConf.ADIL[tag].themeColor}} dir={isRTL ? 'rtl' : 'ltr'}> <span className='bi bi-star-half'></span>  {t('landingPage.suggestionAndFavText')} </h5> 
                 <FvaoriteOrSuggestionCard />
+                <br />
+                <h5 className={` ${isRTL ? 'text-end' : 'text-start'} me-3 mt-0 mb-2`} style={{color : GConf.ADIL[tag].themeColor}} dir={isRTL ? 'rtl' : 'ltr'}> <span className='bi bi-eye'></span>  {t('landingPage.suivieText')} </h5> 
+                {
+                    suivieData.map((data,index) => <SuivieCard key={index} data={data} /> )
+                }
             </div> 
             
             <br />
