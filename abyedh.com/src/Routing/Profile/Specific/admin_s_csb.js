@@ -6,15 +6,20 @@ import { Form, TextArea, Input , Button, Icon, Loader} from 'semantic-ui-react'
 import axios from 'axios';
 import { toast } from 'react-toastify';
 import TableGrid from '../../../AssetsM/tableGrid';
+import { useTranslation, Trans } from 'react-i18next';
+import detectRTL from 'rtl-detect';
+
 function AdminSScbSpecific() {
     /* ############### Const #################*/
     let {tag} = useParams()
     const [rendyVousD, setRdvData] = useState([])
     const [loaderState, setLS] = useState(false)
+    const { t, i18n } = useTranslation();
+    const isRTL = detectRTL.isRtlLang(i18n.language);
 
 
     /* ############### UseEffect #################*/
-    
+
     /* ############### Functions #################*/
     const saveFunction = () =>{
         if (!rendyVousD.comment) {toast.error("أدخل التشخيص !", GConf.TostErrorGonf)}
@@ -24,21 +29,21 @@ function AdminSScbSpecific() {
             axios.post(`${GConf.ApiLink}/LogIn`, {
                 rendyVousData : rendyVousD,
             }).then(function (response) {
-                
+
             }).catch((error) => {
                 if(error.request) {
-                  toast.error(<><div><h5>Probleme de Connextion</h5> Impossible de connecter aux systeme </div></>, GConf.TostInternetGonf)   
+                  toast.error(<><div><h5>Probleme de Connextion</h5> Impossible de connecter aux systeme </div></>, GConf.TostInternetGonf)
                   setLS(false)
                 }
             });
-        } 
+        }
     }
 
     /* ############### Card #################*/
         const SalleAttentCard = () =>{
             return(<>
                 <div className='card card-body shadow-sm border-div mb-4 text-center '>
-                    <h5 className='text-end' style={{color: GConf.ADIL[tag].themeColor}}>  أوقات الزيارة</h5> 
+                    <h5 className={`${isRTL ? 'text-end' :'text-start' }`} style={{color: GConf.ADIL[tag].themeColor}}> {t(`profilePage.SpesificData.${tag}.visitTime`)} </h5>
                     <h1 className='display-1' style={{color: GConf.ADIL[tag].themeColor}}><span className='bi bi-clock-history bi-lg'></span></h1>
                 </div>
             </>)
@@ -46,7 +51,7 @@ function AdminSScbSpecific() {
         const RoleTimeEstimateCard = () =>{
             return(<>
                 <div className='card card-body shadow-sm border-div mb-4 text-center '>
-                    <h5 className='text-end ' style={{color: GConf.ADIL[tag].themeColor}}>  قسم الإستعجالي </h5> 
+                    <h5 className={`${isRTL ? 'text-end' :'text-start' }`} style={{color: GConf.ADIL[tag].themeColor}}> {t(`profilePage.SpesificData.${tag}.urgence`)} </h5>
                     <h1 className='display-1' style={{color: GConf.ADIL[tag].themeColor}}><span className='bi bi-lightning-fill bi-lg'></span></h1>
                 </div>
             </>)
@@ -54,7 +59,7 @@ function AdminSScbSpecific() {
         const TarifCard = () =>{
             return(<>
                 <div className='card card-body shadow-sm border-div mb-4 text-center  '>
-                    <h5 className='text-end' style={{color: GConf.ADIL[tag].themeColor}}> الأقسام  </h5> 
+                    <h5 className={`${isRTL ? 'text-end' :'text-start' }`} style={{color: GConf.ADIL[tag].themeColor}}> {t(`profilePage.SpesificData.${tag}.classes`)} </h5>
                     <h1 className='display-1' style={{color: GConf.ADIL[tag].themeColor}}><span className='bi bi-grid-1x2 bi-lg'></span></h1>
                 </div>
             </>)
@@ -62,7 +67,7 @@ function AdminSScbSpecific() {
         const CertificatCard = () =>{
             return(<>
                 <div className='card card-body shadow-sm border-div mb-4 text-center  '>
-                    <h5 className='text-end' style={{color: GConf.ADIL[tag].themeColor}}>  الأدارة </h5> 
+                    <h5 className={`${isRTL ? 'text-end' :'text-start' }`} style={{color: GConf.ADIL[tag].themeColor}}> {t(`profilePage.SpesificData.${tag}.admin`)} </h5>
                     <h1 className='display-1' style={{color: GConf.ADIL[tag].themeColor}}><span className='bi bi-hospital bi-lg'></span></h1>
                 </div>
             </>)
@@ -70,7 +75,7 @@ function AdminSScbSpecific() {
         const SimpleCard = () =>{
             return(<>
                 <div className='card card-body shadow-sm border-div mb-4 text-center  '>
-                    <h5 className='text-end' style={{color: GConf.ADIL[tag].themeColor}}>  التلقيح  </h5> 
+                    <h5 className={`${isRTL ? 'text-end' :'text-start' }`} style={{color: GConf.ADIL[tag].themeColor}}>  {t(`profilePage.SpesificData.${tag}.vaccin`)}  </h5>
                     <h1 className='display-1' style={{color: GConf.ADIL[tag].themeColor}}><span className='bi bi-capsule-pill bi-lg'></span></h1>
                 </div>
             </>)
@@ -79,9 +84,9 @@ function AdminSScbSpecific() {
         <div className='row mt-4' >
             <div className='col-12 col-lg-5'> <SalleAttentCard  /> <RoleTimeEstimateCard /></div>
             <div className='col-12 col-lg-7'> <TarifCard /> <CertificatCard /> <SimpleCard /> </div>
-            
+
         </div>
-        
+
     </> );
 }
 

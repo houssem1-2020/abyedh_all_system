@@ -6,13 +6,16 @@ import { Form, TextArea, Input , Button, Icon, Loader} from 'semantic-ui-react'
 import axios from 'axios';
 import { toast } from 'react-toastify';
 import TableGrid from '../../../AssetsM/tableGrid';
+import { useTranslation, Trans } from 'react-i18next';
+import detectRTL from 'rtl-detect';
 
 function GarderieActions() {
     /* ############### Const #################*/
     let {tag} = useParams()
     const [rendyVousD, setRdvData] = useState([])
     const [loaderState, setLS] = useState(false)
-
+    const { t, i18n } = useTranslation();
+    const isRTL = detectRTL.isRtlLang(i18n.language);
 
     /* ############### UseEffect #################*/
     const saveFunction = () =>{
@@ -23,14 +26,14 @@ function GarderieActions() {
             axios.post(`${GConf.ApiLink}/LogIn`, {
                 rendyVousData : rendyVousD,
             }).then(function (response) {
-                
+
             }).catch((error) => {
                 if(error.request) {
-                  toast.error(<><div><h5>Probleme de Connextion</h5> Impossible de connecter aux systeme </div></>, GConf.TostInternetGonf)   
+                  toast.error(<><div><h5>Probleme de Connextion</h5> Impossible de connecter aux systeme </div></>, GConf.TostInternetGonf)
                   setLS(false)
                 }
             });
-        } 
+        }
     }
     /* ############### Functions #################*/
 
@@ -39,7 +42,7 @@ function GarderieActions() {
     const SimpleCard3 = () =>{
         return(<>
             <div className='card card-body shadow-sm border-div mb-4 text-center '>
-                <h5 className='text-end' style={{color: GConf.ADIL[tag].themeColor}}> تعريفة الإشتراك</h5> 
+                <h5 className={`${isRTL ? 'text-end' :'text-start' }`} style={{color: GConf.ADIL[tag].themeColor}}> {t(`profilePage.SpesificData.${tag}.tarifs`)} </h5> 
                 <h1 className='display-1' style={{color: GConf.ADIL[tag].themeColor}}><span className='bi bi-cash-coin bi-lg'></span></h1>
             </div>
         </>)
@@ -47,7 +50,7 @@ function GarderieActions() {
     const SalleAttentCard = () =>{
         return(<>
             <div className='card card-body shadow-sm border-div mb-4 text-center '>
-                <h5 className='text-end' style={{color: GConf.ADIL[tag].themeColor}}> هيلكة الروضة </h5> 
+                <h5 className={`${isRTL ? 'text-end' :'text-start' }`} style={{color: GConf.ADIL[tag].themeColor}}> {t(`profilePage.SpesificData.${tag}.structure`)} </h5>
                 <h1 className='display-1' style={{color: GConf.ADIL[tag].themeColor}}><span className='bi bi-diagram-3-fill bi-lg'></span></h1>
             </div>
         </>)
@@ -55,7 +58,7 @@ function GarderieActions() {
     const Statistics = () =>{
         return(<>
             <div className='card card-body shadow-sm border-div mb-4 text-center '>
-                <h5 className='text-end' style={{color: GConf.ADIL[tag].themeColor}}> مجسم المبني </h5> 
+                <h5 className={`${isRTL ? 'text-end' :'text-start' }`} style={{color: GConf.ADIL[tag].themeColor}}> {t(`profilePage.SpesificData.${tag}.model`)} </h5>
                 <h1 className='display-1' style={{color: GConf.ADIL[tag].themeColor}}><span className='bi bi-columns-gap bi-lg'></span></h1>
             </div>
         </>)
@@ -63,7 +66,7 @@ function GarderieActions() {
     const CalendarCalssCard = () =>{
         return(<>
             <div className='card card-body shadow-sm border-div mb-4 text-center  '>
-                <h5 className='text-end' style={{color: GConf.ADIL[tag].themeColor}}> جدول الاوقات </h5> 
+                <h5 className={`${isRTL ? 'text-end' :'text-start' }`} style={{color: GConf.ADIL[tag].themeColor}}>{t(`profilePage.SpesificData.${tag}.emploi`)}</h5>
                 <h1 className='display-1' style={{color: GConf.ADIL[tag].themeColor}}><span className='bi bi-table bi-lg'></span></h1>
             </div>
         </>)
@@ -71,7 +74,7 @@ function GarderieActions() {
     const CalendarExamCard = () =>{
         return(<>
             <div className='card card-body shadow-sm border-div mb-4 text-center  '>
-                <h5 className='text-end' style={{color: GConf.ADIL[tag].themeColor}}> رزنامة الامتحانات </h5> 
+                <h5 className={`${isRTL ? 'text-end' :'text-start' }`} style={{color: GConf.ADIL[tag].themeColor}}> {t(`profilePage.SpesificData.${tag}.exCalendar`)} </h5>
                 <h1 className='display-1' style={{color: GConf.ADIL[tag].themeColor}}><span className='bi bi-calendar2-week bi-lg'></span></h1>
             </div>
         </>)
@@ -79,7 +82,7 @@ function GarderieActions() {
     const SimpleCard2 = () =>{
         return(<>
             <div className='card card-body shadow-sm border-div mb-4 text-center '>
-                <h5 className='text-end ' style={{color: GConf.ADIL[tag].themeColor}}>  الطاقم التربوي   </h5> 
+                <h5 className={`${isRTL ? 'text-end' :'text-start' }`}  style={{color: GConf.ADIL[tag].themeColor}}> {t(`profilePage.SpesificData.${tag}.team`)} </h5>
                 <h1 className='display-1' style={{color: GConf.ADIL[tag].themeColor}}><span className='bi bi-people-fill bi-lg'></span></h1>
             </div>
         </>)
@@ -87,7 +90,7 @@ function GarderieActions() {
     const SimpleCard = () =>{
         return(<>
             <div className='card card-body shadow-sm border-div mb-4 text-center  '>
-                <h5 className='text-end' style={{color: GConf.ADIL[tag].themeColor}}> إعلانات </h5> 
+                <h5 className={`${isRTL ? 'text-end' :'text-start' }`} style={{color: GConf.ADIL[tag].themeColor}}> {t(`profilePage.SpesificData.${tag}.pubs`)}  </h5>
                 <h1 className='display-1' style={{color: GConf.ADIL[tag].themeColor}}><span className='bi bi-megaphone bi-lg'></span></h1>
             </div>
         </>)
@@ -98,7 +101,7 @@ function GarderieActions() {
             <div className='col-12 col-lg-4'> <SimpleCard3 /> <SalleAttentCard  /> <Statistics /> </div>
             <div className='col-12 col-lg-8'> <CalendarCalssCard /> <CalendarExamCard /> <SimpleCard2 /> </div>
         </div>
-        
+
     </> );
 }
 

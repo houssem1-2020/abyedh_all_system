@@ -20,6 +20,7 @@ import NotifGenres from '../Profile/Main/notifGenres';
 import SuivieRequestData from '../Profile/Suivie/suivieRequestData';
 import { BottomSheet } from 'react-spring-bottom-sheet'
 import 'react-spring-bottom-sheet/dist/style.css'
+import axios from 'axios';
 
 const ToolsModal = React.lazy(() => import('./MainPageAssets/toolsModal'));
 const QrCodeModal = React.lazy(() => import('./MainPageAssets/qrCodeModal'));
@@ -93,11 +94,12 @@ function MainLandingPage() {
     const [openD, setOpenD] = useState(false)
     const [toolsModal, setToolsModal] = useState(false)
     const [selectedToolsModal, setSelectedToolsModal] = useState([])
-    const [recentList, setRecentList] = useState(['magazin', 'restaurant' , 'cafe', 'docteur', 'autoecole', 'gym'])
+    const [recentList, setRecentList] = useState(['magazin', 'boutique'  ,'restaurant' , , 'boucherie' , 'cafe', 'docteur', 'autoecole', 'gym'])
     const [searchKey, setSearchKey] = useState('')
     const [data, setData] = useState('');
     const { t, i18n } = useTranslation();
     const isRTL = detectRTL.isRtlLang(i18n.language);
+    const [notifList, setNotifList] = useState([])
     
     /* ############### Notofication System #################*/
     // const [unreadMessages, setUnreadMessages] = useState(0);
@@ -141,7 +143,10 @@ function MainLandingPage() {
     const [selectedListeTag, setSelectedListeTag] = useState([])
 
     /* ############### UseEffect #################*/
-     
+    useEffect(() => {
+        if (GConf.UserData.Logged) {GetNotificationLists() }
+    }, []);
+
     /* Used Func */
     const PrintFunction = () =>{
         let objectTwo = {}
@@ -198,7 +203,16 @@ function MainLandingPage() {
         console.log(objectTwo)
     }
     /* ############### Functions #################*/
-    
+    const GetNotificationLists = () => {
+        axios.post(`${GConf.ApiProfileLink}/main-page`, {
+            UID: GConf.UserData.Logged ? GConf.UserData.UData.UID : false,
+        })
+        .then(function (response) {
+            setNotifList(response.data)
+            console.log(response.data)
+        })
+
+    }
 
     const SearchFunction = (key) =>{
         if (!searchKey) { } 
@@ -288,8 +302,8 @@ function MainLandingPage() {
         const RecentCard = (props) =>{
             return(<>
             <NavLink exact='true' to={`S/L/${props.data}`} >
-                <div className={`rounded-circle align-self-center p-2 col ${isRTL ? ' ms-5' :' me-5'}`}  style={{backgroundColor:GConf.ADIL[props.data].themeColor, width:'60px', height:'60px'}}>
-                    <img className='mb-0' src={`https://cdn.abyedh.com/Images/Search/WIcons/${props.data}.gif`}  width='45px' height='45px' />
+                <div className={`rounded-circle  text-center p-2 pt-3 col ${isRTL ? ' ms-5' :' me-5'}`}  style={{backgroundColor:GConf.ADIL[props.data].themeColor, width:'60px', height:'60px'}}>
+                    <div className='align-self-center'><img className='mb-0 ' src={`https://cdn.abyedh.com/Images/Search/WIcons/${props.data}.gif`}  width='30px' height='30px' /></div>
                 </div>
             </NavLink>
             </>)
@@ -315,7 +329,10 @@ function MainLandingPage() {
     }
 
     const DisplayedCardLarge = (props)  =>{
-
+        const CheckNotif = (props) => {
+            let Item = Array.isArray(notifList) ? notifList.find((item) => item.P_Genre === props.tag) : undefined;
+            return <> { Item != undefined ? <span className='rounded-circle text-danger bg-danger bi bi-dot' style={{fontSize : '5px'}}></span> : ''} </>
+        }
         const ItemCard = (props) => {
            
             return(
@@ -324,7 +341,7 @@ function MainLandingPage() {
                         <NavLink exact='true' to={props.cardData.tools ?  `${props.cardData.Slink}` : `S/L/${props.cardData.link}`} >
                             <img className='mb-0' src={`https://cdn.abyedh.com/Images/Search/CIconsS/${props.cardData.image}.gif`}  width='50px' height='50px' />
                             {/* <small className='d-block text-secondary  mb-0 mt-0 d-none'>{Math.floor(1000 + Math.random() * 9000)}</small> */}
-                            <h5 className="font-droid text-secondary mt-0"> {t(`mainPage.itemsNames.${props.cardData.link}`)} </h5>
+                            <h5 className="font-droid text-secondary mt-0"> {t(`mainPage.itemsNames.${props.cardData.link}`)} <CheckNotif tag={props.cardData.link} /> </h5>
                         </NavLink>
                     </div>
                 </>
@@ -444,6 +461,11 @@ function MainLandingPage() {
         </>);
     }
     const DisplayedCard = (props) => {
+        const CheckNotif = (props) => {
+            let Item = Array.isArray(notifList) ? notifList.find((item) => item.P_Genre === props.tag) : undefined;
+            return <> { Item != undefined ? <span className='rounded-circle text-danger bg-danger bi bi-dot' style={{fontSize : '5px'}}></span> : ''} </>
+        }
+
         const ItemCard = (props) => {
            
             return(
@@ -451,8 +473,7 @@ function MainLandingPage() {
                     <div  className="text-center hvr-float mb-4">
                         <NavLink exact='true' to={props.cardData.tools ?  `${props.cardData.Slink}` : `S/L/${props.cardData.link}`} >
                             <img className='mb-0' src={`https://cdn.abyedh.com/Images/Search/CIconsS/${props.cardData.image}.gif`}  width='50px' height='50px' />
-                            {/* <small className='d-block text-secondary  mb-0 mt-0 d-none'>{Math.floor(1000 + Math.random() * 9000)}</small> */}
-                            <h5 className="font-droid text-secondary mt-0"> {t(`mainPage.itemsNames.${props.cardData.link}`)} </h5>
+                            <h5 className="font-droid text-secondary mt-0"> {t(`mainPage.itemsNames.${props.cardData.link}`)} <CheckNotif tag={props.cardData.link} /> </h5>
                         </NavLink>
                     </div>
                 </>

@@ -6,13 +6,17 @@ import { Form, TextArea, Input , Button, Icon, Loader} from 'semantic-ui-react'
 import axios from 'axios';
 import { toast } from 'react-toastify';
 import TableGrid from '../../../AssetsM/tableGrid';
+import { useTranslation, Trans } from 'react-i18next';
+import detectRTL from 'rtl-detect';
+
 
 function PharmacieSpecific() {
     /* ############### Const #################*/
     let {tag} = useParams()
     const [rendyVousD, setRdvData] = useState([])
     const [loaderState, setLS] = useState(false)
-
+    const { t, i18n } = useTranslation();
+    const isRTL = detectRTL.isRtlLang(i18n.language);
 
     /* ############### UseEffect #################*/
     const saveFunction = () =>{
@@ -23,14 +27,14 @@ function PharmacieSpecific() {
             axios.post(`${GConf.ApiLink}/LogIn`, {
                 rendyVousData : rendyVousD,
             }).then(function (response) {
-                
+
             }).catch((error) => {
                 if(error.request) {
-                  toast.error(<><div><h5>Probleme de Connextion</h5> Impossible de connecter aux systeme </div></>, GConf.TostInternetGonf)   
+                  toast.error(<><div><h5>Probleme de Connextion</h5> Impossible de connecter aux systeme </div></>, GConf.TostInternetGonf)
                   setLS(false)
                 }
             });
-        } 
+        }
     }
     /* ############### Functions #################*/
 
@@ -39,7 +43,7 @@ function PharmacieSpecific() {
     const SalleAttentCard = () =>{
         return(<>
             <div className='card card-body shadow-sm border-div mb-4 text-center '>
-                <h5 className='text-end' style={{color: GConf.ADIL[tag].themeColor}}>  تلقيح </h5> 
+                <h5 className={`${isRTL ? 'text-end' :'text-start' }`} style={{color: GConf.ADIL[tag].themeColor}}>  {t(`profilePage.SpesificData.${tag}.vaccin`)} </h5>
                 <h1 className='display-1' style={{color: GConf.ADIL[tag].themeColor}}><span className='bi bi-droplet-half bi-lg'></span></h1>
             </div>
         </>)
@@ -47,7 +51,7 @@ function PharmacieSpecific() {
     const Statistics = () =>{
         return(<>
             <div className='card card-body shadow-sm border-div mb-4 text-center '>
-                <h5 className='text-end' style={{color: GConf.ADIL[tag].themeColor}}>  الوقت المتبقي للطلب </h5> 
+                <h5 className={`${isRTL ? 'text-end' :'text-start' }`} style={{color: GConf.ADIL[tag].themeColor}}> {t(`profilePage.SpesificData.${tag}.restingTime`)}</h5>
                 <h1 className='display-1' style={{color: GConf.ADIL[tag].themeColor}}><span className='bi bi-file-break bi-lg'></span></h1>
             </div>
         </>)
@@ -55,7 +59,7 @@ function PharmacieSpecific() {
     const CalendarCalssCard = () =>{
         return(<>
             <div className='card card-body shadow-sm border-div mb-4 text-center  '>
-                <h5 className='text-end' style={{color: GConf.ADIL[tag].themeColor}}>  بحث عن دواء </h5> 
+                <h5 className={`${isRTL ? 'text-end' :'text-start' }`} style={{color: GConf.ADIL[tag].themeColor}}> {t(`profilePage.SpesificData.${tag}.search`)} </h5>
                 <h1 className='display-1' style={{color: GConf.ADIL[tag].themeColor}}><span className='bi bi-search bi-lg'></span></h1>
             </div>
         </>)
@@ -63,7 +67,7 @@ function PharmacieSpecific() {
     const CalendarExamCard = () =>{
         return(<>
             <div className='card card-body shadow-sm border-div mb-4 text-center  '>
-                <h5 className='text-end' style={{color: GConf.ADIL[tag].themeColor}}>  فريق العمل </h5> 
+                <h5 className={`${isRTL ? 'text-end' :'text-start' }`} style={{color: GConf.ADIL[tag].themeColor}}> {t(`profilePage.SpesificData.${tag}.team`)} </h5>
                 <h1 className='display-1' style={{color: GConf.ADIL[tag].themeColor}}><span className='bi bi-people bi-lg'></span></h1>
             </div>
         </>)
@@ -71,7 +75,7 @@ function PharmacieSpecific() {
     const SimpleCard = () =>{
         return(<>
             <div className='card card-body shadow-sm border-div mb-4 text-center  '>
-                <h5 className='text-end' style={{color: GConf.ADIL[tag].themeColor}}> عائلات الأدوية </h5> 
+                <h5 className={`${isRTL ? 'text-end' :'text-start' }`} style={{color: GConf.ADIL[tag].themeColor}}> {t(`profilePage.SpesificData.${tag}.famille`)}  </h5>
                 <h1 className='display-1' style={{color: GConf.ADIL[tag].themeColor}}><span className='bi bi-bookmarks-fill bi-lg'></span></h1>
             </div>
         </>)
@@ -81,7 +85,7 @@ function PharmacieSpecific() {
             <div className='col-12 col-lg-4'> <SalleAttentCard  />  <SimpleCard /> </div>
             <div className='col-12 col-lg-8'> <CalendarCalssCard /> <CalendarExamCard /> </div>
         </div>
-        
+
     </> );
 }
 

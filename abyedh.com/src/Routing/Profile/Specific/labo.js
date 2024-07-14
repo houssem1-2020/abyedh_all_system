@@ -6,15 +6,19 @@ import { Form, TextArea, Input , Button, Icon, Loader} from 'semantic-ui-react'
 import axios from 'axios';
 import { toast } from 'react-toastify';
 import TableGrid from '../../../AssetsM/tableGrid';
+import { useTranslation, Trans } from 'react-i18next';
+import detectRTL from 'rtl-detect';
+
 function LaboSpecific() {
     /* ############### Const #################*/
     let {tag} = useParams()
     const [rendyVousD, setRdvData] = useState([])
     const [loaderState, setLS] = useState(false)
-
+    const { t, i18n } = useTranslation();
+    const isRTL = detectRTL.isRtlLang(i18n.language);
 
     /* ############### UseEffect #################*/
-    
+
     /* ############### Functions #################*/
     const saveFunction = () =>{
         if (!rendyVousD.comment) {toast.error("أدخل التشخيص !", GConf.TostErrorGonf)}
@@ -24,21 +28,21 @@ function LaboSpecific() {
             axios.post(`${GConf.ApiLink}/LogIn`, {
                 rendyVousData : rendyVousD,
             }).then(function (response) {
-                
+
             }).catch((error) => {
                 if(error.request) {
-                  toast.error(<><div><h5>Probleme de Connextion</h5> Impossible de connecter aux systeme </div></>, GConf.TostInternetGonf)   
+                  toast.error(<><div><h5>Probleme de Connextion</h5> Impossible de connecter aux systeme </div></>, GConf.TostInternetGonf)
                   setLS(false)
                 }
             });
-        } 
+        }
     }
 
     /* ############### Card #################*/
     const SalleAttentCard = () =>{
         return(<>
             <div className='card card-body shadow-sm border-div mb-4 text-center '>
-                <h5 className='text-end' style={{color: GConf.ADIL[tag].themeColor}}> أنواع التحاليل</h5> 
+                <h5 className={`${isRTL ? 'text-end' :'text-start' }`} style={{color: GConf.ADIL[tag].themeColor}}>  {t(`profilePage.SpesificData.${tag}.genre`)} </h5>
                 <h1 className='display-1' style={{color: GConf.ADIL[tag].themeColor}}><span className='bi bi-bar-chart bi-lg'></span></h1>
             </div>
         </>)
@@ -46,7 +50,7 @@ function LaboSpecific() {
     const RoleTimeEstimateCard = () =>{
         return(<>
             <div className='card card-body shadow-sm border-div mb-4 text-center '>
-                <h5 className='text-end ' style={{color: GConf.ADIL[tag].themeColor}}>  طاقم العمل   </h5> 
+                <h5 className={`${isRTL ? 'text-end' :'text-start' }`} style={{color: GConf.ADIL[tag].themeColor}}> {t(`profilePage.SpesificData.${tag}.team`)}  </h5>
                 <h1 className='display-1' style={{color: GConf.ADIL[tag].themeColor}}><span className='bi bi-people bi-lg'></span></h1>
             </div>
         </>)
@@ -54,7 +58,7 @@ function LaboSpecific() {
     const TarifCard = () =>{
         return(<>
             <div className='card card-body shadow-sm border-div mb-4 text-center  '>
-                <h5 className='text-end' style={{color: GConf.ADIL[tag].themeColor}}> التعريفة </h5> 
+                <h5 className={`${isRTL ? 'text-end' :'text-start' }`} style={{color: GConf.ADIL[tag].themeColor}}>{t(`profilePage.SpesificData.${tag}.tarif`)} </h5>
                 <h1 className='display-1' style={{color: GConf.ADIL[tag].themeColor}}><span className='bi bi-cash-coin bi-lg'></span></h1>
             </div>
         </>)
@@ -62,7 +66,7 @@ function LaboSpecific() {
     const CertificatCard = () =>{
         return(<>
             <div className='card card-body shadow-sm border-div mb-4 text-center  '>
-                <h5 className='text-end' style={{color: GConf.ADIL[tag].themeColor}}> الشهائد العلمية </h5> 
+                <h5 className={`${isRTL ? 'text-end' :'text-start' }`} style={{color: GConf.ADIL[tag].themeColor}}> {t(`profilePage.SpesificData.${tag}.diplome`)}ة </h5>
                 <h1 className='display-1' style={{color: GConf.ADIL[tag].themeColor}}><span className='bi bi-award-fill bi-lg'></span></h1>
             </div>
         </>)
@@ -70,7 +74,7 @@ function LaboSpecific() {
     const SimpleCard = () =>{
         return(<>
             <div className='card card-body shadow-sm border-div mb-4 text-center  '>
-                <h5 className='text-end' style={{color: GConf.ADIL[tag].themeColor}}> إعلانات </h5> 
+                <h5 className={`${isRTL ? 'text-end' :'text-start' }`} style={{color: GConf.ADIL[tag].themeColor}}> {t(`profilePage.SpesificData.${tag}.pubs`)} </h5>
                 <h1 className='display-1' style={{color: GConf.ADIL[tag].themeColor}}><span className='bi bi-megaphone bi-lg'></span></h1>
             </div>
         </>)
@@ -79,9 +83,9 @@ function LaboSpecific() {
         <div className='row mt-4' >
             <div className='col-12 col-lg-4'> <SalleAttentCard  /> <RoleTimeEstimateCard /></div>
             <div className='col-12 col-lg-8'> <TarifCard /> <CertificatCard /></div>
-            
+
         </div>
-        
+
     </> );
 }
 

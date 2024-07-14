@@ -6,12 +6,16 @@ import { Form, TextArea, Input , Button, Icon, Loader} from 'semantic-ui-react'
 import axios from 'axios';
 import { toast } from 'react-toastify';
 import TableGrid from '../../../AssetsM/tableGrid';
+import { useTranslation, Trans } from 'react-i18next';
+import detectRTL from 'rtl-detect';
+
 function DocteurSpecific(props) {
     /* ############### Const #################*/
     let {tag} = useParams()
     const [rendyVousD, setRdvData] = useState([])
     const [loaderState, setLS] = useState(false)
-
+    const { t, i18n } = useTranslation();
+    const isRTL = detectRTL.isRtlLang(i18n.language);
 
     /* ############### UseEffect #################*/
     useEffect(() => {
@@ -26,23 +30,23 @@ function DocteurSpecific(props) {
             axios.post(`${GConf.ApiLink}/LogIn`, {
                 rendyVousData : rendyVousD,
             }).then(function (response) {
-                
+
             }).catch((error) => {
                 if(error.request) {
-                  toast.error(<><div><h5>Probleme de Connextion</h5> Impossible de connecter aux systeme </div></>, GConf.TostInternetGonf)   
+                  toast.error(<><div><h5>Probleme de Connextion</h5> Impossible de connecter aux systeme </div></>, GConf.TostInternetGonf)
                   setLS(false)
                 }
             });
-        } 
+        }
     }
 
     /* ############### Card #################*/
     const EmptyCard = (props) => {
         return (
             <>
-            
+
             <h1 className='display-1 text-secondary mb-0' style={{color: GConf.ADIL[tag].themeColor}}><span className={`bi bi-${props.icon} bi-lg`}></span></h1>
-             
+
             </>
         )
     }
@@ -50,9 +54,9 @@ function DocteurSpecific(props) {
     const SalleAttentCard = () =>{
         return(<>
             <div className='card card-body shadow-sm border-div mb-4 text-center '>
-                <h5 className='text-end mb-0' style={{color: GConf.ADIL[tag].themeColor}}> معدل الانتضار</h5> 
-                {props.PidData.SP_Tarif == "" || JSON.parse(props.PidData.SP_Tarif).length == 0 ? 
-                    <EmptyCard icon='hourglass-split' /> 
+            <h5 className={`mb-0 ${isRTL ? 'text-end' :'text-start' }`}  style={{color: GConf.ADIL[tag].themeColor}}>{t(`profilePage.SpesificData.${tag}.wating`)}</h5>
+                {props.PidData.SP_Tarif == "" || JSON.parse(props.PidData.SP_Tarif).length == 0 ?
+                    <EmptyCard icon='hourglass-split' />
                     :
                     <h2 className='text-secondary' dir='rtl'>1:02 </h2>
                 }
@@ -62,7 +66,7 @@ function DocteurSpecific(props) {
     const RoleTimeEstimateCard = () =>{
         return(<>
             <div className='card card-body shadow-sm border-div mb-4 text-center '>
-                <h5 className='text-end ' style={{color: GConf.ADIL[tag].themeColor}}>  توقع الوقت المتبقي </h5> 
+                <h5 className={`${isRTL ? 'text-end' :'text-start' }`} style={{color: GConf.ADIL[tag].themeColor}}> {t(`profilePage.SpesificData.${tag}.estimateRest`)} </h5>
                 <h1 className='display-1' style={{color: GConf.ADIL[tag].themeColor}}><span className='bi bi-clock-history bi-lg'></span></h1>
             </div>
         </>)
@@ -70,17 +74,17 @@ function DocteurSpecific(props) {
     const TarifCard = () =>{
         return(<>
             <div className='card card-body shadow-sm border-div mb-4 text-center  '>
-                <h5 className='text-end' style={{color: GConf.ADIL[tag].themeColor}}> التعريفة </h5> 
-                {props.PidData.SP_Tarif == "" || JSON.parse(props.PidData.SP_Tarif).length == 0 ? 
-                    <EmptyCard icon='cash-coin' /> 
+                <h5 className={`${isRTL ? 'text-end' :'text-start' }`} style={{color: GConf.ADIL[tag].themeColor}}> {t(`profilePage.SpesificData.${tag}.tarif`)} </h5>
+                {props.PidData.SP_Tarif == "" || JSON.parse(props.PidData.SP_Tarif).length == 0 ?
+                    <EmptyCard icon='cash-coin' />
                     :
                     <div className='text-secondary' style={{maxHeight:'300px', overflowX:'auto', overflowX:'hidden'}}  >
-                        {JSON.parse(props.PidData.SP_Tarif).map((data,index) => 
+                        {JSON.parse(props.PidData.SP_Tarif).map((data,index) =>
                             <div className='text-end  p-2 border-div mb-2' key={index} dir='rtl'>
                                 <div className='row'>
-                                 
-                                    <div className='col-9 align-self-center text-end'><h5 className='mt-0 mb-1'> {index + 1 } - {data.Forfait}</h5> <small className='mb-0'>{data.Description}</small></div> 
-                                    
+
+                                    <div className='col-9 align-self-center text-end'><h5 className='mt-0 mb-1'> {index + 1 } - {data.Forfait}</h5> <small className='mb-0'>{data.Description}</small></div>
+
                                     <div className='col-3 align-self-center'>{data.Prix} د.ت</div>
                                 </div>
                             </div>
@@ -93,19 +97,19 @@ function DocteurSpecific(props) {
     const CertificatCard = () =>{
         return(<>
             <div className='card card-body shadow-sm border-div mb-4 text-center  '>
-                <h5 className='text-end' style={{color: GConf.ADIL[tag].themeColor}}> الشهائد العلمية </h5> 
-                 
-                {props.PidData.SP_Diplomes == "" || JSON.parse(props.PidData.SP_Diplomes).length == 0 ? 
-                    <EmptyCard icon='award-fill' /> 
+                <h5 className={`${isRTL ? 'text-end' :'text-start' }`} style={{color: GConf.ADIL[tag].themeColor}}> {t(`profilePage.SpesificData.${tag}.diplome`)} </h5>
+
+                {props.PidData.SP_Diplomes == "" || JSON.parse(props.PidData.SP_Diplomes).length == 0 ?
+                    <EmptyCard icon='award-fill' />
                     :
                     <div className='text-secondary' style={{maxHeight:'300px', overflowX:'auto', overflowX:'hidden'}}  >
-                        {JSON.parse(props.PidData.SP_Diplomes).map((data,index) => 
+                        {JSON.parse(props.PidData.SP_Diplomes).map((data,index) =>
                             <div className='text-end  p-2 border-div mb-2' key={index} dir='rtl'>
                                 <div className='row'>
-                                 
-                                    <div className='col-12 align-self-center text-end'><h5 className='mt-0 mb-1'>{data.annee} : {data.diplome}</h5> <small className='mb-0'>{data.faculte}</small></div> 
-                                    
-                                    
+
+                                    <div className='col-12 align-self-center text-end'><h5 className='mt-0 mb-1'>{data.annee} : {data.diplome}</h5> <small className='mb-0'>{data.faculte}</small></div>
+
+
                                 </div>
                             </div>
                         )}
@@ -117,7 +121,7 @@ function DocteurSpecific(props) {
     const SimpleCard = () =>{
         return(<>
             <div className='card card-body shadow-sm border-div mb-4 text-center  '>
-                <h5 className='text-end' style={{color: GConf.ADIL[tag].themeColor}}> إعلانات </h5> 
+                <h5 className={`${isRTL ? 'text-end' :'text-start' }`} style={{color: GConf.ADIL[tag].themeColor}}> إعلانات </h5>
                 <h1 className='display-1' style={{color: GConf.ADIL[tag].themeColor}}><span className='bi bi-megaphone bi-lg'></span></h1>
             </div>
         </>)
@@ -126,9 +130,9 @@ function DocteurSpecific(props) {
         <div className='row mt-4' >
             <div className='col-12 col-lg-4'> <SalleAttentCard  /></div>
             <div className='col-12 col-lg-8'> <TarifCard /> <CertificatCard /></div>
-            
+
         </div>
-        
+
     </> );
 }
 

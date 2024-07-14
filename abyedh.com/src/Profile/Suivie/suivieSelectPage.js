@@ -88,6 +88,34 @@ function SuiviePage() {
         setOpenD(true)
     }
    /* ###########################[Card]############################# */
+   const StateCard = ({ status }) => {
+    const StateCard = (props) =>{ return <span className={`badge bg-${props.color}`}> {props.text} </span>}
+    const statusCard = React.useCallback(() => {
+      switch(status) {
+        case 'W': return <StateCard color='warning' text={t('appPages.requestPage.stateText.W')} />;  
+        case 'S': return <StateCard color='info' text={t('appPages.requestPage.stateText.S')} />;  
+        case 'A': return <StateCard color='success' text={t('appPages.requestPage.stateText.A')} /> ;
+        case 'R': return <StateCard color='danger' text={t('appPages.requestPage.stateText.R')} />;
+
+        case 'RT': return <StateCard color='retarder' text={t('appPages.requestPage.stateText.RT')} />;
+        case 'RD': return <StateCard color='rederecter' text={t('appPages.requestPage.stateText.RD')} />;
+        case 'LV': return <StateCard color='retarder' text={t('appPages.requestPage.stateText.LV')} />;
+        case 'MD': return <StateCard color='redirecter' text={t('appPages.requestPage.stateText.MD')} />;
+        case 'PR': return <StateCard color='redirecter' text={t('appPages.requestPage.stateText.PR')} />;
+        case 'PI': return <StateCard color='retarder' text={t('appPages.requestPage.stateText.PI')} />;
+
+        case 'T': return <StateCard color='secondary' text={t('appPages.requestPage.stateText.T')} />;
+        default:  return <StateCard color='dark' text={t('appPages.requestPage.stateText.default')} />;    
+      }
+    }, [status]);
+  
+    return (
+      <div className="p-1">
+        {statusCard()}
+      </div>
+    );
+    };
+
     const SuivieCard = (props) =>{
         const CircularPourcentage = (props) =>{
             return(<>
@@ -120,7 +148,7 @@ function SuiviePage() {
                         <div className='text-end mb-3'><b> <span className='bi bi-bookmarks-fill text-danger'></span> التفاصيل : </b></div> 
                         {SuivieRequestData[props.data.Notif_Name].GenTextFunction(props.data.RequestData,props.data.PidData)}
                     </div>
-                    <div className="floating-card-suivie" style={{zIndex: 10000}} >
+                    <div className="floating-card-suivie d-none" style={{zIndex: 10000}} >
                         <Button size='mini' onClick={() => OpenModalFunction(props.data.Notif_Name)} className='rounded-pill' icon> <Icon name='sort amount down' /> </Button>
                     </div>
                 </div>
@@ -147,7 +175,7 @@ function SuiviePage() {
         return(<>
             <div className='card p-2 pb-0 shadow-sm mb-3 border-div'>
                     <div className='row'>
-                        <div className='col-10'> 
+                        <div className='col-9'> 
                             <div className="d-flex align-items-center">
                                 <div className="flex-shrink-0">
                                     <img src={`https://cdn.abyedh.com/images/Search/CIcons/${props.data.P_Genre}.gif`} alt="..."  width='50px' height='50px'/>
@@ -158,13 +186,14 @@ function SuiviePage() {
                                 </div>
                             </div>
                         </div>
-                        <div className='col-2 align-self-center text-center text-end'> <CircularPourcentage value={SuivieRequestData[props.data.Notif_Name].stepsValues2[props.data.State].value} /> </div>
+                        <div className='col-3 align-self-center text-center  '> <StateCard status={props.data.RequestData.State} />  </div>
+                        {/* <div className='col-2 align-self-center text-center text-end'> <CircularPourcentage value={SuivieRequestData[props.data.Notif_Name].stepsValues2[props.data.State].value} /> </div> */}
                     </div>
                 <div className='card-body pb-0 d-none d-lg-block'>
                     <div className='row'>
                         <div className='col-6'> <RendredData /> </div>
-                        <div className='col-6 align-self-center'> <SetpsCard  /> </div>
-                        <div className='col-12 text-end pt-2 navshad-top'><ActionBtns /></div>
+                        {/* <div className='col-6 align-self-center'> <SetpsCard  /> </div> */}
+                        {/* <div className='col-12 text-end pt-2 navshad-top'><ActionBtns /></div> */}
                     </div>
                 </div>
                 <div className='card-body d-lg-none pb-0'>

@@ -90,11 +90,11 @@ function GarderieActions(props) {
     const panes = [
         {
           menuItem: { key: 'save', icon: 'edit outline', content:  <span className='me-2'>  تسجيل  </span> , dir:'rtl'},
-          render: () => <Tab.Pane className='border-div shadow-sm' attached={false} dir='rtl'> <InscrieCard inscrieD={inscrieD} setInscrieD={setInscrieD} SaveInscrie={SaveInscrie} disabledSaveBtn={disabledSaveBtn} tag={props.TAG} loaderState={loaderState} /></Tab.Pane>,
+          render: () => <Tab.Pane className='border-div shadow-sm' attached={false} dir={isRTL ? 'rtl' : 'ltr'}> <InscrieCard inscrieD={inscrieD} setInscrieD={setInscrieD} SaveInscrie={SaveInscrie} disabledSaveBtn={disabledSaveBtn} tag={props.TAG} loaderState={loaderState} /></Tab.Pane>,
         },
         {
             menuItem: { key: 'edit', icon: 'edit outline', content:  <span className='me-2'>  ترسيم  </span> , dir:'rtl' },
-            render: () => <Tab.Pane className='border-div shadow-sm' attached={false} dir='rtl'><SouscrieCard souscrieD={souscrieD} setSouscrieD={setSouscrieD} SaveSouscrie={SaveSouscrie} disabledSaveBtn={disabledSaveBtn} tag={props.TAG} loaderState={loaderState} /></Tab.Pane>,
+            render: () => <Tab.Pane className='border-div shadow-sm' attached={false} dir={isRTL ? 'rtl' : 'ltr'}><SouscrieCard souscrieD={souscrieD} setSouscrieD={setSouscrieD} SaveSouscrie={SaveSouscrie} disabledSaveBtn={disabledSaveBtn} tag={props.TAG} loaderState={loaderState} /></Tab.Pane>,
         },
     ]
 
@@ -156,8 +156,8 @@ function GarderieActions(props) {
     /* ############### Card #################*/
 
     return ( <>
-    <div className='m-0'>
-        <Tab menu={{secondary: true , selected: { backgroundColor: 'purple' },  dir:'rtl', style:{justifyContent: 'right',} }} className='yes-menu-tabs' panes={panes} />
+    <div className='m-0' dir={isRTL ? 'rtl' : 'ltr'}>
+        <Tab menu={{secondary: true , selected: { backgroundColor: 'purple' },  dir : 'ltr' , style:{justifyContent: 'right',} }} className='yes-menu-tabs' panes={panes} />
     </div>
 
     </> );

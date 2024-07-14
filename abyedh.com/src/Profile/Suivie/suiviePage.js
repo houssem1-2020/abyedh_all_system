@@ -59,6 +59,35 @@ function SuiviePage() {
     }
      
    /* ###########################[Card]############################# */
+
+   const StateCard = ({ status }) => {
+    const StateCard = (props) =>{ return <span className={`badge bg-${props.color}`}> {props.text} </span>}
+    const statusCard = React.useCallback(() => {
+      switch(status) {
+        case 'W': return <StateCard color='warning' text={t('appPages.requestPage.stateText.W')} />;  
+        case 'S': return <StateCard color='info' text={t('appPages.requestPage.stateText.S')} />;  
+        case 'A': return <StateCard color='success' text={t('appPages.requestPage.stateText.A')} /> ;
+        case 'R': return <StateCard color='danger' text={t('appPages.requestPage.stateText.R')} />;
+
+        case 'RT': return <StateCard color='retarder' text={t('appPages.requestPage.stateText.RT')} />;
+        case 'RD': return <StateCard color='rederecter' text={t('appPages.requestPage.stateText.RD')} />;
+        case 'LV': return <StateCard color='retarder' text={t('appPages.requestPage.stateText.LV')} />;
+        case 'MD': return <StateCard color='redirecter' text={t('appPages.requestPage.stateText.MD')} />;
+        case 'PR': return <StateCard color='redirecter' text={t('appPages.requestPage.stateText.PR')} />;
+        case 'PI': return <StateCard color='retarder' text={t('appPages.requestPage.stateText.PI')} />;
+
+        case 'T': return <StateCard color='secondary' text={t('appPages.requestPage.stateText.T')} />;
+        default:  return <StateCard color='dark' text={t('appPages.requestPage.stateText.default')} />;    
+      }
+    }, [status]);
+  
+    return (
+      <div className="p-1">
+        {statusCard()}
+      </div>
+    );
+    };
+
     const SuivieCard = (props) =>{
         const CircularPourcentage = (props) =>{
             return(<>
@@ -124,18 +153,20 @@ function SuiviePage() {
                                     </div>
                                     <div className="flex-grow-1 ms-3">
                                         <h4 className='mb-0 text-secondary'><NavLink exact='true' to={`/Profile/L/sv/${props.data.RequestData.R_ID}`}>{t(`userProfile.suivieTitlePage.${props.data.Notif_Name}`)}  </NavLink></h4>
-                                        <div ><b className='text-secondary' dir='ltr'>  {new Date(props.data.Notif_Date).toLocaleDateString('fr-FR').split( '/' ).reverse( ).join( '-' )} | {props.data.PidData.Name}</b></div>
+                                        <div ><b className='text-secondary' dir='ltr'>   {props.data.PidData.Name}</b></div>
                                     </div>
                                 </div>
                             </div>
-                            <div className='col-2   align-self-center text-end   pe-0'> <span className={`bi bi-${SuivieRequestData[props.data.Notif_Name].stepsValues2[props.data.State].icon} bi-md text-success`}></span>   </div>
+                            <div className={`col-2   align-self-center ${isRTL ? 'text-end' : 'text-start'}   pe-0`}> <span className={`bi bi-${SuivieRequestData[props.data.Notif_Name].stepsValues2[props.data.State].icon} bi-md text-success`}></span>   </div>
                             {/* <div className='col-2   align-self-center text-end   pe-0'> <CircularPourcentage value={SuivieRequestData[props.data.Notif_Name].stepsValues2[props.data.State].value} /> </div> */}
                         </div>
-                        <div className='p-1 '>
-                            <Button.Group fluid>
+                        <div className='card-body '>
+                                <div className='text-secondary' dir={isRTL ? 'rtl': 'ltr'}>1- {new Date(props.data.Notif_Date).toLocaleDateString('fr-FR').split( '/' ).reverse( ).join( '-' )} | {props.data.RequestData.R_Time} </div>
+                                <div className='text-secondary' dir={isRTL ? 'rtl': 'ltr'}> <StateCard status={props.data.RequestData.State} /> </div>
+                            {/* <Button.Group fluid>
                                 <Button className='bg-white' icon onClick={() => navigate(`/Profile/L/sv/${props.data.RequestData.R_ID}`)}> <Icon name='eye' /> متابعة</Button>
                                 <Button  className='bg-white' icon onClick={() => navigate(`/Profile/L/sv/${props.data.RequestData.R_ID}`)}> <Icon name='edit outline' /> تعديل </Button>
-                            </Button.Group>
+                            </Button.Group> */}
                         </div>
                         <div className={`p-1 ${isRTL ? 'text-start' : 'text-end'}`}>
                             <NavLink to={`/Profile/L/sv/${props.data.RequestData.R_ID}`}>
