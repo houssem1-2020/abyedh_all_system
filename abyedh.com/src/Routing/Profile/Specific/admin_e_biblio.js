@@ -6,15 +6,19 @@ import { Form, TextArea, Input , Button, Icon, Loader} from 'semantic-ui-react'
 import axios from 'axios';
 import { toast } from 'react-toastify';
 import TableGrid from '../../../AssetsM/tableGrid';
+import { useTranslation, Trans } from 'react-i18next';
+import detectRTL from 'rtl-detect';
+
 function AdminEBiblioSpecific() {
     /* ############### Const #################*/
     let {tag} = useParams()
     const [rendyVousD, setRdvData] = useState([])
     const [loaderState, setLS] = useState(false)
-
+    const { t, i18n } = useTranslation();
+    const isRTL = detectRTL.isRtlLang(i18n.language);
 
     /* ############### UseEffect #################*/
-    
+
     /* ############### Functions #################*/
     const saveFunction = () =>{
         if (!rendyVousD.comment) {toast.error("أدخل التشخيص !", GConf.TostErrorGonf)}
@@ -24,21 +28,21 @@ function AdminEBiblioSpecific() {
             axios.post(`${GConf.ApiLink}/LogIn`, {
                 rendyVousData : rendyVousD,
             }).then(function (response) {
-                
+
             }).catch((error) => {
                 if(error.request) {
-                  toast.error(<><div><h5>Probleme de Connextion</h5> Impossible de connecter aux systeme </div></>, GConf.TostInternetGonf)   
+                  toast.error(<><div><h5>Probleme de Connextion</h5> Impossible de connecter aux systeme </div></>, GConf.TostInternetGonf)
                   setLS(false)
                 }
             });
-        } 
+        }
     }
 
     /* ############### Card #################*/
     const SalleAttentCard = () =>{
         return(<>
             <div className='card card-body shadow-sm border-div mb-4 text-center '>
-                <h5 className='text-end' style={{color: GConf.ADIL[tag].themeColor}}> عدد الكتب الجملي </h5> 
+                <h5 className={`${isRTL ? 'text-end' :'text-start' }`} style={{color: GConf.ADIL[tag].themeColor}}> {t(`profilePage.SpesificData.${tag}.numLivre`)} </h5>
                 <h1 className='display-1' style={{color: GConf.ADIL[tag].themeColor}}><span className='bi bi-journal-album bi-lg'></span></h1>
             </div>
         </>)
@@ -46,7 +50,7 @@ function AdminEBiblioSpecific() {
     const RoleTimeEstimateCard = () =>{
         return(<>
             <div className='card card-body shadow-sm border-div mb-4 text-center '>
-                <h5 className='text-end ' style={{color: GConf.ADIL[tag].themeColor}}>  تعريقة الخدمات   </h5> 
+                <h5 className={`${isRTL ? 'text-end' :'text-start' }`} style={{color: GConf.ADIL[tag].themeColor}}> {t(`profilePage.SpesificData.${tag}.tarifs`)}  </h5>
                 <h1 className='display-1' style={{color: GConf.ADIL[tag].themeColor}}><span className='bi bi-cash-coin bi-lg'></span></h1>
             </div>
         </>)
@@ -54,7 +58,7 @@ function AdminEBiblioSpecific() {
     const TarifCard = () =>{
         return(<>
             <div className='card card-body shadow-sm border-div mb-4 text-center  '>
-                <h5 className='text-end' style={{color: GConf.ADIL[tag].themeColor}}> قائمة الكتب  </h5> 
+                <h5 className={`${isRTL ? 'text-end' :'text-start' }`} style={{color: GConf.ADIL[tag].themeColor}}> {t(`profilePage.SpesificData.${tag}.livreList`)} </h5>
                 <h1 className='display-1' style={{color: GConf.ADIL[tag].themeColor}}><span className='bi bi-list-stars bi-lg'></span></h1>
             </div>
         </>)
@@ -62,7 +66,7 @@ function AdminEBiblioSpecific() {
     const CertificatCard = () =>{
         return(<>
             <div className='card card-body shadow-sm border-div mb-4 text-center  '>
-                <h5 className='text-end' style={{color: GConf.ADIL[tag].themeColor}}>  تقسيم المكتبة </h5> 
+                <h5 className={`${isRTL ? 'text-end' :'text-start' }`} style={{color: GConf.ADIL[tag].themeColor}}>{t(`profilePage.SpesificData.${tag}.structure`)}  </h5>
                 <h1 className='display-1' style={{color: GConf.ADIL[tag].themeColor}}><span className='bi bi-layout-wtf bi-lg'></span></h1>
             </div>
         </>)
@@ -70,7 +74,7 @@ function AdminEBiblioSpecific() {
     const SimpleCard = () =>{
         return(<>
             <div className='card card-body shadow-sm border-div mb-4 text-center  '>
-                <h5 className='text-end' style={{color: GConf.ADIL[tag].themeColor}}> كيفية الإشتراك </h5> 
+                <h5 className={`${isRTL ? 'text-end' :'text-start' }`} style={{color: GConf.ADIL[tag].themeColor}}> {t(`profilePage.SpesificData.${tag}.howToInsc`)} </h5>
                 <h1 className='display-1' style={{color: GConf.ADIL[tag].themeColor}}><span className='bi bi-info-circle bi-lg'></span></h1>
             </div>
         </>)
@@ -79,9 +83,9 @@ function AdminEBiblioSpecific() {
         <div className='row mt-4' >
             <div className='col-12 col-lg-4'> <SalleAttentCard  /> <RoleTimeEstimateCard /></div>
             <div className='col-12 col-lg-8'> <TarifCard /> <CertificatCard /> <SimpleCard /> </div>
-            
+
         </div>
-        
+
     </> );
 }
 

@@ -8,7 +8,7 @@ const APPItem = {
         RequestTable:'Docteur', 
         systemReady: true ,
         systemVideoId: 'qaTB_u1THVs' ,
-        systemUrl:'https://docteur.system.abyedh.tn',
+        systemUrl:'https://docteur.system.abyedh.com',
         adsText:' نظام إداراة العيادات يقدم لك مجموعة من الأدوات و الحلول الرقمية التي تساعدك علي أداء عملك بالشكل الممتاز , كما أنه يبقيك دائما متصلا مع مرضاك  للإطمئنان علي صحتهم و متابعة تطور حالتهم الصحية , بالإضافة إلي مجموعة من لوحات لاتحكم الموجهة لفريق العمل لتتابع أداء مهامهم بسهولة , فضلا  عن مجموعة متميزة من الأدوات التي تعينك علي تطوير عملك ',
         systemPos : [
             {id: 1 , posName:'إضافة و تعديل حصص جديدة ' , description:'متابعة مرضاك ', icon:'window-dock'},
@@ -78,7 +78,7 @@ const APPItem = {
         RequestTable:'Pharmacie', 
         systemReady: true ,
         systemVideoId: 'qaTB_u1THVs' ,
-        systemUrl:'https://pharmacie.system.abyedh.tn',
+        systemUrl:'https://pharmacie.system.abyedh.com',
         adsText:'نظام إداراة نقاط الصيدليات يساعدك علي مراقبة و التحكم في مخزون المنتجات (stock) و متابعة فواتيرك و الإتصال بعملاءك و متابعة طلباتهم . كما يقدم لك واجهة رسومية (caisse) لتسجيل المبيعات و طباعة الفواتير. بالإضافة إلي مجموعة من الأدوات الإبداعية (مثل واجهة إستخراج الأسعار) التي تساعدك علي أداء عملك بجودة أفضل',
         systemPos : [
             {id: 1 , posName:'إضافة و تعديل منتجات جديدة للمخزون ' , description:'متابعة مرضاك ', icon:'window-dock'},
@@ -362,7 +362,7 @@ const APPItem = {
         RequestTable:'Garderie', 
         systemReady: true ,
         systemVideoId: 'qaTB_u1THVs' ,
-        systemUrl:'https://garderie.system.abyedh.tn/',
+        systemUrl:'https://garderie.system.abyedh.com/',
         adsText:'نظام إدارة  رياض الأطفال يمكنك من  متابعة مختلف الانشطة اللي تصير داخل المؤسسة متاعك , و بالتالي مزيد من التحكم و الإدارة الذكية لجعل عملية التعلم أكثر جودة و تطور . كما يوفر مجموعة من الأدوات الرقمية اللي تساعدك في تحسين جودة المادة التعليمة مثل البرنامج البيداغوجي و غيرها  ',
         systemPos : [
             {id: 1 , posName:'إضافة و متابعة التلاميذ ' , description:'متابعة مرضاك ', icon:'window-dock'},
@@ -502,7 +502,7 @@ const APPItem = {
         RequestTable:'Lycee', 
         systemReady: false ,
         systemVideoId: 'qaTB_u1THVs' ,
-        systemUrl:'https://lycee.system.abyedh.tn/',
+        systemUrl:'https://lycee.system.abyedh.com/',
         adsText:'نظام إداراة نقاط البيع بالجملة يساعدك علي مراقبة و التحكم في مخزون المنتجات (stock) و متابعة فواتيرك و الإتصال بعملاءك و متابعة طلباتهم . كما يقدم لك واجهة رسومية (caisse) لتسجيل المبيعات و طباعة الفواتير. بالإضافة إلي مجموعة من الأدوات الإبداعية (مثل واجهة إستخراج الأسعار) التي تساعدك علي أداء عملك بجودة أفضل',
         systemPos : [
             {id: 1 , posName:'إضافة و متابعة التلاميذ ' , description:'متابعة مرضاك ', icon:'window-dock'},
@@ -839,7 +839,7 @@ const APPItem = {
         RequestTable:'Transporteur', 
         systemReady: true ,
         systemVideoId: 'qaTB_u1THVs' ,
-        systemUrl:'https://transporteur.system.abyedh.tn/',
+        systemUrl:'https://transporteur.system.abyedh.com/',
         adsText:'نظام إداراة نقاط البيع بالجملة يساعدك علي مراقبة و التحكم في مخزون المنتجات (stock) و متابعة فواتيرك و الإتصال بعملاءك و متابعة طلباتهم . كما يقدم لك واجهة رسومية (caisse) لتسجيل المبيعات و طباعة الفواتير. بالإضافة إلي مجموعة من الأدوات الإبداعية (مثل واجهة إستخراج الأسعار) التي تساعدك علي أداء عملك بجودة أفضل',
         systemPos : [
             {id: 1 , posName:'إضافة و رقمنة عمليات النقل اليومية ' , description:'متابعة مرضاك ', icon:'window-dock'},
@@ -894,7 +894,7 @@ const APPItem = {
         RequestTable:'AutoEcole', 
         systemReady: true ,
         systemVideoId: 'qaTB_u1THVs' ,
-        systemUrl:'https://autoecole.system.abyedh.tn/',
+        systemUrl:'https://autoecole.system.abyedh.com/',
         adsText:'نظام إداراة نقاط البيع بالجملة يساعدك علي مراقبة و التحكم في مخزون المنتجات (stock) و متابعة فواتيرك و الإتصال بعملاءك و متابعة طلباتهم . كما يقدم لك واجهة رسومية (caisse) لتسجيل المبيعات و طباعة الفواتير. بالإضافة إلي مجموعة من الأدوات الإبداعية (مثل واجهة إستخراج الأسعار) التي تساعدك علي أداء عملك بجودة أفضل',
         systemPos : [
             {id: 1 , posName:'إضافة و تعديل حصص جديدة ' , description:'متابعة مرضاك ', icon:'window-dock'},
@@ -1186,7 +1186,7 @@ const APPItem = {
         RequestTable:'Magazin', 
         systemReady: true ,
         systemVideoId: 'qaTB_u1THVs' ,
-        systemUrl:'https://magazin.system.abyedh.tn',
+        systemUrl:'https://magazin.system.abyedh.com',
         adsText:'نظام إداراة المغازاة و نقاط البيع يساعدك علي مراقبة و التحكم في مخزون المنتجات (stock) و متابعة فواتيرك و الإتصال بعملاءك و متابعة طلباتهم . كما يقدم لك واجهة رسومية (caisse) لتسجيل المبيعات و طباعة الفواتير. بالإضافة إلي مجموعة من الأدوات الإبداعية (مثل واجهة إستخراج الأسعار) التي تساعدك علي أداء عملك بجودة أفضل',
         systemPos : [
             {id: 1 , posName:'إضافة و تعديل منتجات جديدة للمخزون ' , description:'متابعة مرضاك ', icon:'window-dock'},
@@ -1625,7 +1625,7 @@ const APPItem = {
         RequestTable:'Bijouterie', 
         systemReady: false ,
         systemVideoId: 'qaTB_u1THVs' ,
-        systemUrl:'https://boutique.system.abyedh.tn',
+        systemUrl:'https://boutique.system.abyedh.com',
         adsText:'نظام إداراة نقاط بيع الملابس  يساعدك علي مراقبة و التحكم في مخزون المنتجات (stock) و متابعة فواتيرك و الإتصال بعملاءك و متابعة طلباتهم . كما يقدم لك واجهة رسومية (caisse) لتسجيل المبيعات و طباعة الفواتير. بالإضافة إلي مجموعة من الأدوات الإبداعية (مثل واجهة إستخراج الأسعار) التي تساعدك علي أداء عملك بجودة أفضل',
         systemPos : [
             {id: 1 , posName:'إضافة و تعديل منتجات جديدة للمخزون ' , description:'متابعة مرضاك ', icon:'window-dock'},
@@ -1688,7 +1688,7 @@ const APPItem = {
         RequestTable:'Quicaillerie', 
         systemReady: true ,
         systemVideoId: 'qaTB_u1THVs' ,
-        systemUrl:'https://quincaillerie.system.abyedh.tn',
+        systemUrl:'https://quincaillerie.system.abyedh.com',
         adsText:'نظام إداراة Quancaillerie  يساعدك علي مراقبة و التحكم في مخزون المنتجات (stock) و متابعة فواتيرك و الإتصال بعملاءك و متابعة طلباتهم . كما يقدم لك واجهة رسومية (caisse) لتسجيل المبيعات و طباعة الفواتير. بالإضافة إلي مجموعة من الأدوات الإبداعية (مثل واجهة إستخراج الأسعار) التي تساعدك علي أداء عملك بجودة أفضل',
         systemPos : [
             {id: 1 , posName:'إضافة و تعديل منتجات جديدة للمخزون ' , description:'متابعة مرضاك ', icon:'window-dock'},
@@ -1743,7 +1743,7 @@ const APPItem = {
         RequestTable:'Boutique', 
         systemReady: true ,
         systemVideoId: 'qaTB_u1THVs' ,
-        systemUrl:'https://boutique.system.abyedh.tn',
+        systemUrl:'https://boutique.system.abyedh.com',
         adsText:'نظام إداراة نقاط بيع الملابس  يساعدك علي مراقبة و التحكم في مخزون المنتجات (stock) و متابعة فواتيرك و الإتصال بعملاءك و متابعة طلباتهم . كما يقدم لك واجهة رسومية (caisse) لتسجيل المبيعات و طباعة الفواتير. بالإضافة إلي مجموعة من الأدوات الإبداعية (مثل واجهة إستخراج الأسعار) التي تساعدك علي أداء عملك بجودة أفضل',
         systemPos : [
             {id: 1 , posName:'إضافة و تعديل منتجات جديدة للمخزون ' , description:'متابعة مرضاك ', icon:'window-dock'},
@@ -1808,7 +1808,7 @@ const APPItem = {
         RequestTable:'PTVGros', 
         systemReady: true ,
         systemVideoId: 'qaTB_u1THVs' ,
-        systemUrl:'https://ptvgros.system.abyedh.tn/',
+        systemUrl:'https://ptvgros.system.abyedh.com/',
         adsText:'نظام إداراة نقاط البيع بالجملة يساعدك علي مراقبة و التحكم في مخزون المنتجات (stock) و متابعة فواتيرك و الإتصال بعملاءك و متابعة طلباتهم .  كما يقدم لك واجهة رسومية (caisse) لتسجيل المبيعات و طباعة الفواتير.  بالإضافة إلي مجموعة من الأدوات الإبداعية (مثل واجهة إستخراج الأسعار)  التي تساعدك علي أداء عملك بجودة أفضل',
         systemPos : [
             {id: 1 , posName:'إضافة و تعديل منتجات جديدة للمخزون ' , description:'متابعة مرضاك ', icon:'window-dock'},
@@ -2455,7 +2455,7 @@ const APPItem = {
         colorTheme:'#c30052',
         adsImageUrl:'wedding_salon_marriage.svg',
         systemTitle:'نظام إداراة قاعة أفراح و مؤتمرات',
-        systemUrl:'https://sallon.system.abyedh.tn/',
+        systemUrl:'https://sallon.system.abyedh.com/',
         directoryTable:'صاحب قاعة أفراح', 
         RequestTable:'SllonMariage', 
         systemReady: true ,
@@ -2724,7 +2724,7 @@ const APPItem = {
         directoryTable:'صاحب قاعة رياضة', 
         RequestTable:'Gym', 
         systemReady: true ,
-        systemUrl:'https://gym.system.abyedh.tn/',
+        systemUrl:'https://gym.system.abyedh.com/',
         adsText:'   نظام إدارة  قاعات الرياضة هو نظام إدارة و  محاسبة و تواصل مع مشتركيك و مراقبة أداءهم و تطور نشاطهم الرياضي من خلال خلق فضاء للتفاعل إفتراضيا مع القاعة لتقييم خدماتها ...',
         systemPos : [
             {id: 1 , posName:'رقمنة و أرشفة الأشتراكات' , description:'', icon:'window-dock'},
@@ -3069,7 +3069,7 @@ const APPItem = {
         RequestTable:'Avocat', 
         systemReady: true ,
         systemVideoId: 'qaTB_u1THVs' ,
-        systemUrl:'https://avocat.system.abyedh.tn/',
+        systemUrl:'https://avocat.system.abyedh.com/',
         adsText:'نظام إداراة نقاط البيع بالجملة يساعدك علي مراقبة و التحكم في مخزون المنتجات (stock) و متابعة فواتيرك و الإتصال بعملاءك و متابعة طلباتهم . كما يقدم لك واجهة رسومية (caisse) لتسجيل المبيعات و طباعة الفواتير. بالإضافة إلي مجموعة من الأدوات الإبداعية (مثل واجهة إستخراج الأسعار) التي تساعدك علي أداء عملك بجودة أفضل',
         systemPos : [
             {id: 1 , posName:'أرشفة و رقمنة القضايا الموكولة' , description:'متابعة مرضاك ', icon:'window-dock'},
@@ -3127,7 +3127,7 @@ const APPItem = {
         directoryTable:'صاحب مطعم ', 
         RequestTable:'Restaurant', 
         systemReady: true ,
-        systemUrl:'https://restaurant.system.abyedh.tn/',
+        systemUrl:'https://restaurant.system.abyedh.com/',
         adsText:'نظام إداراة نقاط البيع بالجملة يساعدك علي مراقبة و التحكم في مخزون المنتجات (stock) و متابعة فواتيرك و الإتصال بعملاءك و متابعة طلباتهم . كما يقدم لك واجهة رسومية (caisse) لتسجيل المبيعات و طباعة الفواتير. بالإضافة إلي مجموعة من الأدوات الإبداعية (مثل واجهة إستخراج الأسعار) التي تساعدك علي أداء عملك بجودة أفضل',
         systemPos : [
             {id: 1 , posName:'أرشفة ومتابعة قائمة الأطباق' , description:'تمكنك من إدارة القوائم الخاصة بالمطعم متاعك و تخليك متابع لعملية البيع الخاصة بكل قائمة ', icon:'window-dock'},
@@ -3189,7 +3189,7 @@ const APPItem = {
         colorTheme:'#363636',
         adsImageUrl:'cafe.svg',
         systemTitle:'نظام إداراة المقاهي و قاعات الشاي',
-        systemUrl:'https://cafe.system.abyedh.tn/Login',
+        systemUrl:'https://cafe.system.abyedh.com/Login',
         businesName:'المقهي ',
         directoryTable:' صاحب مقهي ', 
         RequestTable:'Cafe', 
@@ -3266,7 +3266,7 @@ const APPItem = {
         RequestTable:'Hotels', 
         systemReady: true ,
         systemVideoId: 'qaTB_u1THVs' ,
-        systemUrl:'https://hotel.system.abyedh.tn/',
+        systemUrl:'https://hotel.system.abyedh.com/',
         adsText:'نظام إداراة نقاط البيع بالجملة يساعدك علي مراقبة و التحكم في مخزون المنتجات (stock) و متابعة فواتيرك و الإتصال بعملاءك و متابعة طلباتهم . كما يقدم لك واجهة رسومية (caisse) لتسجيل المبيعات و طباعة الفواتير. بالإضافة إلي مجموعة من الأدوات الإبداعية (مثل واجهة إستخراج الأسعار) التي تساعدك علي أداء عملك بجودة أفضل',
         systemPos : [
             {id: 1 , posName:'إضافة و رقمنة الغرف حسب الصنف ' , description:'متابعة مرضاك ', icon:'window-dock'},
@@ -3756,7 +3756,7 @@ const APPItem = {
         RequestTable:'veterinaire', 
         systemReady: false ,
         systemVideoId: 'qaTB_u1THVs' ,
-        systemUrl:'https://veterinaire.system.abyedh.tn',
+        systemUrl:'https://veterinaire.system.abyedh.com',
         adsText:' نظام إداراة العيادات يقدم لك مجموعة من الأدوات و الحلول الرقمية التي تساعدك علي أداء عملك بالشكل الممتاز , كما أنه يبقيك دائما متصلا مع مرضاك  للإطمئنان علي صحتهم و متابعة تطور حالتهم الصحية , بالإضافة إلي مجموعة من لوحات لاتحكم الموجهة لفريق العمل لتتابع أداء مهامهم بسهولة , فضلا  عن مجموعة متميزة من الأدوات التي تعينك علي تطوير عملك ',
         systemPos : [
             {id: 1 , posName:'إضافة و تعديل حصص جديدة ' , description:'متابعة مرضاك ', icon:'window-dock'},

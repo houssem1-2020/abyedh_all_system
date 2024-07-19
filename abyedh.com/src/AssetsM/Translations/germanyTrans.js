@@ -65,6 +65,12 @@ const GermanyTrans = {
                 parametres: 'Sprache ändern',
                 logOut: 'Abmelden',
             },
+            qrCodeScanner: {
+                scanText: 'Identifikator scannen',
+                voirProfileText: 'Profil ansehen'
+            },
+            toolsModalText: 'Weiße Apps',
+            voisTous: 'Alle anzeigen',            
             mainadsCard: 'Abyedh hilft Ihnen in mehreren Bereichen, zu finden: ',
 
             mainTagsName: {
@@ -2577,6 +2583,7 @@ const GermanyTrans = {
                 fourragerie_shop: 'Futterkauf'
             },
             favoiteItemList: {
+                favEmpty : 'Sie haben keine Elemente in Ihren Favoriten. Erkunden Sie die Suchmaschine auf der Startseite.',
                 admin: 'Verwaltung',
                 sante: 'Gesundheit',
                 education: 'Bildung',
@@ -2588,11 +2595,33 @@ const GermanyTrans = {
                 construction: 'Bauwesen',
                 autre: 'Sonstiges'
             },
-            PostsTabs :{
-                noPostToShow: '',
-                textText: '',
-                photoText: '',
-                videoText: '',
+            docummentPage: {
+                filesTile: 'Dateien',
+                docummentTile: 'Öffentliche Dokumente',
+                itemsList: {
+                    sante: 'Gesundheitsakten',
+                    education: 'Bildungsakten',
+                    transport: 'Transportakten',
+                    sport: 'Sportakten',
+                    docs: 'Dokumente',
+                    subs: 'Abonnements',
+                    factures: 'Rechnungen',
+                    recue: 'Quittungen'
+                }
+            },
+            SettingPage: {
+                itemsList: {
+                    basicInfo: 'Allgemeine Informationen',
+                    securityInfo: 'Passwort',
+                    positionInfo: 'Standort',
+                    darkTheme: 'Dunkles Thema',
+                    notification: 'Benachrichtigungen',
+                    language: 'Sprache',
+                    country: 'Land',
+                    bug: 'Fehler melden',
+                    contact: 'Kontaktiere uns',
+                    invite: 'Freund einladen'
+                }
             },
             toastText:{
                 failOne:'',
@@ -4393,9 +4422,9 @@ const GermanyTrans = {
                 }
             },            
             systemInscriptionPage : {
-                mainFirstTitle:'',
-                systemNamesData:'',
-                fullVersionHelpYouText:'',
+                mainFirstTitle: 'Abonnementseite für die Vollversion von',
+                systemNamesData: 'die Vollversion von',
+                fullVersionHelpYouText: 'hilft Ihnen, Ihr Geschäft zu digitalisieren, indem es Ihnen ermöglicht:',
                 systemsPlusData:{
                     docteur: {
                         "1": "Ajouter et modifier de nouvelles consultations",
@@ -4823,20 +4852,26 @@ const GermanyTrans = {
                     "5": "إنشاء تقارير حسب النوع"
                     }
                 },
-                startCard : {
-                    subscribeNow:'',
-                    systemNeedTwoCon :'',
-                    conditionOne:'',
-                    conditionTwo :'',
-                    saveSubsRequestButton:'',
-                    priceText:''
+                
+                startCard: {
+                    subscribeNow: 'Jetzt abonnieren und 15 Tage kostenlos testen',
+                    systemNeedTwoCon: 'Das System benötigt zwei Bedingungen, um zu funktionieren:',
+                    conditionOne: 'Einen Computer, sei es ein Laptop oder ein Desktop (idealerweise sollte der RAM mindestens 4 GB betragen)',
+                    conditionTwo: 'Eine Internetverbindung (je besser die Verbindung, desto besser funktioniert das System, und WLAN ist besser als 3G/4G)',
+                    saveSubsRequestButton: 'Abonnementanfrage speichern',
+                    priceText: 'Jahresabonnementpreis: 500 EUR',
                 },
-                waitingCard : {
-                    subsIsRunning :'',
-                    suppText:'',
+                waitingCard: {
+                    subsIsRunning: 'Der Anmeldeprozess zur Erlangung des erforderlichen Systems läuft...',
+                    suppText: 'Die Anfrage wurde erhalten, und wir werden Sie innerhalb von 24 Stunden über die von Ihnen registrierte Nummer kontaktieren',
                 },
-                SuccessCard :{
-
+                SuccessCard: {
+                    congratText: 'Herzlichen Glückwunsch, Sie haben das System erhalten',
+                    clicHer: 'Klicken Sie auf den Link, um auf das System zuzugreifen',
+                    identif: 'Benutzername:',
+                    pwdText: 'Passwort:',
+                    youCanText: 'Sie können uns jederzeit kontaktieren, um Hilfe bei der Systemnutzung und beim Abschluss des Installationsprozesses zu erhalten. Wir empfehlen Ihnen auch, das obige Video anzusehen',
+                    btnText: 'System-Link'
                 }
 
             },

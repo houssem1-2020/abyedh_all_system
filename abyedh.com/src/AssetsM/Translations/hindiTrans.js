@@ -65,6 +65,12 @@ const HindiTrans = {
                 parametres: 'भाषा बदलें',
                 logOut: 'लॉग आउट',
             },
+            qrCodeScanner: {
+                scanText: 'पहचानकर्ता स्कैन करें',
+                voirProfileText: 'प्रोफ़ाइल देखें'
+            },
+            toolsModalText: 'सफेद ऐप्स',
+            voisTous: 'सभी दिखाएं',            
             mainadsCard: 'Abyedh प्लैटफ़ॉर्म आपको कई क्षेत्रों में ढूंढने में मदद करता है: ',
 
             mainTagsName: {
@@ -2736,6 +2742,7 @@ const HindiTrans = {
                 fourragerie_shop: 'चारा खरीद'
             },
             favoiteItemList: {
+                favEmpty : 'आपके पसंदीदा में कोई आइटम नहीं है। मुखपृष्ठ पर खोज इंजन का अन्वेषण करें। ',
                 admin: 'प्रशासन',
                 sante: 'स्वास्थ्य',
                 education: 'शिक्षा',
@@ -2747,6 +2754,20 @@ const HindiTrans = {
                 construction: 'निर्माण',
                 autre: 'अन्य'
             },
+            docummentPage: {
+                filesTile: 'फ़ाइलें',
+                docummentTile: 'सार्वजनिक दस्तावेज़',
+                itemsList: {
+                    sante: 'स्वास्थ्य फ़ाइलें',
+                    education: 'शिक्षा फ़ाइलें',
+                    transport: 'परिवहन फ़ाइलें',
+                    sport: 'खेल फ़ाइलें',
+                    docs: 'दस्तावेज़',
+                    subs: 'सदस्यता',
+                    factures: 'बिल',
+                    recue: 'रसीद'
+                }
+            },            
             SettingPage :{
                 itemsList: {
                     basicInfo: 'सामान्य जानकारी',
@@ -4566,9 +4587,9 @@ const HindiTrans = {
                 }
             },
             systemInscriptionPage : {
-                mainFirstTitle:'',
-                systemNamesData:'',
-                fullVersionHelpYouText:'',
+                mainFirstTitle: 'पूर्ण संस्करण के लिए सब्सक्रिप्शन पेज',
+                systemNamesData: 'पूर्ण संस्करण',
+                fullVersionHelpYouText: 'आपकी व्यावसायिक गतिविधियों को डिजिटलीकृत करने में मदद करता है, जिससे आप:',
                 systemsPlusData:{
                     docteur: {
                         "1": "Ajouter et modifier de nouvelles consultations",
@@ -4996,22 +5017,26 @@ const HindiTrans = {
                     "5": "إنشاء تقارير حسب النوع"
                     }
                 },
-                startCard : {
-                    subscribeNow:'',
-                    systemNeedTwoCon :'',
-                    conditionOne:'',
-                    conditionTwo :'',
-                    saveSubsRequestButton:'',
-                    priceText:''
+                startCard: {
+                  subscribeNow: 'अभी सब्सक्राइब करें और सिस्टम का 15 दिन का निःशुल्क परीक्षण प्राप्त करें',
+                  systemNeedTwoCon: 'सिस्टम को काम करने के लिए दो शर्तों की आवश्यकता है:',
+                  conditionOne: 'एक कंप्यूटर, चाहे वह लैपटॉप हो या डेस्कटॉप (RAM कम से कम 4 GB होना बेहतर है)',
+                  conditionTwo: 'एक इंटरनेट कनेक्शन (जितना अच्छा कनेक्शन होगा, सिस्टम उतना अच्छा काम करेगा, और WiFi 3G/4G से बेहतर है)',
+                  saveSubsRequestButton: 'सब्सक्रिप्शन अनुरोध सहेजें',
+                  priceText: 'वार्षिक सब्सक्रिप्शन मूल्य: 500 यूरो',
                 },
-                waitingCard : {
-                    subsIsRunning :'',
-                    suppText:'',
+                waitingCard: {
+                  subsIsRunning: 'आवश्यक सिस्टम के लिए पंजीकरण प्रक्रिया चल रही है...',
+                  suppText: 'अनुरोध प्राप्त कर लिया गया है और हम आपको आपके पंजीकृत नंबर पर 24 घंटे के भीतर संपर्क करेंगे',
                 },
-                SuccessCard :{
-
+                SuccessCard: {
+                  congratText: 'बधाई हो, आपने सिस्टम प्राप्त कर लिया है',
+                  clicHer: 'सिस्टम तक पहुँचने के लिए लिंक पर क्लिक करें',
+                  identif: 'उपयोगकर्ता नाम:',
+                  pwdText: 'पासवर्ड:',
+                  youCanText: 'आप सिस्टम को समझने और इंस्टालेशन प्रक्रिया को पूरा करने में मदद के लिए हमसे संपर्क कर सकते हैं। हम आपको ऊपर दिए गए वीडियो को भी देखने की सलाह देते हैं',
+                  btnText: 'सिस्टम लिंक'
                 }
-
             },
             
         },

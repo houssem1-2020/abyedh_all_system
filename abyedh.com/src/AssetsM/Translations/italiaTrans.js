@@ -57,6 +57,12 @@ const ItaliaTrans = {
                 parametres: 'Cambia lingua',
                 logOut: 'Esci',
             },
+            qrCodeScanner: {
+                scanText: 'Scansiona l\'identificatore',
+                voirProfileText: 'Visualizza profilo'
+            },
+            toolsModalText: 'App bianche',
+            voisTous: 'Mostra tutto',            
             mainadsCard: 'La Piattaforma Abyedh ti aiuta in diversi settori a trovare: ',
 
             mainTagsName: {
@@ -3277,8 +3283,33 @@ const ItaliaTrans = {
                     four : 'Immagine eliminata!',
                     five : '',
                 }
+            },
+            systemInscriptionPage:{
+                        mainFirstTitle: 'Pagina di abbonamento alla versione completa per',
+                        systemNamesData: 'la versione completa di',
+                        fullVersionHelpYouText: 'ti aiuta a digitalizzare la tua attività professionale, permettendoti di:',
+                        startCard: {
+                        subscribeNow: 'Iscriviti ora e ottieni 15 giorni gratuiti per provare il sistema',
+                        systemNeedTwoCon: 'Il sistema richiede due condizioni per funzionare:',
+                        conditionOne: 'Un computer, che sia portatile o desktop (è preferibile che la RAM sia di almeno 4 GB)',
+                        conditionTwo: 'Una connessione Internet (più la connessione è buona, meglio funziona il sistema, e il Wi-Fi è migliore del 3G/4G)',
+                        saveSubsRequestButton: 'Salva la richiesta di abbonamento',
+                        priceText: 'Prezzo dell\'abbonamento annuale: 500 EUR',
+                        },
+                        waitingCard: {
+                        subsIsRunning: 'Il processo di registrazione per ottenere il sistema richiesto è in corso...',
+                        suppText: 'La richiesta è stata ricevuta e ti contatteremo al numero registrato entro 24 ore',
+                        },
+                        SuccessCard: {
+                        congratText: 'Congratulazioni, hai ottenuto il sistema',
+                        clicHer: 'Clicca sul link per accedere al sistema',
+                        identif: 'Nome utente:',
+                        pwdText: 'Password:',
+                        youCanText: 'Puoi sempre contattarci per aiutarti a comprendere il sistema e completare il processo di installazione. Ti consigliamo anche di guardare il video sopra',
+                        btnText: 'Link al sistema'
+                        }
+
             }
-            
         },
         toolsApps : {
             toolsPage:{

@@ -482,7 +482,7 @@ function SearchLandingPage() {
     }*/
     const SuivieCard = (props) =>{
         return(<>
-            <div className='card card-body border-div shadow-sm mb-2'>
+            <div className='card p-1 border-div shadow-sm mb-2'>
                     <div className='row mt-2 mb-0' dir={isRTL ? 'rtl' : 'ltr'}>
                         <div className='col-12'> 
                             <div className="d-flex align-items-center">
@@ -490,8 +490,8 @@ function SearchLandingPage() {
                                     <img src={`https://cdn.abyedh.com/images/Search/CIcons/${props.data.P_Genre}.gif`} alt="..."  width='50px' height='50px'/>
                                 </div>
                                 <div className="flex-grow-1 ms-3">
-                                    <h4 className='mb-0 text-secondary'><NavLink exact='true' to={`/Profile/L/sv/${props.data.RequestData.R_ID}`}>{props.data.PidData.Name}   </NavLink></h4>
-                                    <div ><b className='text-secondary' dir='ltr'>  {new Date(props.data.Notif_Date).toLocaleDateString('fr-FR').split( '/' ).reverse( ).join( '-' )} | {t(`userProfile.suivieTitlePage.${props.data.Notif_Name}`)}  </b></div>
+                                    <h4 className='mb-0 text-secondary'><NavLink exact='true' to={`/Profile/L/sv/${props.data.RequestData.R_ID}`}>{t(`userProfile.suivieTitlePage.${props.data.Notif_Name}`)}  {props.data.PidData.Name}  </NavLink></h4>
+                                    <div ><b className='text-secondary' dir={isRTL ? 'rtl' : 'ltr'}> <span className='bi bi-calendar-week '></span> {new Date(props.data.Notif_Date).toLocaleDateString('fr-FR').split( '/' ).reverse( ).join( '-' )}     </b></div>
                                 </div>
                             </div>
                         </div>

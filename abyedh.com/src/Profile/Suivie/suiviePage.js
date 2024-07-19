@@ -20,6 +20,7 @@ import 'react-vertical-timeline-component/style.min.css';
 import { useNavigate} from 'react-router-dom';
 import { useTranslation, Trans } from 'react-i18next';
 import detectRTL from 'rtl-detect';
+ 
 
 function SuiviePage() {
     /* ###########################[const]############################ */
@@ -61,7 +62,7 @@ function SuiviePage() {
    /* ###########################[Card]############################# */
 
    const StateCard = ({ status }) => {
-    const StateCard = (props) =>{ return <span className={`badge bg-${props.color}`}> {props.text} </span>}
+    const StateCard = (props) =>{ return <span className={`badge bg-${props.color} p-1`}> {props.text} </span>}
     const statusCard = React.useCallback(() => {
       switch(status) {
         case 'W': return <StateCard color='warning' text={t('appPages.requestPage.stateText.W')} />;  
@@ -82,7 +83,7 @@ function SuiviePage() {
     }, [status]);
   
     return (
-      <div className="p-1">
+      <div className="p-1  ">
         {statusCard()}
       </div>
     );
@@ -160,19 +161,30 @@ function SuiviePage() {
                             <div className={`col-2   align-self-center ${isRTL ? 'text-end' : 'text-start'}   pe-0`}> <span className={`bi bi-${SuivieRequestData[props.data.Notif_Name].stepsValues2[props.data.State].icon} bi-md text-success`}></span>   </div>
                             {/* <div className='col-2   align-self-center text-end   pe-0'> <CircularPourcentage value={SuivieRequestData[props.data.Notif_Name].stepsValues2[props.data.State].value} /> </div> */}
                         </div>
-                        <div className='card-body '>
-                                <div className='text-secondary' dir={isRTL ? 'rtl': 'ltr'}>1- {new Date(props.data.Notif_Date).toLocaleDateString('fr-FR').split( '/' ).reverse( ).join( '-' )} | {props.data.RequestData.R_Time} </div>
-                                <div className='text-secondary' dir={isRTL ? 'rtl': 'ltr'}> <StateCard status={props.data.RequestData.State} /> </div>
-                            {/* <Button.Group fluid>
-                                <Button className='bg-white' icon onClick={() => navigate(`/Profile/L/sv/${props.data.RequestData.R_ID}`)}> <Icon name='eye' /> متابعة</Button>
-                                <Button  className='bg-white' icon onClick={() => navigate(`/Profile/L/sv/${props.data.RequestData.R_ID}`)}> <Icon name='edit outline' /> تعديل </Button>
-                            </Button.Group> */}
+                        <div className='card-body  pb-0'>
+                                <div className='text-secondary' dir={isRTL ? 'rtl': 'ltr'}> <span className='bi bi-calendar-week '></span> {new Date(props.data.Notif_Date).toLocaleDateString('fr-FR').split( '/' ).reverse( ).join( '-' )} | {props.data.RequestData.R_Time} </div>
+                                <div className='text-secondary' dir={isRTL ? 'rtl': 'ltr'}> 
+                                    <span className='bi bi-reply-all'></span>
+                                    <span> {Math.floor(Math.random() * 10)} ردور </span> 
+                                 </div>
                         </div>
-                        <div className={`p-1 ${isRTL ? 'text-start' : 'text-end'}`}>
+                        <div className='p-2 row'>
+                                <div className='col-8 text-secondary'>
+                                    <StateCard status={props.data.RequestData.State} /> 
+                                </div>
+                                <div className={`col-4 ${isRTL ? 'text-start' : 'text-end'}`}>
+                                    <NavLink to={`/Profile/L/sv/${props.data.RequestData.R_ID}`}>
+                                        <Button className='rounded-circle bg-transparent border p-2' size='small' icon> <Icon name={`arrow ${isRTL ? 'left' : 'right'}`} /> </Button>
+                                    </NavLink>
+
+                                </div>
+                                
+                        </div>
+                        {/* <div className={`p-1 ${isRTL ? 'text-start' : 'text-end'}`}>
                             <NavLink to={`/Profile/L/sv/${props.data.RequestData.R_ID}`}>
                                 <Button className='rounded-circle bg-transparent border p-2' size='small' icon> <Icon name={`arrow ${isRTL ? 'left' : 'right'}`} /> </Button>
                             </NavLink>
-                        </div>
+                        </div> */}
                     {/*<div className='card-body pb-0 d-none d-lg-block'>
                         <div className='row'>
                             <div className='col-6'> <RendredData /> </div>

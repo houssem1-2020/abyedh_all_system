@@ -31,9 +31,9 @@ const FrancaisTrans = {
               phoneTextPlaceholder: "Numéro de téléphone requis"
           },
           locationGeo: {
-              positionGeoText: "Sélectionnez une wilaya",
-              selectGouvText: "Sélectionnez une wilaya",
-              selectDelegText: "Sélectionnez une délégation"
+              positionGeoText: "Sélectionnez une Region",
+              selectGouvText: "Sélectionnez une Region",
+              selectDelegText: "Sélectionnez un Depart."
           },
           selectPhoto: {
               selectPhotoText: ""
@@ -56,7 +56,7 @@ const FrancaisTrans = {
             mainTitle : 'Abyedh' , 
             mainsubads : 'Plusieurs applications en une seule application',
             mainlogInText : 'Se connecter',
-            mainsearchInput : '... Rechercher',
+            mainsearchInput : 'Rechercher ... ',
             qrCodeScan : 'Scanner le code QR',
             dropDownProfile : {
                 profile : 'Profil',
@@ -65,6 +65,12 @@ const FrancaisTrans = {
                 parametres : 'langue',
                 logOut : 'Se déconnecter',
             },
+            qrCodeScanner: {
+              scanText: 'Scannez l\'identifiant',
+              voirProfileText: 'Voir le profil'
+            },   
+            toolsModalText:'Les Outils de A*Abyedh',       
+            voisTous:'Voir +',       
             mainadsCard : 'Abyedh vous aide  pour trouver : ',
             recent : 'Recent & populaire ',
             mainTagsName: {
@@ -322,12 +328,12 @@ const FrancaisTrans = {
                     sea: "Soins intensifs"
                 },
                 admin_s_hospital: {
-                    admin_s_hospital: "Administration hospitalière régionale",
-                    admin_s_hospital: "Administration hospitalière universitaire",
-                    admin_s_hospital: "Administration hospitalière militaire"
+                    admin_s_hospital: "A. hospitalière régionale",
+                    admin_s_hospital: "A. hospitalière universitaire",
+                    admin_s_hospital: "A. hospitalière militaire"
                 },
                 admin_s_csb: {
-                    admin_s_csb: "Administration du centre de santé",
+                    admin_s_csb: "A. du centre de santé",
                     admin_s_csb: "Centre de santé de base"
                 },
                 garderie: {
@@ -335,7 +341,7 @@ const FrancaisTrans = {
                     nurserya: "Crèche"
                 },
                 ecole: {
-                    ecole_arab: "École de langue arabe",
+                    ecole_arab: "École de langue Etrangére",
                     ecole_frensh: "École de langue française"
                 },
                 lycee: {
@@ -373,8 +379,8 @@ const FrancaisTrans = {
                     admin_e_centre: "Métiers"
                 },
                 admin_e_biblio: {
-                    admin_e_biblio: "Bibliothèque publique",
-                    admin_e_biblio: "Bibliothèque nationale"
+                    admin_e_biblio: "Publique",
+                    admin_e_biblio: "Nationale"
                 },
                 admin_e_ecole: {
                     admin_e_ecole: "École primaire",
@@ -416,7 +422,7 @@ const FrancaisTrans = {
                   restaurant: {
                     kaftaji: "5 étoiles",
                     resto1: "Plat léger",
-                    mlawi: "Mlawi",
+                    mlawi: "Traditionelle",
                     pizza: "Pizza"
                   },
                   magazin: {
@@ -425,7 +431,7 @@ const FrancaisTrans = {
                     small_shop: "Épicerie"
                   },
                   boulengerie: {
-                    tabouna: "Tabouna",
+                    tabouna: "Traditionnelle",
                     Baguette: "Baguette",
                     pain_arabe: "Pain arabe"
                   },
@@ -454,13 +460,13 @@ const FrancaisTrans = {
                     electro_phone: "Tél. & Ordinateurs"
                   },
                   meublerie: {
-                    meuble_maison: "Mobilier Dom.",
-                    meuble_bureaux: "Mobilier Bureau"
+                    meuble_maison: "Domicille",
+                    meuble_bureaux: "Bureautique"
                   },
                   location: {
-                    location_voiture: "Location Voit.",
-                    location_camion: "Location Cam.",
-                    location_moto: "Location Moto"
+                    location_voiture: "Voitures",
+                    location_camion: "Camions",
+                    location_moto: "Moto"
                   },
                   parking: {
                     parking_publique: "Park. Public",
@@ -479,7 +485,7 @@ const FrancaisTrans = {
                     courtier_buying: "Achat"
                   },
                   contracteur: {
-                    moukawel: "Entrepreneur"
+                    moukawel: "Contracteur"
                   },
                   architecture: {
                     architect: "Bureau Archi."
@@ -518,7 +524,8 @@ const FrancaisTrans = {
                   },
                   coiffure: {
                     coiffure_man: "Hommes",
-                    coiffure_woumen: "Femmes"
+                    coiffure_woumen: "Femmes",
+                    coiffure_mixte: "Mixtes"
                   },
                   boutique: {
                     boutique_man: "Hommes",
@@ -537,7 +544,7 @@ const FrancaisTrans = {
                   },
                   chef: {
                     chef_externe: "Cuisine Étrangère",
-                    chef_interne: "Cuisine Tunisienne"
+                    chef_interne: "Cuisine Francaise"
                   },
                   photographe: {
                     photographe_marriage: "Photo Mariage",
@@ -650,7 +657,7 @@ const FrancaisTrans = {
                     agence_agence: "Agence Voyages"
                   },
                   admin_a_mu: {
-                    admin_a_mu: "Gouvernorat"
+                    admin_a_mu: "Municipalite"
                   },
                   admin_a_police: {
                     admin_a_police: "Police"
@@ -1573,7 +1580,6 @@ const FrancaisTrans = {
                 voirCommentText: "Liste",
                 inputCommentPlaceholderText: "Vos remarques ici",
                 saveCommentBtnText: "Enregistrer le commentaire",
-
             },
             SpesificData : {
               docteur : {
@@ -1641,56 +1647,103 @@ const FrancaisTrans = {
                 pubs :'Publicités',
                 },
                 ecole :{
-                    one:'',
-                    two:'',
+                  Tarifs : 'Tarifs d\'inscription',
+                  structure : 'Structure de l\'établissement',
+                  model : 'Modèle du bâtiment',
+                  emploi : 'Emploi du temps',
+                  exCalendar : 'Calendrier des examens',
+                  team : 'Équipe éducative',
+                  pubs : 'Annonces',
                 },
                 lycee :{
-                    one:'',
-                    two:'',
+                  tarifs : 'Tarifs d\'inscription',
+                  structure : 'Structure de l\'établissement',
+                  model : 'Modèle du bâtiment',
+                  emploi : 'Emploi du temps',
+                  exCalendar : 'Calendrier des examens',
+                  team : 'Équipe éducative',
+                  pubs : 'Annonces',
                 },
                 universite :{
-                    one:'',
-                    two:'',
+                  tarifs : 'Tarifs d\'inscription',
+                  structure : 'Structure de l\'établissement',
+                  model : 'Modèle du bâtiment',
+                  emploi : 'Emploi du temps',
+                  exCalendar : 'Calendrier des examens',
+                  team : 'Équipe éducative',
+                  pubs : 'Annonces',
                 },
                 formation :{
-                    one:'',
-                    two:'',
+                  tarifs : 'Tarifs d\'inscription',
+                  structure : 'Structure de l\'établissement',
+                  model : 'Modèle du bâtiment',
+                  emploi : 'Emploi du temps',
+                  exCalendar : 'Calendrier des examens',
+                  team : 'Équipe éducative',
+                  pubs : 'Annonces',
                 },
                 librairie :{
-                    one:'',
-                    two:'',
+                  team : 'Personnel',
+                  restingTime : 'Temps restant pour la commande',
+                  search : 'Recherche de produit',
+                  promo : 'Promotion',
+                  famille : 'Familles de produits',
                 },
                 admin_e_centre :{
-                    one:'',
-                    two:'',
+                  numTot : 'Nombre total de classes',
+                  spesGenres : 'Types de formation',
+                  howInsc : 'Comment s\'inscrire',
+                  team : 'Équipe éducative',
+                  two : 'Résultats des examens',
                 },
                 admin_e_biblio :{
-                    one:'',
-                    two:'',
+                  numLivre : 'Nombre total de livres',
+                  tarifs : 'Tarifs des services',
+                  livreList : 'Liste des livres',
+                  structure : 'Structure de la bibliothèque',
+                  howToInsc : 'Comment s\'abonner',
                 },
                 admin_e_ecole :{
-                    one:'',
-                    two:'',
+                  classes : 'Classes',
+                  stucture : 'Structure de l\'établissement',
+                  team : 'Équipe éducative',
+                  resultat : 'Résultats',
+                  pubs : 'Annonces',
                 },
                 admin_e_lycee :{
-                    one:'',
-                    two:'',
+                  classes : 'Classes',
+                  stucture : 'Structure de l\'établissement',
+                  team : 'Équipe éducative',
+                  resultat : 'Résultats',
+                  pubs : 'Annonces',
                 },
                 admin_e_universite :{
-                    one:'',
-                    two:'',
+                  classes : 'Classes',
+                  stucture : 'Structure de l\'établissement',
+                  team : 'Équipe éducative',
+                  resultat : 'Résultats',
+                  pubs : 'Annonces',
                 },
                 admin_e_ss :{
-                    one:'',
-                    two:'',
+                  dateRes : 'Dates de retour',
+                  services : 'Types de services',
+                  resultat : 'Résultats',
+                  team : 'Personnel',
+                  pubs : 'Annonces',
                 },
                 transporteur :{
-                    one:'',
-                    two:'',
+                  camions : 'Camions',
+                  trips : 'Voyages',
+                  tarifs : 'Tarifs des services',
+                  team : 'Équipe',
+                  pubs : 'Annonces',
                 },
                 autoecole :{
-                    one:'',
-                    two:'',
+                  cars : 'Voitures',
+                  howToInsc : 'Comment s\'inscrire',
+                  tarifs : 'Tarifs',
+                  team : 'Formateurs',
+                  plan : 'Plan de travail',
                 },
                 location :{
                     one:'',
@@ -1717,52 +1770,88 @@ const FrancaisTrans = {
                     two:'',
                 },
                 magazin :{
-                    one:'',
-                    two:'',
+                  team : 'Personnel',
+                  restingTime : 'Temps restant pour la commande',
+                  search : 'Recherche de produit',
+                  promo : 'Promotion',
+                  famille : 'Familles de produits',
                 },
                 boulengerie :{
-                    one:'',
-                    two:'',
+                  team : 'Personnel',
+                  restingTime : 'Temps restant pour la commande',
+                  search : 'Recherche de produit',
+                  promo : 'Promotion',
+                  famille : 'Familles de produits',
                 },
                 fruiterie :{
-                    one:'',
-                    two:'',
+                  team : 'Personnel',
+                  restingTime : 'Temps restant pour la commande',
+                  search : 'Recherche de produit',
+                  promo : 'Promotion',
+                  famille : 'Familles de produits',
                 },
-                patesserie :{
-                    one:'',
-                    two:'',
+                patisserie :{
+                  team : 'Personnel',
+                  restingTime : 'Temps restant pour la commande',
+                  search : 'Recherche de produit',
+                  promo : 'Promotion',
+                  famille : 'Familles de produits',
                 },
                 epicerie :{
-                    one:'',
-                    two:'',
+                  team : 'Personnel',
+                  restingTime : 'Temps restant pour la commande',
+                  search : 'Recherche de produit',
+                  promo : 'Promotion',
+                  famille : 'Familles de produits',
                 },
                 electromenager :{
-                    one:'',
-                    two:'',
+                  team : 'Personnel',
+                  restingTime : 'Temps restant pour la commande',
+                  search : 'Recherche de produit',
+                  promo : 'Promotion',
+                  famille : 'Familles de produits',
                 },
                 meublerie :{
-                    one:'',
-                    two:'',
+                  team : 'Personnel',
+                  restingTime : 'Temps restant pour la commande',
+                  search : 'Recherche de produit',
+                  promo : 'Promotion',
+                  famille : 'Familles de produits',
                 },
                 boutique :{
-                    one:'',
-                    two:'',
+                  team : 'Personnel',
+                  restingTime : 'Temps restant pour la commande',
+                  search : 'Recherche de produit',
+                  promo : 'Promotion',
+                  famille : 'Familles de produits',
                 },
                 bijouterie :{
-                    one:'',
-                    two:'',
+                  team : 'Personnel',
+                  restingTime : 'Temps restant pour la commande',
+                  search : 'Recherche de produit',
+                  promo : 'Promotion',
+                  famille : 'Familles de produits',
                 },
                 quincaillerie :{
-                    one:'',
-                    two:'',
+                  team : 'Personnel',
+                  restingTime : 'Temps restant pour la commande',
+                  search : 'Recherche de produit',
+                  promo : 'Promotion',
+                  famille : 'Familles de produits',
                 },
                 depot :{
-                    one:'',
-                    two:'',
+                  team : 'Personnel',
+                  restingTime : 'Temps restant pour la commande',
+                  search : 'Recherche de produit',
+                  promo : 'Promotion',
+                  famille : 'Familles de produits',
                 },
                 boucherie :{
-                    one:'',
-                    two:'',
+                  team : 'Personnel',
+                  restingTime : 'Temps restant pour la commande',
+                  search : 'Recherche de produit',
+                  promo : 'Promotion',
+                  famille : 'Familles de produits',
                 },
                 cafe :{
                     one:'',
@@ -1925,8 +2014,11 @@ const FrancaisTrans = {
                     two:'',
                 },
                 fourragerie :{
-                    one:'',
-                    two:'',
+                  team : 'Personnel',
+                  restingTime : 'Temps restant pour la commande',
+                  search : 'Recherche de produit',
+                  promo : 'Promotion',
+                  famille : 'Familles de produits',
                 },
                 veterinaire :{
                     one:'',
@@ -2898,6 +2990,7 @@ const FrancaisTrans = {
 
             },
             favoiteItemList : {
+                favEmpty : 'Vous n\'avez aucun article dans vos favoris. Explorez le moteur de recherche sur la page d\'accueil.',
                 admin: 'Administration',
                 sante: 'Santé',
                 education: 'Éducation',
@@ -2909,12 +3002,20 @@ const FrancaisTrans = {
                 construction: 'Construction',
                 autre: 'Autres'
             },
-            DocummentPage :{
-              noPostToShow: '',
-              textText: '',
-              photoText: '',
-              videoText: '',
-          },
+            docummentPage: {
+              filesTile: 'Fichiers',
+              docummentTile: 'Documents généraux',
+              itemsList: {
+                sante: 'Fichiers de santé',
+                education: 'Fichiers d\'éducation',
+                transport: 'Fichiers de transport',
+                sport: 'Fichiers sportifs',
+                docs: 'Documents',
+                subs: 'Abonnements',
+                factures: 'Factures',
+                recue: 'Reçu'
+              }
+            },            
             SettingPage :{
                 itemsList: {
                   basicInfo: 'Informations générales',
@@ -2929,74 +3030,73 @@ const FrancaisTrans = {
                   invite: 'Inviter un ami',
               },
             },
-            
             toastText:{
                 failOne:'',
                 failTwo:'',
             },
         },
         subscribeToSystems : {
-          mainTitle:'Inscription de {{ one }} sur  Abyedh.',
-          inscriptionUserWith :'Propriétaire ',
-          infoGeneraleText: 'Info Génerale sur  {{one }}',
-          infoGeneraleData : {
-              nomEtPrenon : 'Nom de {{ one }} ',
-              nomEtPreninPlaceholder : '',
-              genreText:'genre de {{one}}',
-              genreTextPlaceholder:'selectioner le genre de {{one}}',
-              PhoneText: "Numéro de téléphone {{one}}",
-              PhoneTextPlaceholder: "Numéro de téléphone {{one}}",
-              positionGeoText: "Emplacement géographique de {{one }}",
-              positionGeoTextPlaceholder: "",
-              GouvDelegText: "Sélectionnez un region",
-              GouvDelegTextPlaceholder: "Sélectionnez un  departemment ",
-              AdesssText: " Adresse de {{one }}",
-              AdesssTextPlaceholder: "",
-          },
-          PositionGpsText: 'Position GPS',
-          PositionGpsClickHereText: 'Cliquez ici pour définir votre emplacement actuel par défaut',
-          HoraireText: 'Horaires de travail',
-          HoraireData : {
-            alwaysOpenOne: 'Ouvert en permanence',
-            alwaysOpenTwo: 'Lorsque cette fonctionnalité est activée, elle s\'affiche en permanence.',
-              weekDayes : {
-                lundi: "Lundi",
-                mardi: "Mardi",
-                mercredi: "Mercredi",
-                jeudi: "Jeudi",
-                vendredi: "Vendredi",
-                samedi: "Samedi",
-                dimanche: "Dimanche",
-              },
-              dayText : 'Jour',
-              matinText:'Matin',
-              soirText:'Soir',
-              editData : {
-                  isDayOff : '',
-                  ouiText : '',
-                  nonText : '',
-                  editButtonText : '',
-                   
-              },
-          },
-          InscriptionLastText: 'Inscription',
-          InscriptionLast : {
-            firstCondition : 'Le processus d\'inscription peut prendre jusqu\'à 15 heures pour vérifier les informations fournies. Vous pouvez suivre le processus depuis la page de suivi.',
-            secondCondition:'Chaque abonné bénéficie d\'une version miniature et gratuite du système pour recevoir des demandes et communiquer avec les clients.',
-            thirdCondition:'Toute inscription contenant des informations erronées ou trompeuses sera automatiquement annulée.',
-            okayCondition :'D\'accord',
-            InscriptionButtonText: 'Inscription',
-          },
-          successModalData:{
-            operationR:'L\'inscription a été effectuée avec succès',
-            cliquerPourPasser:'Cliquez pour être redirigé vers la page de suivi de l\'acceptation',
-            followPage:'Page de suivi'
-          },
-          shouldLogInData:{
-            shouldText:'Vous devez d\'abord posséder un compte sur la plateforme Abyedh',
-            detailText:'Pour vous inscrire à {{one}}, vous devez d\'abord avoir un compte gratuit sur la plateforme Abyedh. Inscrivez-vous d\'abord sur la plateforme, puis revenez sur cette page pour terminer l\'inscription au système.',
-            clicLink:'Créer un compte'
-          }
+            mainTitle:'Inscription de {{ one }} sur  Abyedh.',
+            inscriptionUserWith :'Propriétaire ',
+            infoGeneraleText: 'Info Génerale sur  {{one }}',
+            infoGeneraleData : {
+                nomEtPrenon : 'Nom de {{ one }} ',
+                nomEtPreninPlaceholder : '',
+                genreText:'genre de {{one}}',
+                genreTextPlaceholder:'selectioner le genre de {{one}}',
+                PhoneText: "Numéro de téléphone {{one}}",
+                PhoneTextPlaceholder: "Numéro de téléphone {{one}}",
+                positionGeoText: "Emplacement géographique de {{one }}",
+                positionGeoTextPlaceholder: "",
+                GouvDelegText: "Sélectionnez un region",
+                GouvDelegTextPlaceholder: "Sélectionnez un  departemment ",
+                AdesssText: " Adresse de {{one }}",
+                AdesssTextPlaceholder: "",
+            },
+            PositionGpsText: 'Position GPS',
+            PositionGpsClickHereText: 'Cliquez ici pour définir votre emplacement actuel par défaut',
+            HoraireText: 'Horaires de travail',
+            HoraireData : {
+              alwaysOpenOne: 'Ouvert en permanence',
+              alwaysOpenTwo: 'Lorsque cette fonctionnalité est activée, elle s\'affiche en permanence.',
+                weekDayes : {
+                  lundi: "Lundi",
+                  mardi: "Mardi",
+                  mercredi: "Mercredi",
+                  jeudi: "Jeudi",
+                  vendredi: "Vendredi",
+                  samedi: "Samedi",
+                  dimanche: "Dimanche",
+                },
+                dayText : 'Jour',
+                matinText:'Matin',
+                soirText:'Soir',
+                editData : {
+                    isDayOff : '',
+                    ouiText : '',
+                    nonText : '',
+                    editButtonText : '',
+                    
+                },
+            },
+            InscriptionLastText: 'Inscription',
+            InscriptionLast : {
+              firstCondition : 'Le processus d\'inscription peut prendre jusqu\'à 15 heures pour vérifier les informations fournies. Vous pouvez suivre le processus depuis la page de suivi.',
+              secondCondition:'Chaque abonné bénéficie d\'une version miniature et gratuite du système pour recevoir des demandes et communiquer avec les clients.',
+              thirdCondition:'Toute inscription contenant des informations erronées ou trompeuses sera automatiquement annulée.',
+              okayCondition :'D\'accord',
+              InscriptionButtonText: 'Inscription',
+            },
+            successModalData:{
+              operationR:'L\'inscription a été effectuée avec succès',
+              cliquerPourPasser:'Cliquez pour être redirigé vers la page de suivi de l\'acceptation',
+              followPage:'Page de suivi'
+            },
+            shouldLogInData:{
+              shouldText:'Vous devez d\'abord posséder un compte sur la plateforme Abyedh',
+              detailText:'Pour vous inscrire à {{one}}, vous devez d\'abord avoir un compte gratuit sur la plateforme Abyedh. Inscrivez-vous d\'abord sur la plateforme, puis revenez sur cette page pour terminer l\'inscription au système.',
+              clicLink:'Créer un compte'
+            }
         },
         appPages : {
             loginPage : {
@@ -4608,55 +4708,118 @@ const FrancaisTrans = {
                       
                     
                 },
-                publicationText:'',
+                publicationText:'Publications',
+                horaireText:'Horaires',
+                imagesText:'Images',
+                ratingText:'Avis',
+                tarifText:'',
+                shareText:'Partager',
                 messageText:'',
-                parametreText:'',
+                parametreText:'Paramétre de Profile',
+                voirProfileText:'Voir Profile ',
             },
             requestPage : {
-
+              stateText:{
+                default : 'Indefinie',
+                W:'En Attent',
+                S:'Vu',
+                A:'Acepteé',
+                R:'Refuseé',
+                RT:'Retardeé',
+                RD:'Redirecteé',
+                LV:'Livreé',
+                MD:'Modifieé',
+                PR:'Pret',
+                PI:'Plus d info',
+                T:'Termineé',
+              },
+              ShareYourselfCard:{
+                titleText: 'Si vous ne recevez aucune commande, vous pouvez utiliser l\'une des méthodes suivantes pour promouvoir votre profil :',
+                textOne: 'Partagez votre profil sur les réseaux sociaux en utilisant le bouton ci-dessous',
+                textTwo: 'Imprimez cette affiche et collez-la sur votre bureau ou votre lieu de travail pour permettre aux clients d\'accéder facilement à votre profil en scannant votre code avec leurs téléphones',
+                btnShare: 'Partager le profil',
+                btnPrint: 'Imprimer l\'affiche',
+              } 
             },
             requestInfoPage : {
-                
+              tabsCard: {
+                one:'Info du',
+                two : 'Info Client'
+              },
+              stateActionText:{
+                UNR : 'Marquer non Vu',
+                default : 'Indefinie',
+                W:'En Attent',
+                S:'Vu',
+                A:'Acepteé',
+                R:'Refuseé',
+                RT:'Retardeé',
+                RD:'Redirecteé',
+                LV:'Livreé',
+                MD:'Modifieé',
+                PR:'Pret',
+                PI:'Plus d info',
+                T:'Termineé',
+              },
+              reponseText:'Les Reponses ',
+              userCard: {
+                title : 'Info Client',
+                nom:'Nom',
+                age:'Age',
+                Phone : 'Phone',
+                Gouv : 'Gouv',
+                Deleg : 'Deleg',
+                saveBtn : 'Enregistrer Client',
+                cantSave : 'Impossible d\'enregister le client, Car vous etes sur la version alfa du system '
+              },
+              sendBox: {
+                addResponse : 'Ajouter Reponses ici'
+              }
             },
             profilePage : {
-                voirProfileBtn:'',
+                voirProfileBtn:'Voir Profile ',
+                deconnextionText:'Deconnecter de systeme ',
+                deconnextionBtn:'Deconnexion ',
                 menuTabsText: {
-                    modifier:'',
-                    password:'',
-                    horaire:'',
-                    position :'',
-                    images:'',
-                    evaluation:'',
-                    imprimer:''
-
+                    modifier:'Info Generale ',
+                    password:'Mot de Passe ',
+                    position :'Position',
                 },
                 modifierData :{
-                    title:'',
-                    nom:'',
-                    phone:'',
-                    location:'',
-                    adresse:'',
-                    genreListe:'',
-                    modifierBtn:''
+                    title:'Information Génerale',
+                    nom:'Nom',
+                    phone:'Telephone',
+                    location:'Geolocation',
+                    adresse:'Adresse',
+                    genreListe:'Genre',
+                    genrePLCH:'Selectionnez Genre',
+                    modifierBtn:'Modifier'
                 },
                 passwordData :{
-
-                },
-                horaireData :{
-
+                  title:'Modification de la mot de passe',
+                  identifiant:'Identifiant',
+                  pwd:'Mot de passe',
+                  modifierBtn:'Modifier'
                 },
                 positionData :{
-
+                  title:'Position Geographique',
+                  description:'Cliquez sur le bouton pour définir votre position actuelle par défaut.',
+                  modifierBtn:'Modifier Position'
                 },
-                imagesData :{
-
-                },
-                evaluationData :{
-
-                },
-                imprimerData :{
-
-                }
+            },
+            imagesPage :{
+              title : 'Images', 
+              dontHaveImage : 'Vous n\'avait pas d\'images',
+              clicForThat : 'Cliquer Pour Charger des Imgaes',
+              deleteBtn : 'Supprimeé',
+              saveBtn : 'Enregistreé',
+              toast : {
+                one : 'Il Faut 5 Images !',
+                two : 'cinque Images Seulemment Sont autoriseé !',
+                three : 'Images Enregistreé !',
+                four : 'Image Supprimeé !',
+                five : '',
+              }
             },
             horairePage :{
               titleText : 'Horaires',
@@ -4687,10 +4850,46 @@ const FrancaisTrans = {
                 saveBtn:'Modifier l\'horaire du '
               }
             },
+            evaluationPage :{
+                titleText:'Review',
+                tabsTexts:{
+                  one:'Avis',
+                  two:'Commentaires'
+                },
+                jaimes : 'J\'aimes',
+            },
+            publicationPage :{
+                  titleText:'Partagez vos activités avec vos abonnés !!',
+                  tabsData : {
+                    text:'Texte',
+                    video:'Video',
+                    image:'Image',
+                  },
+                  communSaveBtn:'تسجيل',
+                  textDataPlch:'La taille maximale est de 300 caractères.',
+                  imagesData:{
+                    textPlch:'La taille maximale est de 180 caractères.',
+                    smallDesc:'Entrez ici le lien de l\'image ! veiullez entrer un lien utile',
+                    inputPlch:'Adresse URL de l\'image'
+                  },
+                  videoData:{
+                    textPlch:'La taille maximale est de 180 caractères.',
+                    smallDesc:'Entrez l\'ID de video Youtube (example : jNQXAC9IVRw , on accepte que les video youtube !!',
+                    inputPlch:'ID de video '
+                  },
+            },
+            imprimerPage :{
+              titleText: 'Partager le profil',
+              textOne: 'Cet identifiant vous distinguera des autres inscrits sur la plateforme. Cela peut aussi être un moyen rapide de vous faire connaître',
+              textTwo: 'Imprimez ce lien que vous pouvez accrocher à la porte de votre magasin pour que vos clients puissent facilement vous atteindre, il peut également être partagé directement sur les réseaux sociaux',
+              btnCopy: 'Copier le PID',
+              btnShare: 'Partager le profil',
+              btnPrint: 'Imprimer l\'affiche',
+            },
             systemInscriptionPage : {
-                mainFirstTitle:'',
-                systemNamesData:'',
-                fullVersionHelpYouText:'',
+                mainFirstTitle: 'Page d\'abonnement à la version complète pour',
+                systemNamesData: 'la version complète de',
+                fullVersionHelpYouText: 'vous aide à numériser votre activité professionnelle, en vous permettant de :' ,             
                 systemsPlusData:{
                     docteur: {
                         "1": "Ajouter et modifier de nouvelles consultations",
@@ -4858,284 +5057,287 @@ const FrancaisTrans = {
                         "5": "Créer et suivre les factures"
                     },
                     epicerie: {
-                      "1": "إضافة و متابعة واجهات البيع:  caisses ",
-                      "2": "إضافة عملاء جدد و متابعة قائمة الديون",
-                      "3": "إضافة مزودين  جدد و متابعة يومية اللقاء معهم",
-                      "4": "متابعة فريق العمل",
-                      "5": "إنشاء و متابعة الفواتير "
+                      "1": "Ajouter et suivre les caisses de vente",
+                      "2": "Ajouter de nouveaux clients et suivre la liste des dettes",
+                      "3": "Ajouter de nouveaux fournisseurs et suivre leurs rendez-vous quotidiens",
+                      "4": "Suivre l'équipe de travail",
+                      "5": "Créer et suivre les factures"
                     },
                     electromenager: {
-                      "1": "إضافة و متابعة واجهات البيع:  caisses ",
-                      "2": "إضافة عملاء جدد و متابعة قائمة الديون",
-                      "3": "إضافة مزودين  جدد و متابعة يومية اللقاء معهم",
-                      "4": "متابعة فريق العمل",
-                      "5": "إنشاء و متابعة الفواتير "
+                      "1": "Ajouter et suivre les caisses de vente",
+                      "2": "Ajouter de nouveaux clients et suivre la liste des dettes",
+                      "3": "Ajouter de nouveaux fournisseurs et suivre leurs rendez-vous quotidiens",
+                      "4": "Suivre l'équipe de travail",
+                      "5": "Créer et suivre les factures"
                     },
                     meublerie: {
-                      "1": "إضافة و متابعة واجهات البيع:  caisses ",
-                      "2": "إضافة عملاء جدد و متابعة قائمة الديون",
-                      "3": "إضافة مزودين  جدد و متابعة يومية اللقاء معهم",
-                      "4": "متابعة فريق العمل",
-                      "5": "إنشاء و متابعة الفواتير "
+                      "1": "Ajouter et suivre les caisses de vente",
+                      "2": "Ajouter de nouveaux clients et suivre la liste des dettes",
+                      "3": "Ajouter de nouveaux fournisseurs et suivre leurs rendez-vous quotidiens",
+                      "4": "Suivre l'équipe de travail",
+                      "5": "Créer et suivre les factures"
                     },
                     bijouterie: {
-                      "1": "إضافة و متابعة واجهات البيع:  caisses ",
-                      "2": "إضافة عملاء جدد و متابعة قائمة الديون",
-                      "3": "إضافة مزودين  جدد و متابعة يومية اللقاء معهم",
-                      "4": "متابعة فريق العمل",
-                      "5": "إنشاء و متابعة الفواتير "
+                      "1": "Ajouter et suivre les caisses de vente",
+                      "2": "Ajouter de nouveaux clients et suivre la liste des dettes",
+                      "3": "Ajouter de nouveaux fournisseurs et suivre leurs rendez-vous quotidiens",
+                      "4": "Suivre l'équipe de travail",
+                      "5": "Créer et suivre les factures"
                     },
                     quincaillerie: {
-                      "1": "إضافة و متابعة واجهات البيع:  caisses ",
-                      "2": "إضافة عملاء جدد و متابعة قائمة الديون",
-                      "3": "إضافة مزودين  جدد و متابعة يومية اللقاء معهم",
-                      "4": "متابعة فريق العمل",
-                      "5": "إنشاء و متابعة الفواتير "
+                      "1": "Ajouter et suivre les caisses de vente",
+                      "2": "Ajouter de nouveaux clients et suivre la liste des dettes",
+                      "3": "Ajouter de nouveaux fournisseurs et suivre leurs rendez-vous quotidiens",
+                      "4": "Suivre l'équipe de travail",
+                      "5": "Créer et suivre les factures"
                     },
                     boutique: {
-                      "1": "إضافة و متابعة واجهات البيع:  caisses ",
-                      "2": "إضافة عملاء جدد و متابعة قائمة الديون",
-                      "3": "إضافة مزودين  جدد و متابعة يومية اللقاء معهم",
-                      "4": "متابعة فريق العمل",
-                      "5": "إنشاء و متابعة الفواتير "
+                      "1": "Ajouter et suivre les caisses de vente",
+                      "2": "Ajouter de nouveaux clients et suivre la liste des dettes",
+                      "3": "Ajouter de nouveaux fournisseurs et suivre leurs rendez-vous quotidiens",
+                      "4": "Suivre l'équipe de travail",
+                      "5": "Créer et suivre les factures"
                     },
                     depot: {
-                      "1": "إضافة و متابعة واجهات البيع:  caisses ",
-                      "2": "إضافة عملاء جدد و متابعة قائمة الديون",
-                      "3": "إضافة مزودين  جدد و متابعة يومية اللقاء معهم",
-                      "4": "متابعة فريق العمل",
-                      "5": "إنشاء و متابعة الفواتير "
+                      "1": "Ajouter et suivre les caisses de vente",
+                      "2": "Ajouter de nouveaux clients et suivre la liste des dettes",
+                      "3": "Ajouter de nouveaux fournisseurs et suivre leurs rendez-vous quotidiens",
+                      "4": "Suivre l'équipe de travail",
+                      "5": "Créer et suivre les factures"
                     },
                     menuisier: {
-                      "1": "إضافة و تعديل حصص جديدة ",
-                      "2": "إنشاء وصفات طبية مع قائمة كاملة للأدوية",
-                      "3": "إضافة مرضي جدد و متابعة حالتهم الصحية",
-                      "4": "متابعة فريق العمل",
-                      "5": "إنشاء تقارير حسب النوع"
+                      "1": "Ajouter et modifier de nouvelles sessions",
+                      "2": "Créer des ordonnances avec une liste complète de médicaments",
+                      "3": "Ajouter de nouveaux patients et suivre leur état de santé",
+                      "4": "Suivre l'équipe de travail",
+                      "5": "Créer des rapports par type"
                     },
                     forgeron: {
-                      "1": "إضافة و تعديل حصص جديدة ",
-                      "2": "إنشاء وصفات طبية مع قائمة كاملة للأدوية",
-                      "3": "إضافة مرضي جدد و متابعة حالتهم الصحية",
-                      "4": "متابعة فريق العمل",
-                      "5": "إنشاء تقارير حسب النوع"
+                      "1": "Ajouter et modifier de nouvelles sessions",
+                      "2": "Créer des ordonnances avec une liste complète de médicaments",
+                      "3": "Ajouter de nouveaux patients et suivre leur état de santé",
+                      "4": "Suivre l'équipe de travail",
+                      "5": "Créer des rapports par type"
                     },
                     cristalerie: {
-                      "1": "إضافة و تعديل حصص جديدة ",
-                      "2": "إنشاء وصفات طبية مع قائمة كاملة للأدوية",
-                      "3": "إضافة مرضي جدد و متابعة حالتهم الصحية",
-                      "4": "متابعة فريق العمل",
-                      "5": "إنشاء تقارير حسب النوع"
+                      "1": "Ajouter et modifier de nouvelles sessions",
+                      "2": "Créer des ordonnances avec une liste complète de médicaments",
+                      "3": "Ajouter de nouveaux patients et suivre leur état de santé",
+                      "4": "Suivre l'équipe de travail",
+                      "5": "Créer des rapports par type"
                     },
                     marbrerie: {
-                      "1": "إضافة و تعديل حصص جديدة ",
-                      "2": "إنشاء وصفات طبية مع قائمة كاملة للأدوية",
-                      "3": "إضافة مرضي جدد و متابعة حالتهم الصحية",
-                      "4": "متابعة فريق العمل",
-                      "5": "إنشاء تقارير حسب النوع"
+                      "1": "Ajouter et modifier de nouvelles sessions",
+                      "2": "Créer des ordonnances avec une liste complète de médicaments",
+                      "3": "Ajouter de nouveaux patients et suivre leur état de santé",
+                      "4": "Suivre l'équipe de travail",
+                      "5": "Créer des rapports par type"
                     },
                     electricien: {
-                      "1": "إضافة و تعديل حصص جديدة ",
-                      "2": "إنشاء وصفات طبية مع قائمة كاملة للأدوية",
-                      "3": "إضافة مرضي جدد و متابعة حالتهم الصحية",
-                      "4": "متابعة فريق العمل",
-                      "5": "إنشاء تقارير حسب النوع"
+                      "1": "Ajouter et modifier de nouvelles sessions",
+                      "2": "Créer des ordonnances avec une liste complète de médicaments",
+                      "3": "Ajouter de nouveaux patients et suivre leur état de santé",
+                      "4": "Suivre l'équipe de travail",
+                      "5": "Créer des rapports par type"
                     },
                     peinture: {
-                      "1": "إضافة و تعديل حصص جديدة ",
-                      "2": "إنشاء وصفات طبية مع قائمة كاملة للأدوية",
-                      "3": "إضافة مرضي جدد و متابعة حالتهم الصحية",
-                      "4": "متابعة فريق العمل",
-                      "5": "إنشاء تقارير حسب النوع"
+                      "1": "Ajouter et modifier de nouvelles sessions",
+                      "2": "Créer des ordonnances avec une liste complète de médicaments",
+                      "3": "Ajouter de nouveaux patients et suivre leur état de santé",
+                      "4": "Suivre l'équipe de travail",
+                      "5": "Créer des rapports par type"
                     },
                     plombier: {
-                      "1": "إضافة و تعديل حصص جديدة ",
-                      "2": "إنشاء وصفات طبية مع قائمة كاملة للأدوية",
-                      "3": "إضافة مرضي جدد و متابعة حالتهم الصحية",
-                      "4": "متابعة فريق العمل",
-                      "5": "إنشاء تقارير حسب النوع"
+                      "1": "Ajouter et modifier de nouvelles sessions",
+                      "2": "Créer des ordonnances avec une liste complète de médicaments",
+                      "3": "Ajouter de nouveaux patients et suivre leur état de santé",
+                      "4": "Suivre l'équipe de travail",
+                      "5": "Créer des rapports par type"
                     },
                     coiffure: {
-                      "1": "فوترة عمليات الحلاقة اليومية",
-                      "2": "متابعة مواعيد الحجوزات من خلال اليومية",
-                      "3": "متابعة قاعة الأنتضار و تقليص مدة الانتضار ",
-                      "4": "متابعة فريق العمل"
+                      "1": "Facturation des opérations de coiffure quotidiennes",
+                      "2": "Suivi des rendez-vous via l'agenda",
+                      "3": "Suivi de la salle d'attente et réduction du temps d'attente",
+                      "4": "Suivre l'équipe de travail"
                     },
                     salle_marriage: {
-                      "1": "فوترة عمليات الحجز اليومية",
-                      "2": "متابعة مواعيد الحجوزات من خلال اليومية",
-                      "3": "متابعة قائمة الأنتضار ",
-                      "4": "متابعة فريق العمل"
+                      "1": "Facturation des réservations quotidiennes",
+                      "2": "Suivi des rendez-vous via l'agenda",
+                      "3": "Suivi de la liste d'attente",
+                      "4": "Suivre l'équipe de travail"
                     },
                     fourniture_marriage: {
-                      "1": "متابعة و التحكم في المخزون ",
-                      "2": "متابعة مواعيد الحجوزات من خلال اليومية",
-                      "3": "متابعة قائمة الأنتضار لتفادي النسيان و التأخير",
-                      "4": "متابعة فريق العمل"
+                      "1": "Suivi et gestion du stock",
+                      "2": "Suivi des rendez-vous via l'agenda",
+                      "3": "Suivi de la liste d'attente pour éviter les oublis et les retards",
+                      "4": "Suivre l'équipe de travail"
                     },
                     photographe: {
-                      "1": "متابعة المواعيد و الحجوزات من خلال اليومية",
-                      "2": "تقديم و عرض الأعمال السابقة",
-                      "3": "مناقشة أراء المتابعين و الرد علي مقترحاتهم",
-                      "4": "أرشفة و تسجيل قائمة العملاء مع بيانات الإتصال بهم"
+                      "1": "Suivi des rendez-vous et des réservations via l'agenda",
+                      "2": "Présentation et affichage des travaux précédents",
+                      "3": "Discussion des avis des abonnés et réponse à leurs suggestions",
+                      "4": "Archivage et enregistrement de la liste des clients avec leurs coordonnées"
                     },
                     chef: {
-                      "1": "متابعة المواعيد و الحجوزات من خلال اليومية",
-                      "2": "تقديم و عرض الأعمال السابقة",
-                      "3": "مناقشة أراء المتابعين و الرد علي مقترحاتهم",
-                      "4": "أرشفة و تسجيل قائمة العملاء مع بيانات الإتصال بهم"
+                      "1": "Suivi des rendez-vous et des réservations via l'agenda",
+                      "2": "Présentation et affichage des travaux précédents",
+                      "3": "Discussion des avis des abonnés et réponse à leurs suggestions",
+                      "4": "Archivage et enregistrement de la liste des clients avec leurs coordonnées"
                     },
                     orchestre: {
-                      "1": "متابعة المواعيد و الحجوزات من خلال اليومية",
-                      "2": "تقديم و عرض الأعمال السابقة",
-                      "3": "مناقشة أراء المتابعين و الرد علي مقترحاتهم",
-                      "4": "أرشفة و تسجيل قائمة العملاء مع بيانات الإتصال بهم"
+                      "1": "Suivi des rendez-vous et des réservations via l'agenda",
+                      "2": "Présentation et affichage des travaux précédents",
+                      "3": "Discussion des avis des abonnés et réponse à leurs suggestions",
+                      "4": "Archivage et enregistrement de la liste des clients avec leurs coordonnées"
                     },
                     gym: {
-                      "1": "رقمنة و أرشفة الأشتراكات",
-                      "2": "متابعة تسجيل الحصص في قاعة البيانات",
-                      "3": "متابعة المدربين و فريق العمل"
+                      "1": "Numérisation et archivage des abonnements",
+                      "2": "Suivi de l'enregistrement des sessions dans la base de données",
+                      "3": "Suivi des entraîneurs et de l'équipe de travail"
                     },
-                    pyscine: {
-                      "1": "رقمنة و أرشفة الأشتراكات",
-                      "2": "متابعة تسجيل الحصص في قاعة البيانات",
-                      "3": "متابعة المدربين و فريق العمل"
+                    piscine: {
+                      "1": "Numérisation et archivage des abonnements",
+                      "2": "Suivi de l'enregistrement des sessions dans la base de données",
+                      "3": "Suivi des entraîneurs et de l'équipe de travail"
                     },
                     stade: {
-                      "1": "رقمنة و أرشفة الأشتراكات",
-                      "2": "متابعة تسجيل الحصص في قاعة البيانات",
-                      "3": "متابعة المدربين و فريق العمل"
+                      "1": "Numérisation et archivage des abonnements",
+                      "2": "Suivi de l'enregistrement des sessions dans la base de données",
+                      "3": "Suivi des entraîneurs et de l'équipe de travail"
                     },
                     cinema: {
-                      "1": "رقمنة و أرشفة الأشتراكات",
-                      "2": "متابعة تسجيل الحصص في قاعة البيانات",
-                      "3": "متابعة فريق العمل"
+                      "1": "Numérisation et archivage des abonnements",
+                      "2": "Suivi de l'enregistrement des sessions dans la base de données",
+                      "3": "Suivi de l'équipe de travail"
                     },
                     theatre: {
-                      "1": "رقمنة و أرشفة الأشتراكات",
-                      "2": "متابعة تسجيل الحصص في قاعة البيانات",
-                      "3": "متابعة فريق العمل"
+                      "1": "Numérisation et archivage des abonnements",
+                      "2": "Suivi de l'enregistrement des sessions dans la base de données",
+                      "3": "Suivi de l'équipe de travail"
                     },
                     musee: {
-                      "1": "رقمنة و أرشفة الأشتراكات",
-                      "2": "متابعة تسجيل الحصص في قاعة البيانات",
-                      "3": "متابعة فريق العمل"
+                      "1": "Numérisation et archivage des abonnements",
+                      "2": "Suivi de l'enregistrement des sessions dans la base de données",
+                      "3": "Suivi de l'équipe de travail"
                     },
                     avocat: {
-                      "1": "أرشفة و رقمنة القضايا الموكولة",
-                      "2": "تسجيل و متابعة الحصص و الأستشارات ",
-                      "3": "إنشاء قاعدة بيانات الموكلين و بيانات التواصل معهم ",
-                      "4": "متابعة فريق العمل",
-                      "5": "إنشاء تقارير حسب النوع"
+                      "1": "Archivage et numérisation des affaires confiées",
+                      "2": "Enregistrement et suivi des sessions et des consultations",
+                      "3": "Création d'une base de données des clients et de leurs coordonnées",
+                      "4": "Suivre l'équipe de travail",
+                      "5": "Créer des rapports par type"
                     },
                     restaurant: {
-                      "1": "أرشفة ومتابعة قائمة الأطباق",
-                      "2": "إنشاء طاولة جديدة و متابعة الطلبات حسب الطاولة",
-                      "3": "متابعة فريق العمل "
+                      "1": "Archivage et suivi de la liste des plats",
+                      "2": "Création de nouvelles tables et suivi des commandes par table",
+                      "3": "Suivre l'équipe de travail"
                     },
                     cafe: {
-                      "1": "أرشفة ومتابعة قائمة المشروبات",
-                      "2": "إنشاء طاولة جديدة و متابعة الطلبات حسب الطاولة",
-                      "3": "متابعة فريق العمل "
+                      "1": "Archivage et suivi de la liste des boissons",
+                      "2": "Création de nouvelles tables et suivi des commandes par table",
+                      "3": "Suivre l'équipe de travail"
                     },
                     hotels: {
-                      "1": "إضافة و رقمنة الغرف حسب الصنف ",
-                      "2": "متابعة طلبات و فواتير المطعم ",
-                      "3": "إستقبال طلبات الزوار من الغرف آليا ",
-                      "4": "متابعة فريق العمل"
+                      "1": "Ajouter et numériser les chambres par catégorie",
+                      "2": "Suivi des commandes et des factures du restaurant",
+                      "3": "Réception automatique des demandes des clients depuis les chambres",
+                      "4": "Suivre l\'équipe de travail"
                     },
                     vg_agence: {
-                      "1": " متابعة مواعيد حجز تذاكر الطيران",
-                      "2": "متابعة مواعيد حجز الإقامة",
-                      "3": "ترتيب الرحلات السياحية",
-                      "4": "متابعة فريق العمل"
+                      "1": "Suivi des réservations de billets d'avion",
+                      "2": "Suivi des réservations d'hébergement",
+                      "3": "Organisation des circuits touristiques",
+                      "4": "Suivre l'équipe de travail"
                     },
                     comptable: {
-                      "1": "أرشفة ذكية لكل ملفاتك الرقمية",
-                      "2": "متابعة مواعيد تدقيق المحاسبة من خلال اليومية",
-                      "3": "الربط المباشر بأنظمة العملاء",
-                      "4": "الحصول علي أدوات المحاسبة السهلة"
+                      "1": "Archivage intelligent de tous vos fichiers numériques",
+                      "2": "Suivi des audits comptables via l'agenda",
+                      "3": "Connexion directe avec les systèmes des clients",
+                      "4": "Accès à des outils de comptabilité simples"
                     },
                     socite: {
-                      "1": "إضافة و تعديل حصص جديدة ",
-                      "2": "إنشاء وصفات طبية مع قائمة كاملة للأدوية",
-                      "3": "إضافة مرضي جدد و متابعة حالتهم الصحية",
-                      "4": "متابعة فريق العمل",
-                      "5": "إنشاء تقارير حسب النوع"
+                      "1": "Ajouter et modifier de nouvelles sessions",
+                      "2": "Créer des ordonnances avec une liste complète de médicaments",
+                      "3": "Ajouter de nouveaux patients et suivre leur état de santé",
+                      "4": "Suivre l'équipe de travail",
+                      "5": "Créer des rapports par type"
                     },
                     bank: {
-                      "1": "رقمنة الحسابات البنكية",
-                      "2": "أرشفة العمليات اليومية و حمايتها",
-                      "3": "إضافة عملاء جدد و متابعة حساباتهم البنكية",
-                      "4": "متابعة فريق العمل"
+                      "1": "Numérisation des comptes bancaires",
+                      "2": "Archivage et sécurisation des opérations quotidiennes",
+                      "3": "Ajouter de nouveaux clients et suivre leurs comptes bancaires",
+                      "4": "Suivre l'équipe de travail"
                     },
                     courtier: {
-                      "1": "أرشفة و رقمنة العقارات التي تعمل عليها",
-                      "2": "متابعة مواعيد الزيارات من خلال اليومية",
-                      "3": "أنشاء قاعدة عملاء و مهتمين بالعروض العقارية",
-                      "4": "متابعة فريق العمل"
+                      "1": "Archivage et numérisation des biens immobiliers gérés",
+                      "2": "Suivi des visites via l'agenda",
+                      "3": "Création d'une base de données des clients et des prospects",
+                      "4": "Suivre l'équipe de travail"
                     },
                     contracteur: {
-                      "1": "رقمنة و أرشفة مناطق البناء من خلال الخريطة",
-                      "2": "متابعة تقدم الإشغال بإستعمال اليومية التفاعلية",
-                      "3": "إنشاء قاعدة بيانات الشركات و قنوات الإتصال بهم",
-                      "4": "متابعة فريق العمل",
-                      "5": "إنشاء تقارير حسب النوع"
+                      "1": "Numérisation et archivage des zones de construction via la carte",
+                      "2": "Suivi de l'avancement des travaux avec l'agenda interactif",
+                      "3": "Création d'une base de données des entreprises et de leurs contacts",
+                      "4": "Suivre l'équipe de travail",
+                      "5": "Créer des rapports par type"
                     },
                     architecture: {
-                      "1": "رقمنة و أرشفة التصاميم العقارية ",
-                      "2": "متابعة تقدم المشاريع بإستعمال اليومية التفاعلية",
-                      "3": "إنشاء قاعدة بيانات الشركات و قنوات الإتصال بهم",
-                      "4": "متابعة فريق العمل",
-                      "5": "إنشاء تقارير حسب النوع"
+                      "1": "Numérisation et archivage des plans immobiliers",
+                      "2": "Suivi de l'avancement des projets avec l'agenda interactif",
+                      "3": "Création d'une base de données des entreprises et de leurs contacts",
+                      "4": "Suivre l'équipe de travail",
+                      "5": "Créer des rapports par type"
                     },
                     veterinaire: {
-                      "1": "إضافة و تعديل حصص جديدة ",
-                      "2": "إنشاء وصفات طبية مع قائمة كاملة للأدوية",
-                      "3": "إضافة مرضي جدد و متابعة حالتهم الصحية",
-                      "4": "متابعة فريق العمل",
-                      "5": "إنشاء تقارير حسب النوع"
+                      "1": "Ajouter et modifier de nouvelles sessions",
+                      "2": "Créer des ordonnances avec une liste complète de médicaments",
+                      "3": "Ajouter de nouveaux patients et suivre leur état de santé",
+                      "4": "Suivre l'équipe de travail",
+                      "5": "Créer des rapports par type"
                     },
                     fourragerie: {
-                      "1": "إضافة و متابعة واجهات البيع:  caisses ",
-                      "2": "إضافة عملاء جدد و متابعة قائمة الديون",
-                      "3": "إضافة مزودين  جدد و متابعة يومية اللقاء معهم",
-                      "4": "متابعة فريق العمل",
-                      "5": "إنشاء و متابعة الفواتير "
+                      "1": "Ajouter et suivre les caisses de vente",
+                      "2": "Ajouter de nouveaux clients et suivre la liste des dettes",
+                      "3": "Ajouter de nouveaux fournisseurs et suivre leurs rendez-vous quotidiens",
+                      "4": "Suivre l'équipe de travail",
+                      "5": "Créer et suivre les factures"
                     },
                     agritools: {
-                      "1": "إضافة و تعديل حصص جديدة ",
-                      "2": "إنشاء وصفات طبية مع قائمة كاملة للأدوية",
-                      "3": "إضافة مرضي جدد و متابعة حالتهم الصحية",
-                      "4": "متابعة فريق العمل",
-                      "5": "إنشاء تقارير حسب النوع"
+                      "1": "Ajouter et modifier de nouvelles sessions",
+                      "2": "Créer des ordonnances avec une liste complète de médicaments",
+                      "3": "Ajouter de nouveaux patients et suivre leur état de santé",
+                      "4": "Suivre l'équipe de travail",
+                      "5": "Créer des rapports par type"
                     },
                     farm: {
-                      "1": "إضافة و تعديل حصص جديدة ",
-                      "2": "إنشاء وصفات طبية مع قائمة كاملة للأدوية",
-                      "3": "إضافة مرضي جدد و متابعة حالتهم الصحية",
-                      "4": "متابعة فريق العمل",
-                      "5": "إنشاء تقارير حسب النوع"
+                      "1": "Ajouter et modifier de nouvelles sessions",
+                      "2": "Créer des ordonnances avec une liste complète de médicaments",
+                      "3": "Ajouter de nouveaux patients et suivre leur état de santé",
+                      "4": "Suivre l'équipe de travail",
+                      "5": "Créer des rapports par type"
                     }
                 },
                 startCard : {
-                    subscribeNow:'',
-                    systemNeedTwoCon :'',
-                    conditionOne:'',
-                    conditionTwo :'',
-                    saveSubsRequestButton:'',
-                    priceText:''
+                  subscribeNow: 'Abonnez-vous maintenant et obtenez 15 jours gratuits pour essayer le système',
+                  systemNeedTwoCon: 'Le système nécessite deux conditions pour fonctionner :',
+                  conditionOne: 'Un ordinateur, qu\'il soit portable ou de bureau (il est préférable que la RAM soit d\'au moins 4 Go)',
+                  conditionTwo: 'Une connexion Internet (plus la connexion est bonne, mieux le système fonctionne, et le WIFI est meilleur que la 3G/4G)',
+                  saveSubsRequestButton: 'Enregistrer la demande d\'abonnement',
+                  priceText: 'Prix de l\'abonnement annuel : 500 EUR',                  
                 },
                 waitingCard : {
-                    subsIsRunning :'',
-                    suppText:'',
+                  subsIsRunning: 'Le processus d\'inscription pour obtenir le système requis est en cours...',
+                  suppText: 'La demande a été reçue et nous vous contacterons via le numéro que vous avez enregistré dans les 24 heures',
                 },
                 SuccessCard :{
-
+                  congratText: 'Félicitations, vous avez obtenu le système',
+                  clicHer: 'Cliquez sur le lien pour accéder au système',
+                  identif: 'Identifiant :',
+                  pwdText: 'Mot de passe :',
+                  youCanText: 'Vous pouvez toujours nous contacter pour vous aider à comprendre le système et à finaliser le processus d’installation. Nous vous recommandons également de regarder la vidéo ci-dessus',
+                  btnText: 'Lien du système'                  
                 }
-
             },
-            
         },
         toolsApps : {
             toolsPage:{

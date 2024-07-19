@@ -65,6 +65,12 @@ const RussiaTrans = {
                 parametres: 'Изменить язык',
                 logOut: 'Выйти',
             },
+            qrCodeScanner: {
+                scanText: 'Сканировать идентификатор',
+                voirProfileText: 'Посмотреть профиль'
+            },
+            toolsModalText: 'Белые приложения',
+            voisTous: 'Показать все',            
             mainadsCard: 'Abyedh помогает в нескольких областях поиска:',
 
             mainTagsName: {
@@ -2578,6 +2584,7 @@ const RussiaTrans = {
                 fourragerie_shop: 'Покупка корма'
             },
             favoiteItemList: {
+                favEmpty : ' У вас нет элементов в избранном. Исследуйте поисковую систему на главной странице.',
                 admin: 'Администрация',
                 sante: 'Здравоохранение',
                 education: 'Образование',
@@ -2589,11 +2596,33 @@ const RussiaTrans = {
                 construction: 'Строительство',
                 autre: 'Прочее'
             },
-            PostsTabs :{
-                noPostToShow: '',
-                textText: '',
-                photoText: '',
-                videoText: '',
+            docummentPage: {
+                filesTile: 'Файлы',
+                docummentTile: 'Публичные документы',
+                itemsList: {
+                    sante: 'Здоровье',
+                    education: 'Образование',
+                    transport: 'Транспорт',
+                    sport: 'Спорт',
+                    docs: 'Документы',
+                    subs: 'Подписки',
+                    factures: 'Счета',
+                    recue: 'Квитанции'
+                }
+            },            
+            SettingPage: {
+                itemsList: {
+                    basicInfo: 'Общая информация',
+                    securityInfo: 'Пароль',
+                    positionInfo: 'Местоположение',
+                    darkTheme: 'Тёмный режим',
+                    notification: 'Уведомления',
+                    language: 'Язык',
+                    country: 'Страна',
+                    bug: 'Сообщить об ошибке',
+                    contact: 'Свяжитесь с нами',
+                    invite: 'Пригласить друга'
+                }
             },
             toastText:{
                 failOne:'',
@@ -4342,9 +4371,8 @@ const RussiaTrans = {
                 }
             },            
             systemInscriptionPage : {
-                mainFirstTitle:'',
-                systemNamesData:'',
-                fullVersionHelpYouText:'',
+                systemNamesData: 'полной версии',
+                fullVersionHelpYouText: 'помогает вам цифровизировать ваш бизнес, позволяя вам:',
                 systemsPlusData:{
                     docteur: {
                         "1": "Ajouter et modifier de nouvelles consultations",
@@ -4772,20 +4800,27 @@ const RussiaTrans = {
                     "5": "إنشاء تقارير حسب النوع"
                     }
                 },
-                startCard : {
-                    subscribeNow:'',
-                    systemNeedTwoCon :'',
-                    conditionOne:'',
-                    conditionTwo :'',
-                    saveSubsRequestButton:'',
-                    priceText:''
+                mainFirstTitle: 'Страница подписки на полную версию для',
+                
+                startCard: {
+                    subscribeNow: 'Подпишитесь сейчас и получите 15 дней бесплатно для тестирования системы',
+                    systemNeedTwoCon: 'Система требует двух условий для работы:',
+                    conditionOne: 'Компьютер, будь то ноутбук или настольный (желательно, чтобы оперативная память была не менее 4 ГБ)',
+                    conditionTwo: 'Интернет-соединение (чем лучше соединение, тем лучше работает система, и Wi-Fi лучше, чем 3G/4G)',
+                    saveSubsRequestButton: 'Сохранить запрос на подписку',
+                    priceText: 'Цена годовой подписки: 500 евро',
                 },
-                waitingCard : {
-                    subsIsRunning :'',
-                    suppText:'',
+                waitingCard: {
+                    subsIsRunning: 'Процесс регистрации для получения необходимой системы в процессе...',
+                    suppText: 'Запрос получен, и мы свяжемся с вами по указанному номеру в течение 24 часов',
                 },
-                SuccessCard :{
-
+                SuccessCard: {
+                    congratText: 'Поздравляем, вы получили систему',
+                    clicHer: 'Нажмите на ссылку, чтобы получить доступ к системе',
+                    identif: 'Имя пользователя:',
+                    pwdText: 'Пароль:',
+                    youCanText: 'Вы всегда можете связаться с нами, чтобы получить помощь в понимании системы и завершении процесса установки. Также рекомендуется посмотреть видео выше',
+                    btnText: 'Ссылка на систему'
                 }
 
             },

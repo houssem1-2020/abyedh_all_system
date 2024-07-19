@@ -100,7 +100,8 @@ function FavoritePage() {
     let [favoriteList, setFList] = useState([])
     let [loading, SetLoading] = useState(true)
     let [activeIndex, setActiveIndex] = useState(0)
-
+    const { t, i18n } = useTranslation();
+    const isRTL = detectRTL.isRtlLang(i18n.language);
     const panes = [
         {
            menuItem: { key: 'admin', icon: 'building', content:  <span className='me-2'>إدارة  </span> , dir:'rtl',  className:'rounded-pill border-tabs' },
@@ -218,7 +219,7 @@ function FavoritePage() {
         return(<>
             <div className='card-body text-center'>
                 <img src='https://cdn.abyedh.com/images/profile/empty-fvrt.png' width='80%'  height='220px' />
-                <h5>ليس لديك اي عنصر في المفضلة . قم بإكتشاف محرك البحث في الصفحة الرئسية</h5> 
+                <h5> {t(`userProfile.favoiteItemList.favEmpty`)}  </h5> 
             </div>
         </>)
     }

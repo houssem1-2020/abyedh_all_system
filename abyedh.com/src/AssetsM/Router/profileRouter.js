@@ -27,6 +27,7 @@ const SuivieSelectPage = React.lazy(() => import('../../Profile/Suivie/suivieSel
 const FavoritePage = React.lazy(() => import('../../Profile/Favorite/favoritePage'));
 const DocummentPage = React.lazy(() => import('../../Profile/Documments/docummentsPage'));
 const CalendarPage = React.lazy(() => import('../../Profile/Calendar/calendarPage'));
+const ToDoPage = React.lazy(() => import('../../Profile/ToDo/ToDoPage'));
 const SettingPage = React.lazy(() => import('../../Profile/Setting/settingPage'));
 const SignUpPage = React.lazy(() => import('../../Profile/signUpPage'));
 const DocummentLanding = React.lazy(() => import('../../Profile/Documments/documentsLanding'));
@@ -70,6 +71,7 @@ const UserRouter = () => (
                         <Route path='info/:g/:ID' exact element={<Suspense fallback={<ForLazyLoadingLoader />}><DocummentInfo /></Suspense>} />
                     </Route>
                     {/* <Route path="cl" exact element={<Suspense fallback={<ForLazyLoadingLoader />}><CalendarPage /></Suspense>} /> */}
+                    <Route path="td" exact element={<Suspense fallback={<ForLazyLoadingLoader />}><ToDoPage /></Suspense>} />
                     <Route path="st" exact element={<Suspense fallback={<ForLazyLoadingLoader />}><SettingPage /></Suspense>} />
             </Route>
     </Route>

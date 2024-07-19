@@ -80,8 +80,8 @@ function RequestPage() {
             <br />
             <div className='card card-body border-div mb-4'>
                 <h3 className='bi bi-check-circle bi-lg text-success mb-0 text-center'></h3> 
-                <h3 className='text-warning text-end mb-3 mt-3'>جاري عملية التسجيل للحصول علي النظام المطلوب  ... </h3>
-                <h6 >تم إستقبال الطلب و سنقوم بالتواصل معكم عبر الرقم الذي قمتهم بالتسجيل به خلال 24 ساعة   </h6>
+                <h3 className={`text-warning  mb-3 mt-3 ${isRTL ? 'text-end' : 'text-start'}`}> {t('appPages.systemInscriptionPage.waitingCard.subsIsRunning')}  </h3>
+                <h6 > {t('appPages.systemInscriptionPage.waitingCard.suppText')} </h6>
             </div>
         </>)
     }
@@ -90,15 +90,15 @@ function RequestPage() {
             <br />
             <br />
             <div className='card card-body border-div shadow-sm mb-4 '>
-                <h3 className='text-success text-center '> مبروك  لقد تحصلت علي النظام </h3>
-                <b>إضغط علي الرابط  للتحول للنظام     </b>
-                <div>معرف الدخول : {pWD.Identification}</div>
-                <div> كلمة المرور: {pWD.PasswordSalt}</div>
+                <h3 className='text-success text-center '> {t('appPages.systemInscriptionPage.SuccessCard.congratText')} </h3>
+                <b> {t('appPages.systemInscriptionPage.SuccessCard.clicHer')}   </b>
+                <div> {t('appPages.systemInscriptionPage.SuccessCard.identif')}{pWD.Identification}</div>
+                <div> {t('appPages.systemInscriptionPage.SuccessCard.pwdText')} {pWD.PasswordSalt}</div>
                 <br />
-                   يمكنك دائما التواصل معنا من أجل مساعدتك في فهم النظام و في إتمام عملية التثبيت , كما ننصح بمشاهدة الفيديو في الأعلي  
+                            {t('appPages.systemInscriptionPage.SuccessCard.youCanText')}
                 <br />
                 <br />
-                <Button fluid size='large' className='border-div' href={GConf.landing[GConf.systemTag].systemUrl}> رابط النظام <Icon name='desktop' /></Button>
+                    <Button fluid size='large' className='border-div' href={GConf.landing[GConf.systemTag].systemUrl}><Icon name='desktop' />  {t('appPages.systemInscriptionPage.SuccessCard.btnText')}  </Button>
                 <br />
 
             </div>
@@ -108,19 +108,19 @@ function RequestPage() {
         return(<>
              <br />
                 <div className='card card-body border-div mt-4 text-center '>
-                    <h3 className='text-danger text-end'>إشترك الآن و أحصل علي 15 يوم مجاني لتجرب النظام</h3>  
+                    <h3 className={`text-danger ${isRTL ? 'text-end': 'text-start'}`}> {t('appPages.systemInscriptionPage.startCard.subscribeNow')}</h3>  
                 
                 <br />
-                <div className='p-2 text-secondary text-end '>
-                        <h5> النظام يحتاج إلي شرطين للعمل :  </h5>
+                <div className={`p-2 text-secondary ${isRTL ? 'text-end': 'text-start'}`}>
+                        <h5>  {t('appPages.systemInscriptionPage.startCard.systemNeedTwoCon')} </h5>
                         <ul>
-                            <li>جهاز حاسوب ولا يهم إن كان محمول أو قار (يستسحن أن لا تقل الـRAM عن 4GB ) </li> 
-                            <li>إتصال بالأنترنت (كلما كان الإتصال أفضل كان عمل النظام أفضل و الـWIFI أفضل من الـ3G/4G ) </li> 
+                            <li>  {t('appPages.systemInscriptionPage.startCard.conditionOne')}  </li> 
+                            <li> {t('appPages.systemInscriptionPage.startCard.conditionTwo')} </li> 
                         </ul>
                 </div>
-                <Button style={{backgroundColor: GConf.landing[GConf.systemTag].colorTheme}} fluid size='large' disabled={savedBtn} className='border-div text-white' onClick={() => RequestSystem()}> <Loader active={loaderState}    inline size='tiny' className='ms-2'/> تسجيل طلب الإشتراك </Button>
+                <Button style={{backgroundColor: GConf.landing[GConf.systemTag].colorTheme}} fluid size='large' disabled={savedBtn} className='border-div text-white' onClick={() => RequestSystem()}> <Loader active={loaderState}    inline size='tiny' className='ms-2'/>  {t('appPages.systemInscriptionPage.startCard.saveSubsRequestButton')} </Button>
                  <br />
-                 <h6 className='text-secondary'>سعر الإشتراك السنوي : 500 د.ت</h6> 
+                 <h6 className='text-secondary'> {t('appPages.systemInscriptionPage.startCard.priceText')} </h6> 
                 </div>
                 <br />
                 <br />
@@ -160,14 +160,14 @@ function RequestPage() {
 
                     : 
                     <>
-                        <h5 className='mb-1 mt-0 text-center' style={{color: GConf.landing[GConf.systemTag].colorTheme}}>صفحة الأشتراك في النــــسـخـة الكــامـــلة  </h5>
-                        <h2 className='text-center mt-0' style={{color: GConf.landing[GConf.systemTag].colorTheme}}>لـ{GConf.landing[GConf.systemTag].systemTitle}</h2>
+                        <h5 className='mb-1 mt-0 text-center' style={{color: GConf.landing[GConf.systemTag].colorTheme}}> {t('appPages.systemInscriptionPage.mainFirstTitle')}</h5>
+                        <h2 className='text-center mt-0' style={{color: GConf.landing[GConf.systemTag].colorTheme}}>  {t(`landingPage.systemNames.${GConf.systemTag}`)}  </h2>
                         {/* <h4>{GConf.landing[GConf.systemTag].adsText}</h4>  */}
-                        <h4 className='text-secondary'>النسخة الكاملة لــ{GConf.landing[GConf.systemTag].systemTitle} تساعدك علي رقمنة نشاطك المهني , حيث تمكنك من  : </h4> 
+                        <h4 className='text-secondary'> {t('appPages.systemInscriptionPage.systemNamesData')} {t(`landingPage.systemNames.${GConf.systemTag}`)} {t('appPages.systemInscriptionPage.fullVersionHelpYouText')} </h4> 
                         <br />
                         <div className='text-secondary me-2 '>
                             {GConf.landing[GConf.systemTag].systemPos.map((data,index) => 
-                            <div key={index} className='mb-3'><h5 className='mb-0'><span className={`bi bi-asterisk bi-xsm`}></span> {t(`appPages.systemInscriptionPage.systemsPlusData.${GConf.systemTag}.${data.id}`)} </h5></div> 
+                                <div key={index} className='mb-3'><h5 className='mb-0'> <span className={`bi bi-node-plus-fill text-danger`}> </span> {t(`appPages.systemInscriptionPage.systemsPlusData.${GConf.systemTag}.${data.id}`)} </h5></div> 
                             )}
                         </div>
                         <br />
@@ -182,20 +182,22 @@ function RequestPage() {
                                 <br />
                         </div> */}
                          {APPConf.landing[APPConf.systemTag].systemReady  ?
-                         <iframe
-                            width="100%" height="250"
-                            src={`https://www.youtube.com/embed/${GConf.landing[GConf.systemTag].systemVideoId}`}
-                            title="YouTube video player"
+                        //  <iframe
+                        //     width="100%" height="250"
+                        //     src={`https://www.youtube.com/embed/${GConf.landing[GConf.systemTag].systemVideoId}`}
+                        //     title="YouTube video player"
                              
-                            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                            allowFullScreen
-                            className='border-div'
-                        ></iframe>
+                        //     allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                        //     allowFullScreen
+                        //     className='border-div'
+                        // ></iframe>
+                        <img src={`https://cdn.abyedh.com/Images/system_landing/forApp/${APPConf.systemTag}.jpg`} className='img-responsive border border-div' width='100%' height='200px' />
                         :
                         <></>
                          }
                         {!APPConf.landing[APPConf.systemTag].systemReady  ? <CammingSoonSystem data={APPConf.systemTag} /> : 
-                        <>
+                        <>  
+                             
                             {requestToSystem.length == 0 ? <PleaseSignUp /> : '' }
                             {requestToSystem.Req_State  &&  requestToSystem.Req_State  == 'W' ? <RequestSaved /> : '' }
                             {requestToSystem.Req_State  &&  requestToSystem.Req_State  == 'A' ? <RequestAccepted /> : '' }

@@ -65,6 +65,12 @@ const JapanTrans = {
                 parametres: '言語を変更する',
                 logOut: 'ログアウト',
             },
+            qrCodeScanner: {
+                scanText: '識別子をスキャンする',
+                voirProfileText: 'プロフィールを見る'
+            },
+            toolsModalText: 'ホワイトアプリ',
+            voisTous: 'すべて表示',            
             mainadsCard: 'Abyedh 応用 は、複数の分野で見つけるのに役立ちます：',
 
             mainTagsName : {
@@ -2809,6 +2815,7 @@ const JapanTrans = {
                 fourragerie_shop: '飼料購入'
             },
             favoiteItemList: {
+                favEmpty : 'お気に入りにはアイテムがありません。ホームページで検索エンジンを探索してください。 ',
                 admin: '管理',
                 sante: '健康',
                 education: '教育',
@@ -2820,6 +2827,20 @@ const JapanTrans = {
                 construction: '建設',
                 autre: 'その他'
             },
+            docummentPage: {
+                filesTile: 'ファイル',
+                docummentTile: '公共文書',
+                itemsList: {
+                    sante: '健康ファイル',
+                    education: '教育ファイル',
+                    transport: '交通ファイル',
+                    sport: 'スポーツファイル',
+                    docs: '文書',
+                    subs: 'サブスクリプション',
+                    factures: '請求書',
+                    recue: '領収書'
+                }
+            },            
             SettingPage :{
                 itemsList: {
                     basicInfo: '基本情報',
@@ -4639,9 +4660,9 @@ const JapanTrans = {
                 }
             },            
             systemInscriptionPage : {
-                mainFirstTitle:'',
-                systemNamesData:'',
-                fullVersionHelpYouText:'',
+                mainFirstTitle: '完全版のサブスクリプションページ',
+                systemNamesData: '完全版の',
+                fullVersionHelpYouText: 'ビジネスをデジタル化するのに役立ちます。次のことが可能になります：',
                 systemsPlusData:{
                     docteur: {
                         "1": "Ajouter et modifier de nouvelles consultations",
@@ -5069,22 +5090,26 @@ const JapanTrans = {
                     "5": "إنشاء تقارير حسب النوع"
                     }
                 },
-                startCard : {
-                    subscribeNow:'',
-                    systemNeedTwoCon :'',
-                    conditionOne:'',
-                    conditionTwo :'',
-                    saveSubsRequestButton:'',
-                    priceText:''
+                startCard: {
+                  subscribeNow: '今すぐサブスクライブして、システムを15日間無料でお試しください',
+                  systemNeedTwoCon: 'システムが動作するために必要な2つの条件：',
+                  conditionOne: 'コンピュータ（ノートパソコンまたはデスクトップ、RAMは最低4GBが望ましい）',
+                  conditionTwo: 'インターネット接続（接続が良いほどシステムはより快適に動作し、WIFIは3G/4Gよりも良い）',
+                  saveSubsRequestButton: 'サブスクリプションリクエストを保存',
+                  priceText: '年間サブスクリプション価格：500ユーロ',
                 },
-                waitingCard : {
-                    subsIsRunning :'',
-                    suppText:'',
+                waitingCard: {
+                  subsIsRunning: '必要なシステムの登録プロセスが進行中です...',
+                  suppText: 'リクエストは受け付けられました。登録された番号に24時間以内にご連絡いたします',
                 },
-                SuccessCard :{
-
+                SuccessCard: {
+                  congratText: 'おめでとうございます。システムを取得しました',
+                  clicHer: 'リンクをクリックしてシステムにアクセスしてください',
+                  identif: 'ユーザー名：',
+                  pwdText: 'パスワード：',
+                  youCanText: 'システムの理解やインストールプロセスの完了に関して、いつでもご連絡ください。また、上記のビデオもご覧いただくことをお勧めします',
+                  btnText: 'システムリンク'
                 }
-
             },
             
         },

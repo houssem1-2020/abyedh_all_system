@@ -35,7 +35,7 @@ function CalendarPage() {
         </>)
     }
     return (  <>
-        <Bounce bottom>
+         
             <FullCalendar
                 plugins={[ dayGridPlugin ]}
                 initialView="dayGridMonth"
@@ -43,7 +43,7 @@ function CalendarPage() {
                 height='650px' 
             />
             <br />
-        </Bounce>
+         
  
     </>);
 }

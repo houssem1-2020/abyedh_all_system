@@ -65,6 +65,12 @@ const ChinaTrans = {
                 parametres: '更改语言',
                 logOut: '登出',
             },
+            qrCodeScanner: {
+                scanText: '扫描标识符',
+                voirProfileText: '查看个人资料'
+            },
+            toolsModalText: '白色应用',
+            voisTous: '显示全部',            
             mainadsCard: 'Abyedh 平台 可帮助您在多个领域找到：',
 
             mainTagsName: {
@@ -2792,6 +2798,7 @@ const ChinaTrans = {
                 fourragerie_shop: '饲料购买'
             },
             favoiteItemList: {
+                favEmpty : '您在收藏夹中没有任何项目。请在主页上探索搜索引擎。',
                 admin: '管理',
                 sante: '健康',
                 education: '教育',
@@ -2803,6 +2810,20 @@ const ChinaTrans = {
                 construction: '建筑',
                 autre: '其他'
             },
+            docummentPage: {
+                filesTile: '文件',
+                docummentTile: '公共文件',
+                itemsList: {
+                    sante: '健康文件',
+                    education: '教育文件',
+                    transport: '交通文件',
+                    sport: '体育文件',
+                    docs: '文件',
+                    subs: '订阅',
+                    factures: '发票',
+                    recue: '收据'
+                }
+            },            
             SettingPage :{
                 itemsList: {
                     basicInfo: '基本信息',
@@ -4620,9 +4641,9 @@ const ChinaTrans = {
                 }
             },            
             systemInscriptionPage : {
-                mainFirstTitle:'',
-                systemNamesData:'',
-                fullVersionHelpYouText:'',
+                mainFirstTitle: '完整版本订阅页面',
+                systemNamesData: '完整版本的',
+                fullVersionHelpYouText: '帮助您数字化您的业务，允许您：',
                 systemsPlusData:{
                     docteur: {
                         "1": "Ajouter et modifier de nouvelles consultations",
@@ -5050,22 +5071,26 @@ const ChinaTrans = {
                     "5": "إنشاء تقارير حسب النوع"
                     }
                 },
-                startCard : {
-                    subscribeNow:'',
-                    systemNeedTwoCon :'',
-                    conditionOne:'',
-                    conditionTwo :'',
-                    saveSubsRequestButton:'',
-                    priceText:''
+                startCard: {
+                  subscribeNow: '立即订阅并获得15天的免费试用',
+                  systemNeedTwoCon: '系统需要两个条件才能运行：',
+                  conditionOne: '一台电脑，无论是笔记本还是台式机（最好内存至少4GB）',
+                  conditionTwo: '一个互联网连接（连接越好，系统运行越顺畅，WIFI比3G/4G更好）',
+                  saveSubsRequestButton: '保存订阅请求',
+                  priceText: '年度订阅价格：500欧元',
                 },
-                waitingCard : {
-                    subsIsRunning :'',
-                    suppText:'',
+                waitingCard: {
+                  subsIsRunning: '获取所需系统的注册过程正在进行中...',
+                  suppText: '您的请求已收到，我们将在24小时内通过您注册的号码与您联系',
                 },
-                SuccessCard :{
-
+                SuccessCard: {
+                  congratText: '恭喜，您已获得系统',
+                  clicHer: '点击链接访问系统',
+                  identif: '用户名：',
+                  pwdText: '密码：',
+                  youCanText: '您仍然可以联系我们以帮助您理解系统并完成安装过程。我们还建议您观看上面的影片',
+                  btnText: '系统链接'
                 }
-
             },
             
         },

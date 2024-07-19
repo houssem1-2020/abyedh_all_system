@@ -56,8 +56,8 @@ const EnglishTrans = {
             mainTitle : 'Abyedh Platform' , 
             mainsubads : 'Many applications in one app',
             mainlogInText : 'Log In',
-            mainsearchInput : '... Search',
-            qrCodeScan : '... Scan',
+            mainsearchInput : 'Search ... ',
+            qrCodeScan : 'Scan ... ',
             dropDownProfile : {
                 profile : 'Profile',
                 systemLogIn : 'System Log In',
@@ -65,8 +65,14 @@ const EnglishTrans = {
                 parametres : 'Change Language',
                 logOut : 'Log Out',
             },
+            qrCodeScanner: {
+                scanText: 'Scan the identifier',
+                voirProfileText: 'Visit profile'
+            },
+            toolsModalText: 'White Apps',
+            voisTous: 'Show all', 
             mainadsCard : 'Abyedh helps you in several fields to find: ',
-
+            recent : 'Recent and most visited.',
             mainTagsName: {
                 sante: 'Health',
                 education: 'Education',
@@ -166,7 +172,7 @@ const EnglishTrans = {
                 avocat: 'Lawyer',
                 admin_a_mu: 'Municipality',
                 admin_a_police: 'Police Station',
-                admin_a_ar: 'Administration/Representative',
+                admin_a_ar: 'Representative',
                 admin_a_court: 'Court',
                 admin_a_mosq: 'Mosque',
                 ambassade: 'Embassy',
@@ -1181,6 +1187,7 @@ const EnglishTrans = {
             goToSystemBtnText: "Access",
             SubscribeBtnText: "Sign up",
             suggestionAndFavText: "Favorites and suggestions",
+            suivieText : 'Follow-up',
             bottomAbyedhText: "abyedh.com: USA",
             toastText:{
                 failOne:'',
@@ -1901,339 +1908,343 @@ const EnglishTrans = {
                 
             },
             ActionTabData : {
-                docteur : {
-                    one:'',
-                    two:'',
+                notRegistredText:'This client is not subscribed to the platform. The Abyedh Team will attempt to contact them to inform them of your request',
+                ActionListeData : {
+                    
+                    docteur : {
+                        one:'',
+                        two:'',
+                    },
+                    infirmier :{
+                        one:'',
+                        two:'',
+                    },
+                    pharmacie :{
+                        one:'',
+                        two:'',
+                    },
+                    labo :{
+                        one:'',
+                        two:'',
+                    },
+                    clinique :{
+                        one:'',
+                        two:'',
+                    },
+                    centreMD :{
+                        one:'',
+                        two:'',
+                    },
+                    admin_s_hospital :{
+                        one:'',
+                        two:'',
+                    },
+                    admin_s_csb :{
+                        one:'',
+                        two:'',
+                    },
+                    garderie :{
+                        one:'',
+                        two:'',
+                    },
+                    ecole :{
+                        one:'',
+                        two:'',
+                    },
+                    lycee :{
+                        one:'',
+                        two:'',
+                    },
+                    universite :{
+                        one:'',
+                        two:'',
+                    },
+                    formation :{
+                        one:'',
+                        two:'',
+                    },
+                    librairie :{
+                        one:'',
+                        two:'',
+                    },
+                    admin_e_centre :{
+                        one:'',
+                        two:'',
+                    },
+                    admin_e_biblio :{
+                        one:'',
+                        two:'',
+                    },
+                    admin_e_ecole :{
+                        one:'',
+                        two:'',
+                    },
+                    admin_e_lycee :{
+                        one:'',
+                        two:'',
+                    },
+                    admin_e_universite :{
+                        one:'',
+                        two:'',
+                    },
+                    admin_e_ss :{
+                        one:'',
+                        two:'',
+                    },
+                    transporteur :{
+                        one:'',
+                        two:'',
+                    },
+                    autoecole :{
+                        one:'',
+                        two:'',
+                    },
+                    location :{
+                        one:'',
+                        two:'',
+                    },
+                    qiosque :{
+                        one:'',
+                        two:'',
+                    },
+                    parking :{
+                        one:'',
+                        two:'',
+                    },
+                    mecanicien :{
+                        one:'',
+                        two:'',
+                    },
+                    Taxi :{
+                        one:'',
+                        two:'',
+                    },
+                    Louage :{
+                        one:'',
+                        two:'',
+                    },
+                    magazin :{
+                        one:'',
+                        two:'',
+                    },
+                    boulengerie :{
+                        one:'',
+                        two:'',
+                    },
+                    fruiterie :{
+                        one:'',
+                        two:'',
+                    },
+                    patesserie :{
+                        one:'',
+                        two:'',
+                    },
+                    epicerie :{
+                        one:'',
+                        two:'',
+                    },
+                    electromenager :{
+                        one:'',
+                        two:'',
+                    },
+                    meublerie :{
+                        one:'',
+                        two:'',
+                    },
+                    boutique :{
+                        one:'',
+                        two:'',
+                    },
+                    bijouterie :{
+                        one:'',
+                        two:'',
+                    },
+                    quincaillerie :{
+                        one:'',
+                        two:'',
+                    },
+                    depot :{
+                        one:'',
+                        two:'',
+                    },
+                    boucherie :{
+                        one:'',
+                        two:'',
+                    },
+                    cafe :{
+                        one:'',
+                        two:'',
+                    },
+                    restaurant :{
+                        one:'',
+                        two:'',
+                    },
+                    hotels :{
+                        one:'',
+                        two:'',
+                    },
+                    vg_agence :{
+                        one:'',
+                        two:'',
+                    },
+                    coiffure :{
+                        one:'',
+                        two:'',
+                    },
+                    salle_marriage :{
+                        one:'',
+                        two:'',
+                    },
+                    fourniture_marriage :{
+                        one:'',
+                        two:'',
+                    },
+                    orchestre :{
+                        one:'',
+                        two:'',
+                    },
+                    chef :{
+                        one:'',
+                        two:'',
+                    },
+                    photographe :{
+                        one:'',
+                        two:'',
+                    },
+                    forgeron :{
+                        one:'',
+                        two:'',
+                    },
+                    menuisier :{
+                        one:'',
+                        two:'',
+                    },
+                    peinture :{
+                        one:'',
+                        two:'',
+                    },
+                    electricien :{
+                        one:'',
+                        two:'',
+                    },
+                    plombier :{
+                        one:'',
+                        two:'',
+                    },
+                    cristalerie :{
+                        one:'',
+                        two:'',
+                    },
+                    marbrerie :{
+                        one:'',
+                        two:'',
+                    },
+                    courtier :{
+                        one:'',
+                        two:'',
+                    },
+                    contracteur :{
+                        one:'',
+                        two:'',
+                    },
+                    architecture :{
+                        one:'',
+                        two:'',
+                    },
+                    gym :{
+                        one:'',
+                        two:'',
+                    },
+                    pyscine :{
+                        one:'',
+                        two:'',
+                    },
+                    stade :{
+                        one:'',
+                        two:'',
+                    },
+                    cinema :{
+                        one:'',
+                        two:'',
+                    },
+                    theatre :{
+                        one:'',
+                        two:'',
+                    },
+                    musee :{
+                        one:'',
+                        two:'',
+                    },
+                    admin_c_mj :{
+                        one:'',
+                        two:'',
+                    },
+                    admin_c_mc :{
+                        one:'',
+                        two:'',
+                    },
+                    admin_c_me :{
+                        one:'',
+                        two:'',
+                    },
+                    comptable :{
+                        one:'',
+                        two:'',
+                    },
+                    bank :{
+                        one:'',
+                        two:'',
+                    },
+                    admin_f_poste :{
+                        one:'',
+                        two:'',
+                    },
+                    admin_f_rf :{
+                        one:'',
+                        two:'',
+                    },
+                    avocat :{
+                        one:'',
+                        two:'',
+                    },
+                    admin_a_mu :{
+                        one:'',
+                        two:'',
+                    },
+                    admin_a_police :{
+                        one:'',
+                        two:'',
+                    },
+                    admin_a_ar :{
+                        one:'',
+                        two:'',
+                    },
+                    admin_a_court :{
+                        one:'',
+                        two:'',
+                    },
+                    admin_a_mosq :{
+                        one:'',
+                        two:'',
+                    },
+                    ambassade :{
+                        one:'',
+                        two:'',
+                    },
+                    fourragerie :{
+                        one:'',
+                        two:'',
+                    },
+                    veterinaire :{
+                        one:'',
+                        two:'',
+                    },
+                    agritools :{
+                        one:'',
+                        two:'',
+                    },
+                    
                 },
-                infirmier :{
-                    one:'',
-                    two:'',
-                },
-                pharmacie :{
-                    one:'',
-                    two:'',
-                },
-                labo :{
-                    one:'',
-                    two:'',
-                },
-                clinique :{
-                    one:'',
-                    two:'',
-                },
-                centreMD :{
-                    one:'',
-                    two:'',
-                },
-                admin_s_hospital :{
-                    one:'',
-                    two:'',
-                },
-                admin_s_csb :{
-                    one:'',
-                    two:'',
-                },
-                garderie :{
-                    one:'',
-                    two:'',
-                },
-                ecole :{
-                    one:'',
-                    two:'',
-                },
-                lycee :{
-                    one:'',
-                    two:'',
-                },
-                universite :{
-                    one:'',
-                    two:'',
-                },
-                formation :{
-                    one:'',
-                    two:'',
-                },
-                librairie :{
-                    one:'',
-                    two:'',
-                },
-                admin_e_centre :{
-                    one:'',
-                    two:'',
-                },
-                admin_e_biblio :{
-                    one:'',
-                    two:'',
-                },
-                admin_e_ecole :{
-                    one:'',
-                    two:'',
-                },
-                admin_e_lycee :{
-                    one:'',
-                    two:'',
-                },
-                admin_e_universite :{
-                    one:'',
-                    two:'',
-                },
-                admin_e_ss :{
-                    one:'',
-                    two:'',
-                },
-                transporteur :{
-                    one:'',
-                    two:'',
-                },
-                autoecole :{
-                    one:'',
-                    two:'',
-                },
-                location :{
-                    one:'',
-                    two:'',
-                },
-                qiosque :{
-                    one:'',
-                    two:'',
-                },
-                parking :{
-                    one:'',
-                    two:'',
-                },
-                mecanicien :{
-                    one:'',
-                    two:'',
-                },
-                Taxi :{
-                    one:'',
-                    two:'',
-                },
-                Louage :{
-                    one:'',
-                    two:'',
-                },
-                magazin :{
-                    one:'',
-                    two:'',
-                },
-                boulengerie :{
-                    one:'',
-                    two:'',
-                },
-                fruiterie :{
-                    one:'',
-                    two:'',
-                },
-                patesserie :{
-                    one:'',
-                    two:'',
-                },
-                epicerie :{
-                    one:'',
-                    two:'',
-                },
-                electromenager :{
-                    one:'',
-                    two:'',
-                },
-                meublerie :{
-                    one:'',
-                    two:'',
-                },
-                boutique :{
-                    one:'',
-                    two:'',
-                },
-                bijouterie :{
-                    one:'',
-                    two:'',
-                },
-                quincaillerie :{
-                    one:'',
-                    two:'',
-                },
-                depot :{
-                    one:'',
-                    two:'',
-                },
-                boucherie :{
-                    one:'',
-                    two:'',
-                },
-                cafe :{
-                    one:'',
-                    two:'',
-                },
-                restaurant :{
-                    one:'',
-                    two:'',
-                },
-                hotels :{
-                    one:'',
-                    two:'',
-                },
-                vg_agence :{
-                    one:'',
-                    two:'',
-                },
-                coiffure :{
-                    one:'',
-                    two:'',
-                },
-                salle_marriage :{
-                    one:'',
-                    two:'',
-                },
-                fourniture_marriage :{
-                    one:'',
-                    two:'',
-                },
-                orchestre :{
-                    one:'',
-                    two:'',
-                },
-                chef :{
-                    one:'',
-                    two:'',
-                },
-                photographe :{
-                    one:'',
-                    two:'',
-                },
-                forgeron :{
-                    one:'',
-                    two:'',
-                },
-                menuisier :{
-                    one:'',
-                    two:'',
-                },
-                peinture :{
-                    one:'',
-                    two:'',
-                },
-                electricien :{
-                    one:'',
-                    two:'',
-                },
-                plombier :{
-                    one:'',
-                    two:'',
-                },
-                cristalerie :{
-                    one:'',
-                    two:'',
-                },
-                marbrerie :{
-                    one:'',
-                    two:'',
-                },
-                courtier :{
-                    one:'',
-                    two:'',
-                },
-                contracteur :{
-                    one:'',
-                    two:'',
-                },
-                architecture :{
-                    one:'',
-                    two:'',
-                },
-                gym :{
-                    one:'',
-                    two:'',
-                },
-                pyscine :{
-                    one:'',
-                    two:'',
-                },
-                stade :{
-                    one:'',
-                    two:'',
-                },
-                cinema :{
-                    one:'',
-                    two:'',
-                },
-                theatre :{
-                    one:'',
-                    two:'',
-                },
-                musee :{
-                    one:'',
-                    two:'',
-                },
-                admin_c_mj :{
-                    one:'',
-                    two:'',
-                },
-                admin_c_mc :{
-                    one:'',
-                    two:'',
-                },
-                admin_c_me :{
-                    one:'',
-                    two:'',
-                },
-                comptable :{
-                    one:'',
-                    two:'',
-                },
-                bank :{
-                    one:'',
-                    two:'',
-                },
-                admin_f_poste :{
-                    one:'',
-                    two:'',
-                },
-                admin_f_rf :{
-                    one:'',
-                    two:'',
-                },
-                avocat :{
-                    one:'',
-                    two:'',
-                },
-                admin_a_mu :{
-                    one:'',
-                    two:'',
-                },
-                admin_a_police :{
-                    one:'',
-                    two:'',
-                },
-                admin_a_ar :{
-                    one:'',
-                    two:'',
-                },
-                admin_a_court :{
-                    one:'',
-                    two:'',
-                },
-                admin_a_mosq :{
-                    one:'',
-                    two:'',
-                },
-                ambassade :{
-                    one:'',
-                    two:'',
-                },
-                fourragerie :{
-                    one:'',
-                    two:'',
-                },
-                veterinaire :{
-                    one:'',
-                    two:'',
-                },
-                agritools :{
-                    one:'',
-                    two:'',
-                },
-                
             },
             FollowTabData : {
                 docteur : {
@@ -2571,7 +2582,7 @@ const EnglishTrans = {
                 
             },
             PostsTabs :{
-                noPostToShow: '',
+                noPostToShow: '"This client doesn\'t have any posts."',
                 textText: '',
                 photoText: '',
                 videoText: '',
@@ -2798,6 +2809,7 @@ const EnglishTrans = {
                 fourragerie_shop: 'Forage Purchase'
             },
             favoiteItemList: {
+                favEmpty : 'You have no items in your favorites. Explore the search engine on the homepage. ',
                 admin: 'Administration',
                 sante: 'Health',
                 education: 'Education',
@@ -2809,6 +2821,20 @@ const EnglishTrans = {
                 construction: 'Construction',
                 autre: 'Others'
             },
+            docummentPage: {
+                filesTile: 'Files',
+                docummentTile: 'Public Documents',
+                itemsList: {
+                    sante: 'Health Files',
+                    education: 'Education Files',
+                    transport: 'Transport Files',
+                    sport: 'Sports Files',
+                    docs: 'Documents',
+                    subs: 'Subscriptions',
+                    factures: 'Invoices',
+                    recue: 'Receipts'
+                }
+            },            
             SettingPage :{
                 itemsList: {
                     basicInfo: 'General Information',
@@ -2822,12 +2848,6 @@ const EnglishTrans = {
                     contact: 'Contact Us',
                     invite: 'Invite a Friend',
               },
-            },
-            PostsTabs :{
-                noPostToShow: '',
-                textText: '',
-                photoText: '',
-                videoText: '',
             },
             toastText:{
                 failOne:'',
@@ -2918,11 +2938,11 @@ const EnglishTrans = {
                     buttonNavText: "Discover the system"
                 },
                 statData: {
-                attente: "Pending",
-                accepter: "Accepted",
-                vueText: "Viewed",
-                refusee: "Rejected",
-                terminer: "Completed"
+                    attente: "Pending",
+                    accepter: "Accepted",
+                    vueText: "Viewed",
+                    refusee: "Rejected",
+                    terminer: "Completed"
                 },
                 stepsBySystem : {
                     docteur: {
@@ -3700,810 +3720,810 @@ const EnglishTrans = {
                     }
                     }
                 },
-                requestTabs : {
-                    gestionDe:'Gestion des',
+                requestTabs: {
+                    gestionDe: 'Management of',
                     docteur: {
-                    docteur_rdv: "Rendy-Vous",
-                    Spesific: "Tarifs & Autres"
+                      docteur_rdv: 'Appointments',
+                      Spesific: 'Rates & Others'
                     },
                     pharmacie: {
-                    pharmacie_shop: "Commandes",
-                    pharmacie_rdv: "Reservation",
-                    Spesific: "Tarif"
+                      pharmacie_shop: 'Orders',
+                      pharmacie_rdv: 'Reservation',
+                      Spesific: 'Rates'
                     },
                     clinique: {
-                    clinique_reserver: "Reservation",
-                    Spesific: "Tarif"
+                      clinique_reserver: 'Reservation',
+                      Spesific: 'Rates'
                     },
                     labo: {
-                    labo_rdv: "Rendy Vous",
-                    Spesific: "Tarif & Autres"
+                      labo_rdv: 'Appointments',
+                      Spesific: 'Rates & Others'
                     },
                     infirmier: {
-                    infirmier_rdv: "Rendy Vous",
-                    Spesific: "Tarif"
+                      infirmier_rdv: 'Appointments',
+                      Spesific: 'Rates'
                     },
                     centreMD: {
-                    centre_reserver: "Reservation",
-                    Spesific: "Tarif"
+                      centre_reserver: 'Reservation',
+                      Spesific: 'Rates'
                     },
                     garderie: {
-                    garderie_inscription: "Inscription",
-                    garderie_souscription: "Souscription",
-                    Spesific: "Tarif"
+                      garderie_inscription: 'Registration',
+                      garderie_souscription: 'Subscription',
+                      Spesific: 'Rates'
                     },
                     ecole: {
-                    garderie_inscription: "Inscription",
-                    garderie_souscription: "Souscription",
-                    Spesific: "Tarif"
+                      garderie_inscription: 'Registration',
+                      garderie_souscription: 'Subscription',
+                      Spesific: 'Rates'
                     },
                     lycee: {
-                    garderie_inscription: "Inscription",
-                    garderie_souscription: "Souscription",
-                    Spesific: "Tarif"
+                      garderie_inscription: 'Registration',
+                      garderie_souscription: 'Subscription',
+                      Spesific: 'Rates'
                     },
                     universite: {
-                    garderie_inscription: "Inscription",
-                    garderie_souscription: "Souscription",
-                    Spesific: "Tarif"
+                      garderie_inscription: 'Registration',
+                      garderie_souscription: 'Subscription',
+                      Spesific: 'Rates'
                     },
                     librairie: {
-                    librairie_shop: "Commandes",
-                    Spesific: "Articles"
+                      librairie_shop: 'Orders',
+                      Spesific: 'Items'
                     },
                     formation: {
-                    formation_inscription: "Inscription",
-                    Spesific: "Tarif"
+                      formation_inscription: 'Registration',
+                      Spesific: 'Rates'
                     },
                     impremerie: {
-                    restaurant_commande: "Commandes",
-                    restaurant_reservation: "Reservation",
-                    Spesific: "Tarif"
+                      restaurant_commande: 'Orders',
+                      restaurant_reservation: 'Reservation',
+                      Spesific: 'Rates'
                     },
                     transporteur: {
-                    transporteur_request: "Commandes",
-                    Spesific: "Tarif"
+                      transporteur_request: 'Orders',
+                      Spesific: 'Rates'
                     },
                     autoecole: {
-                    autoecole_inscrie: "Inscription",
-                    Spesific: "Tarif"
+                      autoecole_inscrie: 'Registration',
+                      Spesific: 'Rates'
                     },
                     parking: {
-                    parking_reserver: "Reservation",
-                    parking_souscrire: "Souscription",
-                    Spesific: "Tarif"
+                      parking_reserver: 'Reservation',
+                      parking_souscrire: 'Subscription',
+                      Spesific: 'Rates'
                     },
                     qiosque: {
-                    qiosque_request: "Commandes",
-                    qiosque_lavage: "Lavage",
-                    Spesific: "Tarif"
+                      qiosque_request: 'Orders',
+                      qiosque_lavage: 'Washing',
+                      Spesific: 'Rates'
                     },
                     location: {
-                    location_request: "Demandes de Location",
-                    Spesific: "Tarif"
+                      location_request: 'Rental Requests',
+                      Spesific: 'Rates'
                     },
                     mecanicien: {
-                    location_request: "Rendy-Vous",
-                    Spesific: "Tarif"
+                      location_request: 'Appointments',
+                      Spesific: 'Rates'
                     },
                     magazin: {
-                    magazin_commande: "Commandes",
-                    Spesific: "Articles"
+                      magazin_commande: 'Orders',
+                      Spesific: 'Items'
                     },
                     fruiterie: {
-                    fruiterie_shop: "Commandes",
-                    Spesific: "Traifs"
+                      fruiterie_shop: 'Orders',
+                      Spesific: 'Rates'
                     },
                     boucherie: {
-                    boucheries_shop: "Commandes",
-                    Spesific: "Traifs"
+                      boucheries_shop: 'Orders',
+                      Spesific: 'Rates'
                     },
                     boulengerie: {
-                    boulangerie_shop: "Commandes",
-                    Spesific: "Traifs"
+                      boulangerie_shop: 'Orders',
+                      Spesific: 'Rates'
                     },
                     patesserie: {
-                    patisserie_shop: "Commandes",
-                    Spesific: "Tarifs"
+                      patisserie_shop: 'Orders',
+                      Spesific: 'Rates'
                     },
                     epicerie: {
-                    epicerie_shop: "Commandes",
-                    Spesific: "Articles"
+                      epicerie_shop: 'Orders',
+                      Spesific: 'Items'
                     },
                     electromenager: {
-                    electromenager_shop: "Commandes",
-                    Spesific: "Articles"
+                      electromenager_shop: 'Orders',
+                      Spesific: 'Items'
                     },
                     meublerie: {
-                    meubles_shop: "Commandes",
-                    Spesific: "Articles"
+                      meubles_shop: 'Orders',
+                      Spesific: 'Items'
                     },
                     bijouterie: {
-                    bijouterie_shop: "Commandes",
-                    Spesific: "Articles"
+                      bijouterie_shop: 'Orders',
+                      Spesific: 'Items'
                     },
                     quincaillerie: {
-                    quincaillerie_shop: "Commandes",
-                    Spesific: "Articles"
+                      quincaillerie_shop: 'Orders',
+                      Spesific: 'Items'
                     },
                     boutique: {
-                    boutique_shop: "Commandes",
-                    Spesific: "Articles"
+                      boutique_shop: 'Orders',
+                      Spesific: 'Items'
                     },
                     depot: {
-                    depot_commande: "Commandes",
-                    Spesific: "Articles"
+                      depot_commande: 'Orders',
+                      Spesific: 'Items'
                     },
                     menuisier: {
-                    restaurant_commande: "Commandes",
-                    restaurant_reservation: "Reservation",
-                    Spesific: "Tarif"
+                      restaurant_commande: 'Orders',
+                      restaurant_reservation: 'Reservation',
+                      Spesific: 'Rates'
                     },
                     forgeron: {
-                    restaurant_commande: "Commandes",
-                    restaurant_reservation: "Reservation",
-                    Spesific: "Tarif"
+                      restaurant_commande: 'Orders',
+                      restaurant_reservation: 'Reservation',
+                      Spesific: 'Rates'
                     },
                     cristalerie: {
-                    restaurant_commande: "Commandes",
-                    restaurant_reservation: "Reservation",
-                    Spesific: "Tarif"
+                      restaurant_commande: 'Orders',
+                      restaurant_reservation: 'Reservation',
+                      Spesific: 'Rates'
                     },
                     marbrerie: {
-                    restaurant_commande: "Commandes",
-                    restaurant_reservation: "Reservation",
-                    Spesific: "Tarif"
+                      restaurant_commande: 'Orders',
+                      restaurant_reservation: 'Reservation',
+                      Spesific: 'Rates'
                     },
                     electricien: {
-                    restaurant_commande: "Commandes",
-                    restaurant_reservation: "Reservation",
-                    Spesific: "Tarif"
+                      restaurant_commande: 'Orders',
+                      restaurant_reservation: 'Reservation',
+                      Spesific: 'Rates'
                     },
                     peinture: {
-                    restaurant_commande: "Commandes",
-                    restaurant_reservation: "Reservation",
-                    Spesific: "Tarif"
+                      restaurant_commande: 'Orders',
+                      restaurant_reservation: 'Reservation',
+                      Spesific: 'Rates'
                     },
                     plombier: {
-                    restaurant_commande: "Commandes",
-                    restaurant_reservation: "Reservation",
-                    Spesific: "Tarif"
+                      restaurant_commande: 'Orders',
+                      restaurant_reservation: 'Reservation',
+                      Spesific: 'Rates'
                     },
                     coiffure: {
-                    coiffure_reserver: "Reservation",
-                    Spesific: "Tarif"
+                      coiffure_reserver: 'Reservation',
+                      Spesific: 'Rates'
                     },
                     salle_marriage: {
-                    salon_marriage_reserver: "Reservations",
-                    Spesific: "Tarif"
+                      salon_marriage_reserver: 'Reservations',
+                      Spesific: 'Rates'
                     },
                     fourniture_marriage: {
-                    fourniture_marriage_location: "Reservation",
-                    Spesific: "Tarif"
+                      fourniture_marriage_location: 'Reservation',
+                      Spesific: 'Rates'
                     },
                     photographe: {
-                    photographe_reserver: "Reservation",
-                    Spesific: "Tarif"
+                      photographe_reserver: 'Reservation',
+                      Spesific: 'Rates'
                     },
                     chef: {
-                    chef_reserver: "Reservation",
-                    Spesific: "Tarif"
+                      chef_reserver: 'Reservation',
+                      Spesific: 'Rates'
                     },
                     orchestre: {
-                    orchestre_reserver: "Reservation",
-                    Spesific: "Tarif"
+                      orchestre_reserver: 'Reservation',
+                      Spesific: 'Rates'
                     },
                     gym: {
-                    gym_souscription: "Souscription",
-                    Spesific: "Tarif"
+                      gym_souscription: 'Subscription',
+                      Spesific: 'Rates'
                     },
                     pyscine: {
-                    pyscine_reserver: "Reservation",
-                    pyscine_souscrire: "Souscription",
-                    Spesific: "Tarif"
+                      pyscine_reserver: 'Reservation',
+                      pyscine_souscrire: 'Subscription',
+                      Spesific: 'Rates'
                     },
                     stade: {
-                    stade_reserver: "Reservation",
-                    stade_souscrire: "Souscription",
-                    Spesific: "Tarif"
+                      stade_reserver: 'Reservation',
+                      stade_souscrire: 'Subscription',
+                      Spesific: 'Rates'
                     },
                     cinema: {
-                    cinema_reserver: "Reservation",
-                    Spesific: "Tarif"
+                      cinema_reserver: 'Reservation',
+                      Spesific: 'Rates'
                     },
                     theatre: {
-                    theatre_reserver: "Reservation",
-                    Spesific: "Tarif"
+                      theatre_reserver: 'Reservation',
+                      Spesific: 'Rates'
                     },
                     musee: {
-                    musee_reserver: "Reservation",
-                    Spesific: "Tarif"
+                      musee_reserver: 'Reservation',
+                      Spesific: 'Rates'
                     },
                     avocat: {
-                    avocat_rdv: "Resndy Vous",
-                    Spesific: "Tarif"
+                      avocat_rdv: 'Appointments',
+                      Spesific: 'Rates'
                     },
                     restaurant: {
-                    restaurant_commande: "Commandes",
-                    restaurant_reservation: "Reservation",
-                    Spesific: "Menu"
+                      restaurant_commande: 'Orders',
+                      restaurant_reservation: 'Reservation',
+                      Spesific: 'Menu'
                     },
                     cafe: {
-                    cafe_commande: "Commandes",
-                    cafe_reservation: "Reservation",
-                    Spesific: "Tarif"
+                      cafe_commande: 'Orders',
+                      cafe_reservation: 'Reservation',
+                      Spesific: 'Rates'
                     },
                     hotels: {
-                    hotels_reserver: "Reservation",
-                    hotels_service: "Service",
-                    Spesific: "Tarif"
+                      hotels_reserver: 'Reservation',
+                      hotels_service: 'Service',
+                      Spesific: 'Rates'
                     },
                     vg_agence: {
-                    agence_service: "Reservation",
-                    Spesific: "Tarif"
+                      agence_service: 'Reservation',
+                      Spesific: 'Rates'
                     },
                     comptable: {
-                    comptable_service: "Demmandes",
-                    Spesific: "Tarif"
+                      comptable_service: 'Requests',
+                      Spesific: 'Rates'
                     },
                     socite: {
-                    restaurant_commande: "Commandes",
-                    restaurant_reservation: "Reservation",
-                    Spesific: "Tarif"
+                      restaurant_commande: 'Orders',
+                      restaurant_reservation: 'Reservation',
+                      Spesific: 'Rates'
                     },
                     bank: {
-                    restaurant_commande: "Viremment",
-                    restaurant_reservation: "Retrait",
-                    Spesific: "Tarif"
+                      restaurant_commande: 'Transfers',
+                      restaurant_reservation: 'Withdrawals',
+                      Spesific: 'Rates'
                     },
                     courtier: {
-                    courtier_request: "Achat/Louer",
-                    courtier_torent: "Vente/à Louer",
-                    Spesific: "Tarif"
+                      courtier_request: 'Buy/Rent',
+                      courtier_torent: 'Sale/For Rent',
+                      Spesific: 'Rates'
                     },
                     contracteur: {
-                    contracteur_service: "Demmande",
-                    Spesific: "Tarif"
+                      contracteur_service: 'Requests',
+                      Spesific: 'Rates'
                     },
                     architecture: {
-                    architecture_service: "Demmandes",
-                    Spesific: "Tarif"
+                      architecture_service: 'Requests',
+                      Spesific: 'Rates'
                     },
                     veterinaire: {
-                    veterinaire_rdv: "Rendy-Vous",
-                    Spesific: "Tarifs & Autres"
+                      veterinaire_rdv: 'Appointments',
+                      Spesific: 'Rates & Others'
                     },
                     fourragerie: {
-                    restaurant_commande: "Commandes",
-                    Spesific: "Tarif"
+                      restaurant_commande: 'Orders',
+                      Spesific: 'Rates'
                     },
                     agritools: {
-                    restaurant_commande: "Commandes",
-                    restaurant_reservation: "Reservation",
-                    Spesific: "Tarif"
+                      restaurant_commande: 'Orders',
+                      restaurant_reservation: 'Reservation',
+                      Spesific: 'Rates'
                     },
                     farm: {
-                    restaurant_commande: "Commandes",
-                    restaurant_reservation: "Reservation",
-                    Spesific: "Tarif"
+                      restaurant_commande: 'Orders',
+                      restaurant_reservation: 'Reservation',
+                      Spesific: 'Rates'
                     }
                 },
-                spesificTabs : {
-                        docteur: {
-                        sa: "Seances",
-                        cl: "Calendrier",
+                spesificTabs: {
+                      docteur: {
+                        sa: "Sessions",
+                        cl: "Calendar",
                         pt: "Patient",
-                        or: "Ordonance",
-                        rp: "Rapport",
-                        tm: "Equipe"
-                        },
-                        pharmacie: {
+                        or: "Prescription",
+                        rp: "Report",
+                        tm: "Team"
+                      },
+                      pharmacie: {
                         sa: "Stock",
-                        pt: "Factures",
-                        cl: "Caisse",
-                        or: "Fournisseur ",
+                        pt: "Invoices",
+                        cl: "Cash Register",
+                        or: "Supplier",
                         rp: "Clients",
-                        tm: "Equipe"
-                        },
-                        clinique: {
-                        sa: "Chambres",
-                        cl: "Factures",
-                        pt: "Calendrier",
-                        or: "Urgences ",
+                        tm: "Team"
+                      },
+                      clinique: {
+                        sa: "Rooms",
+                        cl: "Invoices",
+                        pt: "Calendar",
+                        or: "Emergencies",
                         rp: "Patient",
-                        tm: "Docteurs"
-                        },
-                        labo: {
+                        tm: "Doctors"
+                      },
+                      labo: {
                         sa: "Analyses",
-                        cl: "Calendrier",
-                        pt: "Rapport",
-                        or: "Todo ",
+                        cl: "Calendar",
+                        pt: "Report",
+                        or: "To-Do",
                         rp: "Patient",
-                        tm: "Equipe"
-                        },
-                        infirmier: {
-                        cl: "Calendrier",
+                        tm: "Team"
+                      },
+                      infirmier: {
+                        cl: "Calendar",
                         pt: "Patient",
-                        rp: "Todo",
-                        sa: "Seances",
-                        tm: "Equipe"
-                        },
-                        centreMD: {
-                        sa: "Chambres",
-                        cl: "Factures",
-                        pt: "Calendrier",
-                        or: "Urgences ",
+                        rp: "To-Do",
+                        sa: "Sessions",
+                        tm: "Team"
+                      },
+                      centreMD: {
+                        sa: "Rooms",
+                        cl: "Invoices",
+                        pt: "Calendar",
+                        or: "Emergencies",
                         rp: "Patient",
-                        tm: "Docteurs"
-                        },
-                        garderie: {
-                        sa: "Eleves",
-                        cl: "Abonne..",
+                        tm: "Doctors"
+                      },
+                      garderie: {
+                        sa: "Students",
+                        cl: "Subscribers",
                         pt: "Classes",
-                        or: "Seances ",
+                        or: "Sessions",
                         rp: "Parents",
-                        tm: "Equipe"
-                        },
-                        ecole: {
-                        sa: "Eleves",
-                        cl: "Abonne..",
+                        tm: "Team"
+                      },
+                      ecole: {
+                        sa: "Students",
+                        cl: "Subscribers",
                         pt: "Classes",
-                        or: "Seances ",
+                        or: "Sessions",
                         rp: "Parents",
-                        tm: "Equipe"
-                        },
-                        lycee: {
-                        sa: "Eleves",
-                        cl: "Abonne..",
+                        tm: "Team"
+                      },
+                      lycee: {
+                        sa: "Students",
+                        cl: "Subscribers",
                         pt: "Classes",
-                        or: "Seances ",
+                        or: "Sessions",
                         rp: "Parents",
-                        tm: "Equipe"
-                        },
-                        universite: {
-                        sa: "Etudients",
-                        cl: "Abonne..",
+                        tm: "Team"
+                      },
+                      universite: {
+                        sa: "Students",
+                        cl: "Subscribers",
                         pt: "Classes",
-                        or: "Seances ",
-                        tm: "Equipe"
-                        },
-                        librairie: {
+                        or: "Sessions",
+                        tm: "Team"
+                      },
+                      librairie: {
                         sa: "Stock",
-                        pt: "Factures",
-                        cl: "Caisse",
-                        or: "Fournisseur ",
+                        pt: "Invoices",
+                        cl: "Cash Register",
+                        or: "Supplier",
                         rp: "Clients",
-                        tm: "Equipe"
-                        },
-                        formation: {
-                        sa: "Eleves",
-                        cl: "Abonne..",
+                        tm: "Team"
+                      },
+                      formation: {
+                        sa: "Students",
+                        cl: "Subscribers",
                         pt: "Classes",
-                        or: "Seances ",
+                        or: "Sessions",
                         rp: "Parents",
-                        tm: "Equipe"
-                        },
-                        impremerie: {
+                        tm: "Team"
+                      },
+                      impremerie: {
                         sa: "Plates",
-                        cl: "Caisse",
-                        pt: "Factures",
-                        or: "Tables ",
+                        cl: "Cash Register",
+                        pt: "Invoices",
+                        or: "Tables",
                         rp: "Clients",
-                        tm: "Equipe"
-                        },
-                        transporteur: {
+                        tm: "Team"
+                      },
+                      transporteur: {
                         sa: "Operations",
-                        cl: "Camions",
-                        pt: "Voyages",
+                        cl: "Trucks",
+                        pt: "Trips",
                         rp: "Clients",
-                        tm: "Equipe"
-                        },
-                        autoecole: {
-                        sa: "Abonne...",
-                        cl: "Seances",
-                        pt: "Voitures",
-                        or: "Calendrier ",
+                        tm: "Team"
+                      },
+                      autoecole: {
+                        sa: "Subscribers",
+                        cl: "Sessions",
+                        pt: "Cars",
+                        or: "Calendar",
                         rp: "Clients",
-                        tm: "Equipe"
-                        },
-                        parking: {
-                        sa: "Places",
-                        or: "Calendrier ",
-                        pt: "Factures",
+                        tm: "Team"
+                      },
+                      parking: {
+                        sa: "Spaces",
+                        or: "Calendar",
+                        pt: "Invoices",
                         rp: "Clients",
-                        tm: "Equipe"
-                        },
-                        qiosque: {
-                        sa: "Calendrier",
-                        pt: "Factures",
-                        cl: "Caisse",
-                        or: "Fournisseur ",
+                        tm: "Team"
+                      },
+                      qiosque: {
+                        sa: "Calendar",
+                        pt: "Invoices",
+                        cl: "Cash Register",
+                        or: "Supplier",
                         rp: "Clients",
-                        tm: "Equipe"
-                        },
-                        location: {
-                        sa: "Voitures",
-                        cl: "Calendrier",
-                        pt: "Factures",
-                        or: "Position ",
+                        tm: "Team"
+                      },
+                      location: {
+                        sa: "Cars",
+                        cl: "Calendar",
+                        pt: "Invoices",
+                        or: "Position",
                         rp: "Clients",
-                        tm: "Equipe"
-                        },
-                        mecanicien: {
-                        sa: "Ateliers",
-                        cl: "Caisse",
-                        pt: "Factures",
-                        or: "Calendrier ",
+                        tm: "Team"
+                      },
+                      mecanicien: {
+                        sa: "Workshops",
+                        cl: "Cash Register",
+                        pt: "Invoices",
+                        or: "Calendar",
                         rp: "Clients",
-                        tm: "Equipe"
-                        },
-                        magazin: {
+                        tm: "Team"
+                      },
+                      magazin: {
                         sa: "Stock",
-                        pt: "Factures",
-                        cl: "Caisse",
-                        or: "Fournisseur ",
+                        pt: "Invoices",
+                        cl: "Cash Register",
+                        or: "Supplier",
                         rp: "Clients",
-                        tm: "Equipe"
-                        },
-                        fruiterie: {
+                        tm: "Team"
+                      },
+                      fruiterie: {
                         sa: "Stock",
-                        pt: "Factures",
-                        cl: "Caisse",
-                        or: "Fournisseur ",
+                        pt: "Invoices",
+                        cl: "Cash Register",
+                        or: "Supplier",
                         rp: "Clients",
-                        tm: "Equipe"
-                        },
-                        boucherie: {
+                        tm: "Team"
+                      },
+                      boucherie: {
                         sa: "Stock",
-                        pt: "Factures",
-                        cl: "Caisse",
-                        or: "Fournisseur ",
+                        pt: "Invoices",
+                        cl: "Cash Register",
+                        or: "Supplier",
                         rp: "Clients",
-                        tm: "Equipe"
-                        },
-                        boulengerie: {
+                        tm: "Team"
+                      },
+                      boulengerie: {
                         sa: "Stock",
-                        pt: "Factures",
-                        cl: "Caisse",
-                        or: "Fournisseur ",
+                        pt: "Invoices",
+                        cl: "Cash Register",
+                        or: "Supplier",
                         rp: "Clients",
-                        tm: "Equipe"
-                        },
-                        patesserie: {
+                        tm: "Team"
+                      },
+                      patesserie: {
                         sa: "Stock",
-                        pt: "Factures",
-                        cl: "Caisse",
-                        or: "Fournisseur ",
+                        pt: "Invoices",
+                        cl: "Cash Register",
+                        or: "Supplier",
                         rp: "Clients",
-                        tm: "Equipe"
-                        },
-                        epicerie: {
+                        tm: "Team"
+                      },
+                      epicerie: {
                         sa: "Stock",
-                        pt: "Factures",
-                        cl: "Caisse",
-                        or: "Fournisseur ",
+                        pt: "Invoices",
+                        cl: "Cash Register",
+                        or: "Supplier",
                         rp: "Clients",
-                        tm: "Equipe"
-                        },
-                        electromenager: {
+                        tm: "Team"
+                      },
+                      electromenager: {
                         sa: "Stock",
-                        pt: "Factures",
+                        pt: "Invoices",
                         cl: "Credit",
-                        or: "Fournisseur ",
+                        or: "Supplier",
                         rp: "Clients",
-                        tm: "Equipe"
-                        },
-                        meublerie: {
+                        tm: "Team"
+                      },
+                      meublerie: {
                         sa: "Stock",
-                        pt: "Factures",
+                        pt: "Invoices",
                         cl: "Credit",
-                        or: "Fournisseur ",
+                        or: "Supplier",
                         rp: "Clients",
-                        tm: "Equipe"
-                        },
-                        bijouterie: {
+                        tm: "Team"
+                      },
+                      bijouterie: {
                         sa: "Stock",
-                        pt: "Factures",
-                        cl: "Caisse",
-                        or: "Fournisseur ",
+                        pt: "Invoices",
+                        cl: "Cash Register",
+                        or: "Supplier",
                         rp: "Clients",
-                        tm: "Equipe"
-                        },
-                        quincaillerie: {
+                        tm: "Team"
+                      },
+                      quincaillerie: {
                         sa: "Stock",
-                        pt: "Factures",
-                        cl: "Caisse",
-                        or: "Fournisseur ",
+                        pt: "Invoices",
+                        cl: "Cash Register",
+                        or: "Supplier",
                         rp: "Clients",
-                        tm: "Equipe"
-                        },
-                        boutique: {
+                        tm: "Team"
+                      },
+                      boutique: {
                         sa: "Stock",
-                        pt: "Factures",
-                        cl: "Caisse",
-                        or: "Fournisseur ",
+                        pt: "Invoices",
+                        cl: "Cash Register",
+                        or: "Supplier",
                         rp: "Clients",
-                        tm: "Equipe"
-                        },
-                        depot: {
+                        tm: "Team"
+                      },
+                      depot: {
                         sa: "Stock",
-                        pt: "Factures",
-                        cl: "Caisse",
-                        or: "Camions ",
+                        pt: "Invoices",
+                        cl: "Cash Register",
+                        or: "Trucks",
                         rp: "Clients",
-                        tm: "Equipe"
-                        },
-                        menuisier: {
+                        tm: "Team"
+                      },
+                      menuisier: {
                         sa: "Plates",
-                        cl: "Caisse",
-                        pt: "Factures",
-                        or: "Tables ",
+                        cl: "Cash Register",
+                        pt: "Invoices",
+                        or: "Tables",
                         rp: "Clients",
-                        tm: "Equipe"
-                        },
-                        forgeron: {
+                        tm: "Team"
+                      },
+                      forgeron: {
                         sa: "Plates",
-                        cl: "Caisse",
-                        pt: "Factures",
-                        or: "Tables ",
+                        cl: "Cash Register",
+                        pt: "Invoices",
+                        or: "Tables",
                         rp: "Clients",
-                        tm: "Equipe"
-                        },
-                        cristalerie: {
+                        tm: "Team"
+                      },
+                      cristalerie: {
                         sa: "Plates",
-                        cl: "Caisse",
-                        pt: "Factures",
-                        or: "Tables ",
+                        cl: "Cash Register",
+                        pt: "Invoices",
+                        or: "Tables",
                         rp: "Clients",
-                        tm: "Equipe"
-                        },
-                        marbrerie: {
+                        tm: "Team"
+                      },
+                      marbrerie: {
                         sa: "Plates",
-                        cl: "Caisse",
-                        pt: "Factures",
-                        or: "Tables ",
+                        cl: "Cash Register",
+                        pt: "Invoices",
+                        or: "Tables",
                         rp: "Clients",
-                        tm: "Equipe"
-                        },
-                        electricien: {
+                        tm: "Team"
+                      },
+                      electricien: {
                         sa: "Plates",
-                        cl: "Caisse",
-                        pt: "Factures",
-                        or: "Tables ",
+                        cl: "Cash Register",
+                        pt: "Invoices",
+                        or: "Tables",
                         rp: "Clients",
-                        tm: "Equipe"
-                        },
-                        peinture: {
+                        tm: "Team"
+                      },
+                      peinture: {
                         sa: "Plates",
-                        cl: "Caisse",
-                        pt: "Factures",
-                        or: "Tables ",
+                        cl: "Cash Register",
+                        pt: "Invoices",
+                        or: "Tables",
                         rp: "Clients",
-                        tm: "Equipe"
-                        },
-                        plombier: {
+                        tm: "Team"
+                      },
+                      plombier: {
                         sa: "Plates",
-                        cl: "Caisse",
-                        pt: "Factures",
-                        or: "Tables ",
+                        cl: "Cash Register",
+                        pt: "Invoices",
+                        or: "Tables",
                         rp: "Clients",
-                        tm: "Equipe"
-                        },
-                        coiffure: {
-                        sa: "Calendrier",
+                        tm: "Team"
+                      },
+                      coiffure: {
+                        sa: "Calendar",
                         cl: "Stock",
-                        pt: "Factures",
-                        or: "Attent ",
+                        pt: "Invoices",
+                        or: "Waiting",
                         rp: "Clients",
-                        tm: "Equipe"
-                        },
-                        salle_marriage: {
-                        sa: "Calendrier",
-                        cl: "Espaces",
-                        pt: "Factures",
-                        or: "Attent ",
+                        tm: "Team"
+                      },
+                      salle_marriage: {
+                        sa: "Calendar",
+                        cl: "Spaces",
+                        pt: "Invoices",
+                        or: "Waiting",
                         rp: "Clients",
-                        tm: "Equipe"
-                        },
-                        fourniture_marriage: {
+                        tm: "Team"
+                      },
+                      fourniture_marriage: {
                         sa: "Stock",
-                        cl: "Calendrier",
-                        pt: "Factures",
-                        or: "Attent ",
+                        cl: "Calendar",
+                        pt: "Invoices",
+                        or: "Waiting",
                         rp: "Clients",
-                        tm: "Equipe"
-                        },
-                        photographe: {
+                        tm: "Team"
+                      },
+                      photographe: {
                         tm: "Media",
-                        cl: "Calendrier",
+                        cl: "Calendar",
                         pt: "Positions",
-                        or: "Attent ",
+                        or: "Waiting",
                         rp: "Clients"
-                        },
-                        chef: {
-                        tm: "Plats",
-                        cl: "Calendrier",
+                      },
+                      chef: {
+                        tm: "Dishes",
+                        cl: "Calendar",
                         pt: "Positions",
-                        or: "Attent ",
+                        or: "Waiting",
                         rp: "Clients"
-                        },
-                        orchestre: {
-                        tm: "Membres",
-                        cl: "Calendrier",
+                      },
+                      orchestre: {
+                        tm: "Members",
+                        cl: "Calendar",
                         pt: "Positions",
-                        or: "Attent ",
+                        or: "Waiting",
                         rp: "Clients"
-                        },
-                        gym: {
-                        sa: "Abonn...",
-                        cl: "Seances",
-                        pt: "Equipem...",
-                        or: "Groupes ",
+                      },
+                      gym: {
+                        sa: "Subscribers",
+                        cl: "Sessions",
+                        pt: "Equipment",
+                        or: "Groups",
                         rp: "Clients",
-                        tm: "Equipe"
-                        },
-                        pyscine: {
-                        sa: "Abonn...",
-                        cl: "Seances",
-                        pt: "Equipem...",
-                        or: "Groupes ",
+                        tm: "Team"
+                      },
+                      piscine: {
+                        sa: "Subscribers",
+                        cl: "Sessions",
+                        pt: "Equipment",
+                        or: "Groups",
                         rp: "Clients",
-                        tm: "Equipe"
-                        },
-                        stade: {
-                        sa: "Abonn...",
-                        cl: "Seances",
-                        pt: "Equipem...",
-                        or: "Groupes ",
+                        tm: "Team"
+                      },
+                      stade: {
+                        sa: "Subscribers",
+                        cl: "Sessions",
+                        pt: "Equipment",
+                        or: "Groups",
                         rp: "Clients",
-                        tm: "Equipe"
-                        },
-                        cinema: {
-                        sa: "Abonn...",
-                        cl: "Seances",
-                        pt: "Calendrier",
-                        or: "Groupes ",
+                        tm: "Team"
+                      },
+                      cinema: {
+                        sa: "Subscribers",
+    
+    
+                        cl: "Sessions",
+                        pt: "Calendar",
+                        or: "Groups",
                         rp: "Clients",
-                        tm: "Equipe"
-                        },
-                        theatre: {
-                        sa: "Abonn...",
-                        cl: "Seances",
-                        pt: "Calendrier",
-                        or: "Groupes ",
+                        tm: "Team"
+                      },
+                      theatre: {
+                        sa: "Subscribers",
+                        cl: "Sessions",
+                        pt: "Calendar",
+                        or: "Groups",
                         rp: "Clients",
-                        tm: "Equipe"
-                        },
-                        musee: {
-                        sa: "Abonn...",
-                        cl: "Seances",
-                        pt: "Calendrier",
-                        or: "Groupes ",
+                        tm: "Team"
+                      },
+                      musee: {
+                        sa: "Subscribers",
+                        cl: "Sessions",
+                        pt: "Calendar",
+                        or: "Groups",
                         rp: "Clients",
-                        tm: "Equipe"
-                        },
-                        avocat: {
-                        sa: "Sujet",
-                        cl: "Seances",
-                        pt: "Calendrier",
+                        tm: "Team"
+                      },
+                      avocat: {
+                        sa: "Subject",
+                        cl: "Sessions",
+                        pt: "Calendar",
                         or: "Support",
                         rp: "Clients",
-                        tm: "Equipe"
-                        },
-                        restaurant: {
-                        sa: "Plates",
-                        cl: "Caisse",
-                        pt: "Factures",
-                        or: "Tables ",
+                        tm: "Team"
+                      },
+                      restaurant: {
+                        sa: "Dishes",
+                        cl: "Cash Register",
+                        pt: "Invoices",
+                        or: "Tables",
                         rp: "Clients",
-                        tm: "Equipe"
-                        },
-                        cafe: {
-                        sa: "Boissons",
-                        cl: "Caisse",
-                        pt: "Factures",
-                        or: "Tables ",
+                        tm: "Team"
+                      },
+                      cafe: {
+                        sa: "Drinks",
+                        cl: "Cash Register",
+                        pt: "Invoices",
+                        or: "Tables",
                         rp: "Clients",
-                        tm: "Equipe"
-                        },
-                        hotels: {
-                        sa: "Chambres",
+                        tm: "Team"
+                      },
+                      hotels: {
+                        sa: "Rooms",
                         cl: "Restaurant",
-                        pt: "Pyscine",
-                        or: "Calendrier ",
+                        pt: "Pool",
+                        or: "Calendar",
                         rp: "Clients",
-                        tm: "Equipe"
-                        },
-                        vg_agence: {
-                        sa: "Voyages",
-                        cl: "Reservat...",
-                        pt: "Billets",
-                        or: "Transport ",
+                        tm: "Team"
+                      },
+                      vg_agence: {
+                        sa: "Trips",
+                        cl: "Reservations",
+                        pt: "Tickets",
+                        or: "Transport",
                         rp: "Clients",
-                        tm: "Equipe"
-                        },
-                        comptable: {
+                        tm: "Team"
+                      },
+                      comptable: {
                         sa: "Archive",
-                        cl: "Calendrier",
-                        pt: "Auto-Con..",
-                        or: "Outils ",
+                        cl: "Calendar",
+                        pt: "Auto-Consultation",
+                        or: "Tools",
                         rp: "Clients",
-                        tm: "Equipe"
-                        },
-                        socite: {
+                        tm: "Team"
+                      },
+                      socite: {
                         sa: "Plates",
-                        cl: "Caisse",
-                        pt: "Factures",
-                        or: "Tables ",
+                        cl: "Cash Register",
+                        pt: "Invoices",
+                        or: "Tables",
                         rp: "Clients",
-                        tm: "Equipe"
-                        },
-                        bank: {
-                        sa: "Operati...",
-                        cl: "Comptes",
-                        pt: "Liquides",
-                        or: "Extrait ",
+                        tm: "Team"
+                      },
+                      bank: {
+                        sa: "Operations",
+                        cl: "Accounts",
+                        pt: "Liquid",
+                        or: "Statement",
                         rp: "Clients",
-                        tm: "Equipe"
-                        },
-                        courtier: {
-                        sa: "immobilier",
-                        cl: "Calendrier",
-                        pt: "offres",
-                        or: "Intéressé ",
+                        tm: "Team"
+                      },
+                      courtier: {
+                        sa: "Real Estate",
+                        cl: "Calendar",
+                        pt: "Offers",
+                        or: "Interested",
                         rp: "Clients",
-                        tm: "Equipe"
-                        },
-                        contracteur: {
-                        sa: "Chantier",
-                        cl: "Calendrier",
-                        pt: "Outils",
-                        or: "Partenaires ",
+                        tm: "Team"
+                      },
+                      contracteur: {
+                        sa: "Construction Site",
+                        cl: "Calendar",
+                        pt: "Tools",
+                        or: "Partners",
                         rp: "Clients",
-                        tm: "Equipe"
-                        },
-                        architecture: {
+                        tm: "Team"
+                      },
+                      architecture: {
                         sa: "Plans",
-                        cl: "Calendrier",
-                        pt: "Projet",
-                        or: "Partenaires ",
+                        cl: "Calendar",
+                        pt: "Project",
+                        or: "Partners",
                         rp: "Clients",
-                        tm: "Equipe"
-                        },
-                        veterinaire: {
-                        sa: "Seances",
-                        cl: "Calendrier",
+                        tm: "Team"
+                      },
+                      veterinaire: {
+                        sa: "Sessions",
+                        cl: "Calendar",
                         pt: "Patient",
-                        or: "Ordonance",
-                        rp: "Rapport",
-                        tm: "Equipe"
-                        },
-                        fourragerie: {
+                        or: "Prescription",
+                        rp: "Report",
+                        tm: "Team"
+                      },
+                      fourragerie: {
                         sa: "Stock",
-                        pt: "Factures",
-                        cl: "Caisse",
-                        or: "Fournisseur ",
+                        pt: "Invoices",
+                        cl: "Cash Register",
+                        or: "Supplier",
                         rp: "Clients",
-                        tm: "Equipe"
-                        },
-                        agritools: {
+                        tm: "Team"
+                      },
+                      agritools: {
                         sa: "Plates",
-                        cl: "Caisse",
-                        pt: "Factures",
-                        or: "Tables ",
+                        cl: "Cash Register",
+                        pt: "Invoices",
+                        or: "Tables",
                         rp: "Clients",
-                        tm: "Equipe"
-                        },
-                        farm: {
+                        tm: "Team"
+                      },
+                      farm: {
                         sa: "Plates",
-                        cl: "Caisse",
-                        pt: "Factures",
-                        or: "Tables ",
+                        cl: "Cash Register",
+                        pt: "Invoices",
+                        or: "Tables",
                         rp: "Clients",
-                        tm: "Equipe"
-                        }
-                    
-                    
+                        tm: "Team"
+                      }
                 },
                 publicationText: 'Publications',
                 horaireText: 'Hours',
@@ -4516,103 +4536,126 @@ const EnglishTrans = {
                 voirProfileText: 'View Profile'
             },
             requestPage : {
-            stateText:{
-            default : 'Undefined',
-            W:'Pending',
-            S:'Seen',
-            A:'Accepted',
-            R:'Rejected',
-            RT:'Delayed',
-            RD:'Redirected',
-            LV:'Delivered',
-            MD:'Modified',
-            PR:'Ready',
-            PI:'More Info',
-            T:'Completed',
-            },
-            ShareYourselfCard:{
-            titleText:'If you have not received any orders, you can use one of the following methods to promote your profile:',
-            textOne :'Share your profile on social media through the following button',
-            textTwo : 'Print this poster and stick it on your office or workplace to facilitate customer access to your profile by scanning your code with their phones',
-            btnShare:'Share Profile',
-            btnPrint:'Print Poster',
-            }
-            },
-            requestInfoPage : {
-            tabsCard: {
-            one:'Info',
-            two : 'Client Info'
-            },
-            stateActionText:{
-            UNR : 'Mark as Unseen',
-            default : 'Undefined',
-            W:'Pending',
-            S:'Seen',
-            A:'Accepted',
-            R:'Rejected',
-            RT:'Delayed',
-            RD:'Redirected',
-            LV:'Delivered',
-            MD:'Modified',
-            PR:'Ready',
-            PI:'More Info',
-            T:'Completed',
-            },
-            reponseText:'Responses',
-            userCard: {
-            title : 'Client Info',
-            nom:'Name',
-            age:'Age',
-            Phone : 'Phone',
-            Gouv : 'Province',
-            Deleg : 'District',
-            saveBtn : 'Save Client',
-            cantSave : 'Unable to save client because you are using the alpha version of the system'
-            },
-            sendBox: {
-            addResponse : 'Add Responses Here'
-            }
-            },
-            profilePage : {
-                voirProfileBtn:'',
-                menuTabsText: {
-                    modifier:'',
-                    password:'',
-                    horaire:'',
-                    position :'',
-                    images:'',
-                    evaluation:'',
-                    imprimer:''
-
+                stateText:{
+                    default : 'Undefined',
+                    W:'Pending',
+                    S:'Seen',
+                    A:'Accepted',
+                    R:'Rejected',
+                    RT:'Delayed',
+                    RD:'Redirected',
+                    LV:'Delivered',
+                    MD:'Modified',
+                    PR:'Ready',
+                    PI:'More Info',
+                    T:'Completed',
                 },
-                modifierData :{
-                    title:'',
-                    nom:'',
-                    phone:'',
-                    location:'',
-                    adresse:'',
-                    genreListe:'',
-                    modifierBtn:''
-                },
-                passwordData :{
-
-                },
-                horaireData :{
-
-                },
-                positionData :{
-
-                },
-                imagesData :{
-
-                },
-                evaluationData :{
-
-                },
-                imprimerData :{
-
+                ShareYourselfCard:{
+                    titleText:'If you have not received any orders, you can use one of the following methods to promote your profile:',
+                    textOne :'Share your profile on social media through the following button',
+                    textTwo : 'Print this poster and stick it on your office or workplace to facilitate customer access to your profile by scanning your code with their phones',
+                    btnShare:'Share Profile',
+                    btnPrint:'Print Poster',
                 }
             },
+            requestInfoPage : {
+                tabsCard: {
+                    one:'Info',
+                    two : 'Client Info'
+                },
+                stateActionText:{
+                    UNR : 'Mark as Unseen',
+                    default : 'Undefined',
+                    W:'Pending',
+                    S:'Seen',
+                    A:'Accepted',
+                    R:'Rejected',
+                    RT:'Delayed',
+                    RD:'Redirected',
+                    LV:'Delivered',
+                    MD:'Modified',
+                    PR:'Ready',
+                    PI:'More Info',
+                    T:'Completed',
+                },
+                reponseText:'Responses',
+                userCard: {
+                    title : 'Client Info',
+                    nom:'Name',
+                    age:'Age',
+                    Phone : 'Phone',
+                    Gouv : 'Province',
+                    Deleg : 'District',
+                    saveBtn : 'Save Client',
+                    cantSave : 'Unable to save client because you are using the alpha version of the system'
+                },
+                sendBox: {
+                    addResponse : 'Add Responses Here'
+                }
+            },
+            tarifAndServicePage :{
+
+            },
+            profilePage: {
+                voirProfileBtn: 'View Profile',
+                deconnextionText: 'Log out of the system',
+                deconnextionBtn: 'Log out',
+                menuTabsText: {
+                  modifier: 'General Info',
+                  password: 'Password',
+                  position: 'Position'
+                },
+                modifierData: {
+                  title: 'General Information',
+                  nom: 'Name',
+                  phone: 'Phone',
+                  location: 'Geolocation',
+                  adresse: 'Address',
+                  genreListe: 'Gender',
+                  genrePLCH: 'Select Gender',
+                  modifierBtn: 'Update'
+                },
+                passwordData: {
+                  title: 'Password Update',
+                  identifiant: 'Username',
+                  pwd: 'Password',
+                  modifierBtn: 'Update'
+                },
+                positionData: {
+                  title: 'Geographic Position',
+                  description: 'Click the button to set your current location as default.',
+                  modifierBtn: 'Update Position'
+                }
+            },
+            horairePage :{
+                titleText : 'Horaires',
+                title:'أوقات العمل ',
+                alwaysOpenOne:'مفتوح دائما',
+                alwaysOpenTwo:'عند تفعيل هذه الخاصية ستضهر في حالة مفتوح دائما ',
+                seancesText: {
+                  dayText : 'اليوم',
+                  matinText:'صباح',
+                  soirText:'مساء',
+                },
+                weekDayes : {
+                  Lun : 'الأثنين',
+                  Mar : 'الثلاثاء',
+                  Mer : 'الإربعاء',
+                  Jeu : 'الخميس',
+                  Vend : 'الجمعة',
+                  Sam : 'السبت',
+                  Dim : 'الأثنين',
+                },
+                modalEditData : {
+                  dayOffOne : 'هل يوم ',
+                  dayOffTwo : 'يوم راحة ؟ ',
+                  options:{
+                    yes:'نعم',
+                    no:'لا',
+                  },
+                  saveBtn:'تعديل وقت يوم '
+                }
+            }, 
             imagesPage :{
                 title : 'Images',
                 dontHaveImage : 'You do not have any images',
@@ -4626,11 +4669,47 @@ const EnglishTrans = {
                     four : 'Image Deleted!',
                     five : '',
                 }
-            },            
+            },  
+            evaluationPage :{
+                titleText : "Evaluation",
+                tabsTexts:{
+                  one : 'Rating',
+                  two:'Comments'
+                },
+                jaimes : 'Likes',
+            },
+            imprimerPage :{
+              titleText:' Share Profil ',
+              textOne :'هذا المعرف سوف يميزك عن بقية المسجلين على المنصة. يمكن أن تكون هذه أيضًا طريقة قصيرة للإعلان لك',
+              textTwo : ' اطبع هذا الرابط الذي يمكن تعليقه على باب متجرك حتى يتمكن عملاؤك من الوصول إليك بسهولة، كما يمكن مشاركته مباشرة على وسائل التواصل الاجتماعي',
+              btnCopy:'نسخ  PID',
+              btnShare:'نشر الملف ',
+              btnPrint:'طباعة المنشور',
+            },
+            publicationPage :{
+                  titleText: 'Share your activities with your subscribers!',
+                  tabsData : {
+                    text:'Text',
+                    video:'Video',
+                    image: 'Image',
+                  },
+                  commonSaveBtn:'تسجيل',
+                  textDataPlch:'The maximum size is 300 characters.',
+                  imagesData:{
+                    textPlch:'The maximum size is 180 characters.',
+                    smallDesc:'Enter the image link here! want to enter a useful link',
+                    inputPlch:'URL address of the image'
+                  },
+                  videoData:{
+                    textPlch: 'The maximum size is 180 characters.',
+                    smallDesc:'Enter the Youtube video ID (example : jNQXAC9IVRw , we only accept youtube videos !!',
+                    inputPlch:'Video ID '
+                  },
+            },          
             systemInscriptionPage : {
-                mainFirstTitle:'',
-                systemNamesData:'',
-                fullVersionHelpYouText:'',
+                mainFirstTitle: 'Subscription Page for the Full Version of',
+                systemNamesData: 'the full version of',
+                fullVersionHelpYouText: 'helps you digitize your professional activities, allowing you to:',                
                 systemsPlusData:{
                     docteur: {
                         "1": "Ajouter et modifier de nouvelles consultations",
@@ -4798,284 +4877,290 @@ const EnglishTrans = {
                         "5": "Créer et suivre les factures"
                     },
                     epicerie: {
-                    "1": "إضافة و متابعة واجهات البيع:  caisses ",
-                    "2": "إضافة عملاء جدد و متابعة قائمة الديون",
-                    "3": "إضافة مزودين  جدد و متابعة يومية اللقاء معهم",
-                    "4": "متابعة فريق العمل",
-                    "5": "إنشاء و متابعة الفواتير "
+                      "1": "Ajouter et suivre les caisses de vente",
+                      "2": "Ajouter de nouveaux clients et suivre la liste des dettes",
+                      "3": "Ajouter de nouveaux fournisseurs et suivre leurs rendez-vous quotidiens",
+                      "4": "Suivre l'équipe de travail",
+                      "5": "Créer et suivre les factures"
                     },
                     electromenager: {
-                    "1": "إضافة و متابعة واجهات البيع:  caisses ",
-                    "2": "إضافة عملاء جدد و متابعة قائمة الديون",
-                    "3": "إضافة مزودين  جدد و متابعة يومية اللقاء معهم",
-                    "4": "متابعة فريق العمل",
-                    "5": "إنشاء و متابعة الفواتير "
+                      "1": "Ajouter et suivre les caisses de vente",
+                      "2": "Ajouter de nouveaux clients et suivre la liste des dettes",
+                      "3": "Ajouter de nouveaux fournisseurs et suivre leurs rendez-vous quotidiens",
+                      "4": "Suivre l'équipe de travail",
+                      "5": "Créer et suivre les factures"
                     },
                     meublerie: {
-                    "1": "إضافة و متابعة واجهات البيع:  caisses ",
-                    "2": "إضافة عملاء جدد و متابعة قائمة الديون",
-                    "3": "إضافة مزودين  جدد و متابعة يومية اللقاء معهم",
-                    "4": "متابعة فريق العمل",
-                    "5": "إنشاء و متابعة الفواتير "
+                      "1": "Ajouter et suivre les caisses de vente",
+                      "2": "Ajouter de nouveaux clients et suivre la liste des dettes",
+                      "3": "Ajouter de nouveaux fournisseurs et suivre leurs rendez-vous quotidiens",
+                      "4": "Suivre l'équipe de travail",
+                      "5": "Créer et suivre les factures"
                     },
                     bijouterie: {
-                    "1": "إضافة و متابعة واجهات البيع:  caisses ",
-                    "2": "إضافة عملاء جدد و متابعة قائمة الديون",
-                    "3": "إضافة مزودين  جدد و متابعة يومية اللقاء معهم",
-                    "4": "متابعة فريق العمل",
-                    "5": "إنشاء و متابعة الفواتير "
+                      "1": "Ajouter et suivre les caisses de vente",
+                      "2": "Ajouter de nouveaux clients et suivre la liste des dettes",
+                      "3": "Ajouter de nouveaux fournisseurs et suivre leurs rendez-vous quotidiens",
+                      "4": "Suivre l'équipe de travail",
+                      "5": "Créer et suivre les factures"
                     },
                     quincaillerie: {
-                    "1": "إضافة و متابعة واجهات البيع:  caisses ",
-                    "2": "إضافة عملاء جدد و متابعة قائمة الديون",
-                    "3": "إضافة مزودين  جدد و متابعة يومية اللقاء معهم",
-                    "4": "متابعة فريق العمل",
-                    "5": "إنشاء و متابعة الفواتير "
+                      "1": "Ajouter et suivre les caisses de vente",
+                      "2": "Ajouter de nouveaux clients et suivre la liste des dettes",
+                      "3": "Ajouter de nouveaux fournisseurs et suivre leurs rendez-vous quotidiens",
+                      "4": "Suivre l'équipe de travail",
+                      "5": "Créer et suivre les factures"
                     },
                     boutique: {
-                    "1": "إضافة و متابعة واجهات البيع:  caisses ",
-                    "2": "إضافة عملاء جدد و متابعة قائمة الديون",
-                    "3": "إضافة مزودين  جدد و متابعة يومية اللقاء معهم",
-                    "4": "متابعة فريق العمل",
-                    "5": "إنشاء و متابعة الفواتير "
+                      "1": "Ajouter et suivre les caisses de vente",
+                      "2": "Ajouter de nouveaux clients et suivre la liste des dettes",
+                      "3": "Ajouter de nouveaux fournisseurs et suivre leurs rendez-vous quotidiens",
+                      "4": "Suivre l'équipe de travail",
+                      "5": "Créer et suivre les factures"
                     },
                     depot: {
-                    "1": "إضافة و متابعة واجهات البيع:  caisses ",
-                    "2": "إضافة عملاء جدد و متابعة قائمة الديون",
-                    "3": "إضافة مزودين  جدد و متابعة يومية اللقاء معهم",
-                    "4": "متابعة فريق العمل",
-                    "5": "إنشاء و متابعة الفواتير "
+                      "1": "Ajouter et suivre les caisses de vente",
+                      "2": "Ajouter de nouveaux clients et suivre la liste des dettes",
+                      "3": "Ajouter de nouveaux fournisseurs et suivre leurs rendez-vous quotidiens",
+                      "4": "Suivre l'équipe de travail",
+                      "5": "Créer et suivre les factures"
                     },
                     menuisier: {
-                    "1": "إضافة و تعديل حصص جديدة ",
-                    "2": "إنشاء وصفات طبية مع قائمة كاملة للأدوية",
-                    "3": "إضافة مرضي جدد و متابعة حالتهم الصحية",
-                    "4": "متابعة فريق العمل",
-                    "5": "إنشاء تقارير حسب النوع"
+                      "1": "Ajouter et modifier de nouvelles sessions",
+                      "2": "Créer des ordonnances avec une liste complète de médicaments",
+                      "3": "Ajouter de nouveaux patients et suivre leur état de santé",
+                      "4": "Suivre l'équipe de travail",
+                      "5": "Créer des rapports par type"
                     },
                     forgeron: {
-                    "1": "إضافة و تعديل حصص جديدة ",
-                    "2": "إنشاء وصفات طبية مع قائمة كاملة للأدوية",
-                    "3": "إضافة مرضي جدد و متابعة حالتهم الصحية",
-                    "4": "متابعة فريق العمل",
-                    "5": "إنشاء تقارير حسب النوع"
+                      "1": "Ajouter et modifier de nouvelles sessions",
+                      "2": "Créer des ordonnances avec une liste complète de médicaments",
+                      "3": "Ajouter de nouveaux patients et suivre leur état de santé",
+                      "4": "Suivre l'équipe de travail",
+                      "5": "Créer des rapports par type"
                     },
                     cristalerie: {
-                    "1": "إضافة و تعديل حصص جديدة ",
-                    "2": "إنشاء وصفات طبية مع قائمة كاملة للأدوية",
-                    "3": "إضافة مرضي جدد و متابعة حالتهم الصحية",
-                    "4": "متابعة فريق العمل",
-                    "5": "إنشاء تقارير حسب النوع"
+                      "1": "Ajouter et modifier de nouvelles sessions",
+                      "2": "Créer des ordonnances avec une liste complète de médicaments",
+                      "3": "Ajouter de nouveaux patients et suivre leur état de santé",
+                      "4": "Suivre l'équipe de travail",
+                      "5": "Créer des rapports par type"
                     },
                     marbrerie: {
-                    "1": "إضافة و تعديل حصص جديدة ",
-                    "2": "إنشاء وصفات طبية مع قائمة كاملة للأدوية",
-                    "3": "إضافة مرضي جدد و متابعة حالتهم الصحية",
-                    "4": "متابعة فريق العمل",
-                    "5": "إنشاء تقارير حسب النوع"
+                      "1": "Ajouter et modifier de nouvelles sessions",
+                      "2": "Créer des ordonnances avec une liste complète de médicaments",
+                      "3": "Ajouter de nouveaux patients et suivre leur état de santé",
+                      "4": "Suivre l'équipe de travail",
+                      "5": "Créer des rapports par type"
                     },
                     electricien: {
-                    "1": "إضافة و تعديل حصص جديدة ",
-                    "2": "إنشاء وصفات طبية مع قائمة كاملة للأدوية",
-                    "3": "إضافة مرضي جدد و متابعة حالتهم الصحية",
-                    "4": "متابعة فريق العمل",
-                    "5": "إنشاء تقارير حسب النوع"
+                      "1": "Ajouter et modifier de nouvelles sessions",
+                      "2": "Créer des ordonnances avec une liste complète de médicaments",
+                      "3": "Ajouter de nouveaux patients et suivre leur état de santé",
+                      "4": "Suivre l'équipe de travail",
+                      "5": "Créer des rapports par type"
                     },
                     peinture: {
-                    "1": "إضافة و تعديل حصص جديدة ",
-                    "2": "إنشاء وصفات طبية مع قائمة كاملة للأدوية",
-                    "3": "إضافة مرضي جدد و متابعة حالتهم الصحية",
-                    "4": "متابعة فريق العمل",
-                    "5": "إنشاء تقارير حسب النوع"
+                      "1": "Ajouter et modifier de nouvelles sessions",
+                      "2": "Créer des ordonnances avec une liste complète de médicaments",
+                      "3": "Ajouter de nouveaux patients et suivre leur état de santé",
+                      "4": "Suivre l'équipe de travail",
+                      "5": "Créer des rapports par type"
                     },
                     plombier: {
-                    "1": "إضافة و تعديل حصص جديدة ",
-                    "2": "إنشاء وصفات طبية مع قائمة كاملة للأدوية",
-                    "3": "إضافة مرضي جدد و متابعة حالتهم الصحية",
-                    "4": "متابعة فريق العمل",
-                    "5": "إنشاء تقارير حسب النوع"
+                      "1": "Ajouter et modifier de nouvelles sessions",
+                      "2": "Créer des ordonnances avec une liste complète de médicaments",
+                      "3": "Ajouter de nouveaux patients et suivre leur état de santé",
+                      "4": "Suivre l'équipe de travail",
+                      "5": "Créer des rapports par type"
                     },
                     coiffure: {
-                    "1": "فوترة عمليات الحلاقة اليومية",
-                    "2": "متابعة مواعيد الحجوزات من خلال اليومية",
-                    "3": "متابعة قاعة الأنتضار و تقليص مدة الانتضار ",
-                    "4": "متابعة فريق العمل"
+                      "1": "Facturation des opérations de coiffure quotidiennes",
+                      "2": "Suivi des rendez-vous via l'agenda",
+                      "3": "Suivi de la salle d'attente et réduction du temps d'attente",
+                      "4": "Suivre l'équipe de travail"
                     },
                     salle_marriage: {
-                    "1": "فوترة عمليات الحجز اليومية",
-                    "2": "متابعة مواعيد الحجوزات من خلال اليومية",
-                    "3": "متابعة قائمة الأنتضار ",
-                    "4": "متابعة فريق العمل"
+                      "1": "Facturation des réservations quotidiennes",
+                      "2": "Suivi des rendez-vous via l'agenda",
+                      "3": "Suivi de la liste d'attente",
+                      "4": "Suivre l'équipe de travail"
                     },
                     fourniture_marriage: {
-                    "1": "متابعة و التحكم في المخزون ",
-                    "2": "متابعة مواعيد الحجوزات من خلال اليومية",
-                    "3": "متابعة قائمة الأنتضار لتفادي النسيان و التأخير",
-                    "4": "متابعة فريق العمل"
+                      "1": "Suivi et gestion du stock",
+                      "2": "Suivi des rendez-vous via l'agenda",
+                      "3": "Suivi de la liste d'attente pour éviter les oublis et les retards",
+                      "4": "Suivre l'équipe de travail"
                     },
                     photographe: {
-                    "1": "متابعة المواعيد و الحجوزات من خلال اليومية",
-                    "2": "تقديم و عرض الأعمال السابقة",
-                    "3": "مناقشة أراء المتابعين و الرد علي مقترحاتهم",
-                    "4": "أرشفة و تسجيل قائمة العملاء مع بيانات الإتصال بهم"
+                      "1": "Suivi des rendez-vous et des réservations via l'agenda",
+                      "2": "Présentation et affichage des travaux précédents",
+                      "3": "Discussion des avis des abonnés et réponse à leurs suggestions",
+                      "4": "Archivage et enregistrement de la liste des clients avec leurs coordonnées"
                     },
                     chef: {
-                    "1": "متابعة المواعيد و الحجوزات من خلال اليومية",
-                    "2": "تقديم و عرض الأعمال السابقة",
-                    "3": "مناقشة أراء المتابعين و الرد علي مقترحاتهم",
-                    "4": "أرشفة و تسجيل قائمة العملاء مع بيانات الإتصال بهم"
+                      "1": "Suivi des rendez-vous et des réservations via l'agenda",
+                      "2": "Présentation et affichage des travaux précédents",
+                      "3": "Discussion des avis des abonnés et réponse à leurs suggestions",
+                      "4": "Archivage et enregistrement de la liste des clients avec leurs coordonnées"
                     },
                     orchestre: {
-                    "1": "متابعة المواعيد و الحجوزات من خلال اليومية",
-                    "2": "تقديم و عرض الأعمال السابقة",
-                    "3": "مناقشة أراء المتابعين و الرد علي مقترحاتهم",
-                    "4": "أرشفة و تسجيل قائمة العملاء مع بيانات الإتصال بهم"
+                      "1": "Suivi des rendez-vous et des réservations via l'agenda",
+                      "2": "Présentation et affichage des travaux précédents",
+                      "3": "Discussion des avis des abonnés et réponse à leurs suggestions",
+                      "4": "Archivage et enregistrement de la liste des clients avec leurs coordonnées"
                     },
                     gym: {
-                    "1": "رقمنة و أرشفة الأشتراكات",
-                    "2": "متابعة تسجيل الحصص في قاعة البيانات",
-                    "3": "متابعة المدربين و فريق العمل"
+                      "1": "Numérisation et archivage des abonnements",
+                      "2": "Suivi de l'enregistrement des sessions dans la base de données",
+                      "3": "Suivi des entraîneurs et de l'équipe de travail"
                     },
-                    pyscine: {
-                    "1": "رقمنة و أرشفة الأشتراكات",
-                    "2": "متابعة تسجيل الحصص في قاعة البيانات",
-                    "3": "متابعة المدربين و فريق العمل"
+                    piscine: {
+                      "1": "Numérisation et archivage des abonnements",
+                      "2": "Suivi de l'enregistrement des sessions dans la base de données",
+                      "3": "Suivi des entraîneurs et de l'équipe de travail"
                     },
                     stade: {
-                    "1": "رقمنة و أرشفة الأشتراكات",
-                    "2": "متابعة تسجيل الحصص في قاعة البيانات",
-                    "3": "متابعة المدربين و فريق العمل"
+                      "1": "Numérisation et archivage des abonnements",
+                      "2": "Suivi de l'enregistrement des sessions dans la base de données",
+                      "3": "Suivi des entraîneurs et de l'équipe de travail"
                     },
                     cinema: {
-                    "1": "رقمنة و أرشفة الأشتراكات",
-                    "2": "متابعة تسجيل الحصص في قاعة البيانات",
-                    "3": "متابعة فريق العمل"
+                      "1": "Numérisation et archivage des abonnements",
+                      "2": "Suivi de l'enregistrement des sessions dans la base de données",
+                      "3": "Suivi de l'équipe de travail"
                     },
                     theatre: {
-                    "1": "رقمنة و أرشفة الأشتراكات",
-                    "2": "متابعة تسجيل الحصص في قاعة البيانات",
-                    "3": "متابعة فريق العمل"
+                      "1": "Numérisation et archivage des abonnements",
+                      "2": "Suivi de l'enregistrement des sessions dans la base de données",
+                      "3": "Suivi de l'équipe de travail"
                     },
                     musee: {
-                    "1": "رقمنة و أرشفة الأشتراكات",
-                    "2": "متابعة تسجيل الحصص في قاعة البيانات",
-                    "3": "متابعة فريق العمل"
+                      "1": "Numérisation et archivage des abonnements",
+                      "2": "Suivi de l'enregistrement des sessions dans la base de données",
+                      "3": "Suivi de l'équipe de travail"
                     },
                     avocat: {
-                    "1": "أرشفة و رقمنة القضايا الموكولة",
-                    "2": "تسجيل و متابعة الحصص و الأستشارات ",
-                    "3": "إنشاء قاعدة بيانات الموكلين و بيانات التواصل معهم ",
-                    "4": "متابعة فريق العمل",
-                    "5": "إنشاء تقارير حسب النوع"
+                      "1": "Archivage et numérisation des affaires confiées",
+                      "2": "Enregistrement et suivi des sessions et des consultations",
+                      "3": "Création d'une base de données des clients et de leurs coordonnées",
+                      "4": "Suivre l'équipe de travail",
+                      "5": "Créer des rapports par type"
                     },
                     restaurant: {
-                    "1": "أرشفة ومتابعة قائمة الأطباق",
-                    "2": "إنشاء طاولة جديدة و متابعة الطلبات حسب الطاولة",
-                    "3": "متابعة فريق العمل "
+                      "1": "Archivage et suivi de la liste des plats",
+                      "2": "Création de nouvelles tables et suivi des commandes par table",
+                      "3": "Suivre l'équipe de travail"
                     },
                     cafe: {
-                    "1": "أرشفة ومتابعة قائمة المشروبات",
-                    "2": "إنشاء طاولة جديدة و متابعة الطلبات حسب الطاولة",
-                    "3": "متابعة فريق العمل "
+                      "1": "Archivage et suivi de la liste des boissons",
+                      "2": "Création de nouvelles tables et suivi des commandes par table",
+                      "3": "Suivre l'équipe de travail"
                     },
                     hotels: {
-                    "1": "إضافة و رقمنة الغرف حسب الصنف ",
-                    "2": "متابعة طلبات و فواتير المطعم ",
-                    "3": "إستقبال طلبات الزوار من الغرف آليا ",
-                    "4": "متابعة فريق العمل"
+                      "1": "Ajouter et numériser les chambres par catégorie",
+                      "2": "Suivi des commandes et des factures du restaurant",
+                      "3": "Réception automatique des demandes des clients depuis les chambres",
+                      "4": "Suivre l\'équipe de travail"
                     },
                     vg_agence: {
-                    "1": " متابعة مواعيد حجز تذاكر الطيران",
-                    "2": "متابعة مواعيد حجز الإقامة",
-                    "3": "ترتيب الرحلات السياحية",
-                    "4": "متابعة فريق العمل"
+                      "1": "Suivi des réservations de billets d'avion",
+                      "2": "Suivi des réservations d'hébergement",
+                      "3": "Organisation des circuits touristiques",
+                      "4": "Suivre l'équipe de travail"
                     },
                     comptable: {
-                    "1": "أرشفة ذكية لكل ملفاتك الرقمية",
-                    "2": "متابعة مواعيد تدقيق المحاسبة من خلال اليومية",
-                    "3": "الربط المباشر بأنظمة العملاء",
-                    "4": "الحصول علي أدوات المحاسبة السهلة"
+                      "1": "Archivage intelligent de tous vos fichiers numériques",
+                      "2": "Suivi des audits comptables via l'agenda",
+                      "3": "Connexion directe avec les systèmes des clients",
+                      "4": "Accès à des outils de comptabilité simples"
                     },
                     socite: {
-                    "1": "إضافة و تعديل حصص جديدة ",
-                    "2": "إنشاء وصفات طبية مع قائمة كاملة للأدوية",
-                    "3": "إضافة مرضي جدد و متابعة حالتهم الصحية",
-                    "4": "متابعة فريق العمل",
-                    "5": "إنشاء تقارير حسب النوع"
+                      "1": "Ajouter et modifier de nouvelles sessions",
+                      "2": "Créer des ordonnances avec une liste complète de médicaments",
+                      "3": "Ajouter de nouveaux patients et suivre leur état de santé",
+                      "4": "Suivre l'équipe de travail",
+                      "5": "Créer des rapports par type"
                     },
                     bank: {
-                    "1": "رقمنة الحسابات البنكية",
-                    "2": "أرشفة العمليات اليومية و حمايتها",
-                    "3": "إضافة عملاء جدد و متابعة حساباتهم البنكية",
-                    "4": "متابعة فريق العمل"
+                      "1": "Numérisation des comptes bancaires",
+                      "2": "Archivage et sécurisation des opérations quotidiennes",
+                      "3": "Ajouter de nouveaux clients et suivre leurs comptes bancaires",
+                      "4": "Suivre l'équipe de travail"
                     },
                     courtier: {
-                    "1": "أرشفة و رقمنة العقارات التي تعمل عليها",
-                    "2": "متابعة مواعيد الزيارات من خلال اليومية",
-                    "3": "أنشاء قاعدة عملاء و مهتمين بالعروض العقارية",
-                    "4": "متابعة فريق العمل"
+                      "1": "Archivage et numérisation des biens immobiliers gérés",
+                      "2": "Suivi des visites via l'agenda",
+                      "3": "Création d'une base de données des clients et des prospects",
+                      "4": "Suivre l'équipe de travail"
                     },
                     contracteur: {
-                    "1": "رقمنة و أرشفة مناطق البناء من خلال الخريطة",
-                    "2": "متابعة تقدم الإشغال بإستعمال اليومية التفاعلية",
-                    "3": "إنشاء قاعدة بيانات الشركات و قنوات الإتصال بهم",
-                    "4": "متابعة فريق العمل",
-                    "5": "إنشاء تقارير حسب النوع"
+                      "1": "Numérisation et archivage des zones de construction via la carte",
+                      "2": "Suivi de l'avancement des travaux avec l'agenda interactif",
+                      "3": "Création d'une base de données des entreprises et de leurs contacts",
+                      "4": "Suivre l'équipe de travail",
+                      "5": "Créer des rapports par type"
                     },
                     architecture: {
-                    "1": "رقمنة و أرشفة التصاميم العقارية ",
-                    "2": "متابعة تقدم المشاريع بإستعمال اليومية التفاعلية",
-                    "3": "إنشاء قاعدة بيانات الشركات و قنوات الإتصال بهم",
-                    "4": "متابعة فريق العمل",
-                    "5": "إنشاء تقارير حسب النوع"
+                      "1": "Numérisation et archivage des plans immobiliers",
+                      "2": "Suivi de l'avancement des projets avec l'agenda interactif",
+                      "3": "Création d'une base de données des entreprises et de leurs contacts",
+                      "4": "Suivre l'équipe de travail",
+                      "5": "Créer des rapports par type"
                     },
                     veterinaire: {
-                    "1": "إضافة و تعديل حصص جديدة ",
-                    "2": "إنشاء وصفات طبية مع قائمة كاملة للأدوية",
-                    "3": "إضافة مرضي جدد و متابعة حالتهم الصحية",
-                    "4": "متابعة فريق العمل",
-                    "5": "إنشاء تقارير حسب النوع"
+                      "1": "Ajouter et modifier de nouvelles sessions",
+                      "2": "Créer des ordonnances avec une liste complète de médicaments",
+                      "3": "Ajouter de nouveaux patients et suivre leur état de santé",
+                      "4": "Suivre l'équipe de travail",
+                      "5": "Créer des rapports par type"
                     },
                     fourragerie: {
-                    "1": "إضافة و متابعة واجهات البيع:  caisses ",
-                    "2": "إضافة عملاء جدد و متابعة قائمة الديون",
-                    "3": "إضافة مزودين  جدد و متابعة يومية اللقاء معهم",
-                    "4": "متابعة فريق العمل",
-                    "5": "إنشاء و متابعة الفواتير "
+                      "1": "Ajouter et suivre les caisses de vente",
+                      "2": "Ajouter de nouveaux clients et suivre la liste des dettes",
+                      "3": "Ajouter de nouveaux fournisseurs et suivre leurs rendez-vous quotidiens",
+                      "4": "Suivre l'équipe de travail",
+                      "5": "Créer et suivre les factures"
                     },
                     agritools: {
-                    "1": "إضافة و تعديل حصص جديدة ",
-                    "2": "إنشاء وصفات طبية مع قائمة كاملة للأدوية",
-                    "3": "إضافة مرضي جدد و متابعة حالتهم الصحية",
-                    "4": "متابعة فريق العمل",
-                    "5": "إنشاء تقارير حسب النوع"
+                      "1": "Ajouter et modifier de nouvelles sessions",
+                      "2": "Créer des ordonnances avec une liste complète de médicaments",
+                      "3": "Ajouter de nouveaux patients et suivre leur état de santé",
+                      "4": "Suivre l'équipe de travail",
+                      "5": "Créer des rapports par type"
                     },
                     farm: {
-                    "1": "إضافة و تعديل حصص جديدة ",
-                    "2": "إنشاء وصفات طبية مع قائمة كاملة للأدوية",
-                    "3": "إضافة مرضي جدد و متابعة حالتهم الصحية",
-                    "4": "متابعة فريق العمل",
-                    "5": "إنشاء تقارير حسب النوع"
+                      "1": "Ajouter et modifier de nouvelles sessions",
+                      "2": "Créer des ordonnances avec une liste complète de médicaments",
+                      "3": "Ajouter de nouveaux patients et suivre leur état de santé",
+                      "4": "Suivre l'équipe de travail",
+                      "5": "Créer des rapports par type"
                     }
                 },
                 startCard : {
-                    subscribeNow:'',
-                    systemNeedTwoCon :'',
-                    conditionOne:'',
-                    conditionTwo :'',
-                    saveSubsRequestButton:'',
-                    priceText:''
+                    subscribeNow: 'Subscribe now and get 15 days free to try the system',
+                    systemNeedTwoCon: 'The system requires two conditions to operate:',
+                    conditionOne: 'A computer, whether laptop or desktop (it is recommended that the RAM is at least 4GB)',
+                    conditionTwo: 'An internet connection (the better the connection, the better the system works, and WIFI is better than 3G/4G)',
+                    saveSubsRequestButton: 'Register subscription request',
+                    priceText: 'Annual subscription price: 500 $'
                 },
                 waitingCard : {
-                    subsIsRunning :'',
-                    suppText:'',
+                    subsIsRunning: 'The registration process for obtaining the required system is in progress...',
+                    suppText: 'The request has been received and we will contact you via the number you registered within 24 hours',
+
                 },
                 SuccessCard :{
-
+                    congratText: 'Congratulations, you have obtained the system',
+                    clicHer: 'Click on the link to access the system',
+                    identif: 'Login ID:',
+                    pwdText: 'Password:',
+                    youCanText: 'You can always contact us for assistance in understanding the system and completing the installation process. We also recommend watching the video above',
+                    btnText: 'System link'
+                    
                 }
 
             },
-            
         },
         toolsApps : {
             toolsPage:{

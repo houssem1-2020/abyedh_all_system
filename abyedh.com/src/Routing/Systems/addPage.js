@@ -327,7 +327,7 @@ function ProfileAction() {
     let [test , setTest] = useState(10)
 
     let [userData, setUserData] = useState({name :'', phone:'', birthday:Today.toISOString().split('T')[0] , gouv:'',deleg:''})
-    let [inscData, setInscData] = useState({name :'', phone:'', adresse:'' , gouv:'', deleg:''})
+    let [inscData, setInscData] = useState({name :'', phone:'', adresse:'' , gouv:'', deleg:'', Country: GConf.Country})
 
     
     let [UDL ,setUDL] = useState([])

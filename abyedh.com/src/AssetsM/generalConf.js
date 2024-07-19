@@ -93,10 +93,11 @@ const GConf = {
     ProfileNavsData : [
         {id:1, name:"Acceuil", icon:"house", link:"ma"},
         // {id:2, name:"Suivie", icon:"dpad", link:"sv"},
-        {id:3, name:"Pannier", icon:"balloon-heart", link:"fv"},
+        {id:2, name:"Pannier", icon:"balloon-heart", link:"fv"},
+        {id:3, name:"Pannier", icon:"clipboard2-check", link:"td"},
         {id:4, name:"Documment", icon:"folder-symlink", link:"dc"},
         // {id:5, name:"Calendrier", icon:"calendar2-week", link:"cl"},
-        {id:6, name:"Setting", icon:"gear", link:"st"},
+        {id:5, name:"Setting", icon:"gear", link:"st"},
     ] ,
 
     Tools:{

@@ -28,32 +28,11 @@ const QrCodeModal = React.lazy(() => import('./MainPageAssets/qrCodeModal'));
 const CostumInput = ({searchKey, setSearchKey}) =>{
     return(<input  value={searchKey} onChange={(e) => setSearchKey(e.target.value)} className='text-end main-input-costum' icon='user' />)
 }
-const SearchBar = ({open, setOpen, searchKey, setSearchKey,SearchFunction,GoToQrCodeFunction, data, setData }) =>{
+const SearchBar = ({open, setOpen, searchKey, OpenBottomSheetFunction, setSearchKey,SearchFunction,GoToQrCodeFunction, data, setData }) =>{
     const navigate = useNavigate();
     const { t, i18n } = useTranslation();
-    const [qrCodeValue, setQRCodeValue] = useState(null)
-    const [selectedListeTag, setSelectedListeTag] = useState({name:'', icon:''})
 
-    const ShowUpLinks = (value) =>{
-        
-        const resultArray = value.split('/');
-        setSelectedListeTag(GConf.ADIL[resultArray[0]].profileBtns[0])
-        //setSelectedListeTag(GConf.ADIL[resultArray[0]].profileBtns.slice(0, GConf.ADIL[resultArray[0]].profileBtns.length - 1))
-    }
-    const ActionsBtnCard = (props) =>{
-        return(<>
-            <Button  onClick={() => navigate(`/S/P/${qrCodeValue}?action=true`)} className='bg-white  border mb-2 '   style={{borderRadius:'18px', width:'auto'}}     > 
-                    <Icon name={selectedListeTag.icon} className='ms-1' />  {selectedListeTag.name}
-            </Button>
-        </>)
-    }
-    const ForLazyLoading = () =>{
-        return (<>
-                 
-                <div className='loader-container-small'><div className="loader"></div></div>  
-                 
-            </>);
-      }
+
     return(<>
         <div className='rounded-0 border-0 bg-white p-3  sticky-top shadow-bottom-card' style={{zIndex:2}}>
             <Input
@@ -64,24 +43,9 @@ const SearchBar = ({open, setOpen, searchKey, setSearchKey,SearchFunction,GoToQr
                 onChange={(e) => setSearchKey(e.target.value)}
                 className='main-page-input '
             >
-                <Modal
-                    onClose={() => setOpen(false)}
-                    onOpen={() => setOpen(true)}
-                    open={open}
-                    dimmer= 'blurring'
-                    trigger={<Button className='border-0 bg-white border-top border-bottom border-start ' icon ><Icon name='qrcode' /></Button>}
-                    className='fullscreen-modal-gouv'
-                >
-                    <Modal.Content image>
-                        <div className='text-end'><Button color={undefined} className='rounded-circle' icon onClick={() => setOpen(false)}><Icon name='remove' /></Button></div>
-                        <Suspense fallback={<ForLazyLoading />}><QrCodeModal ShowUpLinks={ShowUpLinks} setQRCodeValue={setQRCodeValue} qrCodeValue={qrCodeValue} GoToQrCodeFunction={GoToQrCodeFunction} selectedListeTag={selectedListeTag} ActionsBtnCard={<ActionsBtnCard />} /></Suspense>
-                         
-                    </Modal.Content>
-                </Modal>
-                
+                <Button className='border-0 bg-white border-top border-bottom border-start ' icon onClick={() => OpenBottomSheetFunction('qrCode')} ><Icon name='qrcode' /></Button>
                 <Button className='bg-white border-top border-bottom' onClick={() => SearchFunction()} icon ><Icon name='arrow right' /></Button>
                 <input   className='text-end main-input-costum' icon='user' />
-                {/* <CostumInput searchKey={searchKey} setSearchKey={setSearchKey} /> */}
             </Input>   
         </div>
     </>)
@@ -100,7 +64,8 @@ function MainLandingPage() {
     const { t, i18n } = useTranslation();
     const isRTL = detectRTL.isRtlLang(i18n.language);
     const [notifList, setNotifList] = useState([])
-    
+    const [seledtedItem, setSelectedItem] = useState('main')
+
     /* ############### Notofication System #################*/
     // const [unreadMessages, setUnreadMessages] = useState(0);
     // // Function to request notification permission
@@ -225,12 +190,57 @@ function MainLandingPage() {
         navigate(`/S/P/${value}`)
     }
 
+    const OpenBottomSheetFunction = (genre) => {
+        setSelectedItem(genre)
+        setOpenD(!openD)
+    }
+
     /* ############### Card #################*/
     const TopNavBar = () =>{
+        const GetFlag = () => {
+            switch (GConf.Country) {
+                
+                case 'TN': return 'tn'
+                break;
+                case 'MA': return 'ma'
+                break;
+                case 'EG': return 'eg'
+                break;
+                case 'SA': return 'sa'
+                break;
+                case 'QA': return 'qa'
+                break;
+                case 'AE': return 'ae'
+                break;
+                case 'JP': return 'jp'
+                break;
+                case 'IN': return 'in'
+                break;
+                case 'CN': return 'cn'
+                break;
+                case 'CA': return 'ca'
+                break;
+                case 'US': return 'us'
+                break;
+                case 'FR': return 'fr'
+                break;
+                case 'IT': return 'it'
+                break;
+                case 'GB': return 'gb'
+                break;
+                case 'RU': return 'ru'
+                break;
+                case 'DE': return 'de'
+                break;
+            
+                default: return 'us'
+                break;
+            }
+        }
         const UserCard = () =>{
             return(<>
                 {/* <NavLink exact='true' to='/Profile' className="navbar-brand border-div m-0 p-0 ms-3"> */}
-                    <span className="navbar-brand border-div m-0 p-0 ms-3" onClick={() => {localStorage.getItem('PID') && localStorage.getItem('APP_TAG') ? setOpenD(!openD) : navigate('/Profile')}}>
+                    <span className="navbar-brand border-div m-0 p-0 ms-3" onClick={() => {localStorage.getItem('PID') && localStorage.getItem('APP_TAG') ? OpenBottomSheetFunction('main') : navigate('/Profile')}}>
                         <img  className="rounded-circle p-0 m-0 me-1" src={`https://cdn.abyedh.com/images/p_pic/${GConf.UserData.UData.PictureId}.gif`}   alt="Logo" style={{width:'30px', height:'30px'}} />
                     </span>
                     {/* </NavLink> */}
@@ -253,7 +263,10 @@ function MainLandingPage() {
                             {GConf.UserData.Logged  ? 
                             
                             <>    
-                                <NavLink exact='true' to='/Country' className="m-0 p-0 text-secondary">     <span className='bi bi-globe-americas'></span>   </NavLink>
+                                <NavLink exact='true' to='/Country' className="m-0 p-0 text-secondary">   
+                                  {/* <span className='bi bi-globe-americas'></span>   */}
+                                  <img src={`https://flagpedia.net/data/flags/w580/${GetFlag()}.webp`} className='rounded-circle' width='20px' height='20px' />
+                                </NavLink>
                                 <UserCard />
                             </> 
                             : 
@@ -480,8 +493,24 @@ function MainLandingPage() {
             )
         }
         const OpenToolsModal = (targetGenre) => {
-            setToolsModal(true)
             setSelectedToolsModal(targetGenre)
+            setSelectedItem('tools')
+            setOpenD(!openD)
+        }
+        const SeeAll = (props) => {
+            const SlectedAndOpenModal = (targetGenre) => {
+                //setSelectedToolsModal(targetGenre)
+                setSelectedItem('seeAll')
+                setOpenD(!openD)
+            }
+            return(
+                <>
+                    <div  className="text-center hvr-float  mt-3" onClick={() => SlectedAndOpenModal(props.target)}>
+                             <span className={`bi bi-arrow-${isRTL ? 'left': 'right'} bi-sm mb-4`}></span>
+                             <h5 className="font-droid text-secondary mt-0"> {t(`mainPage.voisTous`)}  </h5>
+                    </div>
+                </>
+            )
         }
         return(
             <div className='card mb-3 border-div-main border-0'>
@@ -498,7 +527,8 @@ function MainLandingPage() {
                                <ItemCard cardData={slides} floating={-50}/> 
                             </span>      
                             ))            
-                        }       
+                        }   
+                        {props.data.fullList ? <SeeAll target={props.data.slectedTag} /> : <></>}    
                     </div>
                 </div> 
             </div>
@@ -581,7 +611,7 @@ function MainLandingPage() {
             </Helmet>
             <TopNavBar />
             <AddsCard />
-            <SearchBar open={open} setOpen={setOpen} searchKey={searchKey} setSearchKey={setSearchKey} SearchFunction={SearchFunction} GoToQrCodeFunction={GoToQrCodeFunction} data={data} setData={setData}  />
+            <SearchBar open={open} setOpen={setOpen} OpenBottomSheetFunction={OpenBottomSheetFunction} searchKey={searchKey} setSearchKey={setSearchKey} SearchFunction={SearchFunction} GoToQrCodeFunction={GoToQrCodeFunction} data={data} setData={setData}  />
 
             <br />
             <br />
@@ -640,56 +670,39 @@ function MainLandingPage() {
 
            
             <BottomSheet expandOnContentDrag open={openD}  onDismiss={() => setOpenD(!openD)}  >
-                <div className='m-4'>
-                   
-                        <div className='card p-2 rounded-pill shadow-sm mb-3' onClick={() => navigate('/Profile')} >
-                           <div className='row'>
-                                <div className='col-2 align-self-center'><img  className="rounded-circle p-0 m-0 me-1" src={`https://cdn.abyedh.com/images/p_pic/${GConf.UserData.UData.PictureId}.gif`}   alt="Logo" style={{width:'30px', height:'30px'}} /></div>
-                                <div className='col-10 align-self-center'><h5 className='text-secondary'>{GConf.UserData.UData.Name}</h5></div>
-                            </div> 
-                        </div>
-
-                        <div className='card p-2 rounded-pill shadow-sm' onClick={() => navigate('/App/S')}> 
+                    {seledtedItem == 'main' ? 
+                    <div className='m-4'>
+                    
+                            <div className='card p-2 rounded-pill shadow-sm mb-3' onClick={() => navigate('/Profile')} >
                             <div className='row'>
-                                <div className='col-2 align-self-center'><img className="rounded-circle p-0 m-0 me-1" src={`https://cdn.abyedh.com/images/ads/${localStorage.getItem('APP_TAG')}.svg`}    style={{width:'30px', height:'30px'}} /> </div>
-                                <div className='col-10 align-self-center'><h5 className='text-secondary'>{t(`landingPage.systemNames.${localStorage.getItem('APP_TAG')}`)}</h5></div>
-                            </div> 
-                         </div>  
-                </div>
+                                    <div className='col-2 align-self-center'><img  className="rounded-circle p-0 m-0 me-1" src={`https://cdn.abyedh.com/images/p_pic/${GConf.UserData.UData.PictureId}.gif`}   alt="Logo" style={{width:'30px', height:'30px'}} /></div>
+                                    <div className='col-10 align-self-center'><h5 className='text-secondary'>{GConf.UserData.UData.Name}</h5></div>
+                                </div> 
+                            </div>
+
+                            <div className='card p-2 rounded-pill shadow-sm' onClick={() => navigate('/App/S')}> 
+                                <div className='row'>
+                                    <div className='col-2 align-self-center'><img className="rounded-circle p-0 m-0 me-1" src={`https://cdn.abyedh.com/images/ads/${localStorage.getItem('APP_TAG')}.svg`}    style={{width:'30px', height:'30px'}} /> </div>
+                                    <div className='col-10 align-self-center'><h5 className='text-secondary'>{t(`landingPage.systemNames.${localStorage.getItem('APP_TAG')}`)}</h5></div>
+                                </div> 
+                            </div>  
+                    </div>
+                    : <></>}
+                    {seledtedItem == 'qrCode' ? <Suspense fallback={<ForLazyLoading />}><QrCodeModal   setQRCodeValue={setQRCodeValue} qrCodeValue={qrCodeValue} GoToQrCodeFunction={GoToQrCodeFunction} selectedListeTag={selectedListeTag}  /></Suspense> : <></> }
+                    {seledtedItem == 'seeAll' ? <Suspense fallback={<ForLazyLoading />}> Sea All</Suspense> : <></> }
+                    {seledtedItem == 'tools' ? 
+                        <div className='card-body'>
+                            <div className='row mb-4'>
+                                <div className='col-12 align-self-center'><h3 className='text-center'> {t('mainPage.toolsModalText')} </h3></div>  
+                               
+                            </div>
+                            <div className='row' dir='rtl'>
+                                <Suspense fallback={<ForLazyLoading />}><ToolsModal selectedToolsModal={selectedToolsModal} /></Suspense>
+                            </div>
+                        </div>
+                        : <></> }
             </BottomSheet>
             
-
-            <Modal
-                    onClose={() => setToolsModal(false)}
-                    onOpen={() => setToolsModal(true)}
-                    open={toolsModal}
-                    className='fullscreen-modal-gouv m-0 p-0'
-            >
-                    <Modal.Content className='border-div'>
-                        <div className='row'>
-                          <div className='col-10 align-self-center'><h3 className='text-center'>تَطْبِيقَاتْ أَبْيَضْ </h3></div>  
-                          <div className='col-2 align-self-center'><Button color={undefined} className='rounded-circle' icon onClick={() => setToolsModal(false)}><Icon name='remove' /></Button></div>  
-                        </div>
-                        <br />
-                        <br />
-                        <div className='row' dir='rtl'>
-                            <Suspense fallback={<ForLazyLoading />}><ToolsModal selectedToolsModal={selectedToolsModal} /></Suspense>
-                            
-                            {/* {selectedToolsModal.map((data,index) => 
-                                <div className='col-4 col-lg-2 mb-3' key={index}>
-                                    <NavLink exact='true' to={`${data.link}`} >
-                                        <div className='card p-0 shadow-sm mb-3 text-center border-div  '>
-                                        <div className='mb-2'><img src={`https://cdn.abyedh.com/images/Tools/${data.img}`} className='img-responsive ' width='60px' height='60px' /></div>    
-                                        </div>
-                                        <div className='mb-2 text-center text-secondary'><h6><b>{data.name}</b></h6></div> 
-                                    </NavLink>
-                                </div>
-                            )} */}
-                        </div>
-                        
-                        
-                    </Modal.Content>
-            </Modal>
         </> );
 }
 

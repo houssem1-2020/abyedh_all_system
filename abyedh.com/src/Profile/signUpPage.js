@@ -291,7 +291,7 @@ const Password = (props) =>{
 
 function SignUpPage() {
     /*#########################[Const]##################################*/
-    const [signUpD, setSignUp] = useState({Name:'', BirthDay: new Date().toISOString().split('T')[0], Phone:'', Gender:'' })
+    const [signUpD, setSignUp] = useState({Name:'', BirthDay: new Date().toISOString().split('T')[0], Phone:'', Gender:'', Country : GConf.Country })
     const [isSelected, setisSelected] = useState('00');
     const [password ,setPassword] = useState([{Pvalue:'', repeated:''}])
     const [gouv ,setGouv] = useState('')
@@ -449,6 +449,10 @@ function SignUpPage() {
     const SaveFunction = () =>{
         
         if (!signUpD.Name) {toast.error("أدخل  الاسم و اللقب   !", GConf.TostErrorGonf)}
+        else if (!signUpD.Country) {
+                setSignUp({...signUpD, Country: GConf.Country }) ;
+                toast.error("أدخل الدولة!", GConf.TostErrorGonf)
+        }
         else if (!signUpD.BirthDay) {toast.error("أدخل تاريخ الميلاد   !", GConf.TostErrorGonf)}
         else if (!signUpD.Phone) {toast.error("أدخل  رقم الهاتف   !", GConf.TostErrorGonf)}
         else if (!signUpD.Gender) {toast.error("أدخل  الجنس   !", GConf.TostErrorGonf)}
