@@ -380,7 +380,7 @@ input[type="number"]:focus,
   border-radius: 20px 20px 20px 20px;
 }
 .rounded-bottom-card {
-  border-radius: 40px 40px 0 0;
+  border-radius: 25px 25px 0 0;
 }
 .img-gray {
   filter: grayscale(100%);

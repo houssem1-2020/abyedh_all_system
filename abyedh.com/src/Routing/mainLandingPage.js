@@ -535,6 +535,23 @@ function MainLandingPage() {
          )
     }
     const ButtomCard = () =>{
+        const onShare = async () => {
+            if (navigator.share) {
+              try {
+                const result = await navigator.share({
+                  title: 'abyedh.com',
+                  text: 'Abyedh.com Application',
+                  url: 'https://play.google.com/store/apps/details?id=com.abyedh.twa',
+                });
+                 
+              } catch (error) {
+                console.error('Error sharing:', error);
+              }
+            } else {
+              alert('Sharing is not supported in this browser.');
+            }
+        };
+
         return(<>
             <div className='card-body rounded-bottom-card bg-danger'>
                 <div className='row'>
@@ -555,6 +572,14 @@ function MainLandingPage() {
                     <div className={` col-5 col-lg-4 align-self-center text-center  ${isRTL ? 'order-3' : 'order-1'}  `} >
                         <img  className="rounded-pill-abyedh-s" src="https://cdn.abyedh.com/images/logo/mlogo.gif" alt="Logo" style={{width:'40px', height:'90px', borderRadius: '10px 20px 10px 50px'}} />
                     </div>
+                </div>
+                <div className='row mt-3 ps-2 pe-2'>
+                    <div className='col-2'><span className='bi bi-facebook text-white bi-sm'></span></div>
+                    <div className='col-2'><span className='bi bi-youtube text-white bi-sm'></span></div>
+                    <div className='col-2'><span className='bi bi-instagram text-white bi-sm'></span></div>
+                    <div className='col-2'><span className='bi bi-tiktok text-white bi-sm'></span></div>
+                    <div className='col-2'><span className='bi bi-twitter-x text-white bi-sm'></span></div>
+                    <div className='col-2 text-end' onClick={() => onShare()}><span className='bi bi-share-fill text-white bi-sm'></span></div>
                 </div>
             </div>
         </>)

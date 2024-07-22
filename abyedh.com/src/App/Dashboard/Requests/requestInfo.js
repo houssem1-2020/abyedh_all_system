@@ -131,7 +131,7 @@ function RequestInfo() {
           render: () => <UserCard />,
       }
       
-  ]
+    ]
   
   
     /*#########################[useEffect]##################################*/ 
@@ -228,6 +228,7 @@ function RequestInfo() {
             .then(function (response) { 
               setReqState(stateBtn)
               if (stateBtn == 'S') { console.log('Vu') } else { toast.success(<><div> C'est Fait   </div></>, GConf.TostInternetGonf)   }
+              if(requestData.Notif_TID != '') { SendNotification(stateBtn) }
             }).catch((error) => {
               if(error.request) {
                 toast.error(<><div><h5>Probleme de Connextion</h5> Impossible de modifier L'etat du commande  </div></>, GConf.TostInternetGonf)   
@@ -237,30 +238,46 @@ function RequestInfo() {
       }
 
       const SendMessage = () =>{
-        if (!msgContent) {toast.error("Message Vide !", GConf.TostErrorGonf)}
-        else{
-            axios.post(`${GConf.ApiLink}/request/info/messages/ajouter`, { 
-                msgC: msgContent,
-                PID : GConf.PID,
-                RID : CID,
-                SystemTag : TAG
-            })
-            .then(function (response) {
-                if(response.data.affectedRows) {
-                    //setUpdateS(Math.random() * 10);
-                    setMesgC('')
-                    toast.success("Envoyer", GConf.TostSuucessGonf)
-                   
+          if (!msgContent) {toast.error("Message Vide !", GConf.TostErrorGonf)}
+          else{
+              axios.post(`${GConf.ApiLink}/request/info/messages/ajouter`, { 
+                  msgC: msgContent,
+                  PID : GConf.PID,
+                  RID : CID,
+                  SystemTag : TAG
+              })
+              .then(function (response) {
+                  if(response.data.affectedRows) {
+                      //setUpdateS(Math.random() * 10);
+                      setMesgC('')
+                      toast.success("Envoyer", GConf.TostSuucessGonf)
                     
-                }
-                else{
-                    toast.error('Erreur', GConf.TostSuucessGonf)
-                     
-                }
-            })
+                      
+                  }
+                  else{
+                      toast.error('Erreur', GConf.TostSuucessGonf)
+                      
+                  }
+              })
 
-        }
-    }
+          }
+      }
+
+      const SendNotification = (stateBtn) =>{
+            axios.post(`https://api.abyedh.com/api/application/Search/request/firbase-notif`, {
+                token : requestData.Notif_TID,
+                message : {
+                      title: requestData.R_ID,
+                      body: t(`appPages.requestInfoPage.stateActionText.${stateBtn}`) ,
+                      url: `https://abyedh.com/Profile/L/sv/${requestData.R_ID}`, 
+                      photo: `https://cdn.abyedh.com/Images/Search/CIconsS/${TAG}.gif`
+                  },
+            }).then(function (response) {
+                console.log(response.data)
+            }).catch((error) => {
+                console.log(error)
+            });
+      }
 
     /*#########################[Card]##################################*/
     const IndefinieCard = (props) =>{

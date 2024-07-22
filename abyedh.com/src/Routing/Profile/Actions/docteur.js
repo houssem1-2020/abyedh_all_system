@@ -8,6 +8,7 @@ import { toast } from 'react-toastify';
 //import { io } from "socket.io-client"
 import { useTranslation, Trans } from 'react-i18next';
 import detectRTL from 'rtl-detect';
+ 
 
 function DocteurActions(props) {
 
@@ -17,14 +18,25 @@ function DocteurActions(props) {
     const [rendyVousD, setRdvData] = useState({date:new Date().toISOString().split('T')[0] , time: new Date().toLocaleTimeString('fr-FR')})
     const [loaderState, setLS] = useState(false)
     const [disabledSaveBtn, setDisabledBtn] = useState(false)
+    const [tokens, setTokens] = useState([])
 
-    //SOket-io : it works cool in localhost but the problem with domaine name
-    // const [notification, setNotification] = useState({message : 'this message', toId: `${props.TAG}-${props.PID}`});
-    // const [userId, setUserId] = useState(`USER-${props.UID}`);
-    // const socket = io(GConf.SoketLink, { query: { userId: `USER-${props.UID}`, }, });
-    // socket.emit('saveRequest', { userId, message: notification });
-    //fin socket.io
+ 
+    
+    useEffect(() => {
+        axios.post(`${GConf.ApiLink}/request/get-tokens-list`, {
+            PID : props.PID,
+          })
+          .then(function (response) {
+              
+            const tokens = [
+                ...response.data.UserToken.map(item => item.Notif_Token).filter(token => token),
+                ...response.data.PIDToken.map(item => item.Notif_TID).filter(token => token)
+              ];
+              console.log(tokens)
 
+            setTokens(tokens)  
+          })
+    }, [])
 
 
    /* ############### Functions #################*/
@@ -43,6 +55,7 @@ function DocteurActions(props) {
                 toast.success(<><div><h5>  {t('profilePage.ActionTabData.ActionListeData.docteur.toest.four')}  </h5>  </div></>, GConf.TostInternetGonf)
                 setLS(false)
                 setDisabledBtn(true)
+                if (tokens.length != 0) { SendNotification()}
             }).catch((error) => {
                 if(error.request) {
                   toast.error(<><div><h5>  {t('profilePage.ActionTabData.ActionListeData.docteur.toest.five')} </h5> {t('profilePage.ActionTabData.ActionListeData.docteur.toest.one')} </div></>, GConf.TostInternetGonf)
@@ -52,6 +65,23 @@ function DocteurActions(props) {
         }
     }
 
+ 
+    const SendNotification = () =>{
+        axios.post(`https://api.abyedh.com/api/application/Search/request/firbase-notif`, {
+             
+            token :  tokens ,
+            message : {
+                  title: props.UID,
+                  body: `${props.UID} to  ${props.TAG}` ,
+                  url: `https://abyedh.com/`, 
+                  photo: `https://cdn.abyedh.com/Images/Search/CIconsS/${props.TAG}.gif`
+              },
+        }).then(function (response) {
+            console.log(response.data)
+        }).catch((error) => {
+            console.log(error)
+        });
+  }
 
     return ( <>
         <div className='m-0'>
@@ -68,6 +98,10 @@ function DocteurActions(props) {
                     <div className='text-end'>
                         <Button className='rounded-pill' onClick={saveFunction} disabled={disabledSaveBtn} size='small' icon style={{backgroundColor:GConf.ADIL[props.TAG].themeColor, color:'white'}} > <Icon name='save' />  {t('profilePage.ActionTabData.ActionListeData.docteur.saveBtn')}  <Loader inverted active={loaderState} inline size='tiny' className='ms-2 text-danger'/></Button>
                     </div>
+
+                     
+
+                    
                 </div>
         </div>
     </> );

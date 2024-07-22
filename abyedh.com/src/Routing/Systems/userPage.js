@@ -6,8 +6,8 @@ import { useState } from 'react';
 import { Button, Placeholder } from 'semantic-ui-react';
 import { toast } from 'react-toastify';
 import { useNavigate} from 'react-router-dom';
- 
- 
+import { useTranslation, Trans } from 'react-i18next';
+import detectRTL from 'rtl-detect';
 
 
 function ProfileFollow() {
@@ -16,7 +16,8 @@ function ProfileFollow() {
     let [savedList, setSavedList] = useState([])
     let [loading, setLoading] = useState(true)
     const navigate = useNavigate();
-
+    const { t, i18n } = useTranslation();
+    const isRTL = detectRTL.isRtlLang(i18n.language);
     /* ############### UseEffect #################*/
     useEffect(() => {
          
@@ -86,7 +87,8 @@ function ProfileFollow() {
         const SaveAndGoToSystem = () =>{
             localStorage.setItem('PID', props.data.Assigned_PID);
             localStorage.setItem('APP_TAG', props.data.Genre);
-            window.location.href = `/App/Login/${props.data.Genre}`
+            window.location.href = `/App/S`
+            //window.location.href = `/App/Login/${props.data.Genre}`
             //setTimeout(() => navigate(`/App/Login/${props.data.Genre}`), 1000);
         }
         const UserCard = () =>{
@@ -101,7 +103,7 @@ function ProfileFollow() {
         }
         const DirectoryCard = (props) =>{
             return(<>
-                    <div className='card card-body border-div shadow-sm mb-3'>
+                    <div className=' card-body border-div   mb-3'>
                         <h5 className='mb-3 mt-1'>تمت إضافتك لمحرك البحث أبيض بنجاج يمكنك أن تقوم بزيارة ملفك  من <NavLink exact={true} to={`/S/P/${props.Tag}/${props.PID}`}>هنا</NavLink><a href={`https://abyedh.tn/S/P/${props.Tag}/${props.PID}`} target='c_blank'></a>  </h5>
                         <small className='mb-1 mt-1 text-secondary' dir='rtl'>
                                 كما يمكنك أيضا أن تستقبل طلبات عملائك  من خلال  النسخة المصغرة من النظام  . 
@@ -115,7 +117,14 @@ function ProfileFollow() {
 
         return(<>
             <div className='card card-body border-div shadow-sm mb-2 text-end'>
-                <div className='text-start'><StateCard status={props.data.Req_State} /></div>
+                <div className='text-start'></div>
+                <div className='row'  >
+                    <div className='col-4 align-self-center text-start'><StateCard status={props.data.Req_State} /></div>
+                    <div className='col-8 text-end'>
+                        <img  className="rounded-circle p-0 m-0 me-1" src={`https://cdn.abyedh.com/Images/Search/CIconsS/${props.data.Genre}.gif`}   alt="Logo" style={{width:'30px', height:'30px'}} />
+                        {/* {t(`landingPage.systemNames.${props.data.Genre}`)} */}
+                    </div>
+                </div>
                 
                 {props.data.Req_State != 'A' ?  <h4>  تم تسجيلك بنجاح </h4>  : <h4>  تم قبول عملية التسجيل <span className='bi bi-check-circle-fill text-success'></span> </h4>}
                 

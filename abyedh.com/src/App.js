@@ -8,6 +8,9 @@ import { ToastContainer } from 'react-toastify';
 import 'core-js/stable';
 import 'regenerator-runtime/runtime';
 
+import { getToken , onMessage} from "firebase/messaging";
+import { messaging } from "./AssetsM/firebase";
+
 // /*CSS*/
 import 'bootstrap-icons/font/bootstrap-icons.css';
 import './theme.css';
@@ -20,22 +23,6 @@ import appRouter  from './AssetsM/Router/appRouter';
 import profileRouter  from './AssetsM/Router/profileRouter';
 import toolsRouter from './AssetsM/Router/toolsRouter'
 import ProfileForFacbookPage from './App/Dashboard/Used/Profile/profileForFacbookPage';
-
-//Login 
-
-// import MainLandingPage from './Routing/mainLandingPage'
-// import SearchLandingPage from './Routing/Landing/searchLandingPage';
-// import ResultPage from './Routing/Result/resulatPage';
-// import ProfilePage from './Routing/Profile/profilePage';
-// import ProfileAction from './Routing/Profile/actionPage';
-// import ProfileFollow from './Routing/Profile/followPage';
-// import AboutPage from './About/aboutPage';
-// import SearchPage from './Routing/Search/searchPage';
-// import SystemPage from './Routing/Systems/SystemPage';
-// import SystemAdd from './Routing/Systems/addPage';
-// import SystemUser from './Routing/Systems/userPage';
-
-
 
 //lazyLoad 
 const SearchLandingPage = React.lazy(() => import('./Routing/Landing/searchLandingPage'));
@@ -61,6 +48,20 @@ function App() {
   useEffect(() => {
     setProgress(100);
   }, []);
+
+  onMessage(messaging, (payload) => {
+    console.log('Message received. ', payload);
+    // Customize notification here
+    new Notification(payload.notification.title, {
+      body: payload.notification.body,
+      data: { 
+        url: payload.notification.url,
+        photo: payload.notification.photo,
+      }
+    });
+  });
+
+  
 
   const NotFound = () =>{
     return (<div className="cpntainer text-danger pt-5 text-center">

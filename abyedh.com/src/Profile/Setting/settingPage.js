@@ -12,6 +12,8 @@ import { useTranslation, Trans } from 'react-i18next';
 import detectRTL from 'rtl-detect';
 import { BottomSheet } from 'react-spring-bottom-sheet'
 import 'react-spring-bottom-sheet/dist/style.css'
+import { getToken } from "firebase/messaging";
+import { messaging } from "./../../AssetsM/firebase";
 
 const ChangePhoto = () => {
     const [isSelected, setisSelected] = useState('00');
@@ -289,6 +291,7 @@ function SettingPage() {
             setPWDData(response.data.Auth)
             setGeneralData(response.data.General)
             setSettingData(JSON.parse(response.data.Setting.Directory))
+            if (response.data.General.Notif_TID != '') { setChekedTN(true)}
           })
       }, [])
 
@@ -414,7 +417,51 @@ function SettingPage() {
           alert('Sharing is not supported in this browser.');
         }
     };
+    const UpdateNotifToken = (genre,token) => {
+        if (genre == 'remove'  ) {
+            setLS(true)
+            axios.post(`${GConf.ApiProfileLink}/setting/update/notif-token`, {
+                UID : UID,
+                Token : '',
+            }).then(function (response) {
+                setChekedTN(!checkedTN); 
+            })
+        }
+        else {
+            setLS(true)
+            axios.post(`${GConf.ApiProfileLink}/setting/update/notif-token`, {
+                UID : UID,
+                Token : token,
+            }).then(function (response) {
+                setChekedTN(!checkedTN); 
+            }) 
+        } 
+    }
+    async function requestPermission() {
+        //requesting permission using Notification API
+        const permission = await Notification.requestPermission();
+    
+        if (permission === "granted") {
+          const token = await getToken(messaging, {
+            vapidKey: 'BLi4rh1fVu7f9p_RBBscq7eQs3tY8yETbeW7p0tj2oH9oM0rnAxwSDs1F4Xy6Q0bITAo9F_fTxwLz3TA3-4Gw5U',
+          });
+    
+          //We can send token to server
+          //console.log("Token generated : ", token);
+          UpdateNotifToken('Add', token)
+        } else if (permission === "denied") {
+          //notifications are blocked
+          console.log("You denied for the notification");
+        }
+    }
 
+    const UpdateNotificationState = () => {
+        if (checkedTN) {
+            UpdateNotifToken('remove', '')
+        } else {
+            requestPermission();
+        }
+    }
     /* ########################[Card]########################### */
     const SettingItem = (props) =>{
         return(<>
@@ -639,7 +686,7 @@ function SettingPage() {
                                     <div className='col-9 align-self-center'>{t(`userProfile.SettingPage.itemsList.notification`)}</div>
                                     <div className='col-2 align-self-center'  > 
                                         <div className="form-check form-switch">
-                                            <input className="form-check-input form-check-input-lg" type="checkbox" checked={checkedTN} onChange={ () => setChekedTN(!checkedTN)}  />
+                                            <input className="form-check-input form-check-input-lg" type="checkbox" checked={checkedTN} onChange={ () => UpdateNotificationState()}  />
                                         </div>
                                     </div>
                                 </div>
@@ -693,110 +740,12 @@ function SettingPage() {
                     </div>
                 </div>
                 <div>
-                {/*<Bounce bottom>
-                    <Accordion >
-                        <Accordion.Title
-                            active={activeIndex === 0}
-                            index={0}
-                            onClick={(e) => setActiveIndex(0)}
-                            className='card shadow-sm border-div mb-1'
-                        >
-                                <div className='row p-2'>
-                                    <div className={`col-6 align-self-center pe-3   ${isRTL ? 'text-end' : 'text-start'}`} style={{color:'#4287f5'}}><h4 dir={isRTL ? 'rtl' : 'ltr'}><span className={`bi bi-arrows-move`}></span>  عام  </h4></div>
-                                    <div className={`col-6 align-self-center ps-3  ${isRTL ? 'text-start' : 'text-end'}`}><img src={`https://cdn.abyedh.com/Images/Profile/setting/01.gif`} width='30px' height='30px' /></div>
-                                </div>
-                        </Accordion.Title>
-                        <Accordion.Content active={activeIndex === 0} className='card mt-2 mb-2 shadow-sm border-div ' >
-                            <div className='card-body '>
-                                    {
-                                        generalEditStat ? 
-                                        <EditGeneralSettingCard generalData={generalData} setGeneralData={setGeneralData} SaveGeneralDFunc={SaveGeneralDFunc} delegList={delegList} GetDelegList={GetDelegList}  GConf={GConf}  />
-                                        :
-                                        <GenralSettingCard />
-                                        
-                                    }
-                                    <br />
-                                    <div className='text-start'>
-                                        <Button size='tiny' onClick={ () => setGeneraleEditState(!generalEditStat)} className='rounded-pill' icon> <Icon name='edit' /> تعديل </Button>    
-                                    </div>
-                            </div>
-                        </Accordion.Content>
-                        
-                        <Accordion.Title
-                            active={activeIndex === 1}
-                            index={1}
-                            onClick={(e) => setActiveIndex(1)}
-                            className='card shadow-sm border-div mb-1'
-                        >
-                                <div className='row p-2'>
-                                    <div className={`col-6 align-self-center pe-3   ${isRTL ? 'text-end' : 'text-start'}`} style={{color:'#4287f5'}}><h4 dir={isRTL ? 'rtl' : 'ltr'} ><span className={`bi bi-key-fill`}></span> كملة المرور </h4></div>
-                                    <div className={`col-6 align-self-center ps-3  ${isRTL ? 'text-start' : 'text-end'}`}><img src={`https://cdn.abyedh.com/Images/Profile/setting/05.gif`} width='30px' height='30px' /></div>
-                                </div>
-                        </Accordion.Title>
-                        <Accordion.Content active={activeIndex === 1} className='card mt-2 mb-2 shadow-sm border-div ' >
-                            <div className='card-body '>
-                                    {
-                                        passwordEditStat ? 
-                                        <EditPWDSettingCard passwordData={passwordData} setPWDData={setPWDData} SavePWDFunc={SavePWDFunc} />
-                                        :
-                                        <PWDSettingCard />
-                                        
-                                    }
-                                    <br />
-                                    <div className='text-start'>
-                                        <Button size='tiny' onClick={ () => setPasswordEditState(!passwordEditStat)} className='rounded-pill' icon> <Icon name='edit' /> تعديل </Button>    
-                                    </div>
-                            </div>
-                        </Accordion.Content>
-
-                        <Accordion.Title
-                            active={activeIndex === 2}
-                            index={2}
-                            onClick={(e) => setActiveIndex(2)}
-                            className='card shadow-sm border-div mb-1'
-                        >
-                                <div className='row p-2'>
-                                    <div className={`col-6 align-self-center pe-3   ${isRTL ? 'text-end' : 'text-start'}`} style={{color:'#4287f5'}}><h4 dir={isRTL ? 'rtl' : 'ltr'} > <span className={`bi bi-search-heart`}></span> محرك البحث </h4></div>
-                                    <div className={`col-6 align-self-center ps-3  ${isRTL ? 'text-start' : 'text-end'}`}><img src={`https://cdn.abyedh.com/Images/Profile/setting/03.gif`} width='30px' height='30px' /></div>
-                                </div>
-                        </Accordion.Title>
-                        <Accordion.Content active={activeIndex === 2} className='card mt-2 mb-2 shadow-sm border-div ' >
-                            <div className='card-body '>
-                                    {
-                                        directoryEditStat ? 
-                                        <EditDirectorySettingCard generalData={generalData} setGeneralData={setGeneralData} SaveSettingFunc={SaveSettingFunc}  delegList={delegList} GetDelegList={GetDelegList}  GConf={GConf} />
-                                        :
-                                        <DirectorySettinfCard />
-                                        
-                                    }
-                                    <br />
-                                    <div className='text-start'>
-                                        <Button size='tiny' onClick={ () => setDirectoryEditState(!directoryEditStat)} className='rounded-pill' icon> <Icon name='edit' /> تعديل </Button>    
-                                    </div>
-                            </div>
-                        </Accordion.Content>
-                            
-                    </Accordion>
-                </Bounce>*/}
                 
                 </div>
                 </>
             }
                 
-                {/* <Modal
-                    size='fullscreen'
-                    open={modalS}
-                    onClose={() => setModalS(false)}
-                    onOpen={() => setModalS(true)}
-                    className='fullscreen-profile-modal'
-                >
-                    <Modal.Content scrolling>
-                        <SelectedItemToViewCard status={seledtedItem} />                         
-                    </Modal.Content>
-                    <Modal.Actions>
-                                <Button className='rounded-pill' negative onClick={ () => setModalS(false)}>   غلق</Button>
-                    </Modal.Actions>
-                </Modal> */}
+                 
             <BottomSheet expandOnContentDrag open={openD}  onDismiss={() => setOpenD(!openD)}  >
                 <div className='card-body'>
                     {/* <SelectedItemToViewCard status={seledtedItem} /> */}

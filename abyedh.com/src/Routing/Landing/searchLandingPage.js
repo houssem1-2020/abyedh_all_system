@@ -205,10 +205,32 @@ function SearchLandingPage() {
     }
  
     const ButtomCard = () =>{
+        const onShare = async () => {
+            if (navigator.share) {
+              try {
+                const result = await navigator.share({
+                  title: 'abyedh.com',
+                  text: 'Abyedh.com Application',
+                  url: 'https://play.google.com/store/apps/details?id=com.abyedh.twa',
+                });
+                 
+              } catch (error) {
+                console.error('Error sharing:', error);
+              }
+            } else {
+              alert('Sharing is not supported in this browser.');
+            }
+        };
+        
         return(<>
-            <div className='card-body rounded-bottom-card footer-abyedh' style={{backgroundColor:GConf.ADIL[tag].themeColor}}>
-                <div className={`${isRTL ? 'text-end' : 'text-start'} text-white ${isRTL ? 'me-5' : 'ms-5'}`}>
-                    <b>{t('landingPage.bottomAbyedhText')}</b>
+            <div className='p-4 pb-3 align-item-center rounded-bottom-card footer-abyedh' style={{backgroundColor:GConf.ADIL[tag].themeColor}}>
+                <div className='row'>
+                    <div className='col-2'><span className='bi bi-facebook text-white bi-sm'></span></div>
+                    <div className='col-2'><span className='bi bi-youtube text-white bi-sm'></span></div>
+                    <div className='col-2'><span className='bi bi-instagram text-white bi-sm'></span></div>
+                    <div className='col-2'><span className='bi bi-tiktok text-white bi-sm'></span></div>
+                    <div className='col-2'><span className='bi bi-twitter-x text-white bi-sm'></span></div>
+                    <div className='col-2 text-end' onClick={() => onShare()}><span className='bi bi-share-fill text-white bi-sm'></span></div>
                 </div>
             </div>
         </>)
