@@ -1,0 +1,92 @@
+{
+  "name": "AnasLouma",
+  "version": "0.1.0",
+  "private": true,
+  "dependencies": {
+    "@atlaskit/avatar-group": "^9.2.0",
+    "@fullcalendar/daygrid": "^5.11.0",
+    "@fullcalendar/react": "^5.11.1",
+    "@fullcalendar/timegrid": "^5.11.0",
+    "@material-ui/core": "^4.12.4",
+    "@react-leaflet/core": "^1.0.2",
+    "@testing-library/jest-dom": "^5.16.5",
+    "@testing-library/react": "^13.4.0",
+    "@testing-library/user-event": "^13.5.0",
+    "axios": "^0.26.1",
+    "bootstrap": "^5.3.2",
+    "bootstrap-icons": "^1.11.3",
+    "cra-template-pwa": "^2.0.0",
+    "date-and-time": "^2.3.1",
+    "draft-js": "^0.11.7",
+    "draftjs-to-html": "^0.9.1",
+    "gridjs": "^5.0.2",
+    "gridjs-react": "^5.0.2",
+    "i18next": "^23.11.2",
+    "i18next-browser-languagedetector": "^7.2.1",
+    "i18next-locize-backend": "^6.4.1",
+    "leaflet": "^1.9.2",
+    "moment": "^2.29.4",
+    "prop-types": "^15.8.1",
+    "react": "^17.0.2",
+    "react-big-calendar": "^0.40.1",
+    "react-circular-progressbar": "^2.1.0",
+    "react-clock": "^3.1.0",
+    "react-countup": "^6.1.1",
+    "react-dom": "^17.0.2",
+    "react-draft-wysiwyg": "^1.15.0",
+    "react-i18next": "^14.1.0",
+    "react-image-zoom": "^1.3.1",
+    "react-leaflet": "^4.1.0",
+    "react-leaflet-search": "^2.0.1",
+    "react-pwa-install": "^1.0.12",
+    "react-qr-barcode-scanner": "^1.0.6",
+    "react-qr-code": "^2.0.3",
+    "react-qr-reader": "^3.0.0-beta-1",
+    "react-responsive-carousel": "^3.2.23",
+    "react-reveal": "^1.2.2",
+    "react-ripples": "^2.2.1",
+    "react-router-dom": "^6.2.2",
+    "react-scripts": "5.0.1",
+    "react-simple-keyboard": "^3.5.64",
+    "react-spring-bottom-sheet": "^3.4.1",
+    "react-step-wizard": "^5.3.11",
+    "react-to-print": "^2.14.12",
+    "react-toastify": "^9.0.1",
+    "react-top-loading-bar": "^2.1.0",
+    "react-web-notification": "^0.8.0",
+    "recharts": "^2.3.2",
+    "rtl-detect": "^1.1.2",
+    "semantic-ui-css": "^2.4.1",
+    "semantic-ui-react": "^2.1.2",
+    "socket.io-client": "^4.6.1",
+    "sweetalert2": "^11.4.14",
+    "to-words": "^3.3.0",
+    "virtual-keyboard": "^1.30.4",
+    "web-speech-cognitive-services": "^7.1.3",
+    "web-vitals": "^2.1.4"
+  },
+  "scripts": {
+    "start": "react-scripts start",
+    "build": "react-scripts build",
+    "test": "react-scripts test",
+    "eject": "react-scripts eject"
+  },
+  "eslintConfig": {
+    "extends": [
+      "react-app",
+      "react-app/jest"
+    ]
+  },
+  "browserslist": {
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
+  }
+}
